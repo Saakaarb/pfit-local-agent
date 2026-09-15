@@ -114,6 +114,11 @@ must deliver.
 the equation terms and the dataset. Never by sampling parameters and
 integrating.**
 
+That decision is made during normal session creation. `/pfit-new` must write a
+concrete `gradient_opt.integrator` selected from the local Diffrax digest and
+explain the evidence to the user; `/pfit-check` audits the same decision. There
+is no extra "choose solver" step.
+
 Trial integration at guessed parameters looks like empiricism and is not. On
 exactly the hard problems where the decision matters, the overwhelming majority
 of a box is non-physical: some parameter sets are singular and blow up in finite

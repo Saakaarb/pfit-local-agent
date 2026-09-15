@@ -29,11 +29,17 @@ combining two artifacts.
 | `sloppiness_report.txt` | see `project_context.md` | loss at best fit and `|grad|_inf` — the **only** evidence of whether the gradient stage converged (S7) — plus the eigenvalue spectrum, spread in decades, count of non-identifiable directions, stiffest/sloppiest eigenvectors |
 | `result_solution_expN.csv` | `time | data columns | solution columns` (written only when `write_results = Y`) | per-column, per-time residuals — the only way to see *which* observable and *which* time region is being missed |
 | `<session>_fit.png` | measured-versus-fitted panels for every experiment and fitted observable | mandatory visual evidence; generate and inspect per `result_plotting.md` |
+| `autodiff_diagnosis.txt` | text report from `tools/autodiff_diagnose.py` | local evidence for gradient-stage failures: whether the final point can be differentiated, whether finite differences agree, whether nearby perturbations hit solver walls, and whether non-smooth constructs appear in the generated model |
 
 Resolve one run per `run_history.md`, and inspect its snapshots and saved plots.
 Cross-check against `snapshot/inputs/user_input.yaml` for the settings that produced them,
 and note the failed-solve penalty is `error_loss = 5000.0`
 (`lib/utils/yamlread.py`).
+
+If `NODE_fitting.log` contains a JAX, Diffrax, Equinox, Lineax, NaN, or
+non-finite-gradient failure, run `tools/autodiff_diagnose.py` before editing the
+model or optimizer settings, and apply `autodiff_diagnosis.md` alongside the
+rules below.
 
 ## Symptom rules
 

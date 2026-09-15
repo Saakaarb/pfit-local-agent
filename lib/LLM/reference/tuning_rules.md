@@ -1,6 +1,6 @@
 ---
 topic: How to derive setting recommendations from the model and data, before any fit has run
-consumed_by: [pfit-check]
+consumed_by: [pfit-new, pfit-check]
 generated: false
 owns: >
   The evidence-to-recommendation rules for cold-start settings, the confidence
@@ -10,9 +10,10 @@ owns: >
 
 # Tuning rules (cold start)
 
-Applied by `/pfit-check` to produce the **Recommendations** section of its
-report, *before* any fit has run. Post-fit tuning is a different job with
-different evidence — see `diagnosis_rules.md`.
+Applied by `/pfit-new` when it creates the first `user_input.yaml`, and by
+`/pfit-check` to produce the **Recommendations** section of its report, *before*
+any fit has run. Post-fit tuning is a different job with different evidence —
+see `diagnosis_rules.md`.
 
 Severity thresholds on the numbers already in the config belong to
 `validation_rules.md`; this file owns recommendations **derived from the model
@@ -27,7 +28,9 @@ means a specific thing you read: a line of the RHS, a column range in the CSV,
 a parameter's `min_val`/`max_val` ratio, a count. Never recommend a value
 because it is "typical".
 
-If the current config value is already reasonable, say nothing about that field.
+If the current config value is already reasonable, say nothing about that field,
+except for R1. The integrator family is always decided and explained because it
+is the numerical contract for the generated ODE solve.
 
 **Every recommendation must also satisfy the cold-start invariant in
 `cold_start.md`**: it must stand up from the equations, the dataset and the
@@ -58,14 +61,33 @@ Read these before writing any recommendation:
 
 ### R1 — Integrator family (highest value; always emit a verdict)
 
-This is the only recommendation to make even when the config already names a
-solver, because a wrong family makes every other setting irrelevant.
+This is not a separate workflow step. It is a mandatory part of `/pfit-new` and
+`/pfit-check`.
+
+In `/pfit-new`, choose the integrator before writing `user_input.yaml`, write it
+explicitly under `gradient_opt.integrator`, and tell the user why in ordinary
+language. Do not leave the field absent just because the parser has a default:
+an omitted integrator hides the agent's solver-family judgment.
+
+In `/pfit-check`, always emit an R1 verdict. If the existing integrator matches
+the evidence, record it as "kept" rather than as an edit. If it does not match,
+emit a normal recommendation with the replacement and evidence. A wrong family
+makes every other setting irrelevant.
 
 Recommend a **family**, then name a specific solver only by reading it out of
 the solver table in `lib/LLM/api/diffrax.md` — its `Kind` column gives the
 family and its `Validated` column says which are exercised by this framework's
 examples. Prefer a validated one. Never name a solver from memory, and never
 recommend one absent from that table.
+
+The user-facing explanation must include exactly the evidence that drove the
+choice:
+
+- smoothness classification and the RHS line(s) supporting it;
+- stiffness evidence from slaved/active modes, rate expressions over the bounds,
+  or data timescales;
+- the family tradeoff, especially when smoothness and stiffness conflict;
+- the concrete solver name copied from the local Diffrax digest.
 
 Smoothness and stiffness are **two axes, weighed by magnitude — not a gate and
 a tie-breaker.** Decide both before naming a family; a rule that checks only one

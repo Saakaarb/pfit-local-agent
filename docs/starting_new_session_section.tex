@@ -227,9 +227,12 @@ Should dose_rate(t) be zero throughout the washout experiment?
 
 Once the specification is complete, \texttt{/pfit-new} writes the session files.
 The YAML records the user-prepared CSV files, initial conditions, parameter
-bounds, observables, and column declarations. The model file records the ODE
-right-hand side, forcing interpolation, calculated observables, and the masked
-uncertainty-weighted loss over both measured channels. The user then reviews the generated state ordering,
+bounds, observables, column declarations, and the selected Diffrax integrator.
+The agent chooses that integrator from the equations, bounds, and data
+timescales, then explains whether the model is being treated as smooth/stiff,
+non-smooth/non-stiff, or a conflict that needs model smoothing. The model file
+records the ODE right-hand side, forcing interpolation, calculated observables,
+and the masked uncertainty-weighted loss over both measured channels. The user then reviews the generated state ordering,
 parameter ranges, equations, and data-column usage before continuing to
 
 \begin{verbatim}

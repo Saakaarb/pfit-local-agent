@@ -76,10 +76,13 @@ here. If the config names an invalid solver, stop and report it rather than
 generating the script.
 
 **Weigh smoothness and stiffness together — neither one decides alone.** The
-The config's `integrator` is normally the answer `/pfit-check` already reached under R1
-in `tuning_rules.md`, which owns that decision; do not re-derive it here from
-smoothness alone. Translate what the config names, and only stop to question it if
-the config names a solver absent from the table.
+config's `integrator` is normally the explicit answer `/pfit-new` wrote and
+`/pfit-check` audited under R1 in `tuning_rules.md`, which owns that decision;
+do not re-derive it here from smoothness alone. Translate what the config names,
+and only stop to question it if the config names a solver absent from the table.
+If the field is absent in a new session, tell the user that the parser default
+will be used for translation but the setup is missing the required R1
+explanation; rerun or repair `/pfit-check` before fitting.
 
 Both failure modes are real, and they are not symmetric:
 

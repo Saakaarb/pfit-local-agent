@@ -34,6 +34,12 @@ parameters pinned at bounds, poorly scaled residuals, or practically
 non-identifiable parameter combinations. Each finding is tied to the run
 evidence that supports it, such as loss histories, fitted values relative to
 bounds, residual patterns, gradient norms, or the sloppiness spectrum.
+When the refinement stage reports a JAX, Diffrax, Equinox, Lineax, NaN, or
+non-finite-gradient failure, the agent should also run
+\texttt{tools/autodiff\_diagnose.py}. That probe checks whether the completed
+fit can be differentiated locally, compares autodiff gradients with finite
+differences, tests nearby perturbations for solver walls, and scans the
+generated model for non-smooth event-like logic.
 
 Recommendations are proposed as edits to the working session, not to the saved
 run snapshot. The user chooses which recommendations to apply. Depending on the

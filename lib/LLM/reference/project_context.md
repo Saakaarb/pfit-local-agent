@@ -49,6 +49,11 @@ has a source document: with one it extracts the equations, without one it asks
 for them. Either way it writes `user_input.yaml` and `user_model.py` **together**,
 which is what guarantees their orderings agree.
 
+`/pfit-new` also chooses the ODE integrator explicitly. The agent must read the
+RHS, data timescales and bounds, apply R1 in `tuning_rules.md`, write
+`gradient_opt.integrator` in `user_input.yaml`, and explain the choice to the
+user. This is part of session creation, not a separate tuning step.
+
 ```
 /pfit-new  ->  /pfit-check  ->  /pfit-jax  ->  /pfit-run  ->  /pfit-diagnose
 ```

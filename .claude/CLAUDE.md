@@ -14,6 +14,7 @@ file below. Open the relevant one rather than working from memory.**
 | **The cold-start invariant — no solution is available when setup choices are made**, which artifacts are off-limits during setup, and the substitutes for answer-derived evidence | `lib/LLM/reference/cold_start.md` |
 | What the project is, the pipeline, session layout, the multi-experiment execution model, post-fit diagnostics, reproducibility, **the Python environment** | `lib/LLM/reference/project_context.md` |
 | `user_input.yaml` schema — every section, field, default and valid value | `lib/LLM/reference/yaml_format.md` |
+| Worked study-input example used when shaping new sessions | `lib/LLM/reference/study_input_example.md` |
 | Hard constraints on the dataset CSV and the config | `lib/LLM/reference/input_constraints.md` |
 | The three `user_model.py` functions | `lib/LLM/reference/user_model_contract.md` |
 | Converting pseudocode to `generated_script.py` | `lib/LLM/reference/jax_translation.md` |
@@ -21,6 +22,7 @@ file below. Open the relevant one rather than working from memory.**
 | How to auto-correct inputs from a validation report | `lib/LLM/reference/correction_rules.md` |
 | How to recommend settings before a fit, from the model and the data | `lib/LLM/reference/tuning_rules.md` |
 | How to diagnose a completed fit from its outputs | `lib/LLM/reference/diagnosis_rules.md` |
+| Why ODE autodiff fails and how to probe failed gradient refinement | `lib/LLM/reference/autodiff_diagnosis.md` |
 | Run directories, input snapshots, audit manifests and run selection | `lib/LLM/reference/run_history.md` |
 | Locally hosted live parameters and continuous loss history | `lib/LLM/reference/live_dashboard.md` |
 | Required saved fit plots and their use in diagnosis | `lib/LLM/reference/result_plotting.md` |
@@ -82,5 +84,6 @@ Each command file is procedure only and names the reference files it requires.
 | `tools/live_fit_monitor.py` | CLI for the same view, to watch a fit started in another terminal (the fit entry points raise it themselves) |
 | `tools/plot_fits.py` | replots every fitted session's simulation against its data, from the stored `result_solution_expN.csv` |
 | `tools/plot_diagnostics.py` | per-session loss trajectory and fit figures, re-integrating `user_model.py` at the fitted parameters on a dense grid so sharp transients are drawn as curves; configured per session in `tools/plot_diagnostics.yaml` |
+| `tools/autodiff_diagnose.py` | probes a completed run for failed or unreliable gradient refinement: local autodiff, finite differences, nearby solver walls and non-smooth model logic |
 | `tools/stiffness_bench.py` | benchmarks stiffness estimators over a parameter box against systems of known character; the evidence behind R1's choice of the matrix measure |
 | `tests/` | suite; `pytest -m "not slow"` skips the full fits |

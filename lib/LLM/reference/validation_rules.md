@@ -144,8 +144,10 @@ passing stamp. Re-running `/pfit-jax` replaces it with a real one.
   `lib/LLM/api/diffrax.md`. Absent from the table -> **critical** (the table
   already excludes solvers that exist but cannot be used here; anything not
   listed either does not exist or cannot work with the framework's stepsize
-  controller). If `integrator` is absent from the config there is no error — it
-  defaults to `Kvaerno5`.
+  controller). If `integrator` is absent from the config there is no schema
+  error because the parser has a default, but `/pfit-check` must emit R1 from
+  `tuning_rules.md`: new sessions should name the chosen integrator explicitly
+  and explain why that family fits the equations and data.
 - `gradient_optimizer`, if present, must be one the framework supports
   (`lib/algorithms/NODE/classes.py`) -> otherwise **critical**.
 - `algorithm`, if present, must be `PSO` or `DE` -> otherwise **critical**;
