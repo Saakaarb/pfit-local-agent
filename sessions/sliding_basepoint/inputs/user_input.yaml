@@ -1,0 +1,98 @@
+experiments:
+- data_file: force_disp_data_sliding_basepoint.csv
+  columns:
+  - name: time
+  - name: x1
+    observes: x1
+  - name: x2
+    observes: x2
+  - name: v1
+    observes: v1
+  - name: v2
+    observes: v2
+  - name: k
+    observes: k
+  - name: c1
+    observes: c1
+model:
+  trainable_parameters:
+  - name: c2
+    min_val: 10000.0
+    max_val: 10000000.0
+    logscale: true
+  - name: Dk
+    min_val: 0.1
+    max_val: 10.0
+    logscale: true
+  - name: Dc
+    min_val: 0.1
+    max_val: 1.0
+    logscale: false
+  - name: m1
+    min_val: 100.0
+    max_val: 10000.0
+    logscale: true
+  - name: m2
+    min_val: 1.0
+    max_val: 100.0
+    logscale: true
+  fixed_parameters:
+  - name: vf
+    value: 0.1
+  integrated_variables:
+  - name: x1
+    init_val: 0.0
+  - name: x2
+    init_val: 0.0
+  - name: v1
+    init_val: 11.06
+  - name: v2
+    init_val: 0.0
+  - name: k
+    init_val: 1290000.0
+  - name: c1
+    init_val: 0.0
+population_opt:
+  population_size: 200
+  num_iters: 20
+  processors: 8
+  algorithm: PSO
+  stepsize_rtol:
+  - 0.1
+  - 0.1
+  - 1.0
+  - 1.0
+  - 0.001
+  - 0.001
+  stepsize_atol:
+  - 0.001
+  - 0.001
+  - 0.1
+  - 0.1
+  - 10.0
+  - 10.0
+gradient_opt:
+  num_iters: 20
+  stepsize_rtol:
+  - 0.1
+  - 0.1
+  - 1.0
+  - 1.0
+  - 1.0e-06
+  - 1.0e-05
+  stepsize_atol:
+  - 0.001
+  - 0.001
+  - 0.1
+  - 0.1
+  - 10.0
+  - 10.0
+  initial_timestep: 1.0e-05
+  max_steps: 10000
+  init_value_lr: 0.0001
+  end_value_lr: 1.0e-05
+  transition_steps_lr: 2000.0
+  decay_rate_lr: 0.9
+  initial_time: 0.0
+output:
+  write_results: true

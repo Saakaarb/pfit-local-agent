@@ -1,0 +1,49 @@
+experiments:
+- data_file: theophylline_sub6.csv
+  columns:
+  - name: time
+  - name: A_gut
+    observes: A_gut
+  - name: A_plasma
+    observes: A_plasma
+model:
+  trainable_parameters:
+  - name: ka
+    min_val: 0.1
+    max_val: 10.0
+    logscale: true
+  - name: ke
+    min_val: 0.01
+    max_val: 1.0
+    logscale: true
+  - name: Vd
+    min_val: 5.0
+    max_val: 150.0
+    logscale: true
+  fixed_parameters: []
+  integrated_variables:
+  - name: A_gut
+    init_val: 320.0
+  - name: A_plasma
+    init_val: 0.0
+population_opt:
+  population_size: 100
+  num_iters: 20
+  processors: 8
+  algorithm: PSO
+gradient_opt:
+  num_iters: 20
+  stepsize_rtol:
+  - 1.0e-06
+  - 1.0e-06
+  stepsize_atol:
+  - 1.0e-09
+  - 1.0e-09
+  initial_timestep: 0.01
+  max_steps: 5000
+  init_value_lr: 0.001
+  end_value_lr: 0.0001
+  transition_steps_lr: 1000.0
+  decay_rate_lr: 0.9
+output:
+  write_results: true

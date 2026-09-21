@@ -1,9 +1,8 @@
-Session: theophylline
+Critical errors:
+- none
 
-## Critical Errors
-None detected.
+Warnings:
+- none
 
-## Warnings
-None detected.
-
-Number of critical errors: 0
+Recommendations:
+- Review generated/user_model.py and parameter bounds before JAX translation.

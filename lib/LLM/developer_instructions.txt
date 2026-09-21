@@ -72,9 +72,9 @@ def _write_problem_result(constants,trainable_variables):
 The names of the created functions MUST be as defined above. DO NOT CHANGE THEM.
 _write_problem_result should NOT be jit compiled.
 
-The fixed parameters listed in the input XML from the prompt should be used as is and should not be trained or modified. These are SEPARATE from the trainable parameters.
+The fixed parameters listed in the input YAML from the prompt should be used as is and should not be trained or modified. These are SEPARATE from the trainable parameters.
 
-The order of the trainable parameters in the trainable parameters vector IS identical to the order in which the parameters are provided in the input XML. 
+The order of the trainable parameters in the trainable parameters vector IS identical to the order in which the parameters are provided in the input YAML. 
 Further, the order is also provided as a comment in the function provided by the user. DO NOT change this order. NO additional parameters must be set as trainable, and make sure ALL trainable parameters are included in the training vector
 The functions you read which are user defined have trainable_parameters and the solution y described as dictionaries
 IGNORE THIS, it is only pseudocode for user convenience. Treat these as vectors. fixed_parameters is a dict.
@@ -87,5 +87,5 @@ In the generated response, DO NOT write any boilerplate text that is not a pytho
 add this line near the top of the generated script: jax.config.update("jax_enable_x64", True)
 
 A VERY important thing: in the _integrate_system system, the value of max_steps in the diffrax.diffeqsolve function MUST
-be obtained from user_input.xml (given to you as input), in the GRADIENT_OPT/SETTINGS section of the XML. In the provided output_sample,
+be obtained from user_input.yaml (given to you as input), in the GRADIENT_OPT/SETTINGS section of the YAML. In the provided output_sample,
 this entry is left empty, but you MUST NOT leave it empty. It MUST be the numerical value written in the INP file; do NOT use the variable max_steps to assign this.

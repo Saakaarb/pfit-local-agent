@@ -1,12 +1,15 @@
 import pytest
 import yaml
-from tests import helper_functions
+
+pytestmark = pytest.mark.slow
 
 def load_tests():
     with open("tests/test_cases.yml", "r") as f:
         return yaml.safe_load(f)["tests"]
 
 def resolve_function(name):
+    from tests import helper_functions
+
     return getattr(helper_functions, name)
 
 @pytest.mark.parametrize("case", load_tests(), ids=lambda x: x["name"])

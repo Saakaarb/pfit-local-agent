@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pfit-local-agent"
+dynamic = ["version"]
+description = "Local LLM orchestrated parameter fitting workflows."
+requires-python = ">=3.10"
+dependencies = [
+    "diffrax==0.7.2",
+    "equinox==0.13.8",
+    "jax==0.6.2",
+    "jaxlib==0.6.2",
+    "lineax==0.1.0",
+    "matplotlib",
+    "numpy==2.2.6",
+    "optimistix==0.1.0",
+    "optax==0.2.8",
+    "ollama",
+    "pandas",
+    "pyswarms",
+    "python-dotenv",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
+
+[project.scripts]
+pfit = "local_agent.cli.main:main"
+
+[tool.setuptools.packages.find]
+include = ["local_agent*", "lib*"]
+
+[tool.setuptools]
+py-modules = ["fit_parameters"]
+
+[tool.setuptools.package-data]
+"local_agent.agent.prompt_templates" = ["*.md"]
+"local_agent.agent.reference" = ["*.md"]
+
+[tool.setuptools.dynamic]
+version = {attr = "local_agent.__version__"}

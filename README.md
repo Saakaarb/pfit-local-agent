@@ -1,0 +1,115 @@
+# pfit-local-agent
+
+Local LLM orchestration for the pfit ODE parameter-estimation workflow.
+
+The local workflow is intentionally aligned with the remote-agent workflow:
+
+```text
+pfit new -> pfit check -> pfit jax -> pfit run -> pfit diagnose
+```
+
+## Session Layout
+
+```text
+sessions/<session>/
+  inputs/
+    user_input.xml
+    data.csv
+  generated/
+    user_model.py
+    generated_script.py
+  outputs/
+```
+
+The legacy fitting entry point remains supported when `generated/generated_script.py` already exists:
+
+```bash
+python fit_parameters.py <session_name>
+```
+
+## Install
+
+```bash
+pip install -e ".[test]"
+```
+
+## Workflow
+
+Create or prepare a session using the configured local LLM:
+
+```bash
+pfit new sessions/my_session
+```
+
+Check the session and write `generated/user_input_check.txt`:
+
+```bash
+pfit check sessions/my_session
+```
+
+Translate the model to `generated/generated_script.py` using the configured local LLM:
+
+```bash
+pfit jax sessions/my_session
+```
+
+Run fitting. Outputs are written to `outputs/<run-id>/`:
+
+```bash
+pfit run sessions/my_session
+```
+
+Diagnose a completed run:
+
+```bash
+pfit diagnose sessions/my_session <run-id>
+```
+
+## Local LLM Config
+
+Create `pfit.yaml`:
+
+```yaml
+llm:
+  model: qwen2.5-coder:7b
+  base_url: http://localhost:11434
+
+workflow:
+  max_repair_attempts: 5
+  temperature: 0.1
+  max_tokens: 12000
+```
+
+Environment variables can override config:
+
+```bash
+export PFIT_LLM_MODEL=qwen2.5-coder:7b
+export PFIT_LLM_BASE_URL=http://localhost:11434
+```
+
+## Logs
+
+Agent logs are written under:
+
+```text
+sessions/<session>/generated/agent_logs/
+```
+
+Fitting outputs from `pfit run` are written under:
+
+```text
+sessions/<session>/outputs/<run-id>/
+```
+
+## More Detail
+
+```text
+docs/local_llm_orchestration.md
+docs/user_workflow_compatibility.md
+```
+
+## Tests
+
+```bash
+pytest -q
+```

@@ -4,10 +4,8 @@ import pandas as pd
 import numpy as np
 from lib.utils.classes import ProblemObjectBase
 from functools import partial
-from lib.algorithms.PSO.classes import FitParamsPSO
 from lib.algorithms.NODE.classes import FitParamsNODE
-import xml.etree.ElementTree as ET
-from lib.utils.xmlread import XMLReader
+from lib.utils.yamlread import YAMLReader
 from pathlib import Path
 import importlib.util
 import sys
@@ -15,7 +13,7 @@ import sys
 jax.config.update("jax_enable_x64", True)
 
 class CreatedClass(ProblemObjectBase):
-    def __init__(self, dataset: np.ndarray, t_eval: np.ndarray, y0: jnp.ndarray, input_reader: XMLReader, compute_loss_problem, write_problem_result):
+    def __init__(self, dataset: np.ndarray, t_eval: np.ndarray, y0: jnp.ndarray, input_reader: YAMLReader, compute_loss_problem, write_problem_result):
         """
         Initialize the CreatedClass instance with problem configuration.
 
@@ -23,7 +21,7 @@ class CreatedClass(ProblemObjectBase):
             dataset (numpy.ndarray): Experimental data array with shape (time_steps, variables)
             t_eval (numpy.ndarray): Time points for solution evaluation
             y0 (jax.numpy.ndarray): Initial conditions for the ODE system
-            input_reader (XMLReader): Configuration reader containing all problem parameters
+            input_reader (YAMLReader): Configuration reader containing all problem parameters
             compute_loss_problem (callable): Function to compute loss for given parameters
             write_problem_result (callable): Function to write problem results
 
@@ -201,13 +199,13 @@ class CreatedClass(ProblemObjectBase):
         """
         self.constants["is_logscale"] = jnp.array(is_logscale)
 
-    def write_problem_result(self, design_point: np.ndarray, input_reader: XMLReader, label:str="default")-> None:
+    def write_problem_result(self, design_point: np.ndarray, input_reader: YAMLReader, label:str="default")-> None:
         """
         Write problem solution results to CSV files.
 
         Args:
             design_point (numpy.ndarray): Parameter set that produced the solution
-            input_reader (XMLReader): Configuration reader containing output directory info
+            input_reader (YAMLReader): Configuration reader containing output directory info
             label (str, optional): Label for the output file. Defaults to "default"
 
         The method calls the user-defined result writing function and saves the
@@ -218,26 +216,19 @@ class CreatedClass(ProblemObjectBase):
       
 
 
-def get_input_reader(path_to_input: Path)-> XMLReader:
+def get_input_reader(path_to_input: Path)-> YAMLReader:
     """
-    Parse XML input file and create an XMLReader instance.
+    Parse YAML input file and create a YAMLReader instance.
 
     Args:
         path_to_input (Path): Path to the XML configuration file
 
     Returns:
-        XMLReader: Configured reader instance containing all problem parameters
+        YAMLReader: Configured reader instance containing all problem parameters
 
-    This function parses the XML file using ElementTree and initializes
-    an XMLReader object with the parsed configuration data.
+    This function parses the YAML file and initializes a YAMLReader object.
     """
-    tree = ET.parse(path_to_input)
-    root = tree.getroot()
-
-    input_reader=XMLReader()
-    input_reader.read_XML(root)
-
-    return input_reader
+    return YAMLReader.from_file(path_to_input)
 
 
 def fit_generic_system(path_to_input: Path, path_to_output_dir: Path, generated_dir: Path,session_path: Path)-> np.ndarray:
@@ -330,7 +321,7 @@ def fit_generic_system(path_to_input: Path, path_to_output_dir: Path, generated_
 
 
 # fixed
-def fit_equation_system(input_reader: XMLReader, y0: jnp.ndarray, t_eval: np.ndarray, dataset: np.ndarray, problem_obj: CreatedClass)-> np.ndarray:
+def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.ndarray, dataset: np.ndarray, problem_obj: CreatedClass)-> np.ndarray:
     """
     Fit a system of equations using a two-phase optimization approach.
 
@@ -345,7 +336,7 @@ def fit_equation_system(input_reader: XMLReader, y0: jnp.ndarray, t_eval: np.nda
     4. Writing results to output directory
 
     Args:
-        input_reader (XMLReader): Reader object containing optimization parameters from XML
+        input_reader (YAMLReader): Reader object containing optimization parameters from YAML
         y0 (jax.numpy.ndarray): Initial conditions for the system of equations
         t_eval (numpy.ndarray): Time points at which to evaluate the solution
         dataset (numpy.ndarray): Experimental data to fit against
@@ -361,36 +352,53 @@ def fit_equation_system(input_reader: XMLReader, y0: jnp.ndarray, t_eval: np.nda
         - Progress is logged to the output directory
         - Final parameters are saved to final_design_point.csv
     """
-    ## create fit object code
-    # make sure this can be any algorithm
-    print(
-        "TODO replace with a function that takes the algorithm name as a string input"
+    algorithm = getattr(input_reader, "algorithm", "PSO").upper()
+    if algorithm == "DE":
+        from lib.algorithms.DE.classes import FitParamsDE
+
+        fit_obj = FitParamsDE(input_reader, problem_obj)
+    else:
+        from lib.algorithms.PSO.classes import FitParamsPSO
+
+        fit_obj = FitParamsPSO(input_reader, problem_obj)
+
+    # Global-search problem object: use loose tolerances if specified, else fall back to gradient tolerances.
+    pop_rtol = (
+        getattr(input_reader, "population_stepsize_rtol", None)
+        or input_reader.pso_stepsize_rtol
+        or input_reader.stepsize_rtol
     )
-
-    fit_obj_PSO = FitParamsPSO(input_reader, problem_obj)
-
-    # PSO problem object: use loose tolerances if specified, else fall back to gradient tolerances
-    pso_rtol = input_reader.pso_stepsize_rtol or input_reader.stepsize_rtol
-    pso_atol = input_reader.pso_stepsize_atol or input_reader.stepsize_atol
-    problem_obj.constants['stepsize_rtol'] = jnp.array(pso_rtol)
-    problem_obj.constants['stepsize_atol'] = jnp.array(pso_atol)
-    problem_obj.set_min_limit(fit_obj_PSO.min_search_axis)
-    problem_obj.set_max_limit(fit_obj_PSO.max_search_axis)
+    pop_atol = (
+        getattr(input_reader, "population_stepsize_atol", None)
+        or input_reader.pso_stepsize_atol
+        or input_reader.stepsize_atol
+    )
+    problem_obj.constants['stepsize_rtol'] = jnp.array(pop_rtol)
+    problem_obj.constants['stepsize_atol'] = jnp.array(pop_atol)
+    problem_obj.set_min_limit(fit_obj.min_search_axis)
+    problem_obj.set_max_limit(fit_obj.max_search_axis)
     problem_obj.set_is_logscale(input_reader.axis_logscale)
 
-    print(f"PSO tolerances  — rtol: {pso_rtol}, atol: {pso_atol}")
+    print(f"{algorithm} tolerances  — rtol: {pop_rtol}, atol: {pop_atol}")
 
-    print("Writing pso log file")
-    log_path = Path(input_reader.output_dir) / "pso_fitting.log"
-    with open(log_path, 'w') as log_file:
-        log_file.write(f"Total number of PSO iterations: {input_reader.n_iters_pop}\n")
-        log_file.write("-" * 50 + "\n\n")
+    if algorithm == "DE":
+        print("Writing de log file")
+        log_path = Path(input_reader.output_dir) / "de_fitting.log"
+        with open(log_path, 'w') as log_file:
+            log_file.write(f"Total DE iterations: {input_reader.n_iters_pop}\n")
+            log_file.write("-" * 50 + "\n\n")
+        best_position, best_cost = fit_obj.run(log_path)
+    else:
+        print("Writing pso log file")
+        log_path = Path(input_reader.output_dir) / "pso_fitting.log"
+        with open(log_path, 'w') as log_file:
+            log_file.write(f"Total number of PSO iterations: {input_reader.n_iters_pop}\n")
+            log_file.write("-" * 50 + "\n\n")
+        best_position, best_cost = optimize_function(fit_obj, input_reader, log_path)
 
-    best_position,best_cost = optimize_function(fit_obj_PSO, input_reader, log_path)
-
-    unscaled_best_position = fit_obj_PSO.unscale_design_point(best_position)
-    print("Best Position from PSO:", unscaled_best_position)
-    print("Best cost from PSO:",best_cost)
+    unscaled_best_position = fit_obj.unscale_design_point(best_position)
+    print(f"Best Position from {algorithm}:", unscaled_best_position)
+    print(f"Best cost from {algorithm}:", best_cost)
 
     # NODE uses a separate problem object so its JIT compilation bakes in tight tolerances
     problem_obj_node = CreatedClass(
@@ -398,8 +406,8 @@ def fit_equation_system(input_reader: XMLReader, y0: jnp.ndarray, t_eval: np.nda
         compute_loss_problem=problem_obj._compute_loss_problem,
         write_problem_result=problem_obj._write_problem_result,
     )
-    problem_obj_node.set_min_limit(fit_obj_PSO.min_search_axis)
-    problem_obj_node.set_max_limit(fit_obj_PSO.max_search_axis)
+    problem_obj_node.set_min_limit(fit_obj.min_search_axis)
+    problem_obj_node.set_max_limit(fit_obj.max_search_axis)
     problem_obj_node.set_is_logscale(input_reader.axis_logscale)
     print(f"NODE tolerances — rtol: {input_reader.stepsize_rtol}, atol: {input_reader.stepsize_atol}")
 
@@ -417,7 +425,7 @@ def fit_equation_system(input_reader: XMLReader, y0: jnp.ndarray, t_eval: np.nda
     print("Tuned position from NODE(scaled):", tuned_best_position)
     print("Tuned best loss:",tuned_best_loss)
 
-    unscaled_best_position_tuned = fit_obj_PSO.unscale_design_point(
+    unscaled_best_position_tuned = fit_obj.unscale_design_point(
         np.array(tuned_best_position)
     )
     print("Final best position:", unscaled_best_position_tuned)
@@ -432,7 +440,7 @@ def fit_equation_system(input_reader: XMLReader, y0: jnp.ndarray, t_eval: np.nda
 
     return unscaled_best_position_tuned
 
-def optimize_function(fit_obj: FitParamsPSO, input_reader: XMLReader, file_obj: Path)-> tuple[np.ndarray, float]:
+def optimize_function(fit_obj: object, input_reader: YAMLReader, file_obj: Path)-> tuple[np.ndarray, float]:
     """
     Execute PSO optimization iterations with logging and error handling.
 
@@ -442,7 +450,7 @@ def optimize_function(fit_obj: FitParamsPSO, input_reader: XMLReader, file_obj: 
 
     Args:
         fit_obj (FitParamsPSO): PSO optimization object configured with problem parameters
-        input_reader (XMLReader): Configuration reader containing iteration count and output directory
+        input_reader (YAMLReader): Configuration reader containing iteration count and output directory
         file_obj (Path): Path to the log file for writing optimization progress
 
     Returns:

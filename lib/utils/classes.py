@@ -1,6 +1,4 @@
 import numpy as np
-import xml.etree.ElementTree as ET
-from lib.utils.xmlread import XMLReader
 from pathlib import Path
 from functools import partial
 import jax
@@ -128,6 +126,5 @@ class ProblemObjectBase:
             result analysis.
         """
         return self._plot_result(design_point, label)
-
 
 

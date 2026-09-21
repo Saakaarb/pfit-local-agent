@@ -1,0 +1,265 @@
+experiments:
+- data_file: nfkb_data.csv
+  columns:
+  - name: time
+  - name: IkBalpha
+    observes: IkBalpha
+  - name: NFkB
+    observes: NFkB
+  - name: IkBalpha_NFkB
+    observes: IkBalpha_NFkB
+  - name: IkBbeta
+    observes: IkBbeta
+  - name: IkBbeta_NFkB
+    observes: IkBbeta_NFkB
+  - name: IkBeps
+    observes: IkBeps
+  - name: IkBeps_NFkB
+    observes: IkBeps_NFkB
+  - name: IKK_IkBalpha
+    observes: IKK_IkBalpha
+  - name: IKK_IkBalpha_NFkB
+    observes: IKK_IkBalpha_NFkB
+  - name: IKK
+    observes: IKK
+  - name: IKK_IkBbeta
+    observes: IKK_IkBbeta
+  - name: IKK_IkBbeta_NFkB
+    observes: IKK_IkBbeta_NFkB
+  - name: IKK_IkBeps
+    observes: IKK_IkBeps
+  - name: IKK_IkBeps_NFkB
+    observes: IKK_IkBeps_NFkB
+  - name: NFkB_nuc
+    observes: NFkB_nuc
+  - name: IkBalpha_nuc
+    observes: IkBalpha_nuc
+  - name: IkBalpha_nuc_NFkB_nuc
+    observes: IkBalpha_nuc_NFkB_nuc
+  - name: IkBbeta_nuc
+    observes: IkBbeta_nuc
+  - name: IkBbeta_nuc_NFkB_nuc
+    observes: IkBbeta_nuc_NFkB_nuc
+  - name: IkBeps_nuc
+    observes: IkBeps_nuc
+  - name: IkBalpha_transcript
+    observes: IkBalpha_transcript
+  - name: IkBbeta_transcript
+    observes: IkBbeta_transcript
+  - name: IkBeps_transcript
+    observes: IkBeps_transcript
+  - name: IkBeps_nuc_NFkB_nuc
+    observes: IkBeps_nuc_NFkB_nuc
+model:
+  trainable_parameters:
+  - name: k1
+    min_val: 0.1
+    max_val: 100.0
+    logscale: true
+  - name: k01
+    min_val: 0.0001
+    max_val: 0.1
+    logscale: true
+  - name: tr1
+    min_val: 0.01
+    max_val: 10.0
+    logscale: true
+  - name: tr2
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  - name: tr3
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: deg1
+    min_val: 0.0001
+    max_val: 0.1
+    logscale: true
+  - name: tp1
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: tp2
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: r4
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  - name: k2
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  fixed_parameters:
+  - name: a4
+    value: 30.0
+  - name: d4
+    value: 0.03
+  - name: a5
+    value: 30.0
+  - name: d5
+    value: 0.03
+  - name: a6
+    value: 30.0
+  - name: d6
+    value: 0.03
+  - name: r5
+    value: 0.45
+  - name: r6
+    value: 0.66
+  - name: deg4
+    value: 0.00135
+  - name: tr2a
+    value: 9.25e-05
+  - name: tr2b
+    value: 1.068e-05
+  - name: tr2e
+    value: 7.62e-06
+  - name: a1
+    value: 1.35
+  - name: d1
+    value: 0.075
+  - name: a2
+    value: 0.36
+  - name: d2
+    value: 0.105
+  - name: a3
+    value: 0.54
+  - name: d3
+    value: 0.105
+  - name: a7
+    value: 11.1
+  - name: a8
+    value: 2.88
+  - name: k2_beta
+    value: 0.624
+  - name: a9
+    value: 4.2
+  - name: k2_eps
+    value: 0.624
+  - name: r1
+    value: 0.2442
+  - name: r2
+    value: 0.09
+  - name: r3
+    value: 0.132
+  - name: k02
+    value: 0.0072
+  - name: k2_IkBbeta_nuc_NFkB_nuc
+    value: 0.0069
+  integrated_variables:
+  - name: IkBalpha
+    init_val: 0.1
+  - name: NFkB
+    init_val: 0.1
+  - name: IkBalpha_NFkB
+    init_val: 0.0
+  - name: IkBbeta
+    init_val: 0.0
+  - name: IkBbeta_NFkB
+    init_val: 0.0
+  - name: IkBeps
+    init_val: 0.0
+  - name: IkBeps_NFkB
+    init_val: 0.0
+  - name: IKK_IkBalpha
+    init_val: 0.0
+  - name: IKK_IkBalpha_NFkB
+    init_val: 0.0
+  - name: IKK
+    init_val: 0.2
+  - name: IKK_IkBbeta
+    init_val: 0.0
+  - name: IKK_IkBbeta_NFkB
+    init_val: 0.0
+  - name: IKK_IkBeps
+    init_val: 0.0
+  - name: IKK_IkBeps_NFkB
+    init_val: 0.0
+  - name: NFkB_nuc
+    init_val: 0.001
+  - name: IkBalpha_nuc
+    init_val: 0.0
+  - name: IkBalpha_nuc_NFkB_nuc
+    init_val: 0.0
+  - name: IkBbeta_nuc
+    init_val: 0.0
+  - name: IkBbeta_nuc_NFkB_nuc
+    init_val: 0.0
+  - name: IkBeps_nuc
+    init_val: 0.0
+  - name: IkBalpha_transcript
+    init_val: 0.0
+  - name: IkBbeta_transcript
+    init_val: 0.0
+  - name: IkBeps_transcript
+    init_val: 0.0
+  - name: IkBeps_nuc_NFkB_nuc
+    init_val: 0.0
+population_opt:
+  population_size: 200
+  num_iters: 50
+  processors: 8
+  algorithm: PSO
+gradient_opt:
+  num_iters: 30
+  stepsize_rtol:
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  - 1.0e-05
+  stepsize_atol:
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  - 1.0e-08
+  initial_timestep: 0.001
+  max_steps: 20000
+  init_value_lr: 0.001
+  end_value_lr: 0.0001
+  transition_steps_lr: 2000.0
+  decay_rate_lr: 0.9
+output:
+  write_results: true

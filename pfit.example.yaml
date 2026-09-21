@@ -1,0 +1,10 @@
+# Copy this file to pfit.yaml and edit for your local model server.
+
+llm:
+  model: qwen2.5-coder:7b
+  base_url: http://localhost:11434
+
+workflow:
+  max_repair_attempts: 5
+  temperature: 0.1
+  max_tokens: 12000
