@@ -33,6 +33,20 @@ ONE_STATE_FRAGMENTS = json.dumps(
     }
 )
 
+VALID_SPLIT_RESPONSES = json.dumps(
+    [
+        json.dumps({"helper_functions": [], "review": ""}),
+        json.dumps({"rhs": ["x2", "-mu * x1"], "helper_functions": [], "review": ""}),
+    ]
+)
+
+ONE_STATE_SPLIT_RESPONSES = json.dumps(
+    [
+        json.dumps({"helper_functions": [], "review": ""}),
+        json.dumps({"rhs": ["-k * y"], "helper_functions": [], "review": ""}),
+    ]
+)
+
 
 CHECK_RESPONSE = json.dumps(
     {
@@ -91,7 +105,7 @@ def test_cli_check_writes_report(tmp_path, capsys):
 def test_cli_jax_with_fake_llm(tmp_path, capsys):
     session = make_session(tmp_path)
     response_file = tmp_path / "response.json"
-    response_file.write_text(VALID_FRAGMENTS)
+    response_file.write_text(VALID_SPLIT_RESPONSES)
 
     exit_code = main(
         [
@@ -133,7 +147,7 @@ def test_cli_full_local_workflow_with_fake_llm(tmp_path):
     new_response_file = tmp_path / "new_response.json"
     new_response_file.write_text(_new_session_response())
     response_file = tmp_path / "response.json"
-    response_file.write_text(ONE_STATE_FRAGMENTS)
+    response_file.write_text(ONE_STATE_SPLIT_RESPONSES)
     check_response_file = tmp_path / "check_response.json"
     check_response_file.write_text(CHECK_RESPONSE)
 
@@ -178,7 +192,7 @@ def _make_starter_session_fast_de(input_yaml: Path) -> None:
 def _write_new_session_context(session: Path) -> None:
     inputs = session / "inputs"
     inputs.mkdir(parents=True)
-    inputs.joinpath("data.csv").write_text("0.0,1.0\n1.0,0.5\n2.0,0.25\n")
+    inputs.joinpath("data.csv").write_text("time,y\n0.0,1.0\n1.0,0.5\n2.0,0.25\n")
     inputs.joinpath("user_info.txt").write_text(
         "Fit dy/dt = -k*y against data.csv. k in [0.001, 10], y0=1.0."
     )

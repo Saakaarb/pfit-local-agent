@@ -1,0 +1,50 @@
+Dataset: NMC_SOC80_M2_normalized_converted_units.csv
+
+CSV:
+- time = t [s]
+- T = T_obs [K]
+- dTdt = q_obs [K/s]
+
+States:
+- c1(0) = 1.0
+- c2(0) = 0.04
+- T(0) = 354.0
+
+Trainable parameters:
+- Ea1 in [2.0e-19, 4.0e-19], logscale true
+- h1 in [10.0, 1000.0], logscale true
+- A1 in [1.0e8, 1.0e25], logscale true
+- A2 in [1.0e8, 1.0e25], logscale true
+- Ea2 in [2.0e-19, 4.0e-19], logscale true
+- h2 in [10.0, 1000.0], logscale true
+- m2 in [1.0, 5.0], logscale false
+- n2 in [1.0, 5.0], logscale false
+
+Fixed parameter:
+- kb = 1.38e-23
+
+ODE:
+- r1(c1,T) = -A1 * exp(-Ea1 / (kb*T)) * c1
+- r2(c2,T) = A2 * exp(-Ea2 / (kb*T)) * c2^n2 * (1 - c2)^m2
+- q(c1,c2,T) = abs(h1*r1(c1,T)) + abs(h2*r2(c2,T))
+- dc1/dt = r1(c1,T)
+- dc2/dt = r2(c2,T)
+- dT/dt = q(c1,c2,T)
+
+Measured quantities:
+- T_obs(t_i) = T(t_i)
+- q_obs(t_i) = q(c1(t_i), c2(t_i), T(t_i))
+
+Loss:
+- Normalize each data residual by the measured range of that quantity.
+- Let scale_T = max_i(T_obs(t_i)) - min_i(T_obs(t_i)).
+- The heat-rate q_obs spans orders of magnitude, so compare heat rate in log10 space before normalization.
+- Let eps_q = min_i(q_obs(t_i)) over positive measured q_obs values.
+- Let log_q(t_i) = log10(q(c1(t_i),c2(t_i),T(t_i)) + eps_q).
+- Let log_q_obs(t_i) = log10(q_obs(t_i) + eps_q).
+- Let scale_log_q = max_i(log_q_obs(t_i)) - min_i(log_q_obs(t_i)).
+- L_data = mean_i(((T(t_i) - T_obs(t_i)) / scale_T)^2) + mean_i(((log_q(t_i) - log_q_obs(t_i)) / scale_log_q)^2)
+- Use smooth terminal penalties instead of hard if/else constraints.
+- Let S(z) = 1 / (1 + exp(-1000*z)).
+- L_penalty = 10000*S(c1(t_f) - 0.02) + 10000*S(0.98 - c2(t_f)) + 10000*S(sqrt((T(t_f) - T_obs(t_f))^2 + 1e-12) - 50)
+- L = L_data + L_penalty

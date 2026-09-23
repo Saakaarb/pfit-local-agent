@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided context.
+The provided ODE and parameter definitions are clear and complete. The RHS expressions for each frozen integrated state are extracted as requested.
+The CSV columns T and dTdt are directly mapped to the simulated states and formulas.
+The user has provided a custom loss function with specific data terms and penalties. The data terms include normalized MSE for temperature and log10-normalized MSE for heat rate. The penalties are smooth sigmoid step penalties applied at the final time.

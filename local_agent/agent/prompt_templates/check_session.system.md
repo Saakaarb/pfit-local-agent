@@ -25,6 +25,9 @@ Use the pfit-claude checking policy:
 - If YAML declares derived observables, user_model.py should define _observables with matching keys.
 - If data contains NaN, the loss must be nan-safe.
 - The loss should be normalized enough that values are likely around 0 to 1.
+- If a strictly positive measured column spans several orders of magnitude,
+  the loss should compare that column in log/log10 space before normalization;
+  report a critical error when it is compared only in linear scale.
 - Wide trainable parameter ranges should normally use logscale.
 - Very small population or gradient iteration counts should be warnings unless they are certainly invalid.
 - Do not ask the user to "check" something you can determine from the provided context.

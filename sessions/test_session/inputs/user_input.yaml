@@ -36,7 +36,7 @@ population_opt:
   population_size: 100
   num_iters: 20
   processors: 8
-  algorithm: PSO
+  algorithm: DE
 gradient_opt:
   num_iters: 10
   stepsize_rtol:

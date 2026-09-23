@@ -19,9 +19,9 @@ dependencies = [
     "optax==0.2.8",
     "ollama",
     "pandas",
-    "pyswarms",
     "python-dotenv",
     "pyyaml",
+    "scipy==1.14.1",
 ]
 
 [project.optional-dependencies]

@@ -37,6 +37,7 @@ class SessionSpec:
     stepsize_atol: tuple[float, ...]
     init_timestep: float
     max_steps: int
+    integrator: str
 
     def to_prompt_text(self) -> str:
         lines = [
@@ -97,6 +98,7 @@ class SessionSpec:
                 f"Solver atol: {list(self.stepsize_atol)}",
                 f"Initial timestep: {self.init_timestep}",
                 f"Max steps: {self.max_steps}",
+                f"Integrator: {self.integrator}",
             ]
         )
         return "\n".join(lines)
@@ -136,4 +138,5 @@ def load_session_spec(input_yaml: Path) -> SessionSpec:
         stepsize_atol=tuple(reader.stepsize_atol),
         init_timestep=reader.init_timestep,
         max_steps=reader.max_steps,
+        integrator=reader.integrator,
     )

@@ -1,0 +1,6 @@
+The initial values for the integrated states y1, y2, and y3 are provided in the user_info.txt file.
+The ODE system and parameters are well-defined. The RHS expressions for each state are extracted directly from the user-provided ODE system.
+The CSV columns directly map to the integrated states of the Robertson chemical kinetics model.
+The user wants to fit the Robertson chemical kinetics model to the provided data using normalized residuals for each state. The loss is defined as the square root of the mean of the normalized squared residuals.
+Automatically using log10_normalized_mse for positive measured columns that span at least 3 log10 orders of magnitude.
+Original user context indicates a stiff model.

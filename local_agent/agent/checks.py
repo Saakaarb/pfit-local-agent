@@ -1,12 +1,16 @@
 from dataclasses import dataclass, field
+import ast
 import csv
 import json
 from pathlib import Path
 
+import numpy as np
+import yaml
+
 from local_agent.agent.config import WorkflowConfig
 from local_agent.agent.llm_json import parse_llm_json_object
 from local_agent.agent.prompts import PromptRenderer
-from local_agent.agent.validators import ValidationError, validate_session
+from local_agent.agent.validators import ValidationError, parse_input_yaml, validate_session
 from local_agent.llm.base import LLMClient, LLMError, Message
 
 
@@ -61,6 +65,9 @@ def check_session(
     if not user_model.exists():
         report.critical_errors.append(f"User model not found: {user_model}")
         return report
+    _add_branchy_dynamics_checks(user_model, report)
+    _add_uncertainty_loss_checks(session_dir, user_model, report)
+    _add_dataset_scale_loss_checks(session_dir, user_model, report)
 
     if result.n_trainable_parameters > 5:
         report.recommendations.append(
@@ -167,6 +174,8 @@ def _optional_string(data: dict[str, object], key: str) -> str:
 def _dataset_summary(session_dir: Path, input_yaml: Path) -> str:
     validation = validate_session(session_dir)
     dataset_path = validation.dataset_path
+    reader = parse_input_yaml(input_yaml)
+    dataset = _load_numeric_dataset(dataset_path)
     rows: list[list[str]] = []
     with dataset_path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.reader(handle)
@@ -175,14 +184,250 @@ def _dataset_summary(session_dir: Path, input_yaml: Path) -> str:
                 break
             rows.append(row)
     preview = "\n".join(",".join(row) for row in rows)
+    column_stats = _dataset_column_stats(dataset, parse_input_yaml(input_yaml).data_column_names)
     return "\n".join(
         [
             f"Dataset path: {dataset_path}",
             f"Shape: {validation.dataset_shape[0]} rows x {validation.dataset_shape[1]} columns",
+            "Column scale summary:",
+            *column_stats,
             "CSV preview:",
             preview,
         ]
     )
+
+
+def _add_dataset_scale_loss_checks(
+    session_dir: Path,
+    user_model: Path,
+    report: CheckReport,
+) -> None:
+    input_yaml = session_dir / "inputs" / "user_input.yaml"
+    validation = validate_session(session_dir)
+    reader = parse_input_yaml(input_yaml)
+    dataset = _load_numeric_dataset(validation.dataset_path)
+    if dataset.shape[1] < 2:
+        return
+    logged_dataset_columns = _logged_dataset_columns_in_loss(user_model.read_text())
+    measured_names = _measured_column_names(reader)
+    for dataset_index, values in enumerate(dataset[:, 1:].T):
+        finite = values[np.isfinite(values)]
+        if finite.size < 2 or np.any(finite <= 0.0):
+            continue
+        finite_positive = finite
+        if finite_positive.size < 2:
+            continue
+        min_value = float(np.min(finite_positive))
+        max_value = float(np.max(finite_positive))
+        if min_value <= 0.0:
+            continue
+        orders = float(np.log10(max_value / min_value))
+        if orders < 3.0:
+            continue
+        if dataset_index in logged_dataset_columns:
+            continue
+        name = measured_names[dataset_index] if dataset_index < len(measured_names) else f"dataset[:, {dataset_index}]"
+        report.critical_errors.append(
+            "Measured column spans orders of magnitude but the loss does not compare it in log space: "
+            f"{name} uses dataset[:, {dataset_index}], positive min={min_value:.6g}, "
+            f"max={max_value:.6g}, log10 range={orders:.2f}. "
+            "Use a log/log10-transformed residual before normalization."
+        )
+
+
+def _add_uncertainty_loss_checks(
+    session_dir: Path,
+    user_model: Path,
+    report: CheckReport,
+) -> None:
+    columns = _declared_experiment_columns(session_dir / "inputs" / "user_input.yaml")
+    if not columns:
+        return
+    data_columns = columns[1:] if columns and columns[0].get("name", "").lower() == "time" else columns
+    loss_columns = _dataset_columns_in_loss(user_model.read_text())
+    for dataset_index, column in enumerate(data_columns):
+        if "uncertainty_of" not in column:
+            continue
+        sigma_name = str(column.get("name", "")).strip()
+        target = str(column.get("uncertainty_of", "")).strip()
+        if dataset_index in loss_columns:
+            continue
+        report.critical_errors.append(
+            f"Measurement uncertainty column {sigma_name} is declared for {target}, "
+            f"but _compute_loss_problem does not use dataset[:, {dataset_index}]."
+        )
+
+
+def _add_branchy_dynamics_checks(user_model: Path, report: CheckReport) -> None:
+    try:
+        module = ast.parse(user_model.read_text())
+    except SyntaxError:
+        return
+    system = next(
+        (
+            node
+            for node in module.body
+            if isinstance(node, ast.FunctionDef) and node.name == "user_defined_system"
+        ),
+        None,
+    )
+    if system is None:
+        return
+    for node in ast.walk(system):
+        if isinstance(node, ast.If):
+            report.critical_errors.append(
+                "user_defined_system contains a Python if statement. "
+                "Use smooth equations or np.where-style expressions before pfit-jax."
+            )
+            return
+        if isinstance(node, ast.IfExp):
+            report.critical_errors.append(
+                "user_defined_system contains a Python conditional expression. "
+                "Use smooth equations or np.where-style expressions before pfit-jax."
+            )
+            return
+
+
+def _declared_experiment_columns(input_yaml: Path) -> list[dict[str, str]]:
+    try:
+        data = yaml.safe_load(input_yaml.read_text()) or {}
+    except Exception:
+        return []
+    experiments = data.get("experiments", [])
+    if not isinstance(experiments, list) or not experiments:
+        return []
+    columns = experiments[0].get("columns", [])
+    if not isinstance(columns, list):
+        return []
+    normalized = []
+    for column in columns:
+        if isinstance(column, dict):
+            normalized.append({str(key): str(value) for key, value in column.items()})
+    return normalized
+
+
+def _measured_column_names(reader) -> list[str]:
+    names = reader.data_column_names
+    if names and names[0].strip().lower() == "time":
+        return names[1:]
+    return names[1:] if len(names) > 1 else names
+
+
+def _load_numeric_dataset(path: Path) -> np.ndarray:
+    with Path(path).open("r", encoding="utf-8-sig") as handle:
+        data = np.genfromtxt(handle, dtype=float, delimiter=",", skip_header=1)
+    return np.atleast_2d(data)
+
+
+def _dataset_column_stats(dataset: np.ndarray, names: list[str]) -> list[str]:
+    stats = []
+    for index, values in enumerate(dataset.T):
+        name = names[index] if index < len(names) else f"column_{index}"
+        finite = values[np.isfinite(values)]
+        if finite.size == 0:
+            stats.append(f"- {name}: no finite values")
+            continue
+        finite_positive = finite[finite > 0.0]
+        suffix = ""
+        if finite_positive.size >= 2:
+            min_positive = float(np.min(finite_positive))
+            max_positive = float(np.max(finite_positive))
+            if min_positive > 0.0:
+                suffix = f", positive log10 range={np.log10(max_positive / min_positive):.2f}"
+        stats.append(
+            f"- {name}: min={float(np.min(finite)):.6g}, max={float(np.max(finite)):.6g}{suffix}"
+        )
+    return stats
+
+
+def _logged_dataset_columns_in_loss(source: str) -> set[int]:
+    try:
+        module = ast.parse(source)
+    except SyntaxError:
+        return set()
+    loss_function = next(
+        (
+            node
+            for node in module.body
+            if isinstance(node, ast.FunctionDef) and node.name == "_compute_loss_problem"
+        ),
+        None,
+    )
+    if loss_function is None:
+        return set()
+
+    aliases: dict[str, set[int]] = {}
+    logged_columns: set[int] = set()
+    for statement in loss_function.body:
+        for node in ast.walk(statement):
+            if not isinstance(node, ast.Call) or not _is_log_call(node.func):
+                continue
+            for arg in node.args:
+                logged_columns.update(_dataset_columns_in_node(arg, aliases))
+        if isinstance(statement, ast.Assign):
+            columns = _dataset_columns_in_node(statement.value, aliases)
+            for target in statement.targets:
+                if isinstance(target, ast.Name):
+                    aliases[target.id] = columns
+    return logged_columns
+
+
+def _dataset_columns_in_loss(source: str) -> set[int]:
+    try:
+        module = ast.parse(source)
+    except SyntaxError:
+        return set()
+    loss_function = next(
+        (
+            node
+            for node in module.body
+            if isinstance(node, ast.FunctionDef) and node.name == "_compute_loss_problem"
+        ),
+        None,
+    )
+    if loss_function is None:
+        return set()
+
+    aliases: dict[str, set[int]] = {}
+    columns: set[int] = set()
+    for statement in loss_function.body:
+        columns.update(_dataset_columns_in_node(statement, aliases))
+        if isinstance(statement, ast.Assign):
+            assigned_columns = _dataset_columns_in_node(statement.value, aliases)
+            for target in statement.targets:
+                if isinstance(target, ast.Name):
+                    aliases[target.id] = assigned_columns
+    return columns
+
+
+def _is_log_call(function: ast.AST) -> bool:
+    if isinstance(function, ast.Attribute) and function.attr in {"log", "log10"}:
+        return True
+    return isinstance(function, ast.Name) and function.id in {"log", "log10"}
+
+
+def _dataset_columns_in_node(node: ast.AST, aliases: dict[str, set[int]]) -> set[int]:
+    columns: set[int] = set()
+    for child in ast.walk(node):
+        if isinstance(child, ast.Name):
+            columns.update(aliases.get(child.id, set()))
+        if not isinstance(child, ast.Subscript):
+            continue
+        if not isinstance(child.value, ast.Name) or child.value.id != "dataset":
+            continue
+        column_index = _dataset_column_index(child.slice)
+        if column_index is not None:
+            columns.add(column_index)
+    return columns
+
+
+def _dataset_column_index(slice_node: ast.AST) -> int | None:
+    if not isinstance(slice_node, ast.Tuple) or len(slice_node.elts) < 2:
+        return None
+    column = slice_node.elts[1]
+    if isinstance(column, ast.Constant) and isinstance(column.value, int):
+        return column.value
+    return None
 
 
 def _complete_with_log(

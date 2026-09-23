@@ -2,7 +2,12 @@ Critical errors:
 - none
 
 Warnings:
-- none
+- The 'observables' list in the YAML is empty, but the dataset contains columns 'X' and 'Z' that are observed. Ensure that the observables are correctly defined in the YAML or the model.
 
 Recommendations:
 - Review generated/user_model.py and parameter bounds before JAX translation.
+- Review the generated/user_model.py and parameter bounds before JAX translation.
+- Consider using log/log10 space for comparing the 'X' and 'Z' columns in the loss function due to their wide positive log10 ranges.
+
+Semantic review:
+The session is ready for JAX translation with minor recommendations and warnings.

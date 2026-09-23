@@ -1,0 +1,28 @@
+Fit a one-compartment oral theophylline pharmacokinetic model to theophylline_sub6.csv.
+
+Dataset columns:
+- time in hours
+- C_plasma, observed plasma concentration in mg/L.
+
+Integrated states and initial values:
+- A_gut(0) = 320.0 mg
+- A_plasma(0) = 0.0 mg
+
+Trainable parameters, all log scale:
+- ka in [0.1, 10.0]
+- ke in [0.01, 1.0]
+- Vd in [5.0, 150.0]
+
+ODE system:
+- dA_gut/dt = -ka * A_gut
+- dA_plasma/dt = ka * A_gut - ke * A_plasma
+
+Derived observable:
+- C_plasma = A_plasma / Vd
+
+Loss:
+- Compare simulated C_plasma to the measured C_plasma column.
+- Normalize residuals by max(abs(measured C_plasma column)).
+- loss = sqrt(mean(normalized squared residuals)).
+
+Write out time, measured C_plasma, simulated C_plasma, simulated A_gut, and simulated A_plasma.

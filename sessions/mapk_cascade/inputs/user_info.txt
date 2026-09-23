@@ -1,0 +1,68 @@
+Fit the Kholodenko MAPK/ERK cascade model to mapk_data.csv.
+
+Dataset columns:
+- time
+- Mpp, the measured doubly phosphorylated MAPK signal.
+
+Integrated states and initial values:
+- M(0) = 500.0
+- Mp(0) = 0.0
+- Mpp(0) = 0.0
+- MAPKK(0) = 50.0
+- MKP3(0) = 100.0
+- M_MAPKK(0) = 0.0
+- Mp_MAPKK(0) = 0.0
+- Mpp_MKP3(0) = 0.0
+- Mp_MKP3_dep(0) = 0.0
+- Mp_MKP3(0) = 0.0
+- M_MKP3(0) = 0.0
+
+Trainable parameters, all log scale:
+- k1 in [0.001, 1.0]
+- k_1 in [0.01, 100.0]
+- k2 in [0.001, 1.0]
+- k3 in [0.001, 1.0]
+- k_3 in [0.01, 100.0]
+- k4 in [1.0, 1000.0]
+- h1 in [0.001, 1.0]
+- h_1 in [0.01, 100.0]
+- h2 in [0.001, 1.0]
+- h3 in [0.01, 100.0]
+- h_3 in [0.0001, 1.0]
+- h4 in [0.0001, 1.0]
+- h_4 in [0.01, 100.0]
+- h5 in [0.01, 10.0]
+- h6 in [0.001, 1.0]
+- h_6 in [0.0001, 0.1]
+
+Reaction rates:
+- v1a = k1*M*MAPKK - k_1*M_MAPKK
+- v1b = k2*M_MAPKK
+- v2a = k3*Mp*MAPKK - k_3*Mp_MAPKK
+- v2b = k4*Mp_MAPKK
+- v3a = h1*Mpp*MKP3 - h_1*Mpp_MKP3
+- v3b = h2*Mpp_MKP3
+- v3c = h3*Mp_MKP3_dep - h_3*Mp*MKP3
+- v4a = h4*Mp*MKP3 - h_4*Mp_MKP3
+- v4b = h5*Mp_MKP3
+- v4c = h6*M_MKP3 - h_6*M*MKP3
+
+ODE system:
+- dM/dt = -v1a + v4c
+- dMp/dt = v1b - v2a + v3c - v4a
+- dMpp/dt = v2b - v3a
+- dMAPKK/dt = -v1a + v1b - v2a + v2b
+- dMKP3/dt = -v3a + v3c - v4a + v4c
+- dM_MAPKK/dt = v1a - v1b
+- dMp_MAPKK/dt = v2a - v2b
+- dMpp_MKP3/dt = v3a - v3b
+- dMp_MKP3_dep/dt = v3b - v3c
+- dMp_MKP3/dt = v4a - v4b
+- dM_MKP3/dt = v4b - v4c
+
+Loss:
+- Compare simulated Mpp to the measured Mpp column.
+- Normalize residuals by max(abs(measured Mpp column)).
+- loss = sqrt(mean(normalized squared residuals)).
+
+Write out time, measured Mpp, simulated Mpp, and simulated Mp.

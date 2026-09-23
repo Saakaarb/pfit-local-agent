@@ -2,8 +2,13 @@ Critical errors:
 - none
 
 Warnings:
-- none
+- Large trainable parameter count detected; consider increasing population search budget.
+- The loss function compares the 'Mpp' column in linear scale, which spans several orders of magnitude. Consider comparing it in log/log10 space before normalization.
 
 Recommendations:
 - Large trainable parameter count detected; consider increasing population search budget.
 - Review generated/user_model.py and parameter bounds before JAX translation.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+
+Semantic review:
+The session is ready for JAX translation with minor recommendations and warnings.

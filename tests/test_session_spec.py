@@ -14,6 +14,7 @@ def test_load_session_spec_preserves_ordering():
     assert [param.name for param in spec.trainable_parameters] == ["k1", "k2", "k3"]
     assert [var.name for var in spec.integrated_variables] == ["y1", "y2", "y3"]
     assert spec.fixed_parameters[0].name == "unused_constant"
+    assert spec.integrator == "Kvaerno5"
 
 
 def test_session_spec_prompt_text_contains_vector_ordering():
@@ -29,3 +30,4 @@ def test_session_spec_prompt_text_contains_vector_ordering():
     assert "Runtime dataset columns after removing time:" in prompt_text
     assert "dataset[:, 0]: x1" in prompt_text
     assert "dataset[:, 1]: x2" in prompt_text
+    assert "Integrator: " in prompt_text

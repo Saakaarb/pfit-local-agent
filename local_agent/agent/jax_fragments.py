@@ -1,6 +1,7 @@
 import ast
 from dataclasses import dataclass
 import re
+import textwrap
 
 from local_agent.agent.llm_json import normalize_code_string, parse_llm_json_object
 from local_agent.agent.session_spec import SessionSpec
@@ -36,6 +37,7 @@ def parse_jax_fragments_response(response: str, session_spec: SessionSpec) -> Ja
             "writeout_body",
             fallback_key="writeout_description",
             code=True,
+            writeout=True,
         ),
         helper_functions=tuple(_parse_helper_functions(data.get("helper_functions", []))),
         review=_optional_string(data, "review"),
@@ -43,6 +45,31 @@ def parse_jax_fragments_response(response: str, session_spec: SessionSpec) -> Ja
     fragments = _normalize_helper_closures(fragments, session_spec)
     validate_jax_fragments(fragments, session_spec)
     return fragments
+
+
+def parse_jax_helpers_response(response: str) -> tuple[str, ...]:
+    data = parse_llm_json_object(response, "pfit-jax helpers")
+    return tuple(_parse_helper_functions(data.get("helper_functions", [])))
+
+
+def parse_jax_rhs_response(response: str, session_spec: SessionSpec) -> tuple[str, ...]:
+    data = parse_llm_json_object(response, "pfit-jax rhs")
+    rhs = data.get("rhs")
+    if not isinstance(rhs, list) or not all(isinstance(item, str) for item in rhs):
+        raise ValidationError("pfit-jax rhs must be a list of strings")
+    if len(rhs) != len(session_spec.integrated_variables):
+        rhs = _extract_rhs_from_function_lines(rhs)
+    if len(rhs) != len(session_spec.integrated_variables):
+        raise ValidationError(
+            "pfit-jax rhs length must match integrated variables: "
+            f"{len(rhs)} vs {len(session_spec.integrated_variables)}"
+        )
+    return tuple(_normalize_rhs_expression(item) for item in rhs)
+
+
+def parse_jax_body_response(response: str, key: str) -> str:
+    data = parse_llm_json_object(response, f"pfit-jax {key}")
+    return _require_string(data, key, code=True, writeout=(key == "writeout_body"))
 
 
 def validate_jax_fragments(fragments: JaxFragments, session_spec: SessionSpec) -> None:
@@ -88,9 +115,11 @@ def validate_jax_fragments(fragments: JaxFragments, session_spec: SessionSpec) -
     _validate_body(
         "writeout_body",
         fragments.writeout_body,
-        body_names,
+        body_names | {"np", "range"},
         helper_names=helper_names,
         require_return=True,
+        allow_np=True,
+        allow_nested_functions=True,
     )
     data_width = max(len(session_spec.data_column_names) - 1, 0)
     solution_width = len(session_spec.integrated_variables)
@@ -122,6 +151,7 @@ def render_generated_script_from_fragments(
 
     return f"""import jax
 import jax.numpy as jnp
+import numpy as np
 import diffrax
 from diffrax import RESULTS
 
@@ -150,7 +180,7 @@ def user_defined_system(t, y, other_args):
 @jax.jit
 def _integrate_system(constants, trainable_variables):
     term = diffrax.ODETerm(user_defined_system)
-    solver = diffrax.Tsit5()
+    solver = diffrax.{session_spec.integrator}()
     t_eval = constants["t_eval"]
     other_args = {{"constants": constants, "trainable_variables": trainable_variables}}
     sol = diffrax.diffeqsolve(
@@ -200,13 +230,20 @@ def _require_string(
     *,
     fallback_key: str | None = None,
     code: bool = False,
+    writeout: bool = False,
 ) -> str:
     value = data.get(key)
     if value is None and fallback_key is not None:
         value = data.get(fallback_key)
+    if isinstance(value, list) and all(isinstance(item, str) for item in value):
+        value = "\n".join(value)
     if not isinstance(value, str) or not value.strip():
         raise ValidationError(f"pfit-jax response is missing {key}")
-    return _normalize_fragment_code(value) if code else value.strip()
+    if not code:
+        return value.strip()
+    if writeout:
+        return _normalize_writeout_body_code(value)
+    return _normalize_body_code(value)
 
 
 def _optional_string(data: dict[str, object], key: str) -> str:
@@ -237,9 +274,13 @@ def _coerce_helper_function(value: object) -> object:
         return value
     name = value.get("name")
     body = value.get("body")
+    if body is None:
+        body = value.get("source")
+    if isinstance(body, list) and all(isinstance(item, str) for item in body):
+        body = "\n".join(body)
     if not isinstance(name, str) or not isinstance(body, str):
         return value
-    args = value.get("args", ["solution", "trainable_parameters", "fixed_parameters"])
+    args = value.get("args", value.get("arguments", ["solution", "trainable_parameters", "fixed_parameters"]))
     if not isinstance(args, list) or not all(isinstance(arg, str) for arg in args):
         args = ["solution", "trainable_parameters", "fixed_parameters"]
     normalized_body = normalize_code_string(body).strip()
@@ -259,14 +300,239 @@ def _normalize_rhs_expression(source: str) -> str:
     except SyntaxError:
         return normalized
     if len(parsed.body) == 1 and isinstance(parsed.body[0], ast.Assign):
-        return ast.unparse(parsed.body[0].value)
+        return _normalize_jax_expression_ast(parsed.body[0].value)
+    try:
+        expression = ast.parse(normalized, mode="eval")
+    except SyntaxError:
+        return normalized
+    return _normalize_jax_expression_ast(expression.body)
+
+
+def _normalize_jax_expression_ast(node: ast.AST) -> str:
+    normalized = _JaxBooleanNormalizer().visit(node)
+    ast.fix_missing_locations(normalized)
+    return ast.unparse(normalized)
     return normalized
+
+
+def _extract_rhs_from_function_lines(lines: list[str]) -> list[str]:
+    source = "".join(lines)
+    try:
+        parsed = ast.parse(source)
+    except SyntaxError:
+        source = "\n".join(lines)
+        try:
+            parsed = ast.parse(source)
+        except SyntaxError:
+            return lines
+
+    for function in ast.walk(parsed):
+        if not isinstance(function, ast.FunctionDef):
+            continue
+        extracted = _extract_rhs_from_function(function)
+        if extracted:
+            return extracted
+    return lines
+
+
+def _extract_rhs_from_function(function: ast.FunctionDef) -> list[str]:
+    assignments: dict[str, ast.AST] = {}
+    nested_functions: dict[str, ast.FunctionDef] = {}
+    for statement in function.body:
+        if isinstance(statement, ast.FunctionDef):
+            nested_functions[statement.name] = statement
+            continue
+        if not isinstance(statement, ast.Assign) or len(statement.targets) != 1:
+            continue
+        target = statement.targets[0]
+        if not isinstance(target, ast.Name) or _is_direct_rhs_binding(statement.value):
+            continue
+        assignments[target.id] = statement.value
+
+    for statement in function.body:
+        if not isinstance(statement, ast.Return):
+            continue
+        value = statement.value
+        if isinstance(value, ast.Name) and value.id in assignments:
+            value = assignments[value.id]
+        array_arg = _returned_array_argument(value)
+        if isinstance(array_arg, (ast.List, ast.Tuple)):
+            inliner = _RhsFunctionInliner(assignments, nested_functions)
+            return [ast.unparse(inliner.visit(item)) for item in array_arg.elts]
+    return []
+
+
+class _RhsFunctionInliner(ast.NodeTransformer):
+    def __init__(
+        self,
+        assignments: dict[str, ast.AST],
+        nested_functions: dict[str, ast.FunctionDef],
+    ):
+        self.assignments = assignments
+        self.nested_functions = nested_functions
+        self._stack: set[str] = set()
+
+    def visit_Name(self, node: ast.Name):
+        if not isinstance(node.ctx, ast.Load) or node.id not in self.assignments:
+            return node
+        if node.id in self._stack:
+            return node
+        self._stack.add(node.id)
+        try:
+            replacement = self.visit(self.assignments[node.id])
+        finally:
+            self._stack.remove(node.id)
+        return ast.copy_location(replacement, node)
+
+    def visit_Call(self, node: ast.Call):
+        self.generic_visit(node)
+        if not isinstance(node.func, ast.Name):
+            return node
+        function = self.nested_functions.get(node.func.id)
+        if function is None:
+            return node
+        return_value = _single_return_value(function)
+        if return_value is None:
+            return node
+        arg_map = {
+            arg.arg: value
+            for arg, value in zip(function.args.args, node.args)
+        }
+        replacement = _ArgumentSubstituter(arg_map).visit(return_value)
+        return ast.copy_location(self.visit(replacement), node)
+
+
+class _ArgumentSubstituter(ast.NodeTransformer):
+    def __init__(self, arg_map: dict[str, ast.AST]):
+        self.arg_map = arg_map
+
+    def visit_Name(self, node: ast.Name):
+        if isinstance(node.ctx, ast.Load) and node.id in self.arg_map:
+            return ast.copy_location(self.arg_map[node.id], node)
+        return node
+
+
+def _single_return_value(function: ast.FunctionDef) -> ast.AST | None:
+    returns = [node.value for node in ast.walk(function) if isinstance(node, ast.Return)]
+    if len(returns) == 1:
+        return returns[0]
+    return None
+
+
+def _is_direct_rhs_binding(node: ast.AST) -> bool:
+    return (
+        isinstance(node, ast.Subscript)
+        and isinstance(node.value, ast.Name)
+        and node.value.id in {"y", "trainable_parameters", "fixed_parameters"}
+    )
+
+
+def _returned_array_argument(node: ast.AST) -> ast.AST | None:
+    if not isinstance(node, ast.Call) or not node.args:
+        return None
+    func = node.func
+    if isinstance(func, ast.Attribute) and func.attr == "array":
+        return node.args[0]
+    if isinstance(func, ast.Name) and func.id in {"array", "jnp_array", "np_array"}:
+        return node.args[0]
+    return None
 
 
 def _normalize_fragment_code(source: str) -> str:
     normalized = re.sub(r"(?<![A-Za-z0-9_])np\.", "jnp.", normalize_code_string(source))
     normalized = _normalize_elementwise_range_loops(normalized)
-    return _normalize_jax_index_assignments(normalized)
+    normalized = _normalize_jax_index_assignments(normalized)
+    return _normalize_jax_boolean_code(normalized)
+
+
+def _normalize_jax_boolean_code(source: str) -> str:
+    try:
+        parsed = ast.parse(source)
+        mode = "exec"
+    except SyntaxError:
+        try:
+            parsed = ast.parse(source, mode="eval")
+            mode = "eval"
+        except SyntaxError:
+            return source
+    normalized = _JaxBooleanNormalizer().visit(parsed)
+    ast.fix_missing_locations(normalized)
+    if mode == "eval":
+        assert isinstance(normalized, ast.Expression)
+        return ast.unparse(normalized.body)
+    return ast.unparse(normalized)
+
+
+class _JaxBooleanNormalizer(ast.NodeTransformer):
+    def visit_BoolOp(self, node: ast.BoolOp) -> ast.AST:
+        self.generic_visit(node)
+        function_name = "logical_and" if isinstance(node.op, ast.And) else "logical_or"
+        values = list(node.values)
+        if not values:
+            return node
+        expression = values[0]
+        for value in values[1:]:
+            expression = ast.Call(
+                func=ast.Attribute(
+                    value=ast.Name(id="jnp", ctx=ast.Load()),
+                    attr=function_name,
+                    ctx=ast.Load(),
+                ),
+                args=[expression, value],
+                keywords=[],
+            )
+        return expression
+
+
+def _normalize_body_code(source: str) -> str:
+    normalized = _normalize_fragment_code(source)
+    unwrapped = _unwrap_single_function_body(normalized)
+    if unwrapped != normalized:
+        return unwrapped
+    return _unwrap_single_function_body(_normalize_fragment_code(_dedent_body_source(source)))
+
+
+def _normalize_writeout_body_code(source: str) -> str:
+    normalized = normalize_code_string(source)
+    unwrapped = _unwrap_single_function_body(normalized)
+    if unwrapped != normalized:
+        return unwrapped
+    return _unwrap_single_function_body(_dedent_body_source(source))
+
+
+def _dedent_body_source(source: str) -> str:
+    normalized = normalize_code_string(source)
+    lines = normalized.splitlines()
+    if len(lines) <= 1:
+        return normalized
+    first_index = next((index for index, line in enumerate(lines) if line.strip()), None)
+    if first_index is None:
+        return ""
+    first_indent = len(lines[first_index]) - len(lines[first_index].lstrip())
+    if first_indent == 0:
+        tail_indents = [
+            len(line) - len(line.lstrip())
+            for line in lines[first_index + 1 :]
+            if line.strip()
+        ]
+        positive_tail = [indent for indent in tail_indents if indent > 0]
+        if positive_tail and len(positive_tail) == len(tail_indents):
+            trim = min(positive_tail)
+            lines = lines[: first_index + 1] + [
+                line[trim:] if line.strip() else line
+                for line in lines[first_index + 1 :]
+            ]
+    return textwrap.dedent("\n".join(lines)).strip()
+
+
+def _unwrap_single_function_body(source: str) -> str:
+    try:
+        parsed = ast.parse(source)
+    except SyntaxError:
+        return source
+    if len(parsed.body) == 1 and isinstance(parsed.body[0], ast.FunctionDef):
+        return "\n".join(ast.unparse(statement) for statement in parsed.body[0].body)
+    return source
 
 
 def _normalize_jax_index_assignments(source: str) -> str:
@@ -491,6 +757,8 @@ def _validate_body(
     *,
     helper_names: set[str],
     require_return: bool,
+    allow_np: bool = False,
+    allow_nested_functions: bool = False,
 ) -> None:
     try:
         parsed = ast.parse("def _fragment():\n" + _indent_for_parse(body))
@@ -501,12 +769,17 @@ def _validate_body(
     assert isinstance(function, ast.FunctionDef)
     if require_return and not any(isinstance(node, ast.Return) for node in ast.walk(function)):
         raise ValidationError(f"pfit-jax {label} must return a value")
+    local_names = _assigned_names(function)
+    if allow_nested_functions:
+        local_names |= _nested_function_names(function)
     _validate_ast(
         function,
-        allowed_names | _assigned_names(function),
+        allowed_names | local_names,
         label=label,
         helper_names=helper_names,
         allow_root_function=True,
+        allow_np=allow_np,
+        allow_nested_functions=allow_nested_functions,
     )
 
 
@@ -618,6 +891,8 @@ def _validate_ast(
     label: str,
     helper_names: set[str],
     allow_root_function: bool = False,
+    allow_np: bool = False,
+    allow_nested_functions: bool = False,
 ) -> None:
     banned_nodes = (
         ast.Import,
@@ -636,10 +911,12 @@ def _validate_ast(
     for child in ast.walk(node):
         if child is node and allow_root_function and isinstance(child, ast.FunctionDef):
             continue
+        if child is not node and allow_nested_functions and isinstance(child, ast.FunctionDef):
+            continue
         if isinstance(child, banned_nodes):
             raise ValidationError("pfit-jax fragments must not define imports, functions, or classes")
         if isinstance(child, ast.Name):
-            if child.id == "np":
+            if child.id == "np" and not allow_np:
                 raise ValidationError("pfit-jax fragments must use jnp, not np")
             if isinstance(child.ctx, ast.Load) and child.id not in allowed_names:
                 raise ValidationError(_unknown_name_message(label, child.id))
@@ -683,6 +960,16 @@ def _assigned_names(node: ast.AST) -> set[str]:
     for child in ast.walk(node):
         if isinstance(child, ast.Name) and isinstance(child.ctx, ast.Store):
             names.add(child.id)
+    return names
+
+
+def _nested_function_names(node: ast.AST) -> set[str]:
+    names: set[str] = set()
+    for child in ast.walk(node):
+        if isinstance(child, ast.FunctionDef):
+            names.add(child.name)
+            names.update(arg.arg for arg in child.args.args)
+            names.update(_assigned_names(child))
     return names
 
 

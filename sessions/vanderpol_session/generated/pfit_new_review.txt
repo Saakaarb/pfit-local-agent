@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided context.
+The Van der Pol oscillator equations have been extracted correctly.
+The CSV columns 'x1' and 'x2' directly measure the integrated states 'x1' and 'x2' respectively.
+The user wants to fit the Van der Pol oscillator to the provided dataset, comparing the simulated states x1 and x2 directly to the measured columns. The loss should be normalized by the maximum absolute value of each measured column and then averaged.

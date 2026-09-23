@@ -26,7 +26,7 @@ class YAMLReader:
         self.pso_stepsize_atol = None
         self.population_stepsize_rtol = None
         self.population_stepsize_atol = None
-        self.algorithm = "PSO"
+        self.algorithm = "DE"
         self.random_seed = None
 
         self.n_iters_grad = None
@@ -34,12 +34,13 @@ class YAMLReader:
         self.stepsize_atol = None
         self.init_timestep = None
         self.max_steps = None
+        self.integrator = "Tsit5"
         self.init_time = None
         self.init_value_lr = None
         self.end_value_lr = None
         self.transition_steps_lr = None
         self.decay_rate_lr = None
-        self.error_loss = 5000.0
+        self.error_loss = 1.0e30
 
         self.filename_data = None
         self.data_column_index = []
@@ -118,6 +119,7 @@ class YAMLReader:
         if gradient.get("initial_time") is not None:
             self.init_time = float(gradient["initial_time"])
         self.max_steps = int(gradient.get("max_steps", 10000))
+        self.integrator = str(gradient.get("integrator", self.integrator))
         self.init_value_lr = float(gradient.get("init_value_lr", 1e-4))
         self.end_value_lr = float(gradient.get("end_value_lr", 1e-5))
         self.transition_steps_lr = float(gradient.get("transition_steps_lr", 2000))

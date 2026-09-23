@@ -1,0 +1,4 @@
+The integrated state variables and initial values have been extracted from the provided context.
+The ODE system and derived observable are correctly specified. The RHS expressions for the integrated states are provided.
+The CSV column 'C_plasma' directly measures the derived quantity 'C_plasma' from the model.
+The user wants to fit a one-compartment oral theophylline pharmacokinetic model to theophylline_sub6.csv. The loss should compare simulated C_plasma to the measured C_plasma column, normalized by the max(abs(measured C_plasma column)).

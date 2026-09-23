@@ -42,6 +42,51 @@ def test_jax_fragments_accept_helper_functions():
     validate_generated_script_contract(script_path)
 
 
+def test_jax_fragments_render_configured_integrator():
+    spec = load_session_spec(Path("tests/robertson_session/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": [
+                "-k1 * y1 + k3 * y3 * y2",
+                "k1 * y1 - k2 * y2**2 - k3 * y2 * y3",
+                "k2 * y2**2",
+            ],
+            "loss_body": "return jnp.mean(jnp.square(solution - dataset))",
+            "writeout_body": "return jnp.concatenate((solution_time[:, None], dataset, solution), axis=1)",
+            "review": "integrator smoke",
+        }
+    )
+
+    fragments = parse_jax_fragments_response(response, spec)
+    script = render_generated_script_from_fragments(fragments, spec)
+
+    assert "solver = diffrax.Kvaerno5()" in script
+
+
+def test_jax_fragments_normalize_python_bool_ops_to_jax_logical_ops():
+    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": [
+                "v1",
+                "v2",
+                "(k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1",
+                "jnp.where(jnp.abs(-k * (x2 - x1)) < c2 and jnp.abs(v2) < vf, 0, (-k * (x2 - x1) - c2 * jnp.sign(v2)) / m2)",
+                "Dk * jnp.abs(v1)",
+                "Dc * jnp.abs(v1)",
+            ],
+            "loss_body": "return jnp.mean(solution[:, 0])",
+            "writeout_body": "return solution",
+            "review": "bool op normalization",
+        }
+    )
+
+    fragments = parse_jax_fragments_response(response, spec)
+
+    assert "jnp.logical_and" in fragments.rhs[3]
+    assert " and " not in fragments.rhs[3]
+
+
 def test_jax_fragments_accept_helper_function_object():
     spec = load_session_spec(Path("tests/vanderpol_session/inputs/user_input.yaml"))
     response = json.dumps(
@@ -82,6 +127,147 @@ def test_jax_fragments_strips_rhs_assignment_prefix():
     fragments = parse_jax_fragments_response(response, spec)
 
     assert fragments.rhs == ("x2", "-mu * x1")
+
+
+def test_jax_rhs_response_extracts_returned_array_from_function_lines():
+    spec = load_session_spec(Path("tests/vanderpol_session/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": [
+                "def rhs(t, y):\n",
+                "    dx1dt = x2\n",
+                "    dx2dt = -mu * x1\n",
+                "    return jnp.array([dx1dt, dx2dt])\n",
+            ],
+            "review": "",
+        }
+    )
+
+    from local_agent.agent.jax_fragments import parse_jax_rhs_response
+
+    rhs = parse_jax_rhs_response(response, spec)
+
+    assert rhs == ("x2", "-mu * x1")
+
+
+def test_jax_rhs_response_inlines_function_local_derivatives():
+    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": [
+                "def rhs(t, y, trainable_parameters, fixed_parameters, dataset, t_eval):\n",
+                "    c2 = trainable_parameters['c2']\n",
+                "    m1 = trainable_parameters['m1']\n",
+                "    vf = fixed_parameters['vf']\n",
+                "    x1 = y[0]\n",
+                "    x2 = y[1]\n",
+                "    v1 = y[2]\n",
+                "    v2 = y[3]\n",
+                "    k = y[4]\n",
+                "    c1 = y[5]\n",
+                "    def F1(Fs, c1, v1):\n",
+                "        return Fs - c1 * jnp.abs(v1) * jnp.sign(v1)\n",
+                "    def F2(Fs, c2, v2):\n",
+                "        return jnp.where((jnp.abs(Fs) < c2) & (jnp.abs(v2) < vf), 0, Fs - c2 * jnp.sign(v2))\n",
+                "    Fs = k * (x2 - x1)\n",
+                "    dx1dt = v1\n",
+                "    dx2dt = v2\n",
+                "    dv1dt = (1 / m1) * F1(Fs, c1, v1)\n",
+                "    dv2dt = F2(-Fs, c2, v2)\n",
+                "    derivatives = jnp.array([dx1dt, dx2dt, dv1dt, dv2dt, k, c1])\n",
+                "    return derivatives\n",
+            ],
+            "review": "",
+        }
+    )
+
+    from local_agent.agent.jax_fragments import parse_jax_rhs_response
+
+    rhs = parse_jax_rhs_response(response, spec)
+
+    assert rhs[0] == "v1"
+    assert "F1" not in rhs[2]
+    assert "k * (x2 - x1)" in rhs[2]
+    assert "jnp.where" in rhs[3]
+
+
+def test_jax_fragments_accept_list_bodies_and_helper_body_lists():
+    spec = load_session_spec(Path("tests/vanderpol_session/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": ["x2", "-mu * x1"],
+            "helper_functions": [
+                {
+                    "name": "helper",
+                    "arguments": ["solution"],
+                    "body": ["value = solution[:, 0]", "return value"],
+                }
+            ],
+            "loss_body": [
+                "value = helper(solution)",
+                "return value[0]",
+            ],
+            "writeout_body": [
+                "value = helper(solution)",
+                "return jnp.column_stack((solution_time, value))",
+            ],
+            "review": "",
+        }
+    )
+
+    fragments = parse_jax_fragments_response(response, spec)
+
+    assert "def helper(solution):" in fragments.helper_functions[0]
+    assert "return value[0]" in fragments.loss_body
+
+
+def test_jax_fragments_unwraps_function_body_fields():
+    spec = load_session_spec(Path("tests/vanderpol_session/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": ["x2", "-mu * x1"],
+            "loss_body": (
+                "def loss_body(solution_time, solution, dataset, trainable_parameters, fixed_parameters):\n"
+                "    value = jnp.mean(solution[:, 0])\n"
+                "    return value"
+            ),
+            "writeout_body": (
+                "def writeout_body(solution_time, solution, dataset, trainable_parameters, fixed_parameters):\n"
+                "    return solution"
+            ),
+            "review": "",
+        }
+    )
+
+    fragments = parse_jax_fragments_response(response, spec)
+
+    assert not fragments.loss_body.startswith("def ")
+    assert "return value" in fragments.loss_body
+
+
+def test_jax_fragments_dedents_body_after_flush_left_first_line():
+    spec = load_session_spec(Path("tests/vanderpol_session/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": ["x2", "-mu * x1"],
+            "loss_body": (
+                "value = jnp.mean(solution[:, 0])\n"
+                "    other = jnp.mean(dataset[:, 0])\n"
+                "    return value + other"
+            ),
+            "writeout_body": (
+                "value = solution[:, 0]\n"
+                "    return jnp.column_stack((solution_time, value))"
+            ),
+            "review": "",
+        }
+    )
+
+    fragments = parse_jax_fragments_response(response, spec)
+
+    assert "    other" not in fragments.loss_body
+    assert "other = jnp.mean" in fragments.loss_body
+    assert "return value + other" in fragments.loss_body
 
 
 def test_jax_fragments_accept_underscore_observable_helper():
@@ -270,10 +456,11 @@ def test_jax_fragments_splits_packed_helper_functions_and_normalizes_np():
     assert "sim = np.stack" not in fragments.loss_body
     assert "return np.mean" not in fragments.loss_body
     assert "jnp.stack" in fragments.loss_body
-    assert "jnp.zeros" in fragments.writeout_body
+    assert "np.zeros" in fragments.writeout_body
+    assert "np.column_stack" in fragments.writeout_body
 
 
-def test_jax_fragments_normalizes_index_assignment_to_at_set():
+def test_jax_fragments_preserves_python_writeout_assignment():
     spec = load_session_spec(Path("tests/robertson_session/inputs/user_input.yaml"))
     response = json.dumps(
         {
@@ -290,8 +477,44 @@ def test_jax_fragments_normalizes_index_assignment_to_at_set():
 
     fragments = parse_jax_fragments_response(response, spec)
 
-    assert "writeout_array = writeout_array.at[:, 0].set(solution_time)" in fragments.writeout_body
-    assert "writeout_array = writeout_array.at[:, 1:4].set(dataset)" in fragments.writeout_body
+    assert "writeout_array[:, 0] = solution_time" in fragments.writeout_body
+    assert "writeout_array[:, 1:4] = dataset" in fragments.writeout_body
+
+
+def test_jax_fragments_accept_python_writeout_loop_and_nested_helper():
+    spec = load_session_spec(Path("tests/robertson_session/inputs/user_input.yaml"))
+    response = json.dumps(
+        {
+            "rhs": [
+                "-k1 * y1 + k3 * y3 * y2",
+                "k1 * y1 - k2 * y2**2 - k3 * y2 * y3",
+                "k2 * y2**2",
+            ],
+            "loss_body": "return jnp.mean(jnp.square(solution - dataset))",
+            "writeout_body": "\n".join(
+                [
+                    "Nts = solution_time.shape[0]",
+                    "out = np.zeros((Nts, 5))",
+                    "def force(Fs, c1, v1):",
+                    "    return Fs - c1 * np.abs(v1) * np.sign(v1)",
+                    "Fs = solution[:, 1] - solution[:, 0]",
+                    "for i in range(Nts):",
+                    "    out[i, 0] = solution_time[i]",
+                    "    out[i, 1] = dataset[i, 0]",
+                    "    out[i, 2] = force(Fs[i], solution[i, 2], solution[i, 0])",
+                    "return out",
+                ]
+            ),
+            "review": "python writeout",
+        }
+    )
+
+    fragments = parse_jax_fragments_response(response, spec)
+    script = render_generated_script_from_fragments(fragments, spec)
+
+    assert "import numpy as np" in script
+    assert "for i in range(Nts)" in fragments.writeout_body
+    assert "def force" in fragments.writeout_body
 
 
 def test_jax_fragments_vectorizes_simple_range_fill_loop():

@@ -1,78 +1,42 @@
 experiments:
-- data_file: correct_units_piezo_electric_actuator.csv
-  columns:
-  - name: time
-  - name: xp
-    observes: xp
-  - name: vp
-    observes: vp
-  - name: h
-    observes: h
+  - data_file: correct_units_piezo_electric_actuator.csv
+    columns:
+      - {name: time}
+      - {name: xp, observes: xp}
+
 model:
   trainable_parameters:
-  - name: alpha
-    min_val: 0.0
-    max_val: 1.0
-    logscale: false
-  - name: beta
-    min_val: 0.0
-    max_val: 0.1
-    logscale: false
-  - name: gamma
-    min_val: 0.0
-    max_val: 0.1
-    logscale: false
-  - name: cp
-    min_val: 20.0
-    max_val: 30.0
-    logscale: false
-  - name: kp
-    min_val: 10000000.0
-    max_val: 15000000.0
-    logscale: true
-  - name: de
-    min_val: 1.0e-07
-    max_val: 1.5e-07
-    logscale: true
+    - {name: alpha, min_val: 0.0, max_val: 1.0, logscale: false}
+    - {name: beta, min_val: 0.0, max_val: 0.1, logscale: false}
+    - {name: gamma, min_val: 0.0, max_val: 0.1, logscale: false}
+    - {name: cp, min_val: 20.0, max_val: 30.0, logscale: false}
+    - {name: kp, min_val: 10000000.0, max_val: 15000000.0, logscale: true}
+    - {name: de, min_val: 1e-07, max_val: 1.5e-07, logscale: true}
   fixed_parameters:
-  - name: mp
-    value: 0.1
+    - {name: mp, value: 0.1}
   integrated_variables:
-  - name: xp
-    init_val: 0.0
-  - name: vp
-    init_val: 0.0
-  - name: h
-    init_val: 0.0
+    - {name: xp, init_val: 0.0}
+    - {name: vp, init_val: 0.0}
+    - {name: h, init_val: 0.0}
+  observables: []
+
 population_opt:
-  population_size: 200
-  num_iters: 50
-  processors: 8
-  algorithm: PSO
-  stepsize_rtol:
-  - 1.0
-  - 1.0
-  - 1.0
-  stepsize_atol:
-  - 0.001
-  - 0.001
-  - 0.001
+  population_size: 16
+  num_iters: 5
+  processors: 1
+  algorithm: DE
+
 gradient_opt:
-  num_iters: 10
-  stepsize_rtol:
-  - 1.0
-  - 1.0
-  - 1.0
-  stepsize_atol:
-  - 1.0e-08
-  - 1.0e-05
-  - 1.0e-10
-  initial_timestep: 0.01
+  num_iters: 5
+  stepsize_rtol: [1e-7, 1e-7, 1e-7]
+  stepsize_atol: [1e-9, 1e-9, 1e-9]
+  initial_timestep: 1e-6
   max_steps: 10000
-  init_value_lr: 0.0001
-  end_value_lr: 1.0e-05
-  transition_steps_lr: 500.0
+  integrator: Kvaerno5
+  init_value_lr: 1e-4
+  end_value_lr: 1e-5
+  transition_steps_lr: 2000
   decay_rate_lr: 0.9
-  initial_time: 0.0
+
 output:
   write_results: true

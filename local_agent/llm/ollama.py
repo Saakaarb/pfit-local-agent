@@ -93,6 +93,10 @@ class OllamaClient(LLMClient):
                     if content:
                         chunks.append(content)
                         print(content, end="", file=sys.stderr, flush=True)
+                        completed = _first_complete_json_object("".join(chunks))
+                        if completed is not None:
+                            print("", file=sys.stderr, flush=True)
+                            return completed
                     if item.get("done"):
                         print("", file=sys.stderr, flush=True)
                         return "".join(chunks)
@@ -116,3 +120,33 @@ class OllamaClient(LLMClient):
             f"Ollama stream ended without a done event from {url}",
             partial_response="".join(chunks),
         )
+
+
+def _first_complete_json_object(text: str) -> str | None:
+    start = text.find("{")
+    if start < 0:
+        return None
+    depth = 0
+    in_string = False
+    escaped = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+            continue
+        if char == "{":
+            depth += 1
+            continue
+        if char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start : index + 1]
+    return None

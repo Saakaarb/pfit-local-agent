@@ -44,10 +44,10 @@ def test_validate_session_allows_observed_transforms_or_state_subsets(tmp_path):
     assert result.n_integrated_variables == 1
 
 
-def test_parse_input_yaml_defaults_to_pso(tmp_path):
+def test_parse_input_yaml_defaults_to_de(tmp_path):
     reader = parse_input_yaml(_write_yaml(tmp_path, _minimal_yaml()))
 
-    assert reader.algorithm == "PSO"
+    assert reader.algorithm == "DE"
     assert reader.random_seed is None
 
 
@@ -81,6 +81,21 @@ def test_parse_input_yaml_rejects_unknown_population_algorithm(tmp_path):
         parse_input_yaml(yaml_path)
 
 
+def test_parse_input_yaml_accepts_configured_integrator(tmp_path):
+    reader = parse_input_yaml(
+        _write_yaml(tmp_path, _minimal_yaml(integrator="Kvaerno5"))
+    )
+
+    assert reader.integrator == "Kvaerno5"
+
+
+def test_parse_input_yaml_rejects_unknown_integrator(tmp_path):
+    yaml_path = _write_yaml(tmp_path, _minimal_yaml(integrator="BogusSolver"))
+
+    with pytest.raises(ValidationError, match="Unsupported gradient_opt integrator"):
+        parse_input_yaml(yaml_path)
+
+
 def test_validate_session_allows_nan_measurements(tmp_path):
     yaml_path = _write_yaml(tmp_path, _minimal_yaml())
     yaml_path.parent.joinpath("data.csv").write_text("0.0,1.0,0.0\n1.0,nan,0.1\n")
@@ -103,10 +118,11 @@ def _minimal_yaml(
     data_file: str = "data.csv",
     parameter_name: str = "k",
     variable_name: str = "y",
-    algorithm: str = "PSO",
+    algorithm: str = "DE",
     random_seed: int | None = None,
     population_rtol: str = "null",
     population_atol: str = "null",
+    integrator: str = "Tsit5",
 ) -> str:
     random_seed_line = "" if random_seed is None else f"  random_seed: {random_seed}\n"
     return f"""experiments:
@@ -136,6 +152,7 @@ gradient_opt:
   stepsize_atol: [1e-9]
   initial_timestep: 1e-6
   max_steps: 100
+  integrator: {integrator}
   init_value_lr: 1e-4
   end_value_lr: 1e-5
   transition_steps_lr: 10

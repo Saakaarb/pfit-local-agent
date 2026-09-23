@@ -1,6 +1,7 @@
 import pytest
 
 from local_agent.agent.llm_json import parse_llm_json_object
+from local_agent.llm.ollama import _first_complete_json_object
 
 
 pytestmark = pytest.mark.unit
@@ -22,3 +23,10 @@ def test_parse_llm_json_object_accepts_fenced_json():
     )
 
     assert data == {"critical_errors": []}
+
+
+def test_stream_json_detection_waits_for_outer_object():
+    partial = '{"items": [{"name": "k1"}'
+
+    assert _first_complete_json_object(partial) is None
+    assert _first_complete_json_object(partial + "]}") == partial + "]}"

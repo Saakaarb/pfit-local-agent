@@ -1,0 +1,24 @@
+Fit diagnosis
+
+Session: sessions/ARC_fitting/outputs/run_20260923_002907
+Run directory: sessions/ARC_fitting/outputs/run_20260923_002907/outputs
+
+Artifacts:
+- final_design_point.csv: missing
+- result_solution.csv: missing
+- pso_fitting.log: missing
+- de_fitting.log: missing
+- NODE_fitting.log: missing
+- fitting_error.txt: missing
+
+Optimizer summary:
+- PSO: no parseable optimizer rows
+- NODE: no parseable optimizer rows
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- No final design point found; rerun fitting or inspect optimizer logs.
+- Global-search log missing; verify the PSO/DE stage ran.
+- NODE log missing; verify the gradient-refinement stage ran.

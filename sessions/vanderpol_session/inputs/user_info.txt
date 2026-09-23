@@ -1,0 +1,24 @@
+Fit the Van der Pol oscillator to vanderpol_data.csv.
+
+Dataset columns:
+- time
+- x1, observed x1 state
+- x2, observed x2 state
+
+Integrated states and initial values:
+- x1(0) = 2.0
+- x2(0) = 0.1
+
+Trainable parameter:
+- mu in [0.001, 100.0], log scale
+
+ODE system:
+- dx1/dt = mu * (x2 - ((1/3) * x1^3 - x1))
+- dx2/dt = -(1 / mu) * x1
+
+Loss:
+- Compare simulated x1 and x2 directly to the two measured columns.
+- Normalize each residual column by max(abs(measured column)).
+- loss = sqrt(mean(all normalized squared residuals)).
+
+Write out time, measured x1, measured x2, simulated x1, and simulated x2.

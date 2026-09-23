@@ -1,2 +1,29 @@
-email: saakaar28@gmail.com
-login_time: 2025-08-28T15:42:31.903436
+Fit the stiff Robertson chemical kinetics model to robertson_data.csv.
+
+Dataset columns:
+- time
+- y1, observed y1
+- y2, observed y2
+- y3, observed y3
+
+Integrated states and initial values:
+- y1(0) = 1.0
+- y2(0) = 0.0
+- y3(0) = 0.0
+
+Trainable parameters, all log scale:
+- k1 in [0.001, 10.0]
+- k2 in [5000.0, 50000000000.0]
+- k3 in [1.0, 100000000.0]
+
+ODE system:
+- dy1/dt = -k1 * y1 + k3 * y3 * y2
+- dy2/dt = k1 * y1 - k2 * y2^2 - k3 * y2 * y3
+- dy3/dt = k2 * y2^2
+
+Loss:
+- Compare simulated y1, y2, and y3 directly to the three measured columns.
+- Normalize each residual column by max(abs(measured column)).
+- loss = sqrt(mean(all normalized squared residuals)).
+
+This system is stiff. Use Kvaerno5 for gradient integration if the generated configuration supports choosing an integrator.

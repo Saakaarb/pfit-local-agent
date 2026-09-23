@@ -1,0 +1,28 @@
+Fit the Lotka-Volterra predator-prey model to lynx_hare.csv.
+
+Dataset columns:
+- time in years
+- H, observed hare population in thousands
+- L, observed lynx population in thousands
+
+Integrated states and initial values:
+- H(0) = 30.0
+- L(0) = 4.0
+
+Trainable parameters, all log scale:
+- alpha in [0.1, 2.0]
+- beta in [0.001, 0.5]
+- delta in [0.001, 0.5]
+- gamma in [0.1, 2.0]
+
+ODE system:
+- dH/dt = alpha * H - beta * H * L
+- dL/dt = delta * H * L - gamma * L
+
+Loss:
+- Compare simulated H and L directly to the two measured columns.
+- Use one normalized squared-error term per observed state.
+- For each observed column, normalize residuals by max(abs(measured column)).
+- loss = sqrt(mean(all normalized squared residuals)).
+
+Write out time, measured H, measured L, simulated H, and simulated L.

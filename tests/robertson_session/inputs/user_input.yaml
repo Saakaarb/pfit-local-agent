@@ -36,7 +36,7 @@ population_opt:
   population_size: 100
   num_iters: 20
   processors: 8
-  algorithm: PSO
+  algorithm: DE
 gradient_opt:
   num_iters: 10
   stepsize_rtol:
@@ -53,5 +53,6 @@ gradient_opt:
   end_value_lr: 1.0e-05
   transition_steps_lr: 2000.0
   decay_rate_lr: 0.9
+  integrator: Kvaerno5
 output:
   write_results: true

@@ -24,7 +24,7 @@ Return this JSON object:
   "rhs": ["JAX expression for derivative 0", "JAX expression for derivative 1"],
   "helper_functions": ["optional JAX helper function source"],
   "loss_body": "JAX-compatible body for the loss function",
-  "writeout_body": "JAX-compatible body for the writeout function",
+  "writeout_body": "Python-compatible body for the writeout function",
   "review": "short note about assumptions"
 }
 
@@ -52,11 +52,37 @@ Rules:
 - loss_body is inserted into a function where these names already exist:
   solution_time, solution, dataset, trainable_parameters, fixed_parameters, jnp,
   named trainable parameters, named fixed parameters, and helper functions.
-- writeout_body is inserted into a function with the same names as loss_body.
+- writeout_body is inserted into a function with the same names as loss_body,
+  plus np.
 - loss_body must return a scalar loss.
 - writeout_body must return a 2D writeout array.
+- Preserve dataset-column transforms exactly from user_model.py. If user_model.py
+  computes values such as `F_exp = 1000.0 * dataset[:, 0]`, offsets,
+  normalizations, unit conversions, clipping, logs, or other transformed
+  measurements before comparison or writeout, loss_body and writeout_body must
+  use those transformed values. Do not compare simulated quantities to raw
+  dataset columns, or write raw dataset columns, when user_model.py transforms
+  those columns first.
+- Preserve the loss algebra exactly. Do not change MSE into RMSE, do not add
+  square roots, do not add masks, and do not add positivity or finite-value
+  filters unless those operations already appear in user_model.py.
+- If user_model.py uses `np.mean(np.square((sim - data) / scale))`, translate it
+  directly to `jnp.mean(jnp.square((sim - data) / scale))`.
+- writeout_body is not differentiated and is not jitted. It may use ordinary
+  Python, NumPy as np, direct array assignment, and simple loops when that
+  preserves user_model.py writeout semantics.
+- Before returning, verify every name used in loss_body or writeout_body is
+  either solution_time, solution, dataset, trainable_parameters,
+  fixed_parameters, jnp, a named trainable parameter, a named fixed parameter,
+  a helper function listed in helper_functions, or assigned earlier in that
+  same body.
+- Preserve the user's writeout columns, ordering, and derived quantities. If
+  user_model.py computes a value used in the returned writeout array, recompute
+  that value in writeout_body or call an explicit helper; do not replace derived
+  writeout values with raw solution columns unless user_model.py does so.
 - The output key must be named writeout_body, not writeout_description.
-- Translate np to jnp.
+- Translate np to jnp in rhs, helper_functions, and loss_body. writeout_body may
+  keep NumPy as np.
 - Inline simple one-use RHS intermediates such as rates or fluxes directly inside rhs
   expressions. Only put them in helper_functions if rhs calls the helper explicitly.
 - Preserve complex reusable intermediates as helper_functions when inlining would make rhs

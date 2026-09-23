@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+import csv
 
 import numpy as np
 
@@ -49,11 +50,7 @@ def validate_session(session_dir: Path) -> SessionValidation:
     if not dataset_path.exists():
         raise ValidationError(f"Dataset file not found: {dataset_path}")
 
-    try:
-        with dataset_path.open("r", encoding="utf-8-sig") as handle:
-            dataset = np.genfromtxt(handle, dtype=float, delimiter=",")
-    except Exception as exc:
-        raise ValidationError(f"Could not read numeric dataset {dataset_path}: {exc}") from exc
+    dataset = _load_numeric_csv(dataset_path)
 
     if dataset.size == 0:
         raise ValidationError(f"Dataset is empty: {dataset_path}")
@@ -87,11 +84,7 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
         raise ValidationError(str(exc)) from exc
     reader = parse_input_yaml(Path(session_dir) / "inputs" / "user_input.yaml")
     dataset_path = Path(session_dir) / reader.user_input_dirname / reader.filename_data
-    try:
-        with dataset_path.open("r", encoding="utf-8-sig") as handle:
-            all_data = np.genfromtxt(handle, dtype=float, delimiter=",")
-    except Exception as exc:
-        raise ValidationError(f"Could not load dataset for smoke test: {exc}") from exc
+    all_data = _load_numeric_csv(dataset_path)
 
     if all_data.ndim != 2 or all_data.shape[1] < 2:
         raise ValidationError("Smoke-test dataset must contain time plus data columns")
@@ -169,6 +162,41 @@ def import_generated_script(script_path: Path):
         raise ValidationError(str(exc)) from exc
 
 
+def _load_numeric_csv(path: Path) -> np.ndarray:
+    try:
+        with path.open("r", encoding="utf-8-sig") as handle:
+            data = np.genfromtxt(
+                handle,
+                dtype=float,
+                delimiter=",",
+                skip_header=1 if _csv_has_header(path) else 0,
+            )
+    except Exception as exc:
+        raise ValidationError(f"Could not read numeric dataset {path}: {exc}") from exc
+    return np.atleast_2d(data)
+
+
+def _csv_has_header(path: Path) -> bool:
+    try:
+        with path.open(newline="", encoding="utf-8-sig") as handle:
+            row = next(csv.reader(handle), None)
+    except UnicodeDecodeError:
+        return False
+    if not row:
+        return False
+    return not all(_is_float(cell.strip()) for cell in row)
+
+
+def _is_float(value: str) -> bool:
+    if not value:
+        return False
+    try:
+        float(value)
+    except ValueError:
+        return False
+    return True
+
+
 def _validate_reader(reader: YAMLReader, input_yaml: Path) -> None:
     if reader.filename_data is None:
         raise ValidationError(f"Missing data_file in {input_yaml}")
@@ -209,3 +237,7 @@ def _validate_reader(reader: YAMLReader, input_yaml: Path) -> None:
         raise ValidationError(f"Missing initial_timestep in {input_yaml}")
     if reader.max_steps is None:
         raise ValidationError(f"Missing max_steps in {input_yaml}")
+    if reader.integrator not in {"Tsit5", "Dopri5", "Dopri8", "Kvaerno5"}:
+        raise ValidationError(
+            f"Unsupported gradient_opt integrator in {input_yaml}: {reader.integrator}"
+        )

@@ -1,0 +1,4 @@
+The initial values for the integrated states xp, vp, and h are provided.
+The ODE system and parameter fitting workflow for the piezoelectric actuator Bouc-Wen hysteresis model have been extracted based on the provided user information and session files.
+The CSV column 'xp' directly measures the integrated state 'xp'.
+The user provided a custom loss function that compares the simulated xp to the measured xp, normalizes the residuals by the maximum absolute value of the measured xp, and calculates the loss as the square root of the mean of the normalized squared residuals.

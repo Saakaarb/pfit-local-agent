@@ -36,16 +36,7 @@ Previous fragment response:
 
 $previous_response
 
-Rendered generated_script.py, if available:
-
-$generated_script
-
-Return only the corrected pfit-jax fragment JSON object now:
-{
-  "rhs": [],
-  "helper_functions": [],
-  "loss_body": "",
-  "writeout_body": "",
-  "review": ""
-}
+Return the full corrected pfit-jax fragment JSON object now. Start from
+previous_response, repair only the field named or implied by the validation
+error, and copy all other fields exactly.
 The first character of your response must be `{`. Do not explain the model. Do not include Markdown fences.

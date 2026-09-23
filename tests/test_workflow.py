@@ -7,11 +7,13 @@ from local_agent.agent.config import WorkflowConfig
 from local_agent.agent.prompts import PromptRenderer
 from local_agent.agent.workflow import (
     LocalWorkflow,
+    _deterministic_custom_loss_body,
     _helper_function_inventory,
     _inline_referenced_rhs_intermediates,
     _inject_referenced_helper_definitions,
     _pfit_claude_jax_reference,
     _rhs_intermediate_inventory,
+    _standard_loss_and_writeout_bodies,
 )
 from local_agent.agent.session_spec import load_session_spec
 from local_agent.llm.fake import FakeLLMClient
@@ -34,11 +36,39 @@ VALID_FRAGMENTS = json.dumps(
     }
 )
 
+VALID_HELPERS = json.dumps({"helper_functions": [], "review": ""})
+VALID_RHS = json.dumps({"rhs": ["x2", "-mu * x1"], "helper_functions": [], "review": ""})
+VALID_LOSS = json.dumps(
+    {
+        "loss_body": "\n".join(
+            [
+                "scale = jnp.maximum(jnp.max(jnp.abs(dataset), axis=0), 1e-12)",
+                "return jnp.mean(jnp.square((solution - dataset) / scale))",
+            ]
+        ),
+        "review": "",
+    }
+)
+VALID_WRITEOUT = json.dumps(
+    {
+        "writeout_body": "return jnp.concatenate((solution_time[:, None], dataset, solution), axis=1)",
+        "review": "",
+    }
+)
+VALID_SPLIT_RESPONSES = [VALID_HELPERS, VALID_RHS]
+
 SMOKE_FAILING_FRAGMENTS = json.dumps(
     {
         "rhs": ["x2", "-mu * x1"],
         "loss_body": "return jnp.array(float('nan'))",
         "writeout_body": "return jnp.concatenate((solution_time[:, None], dataset, solution), axis=1)",
+        "review": "intentionally bad loss",
+    }
+)
+
+SMOKE_FAILING_LOSS = json.dumps(
+    {
+        "loss_body": "return jnp.array(float('nan'))",
         "review": "intentionally bad loss",
     }
 )
@@ -65,9 +95,31 @@ def test_validate_only_workflow_passes(tmp_path):
     assert result.events[-1].step == "validate_session"
 
 
+def test_deterministic_custom_loss_body_preserves_log_normalized_mse():
+    source = """import numpy as np
+
+def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
+    loss = 0.0
+    eps = np.min(np.where(dataset[:, 1] > 0.0, dataset[:, 1], np.inf))
+    log_sim = np.log10(solution[:, 0] + eps)
+    log_data = np.log10(dataset[:, 1] + eps)
+    scale = np.max(log_data) - np.min(log_data) + 1e-12
+    loss += np.mean(np.square((log_sim - log_data) / scale))
+    return float(loss)
+"""
+
+    body = _deterministic_custom_loss_body(source)
+
+    assert body is not None
+    assert "jnp.log10" in body
+    assert "jnp.mean(jnp.square((log_sim - log_data) / scale))" in body
+    assert "return loss" in body
+    assert "float(loss)" not in body
+
+
 def test_generate_script_workflow_writes_valid_script(tmp_path):
     session = make_session(tmp_path)
-    llm = FakeLLMClient([VALID_FRAGMENTS])
+    llm = FakeLLMClient(VALID_SPLIT_RESPONSES)
     workflow = LocalWorkflow(llm, PromptRenderer())
 
     result = workflow.generate_script(session)
@@ -88,8 +140,10 @@ def test_generate_script_workflow_writes_valid_script(tmp_path):
     assert events[-1]["status"] == "passed"
     llm_log_path = session / "generated" / "agent_logs" / "llm_calls.jsonl"
     llm_calls = [json.loads(line) for line in llm_log_path.read_text().splitlines()]
-    assert llm_calls[0]["step"] == "translate_jax_fragments"
-    assert llm_calls[0]["response"] == VALID_FRAGMENTS
+    assert [call["step"] for call in llm_calls] == [
+        "translate_jax_helpers",
+        "translate_jax_rhs",
+    ]
     user_prompt = llm_calls[0]["messages"][1]["content"]
     assert "Reference contract from pfit-claude" in user_prompt
     assert "NumPy to JAX Mapping" in user_prompt
@@ -114,7 +168,9 @@ def test_generate_script_workflow_repairs_invalid_script(tmp_path):
 
 def test_generate_script_workflow_accepts_simple_fenced_json(tmp_path):
     session = make_session(tmp_path)
-    llm = FakeLLMClient([f"```json\n{VALID_FRAGMENTS}\n```"])
+    llm = FakeLLMClient(
+        [f"```json\n{VALID_HELPERS}\n```", f"```json\n{VALID_RHS}\n```"]
+    )
     workflow = LocalWorkflow(llm, PromptRenderer())
 
     result = workflow.generate_script(session)
@@ -123,9 +179,10 @@ def test_generate_script_workflow_accepts_simple_fenced_json(tmp_path):
     assert "```" not in (session / "generated" / "generated_script.py").read_text()
 
 
-def test_generate_script_workflow_repairs_smoke_failure(tmp_path):
+def test_generate_script_workflow_repairs_invalid_split_output(tmp_path):
     session = make_session(tmp_path)
-    llm = FakeLLMClient([SMOKE_FAILING_FRAGMENTS, VALID_FRAGMENTS])
+    bad_rhs = json.dumps({"rhs": ["x2"], "helper_functions": [], "review": ""})
+    llm = FakeLLMClient([VALID_HELPERS, bad_rhs, VALID_FRAGMENTS])
     workflow = LocalWorkflow(
         llm,
         PromptRenderer(),
@@ -135,12 +192,12 @@ def test_generate_script_workflow_repairs_smoke_failure(tmp_path):
     result = workflow.generate_script(session)
 
     assert result.success is True
-    assert any(event.step == "smoke_test_generated_script" for event in result.events)
     assert [event.status for event in result.events].count("failed") == 1
     llm_log_path = session / "generated" / "agent_logs" / "llm_calls.jsonl"
     llm_calls = [json.loads(line) for line in llm_log_path.read_text().splitlines()]
     assert [call["step"] for call in llm_calls] == [
-        "translate_jax_fragments",
+        "translate_jax_helpers",
+        "translate_jax_rhs",
         "repair_jax_fragments",
     ]
 
@@ -201,6 +258,106 @@ def test_pfit_claude_jax_reference_is_packaged():
 
     assert "pfit-claude JAX Reference" in reference
     assert "NumPy to JAX Mapping" in reference
+
+
+def test_standard_loss_and_writeout_handles_derived_observables():
+    spec = load_session_spec(Path("sessions/boehm_stat5/inputs/user_input.yaml"))
+
+    bodies = _standard_loss_and_writeout_bodies(spec)
+
+    assert bodies is not None
+    loss_body, writeout_body = bodies
+    assert "observables = _observables" in loss_body
+    assert "observables['pSTAT5A']" in loss_body
+    assert "dataset[:, 0]" in writeout_body
+    assert "observables['rSTAT5A']" in writeout_body
+
+
+def test_standard_loss_and_writeout_ignores_uncertainty_columns():
+    spec = load_session_spec(Path("sessions/oregonator/inputs/user_input.yaml"))
+
+    bodies = _standard_loss_and_writeout_bodies(spec)
+
+    assert bodies is not None
+    loss_body, writeout_body = bodies
+    assert "dataset[:, 0]" in loss_body
+    assert "dataset[:, 1]" in loss_body
+    assert "dataset[:, 2]" not in loss_body
+    assert "dataset[:, 3]" not in writeout_body
+
+
+def test_standard_loss_and_writeout_declines_custom_user_loss():
+    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+    user_model_source = """
+def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
+    return jnp.mean(jnp.abs(solution[:, 0] - dataset[:, 0]))
+
+def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
+    return dataset
+"""
+
+    assert (
+        _standard_loss_and_writeout_bodies(
+            spec,
+            data_width=2,
+            user_model_source=user_model_source,
+        )
+        is None
+    )
+
+
+def test_standard_loss_and_writeout_allows_framework_default_loss():
+    spec = load_session_spec(Path("sessions/oregonator/inputs/user_input.yaml"))
+    user_model_source = """
+def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
+    residuals = np.column_stack((
+        solution[:, 0] - dataset[:, 0],
+        solution[:, 1] - dataset[:, 1],
+    ))
+    return float(np.mean(np.square(residuals)))
+"""
+
+    assert (
+        _standard_loss_and_writeout_bodies(
+            spec,
+            user_model_source=user_model_source,
+        )
+        is not None
+    )
+
+
+def test_standard_loss_and_writeout_declines_mismatched_dataset_width():
+    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+
+    assert _standard_loss_and_writeout_bodies(spec, data_width=3) is None
+
+
+def test_inject_referenced_nested_helper_definitions_from_user_model(tmp_path):
+    session = tmp_path / "session"
+    generated = session / "generated"
+    generated.mkdir(parents=True)
+    generated.joinpath("user_model.py").write_text(
+        """
+def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
+    def F1(Fs, c1, v1):
+        return Fs - c1 * np.abs(v1) * np.sign(v1)
+    return F1(solution[:, 0], solution[:, 1], solution[:, 2])[0]
+"""
+    )
+    response = json.dumps(
+        {
+            "rhs": ["-k * y"],
+            "helper_functions": [],
+            "loss_body": "return F1(solution[:, 0], solution[:, 1], solution[:, 2])[0]",
+            "writeout_body": "return solution",
+            "review": "",
+        }
+    )
+
+    injected = json.loads(_inject_referenced_helper_definitions(response, session))
+
+    assert len(injected["helper_functions"]) == 1
+    assert injected["helper_functions"][0].startswith("def F1")
 
 
 def test_inject_referenced_helper_definitions_from_user_model(tmp_path):

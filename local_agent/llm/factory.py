@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 
 from local_agent.llm.base import LLMClient
 from local_agent.llm.fake import FakeLLMClient
@@ -13,7 +14,14 @@ def create_llm_client(
     debug_stream: bool = False,
 ) -> LLMClient:
     if fake_response_file is not None:
-        return FakeLLMClient([Path(fake_response_file).read_text()])
+        text = Path(fake_response_file).read_text()
+        try:
+            data = json.loads(text)
+        except json.JSONDecodeError:
+            data = None
+        if isinstance(data, list) and all(isinstance(item, str) for item in data):
+            return FakeLLMClient(data)
+        return FakeLLMClient([text])
 
     if model is None:
         raise ValueError("--model is required for Ollama")

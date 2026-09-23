@@ -294,7 +294,14 @@ def fit_generic_system(path_to_input: Path, path_to_output_dir: Path, generated_
         # load dataset
         dataset_path = session_path / Path(input_reader.user_input_dirname) / Path(input_reader.filename_data)
         with open(dataset_path, 'r', encoding='utf-8-sig') as f:
-            all_data=np.genfromtxt(f, dtype=float, delimiter=',')
+            first_line = f.readline()
+            f.seek(0)
+            skip_header = 0
+            try:
+                [float(value) for value in first_line.strip().split(",") if value]
+            except ValueError:
+                skip_header = 1
+            all_data=np.genfromtxt(f, dtype=float, delimiter=',', skip_header=skip_header)
         # split into time and data
         t_eval=all_data[:,0]
         dataset=all_data[:,1:]
@@ -352,13 +359,19 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
         - Progress is logged to the output directory
         - Final parameters are saved to final_design_point.csv
     """
-    algorithm = getattr(input_reader, "algorithm", "PSO").upper()
+    algorithm = getattr(input_reader, "algorithm", "DE").upper()
     if algorithm == "DE":
         from lib.algorithms.DE.classes import FitParamsDE
 
         fit_obj = FitParamsDE(input_reader, problem_obj)
     else:
-        from lib.algorithms.PSO.classes import FitParamsPSO
+        try:
+            from lib.algorithms.PSO.classes import FitParamsPSO
+        except ImportError as exc:
+            raise ImportError(
+                "PSO requires the optional pyswarms/scipy stack. "
+                "Use population_opt.algorithm: DE, or install a working pyswarms/SciPy environment."
+            ) from exc
 
         fit_obj = FitParamsPSO(input_reader, problem_obj)
 
@@ -421,6 +434,10 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
         print(f"Error in NODE training: {e}, stopping")
         tuned_best_position = best_position
         tuned_best_loss = 1e10
+    if tuned_best_position is None or not np.isfinite(float(tuned_best_loss)):
+        print(f"NODE did not produce a valid tuned position; using {algorithm} result")
+        tuned_best_position = best_position
+        tuned_best_loss = best_cost
 
     print("Tuned position from NODE(scaled):", tuned_best_position)
     print("Tuned best loss:",tuned_best_loss)

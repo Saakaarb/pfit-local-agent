@@ -1,6 +1,8 @@
 import ast
+import copy
 import csv
 import json
+import math
 import shutil
 import tempfile
 from dataclasses import dataclass
@@ -52,6 +54,20 @@ class NewSessionObservable:
 
 
 @dataclass(frozen=True)
+class NewSessionAuxiliaryColumn:
+    name: str
+    observed_column: int
+    kind: str
+    target: str
+
+
+@dataclass(frozen=True)
+class NewSessionFormula:
+    name: str
+    expression: str
+
+
+@dataclass(frozen=True)
 class NewSessionSpec:
     missing_inputs: tuple[str, ...]
     review: str
@@ -61,6 +77,7 @@ class NewSessionSpec:
     states: tuple[NewSessionState, ...]
     helper_functions: tuple[str, ...]
     observables: tuple[NewSessionObservable, ...]
+    auxiliary_columns: tuple[NewSessionAuxiliaryColumn, ...]
     loss_body: str
     user_info_txt: str
 
@@ -78,22 +95,18 @@ def init_session(
     generated = session_dir / "generated"
     generated.mkdir(parents=True, exist_ok=True)
 
+    _validate_csv_inputs_have_headers(session_dir)
     context = {"session_context": _collect_session_context(session_dir)}
     if overwrite:
         _clear_previous_new_outputs(session_dir)
 
-    messages = prompt_renderer.render_messages(
-        "new_session.system.md",
-        "new_session.user.md",
-        context,
-    )
-    response = _complete_with_log(
+    response = _draft_new_session_response(
+        session_dir,
         llm_client,
+        prompt_renderer,
+        workflow_config,
         generated,
-        "new_session",
-        messages,
-        temperature=workflow_config.temperature,
-        max_tokens=workflow_config.max_tokens,
+        context,
     )
     for attempt in range(0, workflow_config.max_repair_attempts + 1):
         try:
@@ -101,6 +114,8 @@ def init_session(
             if spec.missing_inputs:
                 missing = "\n".join(f"- {item}" for item in spec.missing_inputs)
                 raise ValidationError(f"pfit-new missing required inputs:\n{missing}")
+            spec = _canonicalize_observed_columns_from_csv_header(session_dir, spec)
+            _validate_spec_against_csv_header(session_dir, spec)
             draft = _render_new_session_draft(spec)
             _validate_draft(session_dir, draft)
             break
@@ -109,24 +124,36 @@ def init_session(
                 raise
             if attempt >= workflow_config.max_repair_attempts:
                 raise
-            repair_messages = prompt_renderer.render_messages(
-                "repair_new_session.system.md",
-                "repair_new_session.user.md",
-                {
-                    **context,
-                    "attempt": attempt + 1,
-                    "validation_error": str(exc),
-                    "previous_response": response,
-                },
-            )
-            response = _complete_with_log(
+            repaired_response = _try_repair_expressions(
+                session_dir,
+                response,
+                str(exc),
                 llm_client,
+                prompt_renderer,
+                workflow_config,
                 generated,
-                "repair_new_session",
-                repair_messages,
-                temperature=workflow_config.temperature,
-                max_tokens=workflow_config.max_tokens,
+                context,
             )
+            if repaired_response is not None:
+                response = repaired_response
+                continue
+            if _is_loss_body_validation_error(exc):
+                repaired_response = _try_repair_loss_body(
+                    session_dir,
+                    response,
+                    str(exc),
+                    llm_client,
+                    prompt_renderer,
+                    workflow_config,
+                    generated,
+                    context,
+                )
+                if repaired_response is not None:
+                    response = repaired_response
+                    continue
+            raise ValidationError(
+                f"{exc}. No targeted pfit-new repair is available for this error."
+            ) from exc
 
     inputs = session_dir / "inputs"
     outputs = session_dir / "outputs"
@@ -135,12 +162,1057 @@ def init_session(
 
     written = [
         _write_if_allowed(inputs / "user_input.yaml", draft.user_input_yaml, overwrite),
-        _write_if_allowed(inputs / "user_info.txt", draft.user_info_txt, overwrite),
+        _write_if_allowed(inputs / "user_info.txt", draft.user_info_txt, overwrite=False),
         _write_if_allowed(generated / "user_model.py", draft.user_model_py, overwrite),
     ]
     if draft.review:
         written.append(_write_if_allowed(generated / "pfit_new_review.txt", draft.review, overwrite))
     return [path for path in written if path is not None]
+
+
+def _draft_new_session_response(
+    session_dir: Path,
+    llm_client: LLMClient,
+    prompt_renderer: PromptRenderer,
+    workflow_config: WorkflowConfig,
+    generated_dir: Path,
+    context: dict[str, str],
+) -> str:
+    dataset_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "new_session_dataset",
+        prompt_renderer.render_messages(
+            "new_session_dataset.system.md",
+            "new_session_dataset.user.md",
+            context,
+        ),
+        temperature=workflow_config.temperature,
+        max_tokens=workflow_config.max_tokens,
+    )
+    dataset_data = parse_llm_json_object(dataset_response, "pfit-new dataset")
+    if _looks_like_full_new_session_response(dataset_data):
+        return dataset_response
+    missing_inputs = _parse_missing_inputs(dataset_data)
+    if missing_inputs:
+        return json.dumps(
+            {
+                "missing_inputs": list(missing_inputs),
+                "review": _require_string(dataset_data, "review", allow_empty=True),
+                "filename_data": "",
+                "parameters": [],
+                "fixed_parameters": [],
+                "states": [],
+                "helper_functions": [],
+                "observables": [],
+                "loss_body": "",
+                "user_info_txt": _require_string(dataset_data, "user_info_txt", allow_empty=True),
+            }
+        )
+    filename_data = _require_string(dataset_data, "filename_data", allow_empty=False)
+    _validate_dataset_filename(session_dir, filename_data)
+
+    frozen_dataset = {
+        "filename_data": filename_data,
+        "csv_header": _read_csv_header(Path(session_dir) / "inputs" / filename_data) or [],
+    }
+    parameter_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "new_session_parameters",
+        prompt_renderer.render_messages(
+            "new_session_parameters.system.md",
+            "new_session_parameters.user.md",
+            {
+                **context,
+                "filename_data": filename_data,
+                "dataset_context": json.dumps(frozen_dataset, indent=2),
+            },
+        ),
+        temperature=workflow_config.temperature,
+        max_tokens=workflow_config.max_tokens,
+    )
+    parameter_data = parse_llm_json_object(parameter_response, "pfit-new parameters")
+    if _looks_like_full_new_session_response(parameter_data):
+        return parameter_response
+    missing_inputs = _parse_missing_inputs(parameter_data)
+    if missing_inputs:
+        return json.dumps(
+            {
+                "missing_inputs": list(missing_inputs),
+                "review": _require_string(parameter_data, "review", allow_empty=True),
+                "filename_data": "",
+                "parameters": [],
+                "fixed_parameters": [],
+                "states": [],
+                "helper_functions": [],
+                "observables": [],
+                "loss_body": "",
+                "user_info_txt": _require_string(parameter_data, "user_info_txt", allow_empty=True),
+            }
+        )
+    parameters = [_parameter_to_dict(_parse_parameter(item)) for item in _require_list(parameter_data, "parameters")]
+    fixed_parameters = [
+        _fixed_parameter_to_dict(_parse_fixed_parameter(item))
+        for item in parameter_data.get("fixed_parameters", [])
+    ]
+
+    frozen_parameters = {
+        "filename_data": filename_data,
+        "csv_header": frozen_dataset["csv_header"],
+        "parameters": parameters,
+        "fixed_parameters": fixed_parameters,
+    }
+    states_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "new_session_states",
+        prompt_renderer.render_messages(
+            "new_session_states.system.md",
+            "new_session_states.user.md",
+            {
+                **context,
+                "frozen_parameters": json.dumps(frozen_parameters, indent=2),
+            },
+        ),
+        temperature=workflow_config.temperature,
+        max_tokens=workflow_config.max_tokens,
+    )
+    states_data = parse_llm_json_object(states_response, "pfit-new states")
+    if _looks_like_full_new_session_response(states_data):
+        return states_response
+    missing_inputs = _parse_missing_inputs(states_data)
+    if missing_inputs:
+        return _missing_new_session_response(states_data, missing_inputs)
+
+    frozen_states = {
+        **frozen_parameters,
+        "states": states_data.get("states", []),
+    }
+    equations_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "new_session_equations",
+        prompt_renderer.render_messages(
+            "new_session_equations.system.md",
+            "new_session_equations.user.md",
+            {
+                **context,
+                "frozen_states": json.dumps(frozen_states, indent=2),
+            },
+        ),
+        temperature=workflow_config.temperature,
+        max_tokens=workflow_config.max_tokens,
+    )
+    equations_data = parse_llm_json_object(equations_response, "pfit-new equations")
+    if _looks_like_full_new_session_response(equations_data):
+        return equations_response
+    missing_inputs = _parse_missing_inputs(equations_data)
+    if missing_inputs:
+        return _missing_new_session_response(equations_data, missing_inputs)
+
+    frozen_equations = {
+        **frozen_states,
+        "formulas": equations_data.get("formulas", []),
+        "rhs": equations_data.get("rhs", []),
+    }
+    observables_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "new_session_observables",
+        prompt_renderer.render_messages(
+            "new_session_observables.system.md",
+            "new_session_observables.user.md",
+            {
+                **context,
+                "frozen_equations": json.dumps(frozen_equations, indent=2),
+            },
+        ),
+        temperature=workflow_config.temperature,
+        max_tokens=workflow_config.max_tokens,
+    )
+    observables_data = parse_llm_json_object(observables_response, "pfit-new observables")
+    if _looks_like_full_new_session_response(observables_data):
+        return observables_response
+    missing_inputs = _parse_missing_inputs(observables_data)
+    if missing_inputs:
+        return _missing_new_session_response(observables_data, missing_inputs)
+
+    frozen_observables = {
+        **frozen_equations,
+        "observables": observables_data.get("observables", []),
+    }
+    loss_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "new_session_loss",
+        prompt_renderer.render_messages(
+            "new_session_loss.system.md",
+            "new_session_loss.user.md",
+            {
+                **context,
+                "frozen_observables": json.dumps(frozen_observables, indent=2),
+            },
+        ),
+        temperature=workflow_config.temperature,
+        max_tokens=workflow_config.max_tokens,
+    )
+    loss_data = parse_llm_json_object(loss_response, "pfit-new loss")
+    if _looks_like_full_new_session_response(loss_data):
+        return loss_response
+    missing_inputs = _parse_missing_inputs(loss_data)
+    if missing_inputs:
+        return _missing_new_session_response(loss_data, missing_inputs)
+    loss_data = _apply_automatic_log_loss(
+        loss_data,
+        Path(session_dir) / "inputs" / filename_data,
+        frozen_dataset["csv_header"],
+    )
+
+    return json.dumps(
+        _assemble_split_new_session_response(
+            filename_data=filename_data,
+            csv_header=frozen_dataset["csv_header"],
+            parameters=parameters,
+            fixed_parameters=fixed_parameters,
+            states_data=states_data,
+            equations_data=equations_data,
+            observables_data=observables_data,
+            loss_data=loss_data,
+            session_context=str(context.get("session_context", "")),
+        )
+    )
+
+
+def _looks_like_full_new_session_response(data: dict[str, object]) -> bool:
+    return "filename_data" in data and "parameters" in data and "states" in data
+
+
+def _missing_new_session_response(
+    data: dict[str, object],
+    missing_inputs: tuple[str, ...],
+) -> str:
+    return json.dumps(
+        {
+            "missing_inputs": list(missing_inputs),
+            "review": _require_string(data, "review", allow_empty=True),
+            "filename_data": "",
+            "parameters": [],
+            "fixed_parameters": [],
+            "states": [],
+            "helper_functions": [],
+            "observables": [],
+            "loss_body": "",
+            "user_info_txt": _require_string(data, "user_info_txt", allow_empty=True),
+        }
+    )
+
+
+def _parse_missing_inputs(data: dict[str, object]) -> tuple[str, ...]:
+    missing = data.get("missing_inputs", [])
+    if not isinstance(missing, list) or not all(isinstance(item, str) for item in missing):
+        raise ValidationError("pfit-new missing_inputs must be a list of strings")
+    return tuple(item.strip() for item in missing if item.strip())
+
+
+def _validate_dataset_filename(session_dir: Path, filename_data: str) -> None:
+    csv_path = Path(session_dir) / "inputs" / filename_data
+    if not csv_path.exists():
+        raise ValidationError(f"pfit-new dataset CSV was not found in inputs/: {filename_data}")
+    if csv_path.suffix.lower() != ".csv":
+        raise ValidationError("pfit-new filename_data must name a CSV file")
+
+
+def _parameter_to_dict(parameter: NewSessionParameter) -> dict[str, object]:
+    return {
+        "name": parameter.name,
+        "min_value": parameter.min_value,
+        "max_value": parameter.max_value,
+        "logscale": parameter.logscale,
+    }
+
+
+def _fixed_parameter_to_dict(parameter: NewSessionFixedParameter) -> dict[str, object]:
+    return {"name": parameter.name, "value": parameter.value}
+
+
+def _assemble_split_new_session_response(
+    *,
+    filename_data: str,
+    csv_header: list[str],
+    parameters: list[dict[str, object]],
+    fixed_parameters: list[dict[str, object]],
+    states_data: dict[str, object],
+    equations_data: dict[str, object],
+    observables_data: dict[str, object],
+    loss_data: dict[str, object],
+    session_context: str = "",
+) -> dict[str, object]:
+    measurement_columns = {name.strip(): index for index, name in enumerate(csv_header[1:])}
+    state_stubs = _parse_split_state_stubs(states_data)
+    formulas = _parse_split_formulas(equations_data)
+    rhs_by_state = _parse_split_rhs(equations_data)
+    states = []
+    for state in state_stubs:
+        rhs = rhs_by_state.get(state["name"], "")
+        if not rhs:
+            raise ValidationError(f"pfit-new equations are missing RHS for state: {state['name']}")
+        states.append(
+            {
+                "name": state["name"],
+                "initial_value": state["initial_value"],
+                "rhs": _normalize_math_calls(_inline_formulas(rhs, formulas)),
+                "observed_column": measurement_columns.get(state["name"]),
+            }
+        )
+
+    fixed_parameters = _drop_initial_value_fixed_parameters(fixed_parameters, states)
+    state_names = {state["name"] for state in states}
+    observables = []
+    for item in observables_data.get("observables", []):
+        if not isinstance(item, dict):
+            raise ValidationError("pfit-new observables entries must be objects")
+        measured = _clean_identifier(
+            _require_string(item, "measured", allow_empty=False),
+            "observable",
+        )
+        expression = (
+            _require_string(item, "expression", allow_empty=True).strip()
+            or _require_string(item, "simulated", allow_empty=True).strip()
+            or measured
+        )
+        column = measurement_columns.get(measured)
+        if column is None:
+            raise ValidationError(f"pfit-new observable is not in CSV header: {measured}")
+        if measured in state_names:
+            if expression != measured:
+                raise ValidationError(
+                    "pfit-new CSV header matches an integrated state, but observable "
+                    f"mapping for {measured} points to {expression}"
+                )
+            for state in states:
+                if state["name"] == measured:
+                    state["observed_column"] = column
+                    break
+            continue
+        observables.append(
+            {
+                "name": measured,
+                "expression": _normalize_math_calls(_inline_formulas(expression, formulas)),
+                "observed_column": column,
+            }
+        )
+
+    loss_data = _normalize_split_loss_data(
+        loss_data,
+        states,
+        observables,
+        observables_data.get("observables", []),
+        csv_header,
+    )
+    auxiliary_columns = _auxiliary_columns_from_loss_data(loss_data, measurement_columns)
+    spec_for_loss = NewSessionSpec(
+        missing_inputs=(),
+        review="",
+        filename_data=filename_data,
+        parameters=tuple(_parse_parameter(item) for item in parameters),
+        fixed_parameters=tuple(_parse_fixed_parameter(item) for item in fixed_parameters),
+        states=tuple(_parse_state(item) for item in states),
+        helper_functions=(),
+        observables=tuple(_parse_observable(item) for item in observables),
+        auxiliary_columns=tuple(_parse_auxiliary_column(item) for item in auxiliary_columns),
+        loss_body="",
+        user_info_txt="",
+    )
+    loss_body = _render_structured_loss_body(spec_for_loss, loss_data)
+    reviews = [
+        _require_string(data, "review", allow_empty=True)
+        for data in (states_data, equations_data, observables_data, loss_data)
+        if _require_string(data, "review", allow_empty=True)
+    ]
+    if _text_requests_stiff_integrator(session_context):
+        reviews.append("Original user context indicates a stiff model.")
+    return {
+        "missing_inputs": [],
+        "review": "\n".join(reviews),
+        "filename_data": filename_data,
+        "parameters": parameters,
+        "fixed_parameters": fixed_parameters,
+        "helper_functions": [],
+        "states": states,
+        "observables": observables,
+        "auxiliary_columns": auxiliary_columns,
+        "loss_body": loss_body,
+        "user_info_txt": _require_string(loss_data, "user_info_txt", allow_empty=True)
+        or _require_string(observables_data, "user_info_txt", allow_empty=True)
+        or "Local pfit-new draft generated from supplied files.",
+    }
+
+
+def _drop_initial_value_fixed_parameters(
+    fixed_parameters: list[dict[str, object]],
+    states: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    initial_values = {
+        f"{state['name']}_0": float(state["initial_value"])
+        for state in states
+        if "name" in state and "initial_value" in state
+    }
+    cleaned = []
+    for parameter in fixed_parameters:
+        name = parameter.get("name")
+        if isinstance(name, str) and name in initial_values:
+            try:
+                value = float(parameter.get("value"))
+            except (TypeError, ValueError):
+                cleaned.append(parameter)
+                continue
+            if value == initial_values[name]:
+                continue
+        cleaned.append(parameter)
+    return cleaned
+
+
+def _apply_automatic_log_loss(
+    loss_data: dict[str, object],
+    csv_path: Path,
+    csv_header: list[str],
+) -> dict[str, object]:
+    data_terms = loss_data.get("data_terms", [])
+    if not isinstance(data_terms, list) or not csv_header:
+        return loss_data
+    log_range_by_name = _positive_log10_ranges(csv_path, csv_header)
+    if not log_range_by_name:
+        return loss_data
+
+    changed = False
+    normalized_terms = []
+    for item in data_terms:
+        if not isinstance(item, dict):
+            normalized_terms.append(item)
+            continue
+        term = dict(item)
+        measured = str(term.get("measured", ""))
+        metric = str(term.get("metric", "")).lower()
+        if metric in {"normalized_mse", "range_normalized_mse"}:
+            log_range = log_range_by_name.get(measured)
+            if log_range is not None and log_range >= 3.0:
+                term["metric"] = "log10_normalized_mse"
+                changed = True
+        normalized_terms.append(term)
+    if not changed:
+        return loss_data
+    normalized = dict(loss_data)
+    normalized["data_terms"] = normalized_terms
+    review = str(normalized.get("review", "")).strip()
+    note = (
+        "Automatically using log10_normalized_mse for positive measured columns "
+        "that span at least 3 log10 orders of magnitude."
+    )
+    normalized["review"] = f"{review}\n{note}" if review else note
+    return normalized
+
+
+def _positive_log10_ranges(csv_path: Path, csv_header: list[str]) -> dict[str, float]:
+    if len(csv_header) < 2:
+        return {}
+    columns = [[] for _ in csv_header[1:]]
+    try:
+        with csv_path.open(newline="", encoding="utf-8-sig") as handle:
+            reader = csv.reader(handle)
+            next(reader, None)
+            for row in reader:
+                for index in range(1, min(len(row), len(csv_header))):
+                    try:
+                        columns[index - 1].append(float(row[index]))
+                    except ValueError:
+                        continue
+    except OSError:
+        return {}
+
+    ranges = {}
+    for name, values in zip(csv_header[1:], columns):
+        finite_values = [value for value in values if value > 0.0]
+        if not finite_values or len(finite_values) != len(values):
+            continue
+        min_value = min(finite_values)
+        max_value = max(finite_values)
+        if min_value <= 0.0 or max_value <= 0.0:
+            continue
+        ranges[name.strip()] = math.log10(max_value) - math.log10(min_value)
+    return ranges
+
+
+def _parse_split_state_stubs(data: dict[str, object]) -> list[dict[str, object]]:
+    states = []
+    for item in _require_list(data, "states"):
+        if not isinstance(item, dict):
+            raise ValidationError("pfit-new states entries must be objects")
+        states.append(
+            {
+                "name": _clean_identifier(
+                    _require_string(item, "name", allow_empty=False),
+                    "state",
+                ),
+                "initial_value": float(item["initial_value"]),
+            }
+        )
+    return states
+
+
+def _parse_split_formulas(data: dict[str, object]) -> tuple[NewSessionFormula, ...]:
+    formulas = []
+    for item in data.get("formulas", []):
+        if not isinstance(item, dict):
+            raise ValidationError("pfit-new formulas entries must be objects")
+        formulas.append(
+            NewSessionFormula(
+                name=_clean_identifier(
+                    _require_string(item, "name", allow_empty=False),
+                    "formula",
+                ),
+                expression=_require_string(item, "expression", allow_empty=False).replace("^", "**"),
+            )
+        )
+    return tuple(formulas)
+
+
+def _parse_split_rhs(data: dict[str, object]) -> dict[str, str]:
+    rhs_by_state = {}
+    for item in _require_list(data, "rhs"):
+        if not isinstance(item, dict):
+            raise ValidationError("pfit-new rhs entries must be objects")
+        state = _clean_identifier(
+            _require_string(item, "state", allow_empty=False),
+            "state",
+        )
+        rhs_by_state[state] = _require_string(item, "expression", allow_empty=False).replace("^", "**")
+    return rhs_by_state
+
+
+def _normalize_split_loss_data(
+    loss_data: dict[str, object],
+    states: list[dict[str, object]],
+    observables: list[dict[str, object]],
+    raw_observables: list[object],
+    csv_header: list[str],
+) -> dict[str, object]:
+    normalized = dict(loss_data)
+    state_names = {str(state["name"]) for state in states}
+    simulated_to_measured = {name: name for name in state_names}
+    for observable in observables:
+        simulated_to_measured[str(observable["name"])] = str(observable["name"])
+        expression = str(observable["expression"])
+        if expression:
+            simulated_to_measured[expression] = str(observable["name"])
+    for observable in raw_observables:
+        if not isinstance(observable, dict):
+            continue
+        measured = str(observable.get("measured", ""))
+        simulated = str(observable.get("simulated", ""))
+        expression = str(observable.get("expression", ""))
+        if measured and simulated:
+            simulated_to_measured[simulated] = measured
+        if measured and expression:
+            simulated_to_measured[expression] = measured
+
+    data_terms = []
+    loss_text = " ".join(
+        str(loss_data.get(key, ""))
+        for key in ("review", "user_info_txt")
+    ).lower()
+    measurement_columns = {name.strip(): index for index, name in enumerate(csv_header[1:])}
+    for item in loss_data.get("data_terms", []):
+        if not isinstance(item, dict):
+            data_terms.append(item)
+            continue
+        term = dict(item)
+        simulated = str(term.get("simulated", ""))
+        measured = str(term.get("measured", ""))
+        if simulated.startswith("log_") and measured.startswith("log_"):
+            base_simulated = simulated.removeprefix("log_")
+            mapped_measured = simulated_to_measured.get(base_simulated)
+            if mapped_measured is not None:
+                term["simulated"] = base_simulated
+                term["measured"] = mapped_measured
+                term["metric"] = "log10_normalized_mse"
+        metric = str(term.get("metric", "")).lower()
+        measured = str(term.get("measured", ""))
+        sigma = str(term.get("sigma", "") or term.get("uncertainty", ""))
+        if not sigma and measured:
+            candidate = f"{measured}_sd"
+            if candidate in measurement_columns and (
+                "standard deviation" in loss_text
+                or "std" in loss_text
+                or "sigma" in loss_text
+                or "_sd" in loss_text
+            ):
+                sigma = candidate
+        if sigma:
+            term["metric"] = "sigma_weighted_mse"
+            term["sigma"] = sigma
+        data_terms.append(term)
+    normalized["data_terms"] = data_terms
+
+    penalties = []
+    for item in loss_data.get("penalties", []):
+        if not isinstance(item, dict):
+            penalties.append(item)
+            continue
+        penalty = dict(item)
+        left = str(penalty.get("left", ""))
+        op = str(penalty.get("op", ""))
+        if "sqrt" in left and op in {">", ">="}:
+            for name in sorted(simulated_to_measured, key=len, reverse=True):
+                measured_name = simulated_to_measured[name]
+                if name in left and f"{measured_name}_obs" in left:
+                    threshold = float(penalty.get("right", 0.0))
+                    penalty["left"] = name
+                    penalty["left_kind"] = "simulated"
+                    penalty["op"] = "abs_diff_gt"
+                    penalty["right"] = measured_name
+                    penalty["right_kind"] = "measured"
+                    penalty["threshold"] = threshold
+                    break
+        penalties.append(penalty)
+    normalized["penalties"] = penalties
+    return normalized
+
+
+def _auxiliary_columns_from_loss_data(
+    loss_data: dict[str, object],
+    measurement_columns: dict[str, int],
+) -> list[dict[str, object]]:
+    auxiliary: dict[str, dict[str, object]] = {}
+    for item in loss_data.get("data_terms", []):
+        if not isinstance(item, dict):
+            continue
+        sigma = str(item.get("sigma", ""))
+        measured = str(item.get("measured", ""))
+        if sigma and sigma in measurement_columns:
+            auxiliary[sigma] = {
+                "name": sigma,
+                "observed_column": measurement_columns[sigma],
+                "kind": "uncertainty_of",
+                "target": measured,
+            }
+    return [auxiliary[name] for name in sorted(auxiliary, key=lambda item: measurement_columns[item])]
+
+
+def _inline_formulas(expression: str, formulas: tuple[NewSessionFormula, ...]) -> str:
+    if not formulas:
+        return expression.replace("^", "**")
+    formula_map = {formula.name: formula.expression for formula in formulas}
+    try:
+        tree = ast.parse(expression.replace("^", "**"), mode="eval")
+    except SyntaxError:
+        return expression.replace("^", "**")
+    for _ in range(len(formula_map) + 1):
+        previous = ast.dump(tree)
+        inlined = _FormulaInliner(formula_map).visit(tree)
+        ast.fix_missing_locations(inlined)
+        if ast.dump(inlined) == previous:
+            break
+        tree = inlined
+    return ast.unparse(tree)
+
+
+class _FormulaInliner(ast.NodeTransformer):
+    def __init__(self, formulas: dict[str, str]) -> None:
+        self.formulas = formulas
+
+    def visit_Name(self, node: ast.Name) -> ast.AST:
+        if not isinstance(node.ctx, ast.Load) or node.id not in self.formulas:
+            return node
+        try:
+            replacement = ast.parse(self.formulas[node.id].replace("^", "**"), mode="eval").body
+        except SyntaxError:
+            return node
+        return copy.deepcopy(replacement)
+
+
+def _render_structured_loss_body(spec: NewSessionSpec, loss_data: dict[str, object]) -> str:
+    custom_loss = bool(loss_data.get("custom_loss", False))
+    data_terms = loss_data.get("data_terms", [])
+    penalties = loss_data.get("penalties", [])
+    if not custom_loss:
+        return ""
+    if not isinstance(data_terms, list) or not isinstance(penalties, list):
+        raise ValidationError("pfit-new loss data_terms and penalties must be lists")
+
+    needs_observables = bool(spec.observables)
+    lines = []
+    if needs_observables:
+        lines.append("observables = _observables(solution, trainable_parameters, fixed_parameters)")
+    lines.append("loss = 0.0")
+    for item in data_terms:
+        if not isinstance(item, dict):
+            raise ValidationError("pfit-new loss data_terms entries must be objects")
+        simulated = _require_string(item, "simulated", allow_empty=False)
+        measured = _require_string(item, "measured", allow_empty=False)
+        metric = _require_string(item, "metric", allow_empty=True).lower() or "mse"
+        simulated = _resolve_simulated_loss_name(spec, simulated, measured)
+        measured_ref = _measured_reference(spec, measured)
+        residual = f"{_series_reference(spec, simulated)} - {measured_ref}"
+        if metric == "mae":
+            lines.append(f"loss += np.mean(np.abs({residual}))")
+        elif metric == "mse":
+            lines.append(f"loss += np.mean(np.square({residual}))")
+        elif metric in {"normalized_mse", "range_normalized_mse"}:
+            scale = f"(np.max({measured_ref}) - np.min({measured_ref}) + 1e-12)"
+            lines.append(f"loss += np.mean(np.square(({residual}) / {scale}))")
+        elif metric in {"sigma_weighted_mse", "uncertainty_weighted_mse"}:
+            sigma = _require_string(item, "sigma", allow_empty=False)
+            sigma_ref = _dataset_reference_by_name(spec, sigma)
+            lines.append(f"loss += np.mean(np.square(({residual}) / ({sigma_ref} + 1e-12)))")
+        elif metric in {"log10_normalized_mse", "log_normalized_mse"}:
+            positive_measured = f"np.where({measured_ref} > 0.0, {measured_ref}, np.inf)"
+            eps_name = f"eps_{measured}"
+            log_sim_name = f"log_sim_{measured}"
+            log_measured_name = f"log_measured_{measured}"
+            scale_name = f"scale_log_{measured}"
+            lines.append(f"{eps_name} = np.min({positive_measured})")
+            lines.append(f"{log_sim_name} = np.log10({_series_reference(spec, simulated)} + {eps_name})")
+            lines.append(f"{log_measured_name} = np.log10({measured_ref} + {eps_name})")
+            lines.append(f"{scale_name} = np.max({log_measured_name}) - np.min({log_measured_name}) + 1e-12")
+            lines.append(f"loss += np.mean(np.square(({log_sim_name} - {log_measured_name}) / {scale_name}))")
+        else:
+            raise ValidationError(f"pfit-new unsupported loss metric: {metric}")
+    for item in penalties:
+        if not isinstance(item, dict):
+            raise ValidationError("pfit-new loss penalties entries must be objects")
+        violation = _penalty_violation(spec, item)
+        value = float(item.get("value", 0.0))
+        sharpness = float(item.get("sharpness", 1000.0))
+        lines.append(
+            "loss += "
+            f"{value!r} / (1.0 + np.exp(-np.clip({sharpness!r} * ({violation}), -60.0, 60.0)))"
+        )
+    lines.append("return float(loss)")
+    return "\n".join(lines)
+
+
+def _resolve_simulated_loss_name(spec: NewSessionSpec, simulated: str, measured: str) -> str:
+    known_names = {state.name for state in spec.states} | {observable.name for observable in spec.observables}
+    if simulated in known_names:
+        return simulated
+    for observable in spec.observables:
+        if observable.name == measured:
+            return observable.name
+    return simulated
+
+
+def _series_reference(spec: NewSessionSpec, name: str) -> str:
+    for index, state in enumerate(spec.states):
+        if state.name == name:
+            return f"solution[:, {index}]"
+    for observable in spec.observables:
+        if observable.name == name:
+            return f"observables['{observable.name}']"
+    raise ValidationError(f"pfit-new loss references unknown simulated quantity: {name}")
+
+
+def _measured_reference(spec: NewSessionSpec, name: str) -> str:
+    for state in spec.states:
+        if state.name == name and state.observed_column is not None:
+            return f"dataset[:, {state.observed_column}]"
+    for observable in spec.observables:
+        if observable.name == name:
+            return f"dataset[:, {observable.observed_column}]"
+    raise ValidationError(f"pfit-new loss references unknown measured quantity: {name}")
+
+
+def _dataset_reference_by_name(spec: NewSessionSpec, name: str) -> str:
+    for state in spec.states:
+        if state.name == name and state.observed_column is not None:
+            return f"dataset[:, {state.observed_column}]"
+    for observable in spec.observables:
+        if observable.name == name:
+            return f"dataset[:, {observable.observed_column}]"
+    for column in spec.auxiliary_columns:
+        if column.name == name:
+            return f"dataset[:, {column.observed_column}]"
+    raise ValidationError(f"pfit-new loss references unknown dataset column: {name}")
+
+
+def _penalty_violation(spec: NewSessionSpec, item: dict[str, object]) -> str:
+    left = _final_reference(
+        spec,
+        _require_string(item, "left", allow_empty=False),
+        kind=_require_string(item, "left_kind", allow_empty=True) or "simulated",
+    )
+    op = _require_string(item, "op", allow_empty=False)
+    right_value = item.get("right", 0.0)
+    right = _final_reference(
+        spec,
+        right_value,
+        kind=_require_string(item, "right_kind", allow_empty=True) or "literal",
+    )
+    if op in {">", ">=", "<", "<=", "=="}:
+        if op in {">", ">="}:
+            return f"{left} - {right}"
+        if op in {"<", "<="}:
+            return f"{right} - {left}"
+        return f"-np.abs({left} - {right})"
+    if op == "abs_diff_gt":
+        threshold = float(item["threshold"])
+        return f"np.sqrt(np.square({left} - {right}) + 1e-12) - {threshold!r}"
+    raise ValidationError(f"pfit-new unsupported penalty operator: {op}")
+
+
+def _final_reference(spec: NewSessionSpec, value: object, *, kind: str) -> str:
+    if kind == "literal":
+        return repr(float(value))
+    if not isinstance(value, str):
+        raise ValidationError("pfit-new non-literal penalty references must be strings")
+    if kind == "measured":
+        return _measured_reference(spec, value).replace("[:,", "[-1,")
+    if kind == "simulated":
+        return _series_reference(spec, value).replace("[:,", "[-1,")
+    raise ValidationError(f"pfit-new unsupported penalty reference kind: {kind}")
+
+
+def _is_loss_body_validation_error(exc: ValidationError) -> bool:
+    return "loss_body" in str(exc)
+
+
+def _try_repair_expressions(
+    session_dir: Path,
+    previous_response: str,
+    validation_error: str,
+    llm_client: LLMClient,
+    prompt_renderer: PromptRenderer,
+    workflow_config: WorkflowConfig,
+    generated_dir: Path,
+    context: dict[str, str],
+) -> str | None:
+    if "expression" not in validation_error and "np.* functions" not in validation_error:
+        return None
+    try:
+        spec = _parse_new_session_response(previous_response, validate=False)
+    except ValidationError:
+        return None
+    if spec.missing_inputs:
+        return None
+    spec = _canonicalize_observed_columns_from_csv_header(session_dir, spec)
+    normalized_spec = _normalize_math_calls_in_spec(spec)
+    if normalized_spec != spec:
+        return json.dumps(_spec_to_response_dict(normalized_spec))
+    current_spec = _spec_to_response_dict(spec)
+    messages = prompt_renderer.render_messages(
+        "repair_new_session_expressions.system.md",
+        "repair_new_session_expressions.user.md",
+        {
+            **context,
+            "validation_error": validation_error,
+            "current_spec": json.dumps(current_spec, indent=2),
+        },
+    )
+    repaired_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "repair_new_session_expressions",
+        messages,
+        temperature=workflow_config.temperature,
+        max_tokens=min(workflow_config.max_tokens, 350),
+    )
+    data = parse_llm_json_object(repaired_response, "pfit-new expression repair")
+    state_rhs = {
+        _require_string(item, "name", allow_empty=False): _require_string(
+            item,
+            "rhs",
+            allow_empty=False,
+        )
+        for item in data.get("states", [])
+        if isinstance(item, dict)
+    }
+    observable_expressions = {
+        _require_string(item, "name", allow_empty=False): _require_string(
+            item,
+            "expression",
+            allow_empty=False,
+        )
+        for item in data.get("observables", [])
+        if isinstance(item, dict)
+    }
+    if not state_rhs and not observable_expressions:
+        return None
+    for state in current_spec["states"]:
+        if state["name"] in state_rhs:
+            state["rhs"] = state_rhs[state["name"]]
+    for observable in current_spec["observables"]:
+        if observable["name"] in observable_expressions:
+            observable["expression"] = observable_expressions[observable["name"]]
+    return json.dumps(current_spec)
+
+
+_NUMPY_FUNCTIONS = {
+    "abs",
+    "arctan",
+    "cos",
+    "exp",
+    "isfinite",
+    "log",
+    "log10",
+    "maximum",
+    "mean",
+    "minimum",
+    "sign",
+    "sin",
+    "sqrt",
+    "square",
+    "tan",
+    "where",
+}
+
+
+def _normalize_math_calls_in_spec(spec: NewSessionSpec) -> NewSessionSpec:
+    states = tuple(
+        NewSessionState(
+            name=state.name,
+            initial_value=state.initial_value,
+            rhs=_normalize_math_calls(state.rhs),
+            observed_column=state.observed_column,
+        )
+        for state in spec.states
+    )
+    observables = tuple(
+        NewSessionObservable(
+            name=observable.name,
+            expression=_normalize_math_calls(observable.expression),
+            observed_column=observable.observed_column,
+        )
+        for observable in spec.observables
+    )
+    if states == spec.states and observables == spec.observables:
+        return spec
+    return NewSessionSpec(
+        missing_inputs=spec.missing_inputs,
+        review=spec.review,
+        filename_data=spec.filename_data,
+        parameters=spec.parameters,
+        fixed_parameters=spec.fixed_parameters,
+        states=states,
+        helper_functions=spec.helper_functions,
+        observables=observables,
+        auxiliary_columns=spec.auxiliary_columns,
+        loss_body=spec.loss_body,
+        user_info_txt=spec.user_info_txt,
+    )
+
+
+def _normalize_math_calls(expression: str) -> str:
+    try:
+        tree = ast.parse(expression, mode="eval")
+    except SyntaxError:
+        return expression
+    normalized = _MathCallNormalizer().visit(tree)
+    ast.fix_missing_locations(normalized)
+    return ast.unparse(normalized)
+
+
+class _MathCallNormalizer(ast.NodeTransformer):
+    def visit_Call(self, node: ast.Call) -> ast.AST:
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id in _NUMPY_FUNCTIONS:
+            node.func = ast.Attribute(
+                value=ast.Name(id="np", ctx=ast.Load()),
+                attr=node.func.id,
+                ctx=ast.Load(),
+            )
+        return node
+
+
+def _try_repair_loss_body(
+    session_dir: Path,
+    previous_response: str,
+    validation_error: str,
+    llm_client: LLMClient,
+    prompt_renderer: PromptRenderer,
+    workflow_config: WorkflowConfig,
+    generated_dir: Path,
+    context: dict[str, str],
+) -> str | None:
+    try:
+        spec = _parse_new_session_response(previous_response, validate=False)
+    except ValidationError:
+        return None
+    if spec.missing_inputs:
+        return None
+    spec = _canonicalize_observed_columns_from_csv_header(session_dir, spec)
+    current_spec = _spec_to_response_dict(spec)
+    messages = prompt_renderer.render_messages(
+        "repair_new_session_loss_body.system.md",
+        "repair_new_session_loss_body.user.md",
+        {
+            **context,
+            "validation_error": validation_error,
+            "current_spec": json.dumps(current_spec, indent=2),
+            "loss_body": spec.loss_body,
+        },
+    )
+    repaired_response = _complete_with_log(
+        llm_client,
+        generated_dir,
+        "repair_new_session_loss_body",
+        messages,
+        temperature=workflow_config.temperature,
+        max_tokens=min(workflow_config.max_tokens, 350),
+    )
+    data = parse_llm_json_object(repaired_response, "pfit-new loss_body repair")
+    loss_body = _require_string(data, "loss_body", allow_empty=True)
+    current_spec["loss_body"] = loss_body
+    return json.dumps(current_spec)
+
+
+def _spec_to_response_dict(spec: NewSessionSpec) -> dict[str, object]:
+    return {
+        "missing_inputs": list(spec.missing_inputs),
+        "review": spec.review,
+        "filename_data": spec.filename_data,
+        "parameters": [
+            {
+                "name": parameter.name,
+                "min_value": parameter.min_value,
+                "max_value": parameter.max_value,
+                "logscale": parameter.logscale,
+            }
+            for parameter in spec.parameters
+        ],
+        "fixed_parameters": [
+            {"name": parameter.name, "value": parameter.value}
+            for parameter in spec.fixed_parameters
+        ],
+        "helper_functions": list(spec.helper_functions),
+        "states": [
+            {
+                "name": state.name,
+                "initial_value": state.initial_value,
+                "rhs": state.rhs,
+                "observed_column": state.observed_column,
+            }
+            for state in spec.states
+        ],
+        "observables": [
+            {
+                "name": observable.name,
+                "expression": observable.expression,
+                "observed_column": observable.observed_column,
+            }
+            for observable in spec.observables
+        ],
+        "auxiliary_columns": [
+            {
+                "name": column.name,
+                "observed_column": column.observed_column,
+                "kind": column.kind,
+                "target": column.target,
+            }
+            for column in spec.auxiliary_columns
+        ],
+        "loss_body": spec.loss_body,
+        "user_info_txt": spec.user_info_txt,
+    }
 
 
 def _write_if_allowed(path: Path, content: str, overwrite: bool) -> Path | None:
@@ -168,7 +1240,11 @@ def _collect_session_context(session_dir: Path) -> str:
 
 
 def _is_generated_context_file(relative_path: Path) -> bool:
-    if relative_path.parts[:1] in {("generated",), ("outputs",)}:
+    if relative_path == Path("inputs/user_input.yaml"):
+        return True
+    if relative_path.parts[:1] == ("outputs",):
+        return True
+    if relative_path.parts[:1] == ("generated",):
         return True
     return False
 
@@ -193,16 +1269,159 @@ def _summarize_csv_for_prompt(path: Path, *, sample_rows: int = 5) -> str:
     if not rows:
         return "<empty csv file>"
 
+    header = rows[0]
+    has_header = _row_looks_like_header(header)
+    data_rows = rows[1:] if has_header else rows
     preview = rows[: sample_rows + 1]
-    total_rows = max(len(rows) - 1, 0)
+    total_rows = len(data_rows)
+    header_status = "present" if has_header else "missing"
     return "\n".join(
         [
-            f"<csv summary: {total_rows} data rows>",
+            f"<csv summary: {total_rows} data rows, {len(header)} columns, header {header_status}>",
+            f"<csv columns: {', '.join(header) if has_header else 'unlabeled'}>",
             "<csv sample>",
             *(",".join(row) for row in preview),
             "</csv sample>",
         ]
     )
+
+
+def _row_looks_like_header(row: list[str]) -> bool:
+    if not row:
+        return False
+    return not all(_is_float(cell.strip()) for cell in row)
+
+
+def _is_float(value: str) -> bool:
+    if not value:
+        return False
+    try:
+        float(value)
+    except ValueError:
+        return False
+    return True
+
+
+def _validate_csv_inputs_have_headers(session_dir: Path) -> None:
+    inputs = Path(session_dir) / "inputs"
+    if not inputs.exists():
+        return
+    for path in sorted(inputs.glob("*.csv")):
+        header = _read_csv_header(path)
+        if header is None:
+            continue
+        if not _row_looks_like_header(header):
+            raise ValidationError(
+                f"pfit-new CSV must include a header row naming time and observed variables: "
+                f"{path.name}"
+            )
+
+
+def _validate_spec_against_csv_header(session_dir: Path, spec: NewSessionSpec) -> None:
+    csv_path = Path(session_dir) / "inputs" / spec.filename_data
+    if not csv_path.exists():
+        raise ValidationError(f"pfit-new dataset CSV was not found in inputs/: {spec.filename_data}")
+    header = _read_csv_header(csv_path)
+    if not header or not _row_looks_like_header(header):
+        raise ValidationError(
+            f"pfit-new CSV must include a header row naming time and observed variables: "
+            f"{spec.filename_data}"
+        )
+    if len(header) < 2:
+        raise ValidationError("pfit-new CSV header must include time and at least one observed column")
+    if header[0].strip().lower() != "time":
+        raise ValidationError("pfit-new CSV first column must be named time")
+
+    measurement_names = [name.strip() for name in header[1:]]
+    observed_names = _observed_column_names(spec)
+    auxiliary_names = {column.name for column in spec.auxiliary_columns}
+    observable_measurement_names = [
+        name
+        for name in measurement_names
+        if name not in auxiliary_names and not _is_auxiliary_measurement_column(name)
+    ]
+    if observed_names != observable_measurement_names:
+        raise ValidationError(
+            "pfit-new observed state/observable names must match the CSV header after time: "
+            f"expected {observable_measurement_names}, got {observed_names}"
+        )
+    if spec.loss_body:
+        _validate_loss_body_array_indices(
+            spec.loss_body,
+            dataset_width=len(measurement_names),
+            solution_width=len(spec.states),
+        )
+
+
+def _is_auxiliary_measurement_column(name: str) -> bool:
+    normalized = name.strip().lower()
+    return normalized.endswith(("_sd", "_sigma", "_std", "_stderr", "_se"))
+
+
+def _canonicalize_observed_columns_from_csv_header(
+    session_dir: Path,
+    spec: NewSessionSpec,
+) -> NewSessionSpec:
+    csv_path = Path(session_dir) / "inputs" / spec.filename_data
+    if not csv_path.exists():
+        return spec
+    header = _read_csv_header(csv_path)
+    if not header or not _row_looks_like_header(header) or len(header) < 2:
+        return spec
+
+    measurement_columns = {
+        name.strip(): index for index, name in enumerate(header[1:])
+    }
+    states = tuple(
+        NewSessionState(
+            name=state.name,
+            initial_value=state.initial_value,
+            rhs=state.rhs,
+            observed_column=measurement_columns.get(state.name, state.observed_column),
+        )
+        for state in spec.states
+    )
+    observables = tuple(
+        NewSessionObservable(
+            name=observable.name,
+            expression=observable.expression,
+            observed_column=measurement_columns.get(
+                observable.name,
+                observable.observed_column,
+            ),
+        )
+        for observable in spec.observables
+    )
+    auxiliary_columns = tuple(
+        NewSessionAuxiliaryColumn(
+            name=column.name,
+            observed_column=measurement_columns.get(column.name, column.observed_column),
+            kind=column.kind,
+            target=column.target,
+        )
+        for column in spec.auxiliary_columns
+    )
+    return NewSessionSpec(
+        missing_inputs=spec.missing_inputs,
+        review=spec.review,
+        filename_data=spec.filename_data,
+        parameters=spec.parameters,
+        fixed_parameters=spec.fixed_parameters,
+        states=states,
+        helper_functions=spec.helper_functions,
+        observables=observables,
+        auxiliary_columns=auxiliary_columns,
+        loss_body=spec.loss_body,
+        user_info_txt=spec.user_info_txt,
+    )
+
+
+def _read_csv_header(path: Path) -> list[str] | None:
+    try:
+        with path.open(newline="", encoding="utf-8") as handle:
+            return next(csv.reader(handle), None)
+    except UnicodeDecodeError:
+        return None
 
 
 def _clear_previous_new_outputs(session_dir: Path) -> None:
@@ -256,7 +1475,7 @@ def _complete_with_log(
     return response
 
 
-def _parse_new_session_response(response: str) -> NewSessionSpec:
+def _parse_new_session_response(response: str, *, validate: bool = True) -> NewSessionSpec:
     data = parse_llm_json_object(response, "pfit-new")
 
     missing = data.get("missing_inputs", [])
@@ -274,6 +1493,7 @@ def _parse_new_session_response(response: str) -> NewSessionSpec:
             states=(),
             helper_functions=(),
             observables=(),
+            auxiliary_columns=(),
             loss_body="",
             user_info_txt=_require_string(data, "user_info_txt", allow_empty=True),
         )
@@ -290,6 +1510,9 @@ def _parse_new_session_response(response: str) -> NewSessionSpec:
     observables = _normalize_observable_columns(
         tuple(_parse_observable(item) for item in data.get("observables", []))
     )
+    auxiliary_columns = tuple(
+        _parse_auxiliary_column(item) for item in data.get("auxiliary_columns", [])
+    )
     spec = NewSessionSpec(
         missing_inputs=(),
         review=_require_string(data, "review", allow_empty=True),
@@ -299,10 +1522,12 @@ def _parse_new_session_response(response: str) -> NewSessionSpec:
         states=states,
         helper_functions=helper_functions,
         observables=observables,
+        auxiliary_columns=auxiliary_columns,
         loss_body=_require_string(data, "loss_body", allow_empty=True),
         user_info_txt=_require_string(data, "user_info_txt", allow_empty=True),
     )
-    _validate_new_session_spec(spec)
+    if validate:
+        _validate_new_session_spec(spec)
     return spec
 
 
@@ -347,14 +1572,15 @@ def _parse_fixed_parameter(value: object) -> NewSessionFixedParameter:
 def _parse_state(value: object) -> NewSessionState:
     if not isinstance(value, dict):
         raise ValidationError("pfit-new states entries must be objects")
+    observed_column = value.get("observed_column")
     return NewSessionState(
         name=_clean_identifier(_require_string(value, "name", allow_empty=False), "state"),
         initial_value=float(value["initial_value"]),
         rhs=_require_string(value, "rhs", allow_empty=False).replace("^", "**"),
         observed_column=(
             None
-            if value.get("observed_column") is None
-            else int(value["observed_column"])
+            if observed_column is None or int(observed_column) < 0
+            else int(observed_column)
         ),
     )
 
@@ -366,6 +1592,17 @@ def _parse_observable(value: object) -> NewSessionObservable:
         name=_clean_identifier(_require_string(value, "name", allow_empty=False), "observable"),
         expression=_require_string(value, "expression", allow_empty=False).replace("^", "**"),
         observed_column=int(value["observed_column"]),
+    )
+
+
+def _parse_auxiliary_column(value: object) -> NewSessionAuxiliaryColumn:
+    if not isinstance(value, dict):
+        raise ValidationError("pfit-new auxiliary_columns entries must be objects")
+    return NewSessionAuxiliaryColumn(
+        name=_clean_identifier(_require_string(value, "name", allow_empty=False), "auxiliary column"),
+        observed_column=int(value["observed_column"]),
+        kind=_require_string(value, "kind", allow_empty=False),
+        target=_clean_identifier(_require_string(value, "target", allow_empty=False), "auxiliary target"),
     )
 
 
@@ -462,6 +1699,7 @@ def _validate_new_session_spec(spec: NewSessionSpec) -> None:
     state_names = {state.name for state in spec.states}
     observable_names = {observable.name for observable in spec.observables}
     helper_names = {_helper_function_name(source) for source in spec.helper_functions}
+    auxiliary_names = {column.name for column in spec.auxiliary_columns}
     all_names = parameter_names | fixed_parameter_names | state_names | observable_names
     if len(parameter_names) != len(spec.parameters):
         raise ValidationError("pfit-new parameter names must be unique")
@@ -473,6 +1711,8 @@ def _validate_new_session_spec(spec: NewSessionSpec) -> None:
         raise ValidationError("pfit-new observable names must be unique")
     if len(helper_names) != len(spec.helper_functions):
         raise ValidationError("pfit-new helper function names must be unique")
+    if len(auxiliary_names) != len(spec.auxiliary_columns):
+        raise ValidationError("pfit-new auxiliary column names must be unique")
     if len(all_names) != (
         len(spec.parameters)
         + len(spec.fixed_parameters)
@@ -480,6 +1720,20 @@ def _validate_new_session_spec(spec: NewSessionSpec) -> None:
         + len(spec.observables)
     ):
         raise ValidationError("pfit-new model names must be unique")
+    if auxiliary_names & all_names:
+        raise ValidationError("pfit-new auxiliary column names must not duplicate model names")
+    observed_columns = {
+        state.observed_column for state in spec.states if state.observed_column is not None
+    } | {observable.observed_column for observable in spec.observables}
+    for column in spec.auxiliary_columns:
+        if column.observed_column in observed_columns:
+            raise ValidationError(
+                f"pfit-new auxiliary column {column.name} reuses an observed data column"
+            )
+        if column.kind == "uncertainty_of" and column.target not in state_names | observable_names:
+            raise ValidationError(
+                f"pfit-new auxiliary column {column.name} targets unknown quantity: {column.target}"
+            )
 
     allowed_names = parameter_names | fixed_parameter_names | state_names | helper_names | {"t", "np"}
     for state in spec.states:
@@ -508,6 +1762,16 @@ def _validate_expression(
         raise ValidationError(f"pfit-new expression has invalid syntax: {expression}") from exc
 
     for node in ast.walk(expression_ast):
+        if isinstance(node, ast.IfExp):
+            raise ValidationError(
+                "pfit-new expression uses a Python conditional expression; "
+                "use a smooth np.* switch or np.where-style expression"
+            )
+        if isinstance(node, ast.BoolOp):
+            raise ValidationError(
+                "pfit-new expression uses Python and/or; use np.logical_and/np.logical_or "
+                "or a smooth np.* switch"
+            )
         if isinstance(node, ast.Name) and node.id not in allowed_names:
             raise ValidationError(f"pfit-new expression uses unknown name: {node.id}")
         if isinstance(node, ast.Call):
@@ -517,7 +1781,8 @@ def _validate_expression(
                 and node.func.value.id == "np"
             )
             helper_call = isinstance(node.func, ast.Name) and node.func.id in allowed_functions
-            if not (np_call or helper_call):
+            builtin_call = isinstance(node.func, ast.Name) and node.func.id == "abs"
+            if not (np_call or helper_call or builtin_call):
                 raise ValidationError("pfit-new expressions may only call np.* functions")
         if isinstance(node, (ast.Subscript, ast.Lambda, ast.Dict, ast.ListComp, ast.GeneratorExp)):
             raise ValidationError("pfit-new expressions must be scalar formulas")
@@ -549,15 +1814,57 @@ def _validate_loss_body(loss_body: str, allowed_functions: set[str]) -> None:
         "trainable_parameters",
         "fixed_parameters",
         "np",
-        "residuals",
-        "observables",
-        "scale",
-        "loss",
+        "float",
     } | allowed_functions | assigned_names
     for node in ast.walk(function):
         if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
             if node.id not in allowed_names:
                 raise ValidationError(f"pfit-new loss_body uses unknown name: {node.id}")
+
+
+def _validate_loss_body_array_indices(
+    loss_body: str,
+    *,
+    dataset_width: int,
+    solution_width: int,
+) -> None:
+    try:
+        module_ast = ast.parse("def _loss():\n" + _indent_body(loss_body))
+    except SyntaxError:
+        return
+    for node in ast.walk(module_ast):
+        if not isinstance(node, ast.Subscript) or not isinstance(node.value, ast.Name):
+            continue
+        if node.value.id not in {"dataset", "solution"}:
+            continue
+        column_index = _second_axis_constant_index(node.slice)
+        if column_index is None:
+            continue
+        width = dataset_width if node.value.id == "dataset" else solution_width
+        if not -width <= column_index < width:
+            raise ValidationError(
+                f"pfit-new loss_body {node.value.id} column index {column_index} "
+                f"is out of bounds for width {width}"
+            )
+
+
+def _second_axis_constant_index(slice_node: ast.AST) -> int | None:
+    if not isinstance(slice_node, ast.Tuple) or len(slice_node.elts) < 2:
+        return None
+    return _constant_int(slice_node.elts[1])
+
+
+def _constant_int(node: ast.AST) -> int | None:
+    if isinstance(node, ast.Constant) and isinstance(node.value, int):
+        return node.value
+    if (
+        isinstance(node, ast.UnaryOp)
+        and isinstance(node.op, ast.USub)
+        and isinstance(node.operand, ast.Constant)
+        and isinstance(node.operand.value, int)
+    ):
+        return -node.operand.value
+    return None
 
 
 def _indent_body(body: str) -> str:
@@ -575,10 +1882,7 @@ def _render_new_session_draft(spec: NewSessionSpec) -> NewSessionDraft:
 
 
 def _render_user_input_yaml(spec: NewSessionSpec) -> str:
-    columns = ["      - {name: time}"] + [
-        f"      - {{name: {name}, observes: {name}}}"
-        for name in _observed_column_names(spec)
-    ]
+    columns = ["      - {name: time}", *_render_experiment_columns(spec)]
     parameters = "\n".join(
         f"    - {{name: {parameter.name}, min_val: {parameter.min_value}, "
         f"max_val: {parameter.max_value}, logscale: {str(parameter.logscale).lower()}}}"
@@ -598,6 +1902,7 @@ def _render_user_input_yaml(spec: NewSessionSpec) -> str:
     )
     rtol = "[" + ", ".join("1e-7" for _ in spec.states) + "]"
     atol = "[" + ", ".join("1e-9" for _ in spec.states) + "]"
+    integrator = _select_integrator(spec)
     return f"""experiments:
   - data_file: {spec.filename_data}
     columns:
@@ -623,6 +1928,7 @@ gradient_opt:
   stepsize_atol: {atol}
   initial_timestep: 1e-6
   max_steps: 10000
+  integrator: {integrator}
   init_value_lr: 1e-4
   end_value_lr: 1e-5
   transition_steps_lr: 2000
@@ -631,6 +1937,59 @@ gradient_opt:
 output:
   write_results: true
 """
+
+
+def _select_integrator(spec: NewSessionSpec) -> str:
+    text = " ".join(
+        [
+            spec.review,
+            spec.user_info_txt,
+            spec.filename_data,
+            " ".join(state.rhs for state in spec.states),
+            " ".join(parameter.name for parameter in spec.parameters),
+        ]
+    ).lower()
+    if _text_requests_stiff_integrator(text):
+        return "Kvaerno5"
+    for parameter in spec.parameters:
+        lower = max(abs(parameter.min_value), 1e-300)
+        upper = max(abs(parameter.max_value), 1e-300)
+        if upper / lower >= 1e8:
+            return "Kvaerno5"
+    return "Tsit5"
+
+
+def _text_requests_stiff_integrator(text: str) -> bool:
+    lower = text.lower()
+    stiff_markers = (
+        "stiff",
+        "stiffness",
+        "fast-slow",
+        "fast slow",
+        "chemical kinetics",
+        "combustion",
+        "reaction network",
+    )
+    return any(marker in lower for marker in stiff_markers)
+
+
+def _render_experiment_columns(spec: NewSessionSpec) -> list[str]:
+    columns: dict[int, str] = {}
+    for state in spec.states:
+        if state.observed_column is not None:
+            columns[state.observed_column] = f"      - {{name: {state.name}, observes: {state.name}}}"
+    for observable in spec.observables:
+        columns[observable.observed_column] = (
+            f"      - {{name: {observable.name}, observes: {observable.name}}}"
+        )
+    for column in spec.auxiliary_columns:
+        if column.kind == "uncertainty_of":
+            columns[column.observed_column] = (
+                f"      - {{name: {column.name}, uncertainty_of: {column.target}}}"
+            )
+        else:
+            columns[column.observed_column] = f"      - {{name: {column.name}}}"
+    return [columns[index] for index in sorted(columns)]
 
 
 def _render_user_model_from_spec(spec: NewSessionSpec) -> str:
@@ -758,15 +2117,20 @@ def _observed_column_names(spec: NewSessionSpec) -> list[str]:
     by_column: dict[int, str] = {}
     for state in spec.states:
         if state.observed_column is not None:
+            if state.observed_column in by_column:
+                raise ValidationError(
+                    f"pfit-new observed column {state.observed_column} is assigned more than once"
+                )
             by_column[state.observed_column] = state.name
     for observable in spec.observables:
+        if observable.observed_column in by_column:
+            raise ValidationError(
+                f"pfit-new observed column {observable.observed_column} is assigned more than once"
+            )
         by_column[observable.observed_column] = observable.name
     if not by_column:
         return []
-    expected = list(range(max(by_column) + 1))
-    if sorted(by_column) != expected:
-        raise ValidationError("pfit-new observed columns must be contiguous from zero")
-    return [by_column[index] for index in expected]
+    return [by_column[index] for index in sorted(by_column)]
 
 
 def _validate_draft(session_dir: Path, draft: NewSessionDraft) -> None:
@@ -793,7 +2157,7 @@ def _validate_draft(session_dir: Path, draft: NewSessionDraft) -> None:
 def _validate_user_model_source(source: str) -> None:
     if "```" in source:
         raise ValidationError("pfit-new user_model_py contains Markdown fences")
-    placeholders = ("TODO", "pass", "Define each derivative", "loss = 0.0")
+    placeholders = ("TODO", "pass", "Define each derivative")
     for placeholder in placeholders:
         if placeholder in source:
             raise ValidationError(f"pfit-new user_model_py still contains placeholder: {placeholder}")
