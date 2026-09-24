@@ -35,7 +35,7 @@ def user_defined_system(t, y, other_args):
 @jax.jit
 def _integrate_system(constants, trainable_variables):
     term = diffrax.ODETerm(user_defined_system)
-    solver = diffrax.Tsit5()
+    solver = diffrax.Kvaerno5()
     t_eval = constants["t_eval"]
     other_args = {"constants": constants, "trainable_variables": trainable_variables}
     sol = diffrax.diffeqsolve(

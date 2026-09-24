@@ -47,9 +47,9 @@ def user_defined_system(t, y, other_args):
     dx1dt = v1
     dx2dt = v2
     dv1dt = (k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1
-    dv2dt = 0.5 * (1 + jnp.tanh((x2 - x1) / 0.01)) * (-k * (x2 - x1) - c2 * jnp.sign(v2)) / m2
-    dkdt = Dk * jnp.abs(m1 * v1 * (k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1)
-    dc1dt = Dc * jnp.abs(m1 * v1 * (k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1)
+    dv2dt = jnp.where(jnp.logical_and(jnp.abs(-(k * (x2 - x1))) < c2, jnp.abs(v2) < vf), 0, (-(k * (x2 - x1)) - c2 * jnp.sign(v2)) / m2)
+    dkdt = Dk * jnp.abs(m1 * v1 * ((k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1))
+    dc1dt = Dc * jnp.abs(m1 * v1 * ((k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1))
     return jnp.array([dx1dt, dx2dt, dv1dt, dv2dt, dkdt, dc1dt])
 
 @jax.jit
@@ -86,8 +86,9 @@ def _compute_loss_value(constants, trainable_variables, solution_time, solution)
     vf = fixed_parameters['vf']
     observables = _observables(solution, trainable_parameters, fixed_parameters)
     loss = 0.0
-    loss += jnp.mean(jnp.square((observables['contact_force'] - dataset[:, 0]) / (jnp.max(dataset[:, 0]) - jnp.min(dataset[:, 0]) + 1e-12)))
-    loss += jnp.mean(jnp.square((observables['displacement'] - dataset[:, 1]) / (jnp.max(dataset[:, 1]) - jnp.min(dataset[:, 1]) + 1e-12)))
+    loss += jnp.mean(jnp.square((observables['contact_force'] - dataset[:, 0]) / (jnp.max(jnp.abs(dataset[:, 0])) + 1e-12)))
+    loss += jnp.mean(jnp.square((observables['displacement'] - dataset[:, 1]) / (jnp.max(jnp.abs(dataset[:, 1])) + 1e-12)))
+    loss = jnp.sqrt(loss / 2)
     return loss
 
 @jax.jit

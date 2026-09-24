@@ -25,6 +25,8 @@ Expression rules:
 - Expressions may use frozen trainable parameters, frozen fixed parameters, frozen state names, t, formulas defined in this response, and np.* math functions.
 - Use np.* for math functions such as np.exp, np.abs, np.sqrt, np.log10.
 - Use ** for powers.
+- Do not invent helper functions such as smooth_switch(...) or sign(...). Use np.* calls directly and inline small smooth switch formulas.
+- Every symbol in a formula or RHS must be one of the frozen names, t, np, or a formula name defined in this response.
 - Do not use Python if/else conditionals in RHS expressions. If the user describes a switch, use a smooth np.tanh/np.exp sigmoid-style transition unless the user explicitly asks for a hard np.where.
 - Do not use Python and/or in array-style predicates; use products/smooth switches or np.logical_and/np.logical_or.
 - Do not include Markdown fences.

@@ -88,6 +88,23 @@ def test_check_session_fails_branchy_user_defined_system(tmp_path):
     assert any("conditional expression" in error for error in report.critical_errors)
 
 
+def test_check_session_fails_user_loss_contract_mismatch(tmp_path):
+    session = _make_uncertainty_session(tmp_path)
+    (session / "inputs" / "user_info.txt").write_text(
+        "Loss:\n"
+        "- Compare X in log10 space.\n"
+        "- Normalize the residuals by the data range.\n"
+        "- Use RMSE: sqrt(mean(normalized squared residuals)).\n"
+    )
+
+    report = check_session(session)
+
+    assert report.passed is False
+    assert any("square root" in error for error in report.critical_errors)
+    assert any("log transform" in error for error in report.critical_errors)
+    assert any("does not divide by a scale" in error for error in report.critical_errors)
+
+
 def _make_vanderpol_session(tmp_path):
     session = tmp_path / "session"
     inputs = session / "inputs"

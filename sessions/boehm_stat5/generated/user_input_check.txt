@@ -2,7 +2,7 @@ Critical errors:
 - none
 
 Warnings:
-- Very small population size (16) and gradient iteration count (5) may lead to poor convergence or suboptimal results.
+- Very small population size (16) and gradient iteration count (5) may lead to poor convergence. Consider increasing these values for better results.
 
 Recommendations:
 - Large trainable parameter count detected; consider increasing population search budget.
@@ -11,4 +11,4 @@ Recommendations:
 - Review generated/user_model.py and parameter bounds before JAX translation.
 
 Semantic review:
-The session is ready for JAX translation with minor warnings regarding population size and iteration counts.
+The session is ready for JAX translation with minor warnings regarding population size and gradient iteration count. Ensure that the loss function is nan-safe and normalized appropriately.

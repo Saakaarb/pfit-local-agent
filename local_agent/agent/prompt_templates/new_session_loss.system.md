@@ -14,7 +14,7 @@ Schema:
   "review": "short note",
   "custom_loss": true,
   "data_terms": [
-    {"simulated": "state_or_observable_name", "measured": "csv_header_name", "metric": "normalized_mse"},
+    {"simulated": "state_or_observable_name", "measured": "csv_header_name", "metric": "max_abs_normalized_rmse"},
     {"simulated": "state_or_observable_name", "measured": "csv_header_name", "metric": "sigma_weighted_mse", "sigma": "csv_uncertainty_header"}
   ],
   "penalties": [
@@ -24,8 +24,10 @@ Schema:
 }
 
 Penalty rules:
-- Supported data metrics are mse, mae, normalized_mse, log10_normalized_mse, and sigma_weighted_mse.
+- Supported data metrics are mse, mae, normalized_mse, max_abs_normalized_mse, normalized_rmse, max_abs_normalized_rmse, log10_normalized_mse, log10_normalized_rmse, and sigma_weighted_mse.
 - Use normalized_mse when the user asks for normalized residuals, scaled residuals, dimensionless data loss, or loss normalization.
+- Use max_abs_normalized_mse when the user asks to normalize by max(abs(measured column)).
+- Use the corresponding *_rmse metric when the user asks for RMSE, root mean square error, or sqrt(mean(...)).
 - Use log10_normalized_mse when the user asks to compare a strictly positive measured quantity in log10 space before normalization.
 - Use sigma_weighted_mse when the user asks to divide residuals by standard deviations, uncertainties, error bars, sigma values, or CSV columns such as X_sd.
 - For sigma_weighted_mse, set sigma to the real CSV uncertainty header.

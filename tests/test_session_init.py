@@ -719,6 +719,33 @@ def test_init_session_rejects_branchy_rhs_expression(tmp_path):
         init_session(session, llm, PromptRenderer(), workflow_config=_no_repair_config())
 
 
+def test_init_session_rejects_fixed_parameter_value_drift_from_prompt(tmp_path):
+    session = tmp_path / "demo"
+    _write_user_supplied_data(session)
+    session.joinpath("inputs", "user_info.txt").write_text(
+        "Fit dy/dt = -k*y + c.\n\nFixed parameters:\nc = 2.0\n"
+    )
+    response = json.loads(_new_session_response(rhs="-k * y + c"))
+    response["fixed_parameters"] = [{"name": "c", "value": 0.0}]
+    llm = FakeLLMClient([json.dumps(response)])
+
+    with pytest.raises(ValidationError, match="does not match user prompt value"):
+        init_session(session, llm, PromptRenderer(), workflow_config=_no_repair_config())
+
+
+def test_init_session_rejects_helper_function_closing_over_unknown_constant(tmp_path):
+    session = tmp_path / "demo"
+    _write_user_supplied_data(session)
+    response = json.loads(_new_session_response(rhs="smooth(y)"))
+    response["helper_functions"] = [
+        "def smooth(x):\n    return 1.0 / (1.0 + np.exp(-x / width))"
+    ]
+    llm = FakeLLMClient([json.dumps(response)])
+
+    with pytest.raises(ValidationError, match="helper function smooth uses unknown name: width"):
+        init_session(session, llm, PromptRenderer(), workflow_config=_no_repair_config())
+
+
 def test_init_session_canonicalizes_observed_columns_from_csv_header(tmp_path):
     session = tmp_path / "arc"
     inputs = session / "inputs"

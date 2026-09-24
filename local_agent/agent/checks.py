@@ -68,6 +68,7 @@ def check_session(
     _add_branchy_dynamics_checks(user_model, report)
     _add_uncertainty_loss_checks(session_dir, user_model, report)
     _add_dataset_scale_loss_checks(session_dir, user_model, report)
+    _add_user_loss_contract_checks(session_dir, user_model, report)
 
     if result.n_trainable_parameters > 5:
         report.recommendations.append(
@@ -256,6 +257,99 @@ def _add_uncertainty_loss_checks(
             f"Measurement uncertainty column {sigma_name} is declared for {target}, "
             f"but _compute_loss_problem does not use dataset[:, {dataset_index}]."
         )
+
+
+def _add_user_loss_contract_checks(
+    session_dir: Path,
+    user_model: Path,
+    report: CheckReport,
+) -> None:
+    user_info = session_dir / "inputs" / "user_info.txt"
+    if not user_info.exists():
+        return
+    loss_text = _extract_loss_contract_text(user_info.read_text())
+    if not loss_text:
+        return
+    source = user_model.read_text()
+    loss_source = _loss_function_source(source).lower()
+    requested = loss_text.lower()
+
+    if _requests_rmse(requested) and "sqrt" not in loss_source:
+        report.critical_errors.append(
+            "User prompt specifies an RMSE/sqrt loss, but _compute_loss_problem does not take a square root."
+        )
+    if _requests_log_loss(requested) and "log" not in loss_source:
+        report.critical_errors.append(
+            "User prompt specifies log/log10 residuals, but _compute_loss_problem does not use a log transform."
+        )
+    if _requests_normalized_loss(requested) and "/" not in loss_source:
+        report.critical_errors.append(
+            "User prompt specifies normalized/scaled residuals, but _compute_loss_problem does not divide by a scale."
+        )
+
+
+def _extract_loss_contract_text(text: str) -> str:
+    lines = text.splitlines()
+    collected: list[str] = []
+    in_loss = False
+    for raw_line in lines:
+        line = raw_line.strip()
+        if not line:
+            continue
+        heading = line.lstrip("#").strip().lower().rstrip(":")
+        if heading == "loss" or heading.startswith("loss "):
+            in_loss = True
+            collected.append(line)
+            continue
+        if in_loss and line.endswith(":") and not line.startswith(("-", "*")):
+            break
+        if in_loss:
+            collected.append(line)
+    if collected:
+        return "\n".join(collected)
+    lower = text.lower()
+    if "loss" not in lower:
+        return ""
+    return text
+
+
+def _loss_function_source(source: str) -> str:
+    try:
+        module = ast.parse(source)
+    except SyntaxError:
+        return source
+    loss_function = next(
+        (
+            node
+            for node in module.body
+            if isinstance(node, ast.FunctionDef) and node.name == "_compute_loss_problem"
+        ),
+        None,
+    )
+    if loss_function is None:
+        return source
+    return ast.get_source_segment(source, loss_function) or source
+
+
+def _requests_rmse(text: str) -> bool:
+    return "rmse" in text or "root mean square" in text or "sqrt(mean" in text
+
+
+def _requests_log_loss(text: str) -> bool:
+    return "log10" in text or "log scale" in text or "log-space" in text or "log residual" in text
+
+
+def _requests_normalized_loss(text: str) -> bool:
+    markers = (
+        "normalized",
+        "normalised",
+        "normalize",
+        "normalise",
+        "scaled residual",
+        "divide residual",
+        "residuals by",
+    )
+    return any(marker in text for marker in markers)
 
 
 def _add_branchy_dynamics_checks(user_model: Path, report: CheckReport) -> None:

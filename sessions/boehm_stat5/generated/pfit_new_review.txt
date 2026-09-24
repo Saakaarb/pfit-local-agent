@@ -1,5 +1,5 @@
-Extracted integrated state variables and initial values from the provided context.
-The provided information includes all necessary frozen states and parameters for the ODE system. The RHS expressions for each integrated state are clearly defined, and the formulas for derived observables are also provided.
-The CSV columns pSTAT5A, pSTAT5B, and rSTAT5A directly map to the derived observables in the user model.
+Extracted integrated state variables and initial values from the provided user information.
+The provided information includes all necessary equations and parameters for the ODE system. The derived observables and loss function are also specified.
+The CSV columns pSTAT5A, pSTAT5B, and rSTAT5A directly map to the derived observables in the model.
 The user wants to fit the Boehm et al. STAT5A/STAT5B model to the provided data using column-wise normalized squared error for the observables pSTAT5A, pSTAT5B, and rSTAT5A.
 Original user context indicates a stiff model.

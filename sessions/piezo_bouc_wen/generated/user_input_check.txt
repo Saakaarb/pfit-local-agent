@@ -2,7 +2,7 @@ Critical errors:
 - none
 
 Warnings:
-- The 'xp' column in the dataset has a positive log10 range of 0.52. Consider comparing this column in log/log10 space before normalization in the loss function.
+- The 'xp' column in the dataset spans several orders of magnitude. Consider comparing it in log/log10 space before normalization in the loss function.
 
 Recommendations:
 - Large trainable parameter count detected; consider increasing population search budget.

@@ -1,4 +1,4 @@
-Extracted integrated states and initial values from the user-provided context.
-The provided ODE system and reaction rates are consistent with the user's description. The formulas and RHS expressions are extracted based on the given reaction rates and ODE system.
+Extracted integrated state variables and initial values from the user-provided context.
+The provided information includes all necessary reaction rates and ODEs for the Kholodenko MAPK/ERK cascade model. The formulas and RHS expressions are extracted directly from the user-provided context.
 The CSV column 'Mpp' directly measures the integrated state 'Mpp' in the model.
-The user wants to fit the Kholodenko MAPK/ERK cascade model to the provided data, comparing the simulated Mpp to the measured Mpp column. The loss should be normalized by the maximum absolute value of the measured Mpp column.
+The user wants to fit the Kholodenko MAPK/ERK cascade model to the provided CSV data. The loss should compare the simulated Mpp to the measured Mpp column, normalized by the maximum absolute value of the measured Mpp column.

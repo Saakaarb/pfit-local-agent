@@ -22,6 +22,9 @@ Use the pfit-claude checking policy:
   missing values, solver settings, observable mappings, loss construction, or writeout shape.
 - Check consistency between dataset columns, model.observables, integrated variables,
   _observables, _compute_loss_problem, and writeout_description.
+- Compare the user's stated loss against _compute_loss_problem. If the user specifies
+  RMSE, log/log10 residuals, normalization, uncertainty weighting, or penalties,
+  report a critical error when that behavior is absent or materially changed.
 - If YAML declares derived observables, user_model.py should define _observables with matching keys.
 - If data contains NaN, the loss must be nan-safe.
 - The loss should be normalized enough that values are likely around 0 to 1.

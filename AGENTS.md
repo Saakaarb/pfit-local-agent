@@ -19,4 +19,6 @@ with these invariants.
   validation decides whether generated files are accepted.
 - Support derived quantities and transforms as general workflow features, not
   example-specific patches.
+- If a code change creates or changes a condition on accepted input data or
+  prompt format, update `INPUT_REQUIREMENTS.md` in the same change.
 - Keep tests focused on pfit workflow behavior and core fitting functionality.

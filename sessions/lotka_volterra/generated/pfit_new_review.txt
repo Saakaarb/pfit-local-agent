@@ -1,4 +1,4 @@
 Extracted integrated state variables and initial values from the provided context.
-The Lotka-Volterra predator-prey model equations have been extracted correctly.
+The Lotka-Volterra predator-prey model equations have been extracted from the user-provided context.
 The CSV columns H and L directly correspond to the integrated states H and L in the Lotka-Volterra model.
-The user wants to fit the Lotka-Volterra predator-prey model to the lynx_hare.csv data. The loss should be calculated using normalized squared errors for both H and L, normalized by the maximum absolute value of the measured columns.
+The user wants to fit the Lotka-Volterra model to the lynx_hare.csv data using normalized squared-error terms for the observed states H and L. The loss should be the square root of the mean of these normalized squared residuals.

@@ -6,7 +6,7 @@ Warnings:
 
 Recommendations:
 - Review generated/user_model.py and parameter bounds before JAX translation.
-- Review the generated/user_model.py and parameter bounds before JAX translation to ensure they are appropriate for the model and data.
+- Review the generated/user_model.py and parameter bounds before JAX translation to ensure compatibility and efficiency.
 
 Semantic review:
-The session is ready for JAX translation with minor recommendations to address the scale of the 'C_plasma' column in the loss calculation.
+The session is ready for JAX translation with minor recommendations. Ensure that the loss function compares the 'C_plasma' column in log/log10 space to handle its wide range.

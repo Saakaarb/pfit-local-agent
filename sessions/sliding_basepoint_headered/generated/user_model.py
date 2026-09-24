@@ -35,16 +35,17 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     dx1dt = v1
     dx2dt = v2
     dv1dt = (k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1
-    dv2dt = 0.5 * (1 + np.tanh((x2 - x1) / 0.01)) * (-k * (x2 - x1) - c2 * np.sign(v2)) / m2
-    dkdt = Dk * np.abs(m1 * v1 * (k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1)
-    dc1dt = Dc * np.abs(m1 * v1 * (k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1)
+    dv2dt = np.where(np.logical_and(np.abs(-(k * (x2 - x1))) < c2, np.abs(v2) < vf), 0, (-(k * (x2 - x1)) - c2 * np.sign(v2)) / m2)
+    dkdt = Dk * np.abs(m1 * v1 * ((k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1))
+    dc1dt = Dc * np.abs(m1 * v1 * ((k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1))
     return np.array([dx1dt, dx2dt, dv1dt, dv2dt, dkdt, dc1dt])
 
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     observables = _observables(solution, trainable_parameters, fixed_parameters)
     loss = 0.0
-    loss += np.mean(np.square((observables['contact_force'] - dataset[:, 0]) / (np.max(dataset[:, 0]) - np.min(dataset[:, 0]) + 1e-12)))
-    loss += np.mean(np.square((observables['displacement'] - dataset[:, 1]) / (np.max(dataset[:, 1]) - np.min(dataset[:, 1]) + 1e-12)))
+    loss += np.mean(np.square((observables['contact_force'] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)))
+    loss += np.mean(np.square((observables['displacement'] - dataset[:, 1]) / (np.max(np.abs(dataset[:, 1])) + 1e-12)))
+    loss = np.sqrt(loss / 2)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

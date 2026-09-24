@@ -3,12 +3,13 @@ Critical errors:
 
 Warnings:
 - Large trainable parameter count detected; consider increasing population search budget.
-- The loss function compares the 'Mpp' column in linear scale, which spans several orders of magnitude. Consider comparing it in log/log10 space before normalization.
+- The loss function compares 'solution[:, 2]' with 'dataset[:, 0]', which may not be the correct observable mapping. Ensure that 'solution[:, 2]' corresponds to 'Mpp' as declared in the YAML.
 
 Recommendations:
 - Large trainable parameter count detected; consider increasing population search budget.
 - Review generated/user_model.py and parameter bounds before JAX translation.
 - Review generated/user_model.py and parameter bounds before JAX translation.
+- Consider normalizing the loss function to ensure values are around 0 to 1 for better convergence.
 
 Semantic review:
-The session is ready for JAX translation with minor recommendations and warnings.
+The session is ready for JAX translation with minor adjustments. Ensure the observable mapping in the loss function is correct and consider normalizing the loss for better convergence.

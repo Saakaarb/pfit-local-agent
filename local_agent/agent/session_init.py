@@ -3,6 +3,7 @@ import copy
 import csv
 import json
 import math
+import re
 import shutil
 import tempfile
 from dataclasses import dataclass
@@ -116,6 +117,7 @@ def init_session(
                 raise ValidationError(f"pfit-new missing required inputs:\n{missing}")
             spec = _canonicalize_observed_columns_from_csv_header(session_dir, spec)
             _validate_spec_against_csv_header(session_dir, spec)
+            _validate_prompt_declared_values(session_dir, spec)
             draft = _render_new_session_draft(spec)
             _validate_draft(session_dir, draft)
             break
@@ -299,6 +301,7 @@ def _draft_new_session_response(
             {
                 **context,
                 "frozen_states": json.dumps(frozen_states, indent=2),
+                "large_model_guidance": _large_model_guidance(context, frozen_states),
             },
         ),
         temperature=workflow_config.temperature,
@@ -690,6 +693,37 @@ def _parse_split_rhs(data: dict[str, object]) -> dict[str, str]:
     return rhs_by_state
 
 
+def _large_model_guidance(context: dict[str, str], frozen_states: dict[str, object]) -> str:
+    state_count = len(frozen_states.get("states", []))
+    parameter_count = len(frozen_states.get("parameters", [])) + len(
+        frozen_states.get("fixed_parameters", [])
+    )
+    user_text_size = len(str(context.get("session_context", "")))
+    if state_count < 8 and parameter_count < 20 and user_text_size < 12000:
+        return "LARGE_MODEL_MODE: off."
+    state_names = [
+        str(item.get("name"))
+        for item in frozen_states.get("states", [])
+        if isinstance(item, dict) and item.get("name")
+    ]
+    fixed_names = [
+        str(item.get("name"))
+        for item in frozen_states.get("fixed_parameters", [])
+        if isinstance(item, dict) and item.get("name")
+    ]
+    return "\n".join(
+        [
+            "LARGE_MODEL_MODE: on.",
+            "Extract equations conservatively from the user text. Do not summarize, rename, or simplify the system.",
+            "Every RHS entry must correspond exactly to one frozen state name.",
+            "Use fixed parameter names exactly as frozen; never change fixed parameter values.",
+            "If a state equation is not explicitly recoverable, return missing_inputs instead of inventing it.",
+            "Frozen states: " + ", ".join(state_names),
+            "Frozen fixed parameters: " + (", ".join(fixed_names) if fixed_names else "none"),
+        ]
+    )
+
+
 def _normalize_split_loss_data(
     loss_data: dict[str, object],
     states: list[dict[str, object]],
@@ -751,6 +785,24 @@ def _normalize_split_loss_data(
         if sigma:
             term["metric"] = "sigma_weighted_mse"
             term["sigma"] = sigma
+        metric = str(term.get("metric", "")).lower()
+        if "max(abs" in loss_text or "maximum absolute" in loss_text or "max absolute" in loss_text:
+            if metric == "normalized_mse":
+                term["metric"] = "max_abs_normalized_mse"
+            elif metric == "log10_normalized_mse":
+                term["metric"] = "log10_max_abs_normalized_mse"
+        if _text_requests_rmse_loss(loss_text):
+            metric = str(term.get("metric", "")).lower()
+            if metric == "normalized_mse":
+                term["metric"] = "normalized_rmse"
+            elif metric == "max_abs_normalized_mse":
+                term["metric"] = "max_abs_normalized_rmse"
+            elif metric == "log10_normalized_mse":
+                term["metric"] = "log10_normalized_rmse"
+            elif metric == "log10_max_abs_normalized_mse":
+                term["metric"] = "log10_max_abs_normalized_rmse"
+            elif metric == "sigma_weighted_mse":
+                term["metric"] = "sigma_weighted_rmse"
         data_terms.append(term)
     normalized["data_terms"] = data_terms
 
@@ -777,6 +829,10 @@ def _normalize_split_loss_data(
         penalties.append(penalty)
     normalized["penalties"] = penalties
     return normalized
+
+
+def _text_requests_rmse_loss(text: str) -> bool:
+    return "rmse" in text or "root mean square" in text or "sqrt(mean" in text
 
 
 def _auxiliary_columns_from_loss_data(
@@ -845,6 +901,7 @@ def _render_structured_loss_body(spec: NewSessionSpec, loss_data: dict[str, obje
     if needs_observables:
         lines.append("observables = _observables(solution, trainable_parameters, fixed_parameters)")
     lines.append("loss = 0.0")
+    rmse_term_count = 0
     for item in data_terms:
         if not isinstance(item, dict):
             raise ValidationError("pfit-new loss data_terms entries must be objects")
@@ -861,11 +918,34 @@ def _render_structured_loss_body(spec: NewSessionSpec, loss_data: dict[str, obje
         elif metric in {"normalized_mse", "range_normalized_mse"}:
             scale = f"(np.max({measured_ref}) - np.min({measured_ref}) + 1e-12)"
             lines.append(f"loss += np.mean(np.square(({residual}) / {scale}))")
+        elif metric in {"max_abs_normalized_mse"}:
+            scale = f"(np.max(np.abs({measured_ref})) + 1e-12)"
+            lines.append(f"loss += np.mean(np.square(({residual}) / {scale}))")
+        elif metric in {"normalized_rmse", "range_normalized_rmse"}:
+            scale = f"(np.max({measured_ref}) - np.min({measured_ref}) + 1e-12)"
+            lines.append(f"loss += np.mean(np.square(({residual}) / {scale}))")
+            rmse_term_count += 1
+        elif metric in {"max_abs_normalized_rmse"}:
+            scale = f"(np.max(np.abs({measured_ref})) + 1e-12)"
+            lines.append(f"loss += np.mean(np.square(({residual}) / {scale}))")
+            rmse_term_count += 1
         elif metric in {"sigma_weighted_mse", "uncertainty_weighted_mse"}:
             sigma = _require_string(item, "sigma", allow_empty=False)
             sigma_ref = _dataset_reference_by_name(spec, sigma)
             lines.append(f"loss += np.mean(np.square(({residual}) / ({sigma_ref} + 1e-12)))")
-        elif metric in {"log10_normalized_mse", "log_normalized_mse"}:
+        elif metric in {"sigma_weighted_rmse", "uncertainty_weighted_rmse"}:
+            sigma = _require_string(item, "sigma", allow_empty=False)
+            sigma_ref = _dataset_reference_by_name(spec, sigma)
+            lines.append(f"loss += np.mean(np.square(({residual}) / ({sigma_ref} + 1e-12)))")
+            rmse_term_count += 1
+        elif metric in {
+            "log10_normalized_mse",
+            "log_normalized_mse",
+            "log10_normalized_rmse",
+            "log_normalized_rmse",
+            "log10_max_abs_normalized_mse",
+            "log10_max_abs_normalized_rmse",
+        }:
             positive_measured = f"np.where({measured_ref} > 0.0, {measured_ref}, np.inf)"
             eps_name = f"eps_{measured}"
             log_sim_name = f"log_sim_{measured}"
@@ -874,10 +954,19 @@ def _render_structured_loss_body(spec: NewSessionSpec, loss_data: dict[str, obje
             lines.append(f"{eps_name} = np.min({positive_measured})")
             lines.append(f"{log_sim_name} = np.log10({_series_reference(spec, simulated)} + {eps_name})")
             lines.append(f"{log_measured_name} = np.log10({measured_ref} + {eps_name})")
-            lines.append(f"{scale_name} = np.max({log_measured_name}) - np.min({log_measured_name}) + 1e-12")
+            if "max_abs" in metric:
+                lines.append(f"{scale_name} = np.max(np.abs({log_measured_name})) + 1e-12")
+            else:
+                lines.append(f"{scale_name} = np.max({log_measured_name}) - np.min({log_measured_name}) + 1e-12")
             lines.append(f"loss += np.mean(np.square(({log_sim_name} - {log_measured_name}) / {scale_name}))")
+            if metric.endswith("_rmse"):
+                rmse_term_count += 1
         else:
             raise ValidationError(f"pfit-new unsupported loss metric: {metric}")
+    if rmse_term_count:
+        if rmse_term_count != len(data_terms):
+            raise ValidationError("pfit-new cannot mix RMSE and non-RMSE data terms")
+        lines.append(f"loss = np.sqrt(loss / {rmse_term_count!r})")
     for item in penalties:
         if not isinstance(item, dict):
             raise ValidationError("pfit-new loss penalties entries must be objects")
@@ -1353,6 +1442,92 @@ def _validate_spec_against_csv_header(session_dir: Path, spec: NewSessionSpec) -
         )
 
 
+def _validate_prompt_declared_values(session_dir: Path, spec: NewSessionSpec) -> None:
+    user_info = Path(session_dir) / "inputs" / "user_info.txt"
+    if not user_info.exists():
+        return
+    text = user_info.read_text()
+    fixed_values = _extract_numeric_assignments_from_sections(
+        text,
+        ("fixed parameter", "fixed parameters", "fixed constants", "constants"),
+    )
+    actual_fixed = {parameter.name: parameter.value for parameter in spec.fixed_parameters}
+    for name, expected in fixed_values.items():
+        if name not in actual_fixed:
+            raise ValidationError(
+                f"pfit-new missing fixed parameter declared in user prompt: {name}"
+            )
+        if not math.isclose(actual_fixed[name], expected, rel_tol=1e-12, abs_tol=1e-12):
+            raise ValidationError(
+                f"pfit-new fixed parameter {name} value {actual_fixed[name]!r} "
+                f"does not match user prompt value {expected!r}"
+            )
+
+    initial_values = _extract_initial_values_from_prompt(text)
+    actual_states = {state.name: state.initial_value for state in spec.states}
+    for name, expected in initial_values.items():
+        if name not in actual_states:
+            continue
+        if not math.isclose(actual_states[name], expected, rel_tol=1e-12, abs_tol=1e-12):
+            raise ValidationError(
+                f"pfit-new state {name} initial value {actual_states[name]!r} "
+                f"does not match user prompt value {expected!r}"
+            )
+
+
+def _extract_initial_values_from_prompt(text: str) -> dict[str, float]:
+    values = _extract_numeric_assignments_from_sections(
+        text,
+        ("states", "state initial values", "initial conditions", "integrated variables"),
+    )
+    normalized: dict[str, float] = {}
+    for name, value in values.items():
+        normalized[_strip_initial_value_suffix(name)] = value
+    for match in re.finditer(
+        r"\b([A-Za-z_]\w*)\s*\(\s*0\s*\)\s*=\s*(" + _NUMBER_PATTERN + r")",
+        text,
+    ):
+        normalized[match.group(1)] = float(match.group(2))
+    return normalized
+
+
+_NUMBER_PATTERN = r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?"
+
+
+def _extract_numeric_assignments_from_sections(
+    text: str,
+    headings: tuple[str, ...],
+) -> dict[str, float]:
+    values: dict[str, float] = {}
+    in_section = False
+    normalized_headings = {heading.lower().rstrip(":") for heading in headings}
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        heading = line.lstrip("#").strip().lower().rstrip(":")
+        if heading in normalized_headings:
+            in_section = True
+            continue
+        if in_section and line.endswith(":") and "=" not in line:
+            break
+        if not in_section:
+            continue
+        for match in re.finditer(
+            r"\b([A-Za-z_]\w*)\b\s*(?:=|:)\s*(" + _NUMBER_PATTERN + r")",
+            line,
+        ):
+            values[match.group(1)] = float(match.group(2))
+    return values
+
+
+def _strip_initial_value_suffix(name: str) -> str:
+    for suffix in ("_0", "0"):
+        if name.endswith(suffix) and len(name) > len(suffix):
+            return name[: -len(suffix)]
+    return name
+
+
 def _is_auxiliary_measurement_column(name: str) -> bool:
     normalized = name.strip().lower()
     return normalized.endswith(("_sd", "_sigma", "_std", "_stderr", "_se"))
@@ -1624,6 +1799,7 @@ def _parse_helper_function(value: object) -> str:
             raise ValidationError("pfit-new helper functions must not import or define classes")
         if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "print":
             raise ValidationError("pfit-new helper functions must not print")
+    _validate_helper_function_names(functions[0])
     return source
 
 
@@ -1748,6 +1924,36 @@ def _validate_new_session_spec(spec: NewSessionSpec) -> None:
 def _helper_function_name(source: str) -> str:
     module_ast = ast.parse(source)
     return next(node.name for node in module_ast.body if isinstance(node, ast.FunctionDef))
+
+
+def _validate_helper_function_names(function: ast.FunctionDef) -> None:
+    assigned_names = {arg.arg for arg in function.args.args}
+    assigned_names |= {
+        target.id
+        for node in ast.walk(function)
+        for target in getattr(node, "targets", [])
+        if isinstance(target, ast.Name)
+    }
+    allowed_names = assigned_names | {"np", "float"}
+    for node in ast.walk(function):
+        if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
+            if node.id in _NUMPY_FUNCTIONS:
+                continue
+            if node.id not in allowed_names:
+                raise ValidationError(
+                    f"pfit-new helper function {function.name} uses unknown name: {node.id}"
+                )
+        if isinstance(node, ast.Call):
+            np_call = (
+                isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Name)
+                and node.func.value.id == "np"
+            )
+            builtin_call = isinstance(node.func, ast.Name) and node.func.id in {"abs", "float"}
+            if not (np_call or builtin_call):
+                raise ValidationError(
+                    f"pfit-new helper function {function.name} may only call np.* functions"
+                )
 
 
 def _validate_expression(
