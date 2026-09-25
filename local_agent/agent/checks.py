@@ -10,6 +10,7 @@ import yaml
 from local_agent.agent.config import WorkflowConfig
 from local_agent.agent.llm_json import parse_llm_json_object
 from local_agent.agent.prompts import PromptRenderer
+from local_agent.agent.session_spec import load_session_spec
 from local_agent.agent.validators import ValidationError, parse_input_yaml, validate_session
 from local_agent.llm.base import LLMClient, LLMError, Message
 
@@ -122,7 +123,11 @@ def _add_semantic_review(
         max_tokens=workflow_config.max_tokens,
     )
     semantic = _parse_semantic_check_response(response)
-    report.critical_errors.extend(semantic.critical_errors)
+    # Model prose is not a validation result. Preserve findings for review without
+    # letting an unverified claim override the deterministic checks above.
+    report.warnings.extend(
+        f"Unverified semantic finding: {finding}" for finding in semantic.critical_errors
+    )
     report.warnings.extend(semantic.warnings)
     report.recommendations.extend(semantic.recommendations)
     report.semantic_review = semantic.review
@@ -132,11 +137,17 @@ def _build_check_context(session_dir: Path, report: CheckReport) -> dict[str, ob
     input_yaml = session_dir / "inputs" / "user_input.yaml"
     user_model = session_dir / "generated" / "user_model.py"
     dataset_summary = _dataset_summary(session_dir, input_yaml)
+    user_info = session_dir / "inputs" / "user_info.txt"
     return {
         "input_yaml": input_yaml.read_text(),
         "user_model": user_model.read_text(),
+        "session_summary": load_session_spec(input_yaml).to_prompt_text(),
+        "loss_evidence": _loss_expression_evidence(user_model.read_text()),
         "dataset_summary": dataset_summary,
         "deterministic_report": report.to_text(),
+        "user_loss_contract": (
+            _extract_loss_contract_text(user_info.read_text()) if user_info.exists() else ""
+        ) or "No explicit loss description provided.",
     }
 
 
@@ -212,19 +223,12 @@ def _add_dataset_scale_loss_checks(
     logged_dataset_columns = _logged_dataset_columns_in_loss(user_model.read_text())
     measured_names = _measured_column_names(reader)
     for dataset_index, values in enumerate(dataset[:, 1:].T):
+        orders = _column_log10_range(values)
+        if orders is None or orders < 3.0:
+            continue
         finite = values[np.isfinite(values)]
-        if finite.size < 2 or np.any(finite <= 0.0):
-            continue
-        finite_positive = finite
-        if finite_positive.size < 2:
-            continue
-        min_value = float(np.min(finite_positive))
-        max_value = float(np.max(finite_positive))
-        if min_value <= 0.0:
-            continue
-        orders = float(np.log10(max_value / min_value))
-        if orders < 3.0:
-            continue
+        min_value = float(np.min(finite))
+        max_value = float(np.max(finite))
         if dataset_index in logged_dataset_columns:
             continue
         name = measured_names[dataset_index] if dataset_index < len(measured_names) else f"dataset[:, {dataset_index}]"
@@ -286,6 +290,64 @@ def _add_user_loss_contract_checks(
         report.critical_errors.append(
             "User prompt specifies normalized/scaled residuals, but _compute_loss_problem does not divide by a scale."
         )
+    if _requests_normalized_loss(requested) and "measured" in requested:
+        for expression in _simulated_scale_denominators(source):
+            report.critical_errors.append(
+                "User prompt specifies measured-data normalization, but the loss denominator "
+                f"reduces simulated states or time instead: {expression}"
+            )
+
+
+def _simulated_scale_denominators(source: str) -> list[str]:
+    """Recognize wrong-array scale reductions; leave unknown algebra for review."""
+    try:
+        module = ast.parse(_loss_function_source(source))
+    except SyntaxError:
+        return []
+    function = next((n for n in module.body if isinstance(n, ast.FunctionDef)), None)
+    if function is None:
+        return []
+    bindings: dict[str, ast.AST] = {}
+
+    def expand(node: ast.AST, seen: frozenset[str] = frozenset()):
+        yield node
+        if isinstance(node, ast.Name) and node.id in bindings and node.id not in seen:
+            yield from expand(bindings[node.id], seen | {node.id})
+        else:
+            for child in ast.iter_child_nodes(node):
+                yield from expand(child, seen)
+
+    errors = []
+    # Track only straight-line assignments; don't infer branch/loop semantics.
+    for statement in function.body:
+        if not isinstance(statement, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.Return)):
+            continue
+        value = statement.value
+        if value is None:
+            continue
+        for node in ast.walk(value):
+            if not isinstance(node, ast.BinOp) or not isinstance(node.op, ast.Div):
+                continue
+            if not any(isinstance(n, ast.Name) and n.id == "dataset" for n in expand(node.left)):
+                continue
+            for term in expand(node.right):
+                if not isinstance(term, ast.Call) or not isinstance(term.func, ast.Attribute):
+                    continue
+                if not isinstance(term.func.value, ast.Name) or term.func.value.id not in {"np", "jnp"}:
+                    continue
+                if term.func.attr not in {"max", "min", "nanmax", "nanmin", "ptp"} or not term.args:
+                    continue
+                names = {n.id for n in expand(term.args[0]) if isinstance(n, ast.Name)}
+                if names & {"solution", "solution_time"} and "dataset" not in names:
+                    errors.append(ast.unparse(node.right))
+                    break
+        if isinstance(statement, ast.Assign):
+            for target in statement.targets:
+                if isinstance(target, ast.Name):
+                    bindings[target.id] = value
+        elif isinstance(statement, ast.AnnAssign) and isinstance(statement.target, ast.Name):
+            bindings[statement.target.id] = value
+    return list(dict.fromkeys(errors))
 
 
 def _extract_loss_contract_text(text: str) -> str:
@@ -329,6 +391,29 @@ def _loss_function_source(source: str) -> str:
     if loss_function is None:
         return source
     return ast.get_source_segment(source, loss_function) or source
+
+
+def _loss_expression_evidence(source: str) -> str:
+    """Expose syntax facts, without claiming to prove loss equivalence."""
+    try:
+        module = ast.parse(source)
+    except SyntaxError:
+        return "Loss expression evidence unavailable: invalid Python syntax."
+    function = next(
+        (node for node in module.body
+         if isinstance(node, ast.FunctionDef) and node.name == "_compute_loss_problem"),
+        None,
+    )
+    if function is None:
+        return "No _compute_loss_problem function found."
+    facts = []
+    for node in ast.walk(function):
+        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
+            facts.append(
+                f"- line {node.lineno}: division {ast.get_source_segment(source, node)}; "
+                f"denominator: {ast.get_source_segment(source, node.right)}"
+            )
+    return "\n".join(facts) or "No division expressions found; inspect calls and helpers for normalization."
 
 
 def _requests_rmse(text: str) -> bool:
@@ -413,23 +498,38 @@ def _load_numeric_dataset(path: Path) -> np.ndarray:
     return np.atleast_2d(data)
 
 
+def _column_log10_range(values: np.ndarray) -> float | None:
+    finite = values[np.isfinite(values)]
+    if finite.size < 2 or np.any(finite <= 0.0):
+        return None
+    return float(np.log10(np.max(finite)) - np.log10(np.min(finite)))
+
+
 def _dataset_column_stats(dataset: np.ndarray, names: list[str]) -> list[str]:
     stats = []
     for index, values in enumerate(dataset.T):
         name = names[index] if index < len(names) else f"column_{index}"
         finite = values[np.isfinite(values)]
         if finite.size == 0:
-            stats.append(f"- {name}: no finite values")
+            stats.append(
+                f"- {name}: no finite values, NaN count={int(np.isnan(values).sum())}, "
+                f"infinity count={int(np.isinf(values).sum())}"
+            )
             continue
-        finite_positive = finite[finite > 0.0]
-        suffix = ""
-        if finite_positive.size >= 2:
-            min_positive = float(np.min(finite_positive))
-            max_positive = float(np.max(finite_positive))
-            if min_positive > 0.0:
-                suffix = f", positive log10 range={np.log10(max_positive / min_positive):.2f}"
+        orders = _column_log10_range(values)
+        if index == 0:
+            suffix = ", time column; automatic log-loss rule does not apply"
+        elif orders is None:
+            suffix = ", automatic log-loss rule does not apply (fewer than two finite values or contains zero/negative values)"
+        else:
+            required = "yes" if orders >= 3.0 else "no"
+            suffix = (
+                f", all finite values positive, within-column log10(max/min)={orders:.6g}"
+                f", automatic log-loss required={required} (threshold: 3 orders)"
+            )
         stats.append(
             f"- {name}: min={float(np.min(finite)):.6g}, max={float(np.max(finite)):.6g}{suffix}"
+            f", NaN count={int(np.isnan(values).sum())}, infinity count={int(np.isinf(values).sum())}"
         )
     return stats
 

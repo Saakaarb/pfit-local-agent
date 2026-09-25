@@ -293,6 +293,27 @@ If the user provides a loss, the framework must preserve that loss. It should no
 
 `pfit-check` performs deterministic checks for explicit loss contracts. If the prompt asks for RMSE/square-root loss, log/log10 residuals, or normalized/scaled residuals, `_compute_loss_problem` must contain the corresponding operation.
 
+Semantic review uses the same runtime column/state mapping as JAX translation:
+time is removed before the model is called, so `dataset[:, 0]` is the first
+measured CSV column and `solution_time` holds time. `solution` columns follow
+integrated-variable order. Review receives the stated loss, literal division
+expressions from its source, and actual per-column NaN/infinity counts. Aliases,
+helpers, derived observables, and vectorized losses remain supported; expression
+evidence is not a complete proof of equivalence. Critical semantic findings must
+quote an offending source expression and explain a contradiction with these
+facts or the stated loss. Uncertain or hypothetical concerns are warnings.
+
+Only deterministic validation findings block `pfit check`. LLM-reported critical
+findings are retained as `Unverified semantic finding` warnings, not silently
+discarded or treated as proof. A passing check means deterministic preflight
+passed; it does not certify scientific correctness, and semantic warnings still
+need review. JAX translation continues to require deterministic validation and
+smoke tests. The checker recognizes direct or straight-line aliased NumPy/JAX
+max/min/range reductions of simulated states or time used as loss denominators
+when measured-data normalization is explicitly requested, and rejects them.
+Unknown helper algebra remains a semantic-review concern rather than a claimed
+proof of correctness or failure.
+
 When a prompt asks for normalization by `max(abs(measured column))`, generated loss code should use max-absolute normalization rather than range normalization.
 
 A loss description should specify:
@@ -316,7 +337,22 @@ Loss:
 
 If the user does not provide a loss, the framework may choose a default normalized MSE.
 
-If the measured quantity is positive and spans multiple orders of magnitude, a log/log10 residual should be considered. `pfit-check` should catch cases where this is required.
+The automatic log-loss rule applies independently within each measured column:
+there must be at least two finite values, every finite value must be strictly
+positive, and `log10(max/min) >= 3` (a ratio of at least 1,000) within that same
+column. In that case, `pfit check` requires log/log10 residuals for that column
+before normalization. A generated linear loss is rejected; the checker must not
+silently rewrite the user's loss.
+
+Differences in scale between columns, large absolute values, time ranges, and
+trainable parameter bounds do not trigger this rule. Neither do positive ranges
+below three orders of magnitude. Columns containing zero or negative finite
+values are ineligible; do not discard those values or take absolute values to
+make a column qualify. Missing/nonfinite values are excluded from the range
+calculation and remain subject to separate loss-safety checks. The deterministic
+check and semantic-review summary use the same full-column range calculation.
+When the automatic rule does not apply, preserve the stated linear loss; an
+explicit user request for log/log10 residuals must still be honored.
 
 For heat-rate or rate-like data spanning orders of magnitude:
 

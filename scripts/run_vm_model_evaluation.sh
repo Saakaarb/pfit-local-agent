@@ -201,7 +201,7 @@ for session in "${SESSIONS[@]}"; do
     read -r run_code run_seconds < <(run_step "$SESSION_LOG_DIR/run.log" \
       "$PYTHON" -m local_agent.cli.main run "$SESSION_DST")
     total_seconds=$((total_seconds + run_seconds))
-    run_id="$(sed -n 's/^run directory: .*outputs\\///p' "$SESSION_LOG_DIR/run.log" | tail -1)"
+    run_id="$(sed -n 's#^run directory: .*outputs/##p' "$SESSION_LOG_DIR/run.log" | tail -1)"
     if [[ "$run_code" == "0" && -n "$run_id" ]]; then
       read -r diagnose_code diagnose_seconds < <(run_step "$SESSION_LOG_DIR/diagnose.log" \
         "$PYTHON" -m local_agent.cli.main diagnose "$SESSION_DST" "$run_id")

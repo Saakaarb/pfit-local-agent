@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from local_agent.agent.checks import check_session, write_check_report
+from local_agent.agent.checks import check_session, write_check_report, _loss_expression_evidence
 from local_agent.llm.fake import FakeLLMClient
 
 
@@ -50,6 +50,78 @@ def test_check_session_merges_semantic_llm_report(tmp_path):
     assert report.semantic_review == "Semantic review complete."
 
 
+def test_unverified_semantic_claim_cannot_veto_valid_session(tmp_path):
+    session = _make_vanderpol_session(tmp_path)
+    claim = "dataset[:, 0] is time and must be replaced by dataset[:, 0]."
+    client = FakeLLMClient([json.dumps({"critical_errors": [claim]})])
+
+    report = check_session(session, llm_client=client)
+
+    assert report.passed
+    assert f"Unverified semantic finding: {claim}" in report.warnings
+
+
+@pytest.mark.parametrize("array", ["dataset", "solution", "solution_time"])
+@pytest.mark.parametrize("aliased", [False, True])
+def test_measured_normalization_checks_actual_array_even_when_llm_approves(tmp_path, array, aliased):
+    session = _make_wide_range_session(tmp_path, log_loss=True)
+    (session / "inputs" / "user_info.txt").write_text(
+        "Loss:\n- Normalize y residuals by max(abs(measured column)).\n"
+    )
+    path = session / "generated" / "user_model.py"
+    source = path.read_text()
+    source = source.replace(
+        "    loss = np.mean(np.square(solution[:, 0] - dataset[:, 0]))",
+        (f"    values = {array}\n    scale = np.max(np.abs(values))\n" if aliased else "")
+        + "    loss = np.mean(np.square((solution[:, 0] - dataset[:, 0]) / "
+        + ("scale" if aliased else f"np.max(np.abs({array}))") + "))",
+    )
+    path.write_text(source)
+    client = FakeLLMClient([json.dumps({"critical_errors": []})])
+
+    report = check_session(session, llm_client=client)
+
+    assert report.passed is (array == "dataset")
+    if array != "dataset":
+        assert any("measured-data normalization" in e for e in report.critical_errors)
+
+
+def test_semantic_review_receives_runtime_mapping_and_missing_value_counts(tmp_path):
+    session = _make_wide_range_session(tmp_path, log_loss=True)
+    (session / "inputs" / "data.csv").write_text(
+        "time,y,rate\n0,1,0.001\n1,nan,0.01\n2,0.5,1\n3,0.2,10\n"
+    )
+    client = FakeLLMClient([json.dumps({"critical_errors": []})])
+
+    check_session(session, llm_client=client)
+
+    context = client.requests[0][1].content
+    assert "dataset[:, 0]: y" in context
+    assert "dataset[:, 1]: rate" in context
+    assert "0: y (initial=" in context
+    assert "NaN count=1, infinity count=0" in context
+    assert "NaN count=0, infinity count=0" in context
+
+
+@pytest.mark.parametrize("denominator", [
+    "np.max(np.abs(dataset[:, 0])) + 1e-12",
+    "np.max(np.abs(solution[:, 0])) + 1e-12",
+    "scale",
+    "scale_for(dataset[:, 0])",
+])
+def test_loss_evidence_preserves_actual_denominator(denominator):
+    source = (
+        "def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):\n"
+        "    scale = np.max(np.abs(dataset), axis=0)\n"
+        f"    return np.mean(np.square((solution - dataset) / ({denominator})))\n"
+    )
+
+    evidence = _loss_expression_evidence(source)
+
+    assert f"denominator: {denominator}" in evidence
+    assert "line 3:" in evidence
+
+
 def test_check_session_fails_wide_range_linear_loss(tmp_path):
     session = _make_wide_range_session(tmp_path, log_loss=False)
 
@@ -67,6 +139,43 @@ def test_check_session_allows_wide_range_log_loss(tmp_path):
 
     assert report.passed is True
     assert not any("spans orders of magnitude" in error for error in report.critical_errors)
+
+
+@pytest.mark.parametrize(
+    ("values", "requires_log", "summary_evidence"),
+    [
+        ([1e6, 1.1e6, 1.2e6, 1.3e6], False, "automatic log-loss required=no"),
+        ([1, 10, 100, 999], False, "automatic log-loss required=no"),
+        ([1, 10, 100, 1000], True, "automatic log-loss required=yes"),
+        ([-1, 0.001, 1, 1000], False, "contains zero/negative values"),
+        ([0, 0.001, 1, 1000], False, "contains zero/negative values"),
+        (["nan", 1, 10, 1000], True, "automatic log-loss required=yes"),
+        (["nan", "nan", "nan", 1000], False, "fewer than two finite values"),
+    ],
+)
+def test_scale_rule_uses_same_full_column_evidence_for_semantic_review(
+    tmp_path, values, requires_log, summary_evidence
+):
+    session = _make_wide_range_session(tmp_path, log_loss=False)
+    (session / "inputs" / "data.csv").write_text(
+        "time,y,rate\n"
+        + "".join(f"{index},1,{value}\n" for index, value in enumerate(values))
+    )
+    (session / "inputs" / "user_info.txt").write_text(
+        "Loss:\n- Compare y and rate directly in linear space.\n"
+    )
+    client = FakeLLMClient([json.dumps({"critical_errors": []})])
+
+    report = check_session(session, llm_client=client)
+
+    scale_errors = [e for e in report.critical_errors if "spans orders of magnitude" in e]
+    assert bool(scale_errors) is requires_log
+    assert all("rate uses dataset[:, 1]" in error for error in scale_errors)
+    context = client.requests[0][1].content
+    rate_summary = next(line for line in context.splitlines() if line.startswith("- rate: min="))
+    assert summary_evidence in rate_summary
+    assert "positive log10 range=" not in context
+    assert "Compare y and rate directly in linear space." in context
 
 
 def test_check_session_fails_declared_uncertainty_not_used(tmp_path):
