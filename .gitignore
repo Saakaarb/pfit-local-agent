@@ -6,3 +6,4 @@ __pycache__/
 report.log
 .DS_Store
 **/generated/agent_logs/
+evaluation_runs/
