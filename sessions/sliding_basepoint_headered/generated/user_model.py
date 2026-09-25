@@ -35,7 +35,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     dx1dt = v1
     dx2dt = v2
     dv1dt = (k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1
-    dv2dt = np.where(np.logical_and(np.abs(-(k * (x2 - x1))) < c2, np.abs(v2) < vf), 0, (-(k * (x2 - x1)) - c2 * np.sign(v2)) / m2)
+    dv2dt = np.where(np.logical_and(np.abs(-(k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1))) < c2, np.abs(v2) < vf), 0, (-(k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) - c2 * np.sign(v2)) / m2)
     dkdt = Dk * np.abs(m1 * v1 * ((k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1))
     dc1dt = Dc * np.abs(m1 * v1 * ((k * (x2 - x1) - c1 * np.abs(v1) * np.sign(v1)) / m1))
     return np.array([dx1dt, dx2dt, dv1dt, dv2dt, dkdt, dc1dt])

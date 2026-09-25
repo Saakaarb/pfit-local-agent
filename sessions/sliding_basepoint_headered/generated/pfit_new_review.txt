@@ -1,4 +1,4 @@
 The states and initial values are extracted from the user-provided context.
-The ODE system and parameter definitions are clear. The RHS expressions for the integrated states are extracted based on the provided model.
+The ODE system and formulas have been extracted based on the provided user information and frozen states/parameters.
 The CSV columns 'contact_force' and 'displacement' are directly mapped to the derived observables in the user model.
-The user provided a custom loss function that compares simulated contact_force and displacement to the measured values, normalized by the maximum absolute value of the measured columns.
+The user has provided a custom loss function that compares the simulated contact_force and displacement to the measured values, normalizing each residual by the max(abs(measured column)) and then taking the square root of the mean of the squared residuals.

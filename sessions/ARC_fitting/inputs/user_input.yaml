@@ -25,13 +25,13 @@ model:
     - {name: dTdt}
 
 population_opt:
-  population_size: 16
-  num_iters: 5
-  processors: 1
+  population_size: 64
+  num_iters: 25
+  processors: 8
   algorithm: DE
 
 gradient_opt:
-  num_iters: 5
+  num_iters: 16
   stepsize_rtol: [1e-7, 1e-7, 1e-7]
   stepsize_atol: [1e-9, 1e-9, 1e-9]
   initial_timestep: 1e-6
