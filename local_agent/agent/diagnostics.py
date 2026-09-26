@@ -42,7 +42,7 @@ def _read_workflow_events(path: Path) -> dict[str, int]:
     return counts
 
 
-def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
+def diagnose_run(session_dir: Path, run_id: str | None = None, *, probe_gradients: bool = False, llm_client=None, workflow_config=None) -> Path:
     session_dir = Path(session_dir)
     from lib.utils.run_store import output_root
     output_dir = output_root(session_dir)
@@ -147,6 +147,28 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
             lines.extend(f"- {warning}" for warning in curvature["warnings"])
         else:
             lines.append(f"- {curvature.get('reason', '')}")
+    from lib.utils.scientific_diagnosis import scientific_diagnosis
+    try:
+        science = scientific_diagnosis(session_dir, output_dir, probe_gradients=probe_gradients)
+        lines.extend(["", "Scientific diagnosis:", f"- Status: {science['status']}", f"- {science['verdict']}"])
+        for item in science['findings']:
+            lines.extend([f"- [{item['id']}] {item['evidence']}", f"  Next: {item['next_step']}"])
+        lines.extend(f"- Limitation: {item}" for item in science['limitations'])
+        lines.extend(f"- Figure: {output_dir / name}" for name in science['plots'])
+        lines.append(f"- Detailed evidence: {output_dir / 'scientific_diagnosis.json'}")
+    except Exception as exc:
+        lines.extend(["", f"Scientific diagnosis unavailable: {type(exc).__name__}: {exc}"])
+    if llm_client is not None:
+        from local_agent.agent.diagnosis_interpretation import interpret_diagnosis
+        interpretation = interpret_diagnosis(session_dir, output_dir, llm_client, workflow_config)
+        lines.extend(["", "Ollama interpretation (proposals, not applied changes):"])
+        if interpretation['status'] == 'ok':
+            lines.append(interpretation['verdict'])
+            for index, item in enumerate(interpretation['recommendations'], 1):
+                lines.append(f"{index}. {item['action']} [{', '.join(item['evidence_ids'])}] {item['reason']}")
+            lines.extend(f"Limitation: {x}" for x in interpretation['limitations'])
+        else:
+            lines.append(f"Unavailable: {interpretation['reason']}. Computed evidence remains available.")
     report_path.write_text("\n".join(lines) + "\n")
     return report_path
 

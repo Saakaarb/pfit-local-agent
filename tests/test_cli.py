@@ -135,7 +135,7 @@ def test_cli_diagnose_writes_report(tmp_path, capsys):
     outputs.mkdir()
     (outputs / "final_design_point.csv").write_text("1.0\n")
 
-    exit_code = main(["diagnose", str(session)])
+    exit_code = main(["diagnose", str(session), "--deterministic-only"])
 
     assert exit_code == 0
     assert "diagnosis written" in capsys.readouterr().out
@@ -163,7 +163,7 @@ def test_cli_full_local_workflow_with_fake_llm(tmp_path):
     assert len(run_dirs) == 1
     run_id = run_dirs[0].name
 
-    assert main(["diagnose", str(session), run_id]) == 0
+    assert main(["diagnose", str(session), run_id, "--deterministic-only"]) == 0
     assert (run_dirs[0] / "de_fitting.log").exists()
     assert (run_dirs[0] / "NODE_fitting.log").exists()
     assert (run_dirs[0] / "final_design_point.csv").exists()

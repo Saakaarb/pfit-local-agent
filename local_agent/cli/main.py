@@ -86,7 +86,16 @@ def _build_parser() -> argparse.ArgumentParser:
     diagnose = subparsers.add_parser("diagnose", help="diagnose a completed fitting run")
     diagnose.add_argument("session_dir", type=Path)
     diagnose.add_argument("run_id", nargs="?")
+    diagnose.add_argument("--probe-gradients", action="store_true", help="compare autodiff against bounded finite differences on up to five axes")
 
+    diagnose.add_argument("--deterministic-only", action="store_true", help="compute diagnosis without Ollama")
+    diagnose.add_argument("--model")
+    diagnose.add_argument("--base-url")
+    diagnose.add_argument("--timeout-seconds", type=float)
+    diagnose.add_argument("--temperature", type=float)
+    diagnose.add_argument("--max-tokens", type=int)
+    diagnose.add_argument("--fake-response-file", type=Path)
+    diagnose.add_argument("--debug", action="store_true")
     return parser
 
 
@@ -253,7 +262,19 @@ def _cmd_run(args: argparse.Namespace) -> int:
 
 
 def _cmd_diagnose(args: argparse.Namespace) -> int:
-    report_path = diagnose_run(args.session_dir, args.run_id)
+    config = load_config(Path.cwd(), args.session_dir)
+    llm_client = None if args.deterministic_only else create_llm_client(
+        args.model or config.llm.model, args.base_url or config.llm.base_url,
+        fake_response_file=args.fake_response_file,
+        timeout_seconds=args.timeout_seconds if args.timeout_seconds is not None else config.llm.timeout_seconds,
+        debug_stream=args.debug,
+    )
+    workflow_config = WorkflowConfig(
+        temperature=args.temperature if args.temperature is not None else config.workflow.temperature,
+        max_tokens=args.max_tokens if args.max_tokens is not None else config.workflow.max_tokens,
+    )
+    report_path = diagnose_run(args.session_dir, args.run_id, probe_gradients=args.probe_gradients,
+                              llm_client=llm_client, workflow_config=workflow_config)
     print(f"diagnosis written: {report_path}")
     return 0
 
