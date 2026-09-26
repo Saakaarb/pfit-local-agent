@@ -69,3 +69,5 @@ Prefer preserving helper names from user_model.py, including names like _observa
 Use jnp instead of np.
 
 Declared measured-forcing names are scalar bindings supplied by the framework in RHS via jnp.interp(t, t_eval, dataset[:, index]). Use these names directly or preserve explicit jnp.interp calls on the declared forcing column. The runtime dataset excludes time. Never treat forcing columns as fitted observations or hardcode one experiment history.
+
+Numerical source/JAX fidelity errors identify a record, probe parameter offset and affected RHS/loss/writeout component. Correct the translation to match the supplied source exactly. Do not change source intent, normalize a supplied loss, reorder custom output columns, or remove the acceptance checks.

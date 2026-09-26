@@ -91,6 +91,13 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
             raise ValidationError(f"{context}: smoke test failed: {exc}") from exc
 
 
+    try:
+        from lib.utils.translation_fidelity import compare_source_and_jax
+        compare_source_and_jax(module, reader, session_dir, script_path)
+    except ValueError as exc:
+        raise ValidationError(str(exc)) from exc
+
+
 def validate_generated_script_contract(script_path: Path):
     try:
         return core_validate_generated_script_contract(script_path)

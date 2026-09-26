@@ -29,6 +29,7 @@ def render_user_model_skeleton(spec: SessionSpec) -> str:
 # N_col: number of columns in dataset, including time
 
 def user_defined_system(t: float, y: np.ndarray, trainable_parameters: dict, fixed_parameters: dict, dataset: np.ndarray, t_eval: np.ndarray):
+        """pfit: rhs placeholder"""
         # Arguments:
         # t: time
         # y: state vector of shape [Ny]
@@ -47,6 +48,7 @@ def user_defined_system(t: float, y: np.ndarray, trainable_parameters: dict, fix
         return derivatives
 
 def _compute_loss_problem(solution_time: np.ndarray, solution: np.ndarray, dataset: np.ndarray, trainable_parameters: dict, fixed_parameters: dict):
+        """pfit: loss placeholder"""
         # Arguments:
         # solution_time: array of shape [Nts]
         # solution: simulated state array of shape [Nts, Ny]
@@ -62,6 +64,7 @@ def _compute_loss_problem(solution_time: np.ndarray, solution: np.ndarray, datas
         return loss
 
 def writeout_description(solution_time: np.ndarray, solution: np.ndarray, dataset: np.ndarray, trainable_parameters: dict, fixed_parameters: dict):
+        """pfit: writeout placeholder"""
         # Arguments:
         # solution_time: array of shape [Nts]
         # solution: simulated state array of shape [Nts, Ny]

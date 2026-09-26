@@ -308,7 +308,7 @@ def writeout_description(solution_time, solution, dataset, trainable_parameters,
     )
 
 
-def test_standard_loss_and_writeout_allows_framework_default_loss():
+def test_standard_loss_and_writeout_does_not_replace_user_mse():
     spec = load_session_spec(Path("sessions/oregonator/inputs/user_input.yaml"))
     user_model_source = """
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
@@ -324,7 +324,7 @@ def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters
             spec,
             user_model_source=user_model_source,
         )
-        is not None
+        is None
     )
 
 

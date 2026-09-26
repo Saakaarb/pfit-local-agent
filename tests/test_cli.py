@@ -36,7 +36,7 @@ ONE_STATE_FRAGMENTS = json.dumps(
 VALID_SPLIT_RESPONSES = json.dumps(
     [
         json.dumps({"helper_functions": [], "review": ""}),
-        json.dumps({"rhs": ["x2", "-mu * x1"], "helper_functions": [], "review": ""}),
+        json.dumps({"rhs": ["mu * (x2 - (x1**3 / 3.0 - x1))", "-x1 / mu"], "helper_functions": [], "review": ""}),
         json.dumps({"writeout_body": "return jnp.concatenate((solution_time[:, None], dataset, solution), axis=1)", "review": ""}),
     ]
 )

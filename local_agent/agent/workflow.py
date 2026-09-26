@@ -182,37 +182,28 @@ class LocalWorkflow:
             "translated_helper_functions": _format_prompt_helpers(helper_functions),
             "translated_rhs": _format_prompt_rhs(rhs, session_spec),
         }
-        standard_bodies = _standard_loss_and_writeout_bodies(
-            session_spec,
-            data_width=data_width,
-            user_model_source=str(context.get("user_model", "")),
-        )
-        if standard_bodies is not None:
-            loss_body, writeout_body = standard_bodies
+        source = str(context.get("user_model", ""))
+        standard_bodies = _standard_loss_and_writeout_bodies(session_spec, data_width=data_width)
+        if standard_bodies is not None and _source_function_is_placeholder(source, session_spec, "_compute_loss_problem"):
+            loss_body = standard_bodies[0]
         else:
-            loss_body = _deterministic_custom_loss_body(str(context.get("user_model", "")))
+            loss_body = _deterministic_custom_loss_body(source)
             if loss_body is None:
                 loss_response = self._complete_prompt(
-                    generated_dir,
-                    "translate_jax_loss",
-                    "jax_loss.system.md",
-                    "jax_loss.user.md",
-                    body_context,
+                    generated_dir, "translate_jax_loss", "jax_loss.system.md", "jax_loss.user.md", body_context,
                 )
                 loss_body = parse_jax_body_response(loss_response, "loss_body")
 
-            writeout_context = {
-                **body_context,
-                "translated_loss_body": loss_body,
-            }
-            writeout_response = self._complete_prompt(
-                generated_dir,
-                "translate_jax_writeout",
-                "jax_writeout.system.md",
-                "jax_writeout.user.md",
-                writeout_context,
-            )
-            writeout_body = parse_jax_body_response(writeout_response, "writeout_body")
+        if standard_bodies is not None and _source_function_is_placeholder(source, session_spec, "writeout_description"):
+            writeout_body = standard_bodies[1]
+        else:
+            writeout_body = _deterministic_writeout_body(source)
+            if writeout_body is None:
+                writeout_response = self._complete_prompt(
+                    generated_dir, "translate_jax_writeout", "jax_writeout.system.md", "jax_writeout.user.md",
+                    {**body_context, "translated_loss_body": loss_body},
+                )
+                writeout_body = parse_jax_body_response(writeout_response, "writeout_body")
 
         return json.dumps(
             {
@@ -534,16 +525,39 @@ def _deterministic_custom_loss_body(source: str) -> str | None:
 
 
 def _is_framework_default_loss(function: ast.FunctionDef) -> bool:
-    body = function.body
+    # Never infer default intent from an ordinary MSE or constant-return pattern.
+    # The marker alone is insufficient: an edited placeholder is a supplied loss.
+    if ast.get_docstring(function) != "pfit: loss placeholder":
+        return False
+    body = function.body[1:]
     while body and _is_framework_binding_assignment(body[0]):
         body = body[1:]
-    compact_body = "".join("".join(ast.unparse(statement).split()) for statement in body)
-    if compact_body in {"loss=0.0returnloss", "loss=0returnloss", "return0.0", "return0"}:
-        return True
-    return (
-        "residuals=np.column_stack(" in compact_body
-        and "returnfloat(np.mean(np.square(residuals)))" in compact_body
-    )
+    return "".join("".join(ast.unparse(n).split()) for n in body) == "loss=0.0returnloss"
+
+
+def _source_function_is_placeholder(source, session_spec, name):
+    from local_agent.agent.user_model import render_user_model_skeleton
+    try:
+        actual = next(n for n in ast.parse(source).body if isinstance(n, ast.FunctionDef) and n.name == name)
+        expected = next(n for n in ast.parse(render_user_model_skeleton(session_spec)).body if isinstance(n, ast.FunctionDef) and n.name == name)
+    except (SyntaxError, StopIteration):
+        return False
+    return ast.dump(actual) == ast.dump(expected)
+
+
+def _deterministic_writeout_body(source):
+    try:
+        function = next(n for n in ast.parse(source).body if isinstance(n, ast.FunctionDef) and n.name in {"writeout_description", "write_problem_result"})
+    except (SyntaxError, StopIteration):
+        return None
+    # Writeout runs outside JIT; retain NumPy array assignment and column ordering.
+    # Imports are handled by the fragment validator, never executed as a repair.
+    if any(isinstance(n, (ast.Import, ast.ImportFrom, ast.Try, ast.With)) for n in ast.walk(function)):
+        return None
+    segment = ast.get_source_segment(source, function)
+    if segment is None:
+        return None
+    return textwrap.dedent("\n".join(textwrap.dedent(segment).splitlines()[1:])).strip()
 
 
 def _is_framework_binding_assignment(node: ast.stmt) -> bool:

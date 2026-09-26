@@ -652,3 +652,18 @@ use those names as scalar inputs; interpolation bindings are generated. Prepared
 Python models may use np.interp(t, t_eval, dataset[:, i]); the runtime data array
 excludes time, so raw CSV column i+1 is runtime column i. JAX translation remains
 an LLM step and preserves these inputs as jnp.interp or supplied scalar bindings.
+
+Loss and writeout preservation during JAX translation
+
+A supplied _compute_loss_problem is authoritative, including plain MSE/RMSE,
+normalization, transformations and penalties. Functions are not reclassified as
+defaults based on their algebraic shape. Only an explicitly marked, unchanged
+framework skeleton permits a default substitution. Custom writeout_description
+(or legacy write_problem_result) is preserved independently of the loss.
+
+Source model functions must be executable with the documented Python signatures.
+Numerical source/JAX probes compare equations, loss and output columns before
+acceptance and route mismatches into bounded repair. See
+[loss_and_translation_fidelity.md](docs/loss_and_translation_fidelity.md) for
+probe scope and tolerances. Scientific correctness of extracted source equations
+still requires review; finite numerical probes are not a proof of equivalence.

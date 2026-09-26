@@ -163,3 +163,11 @@ commands now cover every record. Multiple experiments produce
 standalone sloppiness include every dataset. Single-experiment filenames remain
 compatible. See the [input contract](INPUT_REQUIREMENTS.md) and
 [implementation and validation notes](docs/multi_experiment_support.md).
+
+Measured input histories are supported through `role: forcing` columns with
+per-experiment linear interpolation; see [measured forcing](docs/measured_forcing.md).
+`pfit diagnose SESSION [RUN]` computes snapshot-based evidence and asks the
+configured Ollama model to interpret it. Use `--probe-gradients` for AD/FD checks
+and `--deterministic-only` to work offline; see [scientific diagnosis](docs/scientific_diagnosis.md).
+Supplied losses and output functions are preserved independently, with numerical
+source/JAX checks before translation acceptance; see [fidelity checks](docs/loss_and_translation_fidelity.md).
