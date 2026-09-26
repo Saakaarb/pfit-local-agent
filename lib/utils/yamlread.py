@@ -171,7 +171,10 @@ class YAMLReader:
         self.pso_stepsize_atol = self.population_stepsize_atol
 
         gradient = data.get("gradient_opt") or {}
-        self.n_iters_grad = int(gradient.get("num_iters", 0) or 0)
+        self.gradient_optimizer = str(gradient.get("gradient_optimizer", "adam")).strip().lower()
+        if self.gradient_optimizer not in {"adam", "lbfgs"}:
+            raise ValueError("gradient_opt.gradient_optimizer must be adam or lbfgs")
+        self.n_iters_grad = int(gradient.get("num_iters", 1000))
         self.stepsize_rtol = _as_float_list(gradient.get("stepsize_rtol"))
         self.stepsize_atol = _as_float_list(gradient.get("stepsize_atol"))
         self.init_timestep = float(gradient.get("initial_timestep", 1e-6))

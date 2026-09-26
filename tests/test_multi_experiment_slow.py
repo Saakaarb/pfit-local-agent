@@ -66,7 +66,7 @@ def test_changing_only_second_record_changes_fitted_optimum(tmp_path):
         exp = copy.deepcopy(c['experiments'][0]); exp['data_file']='second.csv'; c['experiments'].append(exp)
         c['model']['trainable_parameters'][0].update(min_val=0.,max_val=6.,logscale=False)
         c['population_opt'].update(num_iters=2, random_seed=8)
-        c['gradient_opt']['num_iters']=15
+        c['gradient_opt'].update(num_iters=15, gradient_optimizer='lbfgs')
     change_config(session, settings)
     script=GENERATED_SCRIPT.replace('target = jnp.array([2.0])','target = constants["dataset"][:, 0]')
     (session/'generated/user_model.py').write_text(script)

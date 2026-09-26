@@ -438,6 +438,8 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
         "aggregation": "equal_experiment_mean",
         "experiment_losses": [float(problem_obj_node._compute_loss_problem(c, tuned_best_position))
                               for c in problem_obj_node.constants_list],
+        "gradient_optimizer": input_reader.gradient_optimizer,
+        "gradient_iteration_budget": input_reader.n_iters_grad,
         "gradient_iterations_evaluated": len(getattr(fit_obj_NODE, "loss_history", [])),
         "refinement_error": refinement_error,
         "termination": "exception" if refinement_error else getattr(fit_obj_NODE, "termination_reason", "unknown"),

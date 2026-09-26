@@ -502,7 +502,7 @@ JAX after changes affecting generated model code or its parameter order.
 Older runs with only `final_design_point.csv` and no saved configuration have no parameter-name metadata.
 `--allow-legacy-seed` explicitly asserts that their CSV order matches the current
 YAML; otherwise they are rejected. Seeds are never silently clipped. This starts
-a fresh gradient optimizer, not a continuation of its internal L-BFGS state.
+a fresh gradient optimizer, not a continuation of its internal Adam or L-BFGS state.
 Every run, including the Python entry point, writes a new timestamped directory;
 an existing explicitly selected output directory is rejected rather than deleted.
 
@@ -667,3 +667,20 @@ acceptance and route mismatches into bounded repair. See
 [loss_and_translation_fidelity.md](docs/loss_and_translation_fidelity.md) for
 probe scope and tolerances. Scientific correctness of extracted source equations
 still requires review; finite numerical probes are not a proof of equivalence.
+
+### Gradient optimizer selection
+
+`gradient_opt.gradient_optimizer` accepts `adam` (default) or `lbfgs`,
+case-insensitively. Omitted `gradient_opt.num_iters` defaults to 1000; an explicit
+nonnegative integer is preserved, including zero to skip gradient updates.
+New sessions write Adam and 1000 iterations explicitly. These are gradient-stage
+settings; population-stage budgets are unchanged. Existing YAML without an
+optimizer now selects Adam; specify `lbfgs` to reproduce the previous selection.
+
+Adam uses the supplied `init_value_lr`, `end_value_lr`, `transition_steps_lr`,
+and `decay_rate_lr` exponential schedule. All four must be positive and finite.
+Their defaults remain `1e-4`, `1e-5`, `2000`, and `0.9`. L-BFGS uses its existing
+Optax line search and does not use that schedule. Both full fitting and
+gradient-only restarts honor the selection; restarts create fresh optimizer
+state. The fit summary records the effective optimizer and iteration budget.
+A budget of 1000 is a default, not a convergence guarantee.

@@ -2215,7 +2215,8 @@ population_opt:
   algorithm: DE
 
 gradient_opt:
-  num_iters: 5
+  gradient_optimizer: adam
+  num_iters: 1000
   stepsize_rtol: {rtol}
   stepsize_atol: {atol}
   initial_timestep: 1e-6

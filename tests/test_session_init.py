@@ -110,6 +110,8 @@ def test_init_session_assembles_split_new_session_passes(tmp_path):
 
     assert len(llm.requests) == 6
     user_input = session.joinpath("inputs", "user_input.yaml").read_text()
+    assert "gradient_optimizer: adam" in user_input
+    assert "num_iters: 1000" in user_input
     assert "min_val: 2e-19" in user_input
     assert "max_val: 4e-19" in user_input
     assert "y_0" not in user_input

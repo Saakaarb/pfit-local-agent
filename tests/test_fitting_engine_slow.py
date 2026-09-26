@@ -40,7 +40,8 @@ def _write_problem_result(constants, trainable_variables):
 """
 
 
-def test_de_global_search_hands_off_to_node(tmp_path, monkeypatch):
+@pytest.mark.parametrize("optimizer_name", ["adam", "lbfgs"])
+def test_de_global_search_hands_off_to_node(tmp_path, monkeypatch, optimizer_name):
     session = tmp_path / "de_session"
     inputs = session / "inputs"
     generated = session / "generated"
@@ -82,7 +83,7 @@ gradient_opt:
 
 output:
   write_results: true
-"""
+""".replace("gradient_opt:\n", f"gradient_opt:\n  gradient_optimizer: {optimizer_name}\n")
     )
     (generated / "user_model.py").write_text(GENERATED_SCRIPT)
     (generated / "generated_script.py").write_text(GENERATED_SCRIPT)
@@ -116,7 +117,13 @@ output:
     assert (restarted / "snapshot" / "generated" / "generated_script.py").exists()
     summary = json.loads((restarted / "fit_summary.json").read_text())
     assert summary["final_loss"] <= summary["seed_loss"]
-    np.testing.assert_allclose(np.loadtxt(restarted / "final_design_point.csv"), 2.0, atol=1e-5)
+    assert summary["gradient_optimizer"] == optimizer_name
+    assert summary["gradient_iteration_budget"] == 1
+    if optimizer_name == "lbfgs":
+        np.testing.assert_allclose(np.loadtxt(restarted / "final_design_point.csv"), 2.0, atol=1e-5)
+    else:
+        # One small Adam step improves the seed; it need not solve the quadratic.
+        assert summary["final_loss"] < summary["seed_loss"]
     assert before == {p.name: p.read_bytes() for p in output_dir.iterdir() if p.is_file()}
     with pytest.raises(FileExistsError):
         run_driver(session, reader, output_dir_override=output_dir)

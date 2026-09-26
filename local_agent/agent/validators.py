@@ -183,6 +183,11 @@ def _validate_reader(reader: YAMLReader, input_yaml: Path) -> None:
         value = getattr(reader, name)
         if not np.isfinite(value) or value <= 0:
             raise ValidationError(f"{name} must be positive and finite")
+    if reader.gradient_optimizer == "adam":
+        for name in ("init_value_lr", "end_value_lr", "transition_steps_lr", "decay_rate_lr"):
+            value = getattr(reader, name)
+            if not np.isfinite(value) or value <= 0:
+                raise ValidationError(f"gradient_opt.{name} must be positive and finite")
     if reader.init_time is not None and not np.isfinite(reader.init_time):
         raise ValidationError("initial_time must be finite")
     if reader.n_particles < (3 if reader.algorithm == "DE" else 1):
