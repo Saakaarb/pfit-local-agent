@@ -43,8 +43,12 @@ Reference adaptations and limits
   precedence. This does not close the broader objective-fidelity work.
 - Sneyd's reference YAML requests Adam. Numerical fitting tests explicitly use
   local L-BFGS instead; this port does not add Adam support (PART-06).
-- Tests use deterministic fake LLM responses for translation acceptance. No live
-  Ollama quality/performance evaluation is claimed (OPEN-07).
+- Automated tests use deterministic fake LLM responses for translation acceptance.
+  A subsequent [live Ollama evaluation](live_multi_experiment_evaluation.md) passed
+  both decay workflows. After workflow fixes, reference-seeded Sneyd also passed
+  all nine records through fitting and diagnosis. Fresh Sneyd still fails
+  scientific fidelity during extraction. A manually corrected fresh session
+  passed all nine records through fitting and diagnosis; OPEN-07 remains open.
 
 Numerical evidence
 
@@ -74,8 +78,8 @@ decay full-fit/restart/reanalysis, second-record optimum sensitivity, and Sneyd
 nine-record integration/refinement. The default suite includes 22 focused
 multi-experiment tests, including fake-LLM extraction and Sneyd translation,
 per-record failure handling, schema/time/IC checks and missing-data safeguards.
-`git diff --check` passed. No live Ollama evaluation or full Sneyd global search
-was run.
+`git diff --check` passed. These implementation checks preceded the linked live
+Ollama evaluation. No full Sneyd global search was run.
 
 The existing single-experiment full-fit/restart/reanalysis regression also passed
 separately (1 test), confirming compatibility with the previous fitting path.

@@ -619,3 +619,13 @@ conditions in run_manifest.json. Multi-record results use result_solution_expN.c
 single-record results retain result_solution.csv. fit_summary.json records each
 experiment's loss and the equal_experiment_mean aggregation rule. Historical
 sloppiness uses the complete snapshot, not the current working datasets.
+
+Explicit loss descriptions may use a one-line `Loss: ...` declaration or a
+multiline `Loss:` section. End the section with the next colon-terminated heading
+before appending reference code. Statements about already normalized observables
+in reference comments do not request additional residual scaling. Intermediate
+rate definitions must be supplied when equations refer to them; extraction and
+repair may inline these definitions but must not invent missing rates.
+
+Explicit plain RMSE is supported without residual normalization. Structured
+loss terms and penalties are preserved even if extraction labels them non-custom.

@@ -5,7 +5,7 @@ Return one JSON object and nothing else.
 Task:
 - Extract the user's loss intent in structured form.
 - Do not write Python, YAML, equations, or observables.
-- If the user did not provide a custom loss, set custom_loss to false.
+- Set custom_loss to false only when the user provides no loss definition and return empty data_terms and penalties in that case. An explicit standard metric such as plain RMSE is a supplied loss: set custom_loss to true and preserve its terms.
 - If the user did provide a custom loss, preserve its terms and penalties.
 - An explicit loss takes precedence over data-range heuristics. Log-scaled parameter search bounds do not request log residuals.
 
@@ -25,9 +25,10 @@ Schema:
 }
 
 Penalty rules:
-- Supported data metrics are mse, mae, normalized_mse, max_abs_normalized_mse, normalized_rmse, max_abs_normalized_rmse, log10_normalized_mse, log10_normalized_rmse, and sigma_weighted_mse.
+- Supported data metrics are mse, rmse, mae, normalized_mse, max_abs_normalized_mse, normalized_rmse, max_abs_normalized_rmse, log10_normalized_mse, log10_normalized_rmse, and sigma_weighted_mse.
 - Use normalized_mse when the user asks for normalized residuals, scaled residuals, dimensionless data loss, or loss normalization.
 - Use max_abs_normalized_mse when the user asks to normalize by max(abs(measured column)).
+- Use rmse for plain root mean square error without residual normalization. Do not substitute MSE or add scaling.
 - Use the corresponding *_rmse metric when the user asks for RMSE, root mean square error, or sqrt(mean(...)).
 - Use log10_normalized_mse when the user asks to compare a strictly positive measured quantity in log10 space before normalization.
 - Use sigma_weighted_mse when the user asks to divide residuals by standard deviations, uncertainties, error bars, sigma values, or CSV columns such as X_sd.

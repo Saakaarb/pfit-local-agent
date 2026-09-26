@@ -5,8 +5,8 @@ Updated: 2026-09-26. This is the current implementation tracker for
 The original repository's checked-out `main` branch is older and is not the
 comparison baseline.
 
-Status reflects the current working tree, including the multi-experiment follow-up
-after committed restart, sloppiness and readiness work (`386e061`). “Implemented” means the scoped capability is implemented and
+Status includes multi-experiment support (`c915677`) and subsequent live Ollama
+workflow fixes, after restart, sloppiness and readiness work (`386e061`). “Implemented” means the scoped capability is implemented and
 tested; it does not imply identical behavior in every respect. “Partial” identifies
 remaining work within an existing capability. “Open” means the gap remains.
 
@@ -33,8 +33,12 @@ regression. See [deterministic_readiness.md](deterministic_readiness.md).
 Multi-experiment follow-up: **265 default tests passed, 7 deselected**, plus
 **three new numerical acceptance tests** covering fitting, restart, snapshot
 reanalysis, sensitivity to experiment 2 and all nine Sneyd conditions. Fake-LLM
-Sneyd translation passed; live Ollama evaluation remains open. See
-[multi_experiment_support.md](multi_experiment_support.md).
+Sneyd translation passed. Subsequent live validation: both decay paths and
+reference-seeded Sneyd passed; manually corrected fresh Sneyd also completed
+nine-record fitting and diagnosis. Autonomous fresh extraction/translation fidelity
+remains open. The workflow-fix regression suite passed **270 tests, 7 deselected**.
+See [multi_experiment_support.md](multi_experiment_support.md) and
+[live evaluation](live_multi_experiment_evaluation.md).
 
 **Remaining divergences and correctness work**
 
@@ -48,7 +52,7 @@ they are not all missing features in the same sense.
 | OPEN-02 | Open | P0 | Measured forcing histories: explicit input-column roles, interpolation, time coverage and missing-input validation throughout generation and execution. |
 | PART-03 | Partial | P0 | Missing data and uncertainty: existing loader/loss support needs safe masks before normalization/division/logs and explicit empty-channel policies. The standard generated loss now masks before normalization and rejects empty channels; generated wrappers reject nonfinite simulations. Arbitrary custom/uncertainty masking still needs the broader audit. |
 | OPEN-03 | Open | P0 | Preserve custom loss and writeout independently during translation; add numerical source-versus-JAX comparisons. Current default-loss handling can replace a custom output function. |
-| PART-04 | Partial | P0 | Explicit-loss precedence: checker changes preserve user objectives, but new-session automatic log transformations still need alignment. |
+| PART-04 | Partial | P0 | Objective preservation: explicit loss now disables automatic log rewriting; inline loss declarations and plain RMSE rendering are fixed. Broader extraction/translation fidelity and historical objective mismatches (including Boehm) still require audit. |
 | PART-05 | Implemented (scoped) | P0 | Deterministic input validation, offline check/ready CLI, source-hash stamping after accepted translation, automatic pre-run checks and existing restart-seed gate. Legacy scripts use a qualified timestamp fallback. See [scope and remaining limits](deterministic_readiness.md); this does not establish numerical translation equivalence. |
 | OPEN-04 | Open | P1 | Check-time automatic correction: bounded mechanical repair and revalidation of generated YAML/model files. New/jax repair loops do not supply this behavior. |
 | PART-06 | Partial | P1 | Optimizer configuration: expose the existing Adam branch, declare PSO installation requirements, preserve requested settings, and distinguish tiny smoke-test budgets from fitting budgets. |
@@ -56,7 +60,7 @@ they are not all missing features in the same sense.
 | PART-02 | Partial | P1 | Scientific diagnosis: add residual/trajectory plots, convergence and parameter-bound checks, autodiff pathology analysis, and evidence-based recommendations. Sloppiness and basic log summaries are implemented. |
 | OPEN-05 | Open | P1 | Interactive clarification and document ingestion: local missing-input errors/text intake do not provide the manuscript's conversational/PDF-assisted setup. Distinguish provider-level abilities from code that can be ported. |
 | OPEN-06 | Open | P2 | Live dashboard, structured runtime monitoring and intervention workflow from the deployed reference. |
-| OPEN-07 | Open | P1 | Consistent local-model evaluation of generation fidelity and fit quality across examples, with failures, repair counts and experimental-data provenance recorded. |
+| OPEN-07 | Open | P1 | Consistent local-model evaluation of generation fidelity and fit quality across examples, with failures, repair counts and experimental-data provenance recorded. [Live multi-experiment evaluation](live_multi_experiment_evaluation.md): decay and reference-seeded Sneyd pass after workflow fixes; autonomous fresh Sneyd still alters rate parameter names; manually corrected fresh Sneyd passes through fitting and diagnosis. |
 | PART-07 | Partial | P1 | Manuscript/documentation alignment: comparison and feature notes are written, but the paper itself has not been edited. Update commands, provider/setup, supported input contracts, numerical claims and examples. Older handoff/evaluation documents remain historical. |
 
 **Intentional differences to retain or explicitly document**
@@ -105,11 +109,10 @@ OPEN-03/PART-04 and means historical numerical losses should not be assumed
 comparable across versions. Historical run artifacts lack snapshots, so the
 current generated code alone cannot prove which loss a past run used.
 
-Use the deployed multi-experiment fixtures and examples for parity tests:
+Further multi-experiment evaluation can use the deployed fixtures and examples:
 `tests/fixtures/decay_multiexp`, `sneyd_ipr` (9 experiments), and `fujita_egf`
-(16 experiments). Port record loading, per-record initial conditions/time grids,
-shared-parameter loss aggregation, per-record outputs, generation/checking, and
-restart/snapshot/sloppiness integration. Test that modifying only experiment 2
-changes the aggregate loss and fitted result, so first-record-only regressions
-cannot pass unnoticed. Treat missing-channel masks and explicit weighting as
-part of that work where those datasets require them.
+(16 experiments). Record loading, per-record initial conditions/time grids, shared-parameter
+aggregation, outputs, snapshots, restart and sloppiness are now implemented.
+Regression tests verify that changing experiment 2 changes the fitted result.
+Fujita and broader missing-channel/uncertainty cases remain useful evaluation
+targets; arbitrary weighting is outside the current shared-schema contract.

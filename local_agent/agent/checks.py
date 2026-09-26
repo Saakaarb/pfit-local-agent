@@ -377,7 +377,7 @@ def _extract_loss_contract_text(text: str) -> str:
         if not line:
             continue
         heading = line.lstrip("#").strip().lower().rstrip(":")
-        if heading == "loss" or heading.startswith("loss "):
+        if heading == "loss" or heading.startswith(("loss ", "loss:")):
             in_loss = True
             collected.append(line)
             continue

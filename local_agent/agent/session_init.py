@@ -939,7 +939,7 @@ def _render_structured_loss_body(spec: NewSessionSpec, loss_data: dict[str, obje
     custom_loss = bool(loss_data.get("custom_loss", False))
     data_terms = loss_data.get("data_terms", [])
     penalties = loss_data.get("penalties", [])
-    if not custom_loss:
+    if not custom_loss and not data_terms and not penalties:
         return ""
     if not isinstance(data_terms, list) or not isinstance(penalties, list):
         raise ValidationError("pfit-new loss data_terms and penalties must be lists")
@@ -963,6 +963,9 @@ def _render_structured_loss_body(spec: NewSessionSpec, loss_data: dict[str, obje
             lines.append(f"loss += np.mean(np.abs({residual}))")
         elif metric == "mse":
             lines.append(f"loss += np.mean(np.square({residual}))")
+        elif metric == "rmse":
+            lines.append(f"loss += np.mean(np.square({residual}))")
+            rmse_term_count += 1
         elif metric in {"normalized_mse", "range_normalized_mse"}:
             scale = f"(np.max({measured_ref}) - np.min({measured_ref}) + 1e-12)"
             lines.append(f"loss += np.mean(np.square(({residual}) / {scale}))")
@@ -1151,7 +1154,7 @@ def _try_repair_expressions(
         "repair_new_session_expressions",
         messages,
         temperature=workflow_config.temperature,
-        max_tokens=min(workflow_config.max_tokens, 350),
+        max_tokens=min(workflow_config.max_tokens, 4096),
     )
     data = parse_llm_json_object(repaired_response, "pfit-new expression repair")
     state_rhs = {
@@ -1172,14 +1175,17 @@ def _try_repair_expressions(
         for item in data.get("observables", [])
         if isinstance(item, dict)
     }
-    if not state_rhs and not observable_expressions:
+    formulas = _parse_split_formulas(data)
+    if not state_rhs and not observable_expressions and not formulas:
         return None
     for state in current_spec["states"]:
         if state["name"] in state_rhs:
             state["rhs"] = state_rhs[state["name"]]
+        state["rhs"] = _inline_formulas(state["rhs"], formulas)
     for observable in current_spec["observables"]:
         if observable["name"] in observable_expressions:
             observable["expression"] = observable_expressions[observable["name"]]
+        observable["expression"] = _inline_formulas(observable["expression"], formulas)
     return json.dumps(current_spec)
 
 
@@ -1295,7 +1301,7 @@ def _try_repair_loss_body(
         "repair_new_session_loss_body",
         messages,
         temperature=workflow_config.temperature,
-        max_tokens=min(workflow_config.max_tokens, 350),
+        max_tokens=min(workflow_config.max_tokens, 4096),
     )
     data = parse_llm_json_object(repaired_response, "pfit-new loss_body repair")
     loss_body = _require_string(data, "loss_body", allow_empty=True)

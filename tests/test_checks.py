@@ -425,3 +425,28 @@ def test_explicit_log_loss_still_required_for_wide_range_data(tmp_path):
 
     assert not report.passed
     assert any("does not use a log transform" in e for e in report.critical_errors)
+
+
+def test_inline_loss_contract_excludes_reference_code_comments():
+    from local_agent.agent.checks import _extract_loss_contract_text
+    text = ("Loss: plain RMSE of measured versus simulated probability.\n\n"
+            "Reference model:\n"
+            "# Probability is already normalized\n")
+    assert _extract_loss_contract_text(text) == "Loss: plain RMSE of measured versus simulated probability."
+
+
+def test_reference_sneyd_plain_loss_has_no_normalization_error(tmp_path):
+    from local_agent.agent.checks import CheckReport, _add_user_loss_contract_checks
+    fixture = Path("tests/fixtures/sneyd_ipr")
+    session = tmp_path / "sneyd"
+    (session / "inputs").mkdir(parents=True)
+    source = (fixture / "generated/user_model.py").read_text()
+    (session / "inputs/user_info.txt").write_text(
+        "Loss: plain RMSE of measured versus simulated open probability.\n\n"
+        "Reference code:\n" + source
+    )
+    model = session / "user_model.py"
+    model.write_text(source)
+    report = CheckReport()
+    _add_user_loss_contract_checks(session, model, report)
+    assert report.critical_errors == []

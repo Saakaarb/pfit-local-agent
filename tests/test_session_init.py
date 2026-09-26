@@ -1109,3 +1109,44 @@ def _no_repair_config():
     from local_agent.agent.config import WorkflowConfig
 
     return WorkflowConfig(max_repair_attempts=0)
+
+
+@pytest.mark.parametrize("max_tokens, expected_budget", [(1024, 1024), (12000, 4096)])
+def test_expression_repair_inlines_missing_rate_dependencies(tmp_path, max_tokens, expected_budget):
+    session = tmp_path / "demo"
+    _write_user_supplied_data(session)
+    from local_agent.agent.config import WorkflowConfig
+
+    class BudgetClient(FakeLLMClient):
+        def complete(self, messages, **kwargs):
+            self.last_budget = kwargs["max_tokens"]
+            return super().complete(messages, **kwargs)
+
+    llm = BudgetClient([
+        _new_session_response(rhs="-v1"),
+        json.dumps({"formulas": [
+            {"name": "v1", "expression": "k * v0"},
+            {"name": "v0", "expression": "y"},
+        ]}),
+    ])
+    init_session(session, llm, PromptRenderer(), workflow_config=WorkflowConfig(max_tokens=max_tokens))
+    assert llm.last_budget == expected_budget
+    source = (session / "generated" / "user_model.py").read_text()
+    assert "v1" not in source
+    assert "v0" not in source
+    assert len(llm.requests) == 2
+
+
+def test_structured_plain_rmse_survives_false_custom_loss_flag():
+    import numpy as np
+    from local_agent.agent.session_init import _parse_new_session_response, _render_structured_loss_body
+    spec = _parse_new_session_response(_new_session_response())
+    body = _render_structured_loss_body(spec, {
+        "custom_loss": False,
+        "data_terms": [{"simulated": "y", "measured": "y", "metric": "rmse"}],
+        "penalties": [],
+    })
+    namespace = {"np": np}
+    exec("def loss(solution, dataset):\n" + "\n".join("    " + line for line in body.splitlines()), namespace)
+    # RMS([3, 4]) distinguishes RMSE from MSE and additional normalization.
+    assert namespace["loss"](np.array([[3.0], [4.0]]), np.zeros((2, 1))) == pytest.approx(np.sqrt(12.5))

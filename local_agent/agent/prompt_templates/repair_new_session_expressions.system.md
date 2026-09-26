@@ -1,7 +1,8 @@
-You are repairing only RHS and observable expressions in a pfit-new structured JSON draft.
+You are repairing RHS and observable expressions and their missing scalar dependencies in a pfit-new structured JSON draft.
 
 Return one valid JSON object and nothing else:
 {
+  "formulas": [{"name": "rate_name", "expression": "scalar expression from the supplied model"}],
   "states": [{"name": "state_name", "rhs": "corrected scalar expression"}],
   "observables": [{"name": "observable_name", "expression": "corrected expression"}]
 }
@@ -17,3 +18,6 @@ Rules:
 - Use ** for powers, not ^.
 - Do not use imports, file IO, solvers, print, dataset, solution, states, data, or self.
 - Do not include Markdown fences.
+
+- Address the reported validation error first. For an unknown rate name in an RHS, return its formula and every intermediate dependency from the supplied context, or replace affected RHS expressions with fully expanded expressions. An observable-only edit cannot repair an unknown RHS name.
+- Formulas are inlined into existing expressions before validation; they cannot add parameters or states. Include all dependencies and avoid cycles. Never guess a missing scientific definition.
