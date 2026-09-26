@@ -1,0 +1,3 @@
+Loss: peak-normalized RMSE of simulated x2 against measured level_lower. Do not include pump_voltage in the residual.
+
+Forcing: pump_voltage is a recorded input, linearly interpolated at solver time. Fit estimation.csv only; validation.csv is held out.

@@ -325,6 +325,7 @@ def _draft_new_session_response(
 
     frozen_equations = {
         **frozen_states,
+        "forcing_columns": equations_data.get("forcing_columns", []),
         "formulas": equations_data.get("formulas", []),
         "rhs": equations_data.get("rhs", []),
     }
@@ -562,6 +563,10 @@ def _assemble_split_new_session_response(
         csv_header,
     )
     auxiliary_columns = _auxiliary_columns_from_loss_data(loss_data, measurement_columns)
+    forcing_columns = equations_data.get("forcing_columns", [])
+    if not isinstance(forcing_columns, list) or any(not isinstance(n, str) or n not in measurement_columns for n in forcing_columns):
+        raise ValidationError("forcing_columns must list actual non-time CSV headers")
+    auxiliary_columns.extend({"name": name, "observed_column": measurement_columns[name], "kind": "forcing", "target": ""} for name in forcing_columns)
     spec_for_loss = NewSessionSpec(
         missing_inputs=(),
         review="",
@@ -1848,7 +1853,7 @@ def _parse_auxiliary_column(value: object) -> NewSessionAuxiliaryColumn:
         name=_clean_identifier(_require_string(value, "name", allow_empty=False), "auxiliary column"),
         observed_column=int(value["observed_column"]),
         kind=_require_string(value, "kind", allow_empty=False),
-        target=_clean_identifier(_require_string(value, "target", allow_empty=False), "auxiliary target"),
+        target=("" if value.get("kind") == "forcing" else _clean_identifier(_require_string(value, "target", allow_empty=False), "auxiliary target")),
     )
 
 
@@ -1967,12 +1972,16 @@ def _validate_new_session_spec(spec: NewSessionSpec) -> None:
         + len(spec.observables)
     ):
         raise ValidationError("pfit-new model names must be unique")
+    if len({c.observed_column for c in spec.auxiliary_columns}) != len(spec.auxiliary_columns):
+        raise ValidationError("pfit-new auxiliary data column indices must be unique")
     if auxiliary_names & all_names:
         raise ValidationError("pfit-new auxiliary column names must not duplicate model names")
     observed_columns = {
         state.observed_column for state in spec.states if state.observed_column is not None
     } | {observable.observed_column for observable in spec.observables}
     for column in spec.auxiliary_columns:
+        if column.observed_column < 0:
+            raise ValidationError("auxiliary column indices must be non-negative")
         if column.observed_column in observed_columns:
             raise ValidationError(
                 f"pfit-new auxiliary column {column.name} reuses an observed data column"
@@ -1982,7 +1991,7 @@ def _validate_new_session_spec(spec: NewSessionSpec) -> None:
                 f"pfit-new auxiliary column {column.name} targets unknown quantity: {column.target}"
             )
 
-    allowed_names = parameter_names | fixed_parameter_names | state_names | helper_names | {"t", "np"}
+    allowed_names = parameter_names | fixed_parameter_names | state_names | helper_names | {"t", "np"} | {c.name for c in spec.auxiliary_columns if c.kind == "forcing"}
     for state in spec.states:
         _validate_expression(state.rhs, allowed_names, helper_names)
     observable_allowed = parameter_names | fixed_parameter_names | state_names | helper_names | {"np"}
@@ -2266,7 +2275,9 @@ def _render_experiment_columns(spec: NewSessionSpec) -> list[str]:
             f"      - {{name: {observable.name}, observes: {observable.name}}}"
         )
     for column in spec.auxiliary_columns:
-        if column.kind == "uncertainty_of":
+        if column.kind == "forcing":
+            columns[column.observed_column] = f"      - {{name: {column.name}, role: forcing, interpolation: linear}}"
+        elif column.kind == "uncertainty_of":
             columns[column.observed_column] = (
                 f"      - {{name: {column.name}, uncertainty_of: {column.target}}}"
             )
@@ -2287,6 +2298,10 @@ def _render_user_model_from_spec(spec: NewSessionSpec) -> str:
     state_bindings = "\n".join(
         f"    {state.name} = y[{index}]"
         for index, state in enumerate(spec.states)
+    )
+    forcing_bindings = "\n".join(
+        f"    {c.name} = np.interp(t, t_eval, dataset[:, {c.observed_column}])"
+        for c in spec.auxiliary_columns if c.kind == "forcing"
     )
     derivative_lines = "\n".join(
         f"    d{state.name}dt = {state.rhs}"
@@ -2310,6 +2325,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 {parameter_bindings}
 {fixed_bindings}
 {state_bindings}
+{forcing_bindings}
 {derivative_lines}
     return np.array([{derivative_array}])
 

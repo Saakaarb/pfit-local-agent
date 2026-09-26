@@ -12,6 +12,7 @@ Schema:
 {
   "missing_inputs": [],
   "review": "short note",
+  "forcing_columns": ["csv_header_for_a_measured_input_if_present"],
   "formulas": [
     {"name": "rate_name", "expression": "scalar Python expression"}
   ],
@@ -34,3 +35,12 @@ Expression rules:
 - When source equations use intermediate rates (for example v0, v1), extract EVERY referenced rate and its dependencies into formulas. Do not return RHS rate names without their definitions. Before returning, trace each RHS symbol back to a frozen name or a formula included here. Preserve coefficients and parameter names exactly.
 - For supplied Python scalar assignments, copy each formula's right-hand side exactly (except required math-function syntax); leave formula expansion to the framework. Do not cancel factors or rewrite ratios.
 - Identifiers differing by underscores or case are distinct parameters. Preserve every underscore, including in numerators and denominators; never substitute a similarly named forward/reverse rate. Audit each copied assignment against the source before returning.
+
+Measured forcing: list actual CSV input headers in forcing_columns (empty if none).
+These are known input histories, not states, fitted parameters, or observations.
+Use their column names as scalar symbols in RHS/formulas; the framework binds
+np.interp(t, t_eval, dataset[:, runtime_column]) automatically. If the source
+uses an alias u(t), define formula u as that forcing column name. Do not emit
+array subscripts/interpolation in scalar formulas. Linear interpolation is the
+supported contract; if a different hold or discontinuity policy is required,
+report missing_inputs rather than silently changing it.

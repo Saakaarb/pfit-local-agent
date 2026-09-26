@@ -14,7 +14,7 @@ def load_experiments(session_dir, reader):
                 raise ValueError(f"Dataset file not found: {path}")
             data = load_dataset(path)
             header = read_header(path)
-            if len(reader.experiments) > 1 and header is not None:
+            if (len(reader.experiments) > 1 or any(c.get("role") == "forcing" for c in experiment["columns"])) and header is not None:
                 declared = [column["name"] for column in experiment["columns"]]
                 if header != declared:
                     raise ValueError(f"CSV header {header} does not match declared ordered columns {declared}")
@@ -31,6 +31,12 @@ def load_experiments(session_dir, reader):
                 raise ValueError("initial_time must not be after the first dataset time")
             if len(experiment["columns"]) != data.shape[1]:
                 raise ValueError("Declared columns must match the dataset column count")
+            for j, column in enumerate(experiment["columns"]):
+                if column.get("role") == "forcing":
+                    if not np.all(np.isfinite(data[:, j])):
+                        raise ValueError(f"Forcing {column['name']} must have finite values at every time")
+                    if reader.init_time is not None and reader.init_time < times[0]:
+                        raise ValueError("Forcing time coverage must include initial_time; extrapolation is not allowed")
         except (ValueError, OSError) as exc:
             raise ValueError(f"{context}: Could not read valid numeric dataset: {exc}") from exc
         records.append({"index": index + 1, "filename": experiment["filename"], "path": path,

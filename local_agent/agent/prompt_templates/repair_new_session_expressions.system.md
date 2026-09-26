@@ -21,3 +21,5 @@ Rules:
 
 - Address the reported validation error first. For an unknown rate name in an RHS, return its formula and every intermediate dependency from the supplied context, or replace affected RHS expressions with fully expanded expressions. An observable-only edit cannot repair an unknown RHS name.
 - Formulas are inlined into existing expressions before validation; they cannot add parameters or states. Include all dependencies and avoid cycles. Never guess a missing scientific definition.
+
+Declared auxiliary columns with kind forcing are scalar RHS bindings. Preserve their names; do not invent a state or observable for an input history.

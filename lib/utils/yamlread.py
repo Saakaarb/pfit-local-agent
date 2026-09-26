@@ -109,12 +109,27 @@ class YAMLReader:
             names = [c["name"] for c in columns]
             if len(set(names)) != len(names):
                 raise ValueError(f"{where}: column names must be unique")
-            measurements = {c["name"] for c in columns[1:] if not c.get("uncertainty_of")}
-            for column in columns:
+            measurements = {c["name"] for c in columns[1:] if not c.get("uncertainty_of") and c.get("role") != "forcing"}
+            for j, column in enumerate(columns):
+                role = column.get("role")
+                if role not in (None, "forcing"):
+                    raise ValueError(f"{where}: unsupported column role {role!r}")
+                if role == "forcing":
+                    import keyword
+                    name = column["name"]
+                    reserved = {"t", "y", "np", "jnp", "dataset", "t_eval", "constants", "trainable_parameters", "fixed_parameters", "trainable_variables", "other_args", "unscaled_parameters"}
+                    if j == 0 or column.get("observes") or column.get("uncertainty_of"):
+                        raise ValueError(f"{where}: forcing must be a separate non-time, non-observation column")
+                    if not name.isidentifier() or keyword.iskeyword(name) or name in reserved or name in self.trainable_parameter_names + self.fixed_parameter_names + self.integrated_variable_names + self.observable_names:
+                        raise ValueError(f"{where}: forcing name {name!r} must be a distinct model identifier")
+                    if column.get("interpolation", "linear") != "linear":
+                        raise ValueError(f"{where}: only linear forcing interpolation is supported")
+                elif "interpolation" in column:
+                    raise ValueError(f"{where}: interpolation requires role: forcing")
                 target = column.get("uncertainty_of")
                 if target and (target not in measurements or target == column["name"]):
                     raise ValueError(f"{where}: uncertainty_of must name a measurement column")
-            schema = [(c["name"], c.get("observes") or c["name"], c.get("uncertainty_of"), c.get("units")) for c in columns]
+            schema = [(c["name"], c.get("observes") or c["name"], c.get("uncertainty_of"), c.get("units"), c.get("role"), c.get("interpolation", "linear") if c.get("role") == "forcing" else None) for c in columns]
             if common_columns is not None and schema != common_columns:
                 raise ValueError(f"{where}: all experiments must have the same ordered column meanings and units")
             common_columns = schema
@@ -141,7 +156,7 @@ class YAMLReader:
         self.filename_data = self.experiments[0]["filename"]
         self.data_column_names = [c["name"] for c in self.experiments[0]["columns"]]
         self.data_column_index = list(range(len(self.data_column_names)))
-        self.data_column_observes = [c.get("observes") or c["name"] for c in self.experiments[0]["columns"]]
+        self.data_column_observes = ["" if c.get("role") == "forcing" else c.get("observes") or c["name"] for c in self.experiments[0]["columns"]]
 
         population = data.get("population_opt") or {}
         self.n_particles = int(population.get("population_size", population.get("num_particles", 0)) or 0)

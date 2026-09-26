@@ -27,3 +27,5 @@ override them at runtime. Each model/loss/writeout function processes ONE record
 using its supplied data, times and initial conditions. The framework takes an
 equal-weight arithmetic mean of per-record losses. Do not concatenate records,
 hardcode the first record, or average across experiments inside generated code.
+
+Declared measured-forcing names are scalar bindings supplied by the framework in RHS via jnp.interp(t, t_eval, dataset[:, index]). Use these names directly or preserve explicit jnp.interp calls on the declared forcing column. The runtime dataset excludes time. Never treat forcing columns as fitted observations or hardcode one experiment history.

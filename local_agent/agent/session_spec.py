@@ -40,6 +40,12 @@ class SessionSpec:
     integrator: str
     experiments: tuple[dict, ...] = ()
 
+    @property
+    def forcing_columns(self) -> tuple[tuple[str, int], ...]:
+        if not self.experiments:
+            return ()
+        return tuple((c["name"], i) for i, c in enumerate(self.experiments[0]["columns"][1:]) if c.get("role") == "forcing")
+
     def to_prompt_text(self) -> str:
         lines = [
             f"Dataset file: {self.filename_data}",
@@ -85,6 +91,10 @@ class SessionSpec:
                     lines.append(f"dataset[:, {index}]: {name} observes {observes}")
 
         lines.append("")
+        if self.forcing_columns:
+            lines.append("Measured forcing (not fitted observations):")
+            for name, index in self.forcing_columns:
+                lines.append(f"{name} = jnp.interp(t, t_eval, dataset[:, {index}]); bound automatically in RHS. Linear interpolation; each experiment supplies its own history.")
         lines.append("Observable names:")
         if self.observable_names:
             for name in self.observable_names:

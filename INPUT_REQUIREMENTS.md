@@ -629,3 +629,26 @@ repair may inline these definitions but must not invent missing rates.
 
 Explicit plain RMSE is supported without residual normalization. Structured
 loss terms and penalties are preserved even if extraction labels them non-custom.
+
+Measured forcing inputs
+
+Declare a known input column as `{name: pump_voltage, role: forcing,
+interpolation: linear}`. Its name must be a distinct Python identifier, separate
+from states, parameters and observables. A forcing column cannot also declare
+`observes` or `uncertainty_of`. It is excluded from the standard fitted-observation
+mapping and log-loss rules. Every experiment must use the same column roles and
+units; values and sampling times may differ.
+
+Forcing is currently sampled on the CSV time grid and linearly interpolated at
+ODE solver times. Every forcing sample must be finite. The CSV must cover the
+whole integration interval, including initial_time; extrapolation is rejected.
+Separate forcing grids, missing-input imputation, zero-order hold and unit
+conversion are not supported. The first and last samples define the supported
+interval. Piecewise inputs that require a hold policy must not be silently
+converted to linear ramps.
+
+In fresh extraction, equations declare forcing_columns using the CSV headers and
+use those names as scalar inputs; interpolation bindings are generated. Prepared
+Python models may use np.interp(t, t_eval, dataset[:, i]); the runtime data array
+excludes time, so raw CSV column i+1 is runtime column i. JAX translation remains
+an LLM step and preserves these inputs as jnp.interp or supplied scalar bindings.

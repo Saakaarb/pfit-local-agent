@@ -81,6 +81,8 @@ def validate_jax_fragments(fragments: JaxFragments, session_spec: SessionSpec) -
         | helper_names
         | {"t", "jnp"}
     )
+    if session_spec.forcing_columns:
+        allowed_names |= {"dataset", "t_eval"} | {name for name, _ in session_spec.forcing_columns}
     for index, expression in enumerate(fragments.rhs):
         variable_name = session_spec.integrated_variables[index].name
         _validate_expression(
@@ -140,6 +142,10 @@ def render_generated_script_from_fragments(
     state_bindings = "\n".join(
         f"    {name} = y[{index}]" for index, name in enumerate(variable_names)
     )
+    forcing_bindings = "\n".join(
+        f"    {name} = jnp.interp(t, t_eval, dataset[:, {index}])"
+        for name, index in session_spec.forcing_columns
+    )
     derivatives = "\n".join(
         f"    d{name}dt = {fragments.rhs[index]}"
         for index, name in enumerate(variable_names)
@@ -174,6 +180,7 @@ def user_defined_system(t, y, other_args):
 {parameter_bindings}
 {fixed_bindings}
 {state_bindings}
+{forcing_bindings}
 {derivatives}
     return jnp.array([{derivative_array}])
 

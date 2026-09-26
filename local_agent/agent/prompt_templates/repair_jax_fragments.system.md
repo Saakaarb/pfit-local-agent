@@ -67,3 +67,5 @@ Do not define functions inside loss_body or writeout_body.
 Do not reference a helper function unless it appears in helper_functions.
 Prefer preserving helper names from user_model.py, including names like _observables.
 Use jnp instead of np.
+
+Declared measured-forcing names are scalar bindings supplied by the framework in RHS via jnp.interp(t, t_eval, dataset[:, index]). Use these names directly or preserve explicit jnp.interp calls on the declared forcing column. The runtime dataset excludes time. Never treat forcing columns as fitted observations or hardcode one experiment history.

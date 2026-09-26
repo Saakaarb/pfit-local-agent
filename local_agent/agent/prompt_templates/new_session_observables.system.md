@@ -24,3 +24,5 @@ Rules:
 - Every CSV measurement column after time must appear exactly once.
 - Do not use observed column numbers.
 - Do not include Markdown fences.
+
+Exclude frozen forcing_columns from observables: they drive the RHS and are not fitted measurements. Do not create an observable for a measured forcing input.

@@ -209,7 +209,7 @@ def _dataset_summary(session_dir: Path, input_yaml: Path) -> str:
             f"Shape: {dataset.shape[0]} rows x {dataset.shape[1]} columns",
             f"Initial conditions: {dict(zip(reader.integrated_variable_names, record['y0']))}",
             "Column scale summary:",
-            *_dataset_column_stats(dataset, reader.data_column_names, explicit_loss=bool(user_loss_contract(session_dir))),
+            *_dataset_column_stats(dataset, reader.data_column_names, explicit_loss=bool(user_loss_contract(session_dir)), forcing_names={c["name"] for c in reader.experiments[0]["columns"] if c.get("role") == "forcing"}),
             "CSV preview:", record["path"].read_text().splitlines()[0],
             *[",".join(str(x) for x in row) for row in dataset[:5]],
         ])
@@ -230,6 +230,8 @@ def _add_dataset_scale_loss_checks(
         measured_names = _measured_column_names(reader)
         explicit_loss = bool(user_loss_contract(session_dir))
         for dataset_index, values in enumerate(dataset[:, 1:].T):
+            if record["columns"][dataset_index + 1].get("role") == "forcing":
+                continue
             orders = _column_log10_range(values)
             if orders is None or orders < 3.0:
                 continue
@@ -523,7 +525,7 @@ def _column_log10_range(values: np.ndarray) -> float | None:
 
 
 def _dataset_column_stats(
-    dataset: np.ndarray, names: list[str], *, explicit_loss: bool = False,
+    dataset: np.ndarray, names: list[str], *, explicit_loss: bool = False, forcing_names: set[str] | None = None,
 ) -> list[str]:
     stats = []
     for index, values in enumerate(dataset.T):
@@ -536,7 +538,9 @@ def _dataset_column_stats(
             )
             continue
         orders = _column_log10_range(values)
-        if index == 0:
+        if forcing_names and name in forcing_names:
+            suffix = ", forcing input; excluded from fitted observations and automatic log-loss rules"
+        elif index == 0:
             suffix = ", time column; automatic log-loss rule does not apply"
         elif orders is None:
             suffix = ", automatic log-loss rule does not apply (fewer than two finite values or contains zero/negative values)"
