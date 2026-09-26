@@ -148,3 +148,18 @@ checks the generated script and whether its model/YAML sources have changed.
 `pfit run` repeats deterministic readiness checks automatically. Retranslate with
 `pfit jax` after editing either source. See
 [readiness notes](docs/deterministic_readiness.md) for scope and legacy behavior.
+
+
+Multi-experiment fitting
+
+List each CSV under `experiments` in the session YAML, with optional per-record
+`initial_conditions`. All records share the model and parameter vector and must
+have the same ordered observation columns. Each record can have its own time grid.
+The fitting objective is the equal-weight mean of per-experiment losses.
+
+The existing `new`, `check`, `jax`, `run`, `run ... gradient-only`, and `diagnose`
+commands now cover every record. Multiple experiments produce
+`result_solution_exp1.csv`, `result_solution_exp2.csv`, etc. Run snapshots and
+standalone sloppiness include every dataset. Single-experiment filenames remain
+compatible. See the [input contract](INPUT_REQUIREMENTS.md) and
+[implementation and validation notes](docs/multi_experiment_support.md).

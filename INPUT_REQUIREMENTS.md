@@ -529,8 +529,8 @@ recomputes analysis from a recorded run snapshot without repeating fitting.
 
 Deterministic readiness (2026-09-26)
 
-- Only one experiment record is currently supported. Multiple records are rejected,
-  including by the low-level YAML reader; they are never silently truncated.
+- One or more experiment records are supported. All records are validated and
+  fitted; see the multi-experiment contract below.
 - CSV data must contain at least two rows, a finite strictly increasing time
   column, and at least one measurement column. Declared columns must match the
   full CSV width, including auxiliary uncertainty columns. Rows must have equal
@@ -557,3 +557,65 @@ Deterministic readiness (2026-09-26)
 
 These checks do not prove translation fidelity, gradient correctness or complete
 missing-data support. Those remain separate validation/parity work.
+
+
+Multi-experiment contract (2026-09-26)
+
+Declare one entry per experiment under `experiments`, each with `data_file`,
+`columns`, and optional `initial_conditions`. Initial-condition overrides must
+be finite values keyed by integrated state names; all other states inherit the
+model's global initial values. Equations, parameter values/bounds, fixed
+parameters, observables and solver settings are shared across records.
+
+```yaml
+experiments:
+  - data_file: run_a.csv
+    columns:
+      - {name: time}
+      - {name: y, observes: y}
+  - data_file: run_b.csv
+    columns:
+      - {name: time}
+      - {name: y, observes: y}
+    initial_conditions: {y: 2.0}
+```
+
+Every record must have the same ordered column names, observation mappings,
+uncertainty roles and units. Column names must be unique; `uncertainty_of` must
+reference a measurement column in that record. CSV headers, when present in a
+multi-experiment session, must match those declarations. Existing headerless
+reference sessions remain readable, with column meanings supplied by the YAML.
+Different row counts, initial times and final times are supported. Without an
+explicit `gradient_opt.initial_time`, each solve starts at that record's first
+time; an explicit global initial time must be valid for all records.
+
+Generated functions operate on one record at a time. The framework computes the
+arithmetic mean of per-record scalar losses, giving each experiment equal weight.
+It does not pool observations or replace a mean of RMSEs with pooled RMSE.
+A solver failure, nonfinite scalar loss, or error-loss sentinel from any record
+invalidates the whole candidate. Newly generated code also rejects nonfinite
+simulated trajectories even when a custom loss attempts to mask those values.
+
+Blank/NaN measurements remain present. The standard generated loss masks missing
+measurements before normalization and rejects empty observation channels or
+nonfinite simulations. Custom/uncertainty losses remain responsible for valid
+masking before logs/division; every record must pass the translation smoke test.
+Do not assume this port supplies a complete arbitrary-custom-loss masking audit.
+For multi-experiment `pfit new`, automatic post-extraction log-loss rewriting is
+disabled so the first CSV alone cannot alter the shared objective; extracted loss
+intent and checks cover the full experiment context. Explicit user losses retain
+precedence.
+
+`pfit new` accepts a structured `experiments` selection (data_file and optional
+initial_conditions) while retaining legacy `filename_data` responses. All selected
+CSV headers must agree. Supply explicit experiment conditions; the workflow must
+not infer state initial conditions from a derived measurement. Unknown experiment
+keys, custom experiment weights, differing observation layouts, per-experiment
+fixed/fitted parameter overrides and measured forcing histories are unsupported.
+
+Full fitting and gradient-only restarts use every experiment. Each run snapshots
+all CSVs and records original filenames, SHA-256 hashes and resolved initial
+conditions in run_manifest.json. Multi-record results use result_solution_expN.csv;
+single-record results retain result_solution.csv. fit_summary.json records each
+experiment's loss and the equal_experiment_mean aggregation rule. Historical
+sloppiness uses the complete snapshot, not the current working datasets.

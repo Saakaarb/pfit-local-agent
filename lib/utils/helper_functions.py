@@ -15,54 +15,25 @@ from lib.utils.run_artifacts import parameter_axes, scale_parameters, unscale_pa
 jax.config.update("jax_enable_x64", True)
 
 class CreatedClass(ProblemObjectBase):
-    def __init__(self, dataset: np.ndarray, t_eval: np.ndarray, y0: jnp.ndarray, input_reader: YAMLReader, compute_loss_problem, write_problem_result):
-        """
-        Initialize the CreatedClass instance with problem configuration.
-
-        Args:
-            dataset (numpy.ndarray): Experimental data array with shape (time_steps, variables)
-            t_eval (numpy.ndarray): Time points for solution evaluation
-            y0 (jax.numpy.ndarray): Initial conditions for the ODE system
-            input_reader (YAMLReader): Configuration reader containing all problem parameters
-            compute_loss_problem (callable): Function to compute loss for given parameters
-            write_problem_result (callable): Function to write problem results
-
-        The constructor sets up the complete problem environment including:
-        - Parameter management (trainable vs fixed)
-        - Integration settings (tolerance, step size, max steps)
-        - Time domain configuration
-        - Loss computation and result writing functions
-        """
+    def __init__(self, dataset=None, t_eval=None, y0=None, input_reader=None,
+                 compute_loss_problem=None, write_problem_result=None, *, experiments=None):
+        """One shared vector, independent trajectories, equal experiment weights."""
+        from lib.utils.experiments import experiment_constants
         super().__init__()
-        self.y0 = y0
         self.input_reader = input_reader
-        self.t_eval = t_eval
-        self.dataset = np.array(dataset)
+        if experiments is None and len(getattr(input_reader, "experiments", [])) > 1:
+            raise ValueError("Multi-experiment readers require all experiment records, not legacy single-dataset arguments")
+        self.experiments = experiments if experiments is not None else [
+            {"dataset": dataset, "t_eval": t_eval, "y0": y0}]
+        if not self.experiments:
+            raise ValueError("At least one experiment is required")
+        self.constants_list = [experiment_constants(exp, input_reader) for exp in self.experiments]
+        # Single-record compatibility for older callers; all fitting paths below
+        # use constants_list explicitly.
+        self.constants = self.constants_list[0]
+        self.y0, self.t_eval, self.dataset = (self.constants[k] for k in ("init_cond", "t_eval", "dataset"))
         self.num_columns_to_fit = self.dataset.shape[1]
-        self.params_to_fit_names = self.input_reader.trainable_parameter_names
-        self.fixed_param_names = self.input_reader.fixed_parameter_names
-        self.fixed_param_values = self.input_reader.fixed_parameter_values
-        self.fixed_val_dict = {}
-        for i in range(len(self.input_reader.fixed_parameter_names)):
-            self.fixed_val_dict[self.fixed_param_names[i]] = self.fixed_param_values[i]
-        self.constants = {
-            "dataset": jnp.array(self.dataset),
-            "t_eval": t_eval,
-            "init_cond": y0,
-        }
-        print("NOTE: currently, only simulations till the same final time are supported")
-        self.constants["num_steps"] = self.dataset.shape[0]
-        if self.input_reader.init_time is None:
-            self.constants["init_time"] = self.t_eval[0]
-        else:
-            self.constants["init_time"] = self.input_reader.init_time
-        self.constants["final_time"] = self.t_eval[-1]
-        self.constants['stepsize_rtol'] = np.array(self.input_reader.stepsize_rtol)
-        self.constants['stepsize_atol'] = np.array(self.input_reader.stepsize_atol)
-        self.constants['init_timestep'] = self.input_reader.init_timestep
-        self.constants['max_steps'] = self.input_reader.max_steps
-        self.constants['fixed_parameters'] = self.fixed_val_dict
-        self.constants['error_loss'] = self.input_reader.error_loss
+        self.params_to_fit_names = input_reader.trainable_parameter_names
         self._compute_loss_problem = compute_loss_problem
         self._write_problem_result = write_problem_result
 
@@ -117,7 +88,7 @@ class CreatedClass(ProblemObjectBase):
             #    loss = jnp.where(jnp.logical_or(jnp.isnan(loss), jnp.isinf(loss)), 1e10, loss)
             #    losses = losses.at[i].set(loss)
         #    losses = jax.vmap(self._compute_loss)(shard_population)  # vectorized over the shard
-        #    losses = jnp.where(jnp.isfinite(losses), losses, 1e10)     # sanitize NaN/Inf
+        #    losses = jnp.where(jnp.isfinite(losses), losses, self.input_reader.error_loss)     # sanitize NaN/Inf
         #    return losses
 
         # create a pmap with the number of devices
@@ -135,7 +106,7 @@ class CreatedClass(ProblemObjectBase):
             def shard_loss(shard_population: jax.Array) -> jax.Array:
                 # shard_population: [local_n_particles, d]
                 losses = jax.vmap(self._compute_loss)(shard_population)  # vectorized over the shard
-                losses = jnp.where(jnp.isfinite(losses), losses, 1e10)     # sanitize NaN/Inf
+                losses = jnp.where(jnp.isfinite(losses), losses, self.input_reader.error_loss)     # sanitize NaN/Inf
                 return losses  # shape: [local_n_particles]
 
             # Create pmapped callable and cache it on self
@@ -162,7 +133,8 @@ class CreatedClass(ProblemObjectBase):
         This method is JIT-compiled for performance and calls the user-defined
         loss computation function with the problem constants and parameters.
         """
-        return self._compute_loss_problem(self.constants, jnp.array(design_pt))
+        from lib.utils.experiments import mean_experiment_loss
+        return mean_experiment_loss(self._compute_loss_problem, self.constants_list, jnp.array(design_pt))
 
     def set_min_limit(self, min_lim: list[float])-> None:
         """
@@ -174,7 +146,8 @@ class CreatedClass(ProblemObjectBase):
         The limits are stored in the constants dictionary and used by the
         optimization algorithms to constrain the search space.
         """
-        self.constants["min_limits"] = jnp.array(min_lim)
+        for constants in self.constants_list:
+            constants["min_limits"] = jnp.array(min_lim)
 
     def set_max_limit(self, max_lim: list[float])-> None:
         """
@@ -186,7 +159,8 @@ class CreatedClass(ProblemObjectBase):
         The limits are stored in the constants dictionary and used by the
         optimization algorithms to constrain the search space.
         """
-        self.constants["max_limits"] = jnp.array(max_lim)
+        for constants in self.constants_list:
+            constants["max_limits"] = jnp.array(max_lim)
 
     def set_is_logscale(self, is_logscale: list[bool])-> None:
         """
@@ -199,7 +173,8 @@ class CreatedClass(ProblemObjectBase):
         This affects how the optimization algorithms handle parameter scaling
         and search space exploration.
         """
-        self.constants["is_logscale"] = jnp.array(is_logscale)
+        for constants in self.constants_list:
+            constants["is_logscale"] = jnp.array(is_logscale)
 
     def write_problem_result(self, design_point: np.ndarray, input_reader: YAMLReader, label:str="default")-> None:
         """
@@ -211,11 +186,19 @@ class CreatedClass(ProblemObjectBase):
             label (str, optional): Label for the output file. Defaults to "default"
 
         The method calls the user-defined result writing function and saves the
-        output to a CSV file in the format "{label}_solution.csv".
+        output to one CSV per experiment; retain "{label}_solution.csv" for a single record.
         """
-        writeout_array = self._write_problem_result(self.constants, jnp.array(design_point))
-        np.savetxt(input_reader.output_dir/Path(f"{label}_solution.csv"), writeout_array, delimiter=",")
-      
+        outputs = []
+        for index, constants in enumerate(self.constants_list):
+            suffix = "" if len(self.constants_list) == 1 else f"_exp{index + 1}"
+            filename = f"{label}_solution{suffix}.csv"
+            writeout_array = np.asarray(self._write_problem_result(constants, jnp.array(design_point)))
+            if writeout_array.ndim != 2 or writeout_array.shape[0] != len(constants["t_eval"]):
+                raise ValueError(f"Experiment {index + 1}: invalid writeout shape {writeout_array.shape}")
+            np.savetxt(input_reader.output_dir / filename, writeout_array, delimiter=",")
+            outputs.append({"index": index + 1, "data_file": input_reader.experiments[index]["filename"],
+                            "output_file": filename})
+        (input_reader.output_dir / f"{label}_experiments.json").write_text(json.dumps(outputs, indent=2) + "\n")
 
 
 def get_input_reader(path_to_input: Path)-> YAMLReader:
@@ -291,20 +274,13 @@ def fit_generic_system(path_to_input: Path, path_to_output_dir: Path, generated_
         # assign output dir
         input_reader.output_dir=path_to_output_dir
 
-        y0=jnp.array(input_reader.integrated_variable_init_values)
-
-        # load dataset
-        dataset_path = session_path / Path(input_reader.user_input_dirname) / Path(input_reader.filename_data)
-        from lib.utils.dataset_io import load_dataset
-        all_data = load_dataset(dataset_path)
-        # split into time and data
-        t_eval=all_data[:,0]
-        dataset=all_data[:,1:]
-        # Run a test fitting
-        problem_obj = CreatedClass(dataset=dataset, t_eval=t_eval, y0=y0, input_reader=input_reader,
+        from lib.utils.experiments import load_experiments
+        experiments = load_experiments(session_path, input_reader)
+        problem_obj = CreatedClass(experiments=experiments, input_reader=input_reader,
                                   compute_loss_problem=generated_script._compute_loss_problem,
                                   write_problem_result=generated_script._write_problem_result)
-
+        # Keep the public fit_equation_system call shape compatible.
+        y0, t_eval, dataset = (experiments[0][k] for k in ("y0", "t_eval", "dataset"))
         final_ans = fit_equation_system(
             input_reader, y0, t_eval, dataset, problem_obj, initial_parameters=initial_parameters,
             sloppiness=sloppiness, sloppiness_method=sloppiness_method,
@@ -386,8 +362,9 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
             or input_reader.pso_stepsize_atol
             or input_reader.stepsize_atol
         )
-        problem_obj.constants['stepsize_rtol'] = jnp.array(pop_rtol)
-        problem_obj.constants['stepsize_atol'] = jnp.array(pop_atol)
+        for constants in problem_obj.constants_list:
+            constants['stepsize_rtol'] = jnp.array(pop_rtol)
+            constants['stepsize_atol'] = jnp.array(pop_atol)
         problem_obj.set_min_limit(fit_obj.min_search_axis)
         problem_obj.set_max_limit(fit_obj.max_search_axis)
         problem_obj.set_is_logscale(input_reader.axis_logscale)
@@ -420,7 +397,7 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
 
     # NODE uses a separate problem object so its JIT compilation bakes in tight tolerances
     problem_obj_node = CreatedClass(
-        dataset=dataset, t_eval=t_eval, y0=y0, input_reader=input_reader,
+        experiments=problem_obj.experiments, input_reader=input_reader,
         compute_loss_problem=problem_obj._compute_loss_problem,
         write_problem_result=problem_obj._write_problem_result,
     )
@@ -458,6 +435,9 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
     summary = {
         "mode": "gradient-only" if initial_parameters is not None else "full",
         "seed_loss": seed_loss, "final_loss": float(tuned_best_loss),
+        "aggregation": "equal_experiment_mean",
+        "experiment_losses": [float(problem_obj_node._compute_loss_problem(c, tuned_best_position))
+                              for c in problem_obj_node.constants_list],
         "gradient_iterations_evaluated": len(getattr(fit_obj_NODE, "loss_history", [])),
         "refinement_error": refinement_error,
         "termination": "exception" if refinement_error else getattr(fit_obj_NODE, "termination_reason", "unknown"),
@@ -468,7 +448,7 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
     from lib.utils.sloppiness import run_sloppiness_analysis
     print("Computing post-fit sloppiness" if sloppiness else "Skipping post-fit sloppiness")
     report = run_sloppiness_analysis(
-        problem_obj_node._compute_loss_problem, [problem_obj_node.constants],
+        problem_obj_node._compute_loss_problem, problem_obj_node.constants_list,
         np.asarray(tuned_best_position), input_reader.trainable_parameter_names, output_dir,
         method=sloppiness_method, enabled=sloppiness,
     )

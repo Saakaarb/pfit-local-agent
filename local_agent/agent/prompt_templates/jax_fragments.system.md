@@ -93,3 +93,10 @@ Rules:
 - Prefer preserving helper names from user_model.py, including names like _observables.
 - Do not access constants, other_args, trainable_variables, or diffrax. The framework owns that plumbing.
 - Do not change the user's loss or writeout semantics unless required for JAX compatibility.
+
+Multi-experiment contract: all records share equations and parameters. Global
+state initial values are defaults; the frozen experiment initial_conditions
+override them at runtime. Each model/loss/writeout function processes ONE record
+using its supplied data, times and initial conditions. The framework takes an
+equal-weight arithmetic mean of per-record losses. Do not concatenate records,
+hardcode the first record, or average across experiments inside generated code.

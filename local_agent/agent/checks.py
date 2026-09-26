@@ -93,7 +93,7 @@ def check_session(
         report.recommendations.append(
             "Large trainable parameter count detected; consider increasing population search budget."
         )
-    if result.dataset_shape[0] < 5:
+    if any(len(record["t_eval"]) < 5 for record in result.experiments):
         report.warnings.append(
             "Dataset has very few rows; fitted parameters may be weakly constrained."
         )
@@ -200,31 +200,20 @@ def _optional_string(data: dict[str, object], key: str) -> str:
 
 def _dataset_summary(session_dir: Path, input_yaml: Path) -> str:
     validation = validate_session(session_dir)
-    dataset_path = validation.dataset_path
     reader = parse_input_yaml(input_yaml)
-    dataset = _load_numeric_dataset(dataset_path)
-    rows: list[list[str]] = []
-    with dataset_path.open("r", encoding="utf-8-sig", newline="") as handle:
-        reader = csv.reader(handle)
-        for index, row in enumerate(reader):
-            if index >= 6:
-                break
-            rows.append(row)
-    preview = "\n".join(",".join(row) for row in rows)
-    column_stats = _dataset_column_stats(
-        dataset, parse_input_yaml(input_yaml).data_column_names,
-        explicit_loss=bool(user_loss_contract(session_dir)),
-    )
-    return "\n".join(
-        [
-            f"Dataset path: {dataset_path}",
-            f"Shape: {validation.dataset_shape[0]} rows x {validation.dataset_shape[1]} columns",
+    lines = [f"Experiment count: {len(validation.experiments)}; objective: equal experiment mean"]
+    for record in validation.experiments:
+        dataset = np.column_stack((record["t_eval"], record["dataset"]))
+        lines.extend([
+            f"Experiment {record['index']}: Dataset path: {record['path']}",
+            f"Shape: {dataset.shape[0]} rows x {dataset.shape[1]} columns",
+            f"Initial conditions: {dict(zip(reader.integrated_variable_names, record['y0']))}",
             "Column scale summary:",
-            *column_stats,
-            "CSV preview:",
-            preview,
-        ]
-    )
+            *_dataset_column_stats(dataset, reader.data_column_names, explicit_loss=bool(user_loss_contract(session_dir))),
+            "CSV preview:", record["path"].read_text().splitlines()[0],
+            *[",".join(str(x) for x in row) for row in dataset[:5]],
+        ])
+    return "\n".join(lines)
 
 
 def _add_dataset_scale_loss_checks(
@@ -235,36 +224,35 @@ def _add_dataset_scale_loss_checks(
     input_yaml = session_dir / "inputs" / "user_input.yaml"
     validation = validate_session(session_dir)
     reader = parse_input_yaml(input_yaml)
-    dataset = _load_numeric_dataset(validation.dataset_path)
-    if dataset.shape[1] < 2:
-        return
-    logged_dataset_columns = _logged_dataset_columns_in_loss(user_model.read_text())
-    measured_names = _measured_column_names(reader)
-    explicit_loss = bool(user_loss_contract(session_dir))
-    for dataset_index, values in enumerate(dataset[:, 1:].T):
-        orders = _column_log10_range(values)
-        if orders is None or orders < 3.0:
-            continue
-        finite = values[np.isfinite(values)]
-        min_value = float(np.min(finite))
-        max_value = float(np.max(finite))
-        if dataset_index in logged_dataset_columns:
-            continue
-        name = measured_names[dataset_index] if dataset_index < len(measured_names) else f"dataset[:, {dataset_index}]"
-        evidence = (
-            f"{name} uses dataset[:, {dataset_index}], positive min={min_value:.6g}, "
-            f"max={max_value:.6g}, log10 range={orders:.2f}. "
-        )
-        if explicit_loss:
-            report.warnings.append(
-                "Measured column spans orders of magnitude: " + evidence
-                + "Preserving the explicit user loss; data range alone does not require log residuals."
+    for record in validation.experiments:
+        dataset = np.column_stack((record["t_eval"], record["dataset"]))
+        logged_dataset_columns = _logged_dataset_columns_in_loss(user_model.read_text())
+        measured_names = _measured_column_names(reader)
+        explicit_loss = bool(user_loss_contract(session_dir))
+        for dataset_index, values in enumerate(dataset[:, 1:].T):
+            orders = _column_log10_range(values)
+            if orders is None or orders < 3.0:
+                continue
+            finite = values[np.isfinite(values)]
+            min_value = float(np.min(finite))
+            max_value = float(np.max(finite))
+            if dataset_index in logged_dataset_columns:
+                continue
+            name = measured_names[dataset_index] if dataset_index < len(measured_names) else f"dataset[:, {dataset_index}]"
+            evidence = (
+                f"Experiment {record['index']} ({record['filename']}): {name} uses dataset[:, {dataset_index}], positive min={min_value:.6g}, "
+                f"max={max_value:.6g}, log10 range={orders:.2f}. "
             )
-        else:
-            report.critical_errors.append(
-                "Measured column spans orders of magnitude but the loss does not compare it in log space: "
-                + evidence + "Use a log/log10-transformed residual before normalization."
-            )
+            if explicit_loss:
+                report.warnings.append(
+                    "Measured column spans orders of magnitude: " + evidence
+                    + "Preserving the explicit user loss; data range alone does not require log residuals."
+                )
+            else:
+                report.critical_errors.append(
+                    "Measured column spans orders of magnitude but the loss does not compare it in log space: "
+                    + evidence + "Use a log/log10-transformed residual before normalization."
+                )
 
 
 def _add_uncertainty_loss_checks(

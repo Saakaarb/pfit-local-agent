@@ -5,8 +5,8 @@ Updated: 2026-09-26. This is the current implementation tracker for
 The original repository's checked-out `main` branch is older and is not the
 comparison baseline.
 
-Status reflects the current working tree, including the uncommitted restart and
-sloppiness changes. “Implemented” means the scoped capability is implemented and
+Status reflects the current working tree, including the multi-experiment follow-up
+after committed restart, sloppiness and readiness work (`386e061`). “Implemented” means the scoped capability is implemented and
 tested; it does not imply identical behavior in every respect. “Partial” identifies
 remaining work within an existing capability. “Open” means the gap remains.
 
@@ -30,6 +30,12 @@ Readiness follow-up validation: **243 default tests passed, 4 deselected**;
 **47 targeted tests passed**, including the numerical full-fit/restart/reanalysis
 regression. See [deterministic_readiness.md](deterministic_readiness.md).
 
+Multi-experiment follow-up: **265 default tests passed, 7 deselected**, plus
+**three new numerical acceptance tests** covering fitting, restart, snapshot
+reanalysis, sensitivity to experiment 2 and all nine Sneyd conditions. Fake-LLM
+Sneyd translation passed; live Ollama evaluation remains open. See
+[multi_experiment_support.md](multi_experiment_support.md).
+
 **Remaining divergences and correctness work**
 
 P0 protects scientific correctness; P1 restores broader workflow capability;
@@ -38,9 +44,9 @@ they are not all missing features in the same sense.
 
 | ID | Status | Priority | Remaining work |
 |---|---|---|---|
-| OPEN-01 | Open | P0 | Multi-experiment fitting: replace first-experiment-only handling across extraction, initial conditions, loss aggregation, fitting and outputs. Unsupported multi-record input is now explicitly rejected until implemented. |
+| OPEN-01 | Implemented (scoped) | P0 | Shared-parameter fitting across every record, per-record ICs/time grids, equal-mean objective, extraction/translation/checking, per-record outputs, complete snapshots, restart and sloppiness. Common ordered column schemas are required. See [implementation evidence and limits](multi_experiment_support.md). |
 | OPEN-02 | Open | P0 | Measured forcing histories: explicit input-column roles, interpolation, time coverage and missing-input validation throughout generation and execution. |
-| PART-03 | Partial | P0 | Missing data and uncertainty: existing loader/loss support needs safe masks before normalization/division/logs and explicit empty-channel policies. Invalid simulated values must not be hidden as missing measurements. |
+| PART-03 | Partial | P0 | Missing data and uncertainty: existing loader/loss support needs safe masks before normalization/division/logs and explicit empty-channel policies. The standard generated loss now masks before normalization and rejects empty channels; generated wrappers reject nonfinite simulations. Arbitrary custom/uncertainty masking still needs the broader audit. |
 | OPEN-03 | Open | P0 | Preserve custom loss and writeout independently during translation; add numerical source-versus-JAX comparisons. Current default-loss handling can replace a custom output function. |
 | PART-04 | Partial | P0 | Explicit-loss precedence: checker changes preserve user objectives, but new-session automatic log transformations still need alignment. |
 | PART-05 | Implemented (scoped) | P0 | Deterministic input validation, offline check/ready CLI, source-hash stamping after accepted translation, automatic pre-run checks and existing restart-seed gate. Legacy scripts use a qualified timestamp fallback. See [scope and remaining limits](deterministic_readiness.md); this does not establish numerical translation equivalence. |
@@ -81,13 +87,14 @@ older evaluation reports as the current feature checklist.
 
 Deterministic readiness (PART-05) was moved ahead of multi-experiment fitting and
 is now implemented within the scope documented above. Multi-experiment fitting
-(OPEN-01) remains the next proposed port. Local
+(OPEN-01) has now been implemented within its common-column/shared-parameter scope. Local
 `sessions/boehm_stat5/inputs/user_input.yaml` declares one experiment and one CSV,
 with three observable columns (`pSTAT5A`, `pSTAT5B`, `rSTAT5A`), one time grid and
 one initial-condition vector. The deployed reference Boehm YAML also declares a
 single experiment. This prepared case tests multiple observables, not multiple
-independently integrated experiment records. The local reader does select
+independently integrated experiment records. The previous local reader selected
 `experiments[0]`, but no later configured Boehm records were present to discard.
+The new fitting path processes every declared record.
 This inspection does not establish completeness relative to the original
 publication or upstream benchmark.
 

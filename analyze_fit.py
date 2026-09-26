@@ -23,17 +23,17 @@ def analyze_run(session, run=None, *, method="auto"):
     spec = importlib.util.spec_from_file_location("pfit_analyzed_run", script)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    from local_agent.agent.validators import _load_numeric_csv
-    data = _load_numeric_csv(sources / reader.user_input_dirname / reader.filename_data)
-    problem = CreatedClass(data[:, 1:], data[:, 0], np.asarray(reader.integrated_variable_init_values),
-                           reader, module._compute_loss_problem, module._write_problem_result)
+    from lib.utils.experiments import load_experiments
+    problem = CreatedClass(experiments=load_experiments(sources, reader), input_reader=reader,
+                           compute_loss_problem=module._compute_loss_problem,
+                           write_problem_result=module._write_problem_result)
     lo, hi, logs = parameter_axes(reader)
     problem.set_min_limit(lo)
     problem.set_max_limit(hi)
     problem.set_is_logscale(logs)
     # Snapshot provides the historical order for old unnamed design points.
     physical = load_restart_seed(output, reader, allow_legacy=True)
-    return run_sloppiness_analysis(module._compute_loss_problem, [problem.constants],
+    return run_sloppiness_analysis(module._compute_loss_problem, problem.constants_list,
                                    scale_parameters(physical, reader), reader.trainable_parameter_names,
                                    output, method=method)
 

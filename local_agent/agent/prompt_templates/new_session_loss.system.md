@@ -43,3 +43,10 @@ Penalty rules:
 - Penalties are rendered as smooth sigmoid step penalties, not hard if/else branches.
 - sharpness is optional; use large values for switch-like penalties when the user asks for a smooth substitute for an if/else loss.
 - Do not include Markdown fences.
+
+Multi-experiment contract: all records share equations and parameters. Global
+state initial values are defaults; the frozen experiment initial_conditions
+override them at runtime. Each model/loss/writeout function processes ONE record
+using its supplied data, times and initial conditions. The framework takes an
+equal-weight arithmetic mean of per-record losses. Do not concatenate records,
+hardcode the first record, or average across experiments inside generated code.

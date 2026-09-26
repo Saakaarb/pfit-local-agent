@@ -25,6 +25,7 @@ class SessionValidation:
     dataset_shape: tuple[int, int]
     n_trainable_parameters: int
     n_integrated_variables: int
+    experiments: tuple[dict, ...] = ()
 
 
 def parse_input_yaml(input_yaml: Path) -> YAMLReader:
@@ -49,44 +50,18 @@ def validate_session(session_dir: Path) -> SessionValidation:
     input_yaml = session_dir / "inputs" / "user_input.yaml"
     reader = parse_input_yaml(input_yaml)
 
-    dataset_path = session_dir / reader.user_input_dirname / reader.filename_data
-    if not dataset_path.exists():
-        raise ValidationError(f"Dataset file not found: {dataset_path}")
-
-    dataset = _load_numeric_csv(dataset_path)
-
-    if dataset.size == 0:
-        raise ValidationError(f"Dataset is empty: {dataset_path}")
-    if dataset.ndim != 2:
-        raise ValidationError(
-            f"Dataset must be a 2D numeric table with time plus data columns: {dataset_path}"
-        )
-    if dataset.shape[1] < 2:
-        raise ValidationError(
-            f"Dataset must include a time column and at least one data column: {dataset_path}"
-        )
-    if np.any(np.isinf(dataset)):
-        raise ValidationError(f"Dataset contains infinite values: {dataset_path}")
-
-    if dataset.shape[0] < 2:
-        raise ValidationError("Dataset must contain at least two time points")
-    times = dataset[:, 0]
-    if not np.all(np.isfinite(times)) or not np.all(np.diff(times) > 0):
-        raise ValidationError("Dataset time values must be finite and strictly increasing")
-    if reader.init_time is not None and reader.init_time > times[0]:
-        raise ValidationError("initial_time must not be after the first dataset time")
-    if reader.data_column_names and len(reader.data_column_names) != dataset.shape[1]:
-        raise ValidationError("Declared columns must match the dataset column count")
-
-    n_integrated_variables = len(reader.integrated_variable_names)
-
+    from lib.utils.experiments import load_experiments
+    try:
+        records = load_experiments(session_dir, reader)
+    except ValueError as exc:
+        raise ValidationError(str(exc)) from exc
     return SessionValidation(
-        session_dir=session_dir,
-        input_yaml=input_yaml,
-        dataset_path=dataset_path,
-        dataset_shape=dataset.shape,
+        session_dir=session_dir, input_yaml=input_yaml,
+        dataset_path=records[0]["path"],
+        dataset_shape=(len(records[0]["t_eval"]), records[0]["dataset"].shape[1] + 1),
         n_trainable_parameters=reader.n_search_axes,
-        n_integrated_variables=n_integrated_variables,
+        n_integrated_variables=len(reader.integrated_variable_names),
+        experiments=tuple(records),
     )
 
 
@@ -96,69 +71,24 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
     except GeneratedContractError as exc:
         raise ValidationError(str(exc)) from exc
     reader = parse_input_yaml(Path(session_dir) / "inputs" / "user_input.yaml")
-    dataset_path = Path(session_dir) / reader.user_input_dirname / reader.filename_data
-    all_data = _load_numeric_csv(dataset_path)
-
-    if all_data.ndim != 2 or all_data.shape[1] < 2:
-        raise ValidationError("Smoke-test dataset must contain time plus data columns")
-
-    t_eval = all_data[:, 0]
-    dataset = all_data[:, 1:]
-    min_limits = np.array(
-        [
-            np.log10(value) if reader.axis_logscale[index] else value
-            for index, value in enumerate(reader.min_axis_values)
-        ]
-    )
-    max_limits = np.array(
-        [
-            np.log10(value) if reader.axis_logscale[index] else value
-            for index, value in enumerate(reader.max_axis_values)
-        ]
-    )
-    constants = {
-        "dataset": dataset,
-        "t_eval": t_eval,
-        "init_cond": np.array(reader.integrated_variable_init_values),
-        "num_steps": dataset.shape[0],
-        "init_time": reader.init_time if reader.init_time is not None else t_eval[0],
-        "final_time": t_eval[-1],
-        "stepsize_rtol": np.array(reader.stepsize_rtol),
-        "stepsize_atol": np.array(reader.stepsize_atol),
-        "init_timestep": reader.init_timestep,
-        "max_steps": reader.max_steps,
-        "fixed_parameters": dict(
-            zip(reader.fixed_parameter_names, reader.fixed_parameter_values)
-        ),
-        "error_loss": reader.error_loss,
-        "min_limits": min_limits,
-        "max_limits": max_limits,
-        "is_logscale": np.array(reader.axis_logscale),
-    }
-    trainable_variables = np.zeros(reader.n_search_axes)
-
-    try:
-        loss = module._compute_loss_problem(constants, trainable_variables)
-    except Exception as exc:
-        raise ValidationError(f"_compute_loss_problem smoke test failed: {exc}") from exc
-
-    loss_array = np.asarray(loss)
-    if loss_array.size != 1 or not np.all(np.isfinite(loss_array)):
-        raise ValidationError(f"_compute_loss_problem returned non-finite loss: {loss}")
-
-    try:
-        writeout = module._write_problem_result(constants, trainable_variables)
-    except Exception as exc:
-        raise ValidationError(f"_write_problem_result smoke test failed: {exc}") from exc
-
-    writeout_array = np.asarray(writeout)
-    if writeout_array.ndim != 2:
-        raise ValidationError("_write_problem_result must return a 2D array")
-    if writeout_array.shape[0] != dataset.shape[0]:
-        raise ValidationError(
-            "_write_problem_result row count must match dataset rows: "
-            f"{writeout_array.shape[0]} vs {dataset.shape[0]}"
-        )
+    from lib.utils.experiments import load_experiments, experiment_constants
+    from lib.utils.run_artifacts import parameter_axes
+    lo, hi, logs = parameter_axes(reader)
+    for record in load_experiments(session_dir, reader):
+        constants = experiment_constants(record, reader)
+        constants.update(min_limits=lo, max_limits=hi, is_logscale=logs)
+        context = f"Experiment {record['index']} ({record['filename']})"
+        try:
+            loss = np.asarray(module._compute_loss_problem(constants, np.zeros(reader.n_search_axes)))
+            if loss.shape != () or not np.isfinite(loss) or loss == reader.error_loss:
+                raise ValidationError(f"_compute_loss_problem returned non-finite loss or integration failure: {loss}")
+            writeout = np.asarray(module._write_problem_result(constants, np.zeros(reader.n_search_axes)))
+            if writeout.ndim != 2:
+                raise ValidationError("_write_problem_result must return a 2D array")
+            if writeout.shape[0] != len(record["t_eval"]):
+                raise ValidationError("_write_problem_result row count must match dataset rows")
+        except Exception as exc:
+            raise ValidationError(f"{context}: smoke test failed: {exc}") from exc
 
 
 def validate_generated_script_contract(script_path: Path):

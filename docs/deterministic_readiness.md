@@ -34,14 +34,16 @@ Local adaptations:
 - Rerun current deterministic checks instead of trusting an old saved report or
   an LLM critical-error assertion. Reports include an explicit critical count.
 - Allow tiny numerical budgets for smoke tests; only invalid settings block.
-- Reject multiple experiment records at the reader boundary until fitting,
-  generation, loss aggregation and snapshots support them together.
+- Multi-experiment follow-up: validate every record and its initial-condition
+  overrides, enforce a common column schema, and smoke-test every record before
+  stamping accepted code. See [implementation notes](multi_experiment_support.md).
 
 Remaining limits: this is not full numerical-equivalence/gradient validation,
 complete static shape inference, forcing support, or a complete missing-data and
 uncertainty audit. Source stamps record provenance, not proof of translated
 mathematical equivalence. The generation smoke test remains a numerical check
-at one parameter point. Multi-experiment support remains OPEN-01.
+at one parameter point per experiment. Multi-experiment support is now implemented
+within the common-column/shared-parameter scope recorded under OPEN-01.
 
 Sneyd IPR is the correct next reference example: the deployed YAML declares nine
 CSV files and overrides the zero-derivative IP3/Ca states per experiment. Boehm's

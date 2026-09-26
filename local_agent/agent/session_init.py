@@ -6,7 +6,7 @@ import math
 import re
 import shutil
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from local_agent.agent.checks import user_loss_contract
@@ -82,6 +82,7 @@ class NewSessionSpec:
     auxiliary_columns: tuple[NewSessionAuxiliaryColumn, ...]
     loss_body: str
     user_info_txt: str
+    experiments: tuple[dict, ...] = ()
 
 
 def init_session(
@@ -212,12 +213,18 @@ def _draft_new_session_response(
                 "user_info_txt": _require_string(dataset_data, "user_info_txt", allow_empty=True),
             }
         )
-    filename_data = _require_string(dataset_data, "filename_data", allow_empty=False)
-    _validate_dataset_filename(session_dir, filename_data)
+    experiments = _parse_experiment_selection(dataset_data)
+    filename_data = experiments[0]["data_file"]
+    for experiment in experiments:
+        _validate_dataset_filename(session_dir, experiment["data_file"])
+    headers = [_read_csv_header(Path(session_dir) / "inputs" / e["data_file"]) for e in experiments]
+    if any(header != headers[0] for header in headers):
+        raise ValidationError("pfit-new experiments must have identical ordered CSV headers")
 
     frozen_dataset = {
         "filename_data": filename_data,
-        "csv_header": _read_csv_header(Path(session_dir) / "inputs" / filename_data) or [],
+        "csv_header": headers[0] or [],
+        "experiments": list(experiments),
     }
     parameter_response = _complete_with_log(
         llm_client,
@@ -237,7 +244,7 @@ def _draft_new_session_response(
     )
     parameter_data = parse_llm_json_object(parameter_response, "pfit-new parameters")
     if _looks_like_full_new_session_response(parameter_data):
-        return parameter_response
+        return _attach_experiments(parameter_response, experiments)
     missing_inputs = _parse_missing_inputs(parameter_data)
     if missing_inputs:
         return json.dumps(
@@ -263,6 +270,7 @@ def _draft_new_session_response(
     frozen_parameters = {
         "filename_data": filename_data,
         "csv_header": frozen_dataset["csv_header"],
+        "experiments": list(experiments),
         "parameters": parameters,
         "fixed_parameters": fixed_parameters,
     }
@@ -283,7 +291,7 @@ def _draft_new_session_response(
     )
     states_data = parse_llm_json_object(states_response, "pfit-new states")
     if _looks_like_full_new_session_response(states_data):
-        return states_response
+        return _attach_experiments(states_response, experiments)
     missing_inputs = _parse_missing_inputs(states_data)
     if missing_inputs:
         return _missing_new_session_response(states_data, missing_inputs)
@@ -310,7 +318,7 @@ def _draft_new_session_response(
     )
     equations_data = parse_llm_json_object(equations_response, "pfit-new equations")
     if _looks_like_full_new_session_response(equations_data):
-        return equations_response
+        return _attach_experiments(equations_response, experiments)
     missing_inputs = _parse_missing_inputs(equations_data)
     if missing_inputs:
         return _missing_new_session_response(equations_data, missing_inputs)
@@ -337,7 +345,7 @@ def _draft_new_session_response(
     )
     observables_data = parse_llm_json_object(observables_response, "pfit-new observables")
     if _looks_like_full_new_session_response(observables_data):
-        return observables_response
+        return _attach_experiments(observables_response, experiments)
     missing_inputs = _parse_missing_inputs(observables_data)
     if missing_inputs:
         return _missing_new_session_response(observables_data, missing_inputs)
@@ -363,18 +371,18 @@ def _draft_new_session_response(
     )
     loss_data = parse_llm_json_object(loss_response, "pfit-new loss")
     if _looks_like_full_new_session_response(loss_data):
-        return loss_response
+        return _attach_experiments(loss_response, experiments)
     missing_inputs = _parse_missing_inputs(loss_data)
     if missing_inputs:
         return _missing_new_session_response(loss_data, missing_inputs)
-    if not user_loss_contract(Path(session_dir)):
+    if len(experiments) == 1 and not user_loss_contract(Path(session_dir)):
         loss_data = _apply_automatic_log_loss(
             loss_data,
             Path(session_dir) / "inputs" / filename_data,
             frozen_dataset["csv_header"],
         )
 
-    return json.dumps(
+    return _attach_experiments(json.dumps(
         _assemble_split_new_session_response(
             filename_data=filename_data,
             csv_header=frozen_dataset["csv_header"],
@@ -386,11 +394,49 @@ def _draft_new_session_response(
             loss_data=loss_data,
             session_context=str(context.get("session_context", "")),
         )
-    )
+    ), experiments)
+
+
+def _parse_experiment_selection(data: dict) -> tuple[dict, ...]:
+    entries = data.get("experiments")
+    if entries is None or entries == []:
+        entries = [{"data_file": _require_string(data, "filename_data", allow_empty=False)}]
+    if not isinstance(entries, list) or not entries:
+        raise ValidationError("pfit-new experiments must be a nonempty list")
+    result = []
+    for entry in entries:
+        if not isinstance(entry, dict) or set(entry) - {"data_file", "initial_conditions"}:
+            raise ValidationError("pfit-new experiments require data_file and optional initial_conditions")
+        filename = _require_string(entry, "data_file", allow_empty=False)
+        overrides = entry.get("initial_conditions", {})
+        if not isinstance(overrides, dict):
+            raise ValidationError("pfit-new initial_conditions must be a mapping")
+        normalized = {}
+        for name, value in overrides.items():
+            if not isinstance(name, str) or not name.isidentifier() or isinstance(value, bool):
+                raise ValidationError("pfit-new invalid initial condition override")
+            try:
+                number = float(value)
+            except (TypeError, ValueError) as exc:
+                raise ValidationError("pfit-new initial conditions must be finite numbers") from exc
+            if not math.isfinite(number):
+                raise ValidationError("pfit-new initial conditions must be finite numbers")
+            normalized[name] = number
+        result.append({"data_file": filename, "initial_conditions": normalized})
+    if data.get("filename_data") and data["filename_data"] != result[0]["data_file"]:
+        raise ValidationError("filename_data must match the first experiment")
+    return tuple(result)
+
+
+def _attach_experiments(response: str, experiments) -> str:
+    data = parse_llm_json_object(response, "pfit-new")
+    data["experiments"] = list(experiments)
+    data["filename_data"] = experiments[0]["data_file"]
+    return json.dumps(data)
 
 
 def _looks_like_full_new_session_response(data: dict[str, object]) -> bool:
-    return "filename_data" in data and "parameters" in data and "states" in data
+    return ("filename_data" in data or "experiments" in data) and "parameters" in data and "states" in data
 
 
 def _missing_new_session_response(
@@ -1189,6 +1235,7 @@ def _normalize_math_calls_in_spec(spec: NewSessionSpec) -> NewSessionSpec:
         auxiliary_columns=spec.auxiliary_columns,
         loss_body=spec.loss_body,
         user_info_txt=spec.user_info_txt,
+        experiments=spec.experiments,
     )
 
 
@@ -1261,6 +1308,7 @@ def _spec_to_response_dict(spec: NewSessionSpec) -> dict[str, object]:
         "missing_inputs": list(spec.missing_inputs),
         "review": spec.review,
         "filename_data": spec.filename_data,
+        "experiments": list(spec.experiments),
         "parameters": [
             {
                 "name": parameter.name,
@@ -1409,6 +1457,19 @@ def _validate_csv_inputs_have_headers(session_dir: Path) -> None:
 
 
 def _validate_spec_against_csv_header(session_dir: Path, spec: NewSessionSpec) -> None:
+    experiments = spec.experiments or ({"data_file": spec.filename_data, "initial_conditions": {}},)
+    first_header = None
+    for index, experiment in enumerate(experiments):
+        filename = experiment["data_file"]
+        _validate_dataset_filename(session_dir, filename)
+        header = _read_csv_header(Path(session_dir) / "inputs" / filename)
+        if first_header is not None and header != first_header:
+            raise ValidationError(f"Experiment {index + 1} ({filename}): ordered CSV headers differ")
+        first_header = header
+        _validate_one_spec_against_csv_header(session_dir, replace(spec, filename_data=filename))
+
+
+def _validate_one_spec_against_csv_header(session_dir: Path, spec: NewSessionSpec) -> None:
     csv_path = Path(session_dir) / "inputs" / spec.filename_data
     if not csv_path.exists():
         raise ValidationError(f"pfit-new dataset CSV was not found in inputs/: {spec.filename_data}")
@@ -1590,6 +1651,7 @@ def _canonicalize_observed_columns_from_csv_header(
         auxiliary_columns=auxiliary_columns,
         loss_body=spec.loss_body,
         user_info_txt=spec.user_info_txt,
+        experiments=spec.experiments,
     )
 
 
@@ -1693,7 +1755,8 @@ def _parse_new_session_response(response: str, *, validate: bool = True) -> NewS
     spec = NewSessionSpec(
         missing_inputs=(),
         review=_require_string(data, "review", allow_empty=True),
-        filename_data=_require_string(data, "filename_data", allow_empty=False),
+        filename_data=_parse_experiment_selection(data)[0]["data_file"],
+        experiments=_parse_experiment_selection(data),
         parameters=parameters,
         fixed_parameters=fixed_parameters,
         states=states,
@@ -2111,10 +2174,16 @@ def _render_user_input_yaml(spec: NewSessionSpec) -> str:
     rtol = "[" + ", ".join("1e-7" for _ in spec.states) + "]"
     atol = "[" + ", ".join("1e-9" for _ in spec.states) + "]"
     integrator = _select_integrator(spec)
+    experiments = spec.experiments or ({"data_file": spec.filename_data, "initial_conditions": {}},)
+    experiment_lines = []
+    for experiment in experiments:
+        experiment_lines.extend([
+            f"  - data_file: {json.dumps(experiment['data_file'])}",
+            f"    initial_conditions: {json.dumps(experiment['initial_conditions'])}",
+            "    columns:", *columns,
+        ])
     return f"""experiments:
-  - data_file: {spec.filename_data}
-    columns:
-{chr(10).join(columns)}
+{chr(10).join(experiment_lines)}
 
 model:
   trainable_parameters:

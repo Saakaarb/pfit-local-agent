@@ -1,0 +1,1 @@
+Loss: plain RMSE of measured versus simulated open probability per experiment. Average the per-experiment losses with equal record weights.

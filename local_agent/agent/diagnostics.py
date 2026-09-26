@@ -60,7 +60,10 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
     report_path.parent.mkdir(parents=True, exist_ok=True)
 
     final_design = output_dir / "final_design_point.csv"
-    result_solution = output_dir / "result_solution.csv"
+    records = manifest.get("experiments", [])
+    solution_paths = ([output_dir / record["output_file"] for record in records if record.get("output_file")]
+                      if records else [output_dir / "result_solution.csv"])
+    all_results_present = bool(solution_paths) and all(path.exists() for path in solution_paths)
     pso_log = output_dir / "pso_fitting.log"
     de_log = output_dir / "de_fitting.log"
     node_log = output_dir / "NODE_fitting.log"
@@ -81,7 +84,7 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
         "",
         "Artifacts:",
         f"- final_design_point.csv: {'present' if final_design.exists() else 'missing'}",
-        f"- result_solution.csv: {'present' if result_solution.exists() else 'missing'}",
+        *[f"- {path.name}: {'present' if path.exists() else 'missing'}" for path in solution_paths],
         f"- pso_fitting.log: {'present' if pso_log.exists() else 'missing'}",
         f"- de_fitting.log: {'present' if de_log.exists() else 'missing'}",
         f"- NODE_fitting.log: {'present' if node_log.exists() else 'missing'}",
@@ -106,7 +109,7 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
         lines.append("- Inspect fitting_error.txt before changing model assumptions.")
     if not final_design.exists():
         lines.append("- No final design point found; rerun fitting or inspect optimizer logs.")
-    if final_design.exists() and result_solution.exists():
+    if final_design.exists() and all_results_present:
         lines.append("- Review fitted parameters and measured-versus-fitted trajectories.")
     if not gradient_only and not pso_log.exists() and not de_log.exists():
         lines.append("- Global-search log missing; verify the PSO/DE stage ran.")
@@ -116,6 +119,18 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
         lines.append("- Global-search loss worsened; review bounds and data/model consistency.")
     if node_summary and node_summary["final_loss"] > node_summary["first_loss"]:
         lines.append("- NODE loss worsened; inspect gradients, tolerances, and generated code.")
+
+    if records:
+        lines.extend(["", f"Experiments: {len(records)}", f"Aggregation: {manifest.get('aggregation', 'unknown')}"])
+        summary_path = output_dir / "fit_summary.json"
+        summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+        losses = summary.get("experiment_losses", [])
+        for index, record in enumerate(records):
+            loss = losses[index] if index < len(losses) else "not recorded"
+            lines.append(f"- Experiment {record['index']}: {record['data_file']}; loss={loss}; output={record.get('output_file') or 'disabled'}")
+        for path in solution_paths:
+            if not path.exists():
+                lines.append(f"- Missing experiment result: {path.name}; inspect run status and writeout errors.")
 
     if gradient_only:
         lines.append(f"- Restart source: {manifest.get('source_run')}")

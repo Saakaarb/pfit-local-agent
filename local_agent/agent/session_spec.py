@@ -38,6 +38,7 @@ class SessionSpec:
     init_timestep: float
     max_steps: int
     integrator: str
+    experiments: tuple[dict, ...] = ()
 
     def to_prompt_text(self) -> str:
         lines = [
@@ -101,6 +102,12 @@ class SessionSpec:
                 f"Integrator: {self.integrator}",
             ]
         )
+        lines.extend(["", "Experiments (shared parameters; equal mean of per-experiment losses):"])
+        for index, experiment in enumerate(self.experiments):
+            values = {v.name: v.initial_value for v in self.integrated_variables}
+            values.update(experiment["ic_overrides"])
+            lines.append(f"{index + 1}: {experiment['filename']}; initial conditions: {values}")
+        lines.append("Each generated function processes ONE experiment. The framework aggregates losses; do not aggregate again in generated code or hardcode a record's initial conditions/time grid.")
         return "\n".join(lines)
 
 
@@ -139,4 +146,5 @@ def load_session_spec(input_yaml: Path) -> SessionSpec:
         init_timestep=reader.init_timestep,
         max_steps=reader.max_steps,
         integrator=reader.integrator,
+        experiments=tuple(reader.experiments),
     )

@@ -60,10 +60,19 @@ def run_driver(session_dir: Path, input_reader, output_dir_override: Path | None
     snapshot_generated.mkdir()
     shutil.copy2(path_to_input, snapshot_inputs / "user_input.yaml")
     config = yaml.safe_load(path_to_input.read_text())
-    source_data = session_path / input_reader.user_input_dirname / input_reader.filename_data
-    dataset_name = "dataset_1.csv"
-    shutil.copy2(source_data, snapshot_inputs / dataset_name)
-    config["experiments"][0]["data_file"] = dataset_name
+    experiment_manifest = []
+    import hashlib
+    for index, experiment in enumerate(input_reader.experiments):
+        source_data = session_path / input_reader.user_input_dirname / experiment["filename"]
+        dataset_name = f"dataset_{index + 1}.csv"
+        shutil.copy2(source_data, snapshot_inputs / dataset_name)
+        config["experiments"][index]["data_file"] = dataset_name
+        suffix = "" if len(input_reader.experiments) == 1 else f"_exp{index + 1}"
+        experiment_manifest.append({"index": index + 1, "data_file": experiment["filename"],
+                                    "snapshot_data_file": dataset_name,
+                                    "sha256": hashlib.sha256((snapshot_inputs / dataset_name).read_bytes()).hexdigest(),
+                                    "initial_conditions": dict(zip(input_reader.integrated_variable_names, input_reader.get_y0(index))),
+                                    "output_file": f"result_solution{suffix}.csv" if input_reader.write_results else None})
     config["paths"] = {"user_input_dir": "inputs", "generated_dir": "generated", "output_dir": "outputs"}
     runtime_config = snapshot_inputs / "run_config.yaml"
     runtime_config.write_text(yaml.safe_dump(config, sort_keys=False))
@@ -85,6 +94,7 @@ def run_driver(session_dir: Path, input_reader, output_dir_override: Path | None
         "legacy_seed_order_assumed": bool(allow_legacy_seed and source_dir and not (source_dir / "final_parameters.json").exists()),
         "sloppiness_enabled": sloppiness, "sloppiness_method": sloppiness_method,
         "status": "running",
+        "aggregation": "equal_experiment_mean", "experiments": experiment_manifest,
     }
     manifest_path = output_dir / "run_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")

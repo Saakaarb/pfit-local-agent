@@ -205,10 +205,9 @@ def run_sloppiness_analysis(compute_loss_problem, constants_list, scaled_best_po
             trainable_parameter_names=list(param_names), min_axis_values=lo,
             max_axis_values=hi, axis_logscale=logs, error_loss=c0.get("error_loss", 1e10),
         )
+        from lib.utils.experiments import mean_experiment_loss
         def averaged_loss(scaled):
-            losses = jnp.stack([compute_loss_problem(c, scaled) for c in constants_list])
-            failures = jnp.stack([loss == c.get("error_loss", 1e10) for loss, c in zip(losses, constants_list)])
-            return jnp.where(jnp.any(failures), reader.error_loss, jnp.mean(losses))
+            return mean_experiment_loss(compute_loss_problem, constants_list, scaled)
         report = write_sloppiness_report(output_dir, averaged_loss, scaled_best_position, reader,
                                          method=method, enabled=enabled)
         if report["status"] != "ok":

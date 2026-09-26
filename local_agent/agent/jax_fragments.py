@@ -211,8 +211,9 @@ def _compute_loss_value(constants, trainable_variables, solution_time, solution)
 @jax.jit
 def _compute_loss_problem(constants, trainable_variables):
     solution_time, solution, result = _integrate_system(constants, trainable_variables)
-    failed = jnp.logical_or(result == RESULTS.max_steps_reached, result == RESULTS.singular)
+    failed = result != RESULTS.successful
     loss_value = _compute_loss_value(constants, trainable_variables, solution_time, solution)
+    failed = failed | ~jnp.all(jnp.isfinite(solution)) | ~jnp.isfinite(loss_value)
     return jnp.where(failed, constants["error_loss"], loss_value)
 
 def _write_problem_result(constants, trainable_variables):

@@ -20,3 +20,10 @@ Rules:
 - If a complex RHS helper is needed, include its full function definition in helper_functions and call it explicitly.
 - Do not use Python if/else, and, or in JAX RHS expressions. Use jnp.where and jnp.logical_and/jnp.logical_or, or a smooth jnp.tanh/jnp.exp switch when differentiability matters.
 - Do not write loss_body, writeout_body, imports, solver code, optimizer code, file IO, plotting, or explanations.
+
+Multi-experiment contract: all records share equations and parameters. Global
+state initial values are defaults; the frozen experiment initial_conditions
+override them at runtime. Each model/loss/writeout function processes ONE record
+using its supplied data, times and initial conditions. The framework takes an
+equal-weight arithmetic mean of per-record losses. Do not concatenate records,
+hardcode the first record, or average across experiments inside generated code.

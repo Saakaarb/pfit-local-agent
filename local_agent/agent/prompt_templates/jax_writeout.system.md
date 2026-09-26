@@ -34,3 +34,10 @@ Rules:
 - Prefer explicit local computations in writeout_body for values used only by
   writeout. Helper functions are optional for writeout-only quantities.
 - Do not write rhs, loss_body, imports, solver code, optimizer code, file IO, plotting, or explanations.
+
+Multi-experiment contract: all records share equations and parameters. Global
+state initial values are defaults; the frozen experiment initial_conditions
+override them at runtime. Each model/loss/writeout function processes ONE record
+using its supplied data, times and initial conditions. The framework takes an
+equal-weight arithmetic mean of per-record losses. Do not concatenate records,
+hardcode the first record, or average across experiments inside generated code.

@@ -1,4 +1,5 @@
 from pathlib import Path
+import math
 
 import yaml
 
@@ -42,6 +43,7 @@ class YAMLReader:
         self.decay_rate_lr = None
         self.error_loss = 1.0e30
 
+        self.experiments = []
         self.filename_data = None
         self.data_column_index = []
         self.data_column_names = []
@@ -64,19 +66,8 @@ class YAMLReader:
         experiments = data.get("experiments") or []
         if not experiments:
             raise ValueError("YAML input must define at least one experiment")
-        if len(experiments) != 1:
-            raise ValueError("Multi-experiment fitting is not supported yet; refusing to use only experiments[0]")
-        experiment = experiments[0]
-        self.filename_data = experiment.get("data_file")
-        for index, column in enumerate(experiment.get("columns") or []):
-            name = column.get("name")
-            if name:
-                self.data_column_names.append(str(name))
-                self.data_column_index.append(index)
-                self.data_column_observes.append(
-                    str(column.get("observes") or name)
-                )
-
+        if not isinstance(experiments, list) or any(not isinstance(e, dict) for e in experiments):
+            raise ValueError("experiments must be a list of mappings")
         paths = data.get("paths") or {}
         self.user_input_dirname = paths.get("user_input_dir", self.user_input_dirname)
         self.generated_dirname = paths.get("generated_dir", self.generated_dirname)
@@ -100,6 +91,57 @@ class YAMLReader:
             self.integrated_variable_init_values.append(float(variable["init_val"]))
         for observable in model.get("observables") or []:
             self.observable_names.append(str(observable["name"]))
+
+        common_columns = None
+        for index, entry in enumerate(experiments):
+            where = f"experiment {index + 1}"
+            if not isinstance(entry, dict):
+                raise ValueError(f"{where} must be a mapping")
+            unknown = set(entry) - {"data_file", "columns", "initial_conditions"}
+            if unknown:
+                raise ValueError(f"{where}: unsupported keys {sorted(unknown)}")
+            filename = entry.get("data_file")
+            if not isinstance(filename, str) or not filename.strip():
+                raise ValueError(f"{where}: missing data_file")
+            columns = entry.get("columns") or []
+            if not isinstance(columns, list) or len(columns) < 2 or any(not isinstance(c, dict) or not isinstance(c.get("name"), str) or not c["name"].strip() for c in columns):
+                raise ValueError(f"{where}: columns must declare time and every measurement/auxiliary column")
+            names = [c["name"] for c in columns]
+            if len(set(names)) != len(names):
+                raise ValueError(f"{where}: column names must be unique")
+            measurements = {c["name"] for c in columns[1:] if not c.get("uncertainty_of")}
+            for column in columns:
+                target = column.get("uncertainty_of")
+                if target and (target not in measurements or target == column["name"]):
+                    raise ValueError(f"{where}: uncertainty_of must name a measurement column")
+            schema = [(c["name"], c.get("observes") or c["name"], c.get("uncertainty_of"), c.get("units")) for c in columns]
+            if common_columns is not None and schema != common_columns:
+                raise ValueError(f"{where}: all experiments must have the same ordered column meanings and units")
+            common_columns = schema
+            overrides = entry.get("initial_conditions", {})
+            if overrides is None:
+                overrides = {}
+            if not isinstance(overrides, dict):
+                raise ValueError(f"{where}: initial_conditions must be a mapping")
+            overrides = dict(overrides)
+            for name, value in overrides.items():
+                if name not in self.integrated_variable_names:
+                    raise ValueError(f"{where}: initial condition {name!r} is not an integrated variable")
+                try:
+                    number = float(value)
+                except (TypeError, ValueError) as exc:
+                    raise ValueError(f"{where}: initial condition {name!r} must be finite") from exc
+                if isinstance(value, bool) or not math.isfinite(number):
+                    raise ValueError(f"{where}: initial condition {name!r} must be finite")
+                overrides[name] = number
+            self.experiments.append({"filename": filename, "ic_overrides": overrides, "columns": columns})
+
+        # Positional column layout is shared and validated across every record.
+        # These accessors retain the old single-record SessionSpec interface.
+        self.filename_data = self.experiments[0]["filename"]
+        self.data_column_names = [c["name"] for c in self.experiments[0]["columns"]]
+        self.data_column_index = list(range(len(self.data_column_names)))
+        self.data_column_observes = [c.get("observes") or c["name"] for c in self.experiments[0]["columns"]]
 
         population = data.get("population_opt") or {}
         self.n_particles = int(population.get("population_size", population.get("num_particles", 0)) or 0)
@@ -131,6 +173,11 @@ class YAMLReader:
 
         output = data.get("output") or {}
         self.write_results = bool(output.get("write_results", False))
+
+    def get_y0(self, experiment_idx: int) -> list[float]:
+        values = dict(zip(self.integrated_variable_names, self.integrated_variable_init_values))
+        values.update(self.experiments[experiment_idx]["ic_overrides"])
+        return [values[name] for name in self.integrated_variable_names]
 
     def check_name_uniqueness(self):
         combined = (

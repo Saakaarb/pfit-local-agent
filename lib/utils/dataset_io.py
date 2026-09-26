@@ -24,3 +24,15 @@ def load_dataset(path):
     if any(len(row) != width for row in rows):
         raise ValueError("Dataset rows have inconsistent column counts")
     return np.array([[float(cell.strip() or "nan") for cell in row] for row in rows], dtype=float)
+
+
+def read_header(path):
+    with Path(path).open(newline="", encoding="utf-8-sig") as handle:
+        first = next((row for row in csv.reader(handle) if row), [])
+    if not first:
+        return None
+    try:
+        float(first[0] or "nan")
+    except ValueError:
+        return [cell.strip() for cell in first]
+    return None

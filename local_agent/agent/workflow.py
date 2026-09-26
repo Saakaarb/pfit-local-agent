@@ -458,13 +458,14 @@ def _standard_loss_and_writeout_bodies(
         *setup_lines,
         f"measured = {measured_stack}",
         f"simulated = {simulated_stack}",
-        "scale = jnp.maximum(jnp.max(jnp.abs(measured), axis=0), 1.0e-12)",
-        "mask = jnp.isfinite(measured) & jnp.isfinite(simulated)",
+        "mask = jnp.isfinite(measured)",
         "measured_safe = jnp.where(mask, measured, 0.0)",
+        "scale = jnp.maximum(jnp.max(jnp.abs(measured_safe), axis=0), 1.0e-12)",
         "simulated_safe = jnp.where(mask, simulated, 0.0)",
         "residuals = jnp.where(mask, (simulated_safe - measured_safe) / scale, 0.0)",
         "count = jnp.maximum(jnp.sum(mask), 1)",
-        "return jnp.sqrt(jnp.sum(residuals * residuals) / count)",
+        "valid = jnp.all(jnp.isfinite(simulated)) & jnp.all(jnp.any(mask, axis=0))",
+        "return jnp.where(valid, jnp.sqrt(jnp.sum(residuals * residuals) / count), jnp.nan)",
     ]
 
     writeout_terms = ["solution_time", *measured_terms, *simulated]

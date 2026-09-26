@@ -70,13 +70,14 @@ def test_invalid_numerical_settings(tmp_path, before, after, match):
         parse_input_yaml(config)
 
 
-def test_multiple_experiments_rejected_even_by_low_level_reader(tmp_path):
+def test_multiple_experiments_retained_by_low_level_reader(tmp_path):
     config = _write_yaml(tmp_path, _minimal_yaml())
     contents = yaml.safe_load(config.read_text())
     contents["experiments"].append(dict(contents["experiments"][0]))
     config.write_text(yaml.safe_dump(contents))
-    with pytest.raises(ValueError, match="Multi-experiment"):
-        YAMLReader.from_file(config)
+    reader = YAMLReader.from_file(config)
+    assert len(reader.experiments) == 2
+    assert reader.get_y0(1) == reader.get_y0(0)
 
 
 def test_source_change_detected_despite_identical_timestamps(tmp_path):

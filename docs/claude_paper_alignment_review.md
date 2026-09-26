@@ -15,7 +15,13 @@ that comparison. Local gaps below refer to the local agent before this task's po
 
 The first implementation work is documented in
 [restart_and_sloppiness.md](restart_and_sloppiness.md): adapt the deployed restart
-and sloppiness implementations, with the local CLI and single-dataset backend.
+and sloppiness implementations, initially with the local CLI and single-dataset
+backend. The subsequent [multi-experiment port](multi_experiment_support.md) now
+supports shared-parameter fits across records, including nine Sneyd conditions,
+complete snapshots, restart and sloppiness. Treat the table below as the historical
+audit; use the parity tracker for current status. The paper can now describe this
+scoped capability, while separating numerical/fake-LLM tests from live local-model
+evaluation and scientific recovery claims.
 
 **Reference implementations to reuse**
 
