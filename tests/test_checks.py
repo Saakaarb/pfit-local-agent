@@ -153,29 +153,39 @@ def test_check_session_allows_wide_range_log_loss(tmp_path):
         (["nan", "nan", "nan", 1000], False, "fewer than two finite values"),
     ],
 )
+@pytest.mark.parametrize("explicit_loss", [False, True])
 def test_scale_rule_uses_same_full_column_evidence_for_semantic_review(
-    tmp_path, values, requires_log, summary_evidence
+    tmp_path, values, requires_log, summary_evidence, explicit_loss
 ):
     session = _make_wide_range_session(tmp_path, log_loss=False)
     (session / "inputs" / "data.csv").write_text(
         "time,y,rate\n"
         + "".join(f"{index},1,{value}\n" for index, value in enumerate(values))
     )
-    (session / "inputs" / "user_info.txt").write_text(
-        "Loss:\n- Compare y and rate directly in linear space.\n"
-    )
+    if explicit_loss:
+        (session / "inputs" / "user_info.txt").write_text(
+            "Loss:\n- Compare y and rate directly in linear space.\n"
+        )
     client = FakeLLMClient([json.dumps({"critical_errors": []})])
 
     report = check_session(session, llm_client=client)
 
     scale_errors = [e for e in report.critical_errors if "spans orders of magnitude" in e]
-    assert bool(scale_errors) is requires_log
+    assert bool(scale_errors) is (requires_log and not explicit_loss)
     assert all("rate uses dataset[:, 1]" in error for error in scale_errors)
     context = client.requests[0][1].content
     rate_summary = next(line for line in context.splitlines() if line.startswith("- rate: min="))
+    if explicit_loss:
+        summary_evidence = summary_evidence.replace("required=yes", "required=no")
     assert summary_evidence in rate_summary
     assert "positive log10 range=" not in context
-    assert "Compare y and rate directly in linear space." in context
+    if explicit_loss:
+        assert "Compare y and rate directly in linear space." in context
+        if requires_log:
+            assert any("Preserving the explicit user loss" in w for w in report.warnings)
+            assert "explicit user loss takes precedence" in rate_summary
+    else:
+        assert "No explicit loss description provided." in context
 
 
 def test_check_session_fails_declared_uncertainty_not_used(tmp_path):
@@ -378,3 +388,40 @@ output:
         "    return np.column_stack((solution_time, dataset[:, 0], dataset[:, 1], solution[:, 0], observables['rate']))\n"
     )
     return session
+
+
+def test_robertson_explicit_loss_overrides_scale_rule(tmp_path):
+    import shutil
+
+    session = tmp_path / "robertson"
+    shutil.copytree(Path("sessions/robertson_session/inputs"), session / "inputs")
+    (session / "generated").mkdir()
+    source = Path("sessions/robertson_session/generated/user_model.py").read_text()
+    start = source.index("def _compute_loss_problem(")
+    end = source.index("def writeout_description(", start)
+    # The legacy fixture uses a different loss; reproduce the requested RMSE.
+    source = source[:start] + (
+        "def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):\n"
+        "    scale = np.max(np.abs(dataset), axis=0) + 1e-12\n"
+        "    return float(np.sqrt(np.mean(np.square((solution - dataset) / scale))))\n\n"
+    ) + source[end:]
+    (session / "generated/user_model.py").write_text(source)
+    client = FakeLLMClient([json.dumps({"critical_errors": []})])
+
+    report = check_session(session, llm_client=client)
+
+    assert report.passed, report.critical_errors
+    assert any("y3" in w and "Preserving the explicit user loss" in w for w in report.warnings)
+    context = client.requests[0][1].content
+    assert "Compare simulated y1, y2, and y3 directly" in context
+    assert "explicit user loss takes precedence" in context
+
+
+def test_explicit_log_loss_still_required_for_wide_range_data(tmp_path):
+    session = _make_wide_range_session(tmp_path, log_loss=False)
+    (session / "inputs/user_info.txt").write_text("Loss:\n- Compare rate in log10 space.\n")
+
+    report = check_session(session)
+
+    assert not report.passed
+    assert any("does not use a log transform" in e for e in report.critical_errors)

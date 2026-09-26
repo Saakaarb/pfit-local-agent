@@ -137,7 +137,6 @@ def _build_check_context(session_dir: Path, report: CheckReport) -> dict[str, ob
     input_yaml = session_dir / "inputs" / "user_input.yaml"
     user_model = session_dir / "generated" / "user_model.py"
     dataset_summary = _dataset_summary(session_dir, input_yaml)
-    user_info = session_dir / "inputs" / "user_info.txt"
     return {
         "input_yaml": input_yaml.read_text(),
         "user_model": user_model.read_text(),
@@ -145,9 +144,7 @@ def _build_check_context(session_dir: Path, report: CheckReport) -> dict[str, ob
         "loss_evidence": _loss_expression_evidence(user_model.read_text()),
         "dataset_summary": dataset_summary,
         "deterministic_report": report.to_text(),
-        "user_loss_contract": (
-            _extract_loss_contract_text(user_info.read_text()) if user_info.exists() else ""
-        ) or "No explicit loss description provided.",
+        "user_loss_contract": user_loss_contract(session_dir) or "No explicit loss description provided.",
     }
 
 
@@ -196,7 +193,10 @@ def _dataset_summary(session_dir: Path, input_yaml: Path) -> str:
                 break
             rows.append(row)
     preview = "\n".join(",".join(row) for row in rows)
-    column_stats = _dataset_column_stats(dataset, parse_input_yaml(input_yaml).data_column_names)
+    column_stats = _dataset_column_stats(
+        dataset, parse_input_yaml(input_yaml).data_column_names,
+        explicit_loss=bool(user_loss_contract(session_dir)),
+    )
     return "\n".join(
         [
             f"Dataset path: {dataset_path}",
@@ -222,6 +222,7 @@ def _add_dataset_scale_loss_checks(
         return
     logged_dataset_columns = _logged_dataset_columns_in_loss(user_model.read_text())
     measured_names = _measured_column_names(reader)
+    explicit_loss = bool(user_loss_contract(session_dir))
     for dataset_index, values in enumerate(dataset[:, 1:].T):
         orders = _column_log10_range(values)
         if orders is None or orders < 3.0:
@@ -232,12 +233,20 @@ def _add_dataset_scale_loss_checks(
         if dataset_index in logged_dataset_columns:
             continue
         name = measured_names[dataset_index] if dataset_index < len(measured_names) else f"dataset[:, {dataset_index}]"
-        report.critical_errors.append(
-            "Measured column spans orders of magnitude but the loss does not compare it in log space: "
+        evidence = (
             f"{name} uses dataset[:, {dataset_index}], positive min={min_value:.6g}, "
             f"max={max_value:.6g}, log10 range={orders:.2f}. "
-            "Use a log/log10-transformed residual before normalization."
         )
+        if explicit_loss:
+            report.warnings.append(
+                "Measured column spans orders of magnitude: " + evidence
+                + "Preserving the explicit user loss; data range alone does not require log residuals."
+            )
+        else:
+            report.critical_errors.append(
+                "Measured column spans orders of magnitude but the loss does not compare it in log space: "
+                + evidence + "Use a log/log10-transformed residual before normalization."
+            )
 
 
 def _add_uncertainty_loss_checks(
@@ -268,10 +277,7 @@ def _add_user_loss_contract_checks(
     user_model: Path,
     report: CheckReport,
 ) -> None:
-    user_info = session_dir / "inputs" / "user_info.txt"
-    if not user_info.exists():
-        return
-    loss_text = _extract_loss_contract_text(user_info.read_text())
+    loss_text = user_loss_contract(session_dir)
     if not loss_text:
         return
     source = user_model.read_text()
@@ -348,6 +354,12 @@ def _simulated_scale_denominators(source: str) -> list[str]:
         elif isinstance(statement, ast.AnnAssign) and isinstance(statement.target, ast.Name):
             bindings[statement.target.id] = value
     return list(dict.fromkeys(errors))
+
+
+def user_loss_contract(session_dir: Path) -> str:
+    """Read the user-authored loss, independently of LLM-generated metadata."""
+    user_info = session_dir / "inputs" / "user_info.txt"
+    return _extract_loss_contract_text(user_info.read_text()) if user_info.exists() else ""
 
 
 def _extract_loss_contract_text(text: str) -> str:
@@ -505,7 +517,9 @@ def _column_log10_range(values: np.ndarray) -> float | None:
     return float(np.log10(np.max(finite)) - np.log10(np.min(finite)))
 
 
-def _dataset_column_stats(dataset: np.ndarray, names: list[str]) -> list[str]:
+def _dataset_column_stats(
+    dataset: np.ndarray, names: list[str], *, explicit_loss: bool = False,
+) -> list[str]:
     stats = []
     for index, values in enumerate(dataset.T):
         name = names[index] if index < len(names) else f"column_{index}"
@@ -522,11 +536,13 @@ def _dataset_column_stats(dataset: np.ndarray, names: list[str]) -> list[str]:
         elif orders is None:
             suffix = ", automatic log-loss rule does not apply (fewer than two finite values or contains zero/negative values)"
         else:
-            required = "yes" if orders >= 3.0 else "no"
+            required = "yes" if orders >= 3.0 and not explicit_loss else "no"
             suffix = (
                 f", all finite values positive, within-column log10(max/min)={orders:.6g}"
                 f", automatic log-loss required={required} (threshold: 3 orders)"
             )
+            if explicit_loss:
+                suffix += "; explicit user loss takes precedence over the automatic rule"
         stats.append(
             f"- {name}: min={float(np.min(finite)):.6g}, max={float(np.max(finite)):.6g}{suffix}"
             f", NaN count={int(np.isnan(values).sum())}, infinity count={int(np.isinf(values).sum())}"

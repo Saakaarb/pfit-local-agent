@@ -337,7 +337,17 @@ Loss:
 
 If the user does not provide a loss, the framework may choose a default normalized MSE.
 
-The automatic log-loss rule applies independently within each measured column:
+An explicit user loss definition takes precedence over automatic data-scale
+heuristics in both `pfit new` and `pfit check`. For example, a request to compare measurements directly with
+max-absolute-normalized RMSE remains an original-scale loss even if a column
+spans many orders of magnitude. `pfit check` warns about that dynamic range but
+does not require a different objective. Parameter `logscale` settings describe
+search coordinates, not residual transformations. Explicitly requested RMSE,
+log/log10 transformations, normalization, and uncertainty weighting are still
+checked against the generated loss.
+
+When no user loss is supplied, the automatic log-loss rule applies independently
+within each measured column:
 there must be at least two finite values, every finite value must be strictly
 positive, and `log10(max/min) >= 3` (a ratio of at least 1,000) within that same
 column. In that case, `pfit check` requires log/log10 residuals for that column

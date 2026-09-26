@@ -7,6 +7,7 @@ Task:
 - Do not write Python, YAML, equations, or observables.
 - If the user did not provide a custom loss, set custom_loss to false.
 - If the user did provide a custom loss, preserve its terms and penalties.
+- An explicit loss takes precedence over data-range heuristics. Log-scaled parameter search bounds do not request log residuals.
 
 Schema:
 {

@@ -9,6 +9,7 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
+from local_agent.agent.checks import user_loss_contract
 from local_agent.agent.config import WorkflowConfig
 from local_agent.agent.llm_json import parse_llm_json_object
 from local_agent.agent.prompts import PromptRenderer
@@ -366,11 +367,12 @@ def _draft_new_session_response(
     missing_inputs = _parse_missing_inputs(loss_data)
     if missing_inputs:
         return _missing_new_session_response(loss_data, missing_inputs)
-    loss_data = _apply_automatic_log_loss(
-        loss_data,
-        Path(session_dir) / "inputs" / filename_data,
-        frozen_dataset["csv_header"],
-    )
+    if not user_loss_contract(Path(session_dir)):
+        loss_data = _apply_automatic_log_loss(
+            loss_data,
+            Path(session_dir) / "inputs" / filename_data,
+            frozen_dataset["csv_header"],
+        )
 
     return json.dumps(
         _assemble_split_new_session_response(

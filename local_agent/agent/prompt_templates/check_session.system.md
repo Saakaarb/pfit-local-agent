@@ -44,8 +44,13 @@ Use the pfit-claude checking policy:
   invent missing values or block a finite dataset for lacking hypothetical NaN
   handling. Unproven robustness concerns belong in warnings.
 - The loss should be normalized enough that values are likely around 0 to 1.
-- Apply the automatic log-loss rule separately to each measured column, using the
-  full-column statistics supplied in the dataset summary, not the CSV preview.
+- The user's explicit loss definition takes precedence over the automatic
+  log-loss rule. Do not require log residuals solely because data span orders of
+  magnitude when the user supplied a loss. Report dynamic range as a convergence
+  warning instead. Log-scaled parameter search bounds do not request log residuals.
+  Still verify transformations and normalization explicitly requested in the loss.
+- When no user loss is supplied, apply the automatic log-loss rule separately
+  to each measured column, using the full-column statistics supplied in the dataset summary, not the CSV preview.
   It applies only when that same column has at least two finite values, all its
   finite values are strictly positive, and log10(max/min) >= 3 (max/min >= 1000).
   Only then require log/log10 residuals for that column before normalization.

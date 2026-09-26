@@ -457,7 +457,8 @@ def test_init_session_allows_auxiliary_uncertainty_columns(tmp_path):
     assert "dataset[:, 3]" in session.joinpath("generated", "user_model.py").read_text()
 
 
-def test_init_session_automatically_uses_log_loss_for_large_positive_range(tmp_path):
+@pytest.mark.parametrize("explicit_loss", [False, True])
+def test_init_session_automatic_log_loss_respects_user_loss(tmp_path, explicit_loss):
     session = tmp_path / "robertson"
     inputs = session / "inputs"
     inputs.mkdir(parents=True)
@@ -467,7 +468,10 @@ def test_init_session_automatically_uses_log_loss_for_large_positive_range(tmp_p
         "1.0,0.5,1e-6\n"
         "2.0,0.25,1e-1\n"
     )
-    inputs.joinpath("user_info.txt").write_text("Fit y1 and y3 with normalized loss.")
+    inputs.joinpath("user_info.txt").write_text(
+        "Fit y1 and y3.\nLoss:\nCompare y1 and y3 directly with normalized squared error."
+        if explicit_loss else "Fit y1 and y3."
+    )
     llm = FakeLLMClient(
         [
             json.dumps(
@@ -542,8 +546,8 @@ def test_init_session_automatically_uses_log_loss_for_large_positive_range(tmp_p
     init_session(session, llm, PromptRenderer())
 
     user_model = session.joinpath("generated", "user_model.py").read_text()
-    assert "log_sim_y3" in user_model
-    assert "log_measured_y3" in user_model
+    assert ("log_sim_y3" in user_model) is (not explicit_loss)
+    assert ("log_measured_y3" in user_model) is (not explicit_loss)
     assert "log_sim_y1" not in user_model
 
 
