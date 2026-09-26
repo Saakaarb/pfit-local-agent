@@ -486,3 +486,74 @@ Examples currently failing at `pfit-new`:
 
 - `sliding_basepoint_headered`
 - `nfkb_signaling`
+
+## Gradient-only restarts and sloppiness
+
+Use `pfit run sessions/<name> gradient-only --from-run <run-id>` to refine a saved
+physical design point with the current session model and numerical settings.
+The source is a run ID or run directory. Without `--from-run`, the latest completed run with a saved point is selected; legacy flat outputs are considered last. `--seed-run` is an alias.
+New runs write `final_parameters.json`; parameters are matched by name, so YAML
+reordering is supported. The parameter set must match, all seed values must be
+finite, and values must lie within the current bounds. Log-scale bounds must be
+positive; all bounds must be finite and strictly increasing. Changed bounds or
+logscale flags are supported when the physical seed remains valid. Regenerate
+JAX after changes affecting generated model code or its parameter order.
+
+Older runs with only `final_design_point.csv` and no saved configuration have no parameter-name metadata.
+`--allow-legacy-seed` explicitly asserts that their CSV order matches the current
+YAML; otherwise they are rejected. Seeds are never silently clipped. This starts
+a fresh gradient optimizer, not a continuation of its internal L-BFGS state.
+Every run, including the Python entry point, writes a new timestamped directory;
+an existing explicitly selected output directory is rejected rather than deleted.
+
+Post-fit sloppiness is enabled by default. Use `--no-sloppiness` to skip it or
+`--sloppiness-method finite-difference` to bypass second-order autodiff. The
+`auto` method tries second-order autodiff and falls back to finite differences
+of first-order autodiff gradients. Curvature is measured in physical coordinates
+for linear parameters and log10 coordinates for log-scaled parameters, at the
+saved best point and gradient-stage tolerances. Nonfinite derivatives or failed
+integration make the diagnostic fail separately without discarding fit results.
+Nonsmooth losses can therefore yield a usable fit but no usable curvature report.
+
+`sloppiness.json` and `sloppiness_report.txt` report method, coordinates,
+eigenvalues/eigenvectors, locally weak modes, stationarity and boundary caveats.
+CSV matrices use the parameter order in the JSON; eigenvectors are columns in
+descending eigenvalue order. Curvature does not certify convergence or global
+identifiability. `pfit diagnose` includes this saved analysis and recognizes the
+intentional absence of population-search logs on gradient-only runs.
+
+The deployed 60-parameter sloppiness limit is retained. A successful analysis also
+writes `sloppiness_spectrum.png`. `python analyze_fit.py <session> --run <run-id>`
+recomputes analysis from a recorded run snapshot without repeating fitting.
+
+
+Deterministic readiness (2026-09-26)
+
+- Only one experiment record is currently supported. Multiple records are rejected,
+  including by the low-level YAML reader; they are never silently truncated.
+- CSV data must contain at least two rows, a finite strictly increasing time
+  column, and at least one measurement column. Declared columns must match the
+  full CSV width, including auxiliary uncertainty columns. Rows must have equal
+  width. Blank/NaN measurements remain accepted; infinite values are rejected.
+  Existing headerless sessions remain readable; `pfit new` still requires a header.
+- Bounds must be finite with `min_val < max_val`; logarithmic bounds must be
+  positive. `logscale` must be a YAML boolean. Fixed values and initial conditions
+  must be finite; model names must be Python identifiers.
+- Population sizes/processors/max_steps must be positive integers; DE requires
+  at least three population members. Iteration counts and random seeds must be
+  nonnegative integers. Tolerances must be positive and finite, either scalar
+  or one per integrated state. Initial timestep and error_loss must be positive
+  and finite. Explicit initial_time must be finite and no later than the first
+  measurement time. Tiny budgets remain valid for smoke tests.
+- `pfit check SESSION --deterministic-only` checks inputs without Ollama.
+  `pfit check SESSION --ready` additionally checks generated-code presence,
+  interface and source freshness. Every `pfit run` repeats these checks; restart
+  seed validation also runs before fitting.
+- Successful `pfit jax` records hashes of the complete model and YAML contents.
+  Any edit to either source (including comments or optimization budgets) requires
+  rerunning `pfit jax`. Older unstamped scripts use a timestamp fallback with a
+  warning; copies/clones cannot establish content agreement through timestamps.
+  Failed newly generated scripts do not receive a valid stamp.
+
+These checks do not prove translation fidelity, gradient correctness or complete
+missing-data support. Those remain separate validation/parity work.

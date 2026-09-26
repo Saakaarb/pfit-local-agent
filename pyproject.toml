@@ -36,7 +36,7 @@ pfit = "local_agent.cli.main:main"
 include = ["local_agent*", "lib*"]
 
 [tool.setuptools]
-py-modules = ["fit_parameters"]
+py-modules = ["fit_parameters", "fit_gradient_only", "analyze_fit"]
 
 [tool.setuptools.package-data]
 "local_agent.agent.prompt_templates" = ["*.md"]

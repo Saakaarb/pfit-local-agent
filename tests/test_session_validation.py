@@ -97,7 +97,7 @@ def test_parse_input_yaml_rejects_unknown_integrator(tmp_path):
 
 
 def test_validate_session_allows_nan_measurements(tmp_path):
-    yaml_path = _write_yaml(tmp_path, _minimal_yaml())
+    yaml_path = _write_yaml(tmp_path, _minimal_yaml().replace("model:", "      - {name: extra}\n\nmodel:"))
     yaml_path.parent.joinpath("data.csv").write_text("0.0,1.0,0.0\n1.0,nan,0.1\n")
 
     result = validate_session(tmp_path / "session")

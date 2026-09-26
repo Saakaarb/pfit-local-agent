@@ -44,10 +44,18 @@ def _read_workflow_events(path: Path) -> dict[str, int]:
 
 def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
     session_dir = Path(session_dir)
-    output_dir = session_dir / "outputs"
+    from lib.utils.run_store import output_root
+    output_dir = output_root(session_dir)
     if run_id:
         output_dir = output_dir / run_id
 
+    if run_id is None and not (output_dir / "final_design_point.csv").exists() and output_dir.exists():
+        runs = sorted(path for path in output_dir.iterdir() if path.is_dir() and (path / "run_manifest.json").exists())
+        if runs:
+            output_dir = runs[-1]
+    manifest_path = output_dir / "run_manifest.json"
+    manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+    gradient_only = manifest.get("mode") == "gradient-only"
     report_path = output_dir / "fit_diagnosis.txt"
     report_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -57,7 +65,8 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
     de_log = output_dir / "de_fitting.log"
     node_log = output_dir / "NODE_fitting.log"
     error_file = output_dir / "fitting_error.txt"
-    event_log = session_dir / "generated" / "agent_logs" / "workflow_events.jsonl"
+    sources = output_dir / "snapshot" if (output_dir / "snapshot").is_dir() else session_dir
+    event_log = sources / "generated" / "agent_logs" / "workflow_events.jsonl"
     global_log = de_log if de_log.exists() else pso_log
     global_name = "DE" if de_log.exists() else "PSO"
     global_summary = _read_optimizer_log(global_log)
@@ -79,7 +88,7 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
         f"- fitting_error.txt: {'present' if error_file.exists() else 'missing'}",
         "",
         "Optimizer summary:",
-        _format_summary(global_name, global_summary),
+        "- Global search: intentionally skipped (gradient-only restart)" if gradient_only else _format_summary(global_name, global_summary),
         _format_summary("NODE", node_summary),
         "",
         "Generation workflow:",
@@ -99,7 +108,7 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
         lines.append("- No final design point found; rerun fitting or inspect optimizer logs.")
     if final_design.exists() and result_solution.exists():
         lines.append("- Review fitted parameters and measured-versus-fitted trajectories.")
-    if not pso_log.exists() and not de_log.exists():
+    if not gradient_only and not pso_log.exists() and not de_log.exists():
         lines.append("- Global-search log missing; verify the PSO/DE stage ran.")
     if not node_log.exists():
         lines.append("- NODE log missing; verify the gradient-refinement stage ran.")
@@ -108,6 +117,21 @@ def diagnose_run(session_dir: Path, run_id: str | None = None) -> Path:
     if node_summary and node_summary["final_loss"] > node_summary["first_loss"]:
         lines.append("- NODE loss worsened; inspect gradients, tolerances, and generated code.")
 
+    if gradient_only:
+        lines.append(f"- Restart source: {manifest.get('source_run')}")
+    curvature_path = output_dir / "sloppiness.json"
+    if curvature_path.exists():
+        curvature = json.loads(curvature_path.read_text())
+        lines.extend(["", "Sloppiness:", f"- status: {curvature['status']}"])
+        if curvature["status"] == "ok":
+            lines.extend([
+                f"- method: {curvature['method']}", f"- {curvature['verdict']}",
+                f"- weak modes: {curvature['weak_modes']}; negative modes: {curvature['negative_modes']}",
+                f"- full report: {output_dir / 'sloppiness_report.txt'}",
+            ])
+            lines.extend(f"- {warning}" for warning in curvature["warnings"])
+        else:
+            lines.append(f"- {curvature.get('reason', '')}")
     report_path.write_text("\n".join(lines) + "\n")
     return report_path
 

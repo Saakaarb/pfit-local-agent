@@ -87,6 +87,8 @@ class LocalWorkflow:
                 WorkflowEvent("generate_user_model_skeleton", "created", str(user_model_path))
             )
 
+        from lib.utils.source_stamp import build_stamp
+        self._generation_source_stamp = build_stamp(session_dir)
         context = self._build_generation_context(
             session_dir,
             session_validation.input_yaml,
@@ -269,6 +271,8 @@ class LocalWorkflow:
         session_dir: Path,
         events: list[WorkflowEvent],
     ) -> bool:
+        # A failed translation must never look like a usable legacy script.
+        script_path.write_text("# pfit-sources: pending=true\n" + script_path.read_text())
         try:
             validate_generated_script_contract(script_path)
         except ValidationError as exc:
@@ -291,6 +295,11 @@ class LocalWorkflow:
             events.append(WorkflowEvent("smoke_test_generated_script", "failed", str(exc)))
             return False
 
+        from lib.utils.source_stamp import build_stamp, write_stamp
+        if build_stamp(session_dir) != self._generation_source_stamp:
+            events.append(WorkflowEvent("source_freshness", "failed", "Sources changed during translation; rerun pfit jax"))
+            return False
+        write_stamp(session_dir)
         events.append(WorkflowEvent("smoke_test_generated_script", "passed", str(script_path)))
         return True
 

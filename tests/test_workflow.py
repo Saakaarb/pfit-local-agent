@@ -125,6 +125,8 @@ def test_generate_script_workflow_writes_valid_script(tmp_path):
     result = workflow.generate_script(session)
 
     assert result.success is True
+    from lib.utils.source_stamp import verify_stamp
+    assert verify_stamp(session)[0] is True
     assert "def _integrate_system" in (session / "generated" / "generated_script.py").read_text()
     assert [event.step for event in result.events] == [
         "validate_session",

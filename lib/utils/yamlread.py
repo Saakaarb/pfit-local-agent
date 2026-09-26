@@ -64,6 +64,8 @@ class YAMLReader:
         experiments = data.get("experiments") or []
         if not experiments:
             raise ValueError("YAML input must define at least one experiment")
+        if len(experiments) != 1:
+            raise ValueError("Multi-experiment fitting is not supported yet; refusing to use only experiments[0]")
         experiment = experiments[0]
         self.filename_data = experiment.get("data_file")
         for index, column in enumerate(experiment.get("columns") or []):

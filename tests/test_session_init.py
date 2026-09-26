@@ -386,7 +386,7 @@ def test_init_session_normalizes_common_math_calls_before_llm_repair(tmp_path):
     session = tmp_path / "arc"
     inputs = session / "inputs"
     inputs.mkdir(parents=True)
-    inputs.joinpath("arc.csv").write_text("time,T,dTdt\n0.0,354.0,0.001\n")
+    inputs.joinpath("arc.csv").write_text("time,T,dTdt\n0.0,354.0,0.001\n1.0,354.001,0.001\n")
     inputs.joinpath("user_info.txt").write_text("Fit ARC-style T and dTdt.")
     response = {
         "missing_inputs": [],
@@ -442,6 +442,10 @@ def test_init_session_allows_auxiliary_uncertainty_columns(tmp_path):
             {"name": "Z", "initial_value": 0.2, "rhs": "q * X", "observed_column": 1},
         ],
         "observables": [],
+        "auxiliary_columns": [
+            {"name": "X_sd", "observed_column": 2, "kind": "uncertainty_of", "target": "X"},
+            {"name": "Z_sd", "observed_column": 3, "kind": "uncertainty_of", "target": "Z"},
+        ],
         "loss_body": (
             "rx = (solution[:, 0] - dataset[:, 0]) / dataset[:, 2]\n"
             "rz = (solution[:, 1] - dataset[:, 1]) / dataset[:, 3]\n"
@@ -754,7 +758,7 @@ def test_init_session_canonicalizes_observed_columns_from_csv_header(tmp_path):
     session = tmp_path / "arc"
     inputs = session / "inputs"
     inputs.mkdir(parents=True)
-    inputs.joinpath("arc.csv").write_text("time,T,dTdt\n0.0,354.0,0.001\n")
+    inputs.joinpath("arc.csv").write_text("time,T,dTdt\n0.0,354.0,0.001\n1.0,354.001,0.001\n")
     inputs.joinpath("user_info.txt").write_text(
         "Fit c1, c2, T with observed columns T and dTdt."
     )
@@ -873,7 +877,7 @@ def test_init_session_preserves_existing_detailed_fileset(tmp_path):
     inputs.mkdir(parents=True)
     generated.mkdir()
     yaml = Path("tests/vanderpol_session/inputs/user_input.yaml").read_text()
-    data = "time,x1,x2\n" + Path("tests/vanderpol_session/inputs/vanderpol_data.csv").read_text()
+    data = Path("tests/vanderpol_session/inputs/vanderpol_data.csv").read_text()
     model = _valid_user_model()
     inputs.joinpath("user_input.yaml").write_text(yaml)
     inputs.joinpath("vanderpol_data.csv").write_text(data)

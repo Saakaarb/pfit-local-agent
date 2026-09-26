@@ -13,7 +13,8 @@ pfit new -> pfit check -> pfit jax -> pfit run -> pfit diagnose
 ```text
 sessions/<session>/
   inputs/
-    user_input.xml
+    user_info.txt
+    user_input.yaml
     data.csv
   generated/
     user_model.py
@@ -58,6 +59,22 @@ Run fitting. Outputs are written to `outputs/<run-id>/`:
 ```bash
 pfit run sessions/my_session
 ```
+
+Restart only gradient refinement from a saved run (using the current session settings):
+
+```bash
+pfit run sessions/my_session gradient-only --from-run run_20260926_120000_123456
+```
+
+Omit `--from-run` to select the latest completed run. The source run is preserved.
+New runs save named parameters and data/model/configuration snapshots. For old unnamed parameter CSVs, add `--allow-legacy-seed` only when their
+parameter order matches the current YAML.
+
+Post-fit sloppiness analysis runs automatically and saves `sloppiness_report.txt`,
+`sloppiness.json`, `sloppiness_spectrum.png`, and Hessian/eigenspectrum CSVs. Use `--no-sloppiness` to skip it
+or `--sloppiness-method finite-difference` to select finite differences of autodiff
+gradients directly. The default tries second-order autodiff first. Diagnostic
+failure does not discard fitted parameters.
 
 Diagnose a completed run:
 
@@ -113,3 +130,21 @@ docs/user_workflow_compatibility.md
 ```bash
 pytest -q
 ```
+
+Implementation and interpretation: [restart and sloppiness](docs/restart_and_sloppiness.md).
+
+Current implemented features and remaining divergences: [feature parity status](docs/feature_parity_status.md).
+
+
+Readiness checks can run without Ollama:
+
+```bash
+pfit check sessions/my_session --deterministic-only
+pfit check sessions/my_session --ready
+```
+
+The first checks inputs and the user model before translation; `--ready` also
+checks the generated script and whether its model/YAML sources have changed.
+`pfit run` repeats deterministic readiness checks automatically. Retranslate with
+`pfit jax` after editing either source. See
+[readiness notes](docs/deterministic_readiness.md) for scope and legacy behavior.

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
-import csv
+import yaml
+import keyword
 
 import numpy as np
 
@@ -32,6 +33,8 @@ def parse_input_yaml(input_yaml: Path) -> YAMLReader:
         raise ValidationError(f"Input YAML not found: {input_yaml}")
 
     try:
+        raw = yaml.safe_load(input_yaml.read_text())
+        _validate_raw_settings(raw)
         reader = YAMLReader.from_file(input_yaml)
         reader.check_name_uniqueness()
     except Exception as exc:
@@ -64,6 +67,16 @@ def validate_session(session_dir: Path) -> SessionValidation:
         )
     if np.any(np.isinf(dataset)):
         raise ValidationError(f"Dataset contains infinite values: {dataset_path}")
+
+    if dataset.shape[0] < 2:
+        raise ValidationError("Dataset must contain at least two time points")
+    times = dataset[:, 0]
+    if not np.all(np.isfinite(times)) or not np.all(np.diff(times) > 0):
+        raise ValidationError("Dataset time values must be finite and strictly increasing")
+    if reader.init_time is not None and reader.init_time > times[0]:
+        raise ValidationError("initial_time must not be after the first dataset time")
+    if reader.data_column_names and len(reader.data_column_names) != dataset.shape[1]:
+        raise ValidationError("Declared columns must match the dataset column count")
 
     n_integrated_variables = len(reader.integrated_variable_names)
 
@@ -163,44 +176,17 @@ def import_generated_script(script_path: Path):
 
 
 def _load_numeric_csv(path: Path) -> np.ndarray:
+    from lib.utils.dataset_io import load_dataset
     try:
-        with path.open("r", encoding="utf-8-sig") as handle:
-            data = np.genfromtxt(
-                handle,
-                dtype=float,
-                delimiter=",",
-                skip_header=1 if _csv_has_header(path) else 0,
-            )
+        return load_dataset(path)
     except Exception as exc:
         raise ValidationError(f"Could not read numeric dataset {path}: {exc}") from exc
-    return np.atleast_2d(data)
-
-
-def _csv_has_header(path: Path) -> bool:
-    try:
-        with path.open(newline="", encoding="utf-8-sig") as handle:
-            row = next(csv.reader(handle), None)
-    except UnicodeDecodeError:
-        return False
-    if not row:
-        return False
-    return not all(_is_float(cell.strip()) for cell in row)
-
-
-def _is_float(value: str) -> bool:
-    if not value:
-        return False
-    try:
-        float(value)
-    except ValueError:
-        return False
-    return True
 
 
 def _validate_reader(reader: YAMLReader, input_yaml: Path) -> None:
     if reader.filename_data is None:
         raise ValidationError(f"Missing data_file in {input_yaml}")
-    if reader.n_search_axes is None:
+    if not reader.n_search_axes:
         raise ValidationError(f"Missing trainable parameters in {input_yaml}")
     if reader.n_search_axes != len(reader.trainable_parameter_names):
         raise ValidationError(
@@ -241,3 +227,40 @@ def _validate_reader(reader: YAMLReader, input_yaml: Path) -> None:
         raise ValidationError(
             f"Unsupported gradient_opt integrator in {input_yaml}: {reader.integrator}"
         )
+
+    names = reader.trainable_parameter_names + reader.fixed_parameter_names + reader.integrated_variable_names + reader.observable_names
+    if any(not name.isidentifier() or keyword.iskeyword(name) for name in names):
+        raise ValidationError("Model names must be valid Python identifiers")
+    for name, low, high, log in zip(reader.trainable_parameter_names, reader.min_axis_values, reader.max_axis_values, reader.axis_logscale):
+        if not np.isfinite(low) or not np.isfinite(high) or low >= high:
+            raise ValidationError(f"Parameter {name} requires finite bounds with min_val < max_val")
+        if log and low <= 0:
+            raise ValidationError(f"Logscale parameter {name} requires positive bounds")
+    if not np.all(np.isfinite(reader.fixed_parameter_values + reader.integrated_variable_init_values)):
+        raise ValidationError("Fixed parameters and initial conditions must be finite")
+    for name in ("stepsize_rtol", "stepsize_atol", "population_stepsize_rtol", "population_stepsize_atol"):
+        values = getattr(reader, name)
+        if values is not None and (len(values) not in (1, len(reader.integrated_variable_names)) or not np.all(np.isfinite(values)) or np.any(np.asarray(values) <= 0)):
+            raise ValidationError(f"{name} must contain positive finite tolerances, scalar or one per state")
+    for name in ("init_timestep", "error_loss"):
+        value = getattr(reader, name)
+        if not np.isfinite(value) or value <= 0:
+            raise ValidationError(f"{name} must be positive and finite")
+    if reader.init_time is not None and not np.isfinite(reader.init_time):
+        raise ValidationError("initial_time must be finite")
+    if reader.n_particles < (3 if reader.algorithm == "DE" else 1):
+        raise ValidationError("population_size must be at least 3 for DE or 1 for PSO")
+
+
+def _validate_raw_settings(raw):
+    if not isinstance(raw, dict):
+        raise ValidationError("YAML input must be a mapping")
+    for section, fields in (("population_opt", ("population_size", "num_particles", "num_iters", "processors", "random_seed")), ("gradient_opt", ("num_iters", "max_steps"))):
+        for name in fields:
+            value = (raw.get(section) or {}).get(name)
+            minimum = 0 if name in {"num_iters", "random_seed"} else 1
+            if value is not None and (type(value) is not int or value < minimum):
+                raise ValidationError(f"{section}.{name} must be an integer >= {minimum}")
+    for parameter in (raw.get("model") or {}).get("trainable_parameters") or []:
+        if type(parameter.get("logscale", False)) is not bool:
+            raise ValidationError("logscale must be a YAML boolean, not a quoted string")

@@ -32,6 +32,7 @@ class CheckReport:
         recommendations = [f"- {item}" for item in self.recommendations] or ["- none"]
         return "\n".join(
             [
+                f"Number of critical errors: {len(self.critical_errors)}",
                 "Critical errors:",
                 *critical_errors,
                 "",
@@ -66,6 +67,23 @@ def check_session(
     if not user_model.exists():
         report.critical_errors.append(f"User model not found: {user_model}")
         return report
+    try:
+        model_ast = ast.parse(user_model.read_text())
+    except SyntaxError as exc:
+        report.critical_errors.append(f"User model contains invalid Python: {exc}")
+        return report
+    for node in ast.walk(model_ast):
+        if not isinstance(node, ast.Subscript) or not isinstance(node.value, ast.Name):
+            continue
+        width = {"dataset": result.dataset_shape[1] - 1, "solution": result.n_integrated_variables}.get(node.value.id)
+        if width is None or not isinstance(node.slice, ast.Tuple) or len(node.slice.elts) != 2:
+            continue
+        try:
+            index = ast.literal_eval(node.slice.elts[1])
+        except (ValueError, TypeError):
+            continue
+        if type(index) is int and not -width <= index < width:
+            report.critical_errors.append(f"{node.value.id} column index {index} is outside its {width} columns (line {node.lineno})")
     _add_branchy_dynamics_checks(user_model, report)
     _add_uncertainty_loss_checks(session_dir, user_model, report)
     _add_dataset_scale_loss_checks(session_dir, user_model, report)
@@ -505,9 +523,8 @@ def _measured_column_names(reader) -> list[str]:
 
 
 def _load_numeric_dataset(path: Path) -> np.ndarray:
-    with Path(path).open("r", encoding="utf-8-sig") as handle:
-        data = np.genfromtxt(handle, dtype=float, delimiter=",", skip_header=1)
-    return np.atleast_2d(data)
+    from lib.utils.dataset_io import load_dataset
+    return load_dataset(path)
 
 
 def _column_log10_range(values: np.ndarray) -> float | None:

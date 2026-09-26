@@ -37,6 +37,7 @@ VALID_SPLIT_RESPONSES = json.dumps(
     [
         json.dumps({"helper_functions": [], "review": ""}),
         json.dumps({"rhs": ["x2", "-mu * x1"], "helper_functions": [], "review": ""}),
+        json.dumps({"writeout_body": "return jnp.concatenate((solution_time[:, None], dataset, solution), axis=1)", "review": ""}),
     ]
 )
 
@@ -121,11 +122,11 @@ def test_cli_jax_with_fake_llm(tmp_path, capsys):
     assert "def _integrate_system" in (session / "generated" / "generated_script.py").read_text()
 
 
-def test_cli_run_rejects_extra_mode_argument(tmp_path):
+def test_cli_gradient_only_requires_a_saved_seed(tmp_path, capsys):
     session = make_session(tmp_path)
 
-    with pytest.raises(SystemExit):
-        main(["run", str(session), "gradient-only"])
+    assert main(["run", str(session), "gradient-only"]) == 1
+    assert "generated_script.py" in capsys.readouterr().out
 
 
 def test_cli_diagnose_writes_report(tmp_path, capsys):
@@ -223,3 +224,23 @@ def _new_session_response() -> str:
             "user_info_txt": "Local pfit-new draft generated from supplied files.",
         }
     )
+
+
+def test_cli_restart_options_reach_driver(tmp_path, monkeypatch):
+    import fit_parameters
+    session = make_session(tmp_path)
+    calls = []
+    monkeypatch.setattr(fit_parameters, "run_driver", lambda *args, **kwargs: calls.append(kwargs))
+    assert main(["run", str(session), "gradient-only", "--from-run", "old",
+                 "--allow-legacy-seed", "--sloppiness-method", "finite-difference"]) == 0
+    assert calls[0]["from_run"] == "old"
+    assert calls[0]["allow_legacy_seed"] is True
+    assert calls[0]["sloppiness"] is True
+    assert calls[0]["sloppiness_method"] == "finite-difference"
+    assert main(["run", str(session), "--no-sloppiness"]) == 0
+    assert calls[1]["sloppiness"] is False
+
+
+def test_cli_full_run_rejects_restart_source(tmp_path, capsys):
+    assert main(["run", str(tmp_path), "--from-run", "old"]) == 1
+    assert "requires gradient-only" in capsys.readouterr().out

@@ -48,3 +48,20 @@ def test_diagnose_run_summarizes_de_node_and_workflow_events(tmp_path):
     assert "- DE: 2 iterations, first loss 5.0000E+00, best loss 2.0000E+00, final loss 2.0000E+00" in report
     assert "- NODE: 2 iterations, first loss 2.0000E+00, best loss 1.0000E+00, final loss 1.0000E+00" in report
     assert "- events: 1 passed, 0 failed, 1 repair attempts" in report
+
+
+def test_diagnosis_recognizes_restart_and_saved_sloppiness(tmp_path):
+    import json
+    output = tmp_path / "outputs" / "run_1"
+    output.mkdir(parents=True)
+    (output / "run_manifest.json").write_text(json.dumps({"mode": "gradient-only", "source_run": "run_old"}))
+    (output / "sloppiness.json").write_text(json.dumps({
+        "status": "ok", "method": "finite-difference", "verdict": "sloppy",
+        "weak_modes": 1, "negative_modes": 0, "warnings": ["Local curvature only."],
+    }))
+    report = diagnose_run(tmp_path).read_text()
+    assert "intentionally skipped" in report
+    assert "Global-search log missing" not in report
+    assert "Restart source: run_old" in report
+    assert "weak modes: 1" in report
+    assert "Local curvature only." in report

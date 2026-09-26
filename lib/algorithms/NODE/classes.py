@@ -252,6 +252,7 @@ class FitParamsNODE:
         """
 
         
+        self.termination_reason = "iteration_budget"
         self.loss_history = []
         self.best_loss=np.inf
         self.best_result=None
@@ -290,6 +291,7 @@ class FitParamsNODE:
             # Check for stop flag
             stop_flag = Path(self.input_reader.output_dir) / "stop_fitting.flag"
             if stop_flag.exists():
+                self.termination_reason = "stopped"
                 print("Stop flag detected, stopping NODE optimization")
                 break
 
@@ -298,7 +300,9 @@ class FitParamsNODE:
                     self.trainable_params
                 )
             #except eqx.EquinoxRuntimeError as e:
-            if value==self.input_reader.error_loss:
+            if (not np.isfinite(float(value)) or not np.all(np.isfinite(np.asarray(grad_loss)))
+                    or value == self.input_reader.error_loss):
+                self.termination_reason = "invalid_loss_or_gradient"
                 print("Stopping G.D iterations, exiting with previous best solution, failed at iter:",i_iter)
                 return self.best_result,self.best_loss
                 
@@ -331,4 +335,12 @@ class FitParamsNODE:
             self.constrain_search_vars()
 
         
+        if self.termination_reason == "iteration_budget":
+            final_value = self.compute_loss(self.trainable_params)
+            if np.isfinite(float(final_value)) and final_value != self.input_reader.error_loss and final_value < self.best_loss:
+                self.best_loss = final_value
+                self.best_result = self.trainable_params
+            if self.best_result is not None:
+                with open(log_path, 'a') as log_file:
+                    log_file.write(f"{self.n_iters_grad}, {self.best_loss:.4E}, {time.time() - t1:.4f}\n")
         return self.best_result,self.best_loss

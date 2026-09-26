@@ -54,6 +54,8 @@ def _build_parser() -> argparse.ArgumentParser:
         help="check a session and write generated/user_input_check.txt",
     )
     check.add_argument("session_dir", type=Path)
+    check.add_argument("--deterministic-only", action="store_true", help="validate without contacting Ollama")
+    check.add_argument("--ready", action="store_true", help="also verify generated code is ready to run (no LLM)")
     check.add_argument("--model")
     check.add_argument("--base-url")
     check.add_argument("--timeout-seconds", type=float)
@@ -75,6 +77,11 @@ def _build_parser() -> argparse.ArgumentParser:
 
     run = subparsers.add_parser("run", help="run fitting using existing generated code")
     run.add_argument("session_dir", type=Path)
+    run.add_argument("mode", nargs="?", choices=["full", "gradient-only"], default="full")
+    run.add_argument("--from-run", "--seed-run", dest="from_run", help="source run ID for gradient-only refinement")
+    run.add_argument("--allow-legacy-seed", action="store_true", help="assert old unnamed CSV uses current YAML parameter order")
+    run.add_argument("--no-sloppiness", action="store_true", help="skip post-fit curvature analysis")
+    run.add_argument("--sloppiness-method", choices=["auto", "ad", "finite-difference"], default="auto")
 
     diagnose = subparsers.add_parser("diagnose", help="diagnose a completed fitting run")
     diagnose.add_argument("session_dir", type=Path)
@@ -128,6 +135,13 @@ def _cmd_new(args: argparse.Namespace) -> int:
 
 
 def _cmd_check(args: argparse.Namespace) -> int:
+    if args.deterministic_only or args.ready:
+        from local_agent.agent.readiness import check_ready
+        report = check_ready(args.session_dir) if args.ready else check_session(args.session_dir)
+        report_path = write_check_report(args.session_dir, report)
+        print(f"check report written: {report_path}")
+        print(report.to_text())
+        return 0 if report.passed else 1
     config = load_config(Path.cwd(), args.session_dir)
     model = args.model or config.llm.model
     base_url = args.base_url or config.llm.base_url
@@ -219,13 +233,22 @@ def _cmd_jax(args: argparse.Namespace) -> int:
 def _cmd_run(args: argparse.Namespace) -> int:
     from local_agent.core.fitting import make_run_output_dir
     from fit_parameters import run_driver
-    from lib.utils.helper_functions import get_input_reader
+    from local_agent.agent.validators import parse_input_yaml
 
+    if args.mode != "gradient-only" and args.from_run:
+        raise ValueError("--from-run requires gradient-only mode")
+    if args.allow_legacy_seed and args.mode != "gradient-only":
+        raise ValueError("--allow-legacy-seed requires gradient-only mode")
     input_file_path = args.session_dir / "inputs" / "user_input.yaml"
-    input_reader = get_input_reader(input_file_path)
+    input_reader = parse_input_yaml(input_file_path)
     output_dir = make_run_output_dir(args.session_dir)
     print(f"run directory: {output_dir}")
-    run_driver(args.session_dir, input_reader, output_dir_override=output_dir)
+    run_driver(
+        args.session_dir, input_reader, output_dir_override=output_dir,
+        from_run=args.from_run, allow_legacy_seed=args.allow_legacy_seed,
+        gradient_only=args.mode == "gradient-only",
+        sloppiness=not args.no_sloppiness, sloppiness_method=args.sloppiness_method,
+    )
     return 0
 
 
