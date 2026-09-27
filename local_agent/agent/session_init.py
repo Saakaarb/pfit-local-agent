@@ -2263,6 +2263,8 @@ gradient_opt:
   stepsize_atol: {atol}
   initial_timestep: 1e-6
   max_steps: 10000
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 120
   integrator: {integrator}
   init_value_lr: 1e-4
   end_value_lr: 1e-5

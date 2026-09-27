@@ -61,3 +61,19 @@ def test_smoke_test_rejects_wrong_writeout_shape(tmp_path):
 
     with pytest.raises(ValidationError, match="2D array"):
         smoke_test_generated_script(script, session)
+
+
+def test_regenerated_script_ignores_same_size_same_timestamp_bytecode(tmp_path):
+    import os
+    import py_compile
+    from local_agent.core.generated_contract import import_generated_script
+
+    script = tmp_path / 'generated_script.py'
+    script.write_text(VALID_SCRIPT)
+    original_stat = script.stat()
+    py_compile.compile(str(script), doraise=True)
+    script.write_text(VALID_SCRIPT.replace('return 0.0', 'return 1.0'))
+    os.utime(script, ns=(original_stat.st_atime_ns, original_stat.st_mtime_ns))
+    assert script.stat().st_size == original_stat.st_size
+    module = import_generated_script(script)
+    assert module._compute_loss_problem({}, []) == 1.0

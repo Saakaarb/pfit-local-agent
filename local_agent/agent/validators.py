@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import yaml
 import keyword
+import json
 
 import numpy as np
 
@@ -15,6 +16,17 @@ from lib.utils.yamlread import YAMLReader
 
 class ValidationError(ValueError):
     """Raised when a session or generated file violates the workflow contract."""
+
+
+class SolverValidationError(ValidationError):
+    """Numerical failure owned by the solver scaffold, never by code repair."""
+
+    def __init__(self, diagnostics):
+        self.diagnostics = diagnostics
+        super().__init__(
+            f"Experiment {diagnostics.get('experiment')}: {diagnostics['code']}: "
+            f"{diagnostics.get('result', '')}; steps={diagnostics.get('stats', {})}"
+        )
 
 
 @dataclass(frozen=True)
@@ -79,6 +91,32 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
         constants.update(min_limits=lo, max_limits=hi, is_logscale=logs)
         context = f"Experiment {record['index']} ({record['filename']})"
         try:
+            if hasattr(module, "_integrate_system_with_stats"):
+                from diffrax import RESULTS
+                from lib.utils.run_artifacts import unscale_parameters
+                point = np.zeros(reader.n_search_axes)
+                ts, ys, result, stats = module._integrate_system_with_stats(constants, point)
+                finite = np.all(np.isfinite(np.asarray(ys)))
+                code = ("successful" if result == RESULTS.successful and finite else
+                        "step_limit" if result == RESULTS.max_steps_reached else
+                        "nonfinite_solution" if result == RESULTS.successful else "integration_failure")
+                diagnostics = dict(code=code, experiment=record['index'], filename=record['filename'],
+                    solver=reader.integrator, max_steps=reader.max_steps, result=str(result),
+                    stats={key: int(value) for key, value in stats.items()},
+                    normalized_parameters=point.tolist(),
+                    physical_parameters=dict(zip(reader.trainable_parameter_names,
+                                                 unscale_parameters(point, reader).tolist())),
+                    time_start=float(constants['init_time']), time_end=float(record['t_eval'][-1]),
+                    requested_rows=len(record['t_eval']),
+                    finite_rows=int(np.all(np.isfinite(np.asarray(ys)), axis=1).sum()))
+                path = Path(script_path).parent / 'solver_diagnostics.json'
+                history = json.loads(path.read_text()) if path.exists() else []
+                history.append(diagnostics)
+                temporary = path.with_suffix('.tmp')
+                temporary.write_text(json.dumps(history, indent=2, allow_nan=False) + '\n')
+                temporary.replace(path)
+                if code != "successful":
+                    raise SolverValidationError(diagnostics)
             loss = np.asarray(module._compute_loss_problem(constants, np.zeros(reader.n_search_axes)))
             if loss.shape != () or not np.isfinite(loss) or loss == reader.error_loss:
                 raise ValidationError(f"_compute_loss_problem returned non-finite loss or integration failure: {loss}")
@@ -87,6 +125,8 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
                 raise ValidationError("_write_problem_result must return a 2D array")
             if writeout.shape[0] != len(record["t_eval"]):
                 raise ValidationError("_write_problem_result row count must match dataset rows")
+        except SolverValidationError:
+            raise
         except Exception as exc:
             raise ValidationError(f"{context}: smoke test failed: {exc}") from exc
 
@@ -197,6 +237,13 @@ def _validate_reader(reader: YAMLReader, input_yaml: Path) -> None:
 def _validate_raw_settings(raw):
     if not isinstance(raw, dict):
         raise ValidationError("YAML input must be a mapping")
+    gradient = raw.get('gradient_opt') or {}
+    cap = gradient.get('solver_recovery_max_steps', gradient.get('max_steps', 10000))
+    if type(cap) is not int or cap < gradient.get('max_steps', 10000):
+        raise ValidationError('solver_recovery_max_steps must be an integer >= max_steps')
+    timeout = gradient.get('solver_recovery_timeout_seconds', 120)
+    if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not np.isfinite(timeout) or timeout <= 0:
+        raise ValidationError('solver_recovery_timeout_seconds must be positive and finite')
     for section, fields in (("population_opt", ("population_size", "num_particles", "num_iters", "processors", "random_seed")), ("gradient_opt", ("num_iters", "max_steps"))):
         for name in fields:
             value = (raw.get(section) or {}).get(name)

@@ -699,3 +699,46 @@ This safeguard is deliberately narrow: it does not infer negated, alternative,
 mixed-metric, or separate per-channel RMSE objectives. Those still require a
 faithful extraction or explicit user review. It does not rewrite supplied Python
 loss bodies, add missing-data policies, or implement a check-time repair loop.
+
+### Solver diagnostics and bounded JAX validation recovery
+
+New `pfit new` configurations include:
+
+```yaml
+gradient_opt:
+  max_steps: 10000
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 120
+```
+
+`pfit jax` records per-experiment solver results, accepted/rejected step counts,
+physical/normalized probe parameters, time intervals and finite-output counts
+in `generated/solver_diagnostics.json`. Its generated integration interface
+remains compatible with existing fitting code. The optimizer still receives
+the configured scalar error-loss sentinel for failed solves.
+
+Only a solver **step-limit** failure can trigger numerical recovery. Validation
+retries with doubled step budgets, clipped to `solver_recovery_max_steps`, using
+the same scientific fragments, tolerances, initial conditions and data. The
+timeout is a hard wall-time limit for additional attempts, including subprocess
+startup, compilation and fidelity checks; it does not time-limit the initial
+ordinary validation attempt. Other numerical failures stop with diagnostics.
+
+Existing/custom YAML without `solver_recovery_max_steps` retains its current
+`max_steps` as a hard ceiling. Set the recovery ceiling explicitly to opt in,
+or set it equal to `max_steps` to prohibit increases. It must be an integer at
+least as large as `max_steps`; the timeout must be positive and finite.
+
+After recovery, the accepted `max_steps` is saved to YAML and used by fitting.
+The generated script receives a fresh source/config stamp only after normal
+validation and source/JAX fidelity checks pass. If numerical recovery exhausts
+its limits, the original configuration is restored and the script remains
+marked pending. Concurrent user source edits are not overwritten or stamped
+as validated. Recovery history is saved in `generated/solver_recovery.json`.
+
+Numerical failures do not invoke LLM code repair. Translation repairs are limited
+to the fragment field implicated by the validation error. Deterministically
+translated source loss/writeout bodies are protected; unrelated changes are
+rejected, and repeated identical failed proposals stop early. A scientific
+fidelity mismatch remains a failure rather than being bypassed. These rules
+apply to JAX translation only; the check-stage repair loop remains deferred.

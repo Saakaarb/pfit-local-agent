@@ -1,6 +1,6 @@
 Feature parity status
 
-Updated: 2026-09-26. This is the current implementation tracker for
+Updated: 2026-09-27. This is the current implementation tracker for
 `pfit-local-agent` against `pfit-claude origin/deployed_branch` at `1b415d8`.
 The original repository's checked-out `main` branch is older and is not the
 comparison baseline.
@@ -9,6 +9,15 @@ Status includes multi-experiment support (`c915677`) and subsequent live Ollama
 workflow fixes, after restart, sloppiness and readiness work (`386e061`). “Implemented” means the scoped capability is implemented and
 tested; it does not imply identical behavior in every respect. “Partial” identifies
 remaining work within an existing capability. “Open” means the gap remains.
+
+Numerical validation follow-up: [solver diagnostics and bounded recovery](solver_recovery.md)
+now distinguish step-limit exhaustion from translation defects, preserve
+source-derived loss/writeout bodies during field-scoped repair, and persist
+accepted solver settings with verified provenance. Live 32B Oregonator now
+passes JAX validation after automatic 10k-to-20k recovery, then completes a
+five-iteration fit and sloppiness. Other benchmark extraction/check failures
+remain open; check-stage automatic repair is still shelved. See the
+[three-model comparison](model_comparison_20260927.md) for the unchanged baseline.
 
 **Implemented in the latest port**
 

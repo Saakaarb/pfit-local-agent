@@ -6,6 +6,8 @@ from pathlib import Path
 import re
 import textwrap
 import traceback
+import time
+import yaml
 
 from local_agent.agent.config import WorkflowConfig
 from local_agent.agent.jax_fragments import (
@@ -21,6 +23,7 @@ from local_agent.agent.session_spec import SessionSpec, load_session_spec
 from local_agent.agent.user_model import render_user_model_skeleton
 from local_agent.agent.validators import (
     ValidationError,
+    SolverValidationError,
     smoke_test_generated_script,
     validate_generated_script_contract,
     validate_session,
@@ -39,6 +42,58 @@ class WorkflowEvent:
 class WorkflowResult:
     success: bool
     events: list[WorkflowEvent] = field(default_factory=list)
+
+
+_FRAGMENT_FIELDS = {'rhs', 'helper_functions', 'loss_body', 'writeout_body'}
+
+
+def _allowed_repair_fields(response, error):
+    try:
+        previous = parse_llm_json_object(response, 'previous fragments')
+    except ValidationError:
+        previous = {}
+    if not any(key in previous for key in _FRAGMENT_FIELDS):
+        return set(_FRAGMENT_FIELDS)
+    error = error.lower()
+    if 'loss' in error:
+        return {'loss_body'}
+    if 'writeout' in error:
+        return {'writeout_body'}
+    if 'helper' in error:
+        return {'helper_functions'}
+    if 'rhs' in error:
+        return {'rhs'}
+    return set()
+
+
+def _same_fragment(left, right):
+    if isinstance(left, str) and isinstance(right, str):
+        try:
+            return ast.dump(ast.parse(textwrap.dedent(left).strip())) == ast.dump(ast.parse(textwrap.dedent(right).strip()))
+        except SyntaxError:
+            return left.strip() == right.strip()
+    return left == right
+
+
+def _restrict_repair_response(previous, candidate, allowed, protected):
+    baseline = parse_llm_json_object(previous, 'previous fragments')
+    proposal = parse_llm_json_object(candidate, 'pfit-jax repair')
+    if 'writeout_description' in proposal:
+        proposal['writeout_body'] = proposal.pop('writeout_description')
+    unknown = set(proposal) - _FRAGMENT_FIELDS - {'review'}
+    if unknown:
+        raise ValidationError(f'Repair contains unsupported fields: {sorted(unknown)}')
+    for key, value in protected.items():
+        baseline[key] = value
+    for key, value in proposal.items():
+        if key == 'review':
+            continue
+        if key not in allowed or key in protected:
+            if not _same_fragment(value, baseline.get(key, [] if key == 'helper_functions' else None)):
+                raise ValidationError(f'Repair attempted to change protected/unrelated field {key}')
+        else:
+            baseline[key] = value
+    return json.dumps(baseline)
 
 
 class LocalWorkflow:
@@ -66,6 +121,9 @@ class LocalWorkflow:
     def generate_script(self, session_dir: Path) -> WorkflowResult:
         session_dir = Path(session_dir)
         events: list[WorkflowEvent] = []
+        self._repair_blocked = False
+        self._solver_failure = None
+        self._protected_bodies = {}
 
         try:
             session_validation = validate_session(session_dir)
@@ -77,6 +135,8 @@ class LocalWorkflow:
 
         generated_dir = session_dir / "generated"
         generated_dir.mkdir(exist_ok=True)
+        for name in ('solver_diagnostics.json', 'solver_recovery.json'):
+            (generated_dir / name).unlink(missing_ok=True)
         script_path = generated_dir / "generated_script.py"
 
         session_spec = load_session_spec(session_validation.input_yaml)
@@ -114,11 +174,23 @@ class LocalWorkflow:
             ):
                 return self._finish(True, events, generated_dir)
 
+        validation_error = events[-1].message
+        rejected = ''
+        seen_repairs = set()
         for attempt in range(1, self.workflow_config.max_repair_attempts + 1):
+            if self._repair_blocked:
+                break
+            session_spec = load_session_spec(session_validation.input_yaml)
+            context = self._build_generation_context(session_dir, session_validation.input_yaml, session_spec)
+            allowed = _allowed_repair_fields(response, validation_error) - set(self._protected_bodies)
+            if not allowed:
+                events.append(WorkflowEvent('repair_restriction', 'failed',
+                    'No editable fragment field owns this failure; source-derived bodies and scaffold settings are protected.'))
+                break
             repair_context = {
                 **context,
                 "attempt": attempt,
-                "validation_error": events[-1].message,
+                "validation_error": validation_error + '\nAllowed repair fields: ' + ', '.join(sorted(allowed)) + rejected,
                 "previous_response": response,
             }
             repair_messages = self.prompt_renderer.render_messages(
@@ -126,7 +198,7 @@ class LocalWorkflow:
                 "repair_jax_fragments.user.md",
                 repair_context,
             )
-            response = self._complete_with_log(
+            candidate = self._complete_with_log(
                 generated_dir,
                 "repair_jax_fragments",
                 repair_messages,
@@ -136,6 +208,16 @@ class LocalWorkflow:
             events.append(
                 WorkflowEvent("repair_jax_fragments", "attempted", str(attempt))
             )
+            if candidate in seen_repairs:
+                events.append(WorkflowEvent('repair_restriction', 'failed', 'Repeated failed repair; stopping without changing accepted fragments.'))
+                break
+            seen_repairs.add(candidate)
+            try:
+                response = _restrict_repair_response(response, candidate, allowed, self._protected_bodies)
+            except ValidationError as exc:
+                rejected = '\nPrevious repair rejected: ' + str(exc)
+                events.append(WorkflowEvent('repair_restriction', 'failed', str(exc)))
+                continue
             if self._render_and_validate_fragments(
                 response,
                 session_spec,
@@ -144,6 +226,8 @@ class LocalWorkflow:
                 events,
             ):
                 return self._finish(True, events, generated_dir)
+            validation_error = events[-1].message
+            rejected = ''
 
         return self._finish(False, events, generated_dir)
 
@@ -186,8 +270,11 @@ class LocalWorkflow:
         standard_bodies = _standard_loss_and_writeout_bodies(session_spec, data_width=data_width)
         if standard_bodies is not None and _source_function_is_placeholder(source, session_spec, "_compute_loss_problem"):
             loss_body = standard_bodies[0]
+            self._protected_bodies['loss_body'] = loss_body
         else:
             loss_body = _deterministic_custom_loss_body(source)
+            if loss_body is not None:
+                self._protected_bodies['loss_body'] = loss_body
             if loss_body is None:
                 loss_response = self._complete_prompt(
                     generated_dir, "translate_jax_loss", "jax_loss.system.md", "jax_loss.user.md", body_context,
@@ -196,8 +283,11 @@ class LocalWorkflow:
 
         if standard_bodies is not None and _source_function_is_placeholder(source, session_spec, "writeout_description"):
             writeout_body = standard_bodies[1]
+            self._protected_bodies['writeout_body'] = writeout_body
         else:
             writeout_body = _deterministic_writeout_body(source)
+            if writeout_body is not None:
+                self._protected_bodies['writeout_body'] = writeout_body
             if writeout_body is None:
                 writeout_response = self._complete_prompt(
                     generated_dir, "translate_jax_writeout", "jax_writeout.system.md", "jax_writeout.user.md",
@@ -254,14 +344,79 @@ class LocalWorkflow:
 
         script_path.write_text(render_generated_script_from_fragments(fragments, session_spec))
         events.append(WorkflowEvent("render_generated_script", "created", str(script_path)))
-        return self._validate_generated_script(script_path, session_dir, events)
+        if self._validate_generated_script(script_path, session_dir, events):
+            return True
+        if self._solver_failure is not None:
+            return self._recover_solver(fragments, script_path, session_dir, events)
+        return False
+
+    def _recover_solver(self, fragments, script_path, session_dir, events):
+        from lib.utils.source_stamp import build_stamp, normalized_hash
+        input_path = session_dir / 'inputs/user_input.yaml'
+        original = input_path.read_text()
+        config = yaml.safe_load(original)
+        gradient = config.setdefault('gradient_opt', {})
+        initial = int(gradient.get('max_steps', 10000))
+        cap = int(gradient.get('solver_recovery_max_steps', initial))
+        started = time.monotonic()
+        timeout = float(gradient.get('solver_recovery_timeout_seconds', 120))
+        deadline = started + timeout
+        history = {'initial_max_steps': initial, 'max_steps_limit': cap, 'timeout_seconds': timeout,
+                   'initial_failure': self._solver_failure, 'attempts': [], 'status': 'running'}
+        report = script_path.parent / 'solver_recovery.json'
+        budget = initial
+        recovered = False
+        try:
+            while self._solver_failure and self._solver_failure['code'] == 'step_limit' and budget < cap:
+                if time.monotonic() >= deadline:
+                    break
+                if build_stamp(session_dir) != self._generation_source_stamp:
+                    self._repair_blocked = True
+                    history['status'] = 'sources_changed'
+                    events.append(WorkflowEvent('source_freshness', 'failed', 'Sources changed during numerical recovery; rerun pfit jax'))
+                    return False
+                budget = min(cap, budget * 2)
+                history['attempts'].append({'max_steps': budget, 'failure': self._solver_failure})
+                gradient['max_steps'] = budget
+                input_path.write_text(yaml.safe_dump(config, sort_keys=False))
+                # Only bless the setting we changed, not a concurrent model edit.
+                self._generation_source_stamp = re.sub(r'user_input\.yaml=\S+',
+                    'user_input.yaml=' + normalized_hash(input_path), self._generation_source_stamp)
+                spec = load_session_spec(input_path)
+                script_path.write_text(render_generated_script_from_fragments(fragments, spec))
+                events.append(WorkflowEvent('solver_recovery', 'attempted', f'max_steps={budget}; scientific fragments and tolerances unchanged'))
+                if self._validate_generated_script(script_path, session_dir, events,
+                                                   smoke_timeout=deadline - time.monotonic()):
+                    history.update(status='passed', accepted_max_steps=budget)
+                    recovered = True
+                    return True
+                if self._solver_failure is None:
+                    # Integration completed; a different acceptance gate owns the failure.
+                    history.update(status='numerical_recovery_completed_validation_failed', accepted_max_steps=budget)
+                    recovered = True
+                    return False
+            self._repair_blocked = True
+            history['status'] = 'exhausted'
+            events.append(WorkflowEvent('solver_recovery', 'failed',
+                f'Numerical validation blocked at max_steps={budget}; limit={cap}. No scientific code repair attempted.'))
+            return False
+        finally:
+            history['elapsed_seconds'] = time.monotonic() - started
+            history['last_solver_failure'] = self._solver_failure
+            if not recovered and build_stamp(session_dir) == self._generation_source_stamp:
+                input_path.write_text(original)
+                self._generation_source_stamp = build_stamp(session_dir)
+                script_path.write_text('# pfit-sources: pending=true\n' + render_generated_script_from_fragments(fragments, load_session_spec(input_path)))
+            report.write_text(json.dumps(history, indent=2) + '\n')
 
     def _validate_generated_script(
         self,
         script_path: Path,
         session_dir: Path,
         events: list[WorkflowEvent],
+        smoke_timeout: float | None = None,
     ) -> bool:
+        self._solver_failure = None
         # A failed translation must never look like a usable legacy script.
         script_path.write_text("# pfit-sources: pending=true\n" + script_path.read_text())
         try:
@@ -281,13 +436,22 @@ class LocalWorkflow:
 
         events.append(WorkflowEvent("validate_generated_script", "passed", str(script_path)))
         try:
-            smoke_test_generated_script(script_path, session_dir)
+            if smoke_timeout is None:
+                smoke_test_generated_script(script_path, session_dir)
+            else:
+                from local_agent.agent.solver_recovery import smoke_with_deadline
+                smoke_with_deadline(script_path, session_dir, smoke_timeout)
+        except SolverValidationError as exc:
+            self._solver_failure = exc.diagnostics
+            events.append(WorkflowEvent('smoke_test_generated_script', 'failed', str(exc)))
+            return False
         except ValidationError as exc:
             events.append(WorkflowEvent("smoke_test_generated_script", "failed", str(exc)))
             return False
 
         from lib.utils.source_stamp import build_stamp, write_stamp
         if build_stamp(session_dir) != self._generation_source_stamp:
+            self._repair_blocked = True
             events.append(WorkflowEvent("source_freshness", "failed", "Sources changed during translation; rerun pfit jax"))
             return False
         write_stamp(session_dir)

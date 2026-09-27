@@ -124,7 +124,9 @@ def import_generated_script(script_path: Path) -> ModuleType:
     module = importlib.util.module_from_spec(spec)
     sys.modules[module_name] = module
     try:
-        spec.loader.exec_module(module)
+        # A recovery render can change 10000 -> 20000 within one filesystem
+        # timestamp tick without changing file size. Never reuse stale pyc code.
+        exec(compile(script_path.read_text(), str(script_path), 'exec'), module.__dict__)
     except Exception as exc:
         raise GeneratedContractError(f"Generated script failed to import: {exc}") from exc
     return module
