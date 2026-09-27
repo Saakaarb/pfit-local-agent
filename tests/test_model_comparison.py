@@ -42,3 +42,33 @@ def test_report_retains_failed_attempt_timing_and_pending_models(tmp_path):
     assert rows[0]['jax_seconds'] == '4.5'
     assert rows[0]['status'] == 'fail'
     assert rows[1]['total_wall_seconds'] == ''
+
+
+def test_run_case_excludes_benchmark_metadata_from_llm_context(tmp_path, monkeypatch):
+    from local_agent.agent.session_init import _collect_session_context
+
+    frozen = tmp_path / 'frozen_inputs/example'
+    frozen.mkdir(parents=True)
+    (frozen / 'user_info.txt').write_text('Fit dA/dt = -k A with A(0)=1.')
+    (frozen / 'data.csv').write_text('time,A\n0,1\n1,0.5\n')
+    model = json.loads((comparison.REPO / 'benchmarks/model_comparison/models.json').read_text())[0]
+    case = dict(name='example', status='ready', expected_data_files=['data.csv'], expected_experiments=1)
+
+    def fake_stage(directory, label, command, timeout, env):
+        comparison.save(directory / 'active_stage.json', {'stage': label})
+        (directory / 'logs/new.log').write_text('BENCHMARK_LOG_SENTINEL')
+        context = _collect_session_context(Path(command[1]))
+        assert 'Fit dA/dt' in context
+        assert 'FILE: inputs/data.csv' in context
+        assert 'metadata.json' not in context
+        assert 'active_stage.json' not in context
+        assert 'BENCHMARK_LOG_SENTINEL' not in context
+        assert 'BENCHMARK_METADATA_SENTINEL' not in context
+        return dict(status='fail', exit_code=1, seconds=1)
+
+    monkeypatch.setattr(comparison, 'stage', fake_stage)
+    comparison.run_case(tmp_path, case, model, {'marker': 'BENCHMARK_METADATA_SENTINEL'}, {})
+    record = json.loads((tmp_path / 'cases/example/qwen32b/metadata.json').read_text())
+    assert record['status'] == 'fail'
+    assert record['failed_stage'] == 'new'
+    assert 'error' not in record  # Do not swallow a context assertion in run_case.

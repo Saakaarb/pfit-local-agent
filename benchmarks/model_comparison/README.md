@@ -67,8 +67,10 @@ parameter count, so this is a practical comparison, not a scaling experiment.
 
 Persistent root: `/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927`.
 Each `cases/<case>/` has `qwen32b/`, `qwen14b/`, and `qwen3_coder_next/` containing
-its inputs, generated code, output runs, logs, `metadata.json` and request-level
-`llm_metrics.jsonl`. Frozen inputs and model-level metadata live at the root.
+its logs, `metadata.json`, request-level `llm_metrics.jsonl`, and a separate
+`session/` containing only workflow inputs, generated code and output runs.
+Benchmark records must remain outside `session/`: intake reads session files
+recursively. Frozen inputs and model-level metadata live at the root.
 `comparison.md` and `comparison.csv` update after each completed case.
 
 Run 32B first, then 14B, then Coder-Next. Complete each model batch before removing
@@ -87,6 +89,16 @@ source /workspace/pfit-env.sh
 Preparation requires a new directory. The runner skips recorded case attempts
 on restart and refuses a different framework commit or changed frozen input.
 Interrupted attempts should be retained as interrupted, not silently retried.
+
+## Preliminary batch excluded
+
+The first harness revision put metadata/logs at the session root. Inspection of
+the recorded model requests showed these benchmark files were included in the
+LLM input context. The preliminary batch is retained under
+`evaluation_runs/model_comparison_20260927_preliminary` and excluded from the
+clean comparison. Every model starts afresh with the corrected session boundary;
+the frozen scientific prompts and CSVs are unchanged. The observed extraction
+errors remain useful diagnostic evidence, but are not clean benchmark scores.
 
 ## Prior RMSE correction rerun
 

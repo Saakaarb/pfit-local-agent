@@ -164,6 +164,9 @@ def report(root, models, inventory):
 
 def run_case(root, case, model, metadata, env):
     directory = root / 'cases' / case['name'] / model['key']
+    # Session intake recursively reads files under its root. Keep all benchmark
+    # metadata and logs in the parent, outside the scientist's session context.
+    session = directory / 'session'
     entry = dict(case=case['name'], model_metadata=metadata, input_audit=case,
         status='running', started_utc=utc(), stages={}, settings=dict(options=OPTIONS,
         max_repair_attempts=5, request_timeout_seconds=600, gradient_iterations=5,
@@ -176,12 +179,12 @@ def run_case(root, case, model, metadata, env):
         save(directory / 'metadata.json', entry)
         return
     (directory / 'logs').mkdir()
-    shutil.copytree(root / 'frozen_inputs' / case['name'], directory / 'inputs')
+    shutil.copytree(root / 'frozen_inputs' / case['name'], session / 'inputs')
     flags = ['--model', model['model'], '--base-url', BASE, '--timeout-seconds', '600',
              '--max-tokens', '12000', '--temperature', '0.1']
     try:
         for label in STAGES:
-            command = [label, str(directory)]
+            command = [label, str(session)]
             if label == 'diagnose':
                 command.append(entry['run_id'])
             if label != 'run':
@@ -198,7 +201,7 @@ def run_case(root, case, model, metadata, env):
                 entry.update(status='fail', failed_stage=label)
                 break
             if label == 'new':
-                config_path = directory / 'inputs/user_input.yaml'
+                config_path = session / 'inputs/user_input.yaml'
                 shutil.copy2(config_path, directory / 'extracted_user_input.yaml')
                 config = yaml.safe_load(config_path.read_text())
                 files = sorted(e['data_file'] for e in config['experiments'])
@@ -211,7 +214,7 @@ def run_case(root, case, model, metadata, env):
                 entry['smoke_budget_override'] = dict(population=config['population_opt'], gradient=config['gradient_opt'])
             elif label == 'run':
                 import numpy as np
-                run = sorted((directory / 'outputs').glob('run_*'))[-1]
+                run = sorted((session / 'outputs').glob('run_*'))[-1]
                 entry['run_id'] = run.name
                 fit = entry['fit_summary'] = json.loads((run / 'fit_summary.json').read_text())
                 outputs = sorted(run.glob('result_solution*.csv'))
@@ -233,7 +236,7 @@ def run_case(root, case, model, metadata, env):
         entry.update(status='fail', failed_stage=label, error=f'{type(exc).__name__}: {exc}')
     finally:
         entry.update(finished_utc=utc(), total_wall_seconds=round(time.monotonic() - start, 3))
-        calls = directory / 'generated/agent_logs/llm_calls.jsonl'
+        calls = session / 'generated/agent_logs/llm_calls.jsonl'
         if calls.exists():
             entries = [json.loads(line) for line in calls.read_text().splitlines()]
             entry['repair_calls'] = sum(e.get('step', '').startswith('repair_') for e in entries)
