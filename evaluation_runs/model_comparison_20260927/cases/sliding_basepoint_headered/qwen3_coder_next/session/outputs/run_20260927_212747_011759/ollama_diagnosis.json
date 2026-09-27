@@ -1,0 +1,34 @@
+{
+  "verdict": "Optimization terminated at iteration budget with non-stationary gradients (inf-norm = 0.714); residual diagnostics indicate systematic model\u2013data mismatch, especially in contact_force dynamics.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run a gradient-only restart from the current solution, increasing gradient_opt.num_iters to at least 20.",
+      "reason": "The normalized gradient infinity norm (0.714) exceeds typical stationarity thresholds (e.g., < 0.1), and refinement stopped only due to iteration budget (BUDGET), not convergence; increasing iterations may reduce the gradient norm and improve fit."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png and time-region residual plots for contact_force and displacement to diagnose timing, calibration, or model-structure issues.",
+      "reason": "Residual diagnostics show high RMSE and strong lag-1 autocorrelation (0.95 for contact_force, 0.975 for displacement), indicating unmodeled dynamics or misaligned events; visual inspection is needed before committing more iterations."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS"
+      ],
+      "action": "Check for parameter identifiability issues via sloppiness analysis (e.g., eigenvalue spread of Fisher information matrix), especially given 2 negative modes.",
+      "reason": "Sloppiness analysis reports 2 negative modes, suggesting possible overparameterization or ill-conditioning; this could explain slow gradient progress despite budget remaining."
+    }
+  ],
+  "limitations": [
+    "Evidence does not establish whether finite-difference gradient checks pass; numerical correctness of autodiff cannot be confirmed.",
+    "Residual autocorrelations and bias do not distinguish between timing errors, calibration drift, or structural model mismatch without plot inspection.",
+    "The presence of 2 negative sloppiness modes does not prove non-convexity or non-identifiability\u2014only indicates local curvature issues."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,31 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 0.378275.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters to a higher value and perform a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.378275, indicating that stationarity is not established. Increasing the number of gradient iterations may help refine the solution further."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, pSTAT5A, pSTAT5B, and rSTAT5A.",
+      "reason": "The residuals for these experiments show varying RMSE and bias values. Inspecting the plots can help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect the eigenvectors to understand the weak parameter combinations.",
+      "reason": "There is 1 weak parameter combination identified. Inspecting the eigenvectors can provide insights into the parameter space and help design additional experiments or fix independently known parameters."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish the global optimum or identifiability of the parameters."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

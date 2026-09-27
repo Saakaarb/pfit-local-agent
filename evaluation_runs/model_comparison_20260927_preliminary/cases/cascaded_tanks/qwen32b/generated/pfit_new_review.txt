@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided context.
+Extracted the RHS expressions and formulas for the given ODE model.
+Mapped level_lower to x2 and excluded pump_voltage as a forcing input.
+User specified RMSE normalized by the largest absolute measured level_lower value.

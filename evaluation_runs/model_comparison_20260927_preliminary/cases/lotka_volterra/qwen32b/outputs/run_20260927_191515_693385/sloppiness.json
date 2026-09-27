@@ -1,0 +1,121 @@
+{
+  "status": "ok",
+  "method": "finite-difference",
+  "fallback_reason": "TypeError: can't apply forward-mode autodiff (jvp) to a custom_vjp function.",
+  "parameter_names": [
+    "alpha",
+    "beta",
+    "delta",
+    "gamma"
+  ],
+  "coordinates": [
+    "log10(alpha)",
+    "log10(beta)",
+    "log10(delta)",
+    "log10(gamma)"
+  ],
+  "point": [
+    -0.5767858207500528,
+    -0.6607116713483037,
+    -1.2777216438436092,
+    -0.14992658623256594
+  ],
+  "normalized_point": [
+    -0.34941672265755924,
+    0.7334674523196053,
+    0.27624860846135507,
+    0.30676989247061703
+  ],
+  "loss": 0.43032742200247487,
+  "gradient": [
+    -0.14877422599239007,
+    0.10498966438124804,
+    0.14958892737087534,
+    -0.23019080975945103
+  ],
+  "normalized_gradient_inf_norm": 0.2018680139773959,
+  "hessian": [
+    [
+      -2.5475436478797353,
+      0.6020509577008698,
+      1.6523172952082037,
+      -2.949095208476249
+    ],
+    [
+      0.6020509577008698,
+      -0.013222542507018709,
+      -0.6800157858213123,
+      0.856807350271202
+    ],
+    [
+      1.6523172952082037,
+      -0.6800157858213123,
+      -0.7805185292933352,
+      1.8153827475166402
+    ],
+    [
+      -2.949095208476249,
+      0.856807350271202,
+      1.8153827475166402,
+      -3.4640380259609582
+    ]
+  ],
+  "eigenvalues": [
+    0.4683226268550487,
+    -0.02713528458608733,
+    -0.07453867001327706,
+    -7.171971417896733
+  ],
+  "relative_eigenvalues": [
+    1.0,
+    -0.057941434024467955,
+    -0.1591609410671239,
+    -15.314168068408408
+  ],
+  "eigenvectors": [
+    [
+      0.2773394048538625,
+      -0.3192728944795939,
+      0.6827496925634601,
+      -0.5958192097192138
+    ],
+    [
+      -0.6857267138857652,
+      0.3751011730548559,
+      0.6006759920902793,
+      0.16812595386394014
+    ],
+    [
+      0.6712709041244762,
+      0.562109445778849,
+      0.31206229129857527,
+      0.3688434228661079
+    ],
+    [
+      -0.047508963939908604,
+      0.6643770765082793,
+      -0.2750606045589639,
+      -0.6933164229811134
+    ]
+  ],
+  "relative_floor": 1e-06,
+  "positive_spectrum_decades": 0.0,
+  "weak_modes": 0,
+  "negative_modes": 3,
+  "parameters_at_bounds": [],
+  "verdict": "indefinite curvature",
+  "warnings": [
+    "The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.",
+    "Negative curvature detected; do not interpret this point as a local minimum.",
+    "Local curvature only: not proof of structural/global identifiability or convergence."
+  ],
+  "stationary_at_tolerance": false,
+  "finite_difference_relative_change": 5.38930050571325e-06,
+  "finite_difference_stencils": [
+    "central",
+    "central",
+    "central",
+    "central"
+  ],
+  "hessian_relative_asymmetry": 6.201116080230326e-06
+}

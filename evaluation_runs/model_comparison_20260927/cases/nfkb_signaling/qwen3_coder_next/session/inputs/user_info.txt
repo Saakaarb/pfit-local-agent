@@ -1,0 +1,157 @@
+Fit the Lipniacki et al. NF-kB signaling model to nfkb_data.csv.
+
+Dataset columns:
+- time
+- NFkB_nuc, the measured nuclear NF-kB signal.
+
+Integrated states and initial values:
+- IkBalpha(0) = 0.1
+- NFkB(0) = 0.1
+- IkBalpha_NFkB(0) = 0.0
+- IkBbeta(0) = 0.0
+- IkBbeta_NFkB(0) = 0.0
+- IkBeps(0) = 0.0
+- IkBeps_NFkB(0) = 0.0
+- IKK_IkBalpha(0) = 0.0
+- IKK_IkBalpha_NFkB(0) = 0.0
+- IKK(0) = 0.2
+- IKK_IkBbeta(0) = 0.0
+- IKK_IkBbeta_NFkB(0) = 0.0
+- IKK_IkBeps(0) = 0.0
+- IKK_IkBeps_NFkB(0) = 0.0
+- NFkB_nuc(0) = 0.001
+- IkBalpha_nuc(0) = 0.0
+- IkBalpha_nuc_NFkB_nuc(0) = 0.0
+- IkBbeta_nuc(0) = 0.0
+- IkBbeta_nuc_NFkB_nuc(0) = 0.0
+- IkBeps_nuc(0) = 0.0
+- IkBalpha_transcript(0) = 0.0
+- IkBbeta_transcript(0) = 0.0
+- IkBeps_transcript(0) = 0.0
+- IkBeps_nuc_NFkB_nuc(0) = 0.0
+
+Trainable parameters, all log scale:
+- k1 in [0.1, 100.0]
+- k01 in [0.0001, 0.1]
+- tr1 in [0.01, 10.0]
+- tr2 in [0.01, 100.0]
+- tr3 in [0.001, 1.0]
+- deg1 in [0.0001, 0.1]
+- tp1 in [0.001, 1.0]
+- tp2 in [0.001, 1.0]
+- r4 in [0.01, 100.0]
+- k2 in [0.01, 100.0]
+
+Fixed parameters:
+- a4 = 30.0
+- d4 = 0.03
+- a5 = 30.0
+- d5 = 0.03
+- a6 = 30.0
+- d6 = 0.03
+- r5 = 0.45
+- r6 = 0.66
+- deg4 = 0.00135
+- tr2a = 9.25e-05
+- tr2b = 1.068e-05
+- tr2e = 7.62e-06
+- a1 = 1.35
+- d1 = 0.075
+- a2 = 0.36
+- d2 = 0.105
+- a3 = 0.54
+- d3 = 0.105
+- a7 = 11.1
+- a8 = 2.88
+- k2_beta = 0.624
+- a9 = 4.2
+- k2_eps = 0.624
+- r1 = 0.2442
+- r2 = 0.09
+- r3 = 0.132
+- k02 = 0.0072
+- k2_IkBbeta_nuc_NFkB_nuc = 0.0069
+- fr_after_trigger = 0.0
+- flag_for_after_trigger = 0.0
+
+Use cytoplasm = 1.0 and nucleus = 1.0.
+
+Reaction rates:
+- v1 = cytoplasm * (a4 * IkBalpha * NFkB - d4 * IkBalpha_NFkB)
+- v2 = cytoplasm * (a5 * IkBbeta * NFkB - d5 * IkBbeta_NFkB)
+- v3 = cytoplasm * (a6 * IkBeps * NFkB - d6 * IkBeps_NFkB)
+- v4 = cytoplasm * (a4 * IKK_IkBalpha * NFkB - d4 * IKK_IkBalpha_NFkB)
+- v5 = cytoplasm * r4 * IKK_IkBalpha_NFkB
+- v6 = cytoplasm * (a5 * IKK_IkBbeta * NFkB - d5 * IKK_IkBbeta_NFkB)
+- v7 = cytoplasm * r5 * IKK_IkBbeta_NFkB
+- v8 = cytoplasm * (a6 * IKK_IkBeps * NFkB - d6 * IKK_IkBeps_NFkB)
+- v9 = cytoplasm * r6 * IKK_IkBeps_NFkB
+- v10 = cytoplasm * deg4 * IkBalpha_NFkB
+- v11 = cytoplasm * deg4 * IkBbeta_NFkB
+- v12 = cytoplasm * deg4 * IkBeps_NFkB
+- v13 = cytoplasm * k1 * NFkB - nucleus * k01 * NFkB_nuc
+- v14 = nucleus * (a4 * IkBalpha_nuc * NFkB_nuc - d4 * IkBalpha_nuc_NFkB_nuc)
+- v15 = nucleus * (a5 * IkBbeta_nuc * NFkB_nuc - d5 * IkBbeta_nuc_NFkB_nuc)
+- v16 = nucleus * (a6 * IkBeps_nuc * NFkB_nuc - d6 * IkBeps_nuc_NFkB_nuc)
+- v17 = nucleus * tr2a
+- v18 = nucleus * tr2 * NFkB_nuc^2
+- v19 = nucleus * tr3 * IkBalpha_transcript
+- v20 = nucleus * tr2b
+- v21 = nucleus * tr3 * IkBbeta_transcript
+- v22 = nucleus * tr2e
+- v23 = nucleus * tr3 * IkBeps_transcript
+- v24 = cytoplasm * (a1 * IkBalpha * IKK - d1 * IKK_IkBalpha)
+- v25 = nucleus * tr1 * IkBalpha_transcript
+- v26 = cytoplasm * deg1 * IkBalpha
+- v27 = cytoplasm * tp1 * IkBalpha - nucleus * tp2 * IkBalpha_nuc
+- v28 = cytoplasm * (a2 * IkBbeta * IKK - d2 * IKK_IkBbeta)
+- v29 = nucleus * tr1 * IkBbeta_transcript
+- v30 = cytoplasm * deg1 * IkBbeta
+- v31 = cytoplasm * 0.5 * tp1 * IkBbeta - nucleus * 0.5 * tp2 * IkBbeta_nuc
+- v32 = cytoplasm * (a3 * IkBeps * IKK - d3 * IKK_IkBeps)
+- v33 = nucleus * tr1 * IkBeps_transcript
+- v34 = cytoplasm * deg1 * IkBeps
+- v35 = cytoplasm * 0.5 * tp1 * IkBeps - nucleus * 0.5 * tp2 * IkBeps_nuc
+- v36 = cytoplasm * (a7 * IKK * IkBalpha_NFkB - d1 * IKK_IkBalpha_NFkB)
+- v37 = nucleus * k2 * IkBalpha_nuc_NFkB_nuc
+- v38 = cytoplasm * (a8 * IKK * IkBbeta_NFkB - d2 * IKK_IkBbeta_NFkB)
+- v39 = nucleus * k2_IkBbeta_nuc_NFkB_nuc * (fr_after_trigger + flag_for_after_trigger) * IkBbeta_nuc_NFkB_nuc
+- v40 = cytoplasm * (a9 * IKK * IkBeps_NFkB - d3 * IKK_IkBeps_NFkB)
+- v41 = nucleus * 0.5 * k2_eps * IkBeps_nuc_NFkB_nuc
+- v42 = cytoplasm * r1 * IKK_IkBalpha
+- v43 = cytoplasm * r2 * IKK_IkBbeta
+- v44 = cytoplasm * r3 * IKK_IkBeps
+- v45 = cytoplasm * k02 * IKK
+
+ODE system:
+- dIkBalpha/dt = -v1 - v24 + v25 - v26 - v27
+- dNFkB/dt = -v1 - v2 - v3 - v4 + v5 - v6 + v7 - v8 + v9 + v10 + v11 + v12 - v13
+- dIkBalpha_NFkB/dt = v1 - v10 - v36 + v37
+- dIkBbeta/dt = -v2 - v28 + v29 - v30 - v31
+- dIkBbeta_NFkB/dt = v2 - v11 - v38 + v39
+- dIkBeps/dt = -v3 - v32 + v33 - v34 - v35
+- dIkBeps_NFkB/dt = v3 - v12 - v40 + v41
+- dIKK_IkBalpha/dt = -v4 + v24 - v42
+- dIKK_IkBalpha_NFkB/dt = v4 - v5 + v36
+- dIKK/dt = v5 + v7 + v9 - v24 - v28 - v32 - v36 - v38 - v40 + v42 + v43 + v44 - v45
+- dIKK_IkBbeta/dt = -v6 + v28 - v43
+- dIKK_IkBbeta_NFkB/dt = v6 - v7 + v38
+- dIKK_IkBeps/dt = -v8 + v32 - v44
+- dIKK_IkBeps_NFkB/dt = v8 - v9 + v40
+- dNFkB_nuc/dt = v13 - v14 - v15 - v16
+- dIkBalpha_nuc/dt = -v14 + v27
+- dIkBalpha_nuc_NFkB_nuc/dt = v14 - v37
+- dIkBbeta_nuc/dt = -v15 + v31
+- dIkBbeta_nuc_NFkB_nuc/dt = v15 - v39
+- dIkBeps_nuc/dt = -v16 + v35
+- dIkBalpha_transcript/dt = v17 + v18 - v19
+- dIkBbeta_transcript/dt = v20 - v21
+- dIkBeps_transcript/dt = v22 - v23
+- dIkBeps_nuc_NFkB_nuc/dt = v16 - v41
+
+Loss:
+- Compare simulated NFkB_nuc to the single measured data column.
+- Normalize residuals by max(abs(measured column)).
+- loss = sqrt(mean(normalized squared residuals)).
+
+Write out time, measured NFkB_nuc, and simulated NFkB_nuc.

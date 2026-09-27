@@ -1,0 +1,8 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/rmse_contract_live_20260927/sessions/boehm_stat5"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/rmse_contract_live_20260927/sessions/boehm_stat5/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/rmse_contract_live_20260927/sessions/boehm_stat5/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (data.csv): smoke test failed: _observables() missing 8 required positional arguments: 'k_exp_homo', 'k_imp_hetero', 'k_imp_homo', 'k_phos', 'specC17', 'Epo0', 'cyt', and 'nuc'"}
+{"step": "repair_jax_fragments", "status": "attempted", "message": "1"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/rmse_contract_live_20260927/sessions/boehm_stat5/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/rmse_contract_live_20260927/sessions/boehm_stat5/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/rmse_contract_live_20260927/sessions/boehm_stat5/generated/generated_script.py"}

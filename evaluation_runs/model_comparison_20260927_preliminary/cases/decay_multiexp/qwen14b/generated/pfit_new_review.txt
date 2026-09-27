@@ -1,0 +1,4 @@
+The initial conditions for states A and B are provided for both experiments.
+The provided ODE system describes a two-step decay process with two experiments. The equations for the rates and the right-hand sides of the states are extracted based on the user-provided context.
+The CSV columns A and B directly measure the integrated states A and B from the model. No derived quantities are involved.
+The user provided a custom loss definition. The loss is the average of the normalized RMSE for concentrations A and B in both experiments.

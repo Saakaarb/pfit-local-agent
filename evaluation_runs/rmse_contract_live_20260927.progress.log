@@ -1,0 +1,19 @@
+boehm_stat5: starting new
+boehm_stat5: new pass (149.3s)
+boehm_stat5: starting check
+boehm_stat5: check pass (12.42s)
+boehm_stat5: starting jax
+boehm_stat5: jax pass (93.51s)
+boehm_stat5: starting run
+boehm_stat5: run pass (31.64s)
+boehm_stat5: starting diagnose
+boehm_stat5: diagnose pass (20.26s)
+boehm_stat5: overall pass
+oregonator: starting new
+oregonator: new pass (29.66s)
+oregonator: starting check
+oregonator: check pass (6.12s)
+oregonator: starting jax
+oregonator: jax fail (106.59s)
+oregonator: overall fail
+Completed: /workspace/pfit-local-agent/evaluation_runs/rmse_contract_live_20260927/manifest.json

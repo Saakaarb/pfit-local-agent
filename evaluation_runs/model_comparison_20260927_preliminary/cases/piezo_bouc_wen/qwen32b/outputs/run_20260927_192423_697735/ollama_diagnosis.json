@@ -1,0 +1,32 @@
+{
+  "verdict": "Stationarity not established due to high normalized gradient infinity norm.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 3.42326, indicating that stationarity is not established. Since the refinement stopped at its iteration budget, increasing the number of iterations may help in achieving a more stationary solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png).",
+      "reason": "The RMSE for Experiment 1 is 1.29736e-06, which is quite low, but inspecting the residuals and trajectory plot can provide insights into any potential issues with the fit, such as model mismatch or input calibration problems."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There is 1 weak parameter combination, and inspecting the eigenvectors can help identify which parameters are contributing to this weakness. This is important before designing additional experiments or fixing parameters independently."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish the presence of numerical instability or convergence issues beyond the iteration budget."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

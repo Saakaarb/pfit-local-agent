@@ -1,0 +1,4 @@
+All 11 integrated state variables and their initial values are explicitly provided in user context and match the ODE system.
+All 11 ODEs are explicitly provided and match the 11 frozen states. All 12 rate expressions are explicitly defined and can be extracted as formulas. No forcing inputs are present in the model.
+The CSV contains time and Mpp columns. Mpp is an integrated state in the model and directly matches the measured column. No other measurement columns exist beyond time and Mpp.
+User explicitly defined loss: compare simulated Mpp to measured Mpp, normalize residuals by max(abs(measured Mpp)), and use RMSE (sqrt(mean(normalized squared residuals))).

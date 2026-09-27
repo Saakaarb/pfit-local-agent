@@ -1,0 +1,6 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen32b/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen32b
+warning: The automatic log-loss rule does not apply to the 'contact_force' column because its log10(max/min) is 2.17898, which is below the threshold of 3 orders. However, the user's stated loss does not include log residuals, which is consistent with the automatic rule not being required.
+warning: The automatic log-loss rule does not apply to the 'displacement' column because its log10(max/min) is 1.51799, which is below the threshold of 3 orders. However, the user's stated loss does not include log residuals, which is consistent with the automatic rule not being required.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Consider using a well-scaled loss for better convergence. The current loss is already normalized by the maximum absolute value of the measured columns, which is a good practice.

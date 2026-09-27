@@ -1,0 +1,20 @@
+{
+  "stage": "diagnose",
+  "started_utc": "2026-09-27T21:26:39Z",
+  "command": [
+    "diagnose",
+    "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen3_coder_next/session",
+    "run_20260927_212627_200117",
+    "--model",
+    "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1"
+  ],
+  "pid": 117671
+}

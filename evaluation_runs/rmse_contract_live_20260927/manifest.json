@@ -1,0 +1,201 @@
+{
+  "commit": "68baaa861b81a61d21e3466799a28688a3241c3f",
+  "started_utc": "2026-09-27T18:37:40Z",
+  "status": "completed",
+  "settings": {
+    "model": "qwen2.5-coder:32b",
+    "max_repair_attempts": 5,
+    "temperature": 0.1,
+    "max_tokens": 12000,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "gradient_iterations": 5,
+    "fitting_timeout_seconds": 1800,
+    "purpose": "bounded workflow regression, not convergence",
+    "config_policy": "regenerate"
+  },
+  "results": {
+    "boehm_stat5": {
+      "source": "sessions/boehm_stat5",
+      "status": "pass",
+      "input_hashes": {
+        "inputs/data.csv": "bdd9bbf2945201192eef0c745ea74e37c176854670d8500d1623a4a61eb2ef13",
+        "inputs/user_info.txt": "dd095d0c93f9f2872bc0a56d81d2714636df23ec6f18859268d1d29ae6595536",
+        "inputs/user_input.yaml": "153449dfd48c3ec63cbda170bc07cce8e0978205eb5c7de65310a051ef899c1d"
+      },
+      "new": {
+        "status": "pass",
+        "exit_code": 0,
+        "seconds": 149.3,
+        "log": "logs/boehm_stat5/new.log"
+      },
+      "pre_smoke_gradient_settings": {
+        "gradient_optimizer": "adam",
+        "num_iters": 5,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      },
+      "check": {
+        "status": "pass",
+        "exit_code": 0,
+        "seconds": 12.42,
+        "log": "logs/boehm_stat5/check.log"
+      },
+      "jax": {
+        "status": "pass",
+        "exit_code": 0,
+        "seconds": 93.51,
+        "log": "logs/boehm_stat5/jax.log"
+      },
+      "run": {
+        "status": "pass",
+        "exit_code": 0,
+        "seconds": 31.64,
+        "log": "logs/boehm_stat5/run.log"
+      },
+      "run_id": "run_20260927_184156_965928",
+      "fit_summary": {
+        "mode": "full",
+        "seed_loss": 0.25000811970947734,
+        "final_loss": 0.24953757622173395,
+        "aggregation": "equal_experiment_mean",
+        "experiment_losses": [
+          0.24953757622173395
+        ],
+        "gradient_optimizer": "adam",
+        "gradient_iteration_budget": 5,
+        "gradient_iterations_evaluated": 5,
+        "refinement_error": null,
+        "termination": "iteration_budget"
+      },
+      "output_count": 1,
+      "diagnose": {
+        "status": "pass",
+        "exit_code": 0,
+        "seconds": 20.26,
+        "log": "logs/boehm_stat5/diagnose.log"
+      },
+      "ollama_diagnosis_status": "ok",
+      "repair_calls": 2
+    },
+    "oregonator": {
+      "source": "sessions/oregonator",
+      "status": "fail",
+      "input_hashes": {
+        "inputs/data.csv": "90a248e2bb6973c7e84b20b8bac6f1597a51a18789c9be93079e8a47a4ecabf8",
+        "inputs/user_info.txt": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+        "inputs/user_input.yaml": "a6fa6b47f8d4eb44ea233aa3126357a8815076102f515a36a0b7f3b1136429f9"
+      },
+      "new": {
+        "status": "pass",
+        "exit_code": 0,
+        "seconds": 29.66,
+        "log": "logs/oregonator/new.log"
+      },
+      "pre_smoke_gradient_settings": {
+        "gradient_optimizer": "adam",
+        "num_iters": 5,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      },
+      "check": {
+        "status": "pass",
+        "exit_code": 0,
+        "seconds": 6.12,
+        "log": "logs/oregonator/check.log"
+      },
+      "jax": {
+        "status": "fail",
+        "exit_code": 1,
+        "seconds": 106.59,
+        "log": "logs/oregonator/jax.log"
+      },
+      "repair_calls": 5
+    }
+  },
+  "ollama_version": {
+    "version": "0.34.4"
+  },
+  "ollama_tags": {
+    "models": [
+      {
+        "name": "qwen2.5-coder:32b",
+        "model": "qwen2.5-coder:32b",
+        "modified_at": "2026-09-26T07:10:21.430762656Z",
+        "size": 19851349898,
+        "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen2",
+          "families": [
+            "qwen2"
+          ],
+          "parameter_size": "32.8B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 32768,
+          "embedding_length": 5120
+        },
+        "capabilities": [
+          "completion",
+          "tools",
+          "insert"
+        ]
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "name": "boehm_stat5",
+      "source": "sessions/boehm_stat5",
+      "fixture": false
+    },
+    {
+      "name": "oregonator",
+      "source": "sessions/oregonator",
+      "fixture": false
+    }
+  ],
+  "finished_utc": "2026-09-27T18:45:11Z"
+}

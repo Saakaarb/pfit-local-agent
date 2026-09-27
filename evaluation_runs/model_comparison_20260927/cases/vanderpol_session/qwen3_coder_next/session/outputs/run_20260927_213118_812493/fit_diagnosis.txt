@@ -1,0 +1,60 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/vanderpol_session/qwen3_coder_next/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/vanderpol_session/qwen3_coder_next/session/outputs/run_20260927_213118_812493
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 9.9068E-01, best loss 9.9068E-01, final loss 9.9068E-01
+- NODE: 2 iterations, first loss 9.8956E-01, best loss 9.8933E-01, final loss 9.8933E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: vanderpol_data.csv; loss=0.9893334546311816; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/vanderpol_session/qwen3_coder_next/session/outputs/run_20260927_213118_812493/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 1.88161e+28; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 1.88161e+28; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, x1: RMSE=2.29325, bias=-0.320275, time correlation=-0.4015181076549621, lag-1=0.9955060354167266.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, x2: RMSE=0.614608, bias=-0.0317908, time correlation=0.42323722407291864, lag-1=0.9988823243239975.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/vanderpol_session/qwen3_coder_next/session/outputs/run_20260927_213118_812493/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/vanderpol_session/qwen3_coder_next/session/outputs/run_20260927_213118_812493/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The optimization terminated at its iteration budget with a large normalized gradient (1.88e+28), indicating non-stationarity and likely numerical instability; residual diagnostics show systematic misfit (especially in x1), and sloppiness analysis reveals one negative mode—suggesting potential model or solver issues rather than convergence failure.
+1. Run `diagnose --probe-gradients` to verify gradient correctness before considering a gradient-only restart. [STATIONARITY, BUDGET] The extremely large normalized gradient (STATIONARITY) combined with termination at iteration budget (BUDGET) suggests either numerical instability or incorrect gradients; probing gradients is necessary before investing more iterations.
+2. Inspect `fit_exp1.png` to assess time-region residuals and trajectory alignment, focusing on the large RMSE and negative bias in x1. [RESIDUAL] Residual diagnostics show experiment 1 x1 has RMSE=2.29, bias=-0.32, and strong lag-1 correlation (0.995), indicating persistent misfit; visual inspection is needed to distinguish timing, initial condition, or model structural errors.
+3. Check for parameter identifiability issues: the single negative mode suggests possible overparameterization or ill-conditioning in the current model formulation. [SLOPPINESS] Sloppiness analysis reports 1 negative mode, which can indicate non-identifiability or numerical issues in the loss landscape—this may explain the unstable gradient magnitude and poor convergence despite budget not exhausted.
+Limitation: The evidence does not establish whether the large gradient stems from autodiff error, solver stiffness, or true model non-identifiability.
+Limitation: Residual diagnostics do not distinguish between input timing errors, initial condition mismatch, and model structural error.
+Limitation: No evidence is available on solver stiffness, step-size stability, or finite-difference consistency to confirm or rule out numerical integration issues.

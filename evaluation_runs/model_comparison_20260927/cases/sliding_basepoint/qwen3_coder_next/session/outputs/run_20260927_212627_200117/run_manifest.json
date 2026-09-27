@@ -1,0 +1,27 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "force_disp_data_sliding_basepoint.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "77c96e34f79a89cfe7a6db42fb923c7ea8a4e47d12005fde6bd0a9a3310a4cb0",
+      "initial_conditions": {
+        "x1": 0.0,
+        "x2": 0.0,
+        "v1": 11.06,
+        "v2": 0.0,
+        "k": 1290000.0,
+        "c1": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

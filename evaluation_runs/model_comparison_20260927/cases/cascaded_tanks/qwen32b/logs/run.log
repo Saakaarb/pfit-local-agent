@@ -1,0 +1,24 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/cascaded_tanks/qwen32b/session/outputs/run_20260927_201311_565895
+Launching driver script
+Available devices:  [CpuDevice(id=0), CpuDevice(id=1), CpuDevice(id=2), CpuDevice(id=3), CpuDevice(id=4), CpuDevice(id=5), CpuDevice(id=6), CpuDevice(id=7)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/cascaded_tanks/qwen32b/session/outputs/run_20260927_201311_565895
+DE tolerances  — rtol: [1e-07, 1e-07], atol: [1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 1.8033E+00
+Time for iteration: 0.0761
+-------
+Final best position (scaled): [ 0.11260359  0.39853471 -0.74772587 -0.91989398]
+Final best cost: 1.8033E+00
+Done with DE search
+Best Position from DE: [0.16796051 0.62671405 0.00319557 0.00144615]
+Best cost from DE: 1.8033225859954067
+NODE tolerances — rtol: [1e-07, 1e-07], atol: [1e-09, 1e-09]
+Trainable_params: [ 0.11260359  0.39853471 -0.74772587 -0.91989398]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Stopping G.D iterations, exiting with previous best solution, failed at iter: 0
+Final best position: [0.16796051 0.62671405 0.00319557 0.00144615]
+Final loss: 1.8033226240240372
+Computing post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/cascaded_tanks/qwen32b/session/outputs/run_20260927_201311_565895

@@ -1,0 +1,381 @@
+{
+  "case": "sneyd_ipr",
+  "model_metadata": {
+    "key": "qwen14b",
+    "model": "qwen2.5-coder:14b",
+    "label": "Qwen2.5-Coder 14B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 14.8,
+    "nominal_active_parameters_billion": 14.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 9000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:14b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct"
+    ],
+    "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+    "size_bytes": 8988124298,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 147.94898634031415,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 14770033664,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "dd823e6a80f20c812c0e698e3c9c0fba84b0407f",
+    "warmup_seconds": 4.599303422495723,
+    "warmup_response": {
+      "model": "qwen2.5-coder:14b",
+      "created_at": "2026-09-27T20:37:05.753353097Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 4598696987,
+      "load_duration": 4494226035,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 85465000,
+      "eval_count": 2,
+      "eval_duration": 16762000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:14b",
+          "model": "qwen2.5-coder:14b",
+          "size": 12266745363,
+          "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "14.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-07T20:24:22.608305809Z",
+          "size_vram": 12266745363,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 12307 MiB"
+  },
+  "input_audit": {
+    "name": "sneyd_ipr",
+    "source": "tests/fixtures/sneyd_ipr",
+    "adaptations": [
+      {
+        "file": "ca01.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "c282876fdf0f7fd77f3fc3da048e55c01301d713b3ff16075e54a54193bcccbc"
+      },
+      {
+        "file": "ca02.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "00310f967e4d8efb2bbd62c9bba67c94fce1a71a3a69bff5aa4c0bfc1ac3e6c8"
+      },
+      {
+        "file": "ca04.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "fdddfc2ec85ace803db677c4d5e5ee799bedde6d8708752632e19c052b1f1697"
+      },
+      {
+        "file": "ca1.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "2bd3f61d1dee1d977044a90e8b795a0ae8333f22187458dbac21771d48812587"
+      },
+      {
+        "file": "ca3.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "f2b251bf374b637d3cad345773421d58f7905f0c395cfbc01098f31649fb1379"
+      },
+      {
+        "file": "ca10.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "3c59fff536525336ba26af05ba657733ee5d2eab75240e0328f58e0b4d6a35fc"
+      },
+      {
+        "file": "ip3.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "786c5341fa88448efa3ba26320f82ad34f474b5c83d2c7ba551487a6b34e44e7"
+      },
+      {
+        "file": "ip5.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "440c3c61701cd37e3a2f873518e11de32c7e43ad51b677fb17cd010b06712295"
+      },
+      {
+        "file": "ip10.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "4945ba78bf41b2268edd675d6f0673dac6770c74e431c76fa327d0dff8821088"
+      }
+    ],
+    "status": "ready",
+    "expected_experiments": 9,
+    "expected_data_files": [
+      "ca01.csv",
+      "ca02.csv",
+      "ca04.csv",
+      "ca1.csv",
+      "ca10.csv",
+      "ca3.csv",
+      "ip10.csv",
+      "ip3.csv",
+      "ip5.csv"
+    ],
+    "prompt_sha256": "4bb8bce1f56686216e551fdf17c29d66dd6801697525c2e986876a99e60c9319",
+    "original_prompt_sha256": "d8d334a04f0b2b5c5d2af9dffdf147cd27b19fa523c6ce5258d750b9a4b7abc0",
+    "prompt_audit": "Expanded loss-only notes into scientific equations, bounds, initial conditions, observations, inputs and experiment definitions. No Python or YAML supplied.",
+    "input_hashes": {
+      "ca01.csv": "3b45b0964da29f45414901910df71dbf4027781904ea7d5e5d75b3de270492ec",
+      "ca02.csv": "917e822b390f118801794cbe79bb895dc44b625601ee8713037fc6455871050f",
+      "ca04.csv": "27dc3d52b8f8aee45363d9605c71b020997042da87a9cf001dd708578fcaacb6",
+      "ca1.csv": "b74f049ba9629b3c52802ea459decd280de19de4363c280aaab222ef6e132170",
+      "ca10.csv": "208d36866e60127140a1ec21fd1404927ef14c307c39f2e1452611cc31b8106c",
+      "ca3.csv": "d8b5e8814c9172ba17a0d67b32f1aa8c1f112479f80996dabd01ff4f8464118d",
+      "ip10.csv": "f5b68f33c83effa323a3ecd14c3edb23a2dfafe7336fd1ffe5a7490cc7ee80a5",
+      "ip3.csv": "11908802a3f8eba5a9e7ea314cedbff0da568ed00d6d14ba9c9d7c4240a86677",
+      "ip5.csv": "b6fe7adae03577778028754cf1311e2c7c5ac39f644ed8f31433113c43a73ff3",
+      "user_info.txt": "4bb8bce1f56686216e551fdf17c29d66dd6801697525c2e986876a99e60c9319"
+    }
+  },
+  "status": "pass",
+  "started_utc": "2026-09-27T20:51:54Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-09-27T20:51:54Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sneyd_ipr/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 91826,
+      "exit_code": 0,
+      "seconds": 91.681,
+      "finished_utc": "2026-09-27T20:53:26Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-09-27T20:53:26Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sneyd_ipr/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 91906,
+      "exit_code": 0,
+      "seconds": 5.898,
+      "finished_utc": "2026-09-27T20:53:32Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-09-27T20:53:32Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sneyd_ipr/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 91970,
+      "exit_code": 0,
+      "seconds": 35.509,
+      "finished_utc": "2026-09-27T20:54:07Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-09-27T20:54:07Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sneyd_ipr/qwen14b/session"
+      ],
+      "pid": 92602,
+      "exit_code": 0,
+      "seconds": 107.443,
+      "finished_utc": "2026-09-27T20:55:54Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-09-27T20:55:55Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sneyd_ipr/qwen14b/session",
+        "run_20260927_205408_118509",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 93567,
+      "exit_code": 0,
+      "seconds": 18.538,
+      "finished_utc": "2026-09-27T20:56:13Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20260927_205408_118509",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.008296315238522768,
+    "final_loss": 0.008289837767674673,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.0013217922184923844,
+      0.0032646973298329283,
+      0.017681071919043657,
+      0.008377263019176831,
+      0.0070506876635195925,
+      0.004946980979304814,
+      0.004359110713002032,
+      0.01068720806654987,
+      0.01691972800014996
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget"
+  },
+  "output_count": 9,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-09-27T20:56:13Z",
+  "total_wall_seconds": 259.274,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 132.56248846836388,
+  "prompt_tokens": 56525,
+  "generated_tokens": 6338,
+  "token_counts_incomplete": false
+}

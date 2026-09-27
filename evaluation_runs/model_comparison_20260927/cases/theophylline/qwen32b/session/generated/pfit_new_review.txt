@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values.
+Extracted RHS expressions and formulas for the one-compartment oral theophylline pharmacokinetic model.
+The CSV column C_plasma directly measures the derived observable C_plasma.
+User provided a custom loss definition.

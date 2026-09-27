@@ -1,0 +1,25 @@
+{
+  "verdict": "High RMSE and bias with negative time correlation suggest model mismatch or data issues.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png).",
+      "reason": "The RMSE of 18.0332 and bias of 17.9231 indicate significant model-data disagreement. The negative time correlation and high lag-1 correlation suggest potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "LIMITATIONS"
+      ],
+      "action": "Check input timing, calibration, initial conditions, and model mismatch.",
+      "reason": "No verified final-point gradient is available, and a flat optimizer log does not establish convergence. This suggests that the model may not be capturing the data accurately."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence.",
+    "Sloppiness analysis failed, so parameter identifiability is uncertain."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

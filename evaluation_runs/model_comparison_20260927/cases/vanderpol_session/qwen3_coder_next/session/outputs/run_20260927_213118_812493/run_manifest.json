@@ -1,0 +1,23 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "vanderpol_data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "30c2acd23cd873064deebfe9e5bdb982e6b8cb01b6e4bf3276678b2f36df4990",
+      "initial_conditions": {
+        "x1": 2.0,
+        "x2": 0.1
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

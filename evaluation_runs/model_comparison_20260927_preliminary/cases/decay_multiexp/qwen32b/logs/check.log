@@ -1,0 +1,12 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/decay_multiexp/qwen32b/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/decay_multiexp/qwen32b
+warning: Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Measured column spans orders of magnitude: Experiment 2 (decay_run_B.csv): A uses dataset[:, 0], positive min=9.07999e-05, max=2, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Unverified semantic finding: The loss expression in _compute_loss_problem uses dataset[:, 0] which refers to the first measured column (A), not the time column. This is likely an error as the time column is not used in the loss calculation. Offending expression: (solution[:, 0] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)
+warning: Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Measured column spans orders of magnitude: Experiment 2 (decay_run_B.csv): A uses dataset[:, 0], positive min=9.07999e-05, max=2, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Very small population size (4) and gradient iteration counts (1 and 5) may lead to poor convergence or suboptimal results.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Review the loss expression to ensure that the correct columns are being used. It seems that the time column is mistakenly used in the loss calculation.
+recommendation: Consider increasing the population size and gradient iteration counts for better convergence.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.

@@ -1,0 +1,5 @@
+The initial conditions for y1, y2, and y3 are provided and are consistent with the user-provided context.
+The Robertson chemical kinetics model has been extracted with the provided ODE system and parameters.
+The CSV columns y1, y2, and y3 directly correspond to the integrated states in the Robertson chemical kinetics model.
+The user wants to fit the Robertson chemical kinetics model to the provided data using a custom loss function that normalizes each residual by the maximum absolute value of the measured column and then computes the root mean square error.
+Original user context indicates a stiff model.

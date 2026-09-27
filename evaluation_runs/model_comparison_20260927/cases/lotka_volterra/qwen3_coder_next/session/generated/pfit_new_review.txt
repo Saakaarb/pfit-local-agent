@@ -1,0 +1,4 @@
+States H and L are clearly defined with initial values from the CSV and user_info.txt.
+Lotka-Volterra predator-prey model extracted directly from provided ODEs. All parameters and states are frozen as specified. No external forcing inputs are present.
+Both CSV measurement columns H and L directly correspond to the integrated states H and L of the Lotka-Volterra model. No derived formulas are needed.
+User explicitly defined loss: normalized squared-error per observed state, normalized by max(abs(measured column)), and final loss as sqrt(mean(all normalized squared residuals)) — this corresponds to max_abs_normalized_rmse per term and overall RMSE of normalized residuals.

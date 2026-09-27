@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the user_info.txt and frozen dataset.
+Extracted all reaction rates and ODE system equations as specified.
+The CSV measurement column 'Mpp' directly measures the integrated state 'Mpp' in the model.
+The user provided a custom loss definition, which will be used for fitting the Kholodenko MAPK/ERK cascade model to the mapk_data.csv dataset.

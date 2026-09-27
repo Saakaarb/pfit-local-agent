@@ -1,0 +1,4 @@
+Initial values for A_gut and A_plasma are explicitly provided in user_info.txt and frozen experiment initial_conditions; no ambiguity.
+Extracted ODE system and derived observable from one-compartment oral PK model. All rates and derived expressions are directly from the provided ODE and observable definition.
+The CSV contains one measurement column (C_plasma) after time, which matches the derived observable C_plasma = A_plasma / Vd defined in the model.
+User explicitly defined loss: normalized RMSE where residuals are normalized by max(abs(measured C_plasma column)). This maps to max_abs_normalized_rmse metric.

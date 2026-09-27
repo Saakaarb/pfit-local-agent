@@ -1,0 +1,32 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 0.364027.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters to 10 and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.364027, indicating that stationarity is not established. Increasing the number of gradient iterations may help refine the solution further."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plots (fit_exp1.png, fit_exp2.png).",
+      "reason": "The residuals for all experiments show varying RMSE and bias values. Inspecting these plots can help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS"
+      ],
+      "action": "Check the sloppiness analysis for any negative modes.",
+      "reason": "The sloppiness analysis indicates one negative mode, which suggests that the model may be overparameterized or that some parameters are not well-constrained. Further investigation is needed to address this issue."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the model is globally optimal or identifiable.",
+    "The evidence does not provide information about the stability of the gradients or the appropriateness of the bounds."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

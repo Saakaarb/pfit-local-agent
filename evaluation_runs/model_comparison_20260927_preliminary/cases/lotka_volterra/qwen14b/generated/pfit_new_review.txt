@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided context.
+The Lotka-Volterra predator-prey model equations have been extracted and formatted according to the provided schema.
+The CSV columns H and L directly measure the integrated states H and L from the Lotka-Volterra model.
+The user has provided a custom loss definition. The loss will be calculated using normalized squared-error terms for the observed states H and L, normalized by max(abs(measured column)).

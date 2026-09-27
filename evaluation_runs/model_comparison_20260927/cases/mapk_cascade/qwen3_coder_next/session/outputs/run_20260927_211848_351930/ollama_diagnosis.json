@@ -1,0 +1,47 @@
+{
+  "verdict": "The fit terminated at iteration budget with a non-stationary solution (normalized gradient infinity norm = 0.997), strong residual bias and time correlation structure in Experiment 1 Mpp, and multiple parameters at bound extremes\u2014indicating the optimizer is stuck, not converged.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND",
+        "RESIDUAL",
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Inspect fit_exp1.png to diagnose time-region residual patterns and model-mismatch timing.",
+      "reason": "Residual evidence shows strong negative time correlation (-0.935) and lag-1 correlation near 1, with RMSE increasing across time regions (1.78 \u2192 3.96 \u2192 4.77); visual inspection is needed to determine if the mismatch is due to initial conditions, input timing, or structural model error."
+    },
+    {
+      "evidence_ids": [
+        "BOUND",
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run a gradient-only restart from this run with gradient_opt.num_iters increased (e.g., to 50), after verifying gradient checks pass.",
+      "reason": "Stationarity is not established (gradient norm = 0.997), refinement stopped at iteration budget, and the loss decreased from 0.3085 to 0.30725 over 5 iterations\u2014suggesting further gradient descent could improve the solution if bounds are appropriate."
+    },
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Verify physical plausibility of bound extremes: k1=0.00100173 (0.02% of log10 interval), k3=0.00100173 (0.02%), h_1=100 (100%), h2=0.998276 (99.98%), h3=100 (100%), h4=0.0001 (0%), h_6=0.0998275 (99.98%).",
+      "reason": "Multiple parameters are at or near bound limits, which may indicate either true physical extremes or inappropriate search bounds; automatic widening is discouraged without scientific justification."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES",
+        "SLOPPINESS"
+      ],
+      "action": "Inspect eigenvectors of the curvature matrix to understand the 3 weak parameter combinations before adding experiments or fixing parameters.",
+      "reason": "Sloppiness analysis confirms 3 weak modes and 4 negative modes; weak modes indicate directions of low sensitivity, not necessarily non-identifiability, and require eigenvector inspection to guide experimental design or parameter fixing."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the residual structure is due to model misspecification, incorrect initial conditions, or experimental timing errors.",
+    "Gradient-only restart is not recommended without confirming gradient checks pass and bounds are physically justified.",
+    "The 3 weak modes and 4 negative modes indicate potential non-identifiability, but eigenvector inspection is required before concluding which parameters or combinations are problematic.",
+    "Loss magnitude (0.307) and RMSE (3.72) are not normalized against data scale in a way that permits cross-experiment or cross-study comparison without additional context."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

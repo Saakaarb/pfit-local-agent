@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided files.
+All required equations and formulas are provided and extracted.
+All CSV measurement columns are mapped to the corresponding simulated states or formulas.
+User provided a custom loss function with normalization and log10 scaling for q_obs.

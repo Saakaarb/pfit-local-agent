@@ -1,0 +1,23 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "lynx_hare.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "2cd4fb7326858c38b64293b7847a129e1c3c74e216a1426c11fed24c84c881a1",
+      "initial_conditions": {
+        "H": 30.0,
+        "L": 4.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

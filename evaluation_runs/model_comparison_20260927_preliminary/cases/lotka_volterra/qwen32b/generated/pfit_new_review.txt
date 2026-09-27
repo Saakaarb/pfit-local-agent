@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided context.
+Extracted Lotka-Volterra model equations with no missing inputs.
+All CSV measurement columns are directly mapped to the integrated states.
+User provided a custom loss definition with normalized residuals by max(abs(measured column)) and RMSE.

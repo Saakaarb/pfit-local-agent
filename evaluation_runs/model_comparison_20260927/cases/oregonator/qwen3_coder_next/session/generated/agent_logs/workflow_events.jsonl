@@ -1,0 +1,24 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (data.csv): smoke test failed: _compute_loss_problem returned non-finite loss or integration failure: 1e+30"}
+{"step": "repair_jax_fragments", "status": "attempted", "message": "1"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (data.csv): smoke test failed: _compute_loss_problem returned non-finite loss or integration failure: 1e+30"}
+{"step": "repair_jax_fragments", "status": "attempted", "message": "2"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (data.csv): smoke test failed: _compute_loss_problem returned non-finite loss or integration failure: 1e+30"}
+{"step": "repair_jax_fragments", "status": "attempted", "message": "3"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (data.csv): smoke test failed: _compute_loss_problem returned non-finite loss or integration failure: 1e+30"}
+{"step": "repair_jax_fragments", "status": "attempted", "message": "4"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (data.csv): smoke test failed: _compute_loss_problem returned non-finite loss or integration failure: 1e+30"}
+{"step": "repair_jax_fragments", "status": "attempted", "message": "5"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen3_coder_next/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (data.csv): smoke test failed: _compute_loss_problem returned non-finite loss or integration failure: 1e+30"}

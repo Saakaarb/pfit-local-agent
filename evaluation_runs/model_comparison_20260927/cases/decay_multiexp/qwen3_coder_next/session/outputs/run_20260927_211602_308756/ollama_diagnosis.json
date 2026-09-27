@@ -1,0 +1,34 @@
+{
+  "verdict": "Optimization terminated at iteration budget with non-stationary gradients (inf-norm = 0.364), large residuals (RMSE up to 0.64), and persistent bias, indicating model-data mismatch or mis-specified timing/initial conditions rather than insufficient optimization effort alone.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png and fit_exp2.png to diagnose time-localized residuals and trajectory misalignment",
+      "reason": "Residual evidence shows experiment-specific RMSE up to 0.64, strong bias (e.g., -0.55 for Exp2-B), and high lag-1 correlation (0.86\u20130.87), suggesting systematic misfit in specific time regions (e.g., early-phase overshoot in all experiments) that requires visual inspection to distinguish timing, calibration, or model structural issues"
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "OPTIMIZER"
+      ],
+      "action": "Run gradient-only restart with increased gradient_opt.num_iters (e.g., 20\u201350) only after confirming gradient checks pass and residual plots show no structural misfit",
+      "reason": "Normalized gradient infinity norm is 0.364 (not near zero), and refinement stopped due to iteration budget (5/5), but the small loss change (0.31667 \u2192 0.31637) and non-stationarity suggest further gradient steps may help only if the model and residuals are otherwise plausible"
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to verify gradient correctness before committing to a gradient-only restart",
+      "reason": "Refinement stopped at iteration budget, and the gradient-only trace shows minimal improvement (last iteration 5, last material improvement at 5), so verifying gradient fidelity is essential before investing more iterations"
+    }
+  ],
+  "limitations": [
+    "Evidence does not establish whether the model structure (two-step decay) is appropriate for the data, or whether timing, initial conditions, or calibration errors cause the residual patterns",
+    "Cannot determine if the negative sloppiness mode indicates a genuine identifiability issue without further parameter sensitivity analysis",
+    "Residual diagnostics (time correlation, lag-1) suggest autocorrelated errors but do not quantify whether noise assumptions or integration errors contribute"
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

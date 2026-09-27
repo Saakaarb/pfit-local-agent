@@ -1,0 +1,170 @@
+{
+  "case": "oregonator",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.1760293636471033,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "8438690ada6e5aee19e253e67c449e4aeb2630de",
+    "warmup_seconds": 7.116351703181863,
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-09-27T19:03:47.454161783Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 7115590801,
+      "load_duration": 6911100843,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 142011000,
+      "eval_count": 2,
+      "eval_duration": 58858000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-07T18:51:04.309060772Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 23917 MiB"
+  },
+  "input_audit": {
+    "name": "oregonator",
+    "source": "sessions/oregonator",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "data.csv"
+    ],
+    "prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "original_prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "data.csv": "90a248e2bb6973c7e84b20b8bac6f1597a51a18789c9be93079e8a47a4ecabf8",
+      "user_info.txt": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1"
+    }
+  },
+  "status": "fail",
+  "started_utc": "2026-09-27T19:22:24Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-09-27T19:22:24Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen32b",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 23180,
+      "exit_code": 1,
+      "seconds": 58.595,
+      "finished_utc": "2026-09-27T19:23:23Z",
+      "status": "fail",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "failed_stage": "new",
+  "finished_utc": "2026-09-27T19:23:23Z",
+  "total_wall_seconds": 58.636,
+  "repair_calls": 5,
+  "logged_successful_llm_calls": 11,
+  "llm_calls": 11,
+  "llm_wall_seconds": 57.655461218208075,
+  "prompt_tokens": 40140,
+  "generated_tokens": 1585,
+  "token_counts_incomplete": false
+}

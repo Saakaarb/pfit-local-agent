@@ -1,0 +1,16 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- none
+
+Recommendations:
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Verify that the loss normalization uses measured column scales (np.max(np.abs(dataset[:, i]))) as intended — this matches the user's stated loss and is consistent with the runtime contract.
+- Confirm that the writeout array shape [N, 5] matches the expected output columns: time, measured H, measured L, simulated H, simulated L — this aligns with writeout_description.
+- Ensure the parameter bounds (logscale=True for all 4 parameters) are compatible with the optimizer's learning-rate schedule — the gradient optimizer uses stepsize_rtol/atol for ODE solving, not parameter scaling, so this is safe but worth noting.
+- The population optimizer uses only 4 individuals and 1 iteration — this is extremely minimal; consider increasing for robustness if convergence is poor, though it may suffice for a quick sanity check.
+
+Semantic review:
+Session is ready for JAX translation. All critical checks pass: dataset columns align with integrated variables and observables, loss matches the user's explicit normalized RMSE definition, no NaN/infinity issues, and writeout structure is consistent. No warnings or critical errors were found.

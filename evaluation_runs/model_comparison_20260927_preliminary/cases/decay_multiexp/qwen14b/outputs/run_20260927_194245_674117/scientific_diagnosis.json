@@ -1,0 +1,273 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/decay_multiexp/qwen14b/outputs/run_20260927_194245_674117",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/decay_multiexp/qwen14b/outputs/run_20260927_194245_674117/snapshot",
+  "findings": [
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 0.388939; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, A: RMSE=0.140259, bias=0.105804, time correlation=-0.7503153855022271, lag-1=0.8631953152677508.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, B: RMSE=0.251908, bias=-0.220325, time correlation=0.5996114193852705, lag-1=0.8734980447909609.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, A: RMSE=0.280518, bias=0.211607, time correlation=-0.7503153854464205, lag-1=0.8631953152614384.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, B: RMSE=0.637775, bias=-0.553038, time correlation=0.630375740100583, lag-1=0.8661810359130415.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 0.14025878268888403,
+          "mae": 0.10580368622438874,
+          "bias": 0.10580368622438874,
+          "max_abs": 0.2729359646339258,
+          "time_correlation": -0.7503153855022271,
+          "lag1_correlation": 0.8631953152677508,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 0.2180483611675993
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 0.10469532516518698
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 0.022613700377928394
+            }
+          ],
+          "name": "A",
+          "observes": "A"
+        },
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 0.25190803518278587,
+          "mae": 0.22032512872582413,
+          "bias": -0.22032512872582413,
+          "max_abs": 0.40525284246616766,
+          "time_correlation": 0.5996114193852705,
+          "lag1_correlation": 0.8734980447909609,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 0.33118616064229756
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 0.2629041345978079
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 0.10756448103043588
+            }
+          ],
+          "name": "B",
+          "observes": "B"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 0.28051756548644646,
+          "mae": 0.21160737256119447,
+          "bias": 0.21160737256119447,
+          "max_abs": 0.5458719296922678,
+          "time_correlation": -0.7503153854464205,
+          "lag1_correlation": 0.8631953152614384,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 0.4360967224490292
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 0.20939065052871628
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 0.04522740076218974
+            }
+          ],
+          "name": "A",
+          "observes": "A"
+        },
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 0.6377750472937089,
+          "mae": 0.5530379557785902,
+          "bias": -0.5530379557785902,
+          "max_abs": 1.0439025655993592,
+          "time_correlation": 0.630375740100583,
+          "lag1_correlation": 0.8661810359130415,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 0.8589947014485348
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 0.6449828053101202
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 0.25767482723212953
+            }
+          ],
+          "name": "B",
+          "observes": "B"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 0.4673640298342692,
+      "range_fraction": 0.5565517614461886,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 1.2504090973276247,
+      "range_fraction": 0.6990173749079581,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.3345810282679234,
+    "final_loss": 0.3342760641895631,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.3167461611847322,
+      0.35180596719439405
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget"
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/decay_multiexp/qwen14b/outputs/run_20260927_194245_674117/de_fitting.log",
+      "rows": 1,
+      "first": 0.33458,
+      "final": 0.33458,
+      "best": 0.33458,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.33458
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/decay_multiexp/qwen14b/outputs/run_20260927_194245_674117/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.33434,
+      "final": 0.33428,
+      "best": 0.33428,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.33434
+        ],
+        [
+          5,
+          0.33428
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.334276064189563,
+  "experiment_losses": [
+    0.31674616118473214,
+    0.35180596719439394
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 0,
+    "negative_modes": 1
+  },
+  "normalized_gradient_inf_norm": 0.38893900318471075,
+  "gradient_to_loss_ratio": 1.1635263330255952,
+  "verdict": "Normalized gradient infinity norm is 0.388939; stationarity is not established."
+}

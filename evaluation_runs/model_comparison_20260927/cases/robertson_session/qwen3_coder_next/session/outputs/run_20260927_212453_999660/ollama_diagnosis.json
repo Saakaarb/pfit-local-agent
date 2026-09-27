@@ -1,0 +1,34 @@
+{
+  "verdict": "The optimization terminated at its iteration budget with a non-negligible normalized gradient infinity norm (0.176), indicating the solution is not stationary; residual diagnostics show systematic bias and time-correlated structure in y1/y3, suggesting model or data mismatch rather than mere insufficient iterations.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run a gradient-only restart from the final parameters with gradient_opt.num_iters increased (e.g., to 20) and verify gradient checks pass.",
+      "reason": "The normalized gradient infinity norm (0.176) is too large for stationarity (STATIONARITY), and refinement stopped only due to iteration budget (BUDGET); a gradient-only restart is appropriate if gradients are reliable and bounds remain valid."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png and time-region residual plots for y1 and y3 to diagnose bias, lag-1 correlation, and time-correlated structure.",
+      "reason": "Residual diagnostics show large bias (\u22480.03) and high time/lag-1 correlations for y1 and y3 (RMSE\u22480.05, time_correlation\u2248\u00b10.88, lag-1\u22480.98), indicating potential timing, initial condition, or model structural issues that must be resolved before further iteration (RESIDUAL)."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS"
+      ],
+      "action": "Check for parameter identifiability issues: one negative mode was detected (sloppiness.negative_modes=1).",
+      "reason": "The presence of a negative mode (SLOPPINESS) suggests potential non-identifiability or ill-conditioning, which could explain the slow gradient progress and residual structure; this should be investigated before committing to more iterations."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the model equations or initial conditions are correct; residual patterns could arise from model mismatch, input timing errors, or incorrect initial states.",
+    "Gradient reliability cannot be confirmed without explicit gradient check results; finite-difference stability or tolerance comparisons are not provided.",
+    "The loss magnitude (0.379) is not directly interpretable without domain-specific context; it is not known whether this is acceptable for the scientific goal."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

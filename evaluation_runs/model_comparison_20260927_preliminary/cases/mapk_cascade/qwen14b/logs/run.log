@@ -1,0 +1,36 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen14b/outputs/run_20260927_194518_449332
+Launching driver script
+Available devices:  [CpuDevice(id=0), CpuDevice(id=1), CpuDevice(id=2), CpuDevice(id=3), CpuDevice(id=4), CpuDevice(id=5), CpuDevice(id=6), CpuDevice(id=7)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen14b/outputs/run_20260927_194518_449332
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 3.0850E-01
+Time for iteration: 0.0639
+-------
+Final best position (scaled): [-1.         -0.08938579 -0.48599472 -1.         -0.45647858  0.24059792
+ -0.49813288  1.          1.          1.         -0.20500415 -1.
+ -0.28136025 -0.78715024 -0.4919282   1.        ]
+Final best cost: 3.0850E-01
+Done with DE search
+Best Position from DE: [1.00000000e-03 6.62564890e-01 5.90211840e-03 1.00000000e-03
+ 1.22192018e-01 7.25933582e+01 5.65979474e-03 1.00000000e+02
+ 1.00000000e+00 1.00000000e+02 3.89037704e-03 1.00000000e-04
+ 2.73702957e-01 2.08580949e-02 5.78239416e-03 1.00000000e-01]
+Best cost from DE: 0.3085037223660419
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Trainable_params: [-1.         -0.08938579 -0.48599472 -1.         -0.45647858  0.24059792
+ -0.49813288  1.          1.          1.         -0.20500415 -1.
+ -0.28136025 -0.78715024 -0.4919282   1.        ]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.3085037223660418 0.3085037223660418
+Iteration:,loss value, best loss: 4 0.3074985347247682 0.3074985347247682
+Iteration time: 3.3956122398376465
+Final best position: [1.00172828e-03 6.61041171e-01 5.91231940e-03 1.00172836e-03
+ 1.21911017e-01 7.27188180e+01 5.65003654e-03 1.00000000e+02
+ 9.98275959e-01 1.00000000e+02 3.88165993e-03 1.00000000e-04
+ 2.74332473e-01 2.08223737e-02 5.77252308e-03 9.98274692e-02]
+Final loss: 0.3072469219513972
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen14b/outputs/run_20260927_194518_449332

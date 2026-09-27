@@ -1,0 +1,8 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen32b/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen32b
+warning: Very small population size (4) and gradient iteration count (5) detected; consider increasing these for better convergence.
+warning: The automatic log-loss rule does not apply to the 'Mpp' column due to zero/negative values, but the user's loss normalization by max(abs(measured Mpp column)) is appropriate.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase the population size and gradient iteration count to improve fitting and convergence.
+recommendation: Consider using logscale for the gradient optimizer learning rate schedule if the parameter space is wide.

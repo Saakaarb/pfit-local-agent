@@ -1,0 +1,4 @@
+Initial values for states A and B are explicitly provided in the frozen dataset for each experiment and match the user_info.txt description.
+Extracted ODE system from user-provided reaction mechanism A -> B -> products with two rate constants k1 and k2. Both experiments share the same parameters and ODEs; initial conditions differ per experiment and are fixed. No external forcing inputs are present.
+Both CSV files measure A and B concentrations over time. The model has states A and B with matching dynamics, so each measured column maps directly to the corresponding simulated state.
+User explicitly defines a normalized RMSE loss per experiment, dividing residuals by the max absolute measured value per experiment and averaging experiment losses equally.

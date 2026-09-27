@@ -1,0 +1,4 @@
+Extracted state variables and initial values from the provided data.
+Extracted the ODE equations for the decay process with two states A and B, and two parameters k1 and k2.
+All CSV measurement columns are mapped to the corresponding integrated states.
+User provided a custom loss definition for the decay experiments.

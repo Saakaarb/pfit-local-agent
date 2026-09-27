@@ -1,0 +1,24 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "robertson_data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "df408a5e1dc16948637ea6ee7ae131817d200e0089fdba0ad226da38f4076a9f",
+      "initial_conditions": {
+        "y1": 1.0,
+        "y2": 0.0,
+        "y3": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

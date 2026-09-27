@@ -1,0 +1,4 @@
+Initial values for states x1 and x2 are explicitly provided in user_info.txt and frozen dataset initial_conditions.
+Extracted RHS and formulas directly from the provided ODE model. The pump_voltage CSV column is used as a forcing input (u(t)). All parameters k1-k4 are frozen and used exactly as given.
+The CSV contains time, level_lower (measured x2), and pump_voltage (forcing input). Only level_lower needs an observable mapping since pump_voltage is a forcing input and excluded from observables.
+User explicitly requested RMSE divided by the largest absolute measured level_lower value, which maps to max_abs_normalized_rmse with measured='level_lower'. The voltage is an input and does not contribute a residual. No penalties were requested.

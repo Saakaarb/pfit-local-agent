@@ -1,0 +1,45 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 0.378275.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters to 10 and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.378275, indicating that stationarity is not established. Increasing the number of gradient iterations may help refine the solution further."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There is 1 weak parameter combination, which suggests potential issues with parameter identifiability. Inspecting eigenvectors can provide insights into the parameter space and guide further experimental design or parameter fixing."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, pSTAT5A.",
+      "reason": "The RMSE for pSTAT5A is 29.2468, with a time correlation of 0.8994 and lag-1 correlation of 0.8508. Inspecting the residuals and trajectory can help identify any systematic errors or model mismatches."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, pSTAT5B.",
+      "reason": "The RMSE for pSTAT5B is 23.452, with a time correlation of 0.6670 and lag-1 correlation of 0.6000. Inspecting the residuals and trajectory can help identify any systematic errors or model mismatches."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, rSTAT5A.",
+      "reason": "The RMSE for rSTAT5A is 5.0736, with a time correlation of 0.3536 and lag-1 correlation of 0.5731. Inspecting the residuals and trajectory can help identify any systematic errors or model mismatches."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish the global optimum or identifiability of the parameters."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

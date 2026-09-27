@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "points": [
+    {
+      "experiment": 1,
+      "parameter_offset": 0.0,
+      "components": [
+        "RHS for A at row 0",
+        "RHS for B at row 0",
+        "RHS for ApB at row 0",
+        "RHS for ApA at row 0",
+        "RHS for BpB at row 0",
+        "RHS for nApA at row 0",
+        "RHS for nApB at row 0",
+        "RHS for nBpB at row 0",
+        "RHS for A at row 8",
+        "RHS for B at row 8",
+        "RHS for ApB at row 8",
+        "RHS for ApA at row 8",
+        "RHS for BpB at row 8",
+        "RHS for nApA at row 8",
+        "RHS for nApB at row 8",
+        "RHS for nBpB at row 8",
+        "RHS for A at row 15",
+        "RHS for B at row 15",
+        "RHS for ApB at row 15",
+        "RHS for ApA at row 15",
+        "RHS for BpB at row 15",
+        "RHS for nApA at row 15",
+        "RHS for nApB at row 15",
+        "RHS for nBpB at row 15",
+        "loss",
+        "writeout"
+      ]
+    },
+    {
+      "experiment": 1,
+      "parameter_offset": 0.1,
+      "components": [
+        "RHS for A at row 0",
+        "RHS for B at row 0",
+        "RHS for ApB at row 0",
+        "RHS for ApA at row 0",
+        "RHS for BpB at row 0",
+        "RHS for nApA at row 0",
+        "RHS for nApB at row 0",
+        "RHS for nBpB at row 0",
+        "RHS for A at row 8",
+        "RHS for B at row 8",
+        "RHS for ApB at row 8",
+        "RHS for ApA at row 8",
+        "RHS for BpB at row 8",
+        "RHS for nApA at row 8",
+        "RHS for nApB at row 8",
+        "RHS for nBpB at row 8",
+        "RHS for A at row 15",
+        "RHS for B at row 15",
+        "RHS for ApB at row 15",
+        "RHS for ApA at row 15",
+        "RHS for BpB at row 15",
+        "RHS for nApA at row 15",
+        "RHS for nApB at row 15",
+        "RHS for nBpB at row 15",
+        "loss",
+        "writeout"
+      ]
+    }
+  ],
+  "limitations": [],
+  "rtol": 1e-06,
+  "atol": 1e-08,
+  "scope": "Source Python versus JAX at sampled parameters/states; not paper-equation verification"
+}

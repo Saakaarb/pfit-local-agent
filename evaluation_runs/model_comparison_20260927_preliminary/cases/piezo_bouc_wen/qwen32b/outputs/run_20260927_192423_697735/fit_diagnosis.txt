@@ -1,0 +1,59 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/piezo_bouc_wen/qwen32b
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/piezo_bouc_wen/qwen32b/outputs/run_20260927_192423_697735
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 2.6627E-01, best loss 2.6627E-01, final loss 2.6627E-01
+- NODE: 2 iterations, first loss 2.6473E-01, best loss 2.6435E-01, final loss 2.6435E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: correct_units_piezo_electric_actuator.csv; loss=0.2643494296522073; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 1; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/piezo_bouc_wen/qwen32b/outputs/run_20260927_192423_697735/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- Estimated Hessian has substantial asymmetry before symmetrization.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 3.42326; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 3.42326; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 1 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, xp: RMSE=1.29736e-06, bias=9.37219e-09, time correlation=0.8023452124262439, lag-1=0.9734753702977977.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/piezo_bouc_wen/qwen32b/outputs/run_20260927_192423_697735/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/piezo_bouc_wen/qwen32b/outputs/run_20260927_192423_697735/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Stationarity not established due to high normalized gradient infinity norm.
+1. Increase gradient_opt.num_iters and run a gradient-only restart from this run. [STATIONARITY, BUDGET] The normalized gradient infinity norm is 3.42326, indicating that stationarity is not established. Since the refinement stopped at its iteration budget, increasing the number of iterations may help in achieving a more stationary solution.
+2. Inspect the time-region residuals and trajectory plot (fit_exp1.png). [RESIDUAL] The RMSE for Experiment 1 is 1.29736e-06, which is quite low, but inspecting the residuals and trajectory plot can provide insights into any potential issues with the fit, such as model mismatch or input calibration problems.
+3. Inspect eigenvectors before designing additional experiments or fixing independently known parameters. [WEAK_MODES] There is 1 weak parameter combination, and inspecting the eigenvectors can help identify which parameters are contributing to this weakness. This is important before designing additional experiments or fixing parameters independently.
+Limitation: The evidence cannot establish the presence of numerical instability or convergence issues beyond the iteration budget.

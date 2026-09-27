@@ -1,0 +1,32 @@
+{
+  "verdict": "ke=0.998849 is at 99.98% of its log10 search interval, and stationarity is not established.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for ke is physically justified. If revising bounds, run a full fit.",
+      "reason": "ke is very close to its upper bound, which may indicate that the bound is too restrictive or that the model is not capturing the true parameter value."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.53946, indicating that stationarity has not been established. Increasing the number of iterations may help in achieving a more stable solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png).",
+      "reason": "The RMSE for Experiment 1, C_plasma is 2.2329, with a bias of -1.90839. Inspecting the residuals and trajectory plot can help identify any systematic errors or model mismatch issues."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the model is globally optimal or identifiable.",
+    "The evidence does not provide information on the stability of finite differences or the reliability of gradients."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

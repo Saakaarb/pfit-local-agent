@@ -1,0 +1,23 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "theophylline_sub6.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "b2ad2bd44a0026ab2828b5691724596683f3a36fffc2a603f7640ae1fc098b51",
+      "initial_conditions": {
+        "A_gut": 320.0,
+        "A_plasma": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

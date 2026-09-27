@@ -1,0 +1,32 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "mapk_data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "2facb11851dde3191fe92c7500cf9c41701519448a25a82f8c3b10290b8d04f3",
+      "initial_conditions": {
+        "M": 500.0,
+        "Mp": 0.0,
+        "Mpp": 0.0,
+        "MAPKK": 50.0,
+        "MKP3": 100.0,
+        "M_MAPKK": 0.0,
+        "Mp_MAPKK": 0.0,
+        "Mpp_MKP3": 0.0,
+        "Mp_MKP3_dep": 0.0,
+        "Mp_MKP3": 0.0,
+        "M_MKP3": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

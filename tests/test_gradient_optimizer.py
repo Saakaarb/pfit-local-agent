@@ -56,3 +56,20 @@ def test_selected_optimizer_reduces_loss_with_configured_budget(tmp_path, name):
     if name == 'adam':
         assert float(optimizer.learning_rate(0)) == pytest.approx(.05)
         assert float(optimizer.learning_rate(100)) == pytest.approx(.045)
+
+
+def test_nonfinite_gradient_explains_early_stop_to_user(tmp_path, capsys):
+    reader = reader_for(tmp_path, dict(num_iters=5))
+    reader.output_dir = tmp_path
+    class Problem:
+        def _compute_loss(self, params):
+            # Finite forward value, undefined autodiff gradient.
+            return 1 + jnp.sum(jnp.sqrt(jnp.maximum(params - params, 0)))
+    optimizer = FitParamsNODE(reader, Problem(), init_guess=np.array([1.]))
+    optimizer.train_NODE()
+    assert optimizer.termination_reason == 'invalid_loss_or_gradient'
+    assert 'non-finite gradient (NaN/Inf)' in optimizer.termination_detail
+    output = capsys.readouterr().out
+    assert 'gradient refinement did not complete' in output
+    assert 'Keeping the best valid point' in output
+    assert 'non-finite gradient' in (tmp_path / 'NODE_fitting.log').read_text()

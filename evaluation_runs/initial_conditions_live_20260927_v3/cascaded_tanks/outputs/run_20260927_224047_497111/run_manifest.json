@@ -1,0 +1,23 @@
+{
+  "mode": "gradient-only",
+  "source_run": "run_20260927_201311_565895",
+  "seed_source": "/workspace/pfit-local-agent/evaluation_runs/initial_conditions_live_20260927_v3/cascaded_tanks/outputs/run_20260927_201311_565895",
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "status": "running",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "estimation.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "c48c8602fdf03b6445f5e54494e4aff251035450d546865053bcb0fa7de84b82",
+      "initial_conditions": {
+        "x1": 5.0,
+        "x2": 5.205
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

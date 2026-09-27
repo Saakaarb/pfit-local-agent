@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 0.16796051205699164,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 0.6267140466873403,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 0.0031955694378972862,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 0.0014461456443227438,
+      "logscale": true
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+The states and initial values have been extracted from the provided context.
+The model equations have been extracted and formatted according to the provided schema.
+The CSV column 'C_plasma' is directly measured and corresponds to the derived observable 'C_plasma = A_plasma / Vd'.
+The user provided a custom loss definition, which is to compare simulated C_plasma to the measured C_plasma column, normalize residuals by max(abs(measured C_plasma column)), and calculate the loss as the root mean square error of the normalized residuals.

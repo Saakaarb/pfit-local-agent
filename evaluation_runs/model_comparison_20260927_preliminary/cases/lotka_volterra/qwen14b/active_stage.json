@@ -1,0 +1,20 @@
+{
+  "stage": "diagnose",
+  "started_utc": "2026-09-27T19:44:02Z",
+  "command": [
+    "diagnose",
+    "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/lotka_volterra/qwen14b",
+    "run_20260927_194350_578694",
+    "--model",
+    "qwen2.5-coder:14b",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1"
+  ],
+  "pid": 43581
+}

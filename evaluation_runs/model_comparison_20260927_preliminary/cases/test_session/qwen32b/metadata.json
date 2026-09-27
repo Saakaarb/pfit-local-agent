@@ -1,0 +1,302 @@
+{
+  "case": "test_session",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.1760293636471033,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "8438690ada6e5aee19e253e67c449e4aeb2630de",
+    "warmup_seconds": 7.116351703181863,
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-09-27T19:03:47.454161783Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 7115590801,
+      "load_duration": 6911100843,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 142011000,
+      "eval_count": 2,
+      "eval_duration": 58858000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-07T18:51:04.309060772Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 23917 MiB"
+  },
+  "input_audit": {
+    "name": "test_session",
+    "source": "sessions/test_session",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "robertson_data.csv"
+    ],
+    "prompt_sha256": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9",
+    "original_prompt_sha256": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "duplicate_of": "robertson_session",
+    "input_hashes": {
+      "robertson_data.csv": "df408a5e1dc16948637ea6ee7ae131817d200e0089fdba0ad226da38f4076a9f",
+      "user_info.txt": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9"
+    }
+  },
+  "status": "pass",
+  "started_utc": "2026-09-27T19:31:46Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-09-27T19:31:46Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen32b",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 31374,
+      "exit_code": 0,
+      "seconds": 35.635,
+      "finished_utc": "2026-09-27T19:32:22Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-09-27T19:32:22Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen32b",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 31439,
+      "exit_code": 0,
+      "seconds": 8.288,
+      "finished_utc": "2026-09-27T19:32:30Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-09-27T19:32:30Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen32b",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 31503,
+      "exit_code": 0,
+      "seconds": 12.173,
+      "finished_utc": "2026-09-27T19:32:42Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-09-27T19:32:42Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen32b"
+      ],
+      "pid": 32113,
+      "exit_code": 0,
+      "seconds": 18.051,
+      "finished_utc": "2026-09-27T19:33:00Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-09-27T19:33:00Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen32b",
+        "run_20260927_193243_274710",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 32926,
+      "exit_code": 0,
+      "seconds": 18.245,
+      "finished_utc": "2026-09-27T19:33:19Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20260927_193243_274710",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.3792470441267664,
+    "final_loss": 0.3790781962437233,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.3790781962437233
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget"
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-09-27T19:33:19Z",
+  "total_wall_seconds": 92.558,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 59.82555467635393,
+  "prompt_tokens": 33739,
+  "generated_tokens": 1451,
+  "token_counts_incomplete": false
+}

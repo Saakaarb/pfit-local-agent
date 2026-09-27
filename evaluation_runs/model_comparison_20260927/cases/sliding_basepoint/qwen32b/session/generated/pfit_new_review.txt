@@ -1,0 +1,4 @@
+All required initial conditions are provided and valid.
+All required equations and formulas are provided.
+All CSV measurement columns are mapped to the corresponding simulated states or derived formulas.
+User provided a custom loss function with normalized residuals and RMSE.

@@ -1,0 +1,40 @@
+{
+  "verdict": "Stationarity not established; weak modes present; budget reached; residuals indicate potential issues.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.378275, indicating that stationarity is not established. If gradient checks pass and bounds are appropriate, increasing the number of iterations may help achieve convergence."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There is 1 weak parameter combination, suggesting potential non-identifiability. Inspecting eigenvectors can help understand the nature of these weak modes."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The refinement stopped at its iteration budget. Checking the final gradient and residual plots will help determine if further iterations are likely to improve the fit."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for pSTAT5A, pSTAT5B, and rSTAT5A.",
+      "reason": "The residuals for pSTAT5A, pSTAT5B, and rSTAT5A indicate potential issues with the fit. Inspecting the time-region residuals and trajectory plot can help identify specific areas where the model does not fit the data well."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish the presence of numerical failures or unreliable gradients.",
+    "The evidence does not provide information on the stability of finite differences.",
+    "The evidence does not confirm the identifiability of individual parameters beyond the presence of weak modes."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

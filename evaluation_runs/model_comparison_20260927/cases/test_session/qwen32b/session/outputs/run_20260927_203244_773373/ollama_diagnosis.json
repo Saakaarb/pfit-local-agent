@@ -1,0 +1,26 @@
+{
+  "verdict": "Normalized gradient infinity norm is 0.17642; stationarity is not established.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.17642, indicating that stationarity is not established. Since the refinement stopped at its iteration budget, increasing the number of iterations and performing a gradient-only restart is a reasonable next step to further refine the parameters."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1.",
+      "reason": "The residuals for Experiment 1 show varying RMSE values across different time regions. Inspecting the time-region residuals and trajectory plot can help identify any specific issues with the model fit or data calibration."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the current model and bounds are appropriate for the data.",
+    "The evidence does not provide information on the stability of finite differences or the reliability of the gradients."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

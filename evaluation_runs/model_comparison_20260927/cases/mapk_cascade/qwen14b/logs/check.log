@@ -1,0 +1,6 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen14b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen14b/session
+warning: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.

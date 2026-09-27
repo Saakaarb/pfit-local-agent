@@ -1,0 +1,5 @@
+Initially R=1 and all the other gating states are zero. IP3 and Ca are carried as additional states with zero derivatives and set to the clamp concentrations for each experiment.
+All required equations and formulas are provided in the user context.
+All CSV measurement columns map to the observable open probability.
+User requested plain RMSE for fitting the Sneyd-Dufour IP3 receptor model to nine clamp experiments.
+Original user context indicates a stiff model.

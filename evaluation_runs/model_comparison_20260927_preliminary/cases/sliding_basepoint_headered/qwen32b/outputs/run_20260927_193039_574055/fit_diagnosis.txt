@@ -1,0 +1,58 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen32b
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen32b/outputs/run_20260927_193039_574055
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.0923E-01, best loss 1.0923E-01, final loss 1.0923E-01
+- NODE: 2 iterations, first loss 1.0905E-01, best loss 1.0901E-01, final loss 1.0901E-01
+
+Generation workflow:
+- events: 4 passed, 1 failed, 1 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: force_disp_data_sliding_basepoint.csv; loss=0.1090104985897661; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen32b/outputs/run_20260927_193039_574055/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- Estimated Hessian has substantial asymmetry before symmetrization.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.71394; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.71394; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, contact_force: RMSE=60.2275, bias=16.7362, time correlation=-0.3815898573492145, lag-1=0.9499859027675884.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, displacement: RMSE=0.0177304, bias=-0.0138602, time correlation=-0.1279299381369145, lag-1=0.9751870788957638.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen32b/outputs/run_20260927_193039_574055/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen32b/outputs/run_20260927_193039_574055/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Stationarity not established; gradient infinity norm is 0.71394.
+1. Assess the final gradient and residual plots, then increase gradient_opt.num_iters and run a gradient-only restart from this run. [STATIONARITY, BUDGET] The normalized gradient infinity norm is 0.71394, indicating that stationarity is not established. The refinement stopped at its iteration budget, so further iterations may help in achieving a more stationary solution.
+2. Inspect the time-region residuals and trajectory plot for Experiment 1, contact_force and displacement. [RESIDUAL] The residuals for contact_force and displacement show significant RMSE and time correlation issues, which may indicate model mismatch, calibration issues, or input timing problems. Inspecting the plots can provide more insight into these issues.
+Limitation: The evidence cannot establish whether the model is globally optimal or identifiable without further iterations or model validation.

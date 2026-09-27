@@ -1,0 +1,301 @@
+{
+  "case": "test_session",
+  "model_metadata": {
+    "key": "qwen3_coder_next",
+    "model": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+    "label": "Qwen3-Coder-Next 80B/A3B",
+    "architecture": "mixture of experts; hybrid attention",
+    "nominal_total_parameters_billion": 80,
+    "nominal_active_parameters_billion": 3,
+    "quantization": "UD-Q3_K_XL",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking only, per Qwen model card",
+    "expected_download_bytes": 36300000000,
+    "sources": [
+      "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+      "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/tree/main"
+    ],
+    "digest": "cc20797524d225c7e194317e5739081f2d06281c0173af3fd3c545cd8a59c599",
+    "size_bytes": 36282686243,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3next",
+      "families": [
+        "qwen3next"
+      ],
+      "parameter_size": "79.7B",
+      "quantization_level": "Q3_K_M",
+      "context_length": 262144,
+      "embedding_length": 2048
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 339.75264549814165,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "tools",
+      "completion"
+    ],
+    "gguf_parameter_count": 79674391296,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "dd823e6a80f20c812c0e698e3c9c0fba84b0407f",
+    "warmup_seconds": 42.73828267864883,
+    "warmup_response": {
+      "model": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+      "created_at": "2026-09-27T21:10:18.986498869Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 42737640068,
+      "load_duration": 20900964518,
+      "prompt_eval_count": 12,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 21817948000,
+      "eval_count": 2,
+      "eval_duration": 16452000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+          "model": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+          "size": 36776297102,
+          "digest": "cc20797524d225c7e194317e5739081f2d06281c0173af3fd3c545cd8a59c599",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3next",
+            "families": [
+              "qwen3next"
+            ],
+            "parameter_size": "79.7B",
+            "quantization_level": "unknown"
+          },
+          "expires_at": "2319-01-07T20:57:35.841481507Z",
+          "size_vram": 36776297102,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 35771 MiB"
+  },
+  "input_audit": {
+    "name": "test_session",
+    "source": "sessions/test_session",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "robertson_data.csv"
+    ],
+    "prompt_sha256": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9",
+    "original_prompt_sha256": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "duplicate_of": "robertson_session",
+    "input_hashes": {
+      "robertson_data.csv": "df408a5e1dc16948637ea6ee7ae131817d200e0089fdba0ad226da38f4076a9f",
+      "user_info.txt": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9"
+    }
+  },
+  "status": "pass",
+  "started_utc": "2026-09-27T21:29:24Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-09-27T21:29:24Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen3_coder_next/session",
+        "--model",
+        "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 120254,
+      "exit_code": 0,
+      "seconds": 22.304,
+      "finished_utc": "2026-09-27T21:29:46Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-09-27T21:29:46Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen3_coder_next/session",
+        "--model",
+        "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 120334,
+      "exit_code": 0,
+      "seconds": 8.519,
+      "finished_utc": "2026-09-27T21:29:55Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-09-27T21:29:55Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen3_coder_next/session",
+        "--model",
+        "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 120398,
+      "exit_code": 0,
+      "seconds": 11.661,
+      "finished_utc": "2026-09-27T21:30:07Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-09-27T21:30:07Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen3_coder_next/session"
+      ],
+      "pid": 121007,
+      "exit_code": 0,
+      "seconds": 18.999,
+      "finished_utc": "2026-09-27T21:30:26Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-09-27T21:30:26Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen3_coder_next/session",
+        "run_20260927_213007_792762",
+        "--model",
+        "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 121810,
+      "exit_code": 0,
+      "seconds": 15.064,
+      "finished_utc": "2026-09-27T21:30:41Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20260927_213007_792762",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.3792470441267664,
+    "final_loss": 0.3790781962437233,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.3790781962437233
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget"
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-09-27T21:30:41Z",
+  "total_wall_seconds": 76.709,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 42.55513112805784,
+  "prompt_tokens": 22182,
+  "generated_tokens": 2321,
+  "token_counts_incomplete": false
+}

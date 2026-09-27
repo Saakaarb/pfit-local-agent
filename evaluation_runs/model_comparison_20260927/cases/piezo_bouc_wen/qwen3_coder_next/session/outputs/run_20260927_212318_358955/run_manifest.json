@@ -1,0 +1,24 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "correct_units_piezo_electric_actuator.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "36a73cf196f28d87cc283e0cd9c1a5059c3166195c0a1ab79ed05ff096f35592",
+      "initial_conditions": {
+        "xp": 0.0,
+        "vp": 0.0,
+        "h": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

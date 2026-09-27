@@ -1,0 +1,34 @@
+{
+  "verdict": "The optimization terminated at its iteration budget with a non-stationary gradient (inf norm = 0.176), and residuals show systematic bias and high time correlation in y1/y3, suggesting model-mismatch or calibration issues rather than convergence failure.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run a gradient-only restart with increased gradient_opt.num_iters (e.g., 20\u201350) from the current parameter values, after verifying gradient checks pass.",
+      "reason": "The normalized gradient infinity norm (0.176) exceeds typical stationarity thresholds, and the refinement stopped only due to iteration budget (BUDGET), not convergence; STATIONARITY explicitly recommends this if gradient checks pass."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png and time-region residual plots for y1 and y3 to diagnose systematic bias (RMSE \u2248 0.05, bias \u2248 \u00b10.031, high time/lag-1 correlations).",
+      "reason": "Residual diagnostics show strong time correlation (y1: lag-1 = 0.984, y3: lag-1 = 0.984) and non-zero bias, indicating potential model mismatch, timing errors, or initial condition issues\u2014not merely insufficient iterations."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS"
+      ],
+      "action": "Check for parameter identifiability issues: sloppiness analysis reports 1 negative mode, suggesting possible overparameterization or ill-conditioning.",
+      "reason": "A negative mode in sloppiness indicates curvature issues that may hinder gradient-based convergence even with more iterations; this should be diagnosed before committing to longer runs."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the model equations are scientifically correct or whether the bias in y1/y3 stems from structural mismatch vs. calibration errors.",
+    "Gradient checks and finite-difference validation are not reported, so we cannot confirm whether the observed gradient is reliable or whether autodiff is implemented correctly.",
+    "The residual time correlations suggest dynamic misalignment, but without inspecting the plot or input timing metadata, we cannot distinguish between integration errors, misaligned stimuli, or model structure flaws."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,34 @@
+{
+  "verdict": "Experiment 1, level_lower: RMSE=18.0332, bias=17.9231, time correlation=-0.255, lag-1=0.991 \u2014 indicates severe persistent offset and negative lagged correlation, suggesting model-structure or calibration mismatch rather than convergence failure.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png to visualize residuals and trajectory alignment over time regions.",
+      "reason": "The residual report shows region-dependent RMSE (17.76, 19.56, 16.67) and strong lag-1 autocorrelation (0.991), indicating structured model error; visual inspection is needed to distinguish timing, initial condition, or forcing misalignment issues."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "OPTIMIZER"
+      ],
+      "action": "Do not increase gradient iterations; instead verify forcing (pump_voltage) interpolation and initial conditions against the first 100\u2013200 points.",
+      "reason": "Optimizer terminated at iteration 1 with invalid loss/gradient (final_loss=seed_loss=1.8033), and residual bias (17.92) matches the RMSE, implying a constant offset error \u2014 consistent with incorrect initial conditions or forcing offset rather than gradient issues."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS"
+      ],
+      "action": "Check whether k4 (0.00145, range_fraction=0.04) is near its lower bound (0.001); if so, consider relaxing the bound or reparameterizing pump influence.",
+      "reason": "k4 has the smallest range_fraction (0.04), indicating it is poorly constrained; given its role in pump voltage input to x1 dynamics, this may contribute to persistent offset in level_lower."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence.",
+    "The loss formulation uses a normalization by max(|dataset|)+1e-12, but the residual magnitude (RMSE\u224818) suggests the normalization does not scale the error to unit magnitude \u2014 this may obscure interpretability but is not necessarily incorrect per user specification.",
+    "The strong lag-1 correlation (0.991) and negative time correlation (-0.255) indicate possible mis-specified dynamics or timing offset, but cannot distinguish between model structure error, forcing misalignment, or initial condition error without further inspection."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

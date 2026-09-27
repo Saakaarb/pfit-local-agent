@@ -1,0 +1,21 @@
+{
+  "stage": "new",
+  "started_utc": "2026-09-27T19:41:28Z",
+  "command": [
+    "new",
+    "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/cascaded_tanks/qwen14b",
+    "--model",
+    "qwen2.5-coder:14b",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1",
+    "--max-repair-attempts",
+    "5"
+  ],
+  "pid": 40264
+}

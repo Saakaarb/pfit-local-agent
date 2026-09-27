@@ -1,0 +1,9 @@
+run directory: evaluation_runs/initial_conditions_live_20260927_v3/cascaded_tanks/outputs/run_20260927_224047_497111
+Launching driver script
+Available devices:  [CpuDevice(id=0), CpuDevice(id=1), CpuDevice(id=2), CpuDevice(id=3), CpuDevice(id=4), CpuDevice(id=5), CpuDevice(id=6), CpuDevice(id=7)]
+Run directory: evaluation_runs/initial_conditions_live_20260927_v3/cascaded_tanks/outputs/run_20260927_224047_497111
+Gradient-only restart: skipping global search
+NODE tolerances — rtol: [1e-07, 1e-07], atol: [1e-09, 1e-09]
+Trainable_params: [ 0.11260359  0.39853471 -0.74772587 -0.91989398]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 1.8033227195721724 1.8033227195721724

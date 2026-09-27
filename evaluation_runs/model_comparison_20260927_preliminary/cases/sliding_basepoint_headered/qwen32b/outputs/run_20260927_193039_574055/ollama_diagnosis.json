@@ -1,0 +1,25 @@
+{
+  "verdict": "Stationarity not established; gradient infinity norm is 0.71394.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and residual plots, then increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.71394, indicating that stationarity is not established. The refinement stopped at its iteration budget, so further iterations may help in achieving a more stationary solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, contact_force and displacement.",
+      "reason": "The residuals for contact_force and displacement show significant RMSE and time correlation issues, which may indicate model mismatch, calibration issues, or input timing problems. Inspecting the plots can provide more insight into these issues."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the model is globally optimal or identifiable without further iterations or model validation."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

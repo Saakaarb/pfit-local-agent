@@ -1,0 +1,29 @@
+{
+  "parameters": [
+    {
+      "name": "c2",
+      "value": 94433.20153879131,
+      "logscale": true
+    },
+    {
+      "name": "Dk",
+      "value": 2.930455317071278,
+      "logscale": true
+    },
+    {
+      "name": "Dc",
+      "value": 0.6743119264648554,
+      "logscale": false
+    },
+    {
+      "name": "m1",
+      "value": 2021.9475886119826,
+      "logscale": true
+    },
+    {
+      "name": "m2",
+      "value": 20.635411190421333,
+      "logscale": true
+    }
+  ]
+}

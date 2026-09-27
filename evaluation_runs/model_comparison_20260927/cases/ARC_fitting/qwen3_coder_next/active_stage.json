@@ -1,0 +1,21 @@
+{
+  "stage": "new",
+  "started_utc": "2026-09-27T21:12:07Z",
+  "command": [
+    "new",
+    "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/ARC_fitting/qwen3_coder_next/session",
+    "--model",
+    "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1",
+    "--max-repair-attempts",
+    "5"
+  ],
+  "pid": 101055
+}

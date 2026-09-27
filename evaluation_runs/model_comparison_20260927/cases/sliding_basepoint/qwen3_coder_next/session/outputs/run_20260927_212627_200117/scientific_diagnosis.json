@@ -1,0 +1,204 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen3_coder_next/session/outputs/run_20260927_212627_200117",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen3_coder_next/session/outputs/run_20260927_212627_200117/snapshot",
+  "findings": [
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 0.714058; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, contact_force: RMSE=60.2284, bias=16.7363, time correlation=-0.38157728644046746, lag-1=0.9499859806925133.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, displacement: RMSE=0.0177289, bias=-0.0138585, time correlation=-0.127848895532446, lag-1=0.9751861769697594.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 71,
+          "missing": 0,
+          "rmse": 60.22836798037315,
+          "mae": 47.22684250517665,
+          "bias": 16.736348695892104,
+          "max_abs": 140.6543607196246,
+          "time_correlation": -0.38157728644046746,
+          "lag1_correlation": 0.9499859806925133,
+          "time_regions": [
+            {
+              "start": 0.0009937888198757738,
+              "end": 0.05101449275362319,
+              "count": 45,
+              "rmse": 66.60787173783157
+            },
+            {
+              "start": 0.05101449275362319,
+              "end": 0.10103519668737061,
+              "count": 17,
+              "rmse": 58.03897278201745
+            },
+            {
+              "start": 0.10103519668737061,
+              "end": 0.15105590062111804,
+              "count": 9,
+              "rmse": 8.413823599766285
+            }
+          ],
+          "name": "contact_force",
+          "observes": "contact_force"
+        },
+        {
+          "status": "ok",
+          "count": 71,
+          "missing": 0,
+          "rmse": 0.01772890338632719,
+          "mae": 0.014733849252510969,
+          "bias": -0.013858480472904975,
+          "max_abs": 0.03701151261763519,
+          "time_correlation": -0.127848895532446,
+          "lag1_correlation": 0.9751861769697594,
+          "time_regions": [
+            {
+              "start": 0.0009937888198757738,
+              "end": 0.05101449275362319,
+              "count": 45,
+              "rmse": 0.010108104331970518
+            },
+            {
+              "start": 0.05101449275362319,
+              "end": 0.10103519668737061,
+              "count": 17,
+              "rmse": 0.030697283605157787
+            },
+            {
+              "start": 0.10103519668737061,
+              "end": 0.15105590062111804,
+              "count": 9,
+              "rmse": 0.013739563874402236
+            }
+          ],
+          "name": "displacement",
+          "observes": "displacement"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "c2",
+      "value": 94270.26683004512,
+      "range_fraction": 0.3247915787815776,
+      "logscale": true
+    },
+    {
+      "name": "Dk",
+      "value": 2.943981739098687,
+      "range_fraction": 0.8672337779590563,
+      "logscale": true
+    },
+    {
+      "name": "Dc",
+      "value": 0.6743119647537781,
+      "range_fraction": 0.6381244052819757,
+      "logscale": false
+    },
+    {
+      "name": "m1",
+      "value": 2021.948369325696,
+      "range_fraction": 0.6528850308195706,
+      "logscale": true
+    },
+    {
+      "name": "m2",
+      "value": 20.611663157625284,
+      "range_fraction": 0.6570565182340307,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.10922845420313766,
+    "final_loss": 0.10901143580873848,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.10901143580873848
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget"
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen3_coder_next/session/outputs/run_20260927_212627_200117/de_fitting.log",
+      "rows": 1,
+      "first": 0.10923,
+      "final": 0.10923,
+      "best": 0.10923,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.10923
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen3_coder_next/session/outputs/run_20260927_212627_200117/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.10905,
+      "final": 0.10901,
+      "best": 0.10901,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.10905
+        ],
+        [
+          5,
+          0.10901
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.10901143580873848,
+  "experiment_losses": [
+    0.10901143580873848
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 0,
+    "negative_modes": 2
+  },
+  "normalized_gradient_inf_norm": 0.7140584766506108,
+  "gradient_to_loss_ratio": 6.550307968637646,
+  "verdict": "Normalized gradient infinity norm is 0.714058; stationarity is not established."
+}

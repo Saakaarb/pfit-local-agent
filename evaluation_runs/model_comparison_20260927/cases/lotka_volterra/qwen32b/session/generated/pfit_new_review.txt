@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided context.
+Extracted Lotka-Volterra predator-prey model equations.
+All CSV measurement columns are directly mapped to the integrated states.
+User provided a custom loss with normalized squared-error terms per observed state, normalized by max(abs(measured column)), and RMSE.

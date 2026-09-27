@@ -1,0 +1,15 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals.
+- Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals.
+
+Recommendations:
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Consider using a well-scaled loss for better convergence, especially for stiff systems like this one.
+
+Semantic review:
+The session is mostly ready for JAX translation, but there is a warning about the dynamic range of the y3 column. The user's explicit loss is preserved, and the system is set up for stiff integration with Kvaerno5. Review the parameter bounds and consider scaling the loss for improved convergence.

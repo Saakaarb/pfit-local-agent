@@ -1,0 +1,25 @@
+{
+  "verdict": "Normalized gradient infinity norm is extremely high (1.88161e+28); stationarity is not established.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is extremely high (1.88161e+28), indicating that stationarity is not established. Given that the refinement stopped at its iteration budget, increasing the number of iterations may help in achieving a more stable gradient."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png).",
+      "reason": "The residuals for both x1 and x2 show significant RMSE values (2.29325 for x1 and 0.614608 for x2). Inspecting the time-region residuals and trajectory plot can provide insights into specific time regions where the model is underperforming, which may guide further adjustments."
+    }
+  ],
+  "limitations": [
+    "The high normalized gradient infinity norm suggests numerical instability or issues with the gradient computation, but it does not definitively indicate the cause (e.g., incorrect model, inappropriate bounds, or numerical precision issues)."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

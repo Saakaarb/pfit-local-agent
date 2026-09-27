@@ -1,0 +1,75 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen32b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen32b/session/outputs/run_20260927_201725_390260
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.0850E-01, best loss 3.0850E-01, final loss 3.0850E-01
+- NODE: 2 iterations, first loss 3.0750E-01, best loss 3.0725E-01, final loss 3.0725E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: mapk_data.csv; loss=0.3072469219513972; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 3; negative modes: 4
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen32b/session/outputs/run_20260927_201725_390260/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Parameters are at/near bounds; unconstrained Hessian modes do not describe the feasible region fully.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- k1=0.00100173 is at 0.02% of its log10 search interval.
+- [BOUND] k1=0.00100173 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k3=0.00100173 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h_1=100 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h2=0.998276 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h3=100 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h4=0.0001 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h_6=0.0998275 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.997204; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 3 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Mpp: RMSE=3.72498, bias=-3.39419, time correlation=-0.9348194090421216, lag-1=0.9953599575002987.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen32b/session/outputs/run_20260927_201725_390260/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/mapk_cascade/qwen32b/session/outputs/run_20260927_201725_390260/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Parameters k1, k3, h_1, h2, h3, h4, and h_6 are at the boundaries of their search intervals, and stationarity is not established.
+1. Check the physical justification for the bounds of k1, k3, h_1, h2, h3, h4, and h6. [BOUND] These parameters are at the boundaries of their log10 search intervals, which may indicate that the bounds are too restrictive or that the model is not well-suited to the data.
+2. If bounds are justified, run a full fit with increased iteration budget. [BOUND] If the bounds are appropriate, increasing the iteration budget may help the optimizer find a better solution.
+3. Assess the final gradient and residual plots before deciding whether a gradient-only restart is worthwhile. [STATIONARITY] The normalized gradient infinity norm is 0.997204, indicating that stationarity is not established. A gradient-only restart may be beneficial if the gradient checks pass and bounds are appropriate.
+4. Inspect the time-region residuals and trajectory plot for Experiment 1, Mpp. [RESIDUAL] The RMSE for Experiment 1, Mpp is 3.72498, with a significant bias and time correlation. Inspecting the residuals and trajectory plot can help identify issues with input timing, calibration, initial conditions, or model mismatch.
+Limitation: The evidence does not establish whether the bounds are physically justified or if the model is well-suited to the data.
+Limitation: Stationarity is not established, and the gradient-only restart should be considered with caution.
+Limitation: The residual analysis does not provide enough information to determine if the model is overfitting or underfitting.

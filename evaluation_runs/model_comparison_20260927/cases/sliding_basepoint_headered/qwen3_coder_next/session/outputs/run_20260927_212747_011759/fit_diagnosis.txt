@@ -1,0 +1,61 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen3_coder_next/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen3_coder_next/session/outputs/run_20260927_212747_011759
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.0923E-01, best loss 1.0923E-01, final loss 1.0923E-01
+- NODE: 2 iterations, first loss 1.0905E-01, best loss 1.0901E-01, final loss 1.0901E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: force_disp_data_sliding_basepoint.csv; loss=0.10901143580873848; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 2
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen3_coder_next/session/outputs/run_20260927_212747_011759/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- Estimated Hessian has substantial asymmetry before symmetrization.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.714058; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.714058; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, contact_force: RMSE=60.2284, bias=16.7363, time correlation=-0.38157728644046746, lag-1=0.9499859806925133.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, displacement: RMSE=0.0177289, bias=-0.0138585, time correlation=-0.127848895532446, lag-1=0.9751861769697594.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen3_coder_next/session/outputs/run_20260927_212747_011759/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint_headered/qwen3_coder_next/session/outputs/run_20260927_212747_011759/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Optimization terminated at iteration budget with non-stationary gradients (inf-norm = 0.714); residual diagnostics indicate systematic model–data mismatch, especially in contact_force dynamics.
+1. Run a gradient-only restart from the current solution, increasing gradient_opt.num_iters to at least 20. [STATIONARITY, BUDGET] The normalized gradient infinity norm (0.714) exceeds typical stationarity thresholds (e.g., < 0.1), and refinement stopped only due to iteration budget (BUDGET), not convergence; increasing iterations may reduce the gradient norm and improve fit.
+2. Inspect fit_exp1.png and time-region residual plots for contact_force and displacement to diagnose timing, calibration, or model-structure issues. [RESIDUAL] Residual diagnostics show high RMSE and strong lag-1 autocorrelation (0.95 for contact_force, 0.975 for displacement), indicating unmodeled dynamics or misaligned events; visual inspection is needed before committing more iterations.
+3. Check for parameter identifiability issues via sloppiness analysis (e.g., eigenvalue spread of Fisher information matrix), especially given 2 negative modes. [SLOPPINESS] Sloppiness analysis reports 2 negative modes, suggesting possible overparameterization or ill-conditioning; this could explain slow gradient progress despite budget remaining.
+Limitation: Evidence does not establish whether finite-difference gradient checks pass; numerical correctness of autodiff cannot be confirmed.
+Limitation: Residual autocorrelations and bias do not distinguish between timing errors, calibration drift, or structural model mismatch without plot inspection.
+Limitation: The presence of 2 negative sloppiness modes does not prove non-convexity or non-identifiability—only indicates local curvature issues.

@@ -1,0 +1,20 @@
+{
+  "status": "infrastructure_error",
+  "reason": "RuntimeError: Insufficient disk: 31428968448 free, need weights plus 2GB headroom",
+  "model_metadata": {
+    "key": "qwen3_coder_next",
+    "model": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+    "label": "Qwen3-Coder-Next 80B/A3B",
+    "architecture": "mixture of experts; hybrid attention",
+    "nominal_total_parameters_billion": 80,
+    "nominal_active_parameters_billion": 3,
+    "quantization": "UD-Q3_K_XL",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking only, per Qwen model card",
+    "expected_download_bytes": 36300000000,
+    "sources": [
+      "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+      "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/tree/main"
+    ]
+  }
+}

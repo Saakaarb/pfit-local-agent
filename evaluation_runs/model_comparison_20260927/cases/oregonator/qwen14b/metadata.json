@@ -1,0 +1,248 @@
+{
+  "case": "oregonator",
+  "model_metadata": {
+    "key": "qwen14b",
+    "model": "qwen2.5-coder:14b",
+    "label": "Qwen2.5-Coder 14B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 14.8,
+    "nominal_active_parameters_billion": 14.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 9000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:14b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct"
+    ],
+    "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+    "size_bytes": 8988124298,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 147.94898634031415,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 14770033664,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "dd823e6a80f20c812c0e698e3c9c0fba84b0407f",
+    "warmup_seconds": 4.599303422495723,
+    "warmup_response": {
+      "model": "qwen2.5-coder:14b",
+      "created_at": "2026-09-27T20:37:05.753353097Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 4598696987,
+      "load_duration": 4494226035,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 85465000,
+      "eval_count": 2,
+      "eval_duration": 16762000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:14b",
+          "model": "qwen2.5-coder:14b",
+          "size": 12266745363,
+          "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "14.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-07T20:24:22.608305809Z",
+          "size_vram": 12266745363,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 12307 MiB"
+  },
+  "input_audit": {
+    "name": "oregonator",
+    "source": "sessions/oregonator",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "data.csv"
+    ],
+    "prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "original_prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "data.csv": "90a248e2bb6973c7e84b20b8bac6f1597a51a18789c9be93079e8a47a4ecabf8",
+      "user_info.txt": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1"
+    }
+  },
+  "status": "fail",
+  "started_utc": "2026-09-27T20:47:34Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-09-27T20:47:34Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 88614,
+      "exit_code": 0,
+      "seconds": 25.663,
+      "finished_utc": "2026-09-27T20:48:00Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-09-27T20:48:00Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 88693,
+      "exit_code": 0,
+      "seconds": 3.195,
+      "finished_utc": "2026-09-27T20:48:03Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-09-27T20:48:03Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/oregonator/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 88757,
+      "exit_code": 1,
+      "seconds": 46.995,
+      "finished_utc": "2026-09-27T20:48:50Z",
+      "status": "fail",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "failed_stage": "jax",
+  "finished_utc": "2026-09-27T20:48:50Z",
+  "total_wall_seconds": 75.929,
+  "repair_calls": 5,
+  "logged_successful_llm_calls": 14,
+  "llm_calls": 14,
+  "llm_wall_seconds": 63.525264132767916,
+  "prompt_tokens": 40190,
+  "generated_tokens": 3084,
+  "token_counts_incomplete": false
+}

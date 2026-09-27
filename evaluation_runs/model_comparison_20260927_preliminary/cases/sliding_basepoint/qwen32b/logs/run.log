@@ -1,0 +1,28 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/outputs/run_20260927_192827_497359
+Launching driver script
+Available devices:  [CpuDevice(id=0), CpuDevice(id=1), CpuDevice(id=2), CpuDevice(id=3), CpuDevice(id=4), CpuDevice(id=5), CpuDevice(id=6), CpuDevice(id=7)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/outputs/run_20260927_192827_497359
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 1.0923E-01
+Time for iteration: 0.0040
+-------
+Final best position (scaled): [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313]
+Final best cost: 1.0923E-01
+Done with DE search
+Best Position from DE: [9.44332015e+04 2.93720969e+00 6.74536904e-01 2.02427635e+03
+ 2.06354112e+01]
+Best cost from DE: 0.10922750919127928
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Trainable_params: [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.10922751230922355 0.10922751230922355
+Iteration:,loss value, best loss: 4 0.10905341634996422 0.10905341634996422
+Iteration time: 2.6368672847747803
+Final best position: [9.42702729e+04 2.94398142e+00 6.74311964e-01 2.02194836e+03
+ 2.06116644e+01]
+Final loss: 0.1090104985897661
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/outputs/run_20260927_192827_497359

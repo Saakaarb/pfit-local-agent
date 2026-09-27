@@ -106,6 +106,15 @@ If the prompt includes an explicit `Fixed parameters:`, `Fixed constants:`, or `
 
 If the prompt includes explicit initial conditions using `x(0) = value`, `x0 = value`, or an initial-condition/state section, generated state initial values must match those declarations.
 
+Unambiguous group initial conditions are accepted: for example, “A starts at 1
+and all other reaction states start at zero” supplies values for every named
+member of that group. Individual declarations and experiment overrides take
+precedence. Filename-keyed tables may supply clamp values for zero-derivative
+states; no separate global value is needed when every experiment supplies one.
+Before reporting missing state values, extraction makes one recheck of the
+original specification when repair attempts are enabled. Truly missing or
+ambiguous values still require user input; unspecified values are not assumed zero.
+
 ## State Requirements
 
 Integrated states must be explicitly listed.
@@ -742,3 +751,9 @@ translated source loss/writeout bodies are protected; unrelated changes are
 rejected, and repeated identical failed proposals stop early. A scientific
 fidelity mismatch remains a failure rather than being bypassed. These rules
 apply to JAX translation only; the check-stage repair loop remains deferred.
+
+Gradient refinement reports non-finite loss or gradients as an early stop, names
+affected gradient parameters, and retains the best valid fitting point. The
+console and `NODE_fitting.log` report the warning; `fit_summary.json` records
+`termination` and `termination_detail`. A finite retained fit does not establish
+that gradient refinement completed successfully.

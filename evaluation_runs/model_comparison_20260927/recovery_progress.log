@@ -1,0 +1,87 @@
+Preparing hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL
+[?2026h[?25l[1G[K[?25h[?2026l[?25l[2K[1G[?25h[?2026h[?25l[1G⠋ [K[?25h[?2026l[?2026h[?25l[1G[K[?25h[?2026l[?25l[2K[1G[?25hdeleted 'qwen2.5-coder:32b'
+qwen3_coder_next/theophylline: new
+qwen3_coder_next/theophylline: check
+qwen3_coder_next/theophylline: jax
+qwen3_coder_next/theophylline: run
+qwen3_coder_next/theophylline: diagnose
+qwen3_coder_next/theophylline: pass (107.828s)
+qwen3_coder_next/ARC_fitting: new
+qwen3_coder_next/ARC_fitting: fail (4.204s)
+qwen3_coder_next/boehm_stat5: new
+qwen3_coder_next/boehm_stat5: check
+qwen3_coder_next/boehm_stat5: jax
+qwen3_coder_next/boehm_stat5: run
+qwen3_coder_next/boehm_stat5: diagnose
+qwen3_coder_next/boehm_stat5: pass (109.961s)
+qwen3_coder_next/cascaded_tanks: new
+qwen3_coder_next/cascaded_tanks: check
+qwen3_coder_next/cascaded_tanks: jax
+qwen3_coder_next/cascaded_tanks: run
+qwen3_coder_next/cascaded_tanks: diagnose
+qwen3_coder_next/cascaded_tanks: degraded (80.791s)
+qwen3_coder_next/decay_multiexp: new
+qwen3_coder_next/decay_multiexp: check
+qwen3_coder_next/decay_multiexp: jax
+qwen3_coder_next/decay_multiexp: run
+qwen3_coder_next/decay_multiexp: diagnose
+qwen3_coder_next/decay_multiexp: pass (67.282s)
+qwen3_coder_next/lotka_volterra: new
+qwen3_coder_next/lotka_volterra: check
+qwen3_coder_next/lotka_volterra: jax
+qwen3_coder_next/lotka_volterra: run
+qwen3_coder_next/lotka_volterra: diagnose
+qwen3_coder_next/lotka_volterra: pass (60.862s)
+qwen3_coder_next/mapk_cascade: new
+qwen3_coder_next/mapk_cascade: check
+qwen3_coder_next/mapk_cascade: jax
+qwen3_coder_next/mapk_cascade: run
+qwen3_coder_next/mapk_cascade: diagnose
+qwen3_coder_next/mapk_cascade: pass (115.301s)
+qwen3_coder_next/nfkb_signaling: new
+qwen3_coder_next/nfkb_signaling: fail (73.957s)
+qwen3_coder_next/oregonator: new
+qwen3_coder_next/oregonator: check
+qwen3_coder_next/oregonator: jax
+qwen3_coder_next/oregonator: fail (109.21s)
+qwen3_coder_next/piezo_bouc_wen: new
+qwen3_coder_next/piezo_bouc_wen: check
+qwen3_coder_next/piezo_bouc_wen: jax
+qwen3_coder_next/piezo_bouc_wen: run
+qwen3_coder_next/piezo_bouc_wen: diagnose
+qwen3_coder_next/piezo_bouc_wen: pass (99.383s)
+qwen3_coder_next/robertson_session: new
+qwen3_coder_next/robertson_session: check
+qwen3_coder_next/robertson_session: jax
+qwen3_coder_next/robertson_session: run
+qwen3_coder_next/robertson_session: diagnose
+qwen3_coder_next/robertson_session: pass (77.336s)
+qwen3_coder_next/sliding_basepoint: new
+qwen3_coder_next/sliding_basepoint: check
+qwen3_coder_next/sliding_basepoint: jax
+qwen3_coder_next/sliding_basepoint: run
+qwen3_coder_next/sliding_basepoint: diagnose
+qwen3_coder_next/sliding_basepoint: pass (86.022s)
+qwen3_coder_next/sliding_basepoint_headered: new
+qwen3_coder_next/sliding_basepoint_headered: check
+qwen3_coder_next/sliding_basepoint_headered: jax
+qwen3_coder_next/sliding_basepoint_headered: run
+qwen3_coder_next/sliding_basepoint_headered: diagnose
+qwen3_coder_next/sliding_basepoint_headered: pass (79.533s)
+qwen3_coder_next/sneyd_ipr: new
+qwen3_coder_next/sneyd_ipr: check
+qwen3_coder_next/sneyd_ipr: fail (71.364s)
+qwen3_coder_next/test_session: new
+qwen3_coder_next/test_session: check
+qwen3_coder_next/test_session: jax
+qwen3_coder_next/test_session: run
+qwen3_coder_next/test_session: diagnose
+qwen3_coder_next/test_session: pass (76.709s)
+qwen3_coder_next/vanderpol_session: new
+qwen3_coder_next/vanderpol_session: check
+qwen3_coder_next/vanderpol_session: jax
+qwen3_coder_next/vanderpol_session: run
+qwen3_coder_next/vanderpol_session: diagnose
+qwen3_coder_next/vanderpol_session: pass (63.097s)
+[?2026h[?25l[1G[K[?25h[?2026l[?25l[2K[1G[?25h[?2026h[?25l[1G⠋ [K[?25h[?2026l[?2026h[?25l[1G⠙ [K[?25h[?2026l[?2026h[?25l[1G⠹ [K[?25h[?2026l[?2026h[?25l[1G⠸ [K[?25h[?2026l[?2026h[?25l[1G⠴ [K[?25h[?2026l[?2026h[?25l[1G⠦ [K[?25h[?2026l[?2026h[?25l[1G⠧ [K[?25h[?2026l[?2026h[?25l[1G⠇ [K[?25h[?2026l[?2026h[?25l[1G[K[?25h[?2026l[?25l[2K[1G[?25hdeleted 'hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL'
+Completed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/comparison.md

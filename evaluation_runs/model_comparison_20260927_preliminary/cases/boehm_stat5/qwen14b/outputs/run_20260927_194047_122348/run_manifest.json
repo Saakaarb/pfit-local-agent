@@ -1,0 +1,29 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "bdd9bbf2945201192eef0c745ea74e37c176854670d8500d1623a4a61eb2ef13",
+      "initial_conditions": {
+        "A": 143.8668,
+        "B": 63.7332,
+        "ApB": 0.0,
+        "ApA": 0.0,
+        "BpB": 0.0,
+        "nApA": 0.0,
+        "nApB": 0.0,
+        "nBpB": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

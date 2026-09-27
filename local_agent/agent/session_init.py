@@ -174,6 +174,25 @@ def init_session(
     return [path for path in written if path is not None]
 
 
+def _resolve_experiment_initial_values(states_data: dict, experiments: list) -> None:
+    """Use complete per-record declarations as representational state defaults."""
+    if not experiments:
+        return
+    common = dict(experiments[0].get("initial_conditions", {}))
+    for experiment in experiments[1:]:
+        common = {name: value for name, value in common.items()
+                  if name in experiment.get("initial_conditions", {})}
+    states = states_data.setdefault("states", [])
+    if not isinstance(states, list):
+        raise ValidationError("pfit-new states must be a list")
+    names = {item.get("name") for item in states if isinstance(item, dict)}
+    missing = _parse_missing_inputs(states_data)
+    for name, value in common.items():
+        if name not in names and name in missing:
+            states.append({"name": name, "initial_value": value})
+    states_data["missing_inputs"] = [name for name in missing if name not in common]
+
+
 def _draft_new_session_response(
     session_dir: Path,
     llm_client: LLMClient,
@@ -292,7 +311,28 @@ def _draft_new_session_response(
     states_data = parse_llm_json_object(states_response, "pfit-new states")
     if _looks_like_full_new_session_response(states_data):
         return _attach_experiments(states_response, experiments)
+    _resolve_experiment_initial_values(states_data, experiments)
     missing_inputs = _parse_missing_inputs(states_data)
+    if missing_inputs and workflow_config.max_repair_attempts > 0:
+        # One recheck of the original specification, not a loop inventing defaults.
+        states_response = _complete_with_log(
+            llm_client, generated_dir, 'repair_new_session_initial_conditions',
+            prompt_renderer.render_messages(
+                'new_session_states.system.md', 'new_session_states.user.md',
+                {**context, 'frozen_parameters': json.dumps(frozen_parameters, indent=2),
+                 'session_context': context['session_context'] + '\n\nInitial-condition recheck:\n'
+                     + 'The previous pass reported these inputs missing: ' + json.dumps(list(missing_inputs))
+                     + '. Recheck the original group statements and per-experiment conditions. '
+                     + 'Return the complete state list. Correct a false missing-input claim only '
+                     + 'when the supplied text resolves it; otherwise retain missing_inputs. '
+                     + 'Never invent a zero or any other initial value.'},
+            ), temperature=workflow_config.temperature, max_tokens=workflow_config.max_tokens,
+        )
+        states_data = parse_llm_json_object(states_response, 'pfit-new initial-condition recheck')
+        if _looks_like_full_new_session_response(states_data):
+            return _attach_experiments(states_response, experiments)
+        _resolve_experiment_initial_values(states_data, experiments)
+        missing_inputs = _parse_missing_inputs(states_data)
     if missing_inputs:
         return _missing_new_session_response(states_data, missing_inputs)
 

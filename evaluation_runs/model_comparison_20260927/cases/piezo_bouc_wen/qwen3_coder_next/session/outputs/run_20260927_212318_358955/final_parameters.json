@@ -1,0 +1,34 @@
+{
+  "parameters": [
+    {
+      "name": "alpha",
+      "value": 0.9681385993594891,
+      "logscale": false
+    },
+    {
+      "name": "beta",
+      "value": 0.007551118393872064,
+      "logscale": false
+    },
+    {
+      "name": "gamma",
+      "value": 0.049863302599855976,
+      "logscale": false
+    },
+    {
+      "name": "cp",
+      "value": 27.607354946566616,
+      "logscale": false
+    },
+    {
+      "name": "kp",
+      "value": 14280564.377827687,
+      "logscale": true
+    },
+    {
+      "name": "de",
+      "value": 1.0725595066431789e-07,
+      "logscale": true
+    }
+  ]
+}

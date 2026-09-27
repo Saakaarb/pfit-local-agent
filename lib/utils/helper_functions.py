@@ -443,6 +443,7 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
         "gradient_iterations_evaluated": len(getattr(fit_obj_NODE, "loss_history", [])),
         "refinement_error": refinement_error,
         "termination": "exception" if refinement_error else getattr(fit_obj_NODE, "termination_reason", "unknown"),
+        "termination_detail": getattr(fit_obj_NODE, "termination_detail", None),
     }
     (output_dir / "fit_summary.json").write_text(json.dumps(summary, indent=2, allow_nan=False) + "\n")
     if input_reader.write_results:

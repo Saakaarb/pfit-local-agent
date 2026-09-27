@@ -125,3 +125,30 @@ aggregation, outputs, snapshots, restart and sloppiness are now implemented.
 Regression tests verify that changing experiment 2 changes the fitted result.
 Fujita and broader missing-channel/uncertainty cases remain useful evaluation
 targets; arbitrary weighting is outside the current shared-schema contract.
+
+
+**Initial-condition extraction and gradient warnings (2026-09-27)**
+
+State extraction now expands unambiguous group declarations (including zero
+values), preserves filename-keyed clamp tables, and makes at most one original-
+specification recheck when initial values are reported missing and repairs are
+enabled. Complete per-experiment declarations resolve exact state-name missing
+flags deterministically, using the first record as the representational default;
+records retain their own values. Incomplete declarations still require user input.
+
+Live Qwen2.5-Coder 32B initialization of the unchanged Sneyd benchmark prompt
+passed in `evaluation_runs/initial_conditions_live_20260927_v4/sneyd_ipr`.
+All eight state defaults and nine IP3/Ca override pairs were verified. Earlier
+prompt-only attempts in the corresponding unversioned, v2 and v3 directories
+remain preserved: they produced contradictory missing-input claims. This is a
+validated initialization fix, not a new end-to-end Sneyd fitting result.
+
+Non-finite gradients remain possible (including cascaded tanks). Estimation now
+prints the stopping iteration and affected parameter names, says refinement did
+not complete, and retains the best valid point through the existing fallback.
+The warning is persisted in `NODE_fitting.log` and `fit_summary.json` includes
+`termination_detail`. Equations and gradient mathematics are unchanged.
+A regression uses a finite forward objective with a NaN autodiff gradient.
+
+Validation: default suite 329 passed, 8 deselected before the final experiment-
+default helper; after that addition, 48 extraction/optimizer/session tests passed.

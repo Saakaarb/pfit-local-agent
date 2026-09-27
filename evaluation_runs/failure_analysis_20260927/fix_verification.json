@@ -1,0 +1,34 @@
+{
+  "qwen32b": {
+    "smoke_and_fidelity": "passed"
+  },
+  "qwen14b": {
+    "error": "Numerical source/JAX fidelity check failed: Experiment 1, normalized parameter offset 0.0: loss differs from source Python (shapes () vs (), max absolute difference 14.080520264399004). Preserve the source expression/metric/output columns; do not change source intent."
+  },
+  "qwen3_coder_next": {
+    "error": "Numerical source/JAX fidelity check failed: Experiment 1, normalized parameter offset 0.0: loss differs from source Python (shapes () vs (), max absolute difference 0.0001681442080546658). Preserve the source expression/metric/output columns; do not change source intent."
+  },
+  "cascaded_tanks": {
+    "original_loss": 1.8033226240240372,
+    "original_gradient": [
+      NaN,
+      14.30127219563457,
+      -9.698870246878982,
+      NaN
+    ],
+    "minimum_saved_states": [
+      1.2445854330481468e-05,
+      5.205
+    ],
+    "solver_result": "diffrax._solution.RESULTS<>",
+    "safe_branch_loss": 1.8033226240240372,
+    "safe_branch_gradient": [
+      -14.30283766809742,
+      14.30127219563457,
+      -9.698870246878982,
+      9.540467337410366
+    ],
+    "max_trajectory_difference": 0.0,
+    "safe_branch_solver_result": "diffrax._solution.RESULTS<>"
+  }
+}

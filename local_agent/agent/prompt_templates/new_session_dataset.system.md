@@ -32,3 +32,9 @@ names; omitted values inherit global model initial values. Never infer initial
 conditions from measured observables. Distinguish auxiliary CSVs from experiment
 data. If selection or experiment conditions are ambiguous, return missing_inputs.
 Do not silently select only the first of several declared experiments.
+
+A table keyed by filename can explicitly supply experiment conditions. When the
+user carries clamped quantities as zero-derivative states, copy their table values
+into each experiment's initial_conditions. Constant during an experiment does
+not mean identical across experiments. Preserve those overrides even when a
+global initial-condition statement applies to the other states.

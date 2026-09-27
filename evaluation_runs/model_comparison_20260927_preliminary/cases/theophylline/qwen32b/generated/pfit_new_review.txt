@@ -1,0 +1,4 @@
+Extracted integrated state variables and initial values from the provided context.
+Extracted equations for the one-compartment oral theophylline pharmacokinetic model.
+The CSV column C_plasma directly measures the derived quantity C_plasma, which is calculated as A_plasma / Vd.
+User provided a custom loss definition.

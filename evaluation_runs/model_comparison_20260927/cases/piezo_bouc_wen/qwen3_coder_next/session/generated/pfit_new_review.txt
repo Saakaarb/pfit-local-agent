@@ -1,0 +1,4 @@
+Initial conditions for all integrated states (xp, vp, h) are explicitly provided in the frozen experiment configuration.
+Extracted ODE system and input voltage expressions from user-provided context. All required symbols are present in frozen states, parameters, fixed parameters, or t. Input voltage V(t) and its derivative dV/dt are defined analytically and used in RHS and formulas.
+The CSV contains time and xp columns. xp is an integrated state (displacement) and matches the simulated xp state directly. No derived formulas are needed for mapping.
+User explicitly defined loss: compare simulated xp to measured xp, normalize residuals by max(abs(measured xp)), and use RMSE (sqrt(mean(normalized squared residuals))).

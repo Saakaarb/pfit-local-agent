@@ -253,6 +253,7 @@ class FitParamsNODE:
 
         
         self.termination_reason = "iteration_budget"
+        self.termination_detail = None
         self.loss_history = []
         self.best_loss=np.inf
         self.best_result=None
@@ -302,7 +303,20 @@ class FitParamsNODE:
             if (not np.isfinite(float(value)) or not np.all(np.isfinite(np.asarray(grad_loss)))
                     or value == self.input_reader.error_loss):
                 self.termination_reason = "invalid_loss_or_gradient"
-                print("Stopping G.D iterations, exiting with previous best solution, failed at iter:",i_iter)
+                reasons = []
+                if not np.isfinite(float(value)):
+                    reasons.append('non-finite loss (NaN/Inf)')
+                elif value == self.input_reader.error_loss:
+                    reasons.append('solver failure/error-loss sentinel')
+                bad = np.flatnonzero(~np.isfinite(np.asarray(grad_loss)))
+                if bad.size:
+                    names = self.input_reader.trainable_parameter_names
+                    reasons.append('non-finite gradient (NaN/Inf) for ' + ', '.join(names[i] for i in bad))
+                self.termination_detail = f'Iteration {i_iter}: ' + '; '.join(reasons)
+                print('Warning: gradient refinement stopped. ' + self.termination_detail
+                      + '. Keeping the best valid point; gradient refinement did not complete.')
+                with log_path.open('a') as log_file:
+                    log_file.write('Warning: ' + self.termination_detail + '; refinement did not complete.\n')
                 return self.best_result,self.best_loss
                 
             self.loss_history.append(value)
