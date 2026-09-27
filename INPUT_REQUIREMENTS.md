@@ -684,3 +684,18 @@ Optax line search and does not use that schedule. Both full fitting and
 gradient-only restarts honor the selection; restarts create fresh optimizer
 state. The fit summary records the effective optimizer and iteration budget.
 A budget of 1000 is a default, not a convergence guarantee.
+
+### Preserving an explicit RMSE request during structured extraction
+
+The split loss-extraction workflow now uses the original `user_info.txt` loss
+specification when normalizing extracted metrics. An unambiguous pooled RMSE
+request upgrades supported MSE variants to their RMSE counterparts, even if the
+LLM's review or notes omit the square root. The existing renderer averages the
+channel mean-square contributions and then applies one square root. Residual
+mappings, normalization/uncertainty scales, and penalties are retained. Applied
+corrections are recorded in `generated/pfit_new_review.txt`.
+
+This safeguard is deliberately narrow: it does not infer negated, alternative,
+mixed-metric, or separate per-channel RMSE objectives. Those still require a
+faithful extraction or explicit user review. It does not rewrite supplied Python
+loss bodies, add missing-data policies, or implement a check-time repair loop.

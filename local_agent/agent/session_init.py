@@ -394,6 +394,7 @@ def _draft_new_session_response(
             observables_data=observables_data,
             loss_data=loss_data,
             session_context=str(context.get("session_context", "")),
+            loss_contract=user_loss_contract(Path(session_dir)),
         )
     ), experiments)
 
@@ -499,6 +500,7 @@ def _assemble_split_new_session_response(
     observables_data: dict[str, object],
     loss_data: dict[str, object],
     session_context: str = "",
+    loss_contract: str = "",
 ) -> dict[str, object]:
     measurement_columns = {name.strip(): index for index, name in enumerate(csv_header[1:])}
     state_stubs = _parse_split_state_stubs(states_data)
@@ -561,6 +563,7 @@ def _assemble_split_new_session_response(
         observables,
         observables_data.get("observables", []),
         csv_header,
+        loss_contract=loss_contract,
     )
     auxiliary_columns = _auxiliary_columns_from_loss_data(loss_data, measurement_columns)
     forcing_columns = equations_data.get("forcing_columns", [])
@@ -783,6 +786,8 @@ def _normalize_split_loss_data(
     observables: list[dict[str, object]],
     raw_observables: list[object],
     csv_header: list[str],
+    *,
+    loss_contract: str = "",
 ) -> dict[str, object]:
     normalized = dict(loss_data)
     state_names = {str(state["name"]) for state in states}
@@ -808,6 +813,14 @@ def _normalize_split_loss_data(
         str(loss_data.get(key, ""))
         for key in ("review", "user_info_txt")
     ).lower()
+    # The original loss specification is authoritative; a lossy LLM summary
+    # must not remove its requested root or override its scaling instructions.
+    if loss_contract:
+        loss_text = loss_contract.lower()
+    enforce_rmse = (
+        _unambiguous_pooled_rmse(loss_contract)
+        if loss_contract else _text_requests_rmse_loss(loss_text)
+    )
     measurement_columns = {name.strip(): index for index, name in enumerate(csv_header[1:])}
     for item in loss_data.get("data_terms", []):
         if not isinstance(item, dict):
@@ -836,7 +849,7 @@ def _normalize_split_loss_data(
             ):
                 sigma = candidate
         if sigma:
-            term["metric"] = "sigma_weighted_mse"
+            term["metric"] = "sigma_weighted_rmse" if metric.endswith("rmse") else "sigma_weighted_mse"
             term["sigma"] = sigma
         metric = str(term.get("metric", "")).lower()
         if "max(abs" in loss_text or "maximum absolute" in loss_text or "max absolute" in loss_text:
@@ -844,9 +857,11 @@ def _normalize_split_loss_data(
                 term["metric"] = "max_abs_normalized_mse"
             elif metric == "log10_normalized_mse":
                 term["metric"] = "log10_max_abs_normalized_mse"
-        if _text_requests_rmse_loss(loss_text):
+        if enforce_rmse:
             metric = str(term.get("metric", "")).lower()
-            if metric == "normalized_mse":
+            if metric in {"", "mse"}:
+                term["metric"] = "rmse"
+            elif metric in {"normalized_mse", "range_normalized_mse"}:
                 term["metric"] = "normalized_rmse"
             elif metric == "max_abs_normalized_mse":
                 term["metric"] = "max_abs_normalized_rmse"
@@ -854,10 +869,14 @@ def _normalize_split_loss_data(
                 term["metric"] = "log10_normalized_rmse"
             elif metric == "log10_max_abs_normalized_mse":
                 term["metric"] = "log10_max_abs_normalized_rmse"
-            elif metric == "sigma_weighted_mse":
+            elif metric in {"sigma_weighted_mse", "uncertainty_weighted_mse"}:
                 term["metric"] = "sigma_weighted_rmse"
         data_terms.append(term)
     normalized["data_terms"] = data_terms
+    if loss_contract and enforce_rmse and data_terms != loss_data.get("data_terms", []):
+        normalized["review"] = (str(loss_data.get("review", "")) +
+            "\nApplied pooled RMSE from the original user loss specification; "
+            "the final square root follows averaging across observation channels.").strip()
 
     penalties = []
     for item in loss_data.get("penalties", []):
@@ -882,6 +901,29 @@ def _normalize_split_loss_data(
         penalties.append(penalty)
     normalized["penalties"] = penalties
     return normalized
+
+
+def _unambiguous_pooled_rmse(contract: str) -> bool:
+    """Recognize explicit pooled RMSE, declining mixed/negated/channelwise intent.
+
+    This is a narrow metric safeguard, not a natural-language loss interpreter.
+    Residual mappings, scaling, penalties and missing-data policies remain intact.
+    """
+    text = contract.lower()
+    marker = r"\brmse\b|\broot\s+mean\s+squared?\s+error\b|\bsqrt\s*\(\s*mean\s*\("
+    if not re.search(marker, text):
+        return False
+    # A mention in an alternative, negation, or mixed objective is insufficient.
+    if re.search(r"\b(?:not|no|without|instead|rather|versus|vs|either|or|mae|mse)\b", text):
+        return False
+    without_root_phrase = re.sub(r"root\s+mean\s+squared?\s+error", "rmse", text)
+    if re.search(r"\bmean\s+(?:squared?|absolute)\s+error\b", without_root_phrase):
+        return False
+    if re.search(r"\b(?:per[- ](?:channel|column|observable)|separately|individually)\b", text):
+        return False
+    if re.search(r"\bsum(?:med)?\b[^.\n]*(?:rmse|root mean|sqrt)", text):
+        return False
+    return True
 
 
 def _text_requests_rmse_loss(text: str) -> bool:
