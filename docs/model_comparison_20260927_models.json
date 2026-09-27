@@ -1,0 +1,277 @@
+{
+  "qwen32b": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 299.8152197059244,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "dd823e6a80f20c812c0e698e3c9c0fba84b0407f",
+    "warmup_seconds": 6.407118180766702,
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-09-27T20:04:32.249073363Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 6406344445,
+      "load_duration": 6207804402,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 93087000,
+      "eval_count": 2,
+      "eval_duration": 22809000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-07T19:51:49.104020021Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 23917 MiB"
+  },
+  "qwen14b": {
+    "key": "qwen14b",
+    "model": "qwen2.5-coder:14b",
+    "label": "Qwen2.5-Coder 14B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 14.8,
+    "nominal_active_parameters_billion": 14.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 9000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:14b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct"
+    ],
+    "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+    "size_bytes": 8988124298,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 147.94898634031415,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 14770033664,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "dd823e6a80f20c812c0e698e3c9c0fba84b0407f",
+    "warmup_seconds": 4.599303422495723,
+    "warmup_response": {
+      "model": "qwen2.5-coder:14b",
+      "created_at": "2026-09-27T20:37:05.753353097Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 4598696987,
+      "load_duration": 4494226035,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 85465000,
+      "eval_count": 2,
+      "eval_duration": 16762000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:14b",
+          "model": "qwen2.5-coder:14b",
+          "size": 12266745363,
+          "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "14.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-07T20:24:22.608305809Z",
+          "size_vram": 12266745363,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 12307 MiB"
+  },
+  "qwen3_coder_next": {
+    "key": "qwen3_coder_next",
+    "model": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+    "label": "Qwen3-Coder-Next 80B/A3B",
+    "architecture": "mixture of experts; hybrid attention",
+    "nominal_total_parameters_billion": 80,
+    "nominal_active_parameters_billion": 3,
+    "quantization": "UD-Q3_K_XL",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking only, per Qwen model card",
+    "expected_download_bytes": 36300000000,
+    "sources": [
+      "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+      "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/tree/main"
+    ],
+    "digest": "cc20797524d225c7e194317e5739081f2d06281c0173af3fd3c545cd8a59c599",
+    "size_bytes": 36282686243,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3next",
+      "families": [
+        "qwen3next"
+      ],
+      "parameter_size": "79.7B",
+      "quantization_level": "Q3_K_M",
+      "context_length": 262144,
+      "embedding_length": 2048
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 339.75264549814165,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "tools",
+      "completion"
+    ],
+    "gguf_parameter_count": 79674391296,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "dd823e6a80f20c812c0e698e3c9c0fba84b0407f",
+    "warmup_seconds": 42.73828267864883,
+    "warmup_response": {
+      "model": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+      "created_at": "2026-09-27T21:10:18.986498869Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 42737640068,
+      "load_duration": 20900964518,
+      "prompt_eval_count": 12,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 21817948000,
+      "eval_count": 2,
+      "eval_duration": 16452000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+          "model": "hf.co/unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K_XL",
+          "size": 36776297102,
+          "digest": "cc20797524d225c7e194317e5739081f2d06281c0173af3fd3c545cd8a59c599",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen3next",
+            "families": [
+              "qwen3next"
+            ],
+            "parameter_size": "79.7B",
+            "quantization_level": "unknown"
+          },
+          "expires_at": "2319-01-07T20:57:35.841481507Z",
+          "size_vram": 36776297102,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 35771 MiB"
+  }
+}
