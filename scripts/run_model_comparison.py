@@ -311,6 +311,8 @@ def main():
     inventory = json.loads((root / 'input_audit.json').read_text())
     models = json.loads((REPO / 'benchmarks/model_comparison/models.json').read_text())
     selected = [m for m in models if not args.models or m['key'] in args.models]
+    if not selected or (args.models and set(args.models) - {m['key'] for m in models}):
+        parser.error('Select at least one known comparison model')
     env = dict(os.environ, JAX_PLATFORMS='cpu', JAX_ENABLE_X64='true',
                XLA_PYTHON_CLIENT_PREALLOCATE='false', PYTHONUNBUFFERED='1')
     manifest_path = root / 'manifest.json'
@@ -344,7 +346,7 @@ def main():
                 raise ValueError(f'Frozen input changed: {path}')
     manifest.update(status='running', pid=os.getpid())
     save(manifest_path, manifest)
-    report(root, models, inventory)
+    report(root, selected, inventory)
     for model in selected:
         outstanding = [c for c in inventory if not (root / 'cases' / c['name'] / model['key'] / 'metadata.json').exists()]
         if not outstanding:
@@ -361,14 +363,14 @@ def main():
                      dict(status='blocked' if case['status'] == 'blocked' else 'infrastructure_error',
                           reason=case.get('reason', batch['error']), model_metadata=model))
             save(manifest_path, manifest)
-            report(root, models, inventory)
+            report(root, selected, inventory)
             continue
         batch['status'] = 'running'
         save(manifest_path, manifest)
         # A simple case first, then a fixed alphabetical order for every model.
         for case in sorted(outstanding, key=lambda c: (c['name'] != 'theophylline', c['name'])):
             run_case(root, case, model, metadata, env)
-            report(root, models, inventory)
+            report(root, selected, inventory)
         batch.update(status='completed', finished_utc=utc())
         save(manifest_path, manifest)
     if args.restore_current_model:
@@ -382,7 +384,7 @@ def main():
             manifest['default_model_restoration_error'] = str(exc)
     manifest.update(status='completed', finished_utc=utc())
     save(manifest_path, manifest)
-    report(root, models, inventory)
+    report(root, selected, inventory)
     print(f'Completed: {root / "comparison.md"}', flush=True)
 
 

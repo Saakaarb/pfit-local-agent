@@ -16,7 +16,10 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def prepare(root):
+def prepare(root, models=None):
+    models = MODELS if models is None else models
+    if not models or any(model not in MODELS for model in models):
+        raise ValueError("Select at least one known comparison model")
     root.mkdir(parents=True, exist_ok=False)
     cases = [(p.name, p, False) for p in sorted((REPO / 'sessions').iterdir()) if p.is_dir()]
     cases += [(p.name, p, True) for p in sorted((REPO / 'tests/fixtures').iterdir())
@@ -26,7 +29,7 @@ def prepare(root):
         entry = dict(name=name, source=str(source.relative_to(REPO)), adaptations=[],
                      status='ready', expected_experiments=None)
         inventory.append(entry)
-        for model in MODELS:
+        for model in models:
             (root / 'cases' / name / model).mkdir(parents=True)
         prompt = SPEC / 'prompts' / (name + '.txt')
         source_prompt = source / 'inputs/user_info.txt'
@@ -77,5 +80,6 @@ def prepare(root):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
+    parser.add_argument("--models", nargs="+", choices=MODELS)
     args = parser.parse_args()
-    prepare(args.root.resolve())
+    prepare(args.root.resolve(), args.models)

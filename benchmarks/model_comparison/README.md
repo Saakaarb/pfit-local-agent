@@ -108,3 +108,38 @@ Oregonator passed new and check with the corrected uncertainty-weighted RMSE,
 but failed JAX integration smoke tests with a sentinel loss after five repairs.
 The loss mismatch is resolved in that observed run; integration readiness is a
 separate unresolved outcome. No fix is inserted between model batches.
+
+
+## Fresh two-model rerun (2026-10-03)
+
+The current run is `evaluation_runs/model_comparison_20261003`, with only
+`qwen32b` and `qwen14b` under each case. It reruns every eligible case from
+scientific text and CSVs through all five stages with the smoke budget above.
+The existing installed 32B model runs first, followed by 14B; default 32B is
+restored afterward. Timing, model identities, per-stage logs, fitting outputs
+and diagnoses are recorded automatically. Early non-finite gradient stops are
+reported as degraded refinement, separate from workflow stage failures.
+
+Historical studies and previous case output runs have been moved out of active
+case directories into `evaluation_runs/archive/before_20261003`. Its
+`relocations.json` maps the old paths to their archived locations. Existing
+historical report links should be resolved using that mapping. Frozen scientific
+inputs and source sessions remain available; the current comparison re-extracts
+YAML and code rather than reusing old generated artifacts.
+
+```bash
+source /workspace/pfit-env.sh
+.venv/bin/python scripts/prepare_model_comparison.py \
+  --root evaluation_runs/model_comparison_20261003 --models qwen32b qwen14b
+.venv/bin/python scripts/run_model_comparison.py \
+  --root evaluation_runs/model_comparison_20261003 --models qwen32b qwen14b \
+  --rotate-models --restore-current-model
+```
+
+Qwen3.8 27B is a separate future candidate, not part of this two-model run.
+Ollama lists `qwen3.8:27b` as roughly 18 GB, Q4_K_M, 27.3B language parameters,
+with thinking enabled by default and switchable per request:
+https://ollama.com/library/qwen3.8:27b . It should fit this H100 80GB with a
+32K context, but local loading, structured-output compatibility and thinking
+budget need testing before adding it to a scored comparison. Its public coding
+claims do not establish better performance on these scientific tasks.

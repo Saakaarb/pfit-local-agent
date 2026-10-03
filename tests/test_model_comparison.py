@@ -72,3 +72,11 @@ def test_run_case_excludes_benchmark_metadata_from_llm_context(tmp_path, monkeyp
     assert record['status'] == 'fail'
     assert record['failed_stage'] == 'new'
     assert 'error' not in record  # Do not swallow a context assertion in run_case.
+
+
+def test_report_excludes_unselected_models(tmp_path):
+    models = json.loads((comparison.REPO / 'benchmarks/model_comparison/models.json').read_text())[:2]
+    comparison.report(tmp_path, models, [dict(name='example')])
+    text = (tmp_path / 'comparison.md').read_text()
+    assert 'qwen32b' in text and 'qwen14b' in text
+    assert 'qwen3_coder_next' not in text
