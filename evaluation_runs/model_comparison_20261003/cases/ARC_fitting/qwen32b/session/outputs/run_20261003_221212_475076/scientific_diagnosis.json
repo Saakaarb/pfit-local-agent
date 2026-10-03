@@ -1,0 +1,217 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/ARC_fitting/qwen32b/session/outputs/run_20261003_221212_475076",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/ARC_fitting/qwen32b/session/outputs/run_20261003_221212_475076/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, T: RMSE=494.22, bias=488.581, time correlation=-0.229004143467983, lag-1=0.7442904671480542.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, dTdt: RMSE=29.4085, bias=-5.60663, time correlation=-0.09959175986007256, lag-1=0.7071720609120152.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 142,
+          "missing": 0,
+          "rmse": 494.21969450797326,
+          "mae": 488.58080029439935,
+          "bias": 488.58080029439935,
+          "max_abs": 578.4955697556105,
+          "time_correlation": -0.229004143467983,
+          "lag1_correlation": 0.7442904671480542,
+          "time_regions": [
+            {
+              "start": 17192.4,
+              "end": 35839.020000000004,
+              "count": 5,
+              "rmse": 514.7393473720286
+            },
+            {
+              "start": 35839.020000000004,
+              "end": 54485.64000000001,
+              "count": 11,
+              "rmse": 563.4538890286607
+            },
+            {
+              "start": 54485.64000000001,
+              "end": 73132.26000000001,
+              "count": 126,
+              "rmse": 486.8661936064017
+            }
+          ],
+          "name": "T",
+          "observes": "T"
+        },
+        {
+          "status": "ok",
+          "count": 142,
+          "missing": 0,
+          "rmse": 29.408493644586677,
+          "mae": 5.609469907010671,
+          "bias": -5.6066336134321295,
+          "max_abs": 208.60693333316172,
+          "time_correlation": -0.09959175986007256,
+          "lag1_correlation": 0.7071720609120152,
+          "time_regions": [
+            {
+              "start": 17192.4,
+              "end": 35839.020000000004,
+              "count": 5,
+              "rmse": 0.09005898990873518
+            },
+            {
+              "start": 35839.020000000004,
+              "end": 54485.64000000001,
+              "count": 11,
+              "rmse": 0.0005972575792186377
+            },
+            {
+              "start": 54485.64000000001,
+              "end": 73132.26000000001,
+              "count": 126,
+              "rmse": 31.21990718974497
+            }
+          ],
+          "name": "dTdt",
+          "observes": "dTdt"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Ea1",
+      "value": 2.5058260135478e-19,
+      "range_fraction": 0.32528624781791043,
+      "logscale": true
+    },
+    {
+      "name": "h1",
+      "value": 541.3367995133657,
+      "range_fraction": 0.8667337754911848,
+      "logscale": true
+    },
+    {
+      "name": "A1",
+      "value": 7.050296652786116e+18,
+      "range_fraction": 0.6381298465310548,
+      "logscale": true
+    },
+    {
+      "name": "A2",
+      "value": 1.2562026826918386e+19,
+      "range_fraction": 0.6528858656782035,
+      "logscale": true
+    },
+    {
+      "name": "Ea2",
+      "value": 3.1548125565289254e-19,
+      "range_fraction": 0.6575542898989069,
+      "logscale": true
+    },
+    {
+      "name": "h2",
+      "value": 39.418595527415974,
+      "range_fraction": 0.2978505732193105,
+      "logscale": true
+    },
+    {
+      "name": "m2",
+      "value": 3.155458345974117,
+      "range_fraction": 0.5388645864935292,
+      "logscale": false
+    },
+    {
+      "name": "n2",
+      "value": 3.7417709840407865,
+      "range_fraction": 0.6854427460101966,
+      "logscale": false
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 10002.748483246214,
+    "final_loss": 10002.74175179582,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      10002.74175179582
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/ARC_fitting/qwen32b/session/outputs/run_20261003_221212_475076/de_fitting.log",
+      "rows": 1,
+      "first": 10003.0,
+      "final": 10003.0,
+      "best": 10003.0,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          10003.0
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/ARC_fitting/qwen32b/session/outputs/run_20261003_221212_475076/NODE_fitting.log",
+      "rows": 2,
+      "first": 10003.0,
+      "final": 10003.0,
+      "best": 10003.0,
+      "last_material_improvement_iteration": 4,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          10003.0
+        ],
+        [
+          5,
+          10003.0
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 10002.74175179582,
+  "experiment_losses": [
+    10002.74175179582
+  ],
+  "sloppiness": {
+    "status": "failed",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Refinement stopped at its iteration budget."
+}

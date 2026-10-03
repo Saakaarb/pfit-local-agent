@@ -1,0 +1,60 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen32b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen32b/session/outputs/run_20261003_222642_307996
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.4745E+01, best loss 1.4745E+01, final loss 1.4745E+01
+- NODE: 2 iterations, first loss 1.4744E+01, best loss 1.4743E+01, final loss 1.4743E+01
+
+Generation workflow:
+- events: 4 passed, 1 failed, 1 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: data.csv; loss=14.743391562732338; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 4
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen32b/session/outputs/run_20261003_222642_307996/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- f=99.77 is at 99.98% of its log10 search interval.
+- [BOUND] f=99.77 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 2.40773; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, X: RMSE=0.207572, bias=-0.0597131, time correlation=0.0434683027808779, lag-1=0.8901585451252844.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, Z: RMSE=0.107049, bias=-0.0611028, time correlation=0.00793317966805876, lag-1=0.9743532123935883.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen32b/session/outputs/run_20261003_222642_307996/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen32b/session/outputs/run_20261003_222642_307996/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+f=99.77 is at 99.98% of its log10 search interval; stationarity is not established.
+1. Check whether the bound for f is physically justified. [BOUND] f=99.77 is very close to the upper bound of its log10 search interval, which may indicate that the bound is too restrictive or that the model is sensitive to this parameter.
+2. Increase gradient_opt.num_iters and run a gradient-only restart from this run. [STATIONARITY] The normalized gradient infinity norm is 2.40773, indicating that stationarity is not established. A gradient-only restart with more iterations may help in achieving a more stable solution.
+3. Inspect the time-region residuals and trajectory plot for Experiment 1, channels X and Z. [RESIDUAL] The residuals for Experiment 1, channels X and Z, suggest potential issues with model fit or data calibration. Inspecting the plots can provide insights into specific time regions where the model may be underperforming.
+Limitation: The evidence does not establish whether the current model is the best possible fit or if there are other models that could fit the data better.
+Limitation: The gradient-only restart assumes that the current model and bounds are valid and that the gradient evidence supports refinement.

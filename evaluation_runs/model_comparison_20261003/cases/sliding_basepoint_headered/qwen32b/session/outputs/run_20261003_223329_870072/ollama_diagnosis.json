@@ -1,0 +1,46 @@
+{
+  "verdict": "Stationarity not established; weak modes identified; budget reached; residuals indicate potential issues.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.826031, indicating that stationarity is not established. A higher iteration count may help in achieving a smaller gradient."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There are 2 weak parameter combinations, suggesting potential non-identifiability. Inspecting eigenvectors can help understand the nature of these weak modes."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The refinement stopped at its iteration budget. Checking the gradient and residual plots will help determine if further iterations are beneficial."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, contact_force.",
+      "reason": "The RMSE for contact_force is 226.678, with a significant bias and high time correlation. Inspecting the residuals and trajectory plot can help identify specific issues."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, displacement.",
+      "reason": "The RMSE for displacement is 0.176883, with a significant negative time correlation. Inspecting the residuals and trajectory plot can help identify specific issues."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish the presence of numerical instability or convergence issues beyond the iteration budget.",
+    "Weak modes do not conclusively prove individual parameter non-identifiability without further analysis."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

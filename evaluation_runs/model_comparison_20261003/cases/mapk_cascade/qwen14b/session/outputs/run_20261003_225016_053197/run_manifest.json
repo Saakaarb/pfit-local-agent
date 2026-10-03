@@ -1,0 +1,88 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 128,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1008-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "3e5cfbd6e41ee447b4ed5bacc6490dadf6b4a1aa7c83ac16e9b4a7c46f517efc",
+      "generated_script": "660bdc47fa384462a1c62703d7076aee23f16804cdfc944e01c4d62b2d8cf6c8",
+      "user_model": "9e9bab85fd162ea77dce9a69a045191577b3ef2fc9b1759b69310f2253f1b7c6"
+    },
+    "git": {
+      "commit": "60022b84afca11b529c34eeb0d05d18dd171b7c8",
+      "branch": "main",
+      "dirty": false
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "mapk_data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "2facb11851dde3191fe92c7500cf9c41701519448a25a82f8c3b10290b8d04f3",
+      "initial_conditions": {
+        "M": 500.0,
+        "Mp": 0.0,
+        "Mpp": 0.0,
+        "MAPKK": 50.0,
+        "MKP3": 100.0,
+        "M_MAPKK": 0.0,
+        "Mp_MAPKK": 0.0,
+        "Mpp_MKP3": 0.0,
+        "Mp_MKP3_dep": 0.0,
+        "Mp_MKP3": 0.0,
+        "M_MKP3": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

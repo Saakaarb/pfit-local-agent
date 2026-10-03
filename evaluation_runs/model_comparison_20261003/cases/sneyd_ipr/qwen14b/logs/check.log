@@ -1,0 +1,7 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/sneyd_ipr/qwen14b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/sneyd_ipr/qwen14b/session
+warning: The automatic log-loss rule does not apply to the 'open_probability' column in some experiments due to fewer than two finite values or containing zero/negative values. Ensure that the loss function is appropriate for the data scale.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.

@@ -1,0 +1,4 @@
+session initialized: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/decay_multiexp/qwen14b/session
+written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/decay_multiexp/qwen14b/session/inputs/user_input.yaml
+written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/decay_multiexp/qwen14b/session/generated/user_model.py
+written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/decay_multiexp/qwen14b/session/generated/pfit_new_review.txt

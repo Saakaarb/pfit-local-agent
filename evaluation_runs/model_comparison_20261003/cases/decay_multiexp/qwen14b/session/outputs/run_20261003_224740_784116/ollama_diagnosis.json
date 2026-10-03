@@ -1,0 +1,45 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 0.364027.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.364027, indicating that stationarity is not established. Increasing the number of gradient iterations may help refine the solution further."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, A.",
+      "reason": "The RMSE for Experiment 1, A is 0.140259, with a time correlation of -0.750315 and lag-1 of 0.863195. Inspecting the residuals and trajectory can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, B.",
+      "reason": "The RMSE for Experiment 1, B is 0.251908, with a time correlation of 0.599611 and lag-1 of 0.873498. Inspecting the residuals and trajectory can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 2, A.",
+      "reason": "The RMSE for Experiment 2, A is 0.280518, with a time correlation of -0.750315 and lag-1 of 0.863195. Inspecting the residuals and trajectory can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 2, B.",
+      "reason": "The RMSE for Experiment 2, B is 0.637775, with a time correlation of 0.630376 and lag-1 of 0.866181. Inspecting the residuals and trajectory can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the model is globally optimal or identifiable."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

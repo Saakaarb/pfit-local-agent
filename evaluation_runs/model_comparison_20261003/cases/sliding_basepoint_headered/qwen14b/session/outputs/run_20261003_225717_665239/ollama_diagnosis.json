@@ -1,0 +1,31 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 0.71394.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.71394, indicating that stationarity is not established. If gradient checks pass and bounds are appropriate, increasing the number of gradient iterations and performing a gradient-only restart can help refine the solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, contact_force.",
+      "reason": "The RMSE for Experiment 1, contact_force is 60.2275, with a time correlation of -0.38159 and lag-1 of 0.94999. Inspecting the residuals and trajectory plot can help identify issues with input timing, calibration, initial conditions, or model mismatch before deciding to spend more iterations."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, displacement.",
+      "reason": "The RMSE for Experiment 1, displacement is 0.01773, with a time correlation of -0.12793 and lag-1 of 0.97519. Inspecting the residuals and trajectory plot can help identify issues with input timing, calibration, initial conditions, or model mismatch before deciding to spend more iterations."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the model is globally optimal or identifiable."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

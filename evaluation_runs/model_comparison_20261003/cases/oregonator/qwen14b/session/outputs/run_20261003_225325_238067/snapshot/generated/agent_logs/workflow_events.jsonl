@@ -1,0 +1,7 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen14b/session"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen14b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen14b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1: step_limit: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>; steps={'max_steps': 10000, 'num_accepted_steps': 4988, 'num_rejected_steps': 5012, 'num_steps': 10000}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=20000; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen14b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen14b/session/generated/generated_script.py"}

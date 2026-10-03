@@ -1,0 +1,32 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 0.00347788.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters to 10 and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is below the threshold for stationarity, but the refinement stopped at its iteration budget. Increasing the gradient iterations may help refine the solution further."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There are 2 weak parameter combinations, which may indicate potential issues with parameter identifiability. Inspecting the eigenvectors can provide insights into the parameter space and guide further experimental design."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for each experiment.",
+      "reason": "The residuals for each experiment show varying RMSE and bias values. Inspecting these plots can help identify potential issues with model mismatch, input timing, calibration, or initial conditions."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the model is globally optimal or if there are other local minima.",
+    "The evidence does not provide information on the stability of the numerical solver or the presence of stiffness in the system."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

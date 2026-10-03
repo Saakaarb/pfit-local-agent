@@ -1,0 +1,28 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/test_session/qwen32b/session/outputs/run_20261003_223717_397957
+Readiness warning: Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals.
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 128, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/test_session/qwen32b/session/outputs/run_20261003_223717_397957
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 3.7925E-01
+Time for iteration: 0.0232
+-------
+Final best position (scaled): [-0.34991686  0.73396748  0.27674868]
+Final best cost: 3.7925E-01
+Done with DE search
+Best Position from DE: [1.99602642e-02 5.85944081e+09 1.27936570e+05]
+Best cost from DE: 0.3792470441267664
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09]
+Trainable_params: [-0.34991686  0.73396748  0.27674868]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.3792470441267664 0.3792470441267664
+Iteration:,loss value, best loss: 4 0.3791119532970167 0.3791119532970167
+Iteration time: 4.454605340957642
+Final best position: [2.00062715e-02 5.83584017e+09 1.27348849e+05]
+Final loss: 0.3790781962437233
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/test_session/qwen32b/session/outputs/run_20261003_223717_397957

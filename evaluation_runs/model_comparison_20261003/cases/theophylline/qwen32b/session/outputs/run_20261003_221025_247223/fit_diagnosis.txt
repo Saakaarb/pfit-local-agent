@@ -1,0 +1,58 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/theophylline/qwen32b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/theophylline/qwen32b/session/outputs/run_20261003_221025_247223
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.4733E-01, best loss 3.4733E-01, final loss 3.4733E-01
+- NODE: 2 iterations, first loss 3.4685E-01, best loss 3.4672E-01, final loss 3.4672E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: theophylline_sub6.csv; loss=0.3467238785603164; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/theophylline/qwen32b/session/outputs/run_20261003_221025_247223/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- ke=0.998849 is at 99.98% of its log10 search interval.
+- [BOUND] ke=0.998849 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.53946; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, C_plasma: RMSE=2.2329, bias=-1.90839, time correlation=-0.044752840598455204, lag-1=0.6417638227770127.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/theophylline/qwen32b/session/outputs/run_20261003_221025_247223/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/theophylline/qwen32b/session/outputs/run_20261003_221025_247223/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+ke=0.998849 is at 99.98% of its log10 search interval, and stationarity is not established.
+1. Check whether the bound for ke is physically justified. If revising bounds, run a full fit. [BOUND] ke is very close to its upper bound, which may indicate that the bound is too restrictive or that the model is not capturing the true parameter value.
+2. Increase gradient_opt.num_iters and run a gradient-only restart from this run. [STATIONARITY] The normalized gradient infinity norm is 0.53946, indicating that stationarity has not been established. Increasing the number of iterations may help in achieving a more stable solution.
+3. Inspect the time-region residuals and trajectory plot (fit_exp1.png). [RESIDUAL] The RMSE for Experiment 1, C_plasma is 2.2329, with a bias of -1.90839. Inspecting the residuals and trajectory plot can help identify any systematic errors or model mismatch issues.
+Limitation: The evidence does not establish whether the model is overfitting or if the data is noisy.
+Limitation: The current gradient norm does not confirm a global optimum or identifiability of the parameters.

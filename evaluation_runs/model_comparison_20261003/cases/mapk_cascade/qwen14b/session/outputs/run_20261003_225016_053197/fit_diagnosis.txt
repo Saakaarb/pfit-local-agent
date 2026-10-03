@@ -1,0 +1,75 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/mapk_cascade/qwen14b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/mapk_cascade/qwen14b/session/outputs/run_20261003_225016_053197
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.0850E-01, best loss 3.0850E-01, final loss 3.0850E-01
+- NODE: 2 iterations, first loss 3.0750E-01, best loss 3.0725E-01, final loss 3.0725E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: mapk_data.csv; loss=0.3072469219513972; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 3; negative modes: 4
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/mapk_cascade/qwen14b/session/outputs/run_20261003_225016_053197/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Parameters are at/near bounds; unconstrained Hessian modes do not describe the feasible region fully.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- k1=0.00100173 is at 0.02% of its log10 search interval.
+- [BOUND] k1=0.00100173 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k3=0.00100173 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h_1=100 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h2=0.998276 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h3=100 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h4=0.0001 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h_6=0.0998275 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.997204; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 3 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Mpp: RMSE=3.72498, bias=-3.39419, time correlation=-0.9348194090421216, lag-1=0.9953599575002987.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/mapk_cascade/qwen14b/session/outputs/run_20261003_225016_053197/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/mapk_cascade/qwen14b/session/outputs/run_20261003_225016_053197/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The model fitting run did not establish stationarity and has parameters at the edge of their search intervals.
+1. Check the physical justification for the bounds of parameters k1, k3, h1, h2, h3, h4, and h_6. If the bounds are appropriate, run a full fit with revised bounds if necessary. [BOUND, BOUND, BOUND, BOUND, BOUND, BOUND, BOUND] Parameters k1, k3, h1, h2, h3, h4, and h_6 are at the edge of their log10 search intervals, which may indicate that the bounds are too restrictive or that the model is not well-identified within these bounds.
+2. Increase the number of gradient iterations (gradient_opt.num_iters) and perform a gradient-only restart from the current run. [STATIONARITY] The normalized gradient infinity norm is 0.997204, indicating that stationarity is not established. A gradient-only restart with more iterations may help refine the solution.
+3. Inspect the eigenvectors associated with the weak parameter combinations before designing additional experiments or fixing independently known parameters. [WEAK_MODES] There are 3 weak parameter combinations, which may indicate potential issues with parameter identifiability. Inspecting the eigenvectors can provide insights into the nature of these weak modes.
+4. Assess the final gradient and residual plots to determine if a gradient-only restart is worthwhile. [BUDGET] The refinement stopped at its iteration budget. Assessing the final gradient and residual plots can help decide whether further iterations are necessary.
+5. Inspect the time-region residuals and trajectory plot for experiment 1, Mpp. Check input timing, calibration, initial conditions, and model mismatch. [RESIDUAL] The RMSE for experiment 1, Mpp is 3.72498, with a significant time correlation and lag-1 correlation. Inspecting the residuals and trajectory plot can help identify potential issues with the model or data.
+Limitation: The evidence does not establish whether the model is globally optimal or identifiable.
+Limitation: The current gradient-only restart assumes that the existing model and bounds remain valid.

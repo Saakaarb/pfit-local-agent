@@ -1,0 +1,44 @@
+Fit the sliding-basepoint friction model to force_disp_data_sliding_basepoint.csv.
+
+Dataset columns:
+- time in seconds
+- contact_force in kN, observed contact force
+- displacement in meters, observed displacement
+
+Integrated states and initial values:
+- x1(0) = 0.0
+- x2(0) = 0.0
+- v1(0) = 11.06
+- v2(0) = 0.0
+- k(0) = 1.29e6
+- c1(0) = 0.0
+
+Trainable parameters:
+- c2 in [1.0e4, 1.0e7], log scale
+- Dk in [1.0e-3, 10.0], log scale
+- Dc in [0.1, 1.0], linear scale
+- m1 in [1.0e2, 1.0e4], log scale
+- m2 in [1.0, 1.0e2], log scale
+
+Fixed parameter:
+- vf = 0.1
+
+ODE system:
+- dx1/dt = v1
+- dx2/dt = v2
+- dv1/dt = (k * (x2 - x1) - c1 * abs(v1) * sign(v1)) / m1
+- dv2/dt = 0 if abs(-k * (x2 - x1)) < c2 and abs(v2) < vf, otherwise (-k * (x2 - x1) - c2 * sign(v2)) / m2
+- dk/dt = Dk * abs(m1 * v1 * dv1/dt)
+- dc1/dt = Dc * abs(m1 * v1 * dv1/dt)
+
+Derived observables:
+- contact_force = abs(k * (x2 - x1) - c1 * abs(v1) * sign(v1)) / 1000
+- displacement = x1
+
+Loss:
+- Compare simulated contact_force to the measured contact_force column.
+- Compare simulated displacement to the measured displacement column.
+- Normalize each residual column by max(abs(measured column)).
+- loss = sqrt(mean(all normalized squared residuals)).
+
+Write out time, measured contact force, measured displacement, all six simulated states, simulated contact_force, and simulated displacement.

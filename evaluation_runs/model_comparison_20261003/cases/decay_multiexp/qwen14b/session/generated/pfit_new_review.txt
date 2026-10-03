@@ -1,0 +1,4 @@
+The initial conditions for decay_run_A.csv are A=1.0 and B=0.0. The initial conditions for decay_run_B.csv are A=2.0 and B=0.5.
+The provided equations and initial conditions are consistent with the user's description of the decay reaction A -> B -> products. The rate constants k1 and k2 are included as parameters to be fitted.
+The CSV columns 'A' and 'B' directly measure the integrated states 'A' and 'B' from the model. No derived quantities are present.
+The user wants to fit two decay experiments with the same rate constants. The loss is defined as the average of the normalized RMSE for each experiment, where each concentration residual is divided by the largest absolute measured value of that concentration in that experiment.

@@ -1,0 +1,4 @@
+xp(0) = 0.0; vp(0) = 0.0; h(0) = 0.0
+All required equations and formulas are provided.
+The CSV column 'xp' directly measures the integrated state 'xp'. No other columns are present.
+User provided a custom loss function to compare simulated xp to measured xp, normalizing by max(abs(measured xp)) and using RMSE.

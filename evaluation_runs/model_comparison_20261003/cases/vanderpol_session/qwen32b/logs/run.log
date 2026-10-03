@@ -1,0 +1,27 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/vanderpol_session/qwen32b/session/outputs/run_20261003_223838_402439
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 128, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/vanderpol_session/qwen32b/session/outputs/run_20261003_223838_402439
+DE tolerances  — rtol: [1e-07, 1e-07], atol: [1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 9.9068E-01
+Time for iteration: 0.0146
+-------
+Final best position (scaled): [0.93677672]
+Final best cost: 9.9068E-01
+Done with DE search
+Best Position from DE: [69.49311941]
+Best cost from DE: 0.990683998876209
+NODE tolerances — rtol: [1e-07, 1e-07], atol: [1e-09, 1e-09]
+Trainable_params: [0.93677672]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.9906839988684981 0.9906839988684981
+Iteration:,loss value, best loss: 4 0.9895623058527702 0.9895623058527702
+Iteration time: 2.637735605239868
+Final best position: [69.37392227]
+Final loss: 0.9893334546311816
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/vanderpol_session/qwen32b/session/outputs/run_20261003_223838_402439

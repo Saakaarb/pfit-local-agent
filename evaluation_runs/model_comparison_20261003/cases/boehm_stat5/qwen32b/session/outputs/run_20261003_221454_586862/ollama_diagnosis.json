@@ -1,0 +1,32 @@
+{
+  "verdict": "Stationarity not established; weak modes detected; budget reached.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.378275, indicating that stationarity is not established. If gradient checks pass and bounds are appropriate, increasing the number of iterations can help achieve convergence."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There is 1 weak parameter combination, suggesting potential non-identifiability. Inspecting eigenvectors can provide insights into which parameters are contributing to this issue."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for pSTAT5A, pSTAT5B, and rSTAT5A.",
+      "reason": "The residuals for each channel indicate significant RMSE and bias, suggesting potential issues with input timing, calibration, initial conditions, or model mismatch. Inspecting the plots can help identify specific regions or issues."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the model is globally optimal or if the parameters are fully identifiable.",
+    "The weak modes do not definitively prove individual non-identifiability without further analysis."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

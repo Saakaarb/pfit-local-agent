@@ -1,0 +1,5 @@
+Initial conditions from user_info.txt: H(0) = 30.0, L(0) = 4.0. Frozen experiment initial conditions: H = 30.0, L = 4.0. These cover all integrated states.
+The Lotka-Volterra predator-prey model equations have been extracted and formatted according to the provided schema.
+The CSV columns H and L directly measure the integrated states H and L from the Lotka-Volterra model.
+The user wants to fit the Lotka-Volterra predator-prey model to the lynx_hare.csv data. The loss should be calculated using normalized squared-error terms for both observed states, normalized by the maximum absolute value of the measured columns.
+Applied pooled RMSE from the original user loss specification; the final square root follows averaging across observation channels.

@@ -1,0 +1,171 @@
+{
+  "case": "cascaded_tanks",
+  "model_metadata": {
+    "key": "qwen14b",
+    "model": "qwen2.5-coder:14b",
+    "label": "Qwen2.5-Coder 14B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 14.8,
+    "nominal_active_parameters_billion": 14.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 9000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:14b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct"
+    ],
+    "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+    "size_bytes": 8988124298,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 147.93025953508914,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 14770033664,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "60022b84afca11b529c34eeb0d05d18dd171b7c8",
+    "warmup_seconds": 4.987539296969771,
+    "warmup_response": {
+      "model": "qwen2.5-coder:14b",
+      "created_at": "2026-10-03T22:41:40.410271764Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 4986875854,
+      "load_duration": 4892824955,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 76394000,
+      "eval_count": 2,
+      "eval_duration": 15465000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:14b",
+          "model": "qwen2.5-coder:14b",
+          "size": 12266745363,
+          "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "14.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-13T22:28:57.265190133Z",
+          "size_vram": 12266745363,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 12307 MiB"
+  },
+  "input_audit": {
+    "name": "cascaded_tanks",
+    "source": "tests/fixtures/cascaded_tanks",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "estimation.csv"
+    ],
+    "prompt_sha256": "08e3877c1bbf117dcf2a93a81a4937ed01594fc7b8e1afa6acc40a578255d0eb",
+    "original_prompt_sha256": "3abd00dfd55320f37c60ab1bc191946bf4a2d396b848a1f95d62c8946cf9708d",
+    "prompt_audit": "Expanded loss-only notes into scientific equations, bounds, initial conditions, observations, inputs and experiment definitions. No Python or YAML supplied.",
+    "input_hashes": {
+      "estimation.csv": "c48c8602fdf03b6445f5e54494e4aff251035450d546865053bcb0fa7de84b82",
+      "user_info.txt": "08e3877c1bbf117dcf2a93a81a4937ed01594fc7b8e1afa6acc40a578255d0eb",
+      "validation.csv": "b0978e1a4933dc79db58a9ed66e9776e675a9ac826d33053bae94323d1864a2b"
+    }
+  },
+  "status": "fail",
+  "started_utc": "2026-10-03T22:46:18Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-03T22:46:18Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 72449,
+      "exit_code": 1,
+      "seconds": 42.396,
+      "finished_utc": "2026-10-03T22:47:00Z",
+      "status": "fail",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "failed_stage": "new",
+  "finished_utc": "2026-10-03T22:47:00Z",
+  "total_wall_seconds": 42.447,
+  "repair_calls": 5,
+  "logged_successful_llm_calls": 11,
+  "llm_calls": 11,
+  "llm_wall_seconds": 41.34791582636535,
+  "prompt_tokens": 18090,
+  "generated_tokens": 2143,
+  "token_counts_incomplete": false
+}

@@ -1,0 +1,1 @@
+error: pfit-new expression uses Python and/or; use np.logical_and/np.logical_or or a smooth np.* switch

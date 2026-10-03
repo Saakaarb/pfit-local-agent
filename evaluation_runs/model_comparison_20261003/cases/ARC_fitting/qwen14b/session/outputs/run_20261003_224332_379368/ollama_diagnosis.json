@@ -1,0 +1,26 @@
+{
+  "verdict": "Refinement stopped at its iteration budget without establishing convergence or identifying a final-point gradient.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png). Check input timing, calibration, initial conditions, and model mismatch before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The refinement stopped at its iteration budget, and the final gradient is not available. The residual plots provide insights into the model's performance, which can help identify potential issues with the model or data."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient using the --probe-gradients option.",
+      "reason": "A flat optimizer log does not establish convergence. Assessing the final gradient can provide evidence of whether further refinement is likely to be beneficial."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence.",
+    "The sloppiness analysis failed, which means the parameter space may not be well-conditioned or the model may be underdetermined."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

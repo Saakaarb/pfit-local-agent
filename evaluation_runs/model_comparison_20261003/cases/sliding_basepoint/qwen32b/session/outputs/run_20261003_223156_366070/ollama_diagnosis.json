@@ -1,0 +1,32 @@
+{
+  "verdict": "Stationarity not established; weak modes detected; budget exhausted.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.826031, indicating that stationarity is not established."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There are 2 weak parameter combinations, suggesting potential non-identifiability issues."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, contact_force and displacement.",
+      "reason": "High RMSE and bias values for contact_force and displacement suggest issues with model fit or input data."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish global optimality or identifiability without further analysis.",
+    "The budget exhaustion does not guarantee that the current solution is optimal."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

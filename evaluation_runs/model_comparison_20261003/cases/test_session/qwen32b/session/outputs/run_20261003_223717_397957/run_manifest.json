@@ -1,0 +1,80 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 128,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1008-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "6a0ea8c8645637179481024a0a331f702b7ef1ca26794174ee91a5fd687f7c48",
+      "generated_script": "d7412b9d958bee0661a1c48ff2f78fd5ee0894fb350ee2892a5cca0d763245dc",
+      "user_model": "e9ba374e1a531f16e8882aa8a249091addfa571cfa39b1fcc03417f9e8c7cbf2"
+    },
+    "git": {
+      "commit": "60022b84afca11b529c34eeb0d05d18dd171b7c8",
+      "branch": "main",
+      "dirty": false
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "robertson_data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "df408a5e1dc16948637ea6ee7ae131817d200e0089fdba0ad226da38f4076a9f",
+      "initial_conditions": {
+        "y1": 1.0,
+        "y2": 0.0,
+        "y3": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}
