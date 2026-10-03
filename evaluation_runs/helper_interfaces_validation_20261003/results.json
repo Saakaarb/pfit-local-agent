@@ -1,0 +1,32 @@
+[
+  {
+    "case": "theophylline",
+    "exit_code": 0,
+    "seconds": 12.3
+  },
+  {
+    "case": "ARC_fitting",
+    "exit_code": 0,
+    "seconds": 25.05
+  },
+  {
+    "case": "boehm_stat5",
+    "exit_code": 0,
+    "seconds": 36.96
+  },
+  {
+    "case": "cascaded_tanks",
+    "exit_code": 0,
+    "seconds": 14.74
+  },
+  {
+    "case": "sliding_basepoint",
+    "exit_code": 0,
+    "seconds": 24.8
+  },
+  {
+    "case": "sliding_basepoint_headered",
+    "exit_code": 0,
+    "seconds": 18.59
+  }
+]

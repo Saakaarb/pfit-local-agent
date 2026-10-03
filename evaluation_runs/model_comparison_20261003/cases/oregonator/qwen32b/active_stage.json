@@ -1,0 +1,20 @@
+{
+  "stage": "diagnose",
+  "started_utc": "2026-10-03T21:37:45Z",
+  "command": [
+    "diagnose",
+    "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/oregonator/qwen32b/session",
+    "run_20261003_213723_278103",
+    "--model",
+    "qwen2.5-coder:32b",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1"
+  ],
+  "pid": 14491
+}

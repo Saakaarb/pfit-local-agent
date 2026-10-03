@@ -2,6 +2,7 @@ import ast
 from dataclasses import dataclass, field
 from importlib import resources
 import json
+import inspect
 from pathlib import Path
 import re
 import textwrap
@@ -55,12 +56,18 @@ def _allowed_repair_fields(response, error):
     if not any(key in previous for key in _FRAGMENT_FIELDS):
         return set(_FRAGMENT_FIELDS)
     error = error.lower()
+    if 'helper' in error:
+        return {'helper_functions'}
+    # Runtime argument errors belong to the named helper, even when called by loss.
+    for helper in previous.get('helper_functions', []):
+        name = _single_function_name(helper) if isinstance(helper, str) else None
+        if name and f'{name.lower()}()' in error and any(
+                word in error for word in ('argument', 'positional', 'keyword')):
+            return {'helper_functions'}
     if 'loss' in error:
         return {'loss_body'}
     if 'writeout' in error:
         return {'writeout_body'}
-    if 'helper' in error:
-        return {'helper_functions'}
     if 'rhs' in error:
         return {'rhs'}
     return set()
@@ -338,6 +345,9 @@ class LocalWorkflow:
             response = _inline_referenced_rhs_intermediates(response, session_dir)
             response = _inject_referenced_helper_definitions(response, session_dir)
             fragments = parse_jax_fragments_response(response, session_spec)
+            _validate_helper_interfaces(
+                fragments, (session_dir / "generated" / "user_model.py").read_text()
+            )
         except ValidationError as exc:
             events.append(WorkflowEvent("translate_jax_fragments", "failed", str(exc)))
             return False
@@ -750,6 +760,53 @@ def _jnp_stack_expression(terms: list[str]) -> str:
     if len(terms) == 1:
         return f"{terms[0]}[:, None]"
     return f"jnp.stack([{', '.join(terms)}], axis=1)"
+
+
+def _helper_signature(function):
+    """Build a Python call signature without executing generated model code."""
+    args = function.args
+    parameters = []
+    positional = args.posonlyargs + args.args
+    first_default = len(positional) - len(args.defaults)
+    for index, arg in enumerate(positional):
+        default = inspect.Parameter.empty if index < first_default else ast.dump(args.defaults[index - first_default])
+        kind = inspect.Parameter.POSITIONAL_ONLY if index < len(args.posonlyargs) else inspect.Parameter.POSITIONAL_OR_KEYWORD
+        parameters.append(inspect.Parameter(arg.arg, kind, default=default))
+    if args.vararg:
+        parameters.append(inspect.Parameter(args.vararg.arg, inspect.Parameter.VAR_POSITIONAL))
+    for arg, default in zip(args.kwonlyargs, args.kw_defaults):
+        parameters.append(inspect.Parameter(arg.arg, inspect.Parameter.KEYWORD_ONLY,
+            default=inspect.Parameter.empty if default is None else ast.dump(default)))
+    if args.kwarg:
+        parameters.append(inspect.Parameter(args.kwarg.arg, inspect.Parameter.VAR_KEYWORD))
+    return inspect.Signature(parameters)
+
+
+def _validate_helper_interfaces(fragments, source):
+    """Protect source helper interfaces and check statically resolvable calls."""
+    expected = {node.name: _helper_signature(node) for node in ast.parse(source).body
+                if isinstance(node, ast.FunctionDef)}
+    signatures = {}
+    for helper in fragments.helper_functions:
+        node = ast.parse(helper).body[0]
+        signature = _helper_signature(node)
+        signatures[node.name] = signature
+        if node.name in expected and signature != expected[node.name]:
+            raise ValidationError(
+                f"helper {node.name} signature changed: expected {expected[node.name]}, got {signature}. "
+                "Preserve the source arguments and parameter dictionaries; repair helper_functions only."
+            )
+    for code in (*fragments.helper_functions, *fragments.rhs, fragments.loss_body, fragments.writeout_body):
+        for node in ast.walk(ast.parse(code)):
+            if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Name):
+                continue
+            signature = signatures.get(node.func.id)
+            if signature is None or any(isinstance(arg, ast.Starred) for arg in node.args) or any(kw.arg is None for kw in node.keywords):
+                continue  # Dynamic unpacking is checked by the existing runtime smoke test.
+            try:
+                signature.bind(*[None for _ in node.args], **{kw.arg: None for kw in node.keywords})
+            except TypeError as exc:
+                raise ValidationError(f"helper {node.func.id} call is incompatible with {signature}: {exc}") from exc
 
 
 def _helper_function_inventory(source: str) -> str:

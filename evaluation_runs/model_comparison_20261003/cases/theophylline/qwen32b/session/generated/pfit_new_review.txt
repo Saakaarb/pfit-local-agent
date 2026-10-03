@@ -1,0 +1,4 @@
+A_gut(0) = 320.0 mg; A_plasma(0) = 0.0 mg. The frozen experiment initial_conditions supply A_gut = 320.0 and A_plasma = 0.0.
+Extracted RHS expressions and formulas for the one-compartment oral theophylline pharmacokinetic model.
+The CSV column C_plasma directly measures the derived observable C_plasma.
+User provided a custom loss definition.

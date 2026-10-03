@@ -1,0 +1,75 @@
+Preparing qwen2.5-coder:32b
+qwen32b/theophylline: new
+qwen32b/theophylline: check
+qwen32b/theophylline: jax
+qwen32b/theophylline: fail (52.542s)
+qwen32b/ARC_fitting: new
+qwen32b/ARC_fitting: check
+qwen32b/ARC_fitting: jax
+qwen32b/ARC_fitting: fail (72.503s)
+qwen32b/boehm_stat5: new
+qwen32b/boehm_stat5: check
+qwen32b/boehm_stat5: jax
+qwen32b/boehm_stat5: fail (110.253s)
+qwen32b/cascaded_tanks: new
+qwen32b/cascaded_tanks: check
+qwen32b/cascaded_tanks: jax
+qwen32b/cascaded_tanks: fail (48.812s)
+qwen32b/decay_multiexp: new
+qwen32b/decay_multiexp: check
+qwen32b/decay_multiexp: jax
+qwen32b/decay_multiexp: run
+qwen32b/decay_multiexp: diagnose
+qwen32b/decay_multiexp: pass (76.76s)
+qwen32b/lotka_volterra: new
+qwen32b/lotka_volterra: check
+qwen32b/lotka_volterra: jax
+qwen32b/lotka_volterra: run
+qwen32b/lotka_volterra: diagnose
+qwen32b/lotka_volterra: pass (68.924s)
+qwen32b/mapk_cascade: new
+qwen32b/mapk_cascade: check
+qwen32b/mapk_cascade: jax
+qwen32b/mapk_cascade: run
+qwen32b/mapk_cascade: diagnose
+qwen32b/mapk_cascade: pass (133.082s)
+qwen32b/nfkb_signaling: new
+qwen32b/nfkb_signaling: fail (253.227s)
+qwen32b/oregonator: new
+qwen32b/oregonator: check
+qwen32b/oregonator: jax
+qwen32b/oregonator: run
+qwen32b/oregonator: diagnose
+qwen32b/oregonator: pass (96.353s)
+qwen32b/piezo_bouc_wen: new
+qwen32b/piezo_bouc_wen: check
+qwen32b/piezo_bouc_wen: jax
+qwen32b/piezo_bouc_wen: run
+qwen32b/piezo_bouc_wen: diagnose
+qwen32b/piezo_bouc_wen: pass (110.609s)
+qwen32b/robertson_session: new
+qwen32b/robertson_session: check
+qwen32b/robertson_session: jax
+qwen32b/robertson_session: run
+qwen32b/robertson_session: diagnose
+qwen32b/robertson_session: pass (84.324s)
+qwen32b/sliding_basepoint: new
+qwen32b/sliding_basepoint: check
+qwen32b/sliding_basepoint: jax
+qwen32b/sliding_basepoint: fail (74.278s)
+qwen32b/sliding_basepoint_headered: new
+qwen32b/sliding_basepoint_headered: check
+qwen32b/sliding_basepoint_headered: jax
+qwen32b/sliding_basepoint_headered: fail (62.362s)
+qwen32b/sneyd_ipr: new
+qwen32b/sneyd_ipr: fail (142.713s)
+qwen32b/test_session: new
+qwen32b/test_session: check
+qwen32b/test_session: jax
+qwen32b/test_session: run
+qwen32b/test_session: diagnose
+qwen32b/test_session: pass (81.194s)
+qwen32b/vanderpol_session: new
+qwen32b/vanderpol_session: check
+qwen32b/vanderpol_session: jax
+qwen32b/vanderpol_session: run

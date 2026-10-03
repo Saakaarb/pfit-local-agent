@@ -1,0 +1,57 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/lotka_volterra/qwen32b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/lotka_volterra/qwen32b/session/outputs/run_20261003_212933_451572
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 4.3062E-01, best loss 4.3062E-01, final loss 4.3062E-01
+- NODE: 2 iterations, first loss 4.3039E-01, best loss 4.3033E-01, final loss 4.3033E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: lynx_hare.csv; loss=0.4303274220024748; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 3
+- full report: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/lotka_volterra/qwen32b/session/outputs/run_20261003_212933_451572/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.201868; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.201868; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, H: RMSE=33.854, bias=-20.1302, time correlation=0.5101907368474795, lag-1=0.7342570130367205.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, L: RMSE=25.1349, bias=-18.501, time correlation=0.008951099581301046, lag-1=0.6731910550191091.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/lotka_volterra/qwen32b/session/outputs/run_20261003_212933_451572/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/lotka_volterra/qwen32b/session/outputs/run_20261003_212933_451572/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Normalized gradient infinity norm is 0.201868; stationarity is not established.
+1. Increase gradient_opt.num_iters and run a gradient-only restart from this run. [STATIONARITY, BUDGET] The normalized gradient infinity norm is 0.201868, indicating that stationarity is not established. Since the refinement stopped at its iteration budget, increasing the number of iterations and performing a gradient-only restart is a reasonable next step to potentially achieve convergence.
+2. Inspect the time-region residuals and trajectory plot (fit_exp1.png). [RESIDUAL] The residuals for both channels H and L show significant RMSE and bias values. Inspecting the time-region residuals and trajectory plot can provide insights into the model's performance and help identify issues with input timing, calibration, initial conditions, or model mismatch.
+Limitation: The evidence does not establish whether the current model or bounds are appropriate for the data.
+Limitation: The evidence does not confirm the identifiability of the parameters or the global optimum.

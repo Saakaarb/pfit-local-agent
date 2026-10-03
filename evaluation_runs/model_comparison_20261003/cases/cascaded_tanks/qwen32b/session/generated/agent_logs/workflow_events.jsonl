@@ -1,0 +1,5 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Experiment 1 (estimation.csv): smoke test failed: _observables() missing 2 required positional arguments: 'k3' and 'k4'"}
+{"step": "repair_restriction", "status": "failed", "message": "No editable fragment field owns this failure; source-derived bodies and scaffold settings are protected."}

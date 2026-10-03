@@ -182,3 +182,27 @@ A regression uses a finite forward objective with a NaN autodiff gradient.
 
 Validation: default suite 329 passed, 8 deselected before the final experiment-
 default helper; after that addition, 48 extraction/optimizer/session tests passed.
+
+
+**JAX helper interface preservation (2026-10-03)**
+
+The interrupted 32B/14B comparison exposed six failures with the same cause:
+JAX translation replaced helper parameter dictionaries with scalar arguments,
+while deterministic loss/writeout retained the source call convention. Repair
+routing then failed to identify the helper as the owner of the argument error.
+
+The existing JAX stage now requests source helper signatures unchanged, checks
+those signatures and statically resolvable calls before rendering, and routes
+helper argument errors to helper-only repair. It uses Python's AST and standard
+library signature binding; no additional stage, dependency or repair loop is
+introduced. Protected loss/writeout bodies remain protected. Dynamic argument
+unpacking continues to rely on the existing runtime smoke test.
+
+Validation evidence lives in `evaluation_runs/helper_interfaces_validation_20261003`.
+These are isolated JAX reruns of the six failed cases, using their saved extracted
+source and YAML with fresh Qwen32B translation. They do not replace benchmark
+scores or establish end-to-end fitting success. The comparison remains stopped;
+NF-kB and Sneyd extraction failures are outside this change.
+
+All six isolated Qwen32B JAX reruns passed without repair calls. Focused tests: 64 passed.
+Full regression suite: 341 passed, 8 deselected.

@@ -1,0 +1,20 @@
+{
+  "stage": "diagnose",
+  "started_utc": "2026-10-03T21:39:36Z",
+  "command": [
+    "diagnose",
+    "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/piezo_bouc_wen/qwen32b/session",
+    "run_20261003_213858_977281",
+    "--model",
+    "qwen2.5-coder:32b",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1"
+  ],
+  "pid": 16711
+}

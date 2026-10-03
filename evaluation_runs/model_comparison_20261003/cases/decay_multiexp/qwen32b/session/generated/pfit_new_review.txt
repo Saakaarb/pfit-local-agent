@@ -1,0 +1,4 @@
+Run A starts with A=1 and B=0 at t=0. Run B starts with A=2 and B=0.5 at t=0.
+Extracted the RHS expressions for states A and B based on the provided ODEs.
+All CSV measurement columns are directly mapped to the integrated states.
+User requests fitting with a custom loss that normalizes residuals by the largest absolute measured value and uses RMSE.

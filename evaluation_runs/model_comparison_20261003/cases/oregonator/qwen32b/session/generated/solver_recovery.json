@@ -1,0 +1,74 @@
+{
+  "initial_max_steps": 10000,
+  "max_steps_limit": 50000,
+  "timeout_seconds": 120.0,
+  "initial_failure": {
+    "code": "step_limit",
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 4988,
+      "num_rejected_steps": 5012,
+      "num_steps": 10000
+    },
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "eps1": 0.04000000000000001,
+      "eps2": 0.00040000000000000013,
+      "q": 0.0008000000000000003,
+      "f": 1.0
+    },
+    "time_start": 0.0,
+    "time_end": 30.0,
+    "requested_rows": 300,
+    "finite_rows": 178
+  },
+  "attempts": [
+    {
+      "max_steps": 20000,
+      "failure": {
+        "code": "step_limit",
+        "experiment": 1,
+        "filename": "data.csv",
+        "solver": "Kvaerno5",
+        "max_steps": 10000,
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 10000,
+          "num_accepted_steps": 4988,
+          "num_rejected_steps": 5012,
+          "num_steps": 10000
+        },
+        "normalized_parameters": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "physical_parameters": {
+          "eps1": 0.04000000000000001,
+          "eps2": 0.00040000000000000013,
+          "q": 0.0008000000000000003,
+          "f": 1.0
+        },
+        "time_start": 0.0,
+        "time_end": 30.0,
+        "requested_rows": 300,
+        "finite_rows": 178
+      }
+    }
+  ],
+  "status": "passed",
+  "accepted_max_steps": 20000,
+  "elapsed_seconds": 8.444654384627938,
+  "last_solver_failure": null
+}
