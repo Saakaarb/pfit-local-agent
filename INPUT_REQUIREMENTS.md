@@ -84,7 +84,7 @@ when the measured quantity is actually `Mpp`.
 
 ## User Prompt Requirements
 
-The prompt in `inputs/user_info.txt` should describe the problem mathematically and explicitly.
+The prompt in `inputs/user_info.txt` must describe the problem mathematically and explicitly.
 
 It should include:
 
@@ -95,7 +95,8 @@ It should include:
 - Fixed parameter names and values.
 - ODE right-hand sides.
 - Derived observables, if any.
-- Loss definition.
+- A mathematical loss/objective definition. This is required; the framework
+  must not be asked to invent or select the scientific objective.
 - Any required transforms, if user-specified.
 - Any known stiffness or integrator requirements.
 - Output/writeout expectations if they matter.
@@ -296,9 +297,12 @@ The framework should eventually support helper functions explicitly, but right n
 
 ## Loss Requirements
 
-The prompt should state the loss clearly.
+The prompt must state the loss mathematically and unambiguously. A prose request
+such as "fit the data" or "minimize the error" is not sufficient for a new
+problem setup.
 
-If the user provides a loss, the framework must preserve that loss. It should not replace it with a default deterministic shortcut.
+The framework must preserve the supplied loss. It must not replace it with a
+default deterministic shortcut.
 
 `pfit-check` performs deterministic checks for explicit loss contracts. If the prompt asks for RMSE/square-root loss, log/log10 residuals, or normalized/scaled residuals, `_compute_loss_problem` must contain the corresponding operation.
 
@@ -333,7 +337,18 @@ A loss description should specify:
 - whether the final data loss is MSE or RMSE,
 - whether the comparison is linear, log, or log10,
 - any penalties,
-- whether penalties are smooth/differentiable.
+- whether penalties are smooth/differentiable,
+- how multiple measured columns are combined,
+- how multiple experiment records are combined, and
+- any uncertainty weighting or other per-point weights.
+
+The definition should include an equation or equivalent explicit mathematical
+expression. Every symbol in it must map to a named simulated quantity, measured
+CSV column, parameter, or stated constant. It must also identify the reduction
+domain: which time points, columns, and experiment records contribute to each
+mean, sum, or root operation. If data can be missing, it must state whether the
+reduction is over finite observed entries only and what should happen when a
+required channel has no finite observations.
 
 Example:
 
@@ -344,7 +359,9 @@ Loss:
 - loss = sqrt(mean(normalized squared residuals)).
 ```
 
-If the user does not provide a loss, the framework may choose a default normalized MSE.
+For new inputs, omission of the loss is an incomplete problem specification.
+Existing automatic/default-loss behavior is retained only for compatibility
+with older prepared sessions and must not be relied on in new tutorial examples.
 
 An explicit user loss definition takes precedence over automatic data-scale
 heuristics in both `pfit new` and `pfit check`. For example, a request to compare measurements directly with
@@ -554,6 +571,16 @@ Deterministic readiness (2026-09-26)
   or one per integrated state. Initial timestep and error_loss must be positive
   and finite. Explicit initial_time must be finite and no later than the first
   measurement time. Tiny budgets remain valid for smoke tests.
+- `population_opt.processors` is the maximum number of JAX CPU devices requested
+  by the session. At run startup it is capped by CPUs available to the process,
+  including affinity limits. An explicit host-device count in `XLA_FLAGS` is an
+  advanced override. Resource decisions and the actual JAX device count are
+  recorded in the run manifest.
+- Run manifests record best-effort environment, package, Git, optimizer/seed,
+  configured Ollama, and artifact-hash provenance. Provenance collection is
+  informational: missing Git/package/configuration metadata does not reject an
+  otherwise valid run. The Ollama fields describe configuration visible at run
+  time and may differ from command-line overrides used for earlier generation.
 - `pfit check SESSION --deterministic-only` checks inputs without Ollama.
   `pfit check SESSION --ready` additionally checks generated-code presence,
   interface and source freshness. Every `pfit run` repeats these checks; restart

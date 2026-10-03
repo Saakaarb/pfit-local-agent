@@ -1,10 +1,55 @@
 import os
+import re
 import shutil
 import sys
 import json
 import yaml
 from datetime import datetime
 from pathlib import Path
+
+
+_HOST_DEVICE_FLAG = "--xla_force_host_platform_device_count"
+
+
+def available_cpu_count() -> int:
+    """Return CPUs available to this process, respecting affinity when possible."""
+    try:
+        affinity = os.sched_getaffinity(0)
+    except (AttributeError, OSError):
+        affinity = None
+    return max(1, len(affinity) if affinity is not None else (os.cpu_count() or 1))
+
+
+def configure_host_cpu_devices(requested_processors: int, *, environ=None,
+                               detected_cpus: int | None = None) -> dict:
+    """Configure JAX host devices before importing JAX.
+
+    The session remains the resource authority: it may request fewer workers than
+    the host offers. An explicit XLA_FLAGS device count is an advanced user
+    override and is preserved verbatim.
+    """
+    environ = os.environ if environ is None else environ
+    requested = int(requested_processors)
+    if requested < 1:
+        raise ValueError("requested_processors must be positive")
+    available = max(1, int(detected_cpus if detected_cpus is not None else available_cpu_count()))
+    selected = min(requested, available)
+    flags = environ.get("XLA_FLAGS", "")
+    match = re.search(r"(?:^|\s)--xla_force_host_platform_device_count(?:=|\s+)(\d+)(?=\s|$)", flags)
+    if match:
+        configured = int(match.group(1))
+        source = "XLA_FLAGS override"
+    else:
+        addition = f"{_HOST_DEVICE_FLAG}={selected}"
+        environ["XLA_FLAGS"] = f"{flags} {addition}".strip()
+        configured = selected
+        source = "session/host detection"
+    return {
+        "requested_processors": requested,
+        "detected_cpus": available,
+        "configured_host_devices": configured,
+        "configuration_source": source,
+    }
 
 
 def run_driver(session_dir: Path, input_reader, output_dir_override: Path | None = None,
@@ -45,11 +90,14 @@ def run_driver(session_dir: Path, input_reader, output_dir_override: Path | None
             print("Legacy seed: using the current YAML parameter order as explicitly requested")
     elif allow_legacy_seed:
         raise ValueError("--allow-legacy-seed requires gradient-only mode")
-    os.environ.setdefault("XLA_FLAGS", "--xla_force_host_platform_device_count=8")
+    cpu_resources = configure_host_cpu_devices(input_reader.processors)
     import jax
     from lib.utils.helper_functions import fit_generic_system, fit_gradient_only_system
     print("Launching driver script")
-    print("Available devices: ", jax.devices("cpu"))
+    cpu_devices = jax.devices("cpu")
+    cpu_resources["jax_cpu_devices"] = len(cpu_devices)
+    print("CPU resources: ", cpu_resources)
+    print("Available devices: ", cpu_devices)
     # Never delete an existing run, including an explicitly selected directory.
     output_dir.mkdir(parents=True, exist_ok=False)
     # Snapshot layout and path-adjusted runtime YAML follow deployed pfit-claude.
@@ -87,12 +135,40 @@ def run_driver(session_dir: Path, input_reader, output_dir_override: Path | None
     if initial_parameters is not None:
         import numpy as np
         np.savetxt(output_dir / "seed_design_point.csv", initial_parameters, delimiter=",")
+    from lib.utils.runtime_provenance import collect_runtime_provenance
+    from local_agent.agent.config import load_config
+    try:
+        workflow_config = load_config(Path.cwd(), session_path)
+        llm_configuration = {
+            "provider": "ollama",
+            "model": workflow_config.llm.model,
+            "base_url": workflow_config.llm.base_url,
+            "temperature": workflow_config.workflow.temperature,
+            "max_tokens": workflow_config.workflow.max_tokens,
+            "note": "configuration observed at run time; CLI overrides used during generation may differ",
+        }
+    except Exception as exc:
+        llm_configuration = {"unavailable": f"{type(exc).__name__}: {exc}"}
+    lock_file = Path(__file__).resolve().parents[2] / "requirements-lock.txt"
+    runtime_provenance = collect_runtime_provenance(
+        Path(__file__).resolve().parents[2],
+        artifacts={
+            "requirements_lock": lock_file,
+            "run_config": runtime_config,
+            "generated_script": snapshot_generated / "generated_script.py",
+            "user_model": snapshot_generated / "user_model.py",
+        },
+        input_reader=input_reader,
+        llm_configuration=llm_configuration,
+    )
     manifest = {
         "mode": "gradient-only" if gradient_only else "full",
         "source_run": source_dir.name if source_dir else None,
         "seed_source": str(source_dir.resolve()) if source_dir else None,
         "legacy_seed_order_assumed": bool(allow_legacy_seed and source_dir and not (source_dir / "final_parameters.json").exists()),
         "sloppiness_enabled": sloppiness, "sloppiness_method": sloppiness_method,
+        "cpu_resources": cpu_resources,
+        "runtime_provenance": runtime_provenance,
         "status": "running",
         "aggregation": "equal_experiment_mean", "experiments": experiment_manifest,
     }

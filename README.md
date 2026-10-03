@@ -34,6 +34,21 @@ python fit_parameters.py <session_name>
 pip install -e ".[test]"
 ```
 
+For a repeatable development/test environment using the versions validated in
+this repository, install the pip-native lock file instead:
+
+```bash
+pip install -r requirements-lock.txt
+```
+
+`pyproject.toml` remains the package and dependency definition;
+`requirements-lock.txt` pins the complete resolved environment. Update the lock
+deliberately whenever project dependencies change.
+
+GitHub Actions installs this locked Python 3.12 environment, runs `pip check`,
+and runs the default test suite on every push and pull request. Slow numerical
+tests and live-Ollama tests remain excluded by the repository's pytest defaults.
+
 ## Workflow
 
 Create or prepare a session using the configured local LLM:
@@ -117,6 +132,19 @@ Fitting outputs from `pfit run` are written under:
 ```text
 sessions/<session>/outputs/<run-id>/
 ```
+
+Population evaluation uses JAX CPU devices. Before JAX is imported, the runner
+detects CPUs available to the process (including Linux affinity limits) and
+exposes `min(population_opt.processors, available CPUs)` devices. An explicit
+`--xla_force_host_platform_device_count` in `XLA_FLAGS` overrides this choice.
+The requested, detected, configured and actual JAX device counts are saved in
+`run_manifest.json`.
+
+Each run manifest also records best-effort reproducibility metadata: the Git
+commit and dirty state, Python/platform and core package versions, optimizer
+selection and random seed, the Ollama configuration visible at run time, and
+SHA-256 hashes of the lock file and snapshotted configuration/model artifacts.
+Missing metadata is reported in the manifest and never prevents a fit.
 
 ## More Detail
 

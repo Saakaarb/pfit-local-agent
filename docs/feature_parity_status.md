@@ -1,6 +1,6 @@
 Feature parity status
 
-Updated: 2026-09-27. This is the current implementation tracker for
+Updated: 2026-10-03. This is the current implementation tracker for
 `pfit-local-agent` against `pfit-claude origin/deployed_branch` at `1b415d8`.
 The original repository's checked-out `main` branch is older and is not the
 comparison baseline.
@@ -28,6 +28,11 @@ remain open; check-stage automatic repair is still shelved. See the
 | DONE-03 | Standalone historical sloppiness | [analyze_fit.py](../analyze_fit.py) rebuilds the analysis from a recorded data/model/configuration snapshot without fitting again. Legacy runs without snapshots are deliberately rejected. |
 | DONE-04 | Preserved runs and restart provenance | Fresh output directories, named parameters, copied seeds, manifests, data/model/configuration snapshots, and execution from snapshots. Existing run directories are not overwritten. Full provenance parity remains PART-01. |
 | DONE-05 | Diagnosis integration for these features | `pfit diagnose` reads saved sloppiness results and recognizes intentional omission of global-search logs on restarts. Generation events come from the run snapshot when available. Broader diagnosis remains PART-02. |
+| DONE-06 | PSO packaging | PySwarms 1.3.0 is a declared runtime dependency, its dependency closure is pinned in the Python 3.12 lock file, and import/initialization was smoke-tested against the supported numerical stack. |
+| DONE-07 | Host-aware CPU devices | The run driver detects schedulable CPUs, caps JAX host devices by `population_opt.processors`, preserves an explicit `XLA_FLAGS` override, removes the fixed eight-device ceiling, and records requested/detected/configured/actual counts in each run manifest. |
+| DONE-08 | Pip-native locked environment | `requirements-lock.txt` pins the complete validated Python 3.12 development/test environment while `pyproject.toml` remains the package definition. The locked install and `pip check` pass. |
+| DONE-09 | Run provenance | Run manifests record Git commit/dirty state, Python/platform and core package versions, optimizer and random seed, configured Ollama settings, and SHA-256 hashes for the lock/configuration/model artifacts. Collection is best-effort and cannot break fitting. |
+| DONE-10 | Continuous integration | GitHub Actions recreates the locked Python 3.12 environment, runs `pip check`, and executes the deterministic default test suite on every push and pull request. |
 
 Validation recorded for this port: **217 default tests passed, 4 deselected**;
 three additional numerical regressions passed (Robertson, Van der Pol, and
@@ -61,16 +66,41 @@ they are not all missing features in the same sense.
 | OPEN-02 | Implemented (scoped) | P0 | Explicit forcing roles, per-record linear interpolation, finite-value/time-coverage validation, extraction/JAX support, snapshots and restart. Separate forcing grids and hold interpolation remain unsupported. See [measured_forcing.md](measured_forcing.md). |
 | PART-03 | Partial; further work shelved by user | P0 | Missing data and uncertainty: existing loader/loss support needs safe masks before normalization/division/logs and explicit empty-channel policies. The standard generated loss now masks before normalization and rejects empty channels; generated wrappers reject nonfinite simulations. Arbitrary custom/uncertainty masking still needs the broader audit. |
 | OPEN-03 | Implemented (scoped) | P0 | User loss/writeout are preserved independently; MSE-pattern default inference is removed. Numerical source/JAX RHS, loss and output probes block acceptance and feed bounded repair on mismatch. This is sampled equivalence, not proof of extracted scientific intent. See [loss_and_translation_fidelity.md](loss_and_translation_fidelity.md). |
-| PART-04 | Partial | P0 | Objective preservation: explicit loss now disables automatic log rewriting; inline loss declarations and plain RMSE rendering are fixed. Translation now has sampled source-equivalence checks. Natural-language extraction fidelity and historical objective mismatches (including Boehm) still require audit. |
+| PART-04 | Partial | P0 | Objective preservation: new `user_info.txt` inputs are now required by policy to state the loss mathematically, including mappings, transforms, normalization, reductions, aggregation, weighting and penalties. Explicit loss disables automatic log rewriting; inline declarations and plain RMSE rendering are fixed. Translation has sampled source-equivalence checks. Historical objective mismatches (including Boehm) still require audit; validator enforcement of the new input policy is a separate possible change. |
 | PART-05 | Implemented (scoped) | P0 | Deterministic input validation, offline check/ready CLI, source-hash stamping after accepted translation, automatic pre-run checks and existing restart-seed gate. Legacy scripts use a qualified timestamp fallback. See [scope and remaining limits](deterministic_readiness.md); this does not establish numerical translation equivalence. |
-| OPEN-04 | Shelved by user | P1 | Check-time automatic correction: bounded mechanical repair and revalidation of generated YAML/model files. New/jax repair loops do not supply this behavior. See [proposed bounded repair workflow](check_auto_repair_proposal.md). |
-| PART-06 | Partial | P1 | Gradient optimizer selection is implemented: YAML selects Adam (default) or L-BFGS; default gradient budget is 1000, explicit budgets and Adam schedules are preserved. PSO dependency packaging remains outstanding; convergence still needs realistic evaluation. |
-| PART-01 | Partial | P1 | Full run provenance: data/config/model snapshots exist, but the deployed framework/tool/environment archive and package/version/hash provenance are not fully ported. |
+| OPEN-04 | Out of scope by user | — | Check-time automatic correction will not be added. `pfit check` remains report-only; new/jax retain their existing bounded repair loops. |
+| PART-06 | Implemented; broad convergence study out of scope | P1 | Gradient optimizer selection is implemented: YAML selects Adam (default) or L-BFGS; default gradient budget is 1000, explicit budgets and Adam schedules are preserved. PSO 1.3.0 is now a declared runtime dependency. A broad realistic-budget convergence campaign is explicitly not planned. |
+| PART-01 | Implemented (scoped) | P1 | Data/config/model snapshots plus Git, environment, package, optimizer/seed, configured Ollama, and artifact-hash provenance are recorded. The Ollama values are the configuration observed at run time; old runs and CLI overrides used during earlier generation cannot be reconstructed retroactively. |
 | PART-02 | Implemented (scoped) | P1 | Snapshot replay, per-record residual/trajectory plots, bounds and budget/stationarity checks, restart history, optional AD/FD probes, and evidence-grounded Ollama recommendations. No automatic edits or scientific-equivalence guarantee. See [scientific_diagnosis.md](scientific_diagnosis.md). |
-| OPEN-05 | Open | P1 | Interactive clarification and document ingestion: local missing-input errors/text intake do not provide the manuscript's conversational/PDF-assisted setup. Distinguish provider-level abilities from code that can be ported. |
-| OPEN-06 | Deferred by user | P2 | Live dashboard, structured runtime monitoring and intervention workflow from the deployed reference. |
+| OPEN-05 | Partially out of scope by user | P1 | Interactive clarification will not be added. Document/PDF ingestion remains a possible separate feature. |
+| OPEN-06 | Out of scope by user | — | Live dashboard, structured runtime monitoring and intervention workflow will not be added. |
 | OPEN-07 | Partial | P1 | [All-case live regression](all_case_regression_20260926.md): 12/16 configured cases complete all five stages after documented input/configuration preparation; four generation/check failures remain. Regenerated Sneyd passes all nine records and sampled reference objectives without manual equation changes in this run. Realistic-budget fit quality and broader extraction reliability remain unproven. Earlier [multi-experiment evaluation](live_multi_experiment_evaluation.md) records prior failures and manual corrections. |
 | PART-07 | Partial | P1 | Manuscript/documentation alignment: comparison and feature notes are written, but the paper itself has not been edited. Update commands, provider/setup, supported input contracts, numerical claims and examples. Older handoff/evaluation documents remain historical. |
+
+**Explicit scope decisions (2026-10-03)**
+
+The user does not intend to add interactive clarification, check-time automatic
+correction, live monitoring/intervention, a broad realistic-budget optimizer
+convergence campaign, or broader automatic diagnosis beyond the implemented
+snapshot/evidence workflow. These correspond to items 4, 6, 7, 9 and 16 in the
+2026-10-03 remaining-features review. They are intentional boundaries, not
+unresolved delivery commitments.
+
+PSO packaging, host-aware CPU parallelism and a pip-native locked environment
+(items 8, 10 and 12 from that review) were completed on 2026-10-03. Validation:
+the locked install resolved successfully, `pip check` found no broken requirements,
+the PSO import/initialization smoke test passed, a subprocess exposed the requested
+three JAX CPU devices, and the default suite passed 304 tests with 8 deselected.
+After adding scoped run provenance, the default suite passed 305 tests with 8
+deselected.
+
+Additional scope decisions from the 2026-10-03 broader backlog: exact per-call
+LLM generation provenance, heterogeneous per-experiment schemas/overrides,
+additional forcing modes/grids, and a GPU execution path will not be pursued.
+These were items 3, 7, 8 and 10 in that backlog. Broader masking support for
+arbitrary custom and uncertainty-weighted losses (item 6) is deferred because it
+is not a small or reliably bounded change. Standard generated-loss NaN masking
+remains supported within its documented scope.
 
 **Intentional differences to retain or explicitly document**
 
