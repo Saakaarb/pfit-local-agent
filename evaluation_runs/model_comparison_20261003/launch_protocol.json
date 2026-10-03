@@ -15,5 +15,7 @@
   "population_iterations": 1,
   "gradient_iterations": 5,
   "preflight_tests": "15 passed",
-  "historical_archive": "evaluation_runs/archive/before_20261003"
+  "historical_archive": "evaluation_runs/archive/before_20261003",
+  "restart_reason": "Fresh rerun after helper-interface fix 350c9b4; previous case outputs deleted",
+  "prior_results_commit": "350c9b4"
 }

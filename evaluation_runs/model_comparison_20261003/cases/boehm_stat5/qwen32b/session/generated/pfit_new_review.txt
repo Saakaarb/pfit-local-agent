@@ -1,5 +1,0 @@
-A(0) = 143.8668; B(0) = 63.7332; ApB(0) = 0.0; ApA(0) = 0.0; BpB(0) = 0.0; nApA(0) = 0.0; nApB(0) = 0.0; nBpB(0) = 0.0
-All equations are extracted and match the provided model.
-All CSV measurement columns are mapped to the corresponding derived observables in the model.
-User provided a custom loss definition using column-wise normalized squared error with scale for each measured column equal to max(abs(column)).
-Original user context indicates a stiff model.

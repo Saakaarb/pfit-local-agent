@@ -1,4 +1,0 @@
-c1(0) = 1.0; c2(0) = 0.04; T(0) = 354.0; the experiment initial_conditions override these with the same values.
-All required equations and formulas are provided and extracted.
-All CSV measurement columns are mapped to the corresponding simulated states or formulas.
-User provided a custom loss function with normalization and log10 scaling for q_obs.

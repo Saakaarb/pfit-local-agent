@@ -1,9 +1,0 @@
-{
-  "stage": "run",
-  "started_utc": "2026-10-03T21:48:02Z",
-  "command": [
-    "run",
-    "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/vanderpol_session/qwen32b/session"
-  ],
-  "pid": 23938
-}
