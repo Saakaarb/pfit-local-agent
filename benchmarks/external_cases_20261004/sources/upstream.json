@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab",
+  "commit": "fcbddf1b900efabdfbdc2b58452c89556e63f1ce",
+  "retrieved_utc_date": "2026-10-04",
+  "path_pattern": "problems/{model}/v1/{file}",
+  "license": "BSD-3-Clause; see LICENSE"
+}

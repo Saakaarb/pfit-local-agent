@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "checks": "hashes, raw-data correspondence, finite values, time order, conditions, counts, input-only folders",
+  "cases": {
+    "beer_indigoidine": {
+      "records": 1,
+      "measurements": 1428
+    },
+    "raia_il13": {
+      "records": 2,
+      "measurements": 33
+    },
+    "schwen_insulin": {
+      "records": 4,
+      "measurements": 64
+    }
+  },
+  "pfit_steps_run": []
+}

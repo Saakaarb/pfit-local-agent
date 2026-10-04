@@ -1,0 +1,160 @@
+{
+  "created": "2026-10-04",
+  "cohort": "external_cases_20261004",
+  "framework_changed": false,
+  "fittings_run": false,
+  "end_to_end_steps_run": false,
+  "cases": [
+    {
+      "id": "beer_indigoidine",
+      "title": "Bacterial growth and indigoidine production",
+      "source_model": "Beer_MolBioSystems2014",
+      "publication": "https://doi.org/10.1039/c3mb70594c",
+      "biological_states": 4,
+      "integrated_states": 4,
+      "fit_parameters": 5,
+      "experiments": 1,
+      "measurements": 1428,
+      "features": [
+        "nonlinear kinetics",
+        "two observables",
+        "known time switch",
+        "hidden intermediate"
+      ],
+      "adaptations": [
+        "Select condition typeIDT1_ExpID1 only; retain all 714 times and both measured channels.",
+        "Fix initial Bac and lag tau at pinned parameter-table nominal values; do not fit initial conditions.",
+        "Use normalized pooled RMSE instead of fitting the PEtab Gaussian noise parameters.",
+        "Retain original kinetic-parameter bounds."
+      ],
+      "pre_run_configuration": {},
+      "priority": 1,
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
+      "input_directory": "cases/beer_indigoidine/inputs",
+      "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Beer_MolBioSystems2014/v1",
+      "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
+      "csv_files": [
+        "culture.csv"
+      ],
+      "limitations": [
+        "Adapted inverse problem, not an exact reproduction of the full published PEtab estimation problem.",
+        "Fixed reference initial values use information from an existing calibration; this is not a blind parameter-recovery benchmark.",
+        "Structural/numerical fitting success and parameter identifiability have not been evaluated."
+      ]
+    },
+    {
+      "id": "raia_il13",
+      "title": "IL-13/JAK2/STAT5 signalling in lymphoma",
+      "source_model": "Raia_CancerResearch2011",
+      "publication": "https://doi.org/10.1158/0008-5472.CAN-10-2987",
+      "biological_states": 14,
+      "integrated_states": 15,
+      "fit_parameters": 15,
+      "experiments": 2,
+      "measurements": 33,
+      "features": [
+        "shared parameters across doses",
+        "clamped ligand state",
+        "saturating negative feedback",
+        "different time grids",
+        "partially observed network"
+      ],
+      "adaptations": [
+        "Select every pSTAT5 measurement from conditions model1_data3 (dose 4) and model1_data2 (dose 20); omit other assay channels.",
+        "Fix Rec_i initial value at the parameter-table nominal calibration; other initial values are from SBML.",
+        "Fix DecoyR_binding and CD274mRNA_production at parameter-table nominal values because these branches do not affect the retained pSTAT5 observable.",
+        "Represent condition-specific il13_level as an extra zero-derivative state.",
+        "Use equal-weight per-experiment normalized RMSE; do not estimate upstream observation noise.",
+        "Retain source concentration dynamics: compartment factors cancel in each affected species balance."
+      ],
+      "pre_run_configuration": {},
+      "priority": 2,
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
+      "input_directory": "cases/raia_il13/inputs",
+      "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Raia_CancerResearch2011/v1",
+      "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
+      "csv_files": [
+        "il13_20.csv",
+        "il13_4.csv"
+      ],
+      "limitations": [
+        "Adapted inverse problem, not an exact reproduction of the full published PEtab estimation problem.",
+        "Fixed reference initial values use information from an existing calibration; this is not a blind parameter-recovery benchmark.",
+        "Structural/numerical fitting success and parameter identifiability have not been evaluated."
+      ]
+    },
+    {
+      "id": "schwen_insulin",
+      "title": "Hepatocyte insulin binding and receptor trafficking",
+      "source_model": "Schwen_PONE2014",
+      "publication": "https://doi.org/10.1371/journal.pone.0133653",
+      "publication_year_note": "Upstream folder says 2014; the linked publication is from 2015.",
+      "biological_states": 11,
+      "integrated_states": 11,
+      "fit_parameters": 15,
+      "experiments": 4,
+      "measurements": 64,
+      "features": [
+        "shared kinetics at two doses",
+        "duplicate measurements retained",
+        "saturating assay response",
+        "logarithmic residuals",
+        "linear and logarithmic parameter bounds",
+        "integration before first observation"
+      ],
+      "adaptations": [
+        "Use conditions model1_data12 and model1_data13 (experiment-series 2, doses 10 and 100), all extracellular insulin measurements.",
+        "Split duplicate observations by occurrence within each time into two bookkeeping records per dose. Do not claim longitudinal replicate identities; no averaging or interpolation.",
+        "Fix initial receptor pools from parameter-table nominal ini_R1 and ini_R2fold; Rec2 is their product.",
+        "Rename observable_Insulin to Insulin_signal and selected experiment-series-2 nuisance parameters to offset, scale and km.",
+        "Use mean squared log10 residuals with equal record weights. Omit upstream priors and fitted noise; keep original bounds for selected parameters."
+      ],
+      "pre_run_configuration": {
+        "gradient_opt.initial_time": 0.0
+      },
+      "priority": 3,
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
+      "input_directory": "cases/schwen_insulin/inputs",
+      "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Schwen_PONE2014/v1",
+      "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
+      "csv_files": [
+        "insulin_100_r1.csv",
+        "insulin_100_r2.csv",
+        "insulin_10_r1.csv",
+        "insulin_10_r2.csv"
+      ],
+      "limitations": [
+        "Adapted inverse problem, not an exact reproduction of the full published PEtab estimation problem.",
+        "Fixed reference initial values use information from an existing calibration; this is not a blind parameter-recovery benchmark.",
+        "Structural/numerical fitting success and parameter identifiability have not been evaluated."
+      ]
+    }
+  ],
+  "deferred_candidates": [
+    {
+      "model": "Crauste_CellSystems2017",
+      "reason": "Different measured-state time grids require missing-observation support or a separately justified observation redesign; no fabricated values added."
+    },
+    {
+      "model": "Weber_BMC2015",
+      "reason": "Preequilibration and intervention conditions need a faithful preparation path."
+    },
+    {
+      "model": "Elowitz_Nature2000",
+      "reason": "Fitted initial conditions plus a reporter reaction targeting GFP directly in the pinned SBML deserve source review before freezing a task."
+    },
+    {
+      "model": "Bruno_JExpBot2016",
+      "reason": "Condition-specific fitted initial values, reaction multipliers and differing observed species need a carefully justified full multi-experiment adaptation."
+    }
+  ]
+}
