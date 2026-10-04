@@ -171,7 +171,7 @@ def run_case(root, case, model, metadata, env):
         status='running', started_utc=utc(), stages={}, settings=dict(options=OPTIONS,
         max_repair_attempts=5, request_timeout_seconds=600, gradient_iterations=5,
         population_size=4, population_iterations=1, gradient_optimizer='adam',
-        numerical_backend='cpu', jax_x64=True, sloppiness=True))
+        numerical_backend='cpu', jax_x64=True, sloppiness=case.get('sloppiness', True)))
     start = time.monotonic()
     save(directory / 'metadata.json', entry)
     if case['status'] == 'blocked':
@@ -185,6 +185,8 @@ def run_case(root, case, model, metadata, env):
     try:
         for label in STAGES:
             command = [label, str(session)]
+            if label == 'run' and not case.get('sloppiness', True):
+                command.append('--no-sloppiness')
             if label == 'diagnose':
                 command.append(entry['run_id'])
             if label != 'run':
@@ -210,6 +212,12 @@ def run_case(root, case, model, metadata, env):
                 config.setdefault('population_opt', {}).update(algorithm='DE', population_size=4,
                     num_iters=1, processors=1, random_seed=7)
                 config.setdefault('gradient_opt', {}).update(gradient_optimizer='adam', num_iters=5)
+                setup = case.get('pre_run_configuration', {})
+                if set(setup) - {'gradient_opt.initial_time'}:
+                    raise ValueError('Unsupported pre-run configuration')
+                if 'gradient_opt.initial_time' in setup:
+                    config['gradient_opt']['initial_time'] = float(setup['gradient_opt.initial_time'])
+                entry['pre_run_configuration'] = setup
                 config_path.write_text(yaml.safe_dump(config, sort_keys=False))
                 entry['smoke_budget_override'] = dict(population=config['population_opt'], gradient=config['gradient_opt'])
             elif label == 'run':

@@ -80,3 +80,36 @@ def test_report_excludes_unselected_models(tmp_path):
     text = (tmp_path / 'comparison.md').read_text()
     assert 'qwen32b' in text and 'qwen14b' in text
     assert 'qwen3_coder_next' not in text
+
+
+def test_external_smoke_applies_start_time_before_check_and_skips_curvature(tmp_path, monkeypatch):
+    import yaml
+    frozen = tmp_path / 'frozen_inputs/example'
+    frozen.mkdir(parents=True)
+    (frozen / 'user_info.txt').write_text('Initial conditions apply at time zero.')
+    (frozen / 'data.csv').write_text('time,x\n0.25,1\n1,0.5\n')
+    model = json.loads((comparison.REPO / 'benchmarks/model_comparison/models.json').read_text())[0]
+    case = dict(name='example', status='ready', expected_data_files=['data.csv'],
+                expected_experiments=1, sloppiness=False,
+                pre_run_configuration={'gradient_opt.initial_time': 0})
+    stages = []
+    def fake_stage(directory, label, command, timeout, env):
+        stages.append(label)
+        config = Path(command[1]) / 'inputs/user_input.yaml'
+        if label == 'new':
+            config.write_text(yaml.safe_dump({'experiments': [{'data_file': 'data.csv'}]}))
+        else:
+            settings = yaml.safe_load(config.read_text())
+            assert settings['gradient_opt']['initial_time'] == 0
+            assert settings['gradient_opt']['num_iters'] == 5
+            assert settings['population_opt']['population_size'] == 4
+        if label == 'run':
+            assert '--no-sloppiness' in command
+            return dict(status='fail', exit_code=1, seconds=1)
+        return dict(status='pass', exit_code=0, seconds=1)
+    monkeypatch.setattr(comparison, 'stage', fake_stage)
+    comparison.run_case(tmp_path, case, model, {}, {})
+    assert stages == ['new', 'check', 'jax', 'run']
+    result = json.loads((tmp_path / 'cases/example/qwen32b/metadata.json').read_text())
+    assert result['settings']['sloppiness'] is False
+    assert result['pre_run_configuration'] == case['pre_run_configuration']
