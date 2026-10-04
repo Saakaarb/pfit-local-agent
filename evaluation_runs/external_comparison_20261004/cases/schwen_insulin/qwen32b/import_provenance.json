@@ -1,0 +1,6 @@
+{
+  "source": "evaluation_runs/external_smoke_20261004/cases/schwen_insulin/qwen32b",
+  "imported_utc": "2026-10-04T23:25:55Z",
+  "original_framework_commit": "2957051b9603d76cedd1b01427457c9e86880381",
+  "note": "Original single attempt retained, including failures; paths in its logs refer to the source run."
+}

@@ -1,0 +1,32 @@
+{
+  "verdict": "offset=85960 is at 99.18% of its log10 search interval, and the refinement stopped at its iteration budget with high residuals.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for offset is physically justified.",
+      "reason": "The offset parameter is very close to its upper bound, which may indicate that the bound is too restrictive or not physically justified."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and inspect the residual plots.",
+      "reason": "The refinement stopped at the iteration budget, so it is necessary to check the final gradient and residual plots to determine if a gradient-only restart is worthwhile."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, Ca.",
+      "reason": "The RMSE, bias, and time correlation for Experiment 1, Ca, are very high, indicating significant model mismatch. Inspecting the residuals and trajectory plot can help identify specific issues with the model or data."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence.",
+    "The high residuals suggest that the model may not be capturing the data well, and further investigation is required."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

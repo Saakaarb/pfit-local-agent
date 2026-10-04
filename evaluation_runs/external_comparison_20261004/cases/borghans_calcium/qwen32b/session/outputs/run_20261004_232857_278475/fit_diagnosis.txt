@@ -1,0 +1,51 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/borghans_calcium/qwen32b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/borghans_calcium/qwen32b/session/outputs/run_20261004_232857_278475
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 2.2534E-01, best loss 2.2534E-01, final loss 2.2534E-01
+- NODE: 2 iterations, first loss 2.2349E-01, best loss 2.2303E-01, final loss 2.2303E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: calcium.csv; loss=0.22303129514821163; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- offset=85960 is at 99.18% of its log10 search interval.
+- [BOUND] offset=85960 is at 99.18% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Ca: RMSE=91333.1, bias=91333.1, time correlation=0.08843406046280794, lag-1=0.668548928344917.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/borghans_calcium/qwen32b/session/outputs/run_20261004_232857_278475/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/borghans_calcium/qwen32b/session/outputs/run_20261004_232857_278475/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+offset=85960 is at 99.18% of its log10 search interval, and the refinement stopped at its iteration budget with high residuals.
+1. Check whether the bound for offset is physically justified. [BOUND] The offset parameter is very close to its upper bound, which may indicate that the bound is too restrictive or not physically justified.
+2. Assess the final gradient and inspect the residual plots. [BUDGET] The refinement stopped at the iteration budget, so it is necessary to check the final gradient and residual plots to determine if a gradient-only restart is worthwhile.
+3. Inspect the time-region residuals and trajectory plot for Experiment 1, Ca. [RESIDUAL] The RMSE, bias, and time correlation for Experiment 1, Ca, are very high, indicating significant model mismatch. Inspecting the residuals and trajectory plot can help identify specific issues with the model or data.
+Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+Limitation: The high residuals suggest that the model may not be capturing the data well, and further investigation is required.

@@ -29,7 +29,7 @@
       ],
       "pre_run_configuration": {},
       "priority": 1,
-      "status": "smoke_comparison_completed",
+      "status": "smoke_pass",
       "pfit_steps_run": [
         "new",
         "check",
@@ -37,41 +37,8 @@
         "run",
         "diagnose"
       ],
-      "included_in_model_comparison": true,
-      "model_comparison_runs": [
-        {
-          "root": "evaluation_runs/external_comparison_20261004",
-          "finished_utc": "2026-10-04T23:47:59Z",
-          "results": [
-            {
-              "model": "qwen32b",
-              "status": "pass",
-              "failed_stage": "",
-              "seconds": 159.883,
-              "pfit_steps_run": [
-                "new",
-                "check",
-                "jax",
-                "run",
-                "diagnose"
-              ]
-            },
-            {
-              "model": "qwen14b",
-              "status": "pass",
-              "failed_stage": "",
-              "seconds": 122.038,
-              "pfit_steps_run": [
-                "new",
-                "check",
-                "jax",
-                "run",
-                "diagnose"
-              ]
-            }
-          ]
-        }
-      ],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
       "input_directory": "cases/beer_indigoidine/inputs",
       "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Beer_MolBioSystems2014/v1",
       "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
@@ -90,6 +57,9 @@
           "status": "pass",
           "failed_stage": ""
         }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     },
     {
@@ -119,7 +89,7 @@
       ],
       "pre_run_configuration": {},
       "priority": 2,
-      "status": "smoke_comparison_completed",
+      "status": "smoke_pass",
       "pfit_steps_run": [
         "new",
         "check",
@@ -127,37 +97,8 @@
         "run",
         "diagnose"
       ],
-      "included_in_model_comparison": true,
-      "model_comparison_runs": [
-        {
-          "root": "evaluation_runs/external_comparison_20261004",
-          "finished_utc": "2026-10-04T23:47:59Z",
-          "results": [
-            {
-              "model": "qwen32b",
-              "status": "pass",
-              "failed_stage": "",
-              "seconds": 238.163,
-              "pfit_steps_run": [
-                "new",
-                "check",
-                "jax",
-                "run",
-                "diagnose"
-              ]
-            },
-            {
-              "model": "qwen14b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 161.575,
-              "pfit_steps_run": [
-                "new"
-              ]
-            }
-          ]
-        }
-      ],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
       "input_directory": "cases/raia_il13/inputs",
       "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Raia_CancerResearch2011/v1",
       "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
@@ -177,6 +118,9 @@
           "status": "pass",
           "failed_stage": ""
         }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     },
     {
@@ -209,37 +153,12 @@
         "gradient_opt.initial_time": 0.0
       },
       "priority": 3,
-      "status": "smoke_comparison_completed",
+      "status": "smoke_fail",
       "pfit_steps_run": [
         "new"
       ],
-      "included_in_model_comparison": true,
-      "model_comparison_runs": [
-        {
-          "root": "evaluation_runs/external_comparison_20261004",
-          "finished_utc": "2026-10-04T23:47:59Z",
-          "results": [
-            {
-              "model": "qwen32b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 71.607,
-              "pfit_steps_run": [
-                "new"
-              ]
-            },
-            {
-              "model": "qwen14b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 67.693,
-              "pfit_steps_run": [
-                "new"
-              ]
-            }
-          ]
-        }
-      ],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
       "input_directory": "cases/schwen_insulin/inputs",
       "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Schwen_PONE2014/v1",
       "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
@@ -261,40 +180,16 @@
           "status": "fail",
           "failed_stage": "new"
         }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     },
     {
-      "status": "smoke_comparison_completed",
-      "pfit_steps_run": [
-        "new"
-      ],
-      "included_in_model_comparison": true,
-      "model_comparison_runs": [
-        {
-          "root": "evaluation_runs/external_comparison_20261004",
-          "finished_utc": "2026-10-04T23:47:59Z",
-          "results": [
-            {
-              "model": "qwen32b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 74.189,
-              "pfit_steps_run": [
-                "new"
-              ]
-            },
-            {
-              "model": "qwen14b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 49.376,
-              "pfit_steps_run": [
-                "new"
-              ]
-            }
-          ]
-        }
-      ],
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
       "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
       "id": "armistead_sphingolipid",
       "title": "Sphingolipid metabolism in wild type and Hai1a deletion",
@@ -334,48 +229,16 @@
       "limitations": [
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     },
     {
-      "status": "smoke_comparison_completed",
-      "pfit_steps_run": [
-        "new",
-        "check",
-        "jax",
-        "run",
-        "diagnose"
-      ],
-      "included_in_model_comparison": true,
-      "model_comparison_runs": [
-        {
-          "root": "evaluation_runs/external_comparison_20261004",
-          "finished_utc": "2026-10-04T23:47:59Z",
-          "results": [
-            {
-              "model": "qwen32b",
-              "status": "pass",
-              "failed_stage": "",
-              "seconds": 167.87,
-              "pfit_steps_run": [
-                "new",
-                "check",
-                "jax",
-                "run",
-                "diagnose"
-              ]
-            },
-            {
-              "model": "qwen14b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 53.743,
-              "pfit_steps_run": [
-                "new"
-              ]
-            }
-          ]
-        }
-      ],
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
       "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
       "id": "borghans_calcium",
       "title": "Nonlinear calcium oscillations with IP3 feedback",
@@ -412,40 +275,16 @@
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability.",
         "Initial values use prior calibration information; not a blind parameter-recovery test."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     },
     {
-      "status": "smoke_comparison_completed",
-      "pfit_steps_run": [
-        "new"
-      ],
-      "included_in_model_comparison": true,
-      "model_comparison_runs": [
-        {
-          "root": "evaluation_runs/external_comparison_20261004",
-          "finished_utc": "2026-10-04T23:47:59Z",
-          "results": [
-            {
-              "model": "qwen32b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 76.276,
-              "pfit_steps_run": [
-                "new"
-              ]
-            },
-            {
-              "model": "qwen14b",
-              "status": "fail",
-              "failed_stage": "new",
-              "seconds": 133.467,
-              "pfit_steps_run": [
-                "new"
-              ]
-            }
-          ]
-        }
-      ],
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
       "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
       "id": "fujita_egf",
       "title": "EGFR-Akt-S6 signalling at two EGF doses",
@@ -481,6 +320,9 @@
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability.",
         "Initial values use prior calibration information; not a blind parameter-recovery test."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     }
   ],
@@ -505,6 +347,5 @@
       "model": "Fiedler_BMCSystBiol2016",
       "reason": "Parameter-dependent steady-state initial conditions need a faithful initialization path."
     }
-  ],
-  "latest_comparison": "evaluation_runs/external_comparison_20261004"
+  ]
 }

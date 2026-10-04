@@ -1,0 +1,50 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/beer_indigoidine/qwen14b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/beer_indigoidine/qwen14b/session/outputs/run_20261004_233916_358889
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 7.0310E-01, best loss 7.0310E-01, final loss 7.0310E-01
+- NODE: 2 iterations, first loss 7.0305E-01, best loss 7.0303E-01, final loss 7.0303E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: culture.csv; loss=0.7030329684661606; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Bacnorm: RMSE=0.536503, bias=-0.46633, time correlation=-0.8590575723718564, lag-1=0.9999804049171581.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, IndconcNormRange: RMSE=0.587885, bias=-0.493807, time correlation=-0.5772982980233178, lag-1=0.9999645117103253.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/beer_indigoidine/qwen14b/session/outputs/run_20261004_233916_358889/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/beer_indigoidine/qwen14b/session/outputs/run_20261004_233916_358889/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Refinement stopped at its iteration budget.
+1. Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile. [BUDGET] The refinement stopped at its iteration budget, and a flat optimizer log does not establish convergence. Assessing the final gradient and residual plots will help determine if further refinement is beneficial.
+2. Inspect the time-region residuals and trajectory plot. [RESIDUAL] The RMSE values for both 'Bacnorm' and 'IndconcNormRange' are relatively high, indicating potential issues with the model fit. Inspecting the time-region residuals and trajectory plot will help identify any systematic errors or model mismatches.
+3. Check input timing, calibration, initial conditions, and model mismatch. [RESIDUAL] The high RMSE values and negative time correlation suggest potential issues with input timing, calibration, or initial conditions. Checking these aspects will help ensure that the model is correctly set up to fit the data.
+Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.

@@ -2,20 +2,21 @@
 
 Six published case variants have been assembled. They are separate from the
 September 27 and October 3 model comparisons. The initial 32B smoke run passed
-Beer and Raia and failed Schwen during extraction. A new comparison retains those
-three attempts, runs the three additions with 32B, and runs all six with 14B.
-Live results: [external comparison](../../evaluation_runs/external_comparison_20261004/comparison.md).
+Beer and Raia and failed Schwen during extraction. The completed comparison retained those
+three attempts, ran the three additions with 32B, and ran all six with 14B.
+32B passed 3/6; 14B passed 1/6. All failures occurred during extraction, before fitting.
+Completed results: [external comparison](../../evaluation_runs/external_comparison_20261004/comparison.md).
 The machine-readable list is [inventory.json](inventory.json); add future run
 identifiers there rather than changing the historical comparison tables.
 
 | Case | Scientific use | States / fitted parameters | Records / measurements | Status |
 |---|---|---|---|---|
-| [Beer](cases/beer_indigoidine/inputs/user_info.txt) | Engineered indigoidine production coupled to bacterial growth | 4 / 5 | 1 / 1,428 | 32B smoke passed; 14B queued |
-| [Raia](cases/raia_il13/inputs/user_info.txt) | IL-13/JAK/STAT signalling and feedback in lymphoma | 14 biological + 1 ligand clamp / 15 | 2 / 33 | 32B smoke passed; 14B queued |
-| [Schwen](cases/schwen_insulin/inputs/user_info.txt) | Insulin uptake, binding and receptor trafficking in hepatocytes | 11 / 15 | 4 / 64 | 32B extraction failed; 14B queued |
-| [Armistead](cases/armistead_sphingolipid/inputs/user_info.txt) | Sphingolipid metabolism in wild type and Hai1a deletion | 4 biological + 1 condition clamp / 10 | 8 / 48 | 32B and 14B queued |
-| [Borghans](cases/borghans_calcium/inputs/user_info.txt) | Calcium-store and IP3 feedback oscillator | 3 / 19 | 1 / 111 | 32B and 14B queued |
-| [Fujita](cases/fujita_egf/inputs/user_info.txt) | EGF-induced EGFR–Akt–S6 signalling | 9 biological + 1 ligand clamp / 16 | 2 / 48 | 32B and 14B queued |
+| [Beer](cases/beer_indigoidine/inputs/user_info.txt) | Engineered indigoidine production coupled to bacterial growth | 4 / 5 | 1 / 1,428 | 32B passed; 14B passed |
+| [Raia](cases/raia_il13/inputs/user_info.txt) | IL-13/JAK/STAT signalling and feedback in lymphoma | 14 biological + 1 ligand clamp / 15 | 2 / 33 | 32B passed; 14B extraction failed |
+| [Schwen](cases/schwen_insulin/inputs/user_info.txt) | Insulin uptake, binding and receptor trafficking in hepatocytes | 11 / 15 | 4 / 64 | Both extraction failed |
+| [Armistead](cases/armistead_sphingolipid/inputs/user_info.txt) | Sphingolipid metabolism in wild type and Hai1a deletion | 4 biological + 1 condition clamp / 10 | 8 / 48 | Both extraction failed |
+| [Borghans](cases/borghans_calcium/inputs/user_info.txt) | Calcium-store and IP3 feedback oscillator | 3 / 19 | 1 / 111 | 32B passed; 14B extraction failed |
+| [Fujita](cases/fujita_egf/inputs/user_info.txt) | EGF-induced EGFR–Akt–S6 signalling | 9 biological + 1 ligand clamp / 16 | 2 / 48 | Both extraction failed |
 
 These are not toy decay or predator–prey exercises. They test coupled kinetics,
 hidden states, nonlinear feedback or assay response, multiple experimental

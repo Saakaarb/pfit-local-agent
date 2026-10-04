@@ -1,0 +1,175 @@
+{
+  "case": "schwen_insulin",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.35807985067367554,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "2957051b9603d76cedd1b01427457c9e86880381",
+    "warmup_seconds": 131.10170564427972,
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-10-04T22:53:12.122788905Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 131099387921,
+      "load_duration": 84015754568,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 42304114000,
+      "eval_count": 2,
+      "eval_duration": 4768784000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-14T22:40:28.978192205Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H200, 143771 MiB, 23913 MiB"
+  },
+  "input_audit": {
+    "name": "schwen_insulin",
+    "status": "ready",
+    "expected_experiments": 4,
+    "expected_data_files": [
+      "insulin_100_r1.csv",
+      "insulin_100_r2.csv",
+      "insulin_10_r1.csv",
+      "insulin_10_r2.csv"
+    ],
+    "sloppiness": false,
+    "pre_run_configuration": {
+      "gradient_opt.initial_time": 0.0
+    },
+    "input_hashes": {
+      "insulin_100_r1.csv": "706a2ddbe980e8d705d8dd5c725e301308639a887fa4803e4e979e5e3c8c8bd4",
+      "insulin_100_r2.csv": "d98ac76844fbc609ffbeea44094aec016e7d05e9726d695e75a5f58d9f31ec6d",
+      "insulin_10_r1.csv": "2e0c2cecd856a41543e34601021c9d246061c99847a732a030f208f5982394c4",
+      "insulin_10_r2.csv": "f347e4730b29680cf4b8011fa4efe28b94852958244b9777d285fa15f37d8f95",
+      "user_info.txt": "640201dfdb98ce97a21830a9e7272e42f1c227ebb97230aed0f2c5a105237d3d"
+    }
+  },
+  "status": "fail",
+  "started_utc": "2026-10-04T22:59:50Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-04T22:59:50Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/schwen_insulin/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 10291,
+      "exit_code": 1,
+      "seconds": 71.425,
+      "finished_utc": "2026-10-04T23:01:02Z",
+      "status": "fail",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": false
+  },
+  "failed_stage": "new",
+  "finished_utc": "2026-10-04T23:01:02Z",
+  "total_wall_seconds": 71.607,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 6,
+  "llm_calls": 6,
+  "llm_wall_seconds": 69.50605803728104,
+  "prompt_tokens": 19591,
+  "generated_tokens": 2044,
+  "token_counts_incomplete": false
+}

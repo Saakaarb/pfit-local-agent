@@ -1,0 +1,274 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/outputs/run_20261004_225811_586742",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/outputs/run_20261004_225811_586742/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "SOCS3mRNA_production=862.295 is at 99.20% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, pSTAT5: RMSE=92.0389, bias=-83.5525, time correlation=-0.47783492443289227, lag-1=0.841838934379665.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, pSTAT5: RMSE=53.0094, bias=-46.9408, time correlation=-0.6113933387809543, lag-1=0.8817589645337846.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 17,
+          "missing": 0,
+          "rmse": 92.03886699432805,
+          "mae": 83.5524669579821,
+          "bias": -83.5524669579821,
+          "max_abs": 127.32611944255679,
+          "time_correlation": -0.47783492443289227,
+          "lag1_correlation": 0.841838934379665,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 40.0,
+              "count": 8,
+              "rmse": 73.74195322539414
+            },
+            {
+              "start": 40.0,
+              "end": 80.0,
+              "count": 5,
+              "rmse": 118.8099123549511
+            },
+            {
+              "start": 80.0,
+              "end": 120.0,
+              "count": 4,
+              "rmse": 86.49800567970888
+            }
+          ],
+          "name": "pSTAT5",
+          "observes": "pSTAT5"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 53.00941082360882,
+          "mae": 46.94077058536638,
+          "bias": -46.94077058536638,
+          "max_abs": 83.25721890440892,
+          "time_correlation": -0.6113933387809543,
+          "lag1_correlation": 0.8817589645337846,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 40.0,
+              "count": 8,
+              "rmse": 36.489101649103524
+            },
+            {
+              "start": 40.0,
+              "end": 80.0,
+              "count": 5,
+              "rmse": 71.23457255262322
+            },
+            {
+              "start": 80.0,
+              "end": 120.0,
+              "count": 3,
+              "rmse": 54.57870227727598
+            }
+          ],
+          "name": "pSTAT5",
+          "observes": "pSTAT5"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Kon_IL13Rec",
+      "value": 560.9325689764856,
+      "range_fraction": 0.9686138321040889,
+      "logscale": true
+    },
+    {
+      "name": "Rec_intern",
+      "value": 4.0371172820273686e-05,
+      "range_fraction": 0.0757589207817343,
+      "logscale": true
+    },
+    {
+      "name": "Rec_recycle",
+      "value": 0.09749919534828172,
+      "range_fraction": 0.49862512894021055,
+      "logscale": true
+    },
+    {
+      "name": "Rec_phosphorylation",
+      "value": 12.186654480184291,
+      "range_fraction": 0.76073556225675,
+      "logscale": true
+    },
+    {
+      "name": "JAK2_phosphorylation",
+      "value": 107.20988865777892,
+      "range_fraction": 0.8787793556223014,
+      "logscale": true
+    },
+    {
+      "name": "JAK2_p_inhibition",
+      "value": 0.0002420486013202077,
+      "range_fraction": 0.1729878221762497,
+      "logscale": true
+    },
+    {
+      "name": "pRec_intern",
+      "value": 34.13493385291406,
+      "range_fraction": 0.8166498832009292,
+      "logscale": true
+    },
+    {
+      "name": "pRec_degradation",
+      "value": 1.5240219081464035e-05,
+      "range_fraction": 0.022873901265761387,
+      "logscale": true
+    },
+    {
+      "name": "pJAK2_dephosphorylation",
+      "value": 0.0001564475596182684,
+      "range_fraction": 0.1492960991371095,
+      "logscale": true
+    },
+    {
+      "name": "STAT5_phosphorylation",
+      "value": 5.766235716591444e-05,
+      "range_fraction": 0.09511154897961027,
+      "logscale": true
+    },
+    {
+      "name": "pSTAT5_dephosphorylation",
+      "value": 0.00022433681532694805,
+      "range_fraction": 0.16886256879514022,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3mRNA_production",
+      "value": 862.2954596099236,
+      "range_fraction": 0.9919570124178113,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3_translation",
+      "value": 0.02109928858973463,
+      "range_fraction": 0.41553347654040335,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3_accumulation",
+      "value": 0.1953979082700558,
+      "range_fraction": 0.5363649887869469,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3_degradation",
+      "value": 5.86510039572567,
+      "range_fraction": 0.7210344313176645,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.6741212874700362,
+    "final_loss": 0.6740696819435068,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.7177230162749006,
+      0.6304163476121128
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/outputs/run_20261004_225811_586742/de_fitting.log",
+      "rows": 1,
+      "first": 0.67412,
+      "final": 0.67412,
+      "best": 0.67412,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.67412
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/outputs/run_20261004_225811_586742/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.67408,
+      "final": 0.67407,
+      "best": 0.67407,
+      "last_material_improvement_iteration": 4,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.67408
+        ],
+        [
+          5,
+          0.67407
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.6740696819435068,
+  "experiment_losses": [
+    0.7177230162749006,
+    0.6304163476121128
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "SOCS3mRNA_production=862.295 is at 99.20% of its log10 search interval."
+}

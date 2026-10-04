@@ -1,0 +1,41 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/borghans_calcium/qwen32b/session/outputs/run_20261004_232857_278475
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/borghans_calcium/qwen32b/session/outputs/run_20261004_232857_278475
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 2.2534E-01
+Time for iteration: 0.1370
+-------
+Final best position (scaled): [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313 -0.40379893
+  0.07723054  0.37088547  0.68063203  0.40816905  0.31899829  0.04835205
+  0.43703851 -0.71514043 -0.90972375  0.61974461 -0.62433754  0.98357412
+  0.79514549]
+Final best cost: 2.2534E-01
+Done with DE search
+Best Position from DE: [3.98412146e-01 8.62720078e+03 1.27936570e+02 1.67911023e+02
+ 1.81322838e+02 2.42551681e-01 2.03667701e+01 3.04468168e+02
+ 5.27871382e+03 4.29216301e+02 1.88796162e+02 1.56101900e+01
+ 5.59956193e+02 1.37860007e-02 2.29670384e-03 3.01285635e+03
+ 3.18163122e-02 8.59600127e+04 1.51559081e+04]
+Best cost from DE: 0.22533549984038057
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09]
+Trainable_params: [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313 -0.40379893
+  0.07723054  0.37088547  0.68063203  0.40816905  0.31899829  0.04835205
+  0.43703851 -0.71514043 -0.90972375  0.61974461 -0.62433754  0.98357412
+  0.79514549]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.22533549984037038 0.22533549984037038
+Iteration:,loss value, best loss: 4 0.2234918746111033 0.2234918746111033
+Iteration time: 12.03241229057312
+Final best position: [3.96684766e-01 8.58756723e+03 1.27936570e+02 1.67911023e+02
+ 1.80534393e+02 2.42551681e-01 2.03667701e+01 3.04468168e+02
+ 5.27871382e+03 4.31074256e+02 1.88796162e+02 1.56101900e+01
+ 5.62540720e+02 1.37860007e-02 2.29670384e-03 3.02676135e+03
+ 3.19631632e-02 8.59600127e+04 1.51559081e+04]
+Final loss: 0.22303129514821163
+Skipping post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/external_comparison_20261004/cases/borghans_calcium/qwen32b/session/outputs/run_20261004_232857_278475

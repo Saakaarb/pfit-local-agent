@@ -1,0 +1,71 @@
+I want to estimate insulin binding and trafficking rates using the Schwen
+hepatocyte uptake data. Fit insulin_10_r1.csv, insulin_10_r2.csv,
+insulin_100_r1.csv and insulin_100_r2.csv together. All four records use the
+same parameters. Time is in minutes; Insulin_signal is the measured extracellular
+insulin assay signal, in the supplied assay units.
+
+The initial insulin doses are 10 for the two insulin_10 files and 100 for the
+two insulin_100 files. The r1/r2 suffixes are bookkeeping splits of the two
+measurements at each time, not claims that individual cells were followed
+longitudinally. Keep every supplied measurement and give the four records
+equal weight.
+
+Use these eleven states:
+Ins, Rec1, Rec2, IR1, IR2, IR1in, IR2in, Uptake1, Uptake2,
+InsulinFragments and BoundUnspec. Ins is extracellular insulin; Rec1 and Rec2
+are the free low- and high-affinity receptor pools. IR1 and IR2 are bound
+surface receptors, and IR1in and IR2in are internalized complexes.
+Uptake1 and Uptake2 accumulate net receptor-mediated uptake. BoundUnspec is
+nonspecifically bound insulin.
+
+The initial conditions apply at t=0, even though the first measurement is at
+0.25 minutes. Start integration at zero, not at the first measurement.
+Initially Rec1=58.8503656504712 and Rec2=918.6048612429337 in every record,
+Ins equals the dose listed above, and all other states are zero. The receptor
+amounts are fixed reference values from the archived calibration, not additional
+measurements. Do not estimate initial conditions in this fit.
+
+Use the reaction rates
+  v1 = ka1 Ins Rec1
+  v2 = ka1 ka2fold Ins Rec2
+  v3 = kon_unspec Ins
+  v4 = koff_unspec BoundUnspec
+  v5 = kd1 IR1
+  v6 = kd1 kd2fold IR2
+  v7 = kin IR1
+  v8 = kin2 IR2
+  v9 = kout IR1in
+  v10 = kout2 IR2in
+  v11 = kout_frag IR1in
+  v12 = kout_frag IR2in
+
+and the following balances:
+  dIns/dt = -v1 - v2 - v3 + v4 + v5 + v6
+  dRec1/dt = -v1 + v5 + v11
+  dRec2/dt = -v2 + v6 + v12
+  dIR1/dt = v1 - v5 - v7 + v9
+  dIR2/dt = v2 - v6 - v8 + v10
+  dIR1in/dt = v7 - v9 - v11
+  dIR2in/dt = v8 - v10 - v12
+  dUptake1/dt = v1 - v5
+  dUptake2/dt = v2 - v6
+  dInsulinFragments/dt = v11 + v12
+  dBoundUnspec/dt = v3 - v4
+
+The assay detects some fragments as well as intact insulin. Define
+  detectable = Ins + fragments InsulinFragments
+  Insulin_signal = offset + scale detectable / (1 + detectable/km).
+
+Fit ka1, ka2fold, kd1, kd2fold, kin, kin2, kout, kout2, kout_frag,
+kon_unspec and koff_unspec, each on a logarithmic scale between 0.00001 and 1000.
+Also fit offset on a logarithmic scale between 0.00001 and 100000, km on a
+logarithmic scale between 1000 and 100000000, scale on a linear scale between
+0.1 and 1, and fragments on a linear scale between 0 and 1.
+
+For each record, minimize the mean squared difference between log10 of the
+predicted Insulin_signal and log10 of the measured Insulin_signal. Average
+these four losses equally. All measured values are positive. Do not fit noise
+parameters or add prior penalties in this task. Use a stiff ODE solver.
+Save measured and predicted assay signal, intact insulin, fragments, and the
+receptor states for each record. Check whether the available data constrain
+individual rates or only combinations of rates.

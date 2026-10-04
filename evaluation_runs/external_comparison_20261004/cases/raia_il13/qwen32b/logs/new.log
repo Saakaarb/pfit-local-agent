@@ -1,0 +1,4 @@
+session initialized: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session
+written: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/inputs/user_input.yaml
+written: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/generated/user_model.py
+written: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/generated/pfit_new_review.txt

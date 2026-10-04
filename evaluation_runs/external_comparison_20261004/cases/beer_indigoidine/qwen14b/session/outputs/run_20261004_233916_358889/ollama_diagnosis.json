@@ -1,0 +1,31 @@
+{
+  "verdict": "Refinement stopped at its iteration budget.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The refinement stopped at its iteration budget, and a flat optimizer log does not establish convergence. Assessing the final gradient and residual plots will help determine if further refinement is beneficial."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot.",
+      "reason": "The RMSE values for both 'Bacnorm' and 'IndconcNormRange' are relatively high, indicating potential issues with the model fit. Inspecting the time-region residuals and trajectory plot will help identify any systematic errors or model mismatches."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Check input timing, calibration, initial conditions, and model mismatch.",
+      "reason": "The high RMSE values and negative time correlation suggest potential issues with input timing, calibration, or initial conditions. Checking these aspects will help ensure that the model is correctly set up to fit the data."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

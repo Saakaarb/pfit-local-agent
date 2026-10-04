@@ -1,0 +1,5 @@
+Bac=0.013816608995338, Glu=10, and both cGlu and Ind equal to zero.
+All required equations and parameters are provided.
+All CSV measurement columns are mapped to the corresponding simulated states.
+User wants to fit a model to culture.csv with specific normalization and loss criteria.
+Original user context indicates a stiff model.

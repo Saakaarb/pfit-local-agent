@@ -1,0 +1,37 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/outputs/run_20261004_225811_586742
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/outputs/run_20261004_225811_586742
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 6.7412E-01
+Time for iteration: 2.0967
+-------
+Final best position (scaled): [ 0.93677672 -0.84848379 -0.00224986  0.521971    0.75705882 -0.65398394
+  0.63379965 -0.9542522  -0.70090797 -0.81027691 -0.66177488  0.98391403
+ -0.16889263  0.07272998  0.44202845]
+Final best cost: 6.7412E-01
+Done with DE search
+Best Position from DE: [5.58607665e+02 4.03705674e-05 9.79491264e-02 1.22428919e+01
+ 1.06717414e+02 2.42138720e-04 3.42924575e+01 1.52402191e-05
+ 1.57169450e-04 5.73974163e-05 2.25372274e-04 8.62295465e+02
+ 2.11071442e-02 1.95397907e-01 5.86291757e+00]
+Best cost from DE: 0.6741212874700362
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Trainable_params: [ 0.93677672 -0.84848379 -0.00224986  0.521971    0.75705882 -0.65398394
+  0.63379965 -0.9542522  -0.70090797 -0.81027691 -0.66177488  0.98391403
+ -0.16889263  0.07272998  0.44202845]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.6741212874700362 0.6741212874700362
+Iteration:,loss value, best loss: 4 0.6740800241853447 0.6740800241853447
+Iteration time: 27.381126880645752
+Final best position: [5.60932569e+02 4.03711728e-05 9.74991953e-02 1.21866545e+01
+ 1.07209889e+02 2.42048601e-04 3.41349339e+01 1.52402191e-05
+ 1.56447560e-04 5.76623572e-05 2.24336815e-04 8.62295460e+02
+ 2.10992886e-02 1.95397908e-01 5.86510040e+00]
+Final loss: 0.6740696819435068
+Skipping post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/outputs/run_20261004_225811_586742
