@@ -1,0 +1,32 @@
+{
+  "verdict": "SOCS3mRNA_production=862.295 is at 99.20% of its log10 search interval, and the refinement stopped at its iteration budget.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for SOCS3mRNA_production is physically justified.",
+      "reason": "The parameter SOCS3mRNA_production is very close to its upper bound, which may indicate that the bound is too restrictive or that the model needs more flexibility in this parameter."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The refinement stopped due to reaching the iteration budget, and without a verified final-point gradient, it is unclear if the current solution is optimal or if further refinement could improve it."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1 and Experiment 2.",
+      "reason": "The residuals for both experiments show significant bias and negative time correlation, indicating potential issues with input timing, calibration, initial conditions, or model mismatch. Inspecting the plots can provide more insight into these issues."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence.",
+    "The evidence does not provide information on the stability of finite differences or the reliability of gradients."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

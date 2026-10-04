@@ -2,8 +2,8 @@
   "created": "2026-10-04",
   "cohort": "external_cases_20261004",
   "framework_changed": false,
-  "fittings_run": false,
-  "end_to_end_steps_run": false,
+  "fittings_run": true,
+  "end_to_end_steps_run": true,
   "cases": [
     {
       "id": "beer_indigoidine",
@@ -29,8 +29,14 @@
       ],
       "pre_run_configuration": {},
       "priority": 1,
-      "status": "assembled_not_run",
-      "pfit_steps_run": [],
+      "status": "smoke_pass",
+      "pfit_steps_run": [
+        "new",
+        "check",
+        "jax",
+        "run",
+        "diagnose"
+      ],
       "included_in_model_comparison": false,
       "model_comparison_runs": [],
       "input_directory": "cases/beer_indigoidine/inputs",
@@ -43,6 +49,17 @@
         "Adapted inverse problem, not an exact reproduction of the full published PEtab estimation problem.",
         "Fixed reference initial values use information from an existing calibration; this is not a blind parameter-recovery benchmark.",
         "Structural/numerical fitting success and parameter identifiability have not been evaluated."
+      ],
+      "smoke_runs": [
+        {
+          "root": "evaluation_runs/external_smoke_20261004",
+          "model": "qwen32b",
+          "status": "pass",
+          "failed_stage": ""
+        }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     },
     {
@@ -72,8 +89,14 @@
       ],
       "pre_run_configuration": {},
       "priority": 2,
-      "status": "assembled_not_run",
-      "pfit_steps_run": [],
+      "status": "smoke_pass",
+      "pfit_steps_run": [
+        "new",
+        "check",
+        "jax",
+        "run",
+        "diagnose"
+      ],
       "included_in_model_comparison": false,
       "model_comparison_runs": [],
       "input_directory": "cases/raia_il13/inputs",
@@ -87,6 +110,17 @@
         "Adapted inverse problem, not an exact reproduction of the full published PEtab estimation problem.",
         "Fixed reference initial values use information from an existing calibration; this is not a blind parameter-recovery benchmark.",
         "Structural/numerical fitting success and parameter identifiability have not been evaluated."
+      ],
+      "smoke_runs": [
+        {
+          "root": "evaluation_runs/external_smoke_20261004",
+          "model": "qwen32b",
+          "status": "pass",
+          "failed_stage": ""
+        }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     },
     {
@@ -119,8 +153,10 @@
         "gradient_opt.initial_time": 0.0
       },
       "priority": 3,
-      "status": "assembled_not_run",
-      "pfit_steps_run": [],
+      "status": "smoke_fail",
+      "pfit_steps_run": [
+        "new"
+      ],
       "included_in_model_comparison": false,
       "model_comparison_runs": [],
       "input_directory": "cases/schwen_insulin/inputs",
@@ -136,6 +172,157 @@
         "Adapted inverse problem, not an exact reproduction of the full published PEtab estimation problem.",
         "Fixed reference initial values use information from an existing calibration; this is not a blind parameter-recovery benchmark.",
         "Structural/numerical fitting success and parameter identifiability have not been evaluated."
+      ],
+      "smoke_runs": [
+        {
+          "root": "evaluation_runs/external_smoke_20261004",
+          "model": "qwen32b",
+          "status": "fail",
+          "failed_stage": "new"
+        }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
+      ]
+    },
+    {
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
+      "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
+      "id": "armistead_sphingolipid",
+      "title": "Sphingolipid metabolism in wild type and Hai1a deletion",
+      "source_model": "Armistead_CellDeathDis2024",
+      "publication": "https://doi.org/10.1038/s41419-024-07134-2",
+      "biological_states": 4,
+      "integrated_states": 5,
+      "fit_parameters": 10,
+      "experiments": 8,
+      "measurements": 48,
+      "features": [
+        "joint wild-type/mutant estimation",
+        "three measurement channels",
+        "negative linear parameter bounds",
+        "sparse repeated observations"
+      ],
+      "adaptations": [
+        "Omit S1P baseline-only measurements; retain all measurements of the other three species at both times and both conditions.",
+        "Partition four observations per time/channel into bookkeeping records by source occurrence, not asserted longitudinal replicate identity.",
+        "Use known condition-table initial states and an extra zero-derivative H condition indicator.",
+        "Replace fitted noise parameters with equal-weight per-record normalized RMSE."
+      ],
+      "pre_run_configuration": {},
+      "priority": 4,
+      "input_directory": "cases/armistead_sphingolipid/inputs",
+      "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Armistead_CellDeathDis2024/v1",
+      "csv_files": [
+        "mutant_r1.csv",
+        "mutant_r2.csv",
+        "mutant_r3.csv",
+        "mutant_r4.csv",
+        "wt_r1.csv",
+        "wt_r2.csv",
+        "wt_r3.csv",
+        "wt_r4.csv"
+      ],
+      "limitations": [
+        "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
+        "Smoke-test success does not establish convergence or parameter identifiability."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
+      ]
+    },
+    {
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
+      "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
+      "id": "borghans_calcium",
+      "title": "Nonlinear calcium oscillations with IP3 feedback",
+      "source_model": "Borghans_BiophysChem1997",
+      "publication": "https://doi.org/10.1016/s0301-4622(97)00010-0",
+      "biological_states": 3,
+      "integrated_states": 3,
+      "fit_parameters": 19,
+      "experiments": 1,
+      "measurements": 111,
+      "features": [
+        "nonlinear oscillations",
+        "unobserved internal store and IP3",
+        "fitted Hill exponent",
+        "integration before first observation"
+      ],
+      "adaptations": [
+        "Retain every Ca measurement and the complete three-state dynamics.",
+        "Fix all three initial states at parameter-table nominal calibration values.",
+        "Rename Z_state, Y_state and A_state to Z, Y and A.",
+        "Use normalized RMSE in signal space instead of the source log10 observation/noise model.",
+        "Keep the original broad bounds, including for the Hill exponent; numerical difficulty is not screened away."
+      ],
+      "pre_run_configuration": {
+        "gradient_opt.initial_time": 0.0
+      },
+      "priority": 5,
+      "input_directory": "cases/borghans_calcium/inputs",
+      "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Borghans_BiophysChem1997/v1",
+      "csv_files": [
+        "calcium.csv"
+      ],
+      "limitations": [
+        "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
+        "Smoke-test success does not establish convergence or parameter identifiability.",
+        "Initial values use prior calibration information; not a blind parameter-recovery test."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
+      ]
+    },
+    {
+      "status": "assembled_not_run",
+      "pfit_steps_run": [],
+      "included_in_model_comparison": false,
+      "model_comparison_runs": [],
+      "prompt_authorship": "Assistant-authored scientific prose, intended to be human-writable; not independently collected human prompts.",
+      "id": "fujita_egf",
+      "title": "EGFR-Akt-S6 signalling at two EGF doses",
+      "source_model": "Fujita_SciSignal2010",
+      "publication": "https://doi.org/10.1126/scisignal.2000810",
+      "biological_states": 9,
+      "integrated_states": 10,
+      "fit_parameters": 16,
+      "experiments": 2,
+      "measurements": 48,
+      "features": [
+        "shared rates across doses",
+        "three composite observables",
+        "stiff binding and turnover",
+        "large differences in state scales"
+      ],
+      "adaptations": [
+        "Select all three measured channels and all times in step conditions 1 and 10 ng/mL.",
+        "Fix EGFR, Akt and S6 initial values at pinned parameter-table nominal values; keep source receptor production constant 68190 unchanged.",
+        "Represent the ligand as a clamped state; the selected records end at the source step endpoint, with no post-endpoint observations.",
+        "Use equal-weight per-record normalized RMSE instead of upstream noise weighting.",
+        "Keep all original selected parameter bounds."
+      ],
+      "pre_run_configuration": {},
+      "priority": 6,
+      "input_directory": "cases/fujita_egf/inputs",
+      "source_url": "https://github.com/Benchmarking-Initiative/Benchmark-Models-PEtab/tree/fcbddf1b900efabdfbdc2b58452c89556e63f1ce/problems/Fujita_SciSignal2010/v1",
+      "csv_files": [
+        "egf_1.csv",
+        "egf_10.csv"
+      ],
+      "limitations": [
+        "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
+        "Smoke-test success does not establish convergence or parameter identifiability.",
+        "Initial values use prior calibration information; not a blind parameter-recovery test."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/external_comparison_20261004"
       ]
     }
   ],
@@ -155,6 +342,10 @@
     {
       "model": "Bruno_JExpBot2016",
       "reason": "Condition-specific fitted initial values, reaction multipliers and differing observed species need a carefully justified full multi-experiment adaptation."
+    },
+    {
+      "model": "Fiedler_BMCSystBiol2016",
+      "reason": "Parameter-dependent steady-state initial conditions need a faithful initialization path."
     }
   ]
 }

@@ -57,6 +57,28 @@ def prepare():
             selected = [groups[t][repeat] for t in sorted(groups, key=float)]
             write('schwen_insulin', f'insulin_{dose}_r{repeat+1}.csv', ['time', 'Insulin_signal'],
                 [[r['time'], r['measurement']] for _, r in selected], [[i] for i, _ in selected], model)
+    def panel(case, model, condition, filename, columns, repeat=0):
+        groups = {}
+        for line, row in measurements(model):
+            if row['simulationConditionId'] == condition and row['observableId'] in columns:
+                groups.setdefault(row['time'], {}).setdefault(row['observableId'], []).append((line, row['measurement']))
+        rows, lines = [], []
+        for time in sorted(groups, key=float):
+            group = groups[time]
+            assert set(group) == set(columns), (model, condition, time)
+            rows.append([time] + [group[c][repeat][1] for c in columns])
+            lines.append([group[c][repeat][0] for c in columns])
+        write(case, filename, ['time', *columns], rows, lines, model)
+        provenance[-1]['source_condition'] = condition
+
+    for condition, prefix in [('wild_type', 'wt'), ('mutant', 'mutant')]:
+        for repeat in range(4):
+            panel('armistead_sphingolipid', 'Armistead_CellDeathDis2024', condition,
+                  f'{prefix}_r{repeat+1}.csv', ['Sphinga_obs', 'Cer_obs', 'Sphingo_obs'], repeat)
+    panel('borghans_calcium', 'Borghans_BiophysChem1997', 'model1_data1', 'calcium.csv', ['Ca'])
+    for condition, dose in [('condition_step_01_0', 1), ('condition_step_10_0', 10)]:
+        panel('fujita_egf', 'Fujita_SciSignal2010', condition, f'egf_{dose}.csv',
+              ['pEGFR_tot', 'pAkt_tot', 'pS6_tot'])
     (ROOT / 'data_provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
 
 

@@ -1,0 +1,34 @@
+[
+  {
+    "code": "successful",
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 640,
+      "num_rejected_steps": 591,
+      "num_steps": 1231
+    },
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.0,
+      "beta": 1.0,
+      "ksyn": 1.0,
+      "kdim": 1.0,
+      "kdegi": 1.0
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714
+  }
+]

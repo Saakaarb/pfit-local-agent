@@ -1,0 +1,48 @@
+{
+  "status": "completed",
+  "started_utc": "2026-10-04T22:51:00Z",
+  "pid": 2786,
+  "framework_commit": "2957051b9603d76cedd1b01427457c9e86880381",
+  "model": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ]
+  },
+  "population_size": 4,
+  "population_iterations": 1,
+  "gradient_iterations": 5,
+  "sloppiness": false,
+  "case_results": [
+    {
+      "case": "beer_indigoidine",
+      "status": "pass",
+      "failed_stage": "",
+      "seconds": 159.883
+    },
+    {
+      "case": "raia_il13",
+      "status": "pass",
+      "failed_stage": "",
+      "seconds": 238.163
+    },
+    {
+      "case": "schwen_insulin",
+      "status": "fail",
+      "failed_stage": "new",
+      "seconds": 71.607
+    }
+  ],
+  "model_comparison": false,
+  "finished_utc": "2026-10-04T23:01:02Z"
+}

@@ -1,0 +1,305 @@
+{
+  "case": "beer_indigoidine",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.35807985067367554,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "2957051b9603d76cedd1b01427457c9e86880381",
+    "warmup_seconds": 131.10170564427972,
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-10-04T22:53:12.122788905Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 131099387921,
+      "load_duration": 84015754568,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 42304114000,
+      "eval_count": 2,
+      "eval_duration": 4768784000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-14T22:40:28.978192205Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H200, 143771 MiB, 23913 MiB"
+  },
+  "input_audit": {
+    "name": "beer_indigoidine",
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "culture.csv"
+    ],
+    "sloppiness": false,
+    "pre_run_configuration": {},
+    "input_hashes": {
+      "culture.csv": "2e3985ae2c40c15da266c788a7377c74a8f818e402999bc8d125251487679d71",
+      "user_info.txt": "027c2ab0103c7a2bed84c66496902243ecf2da3420ce0861d670bf713b27ccad"
+    }
+  },
+  "status": "pass",
+  "started_utc": "2026-10-04T22:53:12Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-04T22:53:12Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/beer_indigoidine/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 3797,
+      "exit_code": 0,
+      "seconds": 38.34,
+      "finished_utc": "2026-10-04T22:53:50Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-04T22:53:50Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/beer_indigoidine/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 3885,
+      "exit_code": 0,
+      "seconds": 10.851,
+      "finished_utc": "2026-10-04T22:54:01Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-04T22:54:01Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/beer_indigoidine/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 3951,
+      "exit_code": 0,
+      "seconds": 47.959,
+      "finished_utc": "2026-10-04T22:54:49Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-04T22:54:49Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/beer_indigoidine/qwen32b/session",
+        "--no-sloppiness"
+      ],
+      "pid": 4870,
+      "exit_code": 0,
+      "seconds": 37.856,
+      "finished_utc": "2026-10-04T22:55:27Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-04T22:55:28Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/beer_indigoidine/qwen32b/session",
+        "run_20261004_225450_987317",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 6040,
+      "exit_code": 0,
+      "seconds": 23.834,
+      "finished_utc": "2026-10-04T22:55:52Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": false
+  },
+  "pre_run_configuration": {},
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 120,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20261004_225450_987317",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.7031007992132099,
+    "final_loss": 0.7030329684661606,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.7030329684661606
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-04T22:55:52Z",
+  "total_wall_seconds": 159.883,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 65.59693766012788,
+  "prompt_tokens": 24304,
+  "generated_tokens": 1842,
+  "token_counts_incomplete": false
+}

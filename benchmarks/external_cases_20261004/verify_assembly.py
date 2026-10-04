@@ -34,7 +34,9 @@ def verify():
                 assert row['time'] == original['time']
                 assert row[column] == original['measurement']
                 assert original['observableId'] == ALIASES.get(column, column)
-                if column == 'Insulin_signal':
+                if 'source_condition' in entry:
+                    assert original['simulationConditionId'] == entry['source_condition']
+                elif column == 'Insulin_signal':
                     assert float(row[column]) > 0
                     condition = 'model1_data12' if 'insulin_10_' in path.name else 'model1_data13'
                     assert original['simulationConditionId'] == condition
@@ -56,8 +58,6 @@ def verify():
         assert set(p.name for p in inputs.iterdir()) == {'user_info.txt', *case['csv_files']}
         prompt = (inputs / 'user_info.txt').read_text()
         assert all(filename in prompt for filename in case['csv_files'])
-        assert case['status'] == 'assembled_not_run'
-        assert not case['included_in_model_comparison'] and not case['pfit_steps_run']
     print(json.dumps({'status': 'pass', 'checks': 'hashes, raw-data correspondence, finite values, time order, conditions, counts, input-only folders', 'cases': totals, 'pfit_steps_run': []}, indent=2))
 
 

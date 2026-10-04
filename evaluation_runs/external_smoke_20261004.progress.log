@@ -1,0 +1,14 @@
+qwen32b/beer_indigoidine: new
+qwen32b/beer_indigoidine: check
+qwen32b/beer_indigoidine: jax
+qwen32b/beer_indigoidine: run
+qwen32b/beer_indigoidine: diagnose
+qwen32b/beer_indigoidine: pass (159.883s)
+qwen32b/raia_il13: new
+qwen32b/raia_il13: check
+qwen32b/raia_il13: jax
+qwen32b/raia_il13: run
+qwen32b/raia_il13: diagnose
+qwen32b/raia_il13: pass (238.163s)
+qwen32b/schwen_insulin: new
+qwen32b/schwen_insulin: fail (71.607s)
