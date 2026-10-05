@@ -823,3 +823,29 @@ affected gradient parameters, and retains the best valid fitting point. The
 console and `NODE_fitting.log` report the warning; `fit_summary.json` records
 `termination` and `termination_detail`. A finite retained fit does not establish
 that gradient refinement completed successfully.
+
+### Refinement-first tolerance selection
+
+Numerical readiness selects `max_steps` using the configured **gradient-stage
+(refinement) tolerances**. After coverage and source/JAX fidelity pass, the
+validator makes one additional comparison with both tolerances multiplied by
+10, keeping that same step ceiling. It reuses the strict losses and evaluates
+every successful sampled parameter vector across all experiments. At least two
+successful vectors are required.
+
+Automatic DE relaxation requires each experiment loss to remain within
+`1e-8 + 0.01 * abs(reference_loss)`. Mean-loss candidate ordering must also be
+preserved, ignoring reference gaps within that same scale-dependent threshold.
+A failed solve, invalid loss, or failed comparison retains the refinement
+tolerances; there is no further tolerance/step-budget escalation for this check.
+This is an empirical stability check, not proof of accuracy everywhere in the
+search bounds. Refinement tolerances themselves remain user-configured.
+
+The decision and paired losses are recorded in
+`generated/tolerance_calibration.json`. Accepted settings are written to
+`population_opt.stepsize_rtol` and `population_opt.stepsize_atol`, with the source
+stamp refreshed after validation. Explicit population tolerances are preserved;
+remove them to request automatic selection again. Set
+`population_opt.auto_tolerances: false` to disable this optional pass. Legacy
+scripts without solver statistics skip it. The additional comparison counts
+against the recovery deadline when validation is running inside bounded recovery.

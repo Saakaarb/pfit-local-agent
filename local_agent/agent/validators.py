@@ -115,6 +115,11 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
     except ValueError as exc:
         raise ValidationError(str(exc)) from exc
 
+    if points is not None:
+        from local_agent.agent.tolerance_calibration import calibrate_tolerances
+        raw = yaml.safe_load((Path(session_dir) / "inputs/user_input.yaml").read_text())
+        calibrate_tolerances(module, reader, script_path, records, raw.get('population_opt') or {})
+
 
 def validate_generated_script_contract(script_path: Path):
     try:
@@ -215,6 +220,9 @@ def _validate_reader(reader: YAMLReader, input_yaml: Path) -> None:
 def _validate_raw_settings(raw):
     if not isinstance(raw, dict):
         raise ValidationError("YAML input must be a mapping")
+    population = raw.get('population_opt') or {}
+    if type(population.get('auto_tolerances', True)) is not bool:
+        raise ValidationError('population_opt.auto_tolerances must be a YAML boolean')
     gradient = raw.get('gradient_opt') or {}
     cap = gradient.get('solver_recovery_max_steps', gradient.get('max_steps', 10000))
     if type(cap) is not int or cap < gradient.get('max_steps', 10000):

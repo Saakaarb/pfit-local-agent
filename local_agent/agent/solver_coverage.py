@@ -45,6 +45,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
     for index, point in enumerate(points):
         complete = True
         failures = []
+        losses = []
         for record in records:
             constants = experiment_constants(record, reader)
             constants.update(min_limits=lo, max_limits=hi, is_logscale=logs)
@@ -68,6 +69,8 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
                     loss = np.asarray(module._compute_loss_problem(constants, point))
                     if loss.shape != ():
                         raise ValidationError('_compute_loss_problem must return a scalar')
+                    if np.isfinite(loss):
+                        item['loss'] = float(loss)
                     if not np.isfinite(loss) or loss == reader.error_loss:
                         item.update(code='invalid_loss', result='Integration completed but loss was nonfinite or the error-loss sentinel')
             except ValidationError:
@@ -77,8 +80,10 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
             if item['code'] != 'successful':
                 complete = False
                 failures.append(item['code'])
+            losses.append(item.get("loss"))
             diagnostics.append(item)
-        candidates.append(dict(sample=index, successful=complete, failures=failures))
+        candidates.append(dict(sample=index, successful=complete, failures=failures,
+                               experiment_losses=losses, normalized_parameters=point.tolist()))
         if complete:
             successful.append(point)
     required = math.ceil(count * target)

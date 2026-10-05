@@ -127,12 +127,21 @@ def test_generate_script_workflow_writes_valid_script(tmp_path):
     assert result.success is True
     from lib.utils.source_stamp import verify_stamp
     assert verify_stamp(session)[0] is True
+    import yaml
+    config = yaml.safe_load((session / "inputs/user_input.yaml").read_text())
+    original = yaml.safe_load(Path("tests/vanderpol_session/inputs/user_input.yaml").read_text())
+    report = json.loads((session / "generated/tolerance_calibration.json").read_text())
+    assert report["status"] == "accepted"
+    assert config["gradient_opt"] == original["gradient_opt"]
+    assert config["population_opt"]["stepsize_rtol"] == report["stepsize_rtol"]
+    assert config["population_opt"]["stepsize_atol"] == report["stepsize_atol"]
     assert "def _integrate_system" in (session / "generated" / "generated_script.py").read_text()
     assert [event.step for event in result.events] == [
         "validate_session",
         "generate_user_model_skeleton",
         "render_generated_script",
         "validate_generated_script",
+        "tolerance_calibration",
         "smoke_test_generated_script",
     ]
     assert (session / "generated" / "user_model.py").exists()

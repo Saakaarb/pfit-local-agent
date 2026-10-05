@@ -142,7 +142,7 @@ class LocalWorkflow:
 
         generated_dir = session_dir / "generated"
         generated_dir.mkdir(exist_ok=True)
-        for name in ('solver_diagnostics.json', 'solver_coverage.json', 'solver_recovery.json'):
+        for name in ('solver_diagnostics.json', 'solver_coverage.json', 'solver_recovery.json', 'tolerance_calibration.json'):
             (generated_dir / name).unlink(missing_ok=True)
         script_path = generated_dir / "generated_script.py"
 
@@ -503,6 +503,10 @@ class LocalWorkflow:
             self._repair_blocked = True
             events.append(WorkflowEvent("source_freshness", "failed", "Sources changed during translation; rerun pfit jax"))
             return False
+        from local_agent.agent.tolerance_calibration import apply_calibrated_tolerances
+        if apply_calibrated_tolerances(session_dir, script_path):
+            self._generation_source_stamp = build_stamp(session_dir)
+            events.append(WorkflowEvent("tolerance_calibration", "passed", "Selected 10x looser DE tolerances at the validated step ceiling"))
         write_stamp(session_dir)
         events.append(WorkflowEvent("smoke_test_generated_script", "passed", str(script_path)))
         return True
