@@ -1,0 +1,17 @@
+{
+  "logical_cpus": 16,
+  "physical_cores": 8,
+  "smt_threads_per_core": 2,
+  "cpu_model": "AMD EPYC 7713",
+  "memory_limit_bytes": 64000000000,
+  "workspace_free_bytes_at_launch": 12694061056,
+  "python": "3.12.11 (main, Jun  4 2025, 08:56:18) [GCC 9.4.0]",
+  "migration_fix": "Repointed .venv/bin/python3 from unversioned /usr/bin/python3 (3.8) to /usr/bin/python3.12; existing packages retained.",
+  "jax_backend": "cpu",
+  "notes": [
+    "Residual CUDA plugin discovery warning is nonfatal; both workers report eight CPU devices.",
+    "19 sessions include both Robertson entries from the comparison.",
+    "Five blocked entries retained in plan; unheadered sliding-basepoint is excluded as previously requested.",
+    "No LLM regeneration; no full-fit claim until numerical and scientific results are reviewed."
+  ]
+}

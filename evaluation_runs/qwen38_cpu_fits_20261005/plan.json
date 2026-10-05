@@ -1,0 +1,1132 @@
+{
+  "created_at": "2026-10-05T02:52:10.481945+00:00",
+  "cpu_slots": [
+    [
+      0,
+      36,
+      57,
+      82,
+      128,
+      164,
+      185,
+      210
+    ],
+    [
+      2,
+      42,
+      60,
+      109,
+      130,
+      170,
+      188,
+      237
+    ]
+  ],
+  "memory_limit_bytes": 64000000000,
+  "framework_commit": "8f36e7b398c33ff3f70660c3b1622ec4655935ab",
+  "sloppiness": false,
+  "reason": "Focus CPU time on population search and gradient refinement; curvature analysis deferred.",
+  "cases": [
+    {
+      "case": "ARC_fitting",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/ARC_fitting/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 8,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/ARC_fitting/session",
+      "original_yaml_sha256": "4a510a76f2af48f4fd597734313a9049f435d5ec5a3c5c0fa05f98e0ed80ab67",
+      "fit_yaml_sha256": "c81e54758db8776e9ffa6f3a007bb155633c7e17d06c6db076ee854cac772c09",
+      "generated_source_sha256": "fa8b032714f286d7e004b0b22f0e2a357557af21a3ac130f9ef19db387a82ff4",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "armistead_sphingolipid",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/armistead_sphingolipid/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [
+        "Dataset has very few rows; fitted parameters may be weakly constrained."
+      ],
+      "parameters": 10,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/armistead_sphingolipid/session",
+      "original_yaml_sha256": "185e86909b5824ff59bd4beab05b25b3e9daf5b10e991d1aa007ebe8a6ce858a",
+      "fit_yaml_sha256": "24881213c5f33487d84efdad4d0886e36bd2d45b6001a6f7184f93a8145f1fc4",
+      "generated_source_sha256": "82d65c4f6ed005fcef2780bacdc7396e862df01d4ea5cec648329cc8233f9572",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 80,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "beer_indigoidine",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/beer_indigoidine/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 5,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/beer_indigoidine/session",
+      "original_yaml_sha256": "57cd5717436e0818e7b107d6c4d1cfcd3cd4750e435d4330e6d15ae39a5b4a8b",
+      "fit_yaml_sha256": "2beec46b2c9276ea70fa20582d6edca3f7d2a4fd28df5643c2b01200c0f93bcd",
+      "generated_source_sha256": "50852b59379282cdd7dc92742d8a3f7b1141e1a1b91bf62f7c450479f3a49691",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "boehm_stat5",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/boehm_stat5/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 6,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/boehm_stat5/session",
+      "original_yaml_sha256": "286350229bb5e877cbb27f74b9cc806d7ed6ad8019f62ca85a89acbef5b8f5ee",
+      "fit_yaml_sha256": "6eeee739f84e335957bc0042c5eb6058814e93e39d2badd416fb67783256ddd7",
+      "generated_source_sha256": "18088a69dee8465bcd45204753567b0578830daf00b2b26e0d7b362ec1f7b3eb",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "borghans_calcium",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/borghans_calcium/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 19,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/borghans_calcium/session",
+      "original_yaml_sha256": "f625b35a1fbfebcfbf6c74a0c203efcac07c6589a79acb9b452ca65bb9182ddb",
+      "fit_yaml_sha256": "11df7a616ec49536f3b4549f8d99a8959b24b344021f45038aa4db24ec894d4f",
+      "generated_source_sha256": "5fa568e3ef93ebb7d9bf65e7424e0d5f24d779a54c2feed9d2c2f74f3892b580",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 160,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9,
+        "initial_time": 0.0
+      }
+    },
+    {
+      "case": "cascaded_tanks",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/cascaded_tanks/qwen38_27b",
+      "source_status": "degraded",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 4,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/cascaded_tanks/session",
+      "original_yaml_sha256": "c27b921b9a944fe00506fdcd74c7f44a885370a0de48b38115fba32018092122",
+      "fit_yaml_sha256": "63a16da95050712bec3cb2032192b96911da8c1941460606d51739f3a4d40707",
+      "generated_source_sha256": "2efae57733a0022d4c21d0f2525a9506a9bf29f7d422de91ed0be805f7cc3abd",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Tsit5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "decay_multiexp",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/decay_multiexp/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [
+        "Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.",
+        "Measured column spans orders of magnitude: Experiment 2 (decay_run_B.csv): A uses dataset[:, 0], positive min=9.07999e-05, max=2, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals."
+      ],
+      "parameters": 2,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/decay_multiexp/session",
+      "original_yaml_sha256": "456f8f7303dd8c1e2268ee7fb43b0150162087fbf1ca5b6bd1eef935015a5ce3",
+      "fit_yaml_sha256": "0543087199dcf3a1476f3c6c52fe8b95067a38304387c35d298d21d85df8c5c2",
+      "generated_source_sha256": "4d5c5264ed02e4c2f89509dc8208ca87d2d378a2cc26af8596bf928ec31bb2a3",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Tsit5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "fujita_egf",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/fujita_egf/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 16,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/fujita_egf/session",
+      "original_yaml_sha256": "a86da6cc5dbdf9752681bdd1733bb7cd438c3facd1c55428ccafb501fcff9fa3",
+      "fit_yaml_sha256": "7c47e7f3f523d88cae9d74bb8defcc31c8e9da0b701a3d3aeafc37626196cb16",
+      "generated_source_sha256": "d7867f08f7d158c037d39f83c2b32afa87052f2a977f635b337807f644570fe9",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 128,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "hodgkin_huxley",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/hodgkin_huxley/qwen38_27b",
+      "source_status": "blocked",
+      "status": "blocked",
+      "reason": "Prior workflow: blocked, stage None"
+    },
+    {
+      "case": "lotka_volterra",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/lotka_volterra/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 4,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/lotka_volterra/session",
+      "original_yaml_sha256": "ed965ed0c9fc063c76c382ca36ec2ed4c05447748117276ec8c61934327fcc5f",
+      "fit_yaml_sha256": "66569272e4af8bdde563d1767f6b951ad971ac7da8b307a9db5eb659bdf149c2",
+      "generated_source_sha256": "62a54ca29bb50c6dd89d7915f6ec714a51f71d2ce120a44261eca101d255c092",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Tsit5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "mapk_cascade",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/mapk_cascade/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 16,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/mapk_cascade/session",
+      "original_yaml_sha256": "a05bd0428c82209a3cd38fe2e5f5a6937dce287c21d9d16c0af088123fc770e3",
+      "fit_yaml_sha256": "9c541923a3d570e110ec207c9e9917469bbe54bcaba32894a5b5c26b27e219bd",
+      "generated_source_sha256": "626b6fc13cef7e19dded5dc29d9c6c07a68e494b13c57d710aa94d82a0abe1a9",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 128,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Tsit5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "nfkb_signaling",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/nfkb_signaling/qwen38_27b",
+      "source_status": "fail",
+      "status": "blocked",
+      "reason": "Prior workflow: fail, stage new"
+    },
+    {
+      "case": "oregonator",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/oregonator/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 4,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/oregonator/session",
+      "original_yaml_sha256": "72476ee3d5b933d5d024bd41060323bc2d3eb6b4cc0fcdb9ffae450c2bb3b2ed",
+      "fit_yaml_sha256": "fbbfcdf8e12e5f1ae825c057d47284c85b75e04dc57ca2e99e9a45d1683e8ac5",
+      "generated_source_sha256": "84643644017ca38117a82d231ff372c4796a7940066b0cbcee13b57f94466a50",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 20000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "piezo_bouc_wen",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/piezo_bouc_wen/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 6,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/piezo_bouc_wen/session",
+      "original_yaml_sha256": "986bbc437736c6480a9c4c535dc8774b87aea2e5bf906a4e067a6dbf7cde685d",
+      "fit_yaml_sha256": "a4558bdf1080df7fcf949f817e4d7c190bc666f745c1d5f150415a46164845ae",
+      "generated_source_sha256": "685e2146757003bbff573fe3a95f08da89451f94ccad8b95476fb94723b6c40f",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "raia_il13",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/raia_il13/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 15,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/raia_il13/session",
+      "original_yaml_sha256": "0ae5c9533035a89c5bcb22ed789915d4f4a386f94d6569ca2fb759557e29c11b",
+      "fit_yaml_sha256": "440720661662842a0f10008daddaed2623f1e5cb3acdd818a1916d3323861b0e",
+      "generated_source_sha256": "4dfae7272abb6d99dae5966e18d7eb192f2e32c410b0b87bbcdbde7cfa998720",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 128,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "robertson_session",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/robertson_session/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [
+        "Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals."
+      ],
+      "parameters": 3,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/robertson_session/session",
+      "original_yaml_sha256": "81223403d87feaee97a77d257c7f0dd600601752686e2356775f0d83f6a04964",
+      "fit_yaml_sha256": "580f0f66957bb87b4546bbdffc867f60029cb826edebdc217b90e57a0a9d5c9d",
+      "generated_source_sha256": "d7412b9d958bee0661a1c48ff2f78fd5ee0894fb350ee2892a5cca0d763245dc",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "schwen_insulin",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/schwen_insulin/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 15,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/schwen_insulin/session",
+      "original_yaml_sha256": "8d50630e1a738a72ef3e2a5c192a2f12ab034e180974262913da80a6d23898a8",
+      "fit_yaml_sha256": "7e2f89ed883a3e39463f327389234170018793c8b7de28b682901823bafb9cfe",
+      "generated_source_sha256": "436850b1329bb4cc38a5fa020761613419d087b99791ea5b9231383c1956e6d2",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 128,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9,
+        "initial_time": 0.0
+      }
+    },
+    {
+      "case": "session1",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/session1/qwen38_27b",
+      "source_status": "blocked",
+      "status": "blocked",
+      "reason": "Prior workflow: blocked, stage None"
+    },
+    {
+      "case": "sliding_basepoint",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sliding_basepoint/qwen38_27b",
+      "source_status": "fail",
+      "status": "blocked",
+      "reason": "Prior workflow: fail, stage jax"
+    },
+    {
+      "case": "sliding_basepoint_headered",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sliding_basepoint_headered/qwen38_27b",
+      "source_status": "fail",
+      "status": "blocked",
+      "reason": "Prior workflow: fail, stage jax"
+    },
+    {
+      "case": "sneyd_ipr",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 14,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/sneyd_ipr/session",
+      "original_yaml_sha256": "4669d9562a3f10a857958d5e09c05405f97f20a2f9619c0be361125fd17e86eb",
+      "fit_yaml_sha256": "287328f800e47bdece560e0a551a4ef0ea3f604e3f207420245967c5e534cff0",
+      "generated_source_sha256": "3a7bce2ac63bf9610b7b9d998c669dd2a32be1eb42cbd15ce1e21b061c1825f5",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 112,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "test_session",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/test_session/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [
+        "Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals."
+      ],
+      "parameters": 3,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/test_session/session",
+      "original_yaml_sha256": "81223403d87feaee97a77d257c7f0dd600601752686e2356775f0d83f6a04964",
+      "fit_yaml_sha256": "580f0f66957bb87b4546bbdffc867f60029cb826edebdc217b90e57a0a9d5c9d",
+      "generated_source_sha256": "d7412b9d958bee0661a1c48ff2f78fd5ee0894fb350ee2892a5cca0d763245dc",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Kvaerno5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "theophylline",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/theophylline/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 3,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/theophylline/session",
+      "original_yaml_sha256": "e758898d1fff8a8c1629780ca5e4e7e19e05c033a3ade97850025b1328442ae0",
+      "fit_yaml_sha256": "8c44aadc80725434b11def1fba523e1fd35c0b5bc84e81cc90035dc5d1caabff",
+      "generated_source_sha256": "cf7ec9f609f347d1af3f2142f492cfaad72fd25b745a2bb01031bb7d5498a2f5",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Tsit5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    },
+    {
+      "case": "vanderpol_session",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/vanderpol_session/qwen38_27b",
+      "source_status": "pass",
+      "status": "queued",
+      "readiness_errors": [],
+      "readiness_warnings": [],
+      "parameters": 1,
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/vanderpol_session/session",
+      "original_yaml_sha256": "d51232379dc77216142130a3ce5c5f32184d6be4d8f7d4a3f31b67f046ce97ce",
+      "fit_yaml_sha256": "3b590c79f0606e3b9d94c999b69d767a6ffd4415fbd8218508cd041887cd8ef5",
+      "generated_source_sha256": "8a600cc6d2d26402c186663456962cc1a38238dffa5f225419605183920704c0",
+      "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+      "original_population": {
+        "population_size": 4,
+        "num_iters": 1,
+        "processors": 1,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "population": {
+        "population_size": 64,
+        "num_iters": 500,
+        "processors": 8,
+        "algorithm": "DE",
+        "random_seed": 7
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 1000,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          "1e-9",
+          "1e-9"
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 10000,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 120,
+        "integrator": "Tsit5",
+        "init_value_lr": "1e-4",
+        "end_value_lr": "1e-5",
+        "transition_steps_lr": 2000,
+        "decay_rate_lr": 0.9
+      }
+    }
+  ]
+}
