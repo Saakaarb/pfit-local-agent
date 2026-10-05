@@ -2305,6 +2305,11 @@ gradient_opt:
   max_steps: 10000
   solver_recovery_max_steps: 50000
   solver_recovery_timeout_seconds: 120
+  solver_validation_samples: 32
+  solver_validation_max_samples: 128
+  solver_validation_success_fraction: 0.25
+  solver_validation_seed: 7
+  solver_recovery_stagnation_patience: 2
   integrator: {integrator}
   init_value_lr: 1e-4
   end_value_lr: 1e-5

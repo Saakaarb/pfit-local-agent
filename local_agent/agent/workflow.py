@@ -142,7 +142,7 @@ class LocalWorkflow:
 
         generated_dir = session_dir / "generated"
         generated_dir.mkdir(exist_ok=True)
-        for name in ('solver_diagnostics.json', 'solver_recovery.json'):
+        for name in ('solver_diagnostics.json', 'solver_coverage.json', 'solver_recovery.json'):
             (generated_dir / name).unlink(missing_ok=True)
         script_path = generated_dir / "generated_script.py"
 
@@ -374,10 +374,22 @@ class LocalWorkflow:
         history = {'initial_max_steps': initial, 'max_steps_limit': cap, 'timeout_seconds': timeout,
                    'initial_failure': self._solver_failure, 'attempts': [], 'status': 'running'}
         report = script_path.parent / 'solver_recovery.json'
+        from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MAX_SAMPLES, DEFAULT_PATIENCE
+        samples = gradient.get('solver_validation_samples', DEFAULT_SAMPLES)
+        max_samples = gradient.get('solver_validation_max_samples', DEFAULT_MAX_SAMPLES)
+        patience = gradient.get('solver_recovery_stagnation_patience', DEFAULT_PATIENCE)
+        best_fraction = self._solver_failure.get('success_fraction', 0.)
+        stagnant = 0
         budget = initial
         recovered = False
         try:
-            while self._solver_failure and self._solver_failure['code'] == 'step_limit' and budget < cap:
+            while self._solver_failure and self._solver_failure['code'] in ('step_limit', 'coverage_below_target'):
+                coverage_failure = self._solver_failure['code'] == 'coverage_below_target'
+                step_exhausted = not coverage_failure or self._solver_failure.get('failure_counts', {}).get('step_limit', 0) > 0
+                next_budget = min(cap, budget * 2) if step_exhausted else budget
+                next_samples = min(max_samples, samples * 2) if coverage_failure else samples
+                if next_budget == budget and next_samples == samples:
+                    break
                 if time.monotonic() >= deadline:
                     break
                 if build_stamp(session_dir) != self._generation_source_stamp:
@@ -385,30 +397,57 @@ class LocalWorkflow:
                     history['status'] = 'sources_changed'
                     events.append(WorkflowEvent('source_freshness', 'failed', 'Sources changed during numerical recovery; rerun pfit jax'))
                     return False
-                budget = min(cap, budget * 2)
-                history['attempts'].append({'max_steps': budget, 'failure': self._solver_failure})
+                budget, samples = next_budget, next_samples
+                attempt = {'max_steps': budget, 'samples': samples, 'failure': self._solver_failure}
+                history['attempts'].append(attempt)
                 gradient['max_steps'] = budget
+                if coverage_failure:
+                    gradient['solver_validation_samples'] = samples
                 input_path.write_text(yaml.safe_dump(config, sort_keys=False))
                 # Only bless the setting we changed, not a concurrent model edit.
                 self._generation_source_stamp = re.sub(r'user_input\.yaml=\S+',
                     'user_input.yaml=' + normalized_hash(input_path), self._generation_source_stamp)
                 spec = load_session_spec(input_path)
                 script_path.write_text(render_generated_script_from_fragments(fragments, spec))
-                events.append(WorkflowEvent('solver_recovery', 'attempted', f'max_steps={budget}; scientific fragments and tolerances unchanged'))
+                events.append(WorkflowEvent('solver_recovery', 'attempted', f'max_steps={budget}, samples={samples}; scientific fragments and tolerances unchanged'))
                 if self._validate_generated_script(script_path, session_dir, events,
                                                    smoke_timeout=deadline - time.monotonic()):
-                    history.update(status='passed', accepted_max_steps=budget)
+                    history.update(status='passed', accepted_max_steps=budget, accepted_samples=samples)
                     recovered = True
                     return True
+                if self._solver_failure and self._solver_failure.get('code') == 'coverage_below_target':
+                    fraction = self._solver_failure['success_fraction']
+                    attempt['success_fraction'] = fraction
+                    # Nested sets also expose the outcome on the previous points,
+                    # separating wider coverage from recovery at a larger step cap.
+                    previous_count = attempt['failure'].get('sample_count', 0)
+                    previous = self._solver_failure.get('candidates', [])[:previous_count]
+                    if previous:
+                        attempt['previous_samples_success_fraction'] = sum(p['successful'] for p in previous) / len(previous)
+                    stagnant = stagnant + 1 if fraction <= best_fraction else 0
+                    best_fraction = max(best_fraction, fraction)
+                    attempt['consecutive_no_improvement'] = stagnant
+                    if stagnant >= patience:
+                        history['status'] = 'coverage_stagnated'
+                        break
                 if self._solver_failure is None:
                     # Integration completed; a different acceptance gate owns the failure.
                     history.update(status='numerical_recovery_completed_validation_failed', accepted_max_steps=budget)
                     recovered = True
                     return False
             self._repair_blocked = True
-            history['status'] = 'exhausted'
+            if history['status'] != 'coverage_stagnated':
+                history['status'] = 'exhausted'
+            diagnosis = ''
+            if self._solver_failure and self._solver_failure.get('code') == 'coverage_below_target':
+                diagnosis = (' Completion coverage remains below the requested fraction. '
+                    'Possible causes include inadequate search coverage of a narrow feasible region, '
+                    'unsuitable parameter bounds, or model/solver issues; this is not proof of an incorrect model. '
+                    'Review the sampled points and failure categories before expanding the search or revising the model.')
+                history['diagnosis'] = diagnosis.strip()
             events.append(WorkflowEvent('solver_recovery', 'failed',
-                f'Numerical validation blocked at max_steps={budget}; limit={cap}. No scientific code repair attempted.'))
+                f'Numerical validation blocked at max_steps={budget}; limit={cap}, samples={samples}. '
+                f'No scientific code repair attempted.{diagnosis}'))
             return False
         finally:
             history['elapsed_seconds'] = time.monotonic() - started

@@ -50,7 +50,8 @@ def oregonator(tmp_path, cap=None, timeout=120, multi=False):
             [('X', .778383715217), ('Y', .267086592467), ('Z', .208522420421)]]),
         population_opt=dict(algorithm='DE', population_size=4, num_iters=1, processors=1),
         gradient_opt=dict(max_steps=10000, integrator='Kvaerno5', stepsize_rtol=1e-7,
-            stepsize_atol=1e-9, initial_timestep=1e-6, num_iters=5, solver_recovery_timeout_seconds=timeout))
+            stepsize_atol=1e-9, initial_timestep=1e-6, num_iters=5, solver_recovery_timeout_seconds=timeout,
+            solver_validation_samples=1, solver_validation_max_samples=1, solver_validation_success_fraction=1.0))
     if cap is not None:
         config['gradient_opt']['solver_recovery_max_steps'] = cap
     (session / 'inputs/user_input.yaml').write_text(yaml.safe_dump(config, sort_keys=False))
@@ -152,3 +153,51 @@ def test_invalid_recovery_policy_rejected(tmp_path, field, value):
     path.write_text(yaml.safe_dump(config))
     with pytest.raises(ValueError, match='solver_recovery'):
         parse_input_yaml(path)
+
+
+def test_flat_coverage_stops_after_two_increases_and_restores_inputs(tmp_path, monkeypatch):
+    session, config, llm = oregonator(tmp_path, cap=50000)
+    config['gradient_opt'].update(solver_validation_samples=32, solver_validation_max_samples=128,
+                                 solver_validation_success_fraction=.25)
+    path = session/'inputs/user_input.yaml'
+    path.write_text(yaml.safe_dump(config)); original=path.read_bytes()
+    seen=[]
+    def flat(script, session):
+        g=yaml.safe_load(path.read_text())['gradient_opt'];n=g['solver_validation_samples']
+        seen.append((g['max_steps'],n))
+        raise SolverValidationError(dict(code='coverage_below_target', result='No successful candidates',
+            sample_count=n, success_fraction=0., failure_counts={'step_limit':n},
+            candidates=[{'successful':False} for _ in range(n)]))
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script',flat)
+    monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',lambda script,session,timeout:flat(script,session))
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert not result.success
+    assert seen==[(10000,32),(20000,64),(40000,128)]
+    history=json.loads((session/'generated/solver_recovery.json').read_text())
+    assert history['status']=='coverage_stagnated'
+    assert 'inadequate search coverage' in history['diagnosis']
+    assert path.read_bytes()==original
+    assert verify_stamp(session)[0] is False
+    assert len(llm.requests)==2
+
+
+def test_coverage_improvement_resets_stagnation_counter(tmp_path, monkeypatch):
+    session, config, llm = oregonator(tmp_path, cap=50000)
+    config['gradient_opt'].update(solver_validation_samples=32, solver_validation_max_samples=128,
+                                 solver_validation_success_fraction=.25)
+    path=session/'inputs/user_input.yaml';path.write_text(yaml.safe_dump(config));seen=[]
+    def improving(script, session):
+        g=yaml.safe_load(path.read_text())['gradient_opt'];n=g['solver_validation_samples'];budget=g['max_steps']
+        seen.append((budget,n))
+        if budget==50000:return
+        fraction={10000:0.,20000:0.,40000:.125}[budget]
+        raise SolverValidationError(dict(code='coverage_below_target',result='Below target',sample_count=n,
+            success_fraction=fraction,failure_counts={'step_limit':n},
+            candidates=[{'successful':i<int(n*fraction)} for i in range(n)]))
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script',improving)
+    monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',lambda script,session,timeout:improving(script,session))
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert result.success
+    assert seen==[(10000,32),(20000,64),(40000,128),(50000,128)]
+    assert yaml.safe_load(path.read_text())['gradient_opt']['solver_validation_samples']==128
+    assert verify_stamp(session)[0] is True

@@ -12,7 +12,7 @@ from lib.utils.experiments import load_experiments, experiment_constants
 from lib.utils.run_artifacts import parameter_axes, unscale_parameters
 
 
-def compare_source_and_jax(module, reader, session, script):
+def compare_source_and_jax(module, reader, session, script, *, parameter_points=None):
     from local_agent.agent.workflow import _source_function_is_placeholder
     from local_agent.agent.session_spec import load_session_spec
     session,script=Path(session),Path(script)
@@ -45,15 +45,17 @@ def compare_source_and_jax(module, reader, session, script):
         lo,hi,logs=parameter_axes(reader)
         for record in load_experiments(session,reader):
             c=experiment_constants(record,reader);c.update(min_limits=lo,max_limits=hi,is_logscale=logs)
-            for offset in (0.,.1):
+            probes = parameter_points if parameter_points is not None else [np.full(reader.n_search_axes, x) for x in (0., .1)]
+            for probe_index, point in enumerate(probes):
                 from diffrax import RESULTS
-                point=np.full(reader.n_search_axes,offset)
+                offset = float(point[0]) if np.all(point == point[0]) else None
                 time,solution,result=module._integrate_system(c,point)
                 time,solution=np.asarray(time),np.asarray(solution)
-                entry={'experiment':record['index'],'parameter_offset':offset,'components':[]}
+                entry={'experiment':record['index'],'parameter_offset':offset,'normalized_parameters':np.asarray(point).tolist(),'components':[]}
                 report['points'].append(entry)
                 if result != RESULTS.successful or not np.all(np.isfinite(solution)):
-                    if offset==0.:raise ValueError(f'Experiment {record["index"]}: integration failed at midpoint')
+                    if parameter_points is not None or probe_index == 0:
+                        raise ValueError(f'Experiment {record["index"]}: integration failed at required fidelity probe')
                     entry['skipped']='Perturbed parameter solve failed; midpoint is still checked.'
                     report['limitations'].append(f'Experiment {record["index"]}: second parameter probe could not be integrated.')
                     continue
