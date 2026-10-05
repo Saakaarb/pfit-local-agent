@@ -1,0 +1,2097 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/ARC_fitting/session/outputs/run_20261005_043812_142136
+Launching driver script
+ERROR:2026-10-05 04:38:16,140:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 281, in _check_cuda_versions
+    local_device_count = cuda_versions.cuda_device_count()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:113: operation cuInit(0) failed: Unknown CUDA error 303; cuGetErrorName failed. This probably means that JAX was unable to load the CUDA libraries.
+CPU resources:  {'requested_processors': 8, 'detected_cpus': 8, 'configured_host_devices': 8, 'configuration_source': 'XLA_FLAGS override', 'jax_cpu_devices': 8}
+Available devices:  [CpuDevice(id=0), CpuDevice(id=1), CpuDevice(id=2), CpuDevice(id=3), CpuDevice(id=4), CpuDevice(id=5), CpuDevice(id=6), CpuDevice(id=7)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/ARC_fitting/session/outputs/run_20261005_043812_142136
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 64, max iterations: 500
+Iteration: 1
+Best Cost: 7.1665E-01
+Time for iteration: 19.6528
+-------
+Iteration: 2
+Best Cost: 6.3716E-01
+Time for iteration: 17.1255
+-------
+Iteration: 3
+Best Cost: 6.3716E-01
+Time for iteration: 16.1443
+-------
+Iteration: 4
+Best Cost: 6.3716E-01
+Time for iteration: 20.9861
+-------
+Iteration: 5
+Best Cost: 6.3716E-01
+Time for iteration: 15.6139
+-------
+Iteration: 6
+Best Cost: 6.3716E-01
+Time for iteration: 19.2834
+-------
+Iteration: 7
+Best Cost: 5.7259E-01
+Time for iteration: 15.1652
+-------
+Iteration: 8
+Best Cost: 5.7259E-01
+Time for iteration: 17.9020
+-------
+Iteration: 9
+Best Cost: 5.7259E-01
+Time for iteration: 20.6900
+-------
+Iteration: 10
+Best Cost: 5.6472E-01
+Time for iteration: 17.9979
+-------
+Iteration: 11
+Best Cost: 5.6472E-01
+Time for iteration: 19.0603
+-------
+Iteration: 12
+Best Cost: 5.6472E-01
+Time for iteration: 17.3881
+-------
+Iteration: 13
+Best Cost: 5.6472E-01
+Time for iteration: 12.9198
+-------
+Iteration: 14
+Best Cost: 5.6472E-01
+Time for iteration: 15.7238
+-------
+Iteration: 15
+Best Cost: 5.6472E-01
+Time for iteration: 17.9112
+-------
+Iteration: 16
+Best Cost: 5.0110E-01
+Time for iteration: 15.5586
+-------
+Iteration: 17
+Best Cost: 4.6909E-01
+Time for iteration: 9.9257
+-------
+Iteration: 18
+Best Cost: 4.6909E-01
+Time for iteration: 10.1616
+-------
+Iteration: 19
+Best Cost: 4.6909E-01
+Time for iteration: 9.1141
+-------
+Iteration: 20
+Best Cost: 4.6909E-01
+Time for iteration: 9.4653
+-------
+Iteration: 21
+Best Cost: 4.6909E-01
+Time for iteration: 9.7422
+-------
+Iteration: 22
+Best Cost: 4.6909E-01
+Time for iteration: 9.2635
+-------
+Iteration: 23
+Best Cost: 4.6909E-01
+Time for iteration: 11.6126
+-------
+Iteration: 24
+Best Cost: 4.1310E-01
+Time for iteration: 10.3465
+-------
+Iteration: 25
+Best Cost: 4.1310E-01
+Time for iteration: 13.1558
+-------
+Iteration: 26
+Best Cost: 4.1310E-01
+Time for iteration: 11.3008
+-------
+Iteration: 27
+Best Cost: 4.1310E-01
+Time for iteration: 11.9824
+-------
+Iteration: 28
+Best Cost: 4.1310E-01
+Time for iteration: 11.0534
+-------
+Iteration: 29
+Best Cost: 4.1310E-01
+Time for iteration: 9.4753
+-------
+Iteration: 30
+Best Cost: 4.1310E-01
+Time for iteration: 8.8251
+-------
+Iteration: 31
+Best Cost: 4.1310E-01
+Time for iteration: 11.1106
+-------
+Iteration: 32
+Best Cost: 3.0963E-01
+Time for iteration: 8.9315
+-------
+Iteration: 33
+Best Cost: 3.0963E-01
+Time for iteration: 10.3118
+-------
+Iteration: 34
+Best Cost: 3.0963E-01
+Time for iteration: 12.0482
+-------
+Iteration: 35
+Best Cost: 3.0963E-01
+Time for iteration: 10.6688
+-------
+Iteration: 36
+Best Cost: 3.0963E-01
+Time for iteration: 10.4483
+-------
+Iteration: 37
+Best Cost: 3.0963E-01
+Time for iteration: 12.6718
+-------
+Iteration: 38
+Best Cost: 3.0963E-01
+Time for iteration: 10.3444
+-------
+Iteration: 39
+Best Cost: 3.0963E-01
+Time for iteration: 14.6626
+-------
+Iteration: 40
+Best Cost: 3.0963E-01
+Time for iteration: 10.2765
+-------
+Iteration: 41
+Best Cost: 3.0963E-01
+Time for iteration: 9.1205
+-------
+Iteration: 42
+Best Cost: 3.0963E-01
+Time for iteration: 8.9135
+-------
+Iteration: 43
+Best Cost: 3.0963E-01
+Time for iteration: 9.9492
+-------
+Iteration: 44
+Best Cost: 3.0963E-01
+Time for iteration: 10.9446
+-------
+Iteration: 45
+Best Cost: 3.0963E-01
+Time for iteration: 8.5798
+-------
+Iteration: 46
+Best Cost: 3.0963E-01
+Time for iteration: 11.4632
+-------
+Iteration: 47
+Best Cost: 3.0963E-01
+Time for iteration: 10.1505
+-------
+Iteration: 48
+Best Cost: 3.0963E-01
+Time for iteration: 10.3237
+-------
+Iteration: 49
+Best Cost: 3.0963E-01
+Time for iteration: 10.3928
+-------
+Iteration: 50
+Best Cost: 3.0963E-01
+Time for iteration: 11.5416
+-------
+Iteration: 51
+Best Cost: 3.0963E-01
+Time for iteration: 10.0199
+-------
+Iteration: 52
+Best Cost: 3.0963E-01
+Time for iteration: 9.7545
+-------
+Iteration: 53
+Best Cost: 3.0963E-01
+Time for iteration: 9.7360
+-------
+Iteration: 54
+Best Cost: 3.0963E-01
+Time for iteration: 9.5381
+-------
+Iteration: 55
+Best Cost: 3.0963E-01
+Time for iteration: 8.4303
+-------
+Iteration: 56
+Best Cost: 3.0963E-01
+Time for iteration: 8.9131
+-------
+Iteration: 57
+Best Cost: 3.0963E-01
+Time for iteration: 9.0217
+-------
+Iteration: 58
+Best Cost: 3.0963E-01
+Time for iteration: 7.3571
+-------
+Iteration: 59
+Best Cost: 3.0963E-01
+Time for iteration: 9.8977
+-------
+Iteration: 60
+Best Cost: 3.0963E-01
+Time for iteration: 9.0497
+-------
+Iteration: 61
+Best Cost: 3.0963E-01
+Time for iteration: 8.6311
+-------
+Iteration: 62
+Best Cost: 3.0963E-01
+Time for iteration: 8.3066
+-------
+Iteration: 63
+Best Cost: 2.6356E-01
+Time for iteration: 10.0131
+-------
+Iteration: 64
+Best Cost: 2.6356E-01
+Time for iteration: 9.9272
+-------
+Iteration: 65
+Best Cost: 2.6356E-01
+Time for iteration: 8.1188
+-------
+Iteration: 66
+Best Cost: 2.6356E-01
+Time for iteration: 8.3129
+-------
+Iteration: 67
+Best Cost: 2.6356E-01
+Time for iteration: 8.2872
+-------
+Iteration: 68
+Best Cost: 2.6356E-01
+Time for iteration: 8.0997
+-------
+Iteration: 69
+Best Cost: 2.6356E-01
+Time for iteration: 8.4497
+-------
+Iteration: 70
+Best Cost: 2.6356E-01
+Time for iteration: 7.6811
+-------
+Iteration: 71
+Best Cost: 2.6356E-01
+Time for iteration: 7.9826
+-------
+Iteration: 72
+Best Cost: 2.6356E-01
+Time for iteration: 8.0603
+-------
+Iteration: 73
+Best Cost: 2.6356E-01
+Time for iteration: 8.9753
+-------
+Iteration: 74
+Best Cost: 2.6356E-01
+Time for iteration: 8.3763
+-------
+Iteration: 75
+Best Cost: 2.6356E-01
+Time for iteration: 7.5276
+-------
+Iteration: 76
+Best Cost: 2.6356E-01
+Time for iteration: 7.0293
+-------
+Iteration: 77
+Best Cost: 2.3398E-01
+Time for iteration: 7.7759
+-------
+Iteration: 78
+Best Cost: 2.3398E-01
+Time for iteration: 8.2973
+-------
+Iteration: 79
+Best Cost: 2.3398E-01
+Time for iteration: 7.2455
+-------
+Iteration: 80
+Best Cost: 2.3398E-01
+Time for iteration: 9.2192
+-------
+Iteration: 81
+Best Cost: 2.3398E-01
+Time for iteration: 9.3966
+-------
+Iteration: 82
+Best Cost: 2.3398E-01
+Time for iteration: 8.7402
+-------
+Iteration: 83
+Best Cost: 2.3398E-01
+Time for iteration: 8.9246
+-------
+Iteration: 84
+Best Cost: 2.3398E-01
+Time for iteration: 9.3044
+-------
+Iteration: 85
+Best Cost: 2.3398E-01
+Time for iteration: 9.2902
+-------
+Iteration: 86
+Best Cost: 2.3398E-01
+Time for iteration: 10.2983
+-------
+Iteration: 87
+Best Cost: 2.3398E-01
+Time for iteration: 10.3345
+-------
+Iteration: 88
+Best Cost: 2.3398E-01
+Time for iteration: 10.3907
+-------
+Iteration: 89
+Best Cost: 2.3398E-01
+Time for iteration: 7.9811
+-------
+Iteration: 90
+Best Cost: 2.3398E-01
+Time for iteration: 9.5017
+-------
+Iteration: 91
+Best Cost: 2.3398E-01
+Time for iteration: 9.3899
+-------
+Iteration: 92
+Best Cost: 2.3398E-01
+Time for iteration: 9.8468
+-------
+Iteration: 93
+Best Cost: 2.3398E-01
+Time for iteration: 10.9182
+-------
+Iteration: 94
+Best Cost: 2.3398E-01
+Time for iteration: 9.4836
+-------
+Iteration: 95
+Best Cost: 2.3398E-01
+Time for iteration: 8.5512
+-------
+Iteration: 96
+Best Cost: 2.3398E-01
+Time for iteration: 9.2034
+-------
+Iteration: 97
+Best Cost: 2.3398E-01
+Time for iteration: 8.6148
+-------
+Iteration: 98
+Best Cost: 2.3398E-01
+Time for iteration: 8.8650
+-------
+Iteration: 99
+Best Cost: 2.3090E-01
+Time for iteration: 8.3743
+-------
+Iteration: 100
+Best Cost: 2.3090E-01
+Time for iteration: 8.8580
+-------
+Iteration: 101
+Best Cost: 2.3090E-01
+Time for iteration: 9.0553
+-------
+Iteration: 102
+Best Cost: 2.3090E-01
+Time for iteration: 9.3978
+-------
+Iteration: 103
+Best Cost: 2.3090E-01
+Time for iteration: 9.2239
+-------
+Iteration: 104
+Best Cost: 1.4879E-01
+Time for iteration: 9.4904
+-------
+Iteration: 105
+Best Cost: 1.4879E-01
+Time for iteration: 10.0496
+-------
+Iteration: 106
+Best Cost: 1.4879E-01
+Time for iteration: 8.9468
+-------
+Iteration: 107
+Best Cost: 1.4879E-01
+Time for iteration: 7.8247
+-------
+Iteration: 108
+Best Cost: 1.4879E-01
+Time for iteration: 8.8422
+-------
+Iteration: 109
+Best Cost: 1.4879E-01
+Time for iteration: 9.2949
+-------
+Iteration: 110
+Best Cost: 1.4879E-01
+Time for iteration: 9.4155
+-------
+Iteration: 111
+Best Cost: 1.4879E-01
+Time for iteration: 8.6667
+-------
+Iteration: 112
+Best Cost: 1.4879E-01
+Time for iteration: 8.4472
+-------
+Iteration: 113
+Best Cost: 1.4879E-01
+Time for iteration: 8.7596
+-------
+Iteration: 114
+Best Cost: 1.4879E-01
+Time for iteration: 9.0433
+-------
+Iteration: 115
+Best Cost: 1.4879E-01
+Time for iteration: 9.1255
+-------
+Iteration: 116
+Best Cost: 1.4879E-01
+Time for iteration: 8.6869
+-------
+Iteration: 117
+Best Cost: 1.4879E-01
+Time for iteration: 7.8171
+-------
+Iteration: 118
+Best Cost: 1.4879E-01
+Time for iteration: 8.6406
+-------
+Iteration: 119
+Best Cost: 1.4879E-01
+Time for iteration: 8.4160
+-------
+Iteration: 120
+Best Cost: 1.4879E-01
+Time for iteration: 8.6974
+-------
+Iteration: 121
+Best Cost: 1.4879E-01
+Time for iteration: 8.7871
+-------
+Iteration: 122
+Best Cost: 1.4879E-01
+Time for iteration: 9.3595
+-------
+Iteration: 123
+Best Cost: 1.4879E-01
+Time for iteration: 8.5473
+-------
+Iteration: 124
+Best Cost: 1.4879E-01
+Time for iteration: 8.7403
+-------
+Iteration: 125
+Best Cost: 1.4879E-01
+Time for iteration: 8.5760
+-------
+Iteration: 126
+Best Cost: 1.4879E-01
+Time for iteration: 8.7841
+-------
+Iteration: 127
+Best Cost: 1.4879E-01
+Time for iteration: 8.7884
+-------
+Iteration: 128
+Best Cost: 1.4879E-01
+Time for iteration: 9.6702
+-------
+Iteration: 129
+Best Cost: 1.4879E-01
+Time for iteration: 8.7439
+-------
+Iteration: 130
+Best Cost: 1.4879E-01
+Time for iteration: 8.7146
+-------
+Iteration: 131
+Best Cost: 1.4879E-01
+Time for iteration: 8.4786
+-------
+Iteration: 132
+Best Cost: 1.4879E-01
+Time for iteration: 8.6146
+-------
+Iteration: 133
+Best Cost: 1.4879E-01
+Time for iteration: 9.3283
+-------
+Iteration: 134
+Best Cost: 1.4879E-01
+Time for iteration: 8.8164
+-------
+Iteration: 135
+Best Cost: 1.4879E-01
+Time for iteration: 9.1473
+-------
+Iteration: 136
+Best Cost: 1.4879E-01
+Time for iteration: 8.7617
+-------
+Iteration: 137
+Best Cost: 1.4879E-01
+Time for iteration: 8.6899
+-------
+Iteration: 138
+Best Cost: 1.4879E-01
+Time for iteration: 8.6482
+-------
+Iteration: 139
+Best Cost: 6.3083E-02
+Time for iteration: 8.6208
+-------
+Iteration: 140
+Best Cost: 6.3083E-02
+Time for iteration: 8.5567
+-------
+Iteration: 141
+Best Cost: 6.3083E-02
+Time for iteration: 8.0487
+-------
+Iteration: 142
+Best Cost: 6.3083E-02
+Time for iteration: 8.9958
+-------
+Iteration: 143
+Best Cost: 3.9853E-02
+Time for iteration: 8.6555
+-------
+Iteration: 144
+Best Cost: 3.9853E-02
+Time for iteration: 7.8741
+-------
+Iteration: 145
+Best Cost: 3.9853E-02
+Time for iteration: 7.8164
+-------
+Iteration: 146
+Best Cost: 3.9853E-02
+Time for iteration: 8.3121
+-------
+Iteration: 147
+Best Cost: 3.9853E-02
+Time for iteration: 8.9031
+-------
+Iteration: 148
+Best Cost: 3.9853E-02
+Time for iteration: 8.9373
+-------
+Iteration: 149
+Best Cost: 3.9853E-02
+Time for iteration: 8.3922
+-------
+Iteration: 150
+Best Cost: 3.9853E-02
+Time for iteration: 8.9911
+-------
+Iteration: 151
+Best Cost: 3.9853E-02
+Time for iteration: 8.5088
+-------
+Iteration: 152
+Best Cost: 3.9853E-02
+Time for iteration: 8.6587
+-------
+Iteration: 153
+Best Cost: 3.9853E-02
+Time for iteration: 8.4758
+-------
+Iteration: 154
+Best Cost: 3.9853E-02
+Time for iteration: 8.1167
+-------
+Iteration: 155
+Best Cost: 3.9853E-02
+Time for iteration: 8.7909
+-------
+Iteration: 156
+Best Cost: 3.9853E-02
+Time for iteration: 8.8709
+-------
+Iteration: 157
+Best Cost: 3.9853E-02
+Time for iteration: 8.6053
+-------
+Iteration: 158
+Best Cost: 3.9853E-02
+Time for iteration: 8.5556
+-------
+Iteration: 159
+Best Cost: 3.9853E-02
+Time for iteration: 8.6703
+-------
+Iteration: 160
+Best Cost: 3.9853E-02
+Time for iteration: 8.7659
+-------
+Iteration: 161
+Best Cost: 3.9853E-02
+Time for iteration: 8.4641
+-------
+Iteration: 162
+Best Cost: 3.9853E-02
+Time for iteration: 8.7945
+-------
+Iteration: 163
+Best Cost: 3.9853E-02
+Time for iteration: 8.5433
+-------
+Iteration: 164
+Best Cost: 3.9853E-02
+Time for iteration: 8.9260
+-------
+Iteration: 165
+Best Cost: 3.9853E-02
+Time for iteration: 8.6576
+-------
+Iteration: 166
+Best Cost: 3.9853E-02
+Time for iteration: 8.7681
+-------
+Iteration: 167
+Best Cost: 3.9853E-02
+Time for iteration: 8.2755
+-------
+Iteration: 168
+Best Cost: 3.9853E-02
+Time for iteration: 9.1677
+-------
+Iteration: 169
+Best Cost: 3.9853E-02
+Time for iteration: 9.3792
+-------
+Iteration: 170
+Best Cost: 3.9853E-02
+Time for iteration: 8.4858
+-------
+Iteration: 171
+Best Cost: 3.9853E-02
+Time for iteration: 7.2984
+-------
+Iteration: 172
+Best Cost: 3.9853E-02
+Time for iteration: 7.4029
+-------
+Iteration: 173
+Best Cost: 3.9853E-02
+Time for iteration: 7.5005
+-------
+Iteration: 174
+Best Cost: 3.9853E-02
+Time for iteration: 7.4482
+-------
+Iteration: 175
+Best Cost: 3.9853E-02
+Time for iteration: 7.3707
+-------
+Iteration: 176
+Best Cost: 3.9853E-02
+Time for iteration: 7.6499
+-------
+Iteration: 177
+Best Cost: 3.9853E-02
+Time for iteration: 7.5424
+-------
+Iteration: 178
+Best Cost: 3.9853E-02
+Time for iteration: 7.8084
+-------
+Iteration: 179
+Best Cost: 3.9853E-02
+Time for iteration: 7.8892
+-------
+Iteration: 180
+Best Cost: 3.9853E-02
+Time for iteration: 7.8234
+-------
+Iteration: 181
+Best Cost: 3.9853E-02
+Time for iteration: 7.8050
+-------
+Iteration: 182
+Best Cost: 3.9853E-02
+Time for iteration: 7.6449
+-------
+Iteration: 183
+Best Cost: 3.9853E-02
+Time for iteration: 7.6054
+-------
+Iteration: 184
+Best Cost: 3.9853E-02
+Time for iteration: 7.9339
+-------
+Iteration: 185
+Best Cost: 3.9853E-02
+Time for iteration: 7.4799
+-------
+Iteration: 186
+Best Cost: 3.9853E-02
+Time for iteration: 7.7312
+-------
+Iteration: 187
+Best Cost: 3.9853E-02
+Time for iteration: 7.6613
+-------
+Iteration: 188
+Best Cost: 3.9853E-02
+Time for iteration: 7.5275
+-------
+Iteration: 189
+Best Cost: 3.9853E-02
+Time for iteration: 7.6330
+-------
+Iteration: 190
+Best Cost: 3.9853E-02
+Time for iteration: 8.2909
+-------
+Iteration: 191
+Best Cost: 3.9853E-02
+Time for iteration: 7.6342
+-------
+Iteration: 192
+Best Cost: 3.9853E-02
+Time for iteration: 7.5389
+-------
+Iteration: 193
+Best Cost: 3.9853E-02
+Time for iteration: 7.6933
+-------
+Iteration: 194
+Best Cost: 3.9853E-02
+Time for iteration: 7.5404
+-------
+Iteration: 195
+Best Cost: 3.8217E-02
+Time for iteration: 7.2387
+-------
+Iteration: 196
+Best Cost: 3.8217E-02
+Time for iteration: 7.2760
+-------
+Iteration: 197
+Best Cost: 3.8217E-02
+Time for iteration: 8.0880
+-------
+Iteration: 198
+Best Cost: 3.8217E-02
+Time for iteration: 7.5031
+-------
+Iteration: 199
+Best Cost: 3.8217E-02
+Time for iteration: 7.4831
+-------
+Iteration: 200
+Best Cost: 3.8217E-02
+Time for iteration: 7.6328
+-------
+Iteration: 201
+Best Cost: 3.8217E-02
+Time for iteration: 7.7061
+-------
+Iteration: 202
+Best Cost: 3.8217E-02
+Time for iteration: 7.4025
+-------
+Iteration: 203
+Best Cost: 3.8217E-02
+Time for iteration: 7.7713
+-------
+Iteration: 204
+Best Cost: 3.8217E-02
+Time for iteration: 6.9535
+-------
+Iteration: 205
+Best Cost: 3.8217E-02
+Time for iteration: 7.3390
+-------
+Iteration: 206
+Best Cost: 3.8217E-02
+Time for iteration: 7.6451
+-------
+Iteration: 207
+Best Cost: 3.8217E-02
+Time for iteration: 7.2869
+-------
+Iteration: 208
+Best Cost: 3.8217E-02
+Time for iteration: 7.3540
+-------
+Iteration: 209
+Best Cost: 3.5546E-02
+Time for iteration: 8.1449
+-------
+Iteration: 210
+Best Cost: 3.5546E-02
+Time for iteration: 7.3419
+-------
+Iteration: 211
+Best Cost: 3.5546E-02
+Time for iteration: 7.5036
+-------
+Iteration: 212
+Best Cost: 3.5546E-02
+Time for iteration: 7.4149
+-------
+Iteration: 213
+Best Cost: 3.5546E-02
+Time for iteration: 7.3873
+-------
+Iteration: 214
+Best Cost: 3.5546E-02
+Time for iteration: 7.3110
+-------
+Iteration: 215
+Best Cost: 3.5546E-02
+Time for iteration: 6.9683
+-------
+Iteration: 216
+Best Cost: 3.5546E-02
+Time for iteration: 7.3995
+-------
+Iteration: 217
+Best Cost: 3.5546E-02
+Time for iteration: 7.1542
+-------
+Iteration: 218
+Best Cost: 3.5546E-02
+Time for iteration: 7.1516
+-------
+Iteration: 219
+Best Cost: 3.5546E-02
+Time for iteration: 7.3594
+-------
+Iteration: 220
+Best Cost: 3.5546E-02
+Time for iteration: 7.2232
+-------
+Iteration: 221
+Best Cost: 3.5546E-02
+Time for iteration: 7.2620
+-------
+Iteration: 222
+Best Cost: 3.5546E-02
+Time for iteration: 6.9065
+-------
+Iteration: 223
+Best Cost: 3.4344E-02
+Time for iteration: 6.9172
+-------
+Iteration: 224
+Best Cost: 3.4344E-02
+Time for iteration: 7.4355
+-------
+Iteration: 225
+Best Cost: 3.4344E-02
+Time for iteration: 6.2620
+-------
+Iteration: 226
+Best Cost: 3.4344E-02
+Time for iteration: 7.3082
+-------
+Iteration: 227
+Best Cost: 3.4009E-02
+Time for iteration: 7.2918
+-------
+Iteration: 228
+Best Cost: 3.4009E-02
+Time for iteration: 7.2431
+-------
+Iteration: 229
+Best Cost: 3.4009E-02
+Time for iteration: 7.2972
+-------
+Iteration: 230
+Best Cost: 3.4009E-02
+Time for iteration: 7.0658
+-------
+Iteration: 231
+Best Cost: 3.4009E-02
+Time for iteration: 7.3224
+-------
+Iteration: 232
+Best Cost: 3.3558E-02
+Time for iteration: 7.5066
+-------
+Iteration: 233
+Best Cost: 3.3558E-02
+Time for iteration: 5.6878
+-------
+Iteration: 234
+Best Cost: 3.3558E-02
+Time for iteration: 7.0849
+-------
+Iteration: 235
+Best Cost: 3.3558E-02
+Time for iteration: 7.3402
+-------
+Iteration: 236
+Best Cost: 3.3558E-02
+Time for iteration: 7.2525
+-------
+Iteration: 237
+Best Cost: 3.3558E-02
+Time for iteration: 7.1312
+-------
+Iteration: 238
+Best Cost: 3.3558E-02
+Time for iteration: 7.1112
+-------
+Iteration: 239
+Best Cost: 3.3558E-02
+Time for iteration: 7.1958
+-------
+Iteration: 240
+Best Cost: 3.3558E-02
+Time for iteration: 7.5569
+-------
+Iteration: 241
+Best Cost: 3.3558E-02
+Time for iteration: 7.3283
+-------
+Iteration: 242
+Best Cost: 3.3558E-02
+Time for iteration: 7.3664
+-------
+Iteration: 243
+Best Cost: 3.3558E-02
+Time for iteration: 7.4802
+-------
+Iteration: 244
+Best Cost: 3.3558E-02
+Time for iteration: 7.3553
+-------
+Iteration: 245
+Best Cost: 3.3558E-02
+Time for iteration: 7.2962
+-------
+Iteration: 246
+Best Cost: 3.3558E-02
+Time for iteration: 7.3067
+-------
+Iteration: 247
+Best Cost: 3.3558E-02
+Time for iteration: 7.1459
+-------
+Iteration: 248
+Best Cost: 3.1012E-02
+Time for iteration: 7.0928
+-------
+Iteration: 249
+Best Cost: 3.1012E-02
+Time for iteration: 6.9616
+-------
+Iteration: 250
+Best Cost: 3.1012E-02
+Time for iteration: 7.5235
+-------
+Iteration: 251
+Best Cost: 3.1012E-02
+Time for iteration: 7.4478
+-------
+Iteration: 252
+Best Cost: 3.0786E-02
+Time for iteration: 7.0234
+-------
+Iteration: 253
+Best Cost: 3.0786E-02
+Time for iteration: 7.2914
+-------
+Iteration: 254
+Best Cost: 3.0786E-02
+Time for iteration: 6.9703
+-------
+Iteration: 255
+Best Cost: 3.0786E-02
+Time for iteration: 7.2473
+-------
+Iteration: 256
+Best Cost: 3.0786E-02
+Time for iteration: 7.3000
+-------
+Iteration: 257
+Best Cost: 3.0786E-02
+Time for iteration: 5.9460
+-------
+Iteration: 258
+Best Cost: 3.0786E-02
+Time for iteration: 7.2122
+-------
+Iteration: 259
+Best Cost: 3.0786E-02
+Time for iteration: 7.0461
+-------
+Iteration: 260
+Best Cost: 3.0786E-02
+Time for iteration: 6.8553
+-------
+Iteration: 261
+Best Cost: 3.0786E-02
+Time for iteration: 5.6205
+-------
+Iteration: 262
+Best Cost: 2.9813E-02
+Time for iteration: 5.0212
+-------
+Iteration: 263
+Best Cost: 2.9813E-02
+Time for iteration: 7.2279
+-------
+Iteration: 264
+Best Cost: 2.9813E-02
+Time for iteration: 7.2804
+-------
+Iteration: 265
+Best Cost: 2.9813E-02
+Time for iteration: 7.3263
+-------
+Iteration: 266
+Best Cost: 2.9272E-02
+Time for iteration: 7.2253
+-------
+Iteration: 267
+Best Cost: 2.9272E-02
+Time for iteration: 7.4279
+-------
+Iteration: 268
+Best Cost: 2.9272E-02
+Time for iteration: 7.1873
+-------
+Iteration: 269
+Best Cost: 2.9272E-02
+Time for iteration: 7.0650
+-------
+Iteration: 270
+Best Cost: 2.9272E-02
+Time for iteration: 6.9692
+-------
+Iteration: 271
+Best Cost: 2.9272E-02
+Time for iteration: 7.1045
+-------
+Iteration: 272
+Best Cost: 2.9272E-02
+Time for iteration: 7.4576
+-------
+Iteration: 273
+Best Cost: 2.9272E-02
+Time for iteration: 6.4209
+-------
+Iteration: 274
+Best Cost: 2.9272E-02
+Time for iteration: 5.1781
+-------
+Iteration: 275
+Best Cost: 2.9272E-02
+Time for iteration: 6.8266
+-------
+Iteration: 276
+Best Cost: 2.9272E-02
+Time for iteration: 7.6950
+-------
+Iteration: 277
+Best Cost: 2.9272E-02
+Time for iteration: 7.2174
+-------
+Iteration: 278
+Best Cost: 2.9272E-02
+Time for iteration: 7.2177
+-------
+Iteration: 279
+Best Cost: 2.8686E-02
+Time for iteration: 7.2051
+-------
+Iteration: 280
+Best Cost: 2.8686E-02
+Time for iteration: 7.0065
+-------
+Iteration: 281
+Best Cost: 2.8686E-02
+Time for iteration: 6.3478
+-------
+Iteration: 282
+Best Cost: 2.8686E-02
+Time for iteration: 7.7259
+-------
+Iteration: 283
+Best Cost: 2.8686E-02
+Time for iteration: 6.7792
+-------
+Iteration: 284
+Best Cost: 2.8686E-02
+Time for iteration: 6.7623
+-------
+Iteration: 285
+Best Cost: 2.8686E-02
+Time for iteration: 4.9769
+-------
+Iteration: 286
+Best Cost: 2.8686E-02
+Time for iteration: 5.3752
+-------
+Iteration: 287
+Best Cost: 2.8686E-02
+Time for iteration: 5.1490
+-------
+Iteration: 288
+Best Cost: 2.8686E-02
+Time for iteration: 7.1040
+-------
+Iteration: 289
+Best Cost: 2.8686E-02
+Time for iteration: 7.0569
+-------
+Iteration: 290
+Best Cost: 2.7779E-02
+Time for iteration: 7.1475
+-------
+Iteration: 291
+Best Cost: 2.7779E-02
+Time for iteration: 6.8908
+-------
+Iteration: 292
+Best Cost: 2.7779E-02
+Time for iteration: 7.3362
+-------
+Iteration: 293
+Best Cost: 2.7779E-02
+Time for iteration: 7.0345
+-------
+Iteration: 294
+Best Cost: 2.7779E-02
+Time for iteration: 6.9418
+-------
+Iteration: 295
+Best Cost: 2.7779E-02
+Time for iteration: 7.2634
+-------
+Iteration: 296
+Best Cost: 2.7779E-02
+Time for iteration: 7.5023
+-------
+Iteration: 297
+Best Cost: 2.7779E-02
+Time for iteration: 7.5717
+-------
+Iteration: 298
+Best Cost: 2.7779E-02
+Time for iteration: 7.3896
+-------
+Iteration: 299
+Best Cost: 2.7779E-02
+Time for iteration: 7.4256
+-------
+Iteration: 300
+Best Cost: 2.7779E-02
+Time for iteration: 7.9349
+-------
+Iteration: 301
+Best Cost: 2.7779E-02
+Time for iteration: 7.3053
+-------
+Iteration: 302
+Best Cost: 2.7779E-02
+Time for iteration: 7.3418
+-------
+Iteration: 303
+Best Cost: 2.7779E-02
+Time for iteration: 6.3918
+-------
+Iteration: 304
+Best Cost: 2.7779E-02
+Time for iteration: 6.3376
+-------
+Iteration: 305
+Best Cost: 2.7779E-02
+Time for iteration: 6.8501
+-------
+Iteration: 306
+Best Cost: 2.7779E-02
+Time for iteration: 5.3104
+-------
+Iteration: 307
+Best Cost: 2.7779E-02
+Time for iteration: 5.0553
+-------
+Iteration: 308
+Best Cost: 2.7779E-02
+Time for iteration: 7.3778
+-------
+Iteration: 309
+Best Cost: 2.7779E-02
+Time for iteration: 6.6404
+-------
+Iteration: 310
+Best Cost: 2.7779E-02
+Time for iteration: 6.7684
+-------
+Iteration: 311
+Best Cost: 2.7779E-02
+Time for iteration: 7.4659
+-------
+Iteration: 312
+Best Cost: 2.7779E-02
+Time for iteration: 6.8457
+-------
+Iteration: 313
+Best Cost: 2.7779E-02
+Time for iteration: 7.2297
+-------
+Iteration: 314
+Best Cost: 2.7779E-02
+Time for iteration: 6.5613
+-------
+Iteration: 315
+Best Cost: 2.7779E-02
+Time for iteration: 7.2605
+-------
+Iteration: 316
+Best Cost: 2.7779E-02
+Time for iteration: 6.9282
+-------
+Iteration: 317
+Best Cost: 2.7779E-02
+Time for iteration: 7.1979
+-------
+Iteration: 318
+Best Cost: 2.7779E-02
+Time for iteration: 6.7622
+-------
+Iteration: 319
+Best Cost: 2.7779E-02
+Time for iteration: 6.7853
+-------
+Iteration: 320
+Best Cost: 2.7779E-02
+Time for iteration: 6.5376
+-------
+Iteration: 321
+Best Cost: 2.7779E-02
+Time for iteration: 6.7611
+-------
+Iteration: 322
+Best Cost: 2.7779E-02
+Time for iteration: 6.5223
+-------
+Iteration: 323
+Best Cost: 2.7779E-02
+Time for iteration: 6.8868
+-------
+Iteration: 324
+Best Cost: 2.7779E-02
+Time for iteration: 6.5550
+-------
+Iteration: 325
+Best Cost: 2.7779E-02
+Time for iteration: 6.6680
+-------
+Iteration: 326
+Best Cost: 2.7779E-02
+Time for iteration: 6.3494
+-------
+Iteration: 327
+Best Cost: 2.7779E-02
+Time for iteration: 6.7674
+-------
+Iteration: 328
+Best Cost: 2.7779E-02
+Time for iteration: 7.8048
+-------
+Iteration: 329
+Best Cost: 2.7779E-02
+Time for iteration: 6.9438
+-------
+Iteration: 330
+Best Cost: 2.7779E-02
+Time for iteration: 6.8046
+-------
+Iteration: 331
+Best Cost: 2.7779E-02
+Time for iteration: 6.8172
+-------
+Iteration: 332
+Best Cost: 2.7779E-02
+Time for iteration: 7.0736
+-------
+Iteration: 333
+Best Cost: 2.7779E-02
+Time for iteration: 7.1745
+-------
+Iteration: 334
+Best Cost: 2.7779E-02
+Time for iteration: 6.5959
+-------
+Iteration: 335
+Best Cost: 2.7779E-02
+Time for iteration: 6.6416
+-------
+Iteration: 336
+Best Cost: 2.7779E-02
+Time for iteration: 8.1050
+-------
+Iteration: 337
+Best Cost: 2.7779E-02
+Time for iteration: 7.3169
+-------
+Iteration: 338
+Best Cost: 2.7779E-02
+Time for iteration: 6.5845
+-------
+Iteration: 339
+Best Cost: 2.7779E-02
+Time for iteration: 7.9341
+-------
+Iteration: 340
+Best Cost: 2.7779E-02
+Time for iteration: 6.8533
+-------
+Iteration: 341
+Best Cost: 2.7779E-02
+Time for iteration: 7.3263
+-------
+Iteration: 342
+Best Cost: 2.7779E-02
+Time for iteration: 6.3170
+-------
+Iteration: 343
+Best Cost: 2.7779E-02
+Time for iteration: 7.8617
+-------
+Iteration: 344
+Best Cost: 2.7779E-02
+Time for iteration: 7.3437
+-------
+Iteration: 345
+Best Cost: 2.7779E-02
+Time for iteration: 6.9332
+-------
+Iteration: 346
+Best Cost: 2.7779E-02
+Time for iteration: 7.0984
+-------
+Iteration: 347
+Best Cost: 2.7779E-02
+Time for iteration: 6.3772
+-------
+Iteration: 348
+Best Cost: 2.7779E-02
+Time for iteration: 7.2121
+-------
+Iteration: 349
+Best Cost: 2.7779E-02
+Time for iteration: 7.2078
+-------
+Iteration: 350
+Best Cost: 2.7779E-02
+Time for iteration: 7.4405
+-------
+Iteration: 351
+Best Cost: 2.7779E-02
+Time for iteration: 6.9818
+-------
+Iteration: 352
+Best Cost: 2.7779E-02
+Time for iteration: 6.7828
+-------
+Iteration: 353
+Best Cost: 2.7779E-02
+Time for iteration: 6.3385
+-------
+Iteration: 354
+Best Cost: 2.7779E-02
+Time for iteration: 7.0816
+-------
+Iteration: 355
+Best Cost: 2.7779E-02
+Time for iteration: 7.1491
+-------
+Iteration: 356
+Best Cost: 2.7779E-02
+Time for iteration: 6.7650
+-------
+Iteration: 357
+Best Cost: 2.7779E-02
+Time for iteration: 7.1197
+-------
+Iteration: 358
+Best Cost: 2.7779E-02
+Time for iteration: 6.2743
+-------
+Iteration: 359
+Best Cost: 2.7779E-02
+Time for iteration: 7.3609
+-------
+Iteration: 360
+Best Cost: 2.7779E-02
+Time for iteration: 6.9237
+-------
+Iteration: 361
+Best Cost: 2.7779E-02
+Time for iteration: 8.1170
+-------
+Iteration: 362
+Best Cost: 2.7779E-02
+Time for iteration: 7.4479
+-------
+Iteration: 363
+Best Cost: 2.7779E-02
+Time for iteration: 7.3416
+-------
+Iteration: 364
+Best Cost: 2.7779E-02
+Time for iteration: 6.8780
+-------
+Iteration: 365
+Best Cost: 2.7779E-02
+Time for iteration: 7.7435
+-------
+Iteration: 366
+Best Cost: 2.7779E-02
+Time for iteration: 6.5873
+-------
+Iteration: 367
+Best Cost: 2.7779E-02
+Time for iteration: 7.6015
+-------
+Iteration: 368
+Best Cost: 2.7779E-02
+Time for iteration: 7.1363
+-------
+Iteration: 369
+Best Cost: 2.7779E-02
+Time for iteration: 7.6754
+-------
+Iteration: 370
+Best Cost: 2.7779E-02
+Time for iteration: 6.9395
+-------
+Iteration: 371
+Best Cost: 2.7779E-02
+Time for iteration: 6.8953
+-------
+Iteration: 372
+Best Cost: 2.7779E-02
+Time for iteration: 7.0267
+-------
+Iteration: 373
+Best Cost: 2.7779E-02
+Time for iteration: 7.3992
+-------
+Iteration: 374
+Best Cost: 2.7779E-02
+Time for iteration: 6.8929
+-------
+Iteration: 375
+Best Cost: 2.7779E-02
+Time for iteration: 7.0013
+-------
+Iteration: 376
+Best Cost: 2.7779E-02
+Time for iteration: 6.8256
+-------
+Iteration: 377
+Best Cost: 2.7779E-02
+Time for iteration: 6.7028
+-------
+Iteration: 378
+Best Cost: 2.7779E-02
+Time for iteration: 7.4808
+-------
+Iteration: 379
+Best Cost: 2.7779E-02
+Time for iteration: 7.2173
+-------
+Iteration: 380
+Best Cost: 2.7779E-02
+Time for iteration: 6.6720
+-------
+Iteration: 381
+Best Cost: 2.7779E-02
+Time for iteration: 7.0809
+-------
+Iteration: 382
+Best Cost: 2.7779E-02
+Time for iteration: 6.8787
+-------
+Iteration: 383
+Best Cost: 2.7779E-02
+Time for iteration: 6.7757
+-------
+Iteration: 384
+Best Cost: 2.7779E-02
+Time for iteration: 7.5695
+-------
+Iteration: 385
+Best Cost: 2.7779E-02
+Time for iteration: 7.3115
+-------
+Iteration: 386
+Best Cost: 2.7779E-02
+Time for iteration: 6.8229
+-------
+Iteration: 387
+Best Cost: 2.7779E-02
+Time for iteration: 6.7579
+-------
+Iteration: 388
+Best Cost: 2.7779E-02
+Time for iteration: 6.3392
+-------
+Iteration: 389
+Best Cost: 2.7779E-02
+Time for iteration: 6.6541
+-------
+Iteration: 390
+Best Cost: 2.7779E-02
+Time for iteration: 6.5795
+-------
+Iteration: 391
+Best Cost: 2.7779E-02
+Time for iteration: 5.8949
+-------
+Iteration: 392
+Best Cost: 2.7779E-02
+Time for iteration: 6.3932
+-------
+Iteration: 393
+Best Cost: 2.7779E-02
+Time for iteration: 6.8468
+-------
+Iteration: 394
+Best Cost: 2.7641E-02
+Time for iteration: 6.4524
+-------
+Iteration: 395
+Best Cost: 2.7641E-02
+Time for iteration: 6.3490
+-------
+Iteration: 396
+Best Cost: 2.7641E-02
+Time for iteration: 6.8539
+-------
+Iteration: 397
+Best Cost: 2.7541E-02
+Time for iteration: 6.6059
+-------
+Iteration: 398
+Best Cost: 2.7289E-02
+Time for iteration: 6.7142
+-------
+Iteration: 399
+Best Cost: 2.7289E-02
+Time for iteration: 6.8976
+-------
+Iteration: 400
+Best Cost: 2.7289E-02
+Time for iteration: 6.9234
+-------
+Iteration: 401
+Best Cost: 2.7289E-02
+Time for iteration: 7.0975
+-------
+Iteration: 402
+Best Cost: 2.7289E-02
+Time for iteration: 7.6442
+-------
+Iteration: 403
+Best Cost: 2.7289E-02
+Time for iteration: 6.9122
+-------
+Iteration: 404
+Best Cost: 2.7289E-02
+Time for iteration: 6.4806
+-------
+Iteration: 405
+Best Cost: 2.7289E-02
+Time for iteration: 6.2001
+-------
+Iteration: 406
+Best Cost: 2.7289E-02
+Time for iteration: 6.8085
+-------
+Iteration: 407
+Best Cost: 2.7289E-02
+Time for iteration: 6.9690
+-------
+Iteration: 408
+Best Cost: 2.7289E-02
+Time for iteration: 6.8980
+-------
+Iteration: 409
+Best Cost: 2.7289E-02
+Time for iteration: 7.0046
+-------
+Iteration: 410
+Best Cost: 2.7289E-02
+Time for iteration: 6.7420
+-------
+Iteration: 411
+Best Cost: 2.7289E-02
+Time for iteration: 6.9329
+-------
+Iteration: 412
+Best Cost: 2.7289E-02
+Time for iteration: 7.2224
+-------
+Iteration: 413
+Best Cost: 2.7289E-02
+Time for iteration: 7.1812
+-------
+Iteration: 414
+Best Cost: 2.7289E-02
+Time for iteration: 6.8565
+-------
+Iteration: 415
+Best Cost: 2.7289E-02
+Time for iteration: 6.8181
+-------
+Iteration: 416
+Best Cost: 2.7289E-02
+Time for iteration: 7.4213
+-------
+Iteration: 417
+Best Cost: 2.7289E-02
+Time for iteration: 7.0603
+-------
+Iteration: 418
+Best Cost: 2.7289E-02
+Time for iteration: 6.9204
+-------
+Iteration: 419
+Best Cost: 2.7289E-02
+Time for iteration: 7.1657
+-------
+Iteration: 420
+Best Cost: 2.7289E-02
+Time for iteration: 7.0297
+-------
+Iteration: 421
+Best Cost: 2.7289E-02
+Time for iteration: 6.8177
+-------
+Iteration: 422
+Best Cost: 2.7289E-02
+Time for iteration: 7.1570
+-------
+Iteration: 423
+Best Cost: 2.7289E-02
+Time for iteration: 6.8973
+-------
+Iteration: 424
+Best Cost: 2.7289E-02
+Time for iteration: 6.9416
+-------
+Iteration: 425
+Best Cost: 2.7289E-02
+Time for iteration: 6.9353
+-------
+Iteration: 426
+Best Cost: 2.7289E-02
+Time for iteration: 7.0004
+-------
+Iteration: 427
+Best Cost: 2.7271E-02
+Time for iteration: 6.8176
+-------
+Iteration: 428
+Best Cost: 2.7271E-02
+Time for iteration: 7.4784
+-------
+Iteration: 429
+Best Cost: 2.7150E-02
+Time for iteration: 7.0564
+-------
+Iteration: 430
+Best Cost: 2.7015E-02
+Time for iteration: 6.5169
+-------
+Iteration: 431
+Best Cost: 2.7015E-02
+Time for iteration: 6.5917
+-------
+Iteration: 432
+Best Cost: 2.7015E-02
+Time for iteration: 6.9072
+-------
+Iteration: 433
+Best Cost: 2.7015E-02
+Time for iteration: 6.5502
+-------
+Iteration: 434
+Best Cost: 2.7015E-02
+Time for iteration: 6.7073
+-------
+Iteration: 435
+Best Cost: 2.7015E-02
+Time for iteration: 6.6452
+-------
+Iteration: 436
+Best Cost: 2.7015E-02
+Time for iteration: 6.7014
+-------
+Iteration: 437
+Best Cost: 2.7015E-02
+Time for iteration: 6.6002
+-------
+Iteration: 438
+Best Cost: 2.7015E-02
+Time for iteration: 5.9890
+-------
+Iteration: 439
+Best Cost: 2.7015E-02
+Time for iteration: 5.6943
+-------
+Iteration: 440
+Best Cost: 2.7015E-02
+Time for iteration: 6.3926
+-------
+Iteration: 441
+Best Cost: 2.7015E-02
+Time for iteration: 7.1051
+-------
+Iteration: 442
+Best Cost: 2.7015E-02
+Time for iteration: 6.6016
+-------
+Iteration: 443
+Best Cost: 2.7015E-02
+Time for iteration: 6.5525
+-------
+Iteration: 444
+Best Cost: 2.7015E-02
+Time for iteration: 6.6750
+-------
+Iteration: 445
+Best Cost: 2.7015E-02
+Time for iteration: 6.3638
+-------
+Iteration: 446
+Best Cost: 2.7015E-02
+Time for iteration: 6.8071
+-------
+Iteration: 447
+Best Cost: 2.7015E-02
+Time for iteration: 6.8465
+-------
+Iteration: 448
+Best Cost: 2.7015E-02
+Time for iteration: 6.8788
+-------
+Iteration: 449
+Best Cost: 2.7015E-02
+Time for iteration: 6.5021
+-------
+Iteration: 450
+Best Cost: 2.7015E-02
+Time for iteration: 7.1947
+-------
+Iteration: 451
+Best Cost: 2.7015E-02
+Time for iteration: 7.1340
+-------
+Iteration: 452
+Best Cost: 2.7015E-02
+Time for iteration: 7.1080
+-------
+Iteration: 453
+Best Cost: 2.7015E-02
+Time for iteration: 7.1678
+-------
+Iteration: 454
+Best Cost: 2.7015E-02
+Time for iteration: 6.9730
+-------
+Iteration: 455
+Best Cost: 2.7015E-02
+Time for iteration: 6.7674
+-------
+Iteration: 456
+Best Cost: 2.7015E-02
+Time for iteration: 6.2394
+-------
+Iteration: 457
+Best Cost: 2.7015E-02
+Time for iteration: 7.0524
+-------
+Iteration: 458
+Best Cost: 2.7015E-02
+Time for iteration: 6.9550
+-------
+Iteration: 459
+Best Cost: 2.7015E-02
+Time for iteration: 7.0101
+-------
+Iteration: 460
+Best Cost: 2.7015E-02
+Time for iteration: 7.0156
+-------
+Iteration: 461
+Best Cost: 2.7015E-02
+Time for iteration: 6.9818
+-------
+Iteration: 462
+Best Cost: 2.7015E-02
+Time for iteration: 6.8576
+-------
+Iteration: 463
+Best Cost: 2.7015E-02
+Time for iteration: 6.9866
+-------
+Iteration: 464
+Best Cost: 2.7015E-02
+Time for iteration: 6.9788
+-------
+Iteration: 465
+Best Cost: 2.7015E-02
+Time for iteration: 6.8910
+-------
+Iteration: 466
+Best Cost: 2.7015E-02
+Time for iteration: 6.8381
+-------
+Iteration: 467
+Best Cost: 2.7015E-02
+Time for iteration: 6.8462
+-------
+Iteration: 468
+Best Cost: 2.7015E-02
+Time for iteration: 7.0429
+-------
+Iteration: 469
+Best Cost: 2.6875E-02
+Time for iteration: 7.2677
+-------
+Iteration: 470
+Best Cost: 2.6875E-02
+Time for iteration: 7.1027
+-------
+Iteration: 471
+Best Cost: 2.6875E-02
+Time for iteration: 7.3650
+-------
+Iteration: 472
+Best Cost: 2.6875E-02
+Time for iteration: 7.1534
+-------
+Iteration: 473
+Best Cost: 2.6875E-02
+Time for iteration: 7.3900
+-------
+Iteration: 474
+Best Cost: 2.6875E-02
+Time for iteration: 7.2373
+-------
+Iteration: 475
+Best Cost: 2.6875E-02
+Time for iteration: 7.2458
+-------
+Iteration: 476
+Best Cost: 2.6875E-02
+Time for iteration: 7.3386
+-------
+Iteration: 477
+Best Cost: 2.6875E-02
+Time for iteration: 7.5050
+-------
+Iteration: 478
+Best Cost: 2.6875E-02
+Time for iteration: 7.5600
+-------
+Iteration: 479
+Best Cost: 2.6875E-02
+Time for iteration: 7.4247
+-------
+Iteration: 480
+Best Cost: 2.6875E-02
+Time for iteration: 6.8650
+-------
+Iteration: 481
+Best Cost: 2.6875E-02
+Time for iteration: 7.2679
+-------
+Iteration: 482
+Best Cost: 2.6749E-02
+Time for iteration: 7.0228
+-------
+Iteration: 483
+Best Cost: 2.6749E-02
+Time for iteration: 6.9187
+-------
+Iteration: 484
+Best Cost: 2.6749E-02
+Time for iteration: 7.1981
+-------
+Iteration: 485
+Best Cost: 2.6749E-02
+Time for iteration: 7.3049
+-------
+Iteration: 486
+Best Cost: 2.6749E-02
+Time for iteration: 7.4068
+-------
+Iteration: 487
+Best Cost: 2.6749E-02
+Time for iteration: 7.4774
+-------
+Iteration: 488
+Best Cost: 2.6749E-02
+Time for iteration: 7.6465
+-------
+Iteration: 489
+Best Cost: 2.6749E-02
+Time for iteration: 7.5907
+-------
+Iteration: 490
+Best Cost: 2.6749E-02
+Time for iteration: 7.4826
+-------
+Iteration: 491
+Best Cost: 2.6749E-02
+Time for iteration: 7.7238
+-------
+Iteration: 492
+Best Cost: 2.6749E-02
+Time for iteration: 8.6116
+-------
+Iteration: 493
+Best Cost: 2.6749E-02
+Time for iteration: 7.5761
+-------
+Iteration: 494
+Best Cost: 2.6749E-02
+Time for iteration: 7.6695
+-------
+Iteration: 495
+Best Cost: 2.6749E-02
+Time for iteration: 7.5221
+-------
+Iteration: 496
+Best Cost: 2.6749E-02
+Time for iteration: 7.3766
+-------
+Iteration: 497
+Best Cost: 2.6749E-02
+Time for iteration: 7.4805
+-------
+Iteration: 498
+Best Cost: 2.6749E-02
+Time for iteration: 7.5179
+-------
+Iteration: 499
+Best Cost: 2.6749E-02
+Time for iteration: 7.2120
+-------
+Iteration: 500
+Best Cost: 2.6749E-02
+Time for iteration: 7.4511
+-------
+Final best position (scaled): [ 0.28649369  0.42611297  0.57211268 -0.54757155 -0.65244718 -0.26120989
+ -0.9359383  -0.78778273]
+Final best cost: 2.6749E-02
+Done with DE search
+Best Position from DE: [3.12368039e-19 2.66755247e+02 2.30652300e+21 7.00877090e+11
+ 2.25601461e-19 5.48012048e+01 1.12812339e+00 1.42443454e+00]
+Best cost from DE: 0.026749055732667965
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09]
+Trainable_params: [ 0.28649369  0.42611297  0.57211268 -0.54757155 -0.65244718 -0.26120989
+ -0.9359383  -0.78778273]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.02674905613600457 0.02674905613600457
+ERROR:2026-10-05 05:45:58,338:jax._src.callback:95: jax.pure_callback failed
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 93, in pure_callback_impl
+    return tree_util.tree_map(np.asarray, callback(*args))
+                                          ^^^^^^^^^^^^^^^
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 71, in __call__
+    return tree_util.tree_leaves(self.callback_func(*args, **kwargs))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/equinox/_errors.py", line 88, in raises
+    raise _EquinoxRuntimeError(
+equinox._errors._EquinoxRuntimeError: A linear solver returned non-finite (NaN or inf) output. This usually means that an
+operator was not well-posed, and that its solver does not support this.
+
+If you are trying solve a linear least-squares problem then you should pass
+`solver=AutoLinearSolver(well_posed=False)`. By default `lineax.linear_solve`
+assumes that the operator is square and nonsingular.
+
+If you *were* expecting this solver to work with this operator, then it may be because:
+
+(a) the operator is singular, and your code has a bug; or
+
+(b) the operator was nearly singular (i.e. it had a high condition number:
+    `jnp.linalg.cond(operator.as_matrix())` is large), and the solver suffered from
+    numerical instability issues; or
+
+(c) the operator is declared to exhibit a certain property (e.g. positive definiteness)
+    that is does not actually satisfy.
+
+
+--------------------
+An error occurred during the runtime of your JAX program! Unfortunately you do not appear to be using `equinox.filter_jit` (perhaps you are using `jax.jit` instead?) and so further information about the error cannot be displayed. (Probably you are seeing a very large but uninformative error message right now.) Please wrap your program with `equinox.filter_jit`.
+--------------------
+
+Gradient refinement failed: XlaRuntimeError: INTERNAL: CpuCallback error calling callback: Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 782, in _wrapped_callback
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 222, in _callback
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 96, in pure_callback_impl
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 71, in __call__
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/equinox/_errors.py", line 88, in raises
+_EquinoxRuntimeError: A linear solver returned non-finite (NaN or inf) output. This usually means that an
+operator was not well-posed, and that its solver does not support this.
+
+If you are trying solve a linear least-squares problem then you should pass
+`solver=AutoLinearSolver(well_posed=False)`. By default `lineax.linear_solve`
+assumes that the operator is square and nonsingular.
+
+If you *were* expecting this solver to work with this operator, then it may be because:
+
+(a) the operator is singular, and your code has a bug; or
+
+(b) the operator was nearly singular (i.e. it had a high condition number:
+    `jnp.linalg.cond(operator.as_matrix())` is large), and the solver suffered from
+    numerical instability issues; or
+
+(c) the operator is declared to exhibit a certain property (e.g. positive definiteness)
+    that is does not actually satisfy.
+
+
+--------------------
+An error occurred during the runtime of your JAX program! Unfortunately you do not appear to be using `equinox.filter_jit` (perhaps you are using `jax.jit` instead?) and so further information about the error cannot be displayed. (Probably you are seeing a very large but uninformative error message right now.) Please wrap your program with `equinox.filter_jit`.
+--------------------
+; preserving best evaluated point
+Final best position: [3.12368039e-19 2.66755247e+02 2.30652300e+21 7.00877090e+11
+ 2.25601461e-19 5.48012048e+01 1.12812339e+00 1.42443454e+00]
+Final loss: 0.02674905613600457
+Skipping post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/ARC_fitting/session/outputs/run_20261005_043812_142136
