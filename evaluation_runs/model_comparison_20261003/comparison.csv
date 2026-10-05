@@ -21,7 +21,7 @@ session1,qwen32b,blocked,,0,,,19851349898,32.8,32.8,Q4_K_M,False,,,,,,
 session1,qwen14b,blocked,,0,,,8988124298,14.8,14.8,Q4_K_M,False,,,,,,
 sliding_basepoint,qwen32b,pass,,105.137,78.9895528871566,1,19851349898,32.8,32.8,Q4_K_M,False,,44.881,8.528,24.613,12.944,13.971
 sliding_basepoint,qwen14b,fail,new,39.244,38.195682410150766,5,8988124298,14.8,14.8,Q4_K_M,False,,39.202,,,,
-sliding_basepoint_headered,qwen32b,pass,,100.882,71.42762507870793,1,19851349898,32.8,32.8,Q4_K_M,False,sliding_basepoint,40.328,6.086,19.827,14.848,19.673
+sliding_basepoint_headered,qwen32b,fail,scientific_audit,100.882,71.42762507870793,1,19851349898,32.8,32.8,Q4_K_M,False,sliding_basepoint,40.328,6.086,19.827,14.848,19.673
 sliding_basepoint_headered,qwen14b,pass,,76.934,50.99129653535783,2,8988124298,14.8,14.8,Q4_K_M,False,sliding_basepoint,31.428,3.067,15.653,13.045,13.611
 test_session,qwen32b,pass,,86.539,50.57763543538749,0,19851349898,32.8,32.8,Q4_K_M,False,robertson_session,28.695,7.064,13.15,19.714,17.795
 test_session,qwen14b,pass,,71.166,37.03427416458726,0,8988124298,14.8,14.8,Q4_K_M,False,robertson_session,24.586,4.684,9.383,18.456,13.944

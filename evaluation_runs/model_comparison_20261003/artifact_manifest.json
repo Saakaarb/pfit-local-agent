@@ -4506,8 +4506,8 @@
   },
   {
     "path": "evaluation_runs/model_comparison_20261003/cases/sliding_basepoint_headered/qwen32b/metadata.json",
-    "bytes": 8845,
-    "sha256": "cb23b59116c9e6874b2e46b55904f7336a1f0ad950ca3afaa49454974b3b9f81"
+    "bytes": 9328,
+    "sha256": "7f37a41b402f5f134116d2d12e10faebaf4e19748de68fbd35a9c74bec35e31b"
   },
   {
     "path": "evaluation_runs/model_comparison_20261003/cases/sliding_basepoint_headered/qwen32b/session/generated/agent_logs/llm_calls.jsonl",
@@ -6616,13 +6616,13 @@
   },
   {
     "path": "evaluation_runs/model_comparison_20261003/comparison.csv",
-    "bytes": 4561,
-    "sha256": "58d57c4a9bdddc1a4cd06d427fbe97527c25d655676b4012d5b23e398885bae5"
+    "bytes": 4540,
+    "sha256": "a93218fcb2c898e350f1ecd1cb280a38bdb6b2f73b2c09f3526cf6b6bc224693"
   },
   {
     "path": "evaluation_runs/model_comparison_20261003/comparison.md",
-    "bytes": 2278,
-    "sha256": "ae59be4b68312f8638f19be5fcbe956600153b2c2dd7e3b4ceb3d03d723f8f20"
+    "bytes": 2655,
+    "sha256": "4f903d015e154186f9f1efd2f12a17162cf14ce84a00fc68d19451b43e0c2253"
   },
   {
     "path": "evaluation_runs/model_comparison_20261003/frozen_inputs/ARC_fitting/NMC_SOC80_M2_normalized_converted_units.csv",

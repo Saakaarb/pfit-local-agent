@@ -110,7 +110,7 @@
       "user_info.txt": "66462d8b852450322622110fd57501fa0d936ef3109ad9c6987d5c5ede155deb"
     }
   },
-  "status": "pass",
+  "status": "fail",
   "started_utc": "2026-10-03T22:32:22Z",
   "stages": {
     "new": {
@@ -307,5 +307,13 @@
   "llm_wall_seconds": 71.42762507870793,
   "prompt_tokens": 30972,
   "generated_tokens": 2523,
-  "token_counts_incomplete": false
+  "token_counts_incomplete": false,
+  "failed_stage": "scientific_audit",
+  "original_workflow_status": "pass",
+  "scientific_audit": {
+    "status": "fail",
+    "reason": "Scientific audit: extracted OR instead of the supplied AND sticking condition; sliding mass remains permanently stationary.",
+    "evidence": "evaluation_runs/sliding_diagnosis_20261005/headered_findings.json",
+    "original_metadata": "evaluation_runs/sliding_diagnosis_20261005/qwen38_comparison_20261005_headered32_original_metadata.json"
+  }
 }

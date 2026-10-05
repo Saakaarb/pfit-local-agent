@@ -158,7 +158,9 @@
     "model": "qwen32b",
     "source": "evaluation_runs/model_comparison_20261003/cases/sliding_basepoint_headered/qwen32b/metadata.json",
     "sha256": "cb23b59116c9e6874b2e46b55904f7336a1f0ad950ca3afaa49454974b3b9f81",
-    "note": "Metadata reference only; full artifacts remain at source benchmark."
+    "note": "Original source hash at import retained; result later reclassified by scientific audit.",
+    "post_import_scientific_audit": "fail",
+    "original_metadata_preserved_at": "evaluation_runs/sliding_diagnosis_20261005/model_comparison_20261003_headered32_original_metadata.json"
   },
   {
     "case": "sliding_basepoint_headered",

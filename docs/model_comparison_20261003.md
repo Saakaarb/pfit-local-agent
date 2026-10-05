@@ -15,7 +15,7 @@ Single attempt per model/case, including the existing repair budget. Times inclu
 | robertson_session | pass; 84.429 | pass; 71.083 |
 | session1 | blocked; 0 | blocked; 0 |
 | sliding_basepoint | pass; 105.137 | fail at new; 39.244 |
-| sliding_basepoint_headered | pass; 100.882 | pass; 76.934 |
+| sliding_basepoint_headered | fail at scientific_audit; 100.882 | pass; 76.934 |
 | test_session | pass; 86.539 | pass; 71.166 |
 | theophylline | pass; 70.258 | pass; 60.034 |
 | vanderpol_session | pass; 72.953 | pass; 54.891 |
@@ -27,7 +27,7 @@ Single attempt per model/case, including the existing repair budget. Times inclu
 
 | Model | Pass | Fail/degraded | Infrastructure/blocked | Pending/running |
 |---|---:|---:|---:|---:|
-| qwen32b | 13 | 3 | 2 | 0 |
+| qwen32b | 12 | 4 | 2 | 0 |
 | qwen14b | 12 | 4 | 2 | 0 |
 
 Two incomplete folders are excluded from the eligible denominator. test_session duplicates Robertson; sliding_basepoint_headered duplicates sliding_basepoint. Keep these rows visible but do not treat them as independent scientific problems.
@@ -35,3 +35,9 @@ Two incomplete folders are excluded from the eligible denominator. test_session 
 A pass requires all five stages, the declared experiment files/count, finite result arrays and final loss, completed refinement, and accepted Ollama diagnosis. The framework applies semantic checks and source-to-JAX fidelity checks. This is not an independent proof that every generated equation matches the original scientific specification.
 
 Models differ in architecture, generation, and quantization. Dense total parameters are used as nominal active counts; the MoE 3B active count is approximate. All are non-thinking. One trial cannot estimate success probabilities or timing variance.
+
+Audit correction (2026-10-05): the 32B **headered** sliding-basepoint case is
+counted as failed for scientific correctness. Its workflow originally completed,
+but the extracted sticking condition used OR instead of AND, locking x2 and v2
+at zero. Original timings and logs are retained. The unheadered case is outside
+this requested classification update.

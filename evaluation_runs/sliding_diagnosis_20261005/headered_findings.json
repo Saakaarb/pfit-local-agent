@@ -7,7 +7,9 @@
     "error": "AND condition replaced by OR; v2(0)=0 is then permanently locked.",
     "saved_x2_max_abs": 0.0,
     "saved_v2_max_abs": 0.0,
-    "validation_solver_steps": 76
+    "validation_solver_steps": 76,
+    "reported_status": "fail",
+    "failure_stage": "scientific_audit"
   },
   "qwen38_27b": {
     "workflow_status": "fail",

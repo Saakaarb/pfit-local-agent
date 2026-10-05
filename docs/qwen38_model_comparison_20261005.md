@@ -15,7 +15,7 @@ Single attempt per model/case, including the existing repair budget. Times inclu
 | robertson_session | pass; 84.429 | pass; 71.083 | pass; 244.685 |
 | session1 | blocked; 0 | blocked; 0 | blocked; 0 |
 | sliding_basepoint | pass; 105.137 | fail at new; 39.244 | fail at jax; 230.061 |
-| sliding_basepoint_headered | pass; 100.882 | pass; 76.934 | fail at jax; 240.266 |
+| sliding_basepoint_headered | fail at scientific_audit; 100.882 | pass; 76.934 | fail at jax; 240.266 |
 | test_session | pass; 86.539 | pass; 71.166 | pass; 282.858 |
 | theophylline | pass; 70.258 | pass; 60.034 | pass; 200.809 |
 | vanderpol_session | pass; 72.953 | pass; 54.891 | pass; 213.239 |
@@ -33,7 +33,7 @@ Single attempt per model/case, including the existing repair budget. Times inclu
 
 | Model | Pass | Fail/degraded | Infrastructure/blocked | Pending/running |
 |---|---:|---:|---:|---:|
-| qwen32b | 16 | 6 | 2 | 0 |
+| qwen32b | 15 | 7 | 2 | 0 |
 | qwen14b | 13 | 9 | 2 | 0 |
 | qwen38_27b | 17 | 5 | 2 | 0 |
 
@@ -62,7 +62,7 @@ In isolated diagnostic integrations, changing only sign(v2) to
 tanh(v2/(0.01*vf)) completed in 270 steps; tanh(v2/vf) completed in 690 steps.
 Neither change is an accepted scientific correction: smoothing alters the model
 and its width must be specified deliberately. The original benchmark attempts
-and raw workflow statuses remain preserved. No full fit was run for this audit.
+remain preserved; metadata retains the original workflow status separately from the audited failure. No full fit was run for this audit.
 
 The equation-extraction system prompt currently encourages smoothing switches
 without a defined width. Source-to-JAX fidelity checks cannot detect an error
@@ -72,3 +72,9 @@ and release behavior explicitly before treating a numerical pass as success.
 
 Evidence: `evaluation_runs/sliding_diagnosis_20261005/headered_findings.json`,
 `point_probes.json`, and `regularization_probe.json`, with reproducible probes.
+
+Audit correction (2026-10-05): the 32B **headered** sliding-basepoint case is
+counted as failed for scientific correctness. Its workflow originally completed,
+but the extracted sticking condition used OR instead of AND, locking x2 and v2
+at zero. Original timings and logs are retained. The unheadered case is outside
+this requested classification update.
