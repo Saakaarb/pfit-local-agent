@@ -1,0 +1,55 @@
+{
+  "verdict": "The optimizer exhausted its 5-iteration Adam budget with a normalized gradient infinity norm of 0.378 (stationarity not established), a marginal loss reduction (0.25001 \u2192 0.24954), and 4 negative Hessian modes. Residuals show substantial bias and pronounced late-time degradation (pSTAT5A RMSE 62.1 and pSTAT5B RMSE 41.4 in t \u2208 [160, 240]). Two parameters sit near their bounds (k_deg at 94 % of range, k_exp_homo at 4 %). The fit is not converged and the model\u2013data mismatch is not yet characterised.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "STATIONARITY"
+      ],
+      "action": "Run diagnose --probe-gradients to verify the analytic/autodiff gradient against finite differences before spending further iterations.",
+      "reason": "The Hessian has 4 negative modes (SLOPPINESS) while the normalized gradient norm is 0.378 (STATIONARITY). Negative curvature at a non-stationary point can indicate a saddle, a curvature-computation artefact, or a gradient error. Confirming gradient correctness is a prerequisite for trusting any further Adam steps."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the saved plot fit_exp1.png and the per-region residual table to characterise the late-time mismatch, especially pSTAT5A (RMSE 10.3 \u2192 62.1) and pSTAT5B (RMSE 17.1 \u2192 41.4) in t \u2208 [160, 240].",
+      "reason": "The overall pSTAT5A RMSE is 29.25 with bias 17.62, but the late window (3 points, t 160\u2013240) carries RMSE 62.1, roughly 6\u00d7 the early window. pSTAT5B shows a similar pattern (41.4 vs 17.1). rSTAT5A is comparatively well-fit (RMSE 5.07) but has low time correlation (0.354). Understanding whether the late-time error is a systematic offset, a timing shift, or a shape mismatch determines whether more iterations or a model/IC correction is needed."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "If the gradient probe passes, increase gradient_opt.num_iters (e.g. to 50\u2013100) and run a gradient-only restart from this run's parameters.",
+      "reason": "The optimizer terminated on iteration_budget after only 5 Adam steps (BUDGET), the loss trace shows continued (if small) improvement 0.24963 \u2192 0.24954 (OPTIMIZER_TRACES), and the gradient norm of 0.378 (STATIONARITY) indicates the iterate is not yet stationary. With the model, bounds, and loss unchanged, a longer gradient-only run is the lowest-risk way to test whether the current basin can be refined."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES",
+        "SLOPPINESS"
+      ],
+      "action": "Inspect the eigenvector of the single weak mode and the four negative modes before considering parameter fixing, re-parameterisation, or additional experiments.",
+      "reason": "The curvature report flags 1 weak mode and 4 negative modes (SLOPPINESS, WEAK_MODES). A weak mode is not proof of individual non-identifiability; it may reflect a near-flat direction in a 6-parameter space with only 16 time points per channel. The negative modes further complicate any local-convexity argument. The eigenvector structure is needed to decide whether the issue is a genuine flat direction, a parameterisation artefact, or a curvature-computation problem."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "RESIDUAL"
+      ],
+      "action": "Record that k_deg (range_fraction 0.943, value 1.594 near upper bound 2.7) and k_exp_homo (range_fraction 0.043, value 9.14e-05 near lower bound 6.17e-05) are close to their bounds, and assess whether the late-time residual bias (pSTAT5A bias 17.6, pSTAT5B bias 13.4) is consistent with a bound-constrained parameter before proposing any bound change.",
+      "reason": "PARAMETERS shows two of six parameters in the outer 6 % of their log-scale ranges. Combined with the large positive bias in pSTAT5A and pSTAT5B (RESIDUAL), this could indicate the true optimum lies outside the current bounds, or it could be a model-structure issue. Changing bounds is a scientific decision that requires the user's judgement and, if made, a full re-fit; it should not be done automatically."
+    }
+  ],
+  "limitations": [
+    "Four negative Hessian modes mean the loss surface is not locally convex at this iterate; curvature-based identifiability statements (weak modes, sloppiness) are unreliable until the negative modes are understood.",
+    "No gradient-check or finite-difference verification results are present in this snapshot, so the correctness of the gradient used by Adam is unconfirmed.",
+    "A single experiment with 16 time points per channel provides limited information for 6 free parameters; identifiability and model adequacy cannot be established from this data alone.",
+    "The DE phase ran only 1 iteration with a population of 4, so the result is dominated by 5 Adam steps from a single seed; the global landscape is essentially unexplored.",
+    "The late-time residual degradation (t > 160) could reflect structural model mismatch, incorrect initial conditions, input-timing error, or a bound-constrained parameter; the available evidence cannot distinguish these causes.",
+    "The pSTAT5B observable formula contains a sign and denominator structure that can produce large values near zero denominators; the computed RMSE and bias may be sensitive to this, and the evidence does not include a per-point residual breakdown to confirm."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

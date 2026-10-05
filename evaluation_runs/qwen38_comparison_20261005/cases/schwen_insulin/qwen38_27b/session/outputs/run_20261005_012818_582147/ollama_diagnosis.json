@@ -1,0 +1,53 @@
+{
+  "verdict": "Refinement exhausted its 5-iteration budget with negligible loss improvement (1.1588\u21921.1538) and no verified final-point gradient. All four experiments show negative time correlation (\u22120.31 to \u22120.68), indicating the model trajectory moves opposite to the data. Experiments 3\u20134 (Ins\u2080=100) carry a large negative bias (\u2248\u221216.5) and near-zero lag-1 correlation, while experiments 1\u20132 (Ins\u2080=10) show moderate positive bias (\u2248+0.41\u20130.46). Several parameters sit near their bounds (scale=0.228 at 14% of range, ka2fold=85.9 at 87%, kout_frag=53.0 at 84%), suggesting the model is compensating for a structural mismatch rather than converging to a well-posed optimum. The dominant issue is a model\u2013data dynamic mismatch, not merely an optimization shortfall.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "Run diagnose --probe-gradients to obtain a verified final-point gradient before any further optimization. The optimizer trace shows only 0.005 loss reduction over 5 Adam iterations (1.1548\u21921.1538) and the limitations note explicitly states no verified gradient is available.",
+      "reason": "Without a verified gradient, it is impossible to distinguish a true local minimum from a numerical gradient failure or an ill-conditioned loss landscape. The flat trace (last_material_improvement at iteration 5 of 5) is consistent with either convergence or a stalled/incorrect gradient; the probe will discriminate."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plots fit_exp1.png, fit_exp2.png, fit_exp3.png, and fit_exp4.png to visually confirm the negative time correlation and identify whether the mismatch is in the transient shape, the steady-state level, or both. Pay particular attention to the early-time region (0.25\u201320 min) where RMSE is highest in all experiments (0.56\u201315.7).",
+      "reason": "All four experiments show negative time correlation (\u22120.68, \u22120.62, \u22120.31, \u22120.33) and near-zero or negative lag-1 correlation (0.57, 0.62, \u22120.03, \u22120.04). This pattern means the model is anti-correlated with the data trajectory, which is a structural dynamic mismatch that no amount of parameter tuning within the current model form will resolve. The plots will reveal whether the model rises while data falls or vice versa."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "Audit the initial conditions and input timing for experiments 3 and 4 (Ins\u2080=100) against the raw data files dataset_3.csv and dataset_4.csv. Verify that the 10\u00d7 higher initial insulin is correctly reflected in the data and that the model's dInsdt equation (which includes \u2212ka1\u00b7Ins\u00b7Rec1 \u2212 ka1\u00b7ka2fold\u00b7Ins\u00b7Rec2 \u2212 kon_unspec\u00b7Ins + \u2026) produces a decay rate consistent with the observed signal drop. The bias of \u221216.5 in both experiments suggests the model over-predicts the signal by roughly the initial Ins value.",
+      "reason": "Experiments 3 and 4 have bias \u2248 \u221216.5 and RMSE \u2248 17, while experiments 1 and 2 have bias \u2248 +0.41\u20130.46 and RMSE \u2248 0.47\u20130.51. The 10\u00d7 difference in initial Ins (10 vs 100) maps almost linearly to the bias magnitude, suggesting the model's Ins decay pathway (governed by ka1, ka2fold, kon_unspec) is not capturing the observed clearance. With ka2fold=85.9 (87% of range) and kout_frag=53.0 (84% of range) near their upper bounds, the model may be pushing parameters to extremes to compensate for a missing or mis-specified decay mechanism."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "RESIDUAL"
+      ],
+      "action": "Evaluate whether the observable equation offset + scale\u00b7(Ins + fragments\u00b7InsulinFragments)/(1 + (Ins + fragments\u00b7InsulinFragments)/km) is adequate. With scale=0.228 (near its 0.1 lower bound), fragments=0.045 (near 0), and km\u22483.9\u00d710\u2076 (far above the Ins values of 10\u2013100), the observable reduces to approximately offset + scale\u00b7Ins, i.e., a linear readout. If the true signal is saturating or has a different functional form, the model cannot fit it regardless of kinetic parameters.",
+      "reason": "The combination of scale near its lower bound, fragments near zero, and km orders of magnitude above the Ins range means the Michaelis-Menten denominator (1 + Ins/km) \u2248 1 for all data, collapsing the observable to a linear function of Ins. The negative time correlation in all experiments is consistent with a model that tracks the wrong variable or the wrong functional form of the readout. This is a scientific model question requiring domain judgement, not a numerical fix."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER"
+      ],
+      "action": "If the gradient probe confirms a valid, non-zero gradient and the model form is judged adequate, a gradient-only restart with a larger iteration budget (e.g., 50\u2013100 Adam steps) is reasonable. If the gradient is near-zero or the model form is in question, do not restart; instead address the structural issue first.",
+      "reason": "The optimizer used equal_experiment_mean aggregation with experiment losses of [0.31, 0.48, 2.12, 1.70], so experiments 3 and 4 dominate the loss. A restart will continue to be pulled by the same structural mismatch unless the model or data interpretation is corrected. The DE seed phase (1 iteration, loss 1.1588) provided only a marginal starting point."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer trace (1.1548\u21921.1538 over 5 iterations) cannot distinguish a true local minimum from a numerical gradient failure or an ill-conditioned loss.",
+    "Sloppiness/identifiability analysis was skipped, so it is unknown whether the 15 parameters are jointly identifiable from 4 experiments \u00d7 16 time points each (64 total observations).",
+    "The negative time correlation and large bias in experiments 3\u20134 could arise from (a) a structural model deficiency, (b) incorrect initial conditions or input timing in the data files, (c) a unit or scaling mismatch between the model's Ins variable and the measured Insulin_signal, or (d) a mis-specified observable equation. The evidence cannot discriminate among these without inspecting the raw data and the trajectory plots.",
+    "The loss is computed in log\u2081\u2080 space and normalized by the per-experiment signal range, so the reported linear-scale RMSE and bias values are not directly proportional to the loss contributions. The optimizer's equal_experiment_mean aggregation weights each experiment's log-scale loss equally, which may not reflect the scientific priority among the four conditions.",
+    "No noise model or measurement uncertainty is specified; the residuals cannot be interpreted as statistical significance without a noise level."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

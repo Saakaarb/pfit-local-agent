@@ -1,0 +1,30 @@
+[
+  {
+    "case": "sliding_basepoint",
+    "diagnostic_only": true,
+    "change": "Replace sign(v2) with tanh(v2/(0.01*vf)); all other settings unchanged",
+    "success": false,
+    "finite_rows": 2,
+    "requested_rows": 71,
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7842,
+      "num_rejected_steps": 2158,
+      "num_steps": 10000
+    }
+  },
+  {
+    "case": "sliding_basepoint_headered",
+    "diagnostic_only": true,
+    "change": "Replace sign(v2) with tanh(v2/(0.01*vf)); all other settings unchanged",
+    "success": true,
+    "finite_rows": 71,
+    "requested_rows": 71,
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 197,
+      "num_rejected_steps": 73,
+      "num_steps": 270
+    }
+  }
+]

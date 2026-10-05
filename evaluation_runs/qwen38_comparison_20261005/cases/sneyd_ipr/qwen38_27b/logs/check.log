@@ -1,0 +1,12 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session
+warning: Population size is 4 with only 1 DE iteration for 14 trainable parameters spanning 8 orders of magnitude each; this is extremely unlikely to produce a meaningful initial guess for the gradient phase.
+warning: Gradient phase has only 5 adam iterations for 14 parameters; convergence to a useful minimum is very unlikely.
+warning: The observable (0.9*A + 0.1*O)**4 is structurally non-negative, but experiments 1 (ca01.csv, min=-0.01) and 2 (ca02.csv, min=-0.018) contain negative open_probability measurements; the model can never reproduce those values, imposing a floor on achievable loss for those experiments.
+warning: All 14 parameters share the identical range [0.001, 100000] with logscale; the 14-dimensional search space is 10^8 per dimension, making the effective volume enormous and increasing the risk that the tiny population/iteration budget samples only a negligible fraction.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 4× the number of parameters (≥56) and num_iters to ≥50 for the DE phase; with 14 log-scaled parameters the current 4×1 budget is far below the minimum needed for a viable starting point.
+recommendation: Increase gradient num_iters from 5 to at least 200–500 so the adam optimizer can traverse the 14-dimensional loss landscape after the (likely poor) DE initialization.
+recommendation: Verify that the negative open_probability values in ca01.csv and ca02.csv are measurement noise rather than a sign that the observable expression (0.9*A + 0.1*O)**4 is missing a baseline offset; if the true quantity can be slightly negative, the model structure may need a constant term.
+recommendation: The ODE right-hand side contains many nested ratios of the form (k_a * l_b)/(k_c * l_d) where all four are independent trainable parameters; consider whether some of these ratios are intended to be single composite parameters to reduce effective dimensionality and improve identifiability.

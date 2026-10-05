@@ -1,0 +1,55 @@
+{
+  "verdict": "The optimizer exhausted its 5-iteration budget while still improving (loss 0.26473\u21920.26435, last material improvement at iteration 5), so the run is under-optimised rather than converged. However, the saved curvature contains one negative Hessian mode, meaning the current point is not a local minimum but a saddle or ridge point. Stationarity is not established (normalised gradient \u2016g\u2016\u221e = 3.42). One weak parameter combination is present. No numerical failures, replay mismatches, or gradient-check errors are reported, so the evidence is consistent with a genuine non-convex landscape rather than a solver defect.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "STATIONARITY"
+      ],
+      "action": "Run diagnose --probe-gradients to verify that the Hessian (and its negative eigenvalue) is numerically correct before interpreting the negative mode as a real saddle. If the finite-difference Hessian is unstable, compare with a tighter step-size or a JAX autodiff Hessian to discriminate.",
+      "reason": "SLOPPINESS reports 1 negative mode and 1 weak mode. A negative Hessian eigenvalue at the current point means the point is not a local minimum, but this conclusion is only valid if the curvature is computed correctly. STATIONARITY confirms the point is not stationary (\u2016g\u2016\u221e = 3.42), so the negative mode could be an artefact of an inaccurate finite-difference Hessian at a non-stationary point. Verifying the Hessian first prevents misdiagnosing a numerical issue as a landscape feature."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER_TRACES",
+        "STATIONARITY"
+      ],
+      "action": "If gradient checks confirm the Hessian is correct, increase gradient_opt.num_iters (e.g. to 50\u2013100) and perform a gradient-only restart from this run. The NODE trace shows the loss was still decreasing at iteration 5 (0.26473 \u2192 0.26435, last material improvement at iteration 5), so the budget was the binding constraint, not a plateau.",
+      "reason": "BUDGET states refinement stopped at its iteration budget. OPTIMIZER_TRACES shows the NODE phase improved every iteration and the last material improvement was at the final (5th) iteration, indicating the optimiser had not yet converged. STATIONARITY confirms \u2016g\u2016\u221e = 3.42, well above a typical convergence threshold. No numerical failure is reported, so a longer gradient-only run from the current point is the lowest-risk next step. The negative mode (if confirmed) means the optimiser may need to navigate a saddle, which extra iterations with Adam's adaptive step can handle."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES",
+        "SLOPPINESS"
+      ],
+      "action": "Inspect the saved eigenvectors of the weak and negative modes to identify which parameter combinations are poorly constrained. Do not fix or re-bound parameters based on the weak mode alone; first confirm whether the combination reflects a genuine physical degeneracy (e.g. alpha\u2013beta trade-off in the Bouc-Wen hysteresis) or a data limitation.",
+      "reason": "WEAK_MODES reports 1 weak parameter combination and SLOPPINESS reports 1 negative mode. In a Bouc-Wen model, alpha (elastic stiffness fraction) and beta (amplitude-dependent damping) can be partially degenerate when the excitation is a single-frequency sinusoid, because both affect the hysteresis loop area. The eigenvector will show whether the weak direction is a physically meaningful trade-off or an artefact of the narrow excitation. Fixing a parameter without this check risks removing a degree of freedom that the data can in principle constrain."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. The overall RMSE is small (1.30e-06) but the time correlation is only 0.802 while lag-1 correlation is 0.973, and the third time region (t \u2248 0.367\u20130.500) has the highest RMSE (1.72e-06 vs 6.94e-07 in the second region). Check for a phase offset, amplitude mismatch, or hysteresis-loop shape error in that region before attributing the residual to parameter inaccuracy.",
+      "reason": "RESIDUAL shows time_correlation = 0.802, which is moderate, while lag-1 = 0.973 indicates the local slope is well captured. The non-uniform time-region RMSEs (1.25e-06, 6.94e-07, 1.72e-06) suggest the fit quality varies across the forcing cycle. In a piezoelectric Bouc-Wen model driven by a 16\u03c0-frequency sinusoid, a phase or hysteresis-loop shape error would produce exactly this pattern. The plot will distinguish a systematic model mismatch from a parameter-estimation residual."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "WEAK_MODES"
+      ],
+      "action": "Note that alpha = 0.968 sits at 96.8 % of its [0, 1] range and beta = 0.0076 sits at 7.6 % of its [0, 0.1] range. After the longer gradient run, check whether these parameters remain near their bounds. If they do, consider whether the physical model (e.g. the Bouc-Wen formulation or the piezoelectric coupling term de\u00b7(24+24\u00b7sin(16\u03c0t))) can represent the observed behaviour, or whether the bounds are too restrictive. This is a scientific-model question, not a numerical correction.",
+      "reason": "PARAMETERS shows alpha at range_fraction 0.968 and beta at 0.076, both near their respective bounds. Combined with the weak mode (WEAK_MODES), this pattern is consistent with the optimiser pushing one parameter to a boundary to compensate for a model-form limitation. However, this is a hypothesis, not a conclusion: the longer gradient run may move them away from the bounds. Do not change bounds or the loss function without first confirming the pattern persists after adequate optimisation."
+    }
+  ],
+  "limitations": [
+    "The negative Hessian mode is a local curvature statement at the current (non-stationary) point; it does not prove the global landscape is non-convex or that a true minimum does not exist nearby.",
+    "The single-experiment, single-frequency sinusoidal excitation (16\u03c0 rad/s) provides limited information for identifying all six Bouc-Wen and piezoelectric parameters; the weak mode may reflect this data limitation rather than a model deficiency.",
+    "The saved curvature is a finite-difference or JAX Hessian at one point; it cannot establish global identifiability, the number of local minima, or the shape of the loss surface away from the current iterate.",
+    "The time correlation of 0.802 and the non-uniform time-region RMSEs are consistent with several causes (phase offset, hysteresis-loop shape error, initial-condition sensitivity, or genuine parameter inaccuracy); the plot fit_exp1.png must be inspected to discriminate among them.",
+    "No noise level, measurement uncertainty, or stiffness calibration data are supplied; the residual magnitude (RMSE \u2248 1.3e-06) cannot be interpreted as a goodness-of-fit statistic without a noise model.",
+    "The DE phase ran only 1 iteration with population size 4, so the initialisation is essentially a single random point; the gradient phase started from a potentially suboptimal location, and the negative mode may partly reflect this."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

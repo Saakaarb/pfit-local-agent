@@ -1,0 +1,13 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/armistead_sphingolipid/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/armistead_sphingolipid/qwen38_27b/session
+warning: Dataset has very few rows; fitted parameters may be weakly constrained.
+warning: Population size is 4 with 10 trainable parameters; DE typically requires population ≥ 5×D (≥50) for meaningful exploration. A population of 4 will severely limit the search space coverage and likely stall before finding a good basin.
+warning: Only 1 DE iteration and 5 gradient steps are configured. Combined with the tiny population, the optimizer will almost certainly not converge to a meaningful minimum.
+warning: Each experiment has only 2 time points (t=0, t=2), giving 48 total data points for 10 parameters. Parameters may be weakly constrained or non-identifiable, leading to flat or ill-conditioned loss landscapes.
+warning: The loss in _compute_loss_problem references solution[:, 0], solution[:, 1], solution[:, 2] directly rather than the observables dictionary returned by _observables. They are currently equivalent (identity mapping), but if the observable definitions ever change, the loss will silently diverge from the intended mapping.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 50 (5×10 parameters) and num_iters to at least 50–100 for the DE phase; increase gradient num_iters to at least 200–500 to allow convergence. Current settings (pop=4, iters=1, grad_iters=5) are far below practical minimums for a 10-parameter problem.
+recommendation: The loss is a well-scaled normalized RMSE (residuals divided by per-column max|data|, then sqrt of mean squared). This is appropriate given no column triggers the automatic log-loss rule (all within-column ranges < 1 order of magnitude). No change needed to the loss form.
+recommendation: With only 2 time points per experiment, consider whether the 10-parameter model is identifiable. If the biological context allows, fixing some rate constants or reducing the parameter set would improve identifiability and convergence reliability.
+recommendation: The writeout_description correctly maps 12 columns (time, 3 measured, 5 integrated, 3 observables) and is consistent with the dataset and model definitions. No structural issue detected.

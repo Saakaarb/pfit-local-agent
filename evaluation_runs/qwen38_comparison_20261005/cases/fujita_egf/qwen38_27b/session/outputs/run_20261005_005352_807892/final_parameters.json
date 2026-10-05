@@ -1,0 +1,84 @@
+{
+  "parameters": [
+    {
+      "name": "EGFR_turnover",
+      "value": 1e-08,
+      "logscale": true
+    },
+    {
+      "name": "reaction_1_k1",
+      "value": 1556.9701978536768,
+      "logscale": true
+    },
+    {
+      "name": "reaction_1_k2",
+      "value": 20129.640261478202,
+      "logscale": true
+    },
+    {
+      "name": "reaction_2_k1",
+      "value": 4.4141896948820955e-08,
+      "logscale": true
+    },
+    {
+      "name": "reaction_2_k2",
+      "value": 0.4620280460685332,
+      "logscale": true
+    },
+    {
+      "name": "reaction_3_k1",
+      "value": 0.04479387456352787,
+      "logscale": true
+    },
+    {
+      "name": "reaction_4_k1",
+      "value": 0.00027343915636180517,
+      "logscale": true
+    },
+    {
+      "name": "reaction_5_k1",
+      "value": 0.0365486655918022,
+      "logscale": true
+    },
+    {
+      "name": "reaction_5_k2",
+      "value": 99082608.93677583,
+      "logscale": true
+    },
+    {
+      "name": "reaction_6_k1",
+      "value": 100000000.0,
+      "logscale": true
+    },
+    {
+      "name": "reaction_7_k1",
+      "value": 2607487.0355805564,
+      "logscale": true
+    },
+    {
+      "name": "reaction_8_k1",
+      "value": 2.2990066117269049e-07,
+      "logscale": true
+    },
+    {
+      "name": "reaction_9_k1",
+      "value": 1.605769418536613e-07,
+      "logscale": true
+    },
+    {
+      "name": "scaling_pEGFR_tot",
+      "value": 1.0092560290336941e-08,
+      "logscale": true
+    },
+    {
+      "name": "scaling_pAkt_tot",
+      "value": 1e-08,
+      "logscale": true
+    },
+    {
+      "name": "scaling_pS6_tot",
+      "value": 100000000.0,
+      "logscale": true
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": "Gradient refinement exhausted its 5-iteration budget with a non-stationary gradient (\u2016g\u2016\u221e/\u2016x\u2016\u221e = 0.0244) and a Hessian showing 6 negative and 2 weak modes; the loss barely moved (0.085798 \u2192 0.085753). Residuals are systematically negative-biased across all 9 experiments, with the worst fits (RMSE \u2248 0.13) at Ca = 0.4 / IP3 = 10 and a near-zero time correlation (0.051) in experiment 7. The run is not converged and the curvature evidence raises identifiability and saddle-point concerns that must be resolved before further optimisation.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "SLOPPINESS"
+      ],
+      "action": "Run diagnose --probe-gradients to verify the analytic/autodiff gradient against finite differences at the current parameter vector before any further optimisation.",
+      "reason": "The Hessian has 6 negative modes (SLOPPINESS) and the gradient norm is 0.0244 (STATIONARITY). Negative curvature can be a genuine saddle point or a numerical artefact; without a passing gradient check, additional Adam steps may chase an incorrect gradient direction. A discriminating tolerance (e.g. rtol 1e-6, atol 1e-9) and a step-size sweep (1e-5, 1e-7, 1e-9) will separate a true saddle from finite-difference noise."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp7.png (time_correlation = 0.051, lag-1 = 0.748) and fit_exp3.png / fit_exp9.png (RMSE \u2248 0.13, bias \u2248 \u22120.09) to determine whether the early-time-region mismatch (RMSE 0.22 in exp 3, 0.21 in exp 9 for t \u2208 [0, 0.327]) is a structural model limitation, an initial-condition artefact, or a parameter-value issue.",
+      "reason": "Experiment 7 (IP3 = 3, Ca = 0.4) shows near-zero time correlation despite a moderate RMSE of 0.066, indicating the model captures local slope but not the trajectory shape. Experiments 3 and 9 (both Ca = 0.4, IP3 = 10) have the largest RMSE (0.133, 0.130) and the most negative bias (\u22120.090, \u22120.092). The consistent early-time-region excess (e.g. exp 3: 0.222 vs 0.028 in the last region) suggests a systematic offset that more iterations alone may not fix. This is a scientific-model question, not a solver question."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY"
+      ],
+      "action": "If the gradient check passes, increase gradient_opt.num_iters from 5 to at least 50\u2013100 and run a gradient-only restart from this run's parameter vector, keeping the same model, bounds, and loss.",
+      "reason": "The refinement stopped at its 5-iteration budget (BUDGET) with the loss changing only 0.000045 over 5 Adam steps (0.085798 \u2192 0.085753). The gradient norm of 0.0244 (STATIONARITY) is not negligible, so the optimizer has not reached a stationary point. Five iterations is far too few for 14 log-scale parameters with Adam; a longer run is needed to assess whether the current basin can be improved."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "WEAK_MODES"
+      ],
+      "action": "Inspect the eigenvectors of the 6 negative and 2 weak Hessian modes to identify which parameter combinations are involved, before considering fixing any independently known parameters or redesigning experiments.",
+      "reason": "SLOPPINESS reports 6 negative and 2 weak modes among 14 parameters. Weak modes are not proof of individual non-identifiability (WEAK_MODES), and negative modes may indicate a saddle point rather than a flat direction. Understanding the eigenvector structure is a prerequisite for deciding whether to reduce the parameter space, add data, or accept the current identifiability."
+    },
+    {
+      "evidence_ids": [
+        "OPTIMIZER_TRACES",
+        "BUDGET"
+      ],
+      "action": "Assess whether the DE phase (population_size = 4, num_iters = 1) provided an adequate starting basin. If the gradient-only restart from the current point shows no improvement after 50+ iterations, consider a second DE phase with a larger population (e.g. 20\u201350) and more iterations (e.g. 50\u2013100) to explore the 14-dimensional log-scale space more broadly.",
+      "reason": "The DE trace shows only 1 row (loss 0.085798) and the gradient trace shows 5 rows (0.085762 \u2192 0.085753). A single DE iteration with 4 individuals in a 14-parameter log-scale space (each spanning 5 decades) is a very coarse search. The 6 negative Hessian modes (SLOPPINESS) are consistent with being in a saddle or a poor basin rather than near a true minimum."
+    }
+  ],
+  "limitations": [
+    "The 6 negative Hessian modes cannot be attributed to a genuine saddle point versus a numerical artefact of the Hessian computation without a passing gradient check and a curvature recomputation at a perturbed point.",
+    "No noise level or measurement uncertainty is specified in the snapshot, so the residual magnitudes (RMSE 0.036\u20130.133) cannot be judged against expected experimental scatter; the negative bias may partly reflect unmodelled noise rather than model mismatch.",
+    "With 14 free parameters and 9 \u00d7 15 = 135 data points, the identifiability of individual rate constants is not established; the 2 weak and 6 negative modes suggest strong parameter correlations, but the eigenvector structure has not been inspected.",
+    "The DE phase used only 1 iteration and 4 individuals; the current parameter vector may be far from the global optimum, and the small loss change over 5 Adam steps is not evidence of convergence.",
+    "The near-zero time correlation in experiment 7 (0.051) could reflect a structural limitation of the Sneyd IPR model at IP3 = 3, a timing/calibration issue in the data, or a parameter-value problem; the evidence cannot distinguish these without additional experiments or model comparison.",
+    "No gradient-check result is present in the evidence; all curvature and stationarity statements are conditional on the gradient being correct."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

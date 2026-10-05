@@ -1,0 +1,80 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/fujita_egf/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/fujita_egf/qwen38_27b/session/outputs/run_20261005_005352_807892
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 5.2779E-01, best loss 5.2779E-01, final loss 5.2779E-01
+- NODE: 2 iterations, first loss 5.2738E-01, best loss 5.2727E-01, final loss 5.2727E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 2
+Aggregation: equal_experiment_mean
+- Experiment 1: egf_1.csv; loss=0.581316015574706; output=result_solution_exp1.csv
+- Experiment 2: egf_10.csv; loss=0.47322479745749385; output=result_solution_exp2.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- EGFR_turnover=1e-08 is at 0.00% of its log10 search interval.
+- [BOUND] EGFR_turnover=1e-08 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] reaction_5_k2=9.90826e+07 is at 99.97% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] reaction_6_k1=1e+08 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] scaling_pEGFR_tot=1.00926e-08 is at 0.03% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] scaling_pAkt_tot=1e-08 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] scaling_pS6_tot=1e+08 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, pEGFR_tot: RMSE=0.0957018, bias=-0.0821483, time correlation=0.5116883986163205, lag-1=None.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, pAkt_tot: RMSE=0.387226, bias=-0.29367, time correlation=0.4782605190047553, lag-1=None.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, pS6_tot: RMSE=0.515002, bias=-0.354789, time correlation=-0.7619469935037402, lag-1=None.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, pEGFR_tot: RMSE=0.369615, bias=-0.232488, time correlation=0.47268616207587, lag-1=None.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, pAkt_tot: RMSE=0.483015, bias=-0.32249, time correlation=0.49820121125604805, lag-1=None.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, pS6_tot: RMSE=0.379049, bias=-0.261244, time correlation=-0.3642148760965857, lag-1=None.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/fujita_egf/qwen38_27b/session/outputs/run_20261005_005352_807892/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/fujita_egf/qwen38_27b/session/outputs/run_20261005_005352_807892/fit_exp2.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/fujita_egf/qwen38_27b/session/outputs/run_20261005_005352_807892/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The fit is structurally constrained: six of sixteen parameters are at or within 0.03% of their log10 bounds, the pS6_tot channel shows negative time correlation (−0.76 in exp 1, −0.36 in exp 2) indicating qualitatively wrong dynamics, and the optimizer exhausted its 5-iteration budget with only ~0.1% loss reduction (0.52779→0.52727). No verified gradient is available, so convergence cannot be confirmed. The dominant issue is model–data scale and dynamics mismatch, not insufficient optimization.
+1. Inspect the three scaling parameters (scaling_pEGFR_tot=1.009e-08 at 0.03%, scaling_pAkt_tot=1e-08 at 0.00%, scaling_pS6_tot=1e+08 at 100%) against the initial conditions (EGFR≈3.75e7, Akt≈0.027, S6≈188) and the data magnitudes in dataset_1.csv / dataset_2.csv. Determine whether the model's natural output scale is incompatible with the data, which would indicate a structural mismatch in the ODE system or initial conditions rather than an optimization failure. [BOUND] All three scaling parameters are pinned at their log10 bounds (0.00–0.03% from the edge), meaning the optimizer is using the full 16-decade range just to bring model outputs into the data's magnitude. This is a strong indicator that the model equations or initial conditions produce values orders of magnitude off from the measurements, and no amount of additional gradient iterations within the current bounds will resolve a structural scale mismatch.
+2. Inspect fit_exp1.png and fit_exp2.png, focusing on the pS6_tot trace. The time correlation is −0.762 (exp 1) and −0.364 (exp 2), meaning the model's pS6 trajectory is anti-correlated with the data. Check whether the pAkt_S6 → pS6 production (reaction_6_k1) and pS6 degradation (reaction_8_k1) produce the correct temporal shape, and whether the initial condition pS6=0 is consistent with the observed onset timing. [RESIDUAL] A negative time correlation (−0.762 in exp 1, −0.364 in exp 2) is qualitatively different from a positive-but-imperfect fit: the model is predicting the wrong direction of change over time for pS6_tot. The time-region RMSE for pS6_tot in exp 1 jumps to 0.992 in the 1200–2400 s window (single point) and 0.722 in 2400–3600 s, confirming the mismatch worsens at later times. This is a model-dynamics issue that additional optimization iterations cannot fix.
+3. Review the physical justification for reaction_5_k2=9.91e+07 (99.97% of range) and reaction_6_k1=1e+08 (100% of range). If literature or mechanistic reasoning supports values beyond 1e+08, revise the upper bound and run a full fit (DE + gradient). If the bounds are correct, the model structure may be missing a reaction or the rate-law form is inappropriate for these steps. [BOUND] Two reaction rate constants are pinned at the upper bound of the 1e-08 to 1e+08 log10 interval. reaction_6_k1 is exactly at 100.00% and reaction_5_k2 at 99.97%. Combined with the scaling parameters at their opposite bounds, this pattern suggests the optimizer is compensating for a structural deficiency by pushing multiple parameters to extremes simultaneously, which is a hallmark of an under-determined or mis-specified model rather than a well-posed optimization problem.
+4. Run diagnose --probe-gradients at the current parameter point to obtain a verified gradient before deciding whether a gradient-only restart is worthwhile. The optimizer log shows only 0.52779→0.52727 over 5 Adam iterations with no verified final-point gradient, so the flat log does not establish convergence or a local minimum. [BUDGET, LIMITATIONS] The limitation explicitly states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The NODE trace shows last material improvement at iteration 5 (the final iteration), and the DE trace had only 1 iteration. Without a verified gradient, it is impossible to distinguish a true local minimum from a point where the optimizer simply ran out of budget while still on a slope.
+5. Before spending further optimization budget, check the pAkt_tot bias (−0.294 in exp 1, −0.322 in exp 2) and the time-region RMSE pattern (0.443 in 0–1200 s vs 0.129 in 1200–2400 s for exp 1). Verify that the Akt initial condition (0.0269) and the pEGFR_Akt → pAkt activation pathway (reactions 2, 3) are consistent with the observed pAkt_tot onset. If the model's pAkt dynamics are structurally correct but the scale is wrong, the scaling_pAkt_tot bound at 0.00% is the limiting factor. [RESIDUAL, BOUND] pAkt_tot shows a consistent negative bias of ~0.3 in both experiments with moderate time correlation (~0.48), indicating the model captures the general shape but under-predicts the magnitude. The time-region RMSE decreases from 0.443 to 0.129 in exp 1, suggesting the early-time mismatch dominates. With scaling_pAkt_tot pinned at its lower bound (1e-08, 0.00%), the optimizer cannot increase the pAkt output further, so the bias is a bound-constrained artifact rather than a dynamics error.
+Limitation: No verified final-point gradient is available; the flat optimizer log (0.52779→0.52727 over 5 iterations) does not establish convergence or a local minimum.
+Limitation: Sloppiness analysis was skipped, so parameter identifiability and weak/negative curvature modes are unknown. The six bound-pinned parameters may be non-identifiable within the current model structure.
+Limitation: The negative time correlation for pS6_tot (−0.76, −0.36) indicates qualitative model mismatch, but the evidence cannot distinguish whether the cause is an incorrect rate-law form, missing reactions, wrong initial conditions, or an inappropriate bound range. Resolving this requires mechanistic judgement or additional experimental data.
+Limitation: The scaling parameters at bounds may reflect a genuine scale mismatch between model and data, or they may be a symptom of correlated parameter compensation (e.g., a rate constant at its upper bound offset by a scaling factor at its lower bound). The evidence cannot separate these causes without a sloppiness or profile-likelihood analysis.
+Limitation: Only 8 time points per channel per experiment are available, limiting the ability to diagnose temporal dynamics. The single-point time regions (1200–2400 s, 2400–3600 s) have n=1 and their RMSE values are not statistically robust.
+Limitation: The DE phase used only 1 iteration with population size 4, so the initial point for gradient refinement may not be representative of the global landscape. A flat best-so-far log from DE does not establish that the gradient phase started near a good basin.

@@ -1,0 +1,35 @@
+{
+  "case": "sliding_basepoint_headered",
+  "finding": "Both generated models differ from the user-specified stick/slip law.",
+  "qwen32b": {
+    "workflow_status": "pass",
+    "scientific_audit": "incorrect",
+    "error": "AND condition replaced by OR; v2(0)=0 is then permanently locked.",
+    "saved_x2_max_abs": 0.0,
+    "saved_v2_max_abs": 0.0,
+    "validation_solver_steps": 76
+  },
+  "qwen38_27b": {
+    "workflow_status": "fail",
+    "failure": "solver step limit",
+    "cause": "Smoothed stick/slip gate combined with discontinuous sign(v2); gate smoothing width was selected by the LLM, not supplied by the user.",
+    "max_steps_attempted": 50000,
+    "accepted_steps": 11395,
+    "rejected_steps": 38605
+  },
+  "diagnostic_only": true,
+  "diagnostic_interventions": [
+    {
+      "change": "sign(v2) -> tanh(v2/(0.01*vf))",
+      "result": "success",
+      "steps": 270
+    },
+    {
+      "change": "sign(v2) -> tanh(v2/vf)",
+      "result": "success",
+      "steps": 690
+    }
+  ],
+  "interpretation": "Smoothing the friction sign resolves this probe, but changes the mathematical model and does not establish the scientifically appropriate regularization or fitting accuracy.",
+  "framework_contribution": "Equation prompt instructs LLM to smooth switches without an explicit smoothing-width policy; validation compares extracted Python with JAX rather than proving fidelity to user prose."
+}

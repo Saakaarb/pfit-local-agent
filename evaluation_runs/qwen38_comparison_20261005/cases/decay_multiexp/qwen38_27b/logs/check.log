@@ -1,0 +1,10 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/decay_multiexp/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/decay_multiexp/qwen38_27b/session
+warning: Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Measured column spans orders of magnitude: Experiment 2 (decay_run_B.csv): A uses dataset[:, 0], positive min=9.07999e-05, max=2, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Population size is 4 with only 1 DE iteration and 5 gradient iterations for a 2-parameter problem; convergence is unlikely to be reliable.
+warning: Column A spans ~4.34 orders of magnitude (min≈4.5e-05, max=1 in Exp 1; min≈9.1e-05, max=2 in Exp 2). The user's explicit max-abs-normalized linear loss is valid, but the small tail values will contribute very little to the loss and may be poorly constrained.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g. ≥ 20) and num_iters for both DE and gradient stages; 4 individuals / 1 DE iteration / 5 Adam steps is at the absolute minimum for 2 parameters and will likely stall.
+recommendation: The loss correctly implements the user's specification: per-column max-abs normalization, combined mean of squared residuals across both species, square root, and the framework handles the equal-weight average over the two experiments. No change needed.
+recommendation: Writeout shape (N×5: time, measured A, measured B, simulated A, simulated B) matches the user's request to save measured and simulated A and B against time for both experiments.

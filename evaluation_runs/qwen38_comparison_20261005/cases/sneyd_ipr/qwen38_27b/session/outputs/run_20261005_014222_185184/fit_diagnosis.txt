@@ -1,0 +1,104 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- result_solution_exp3.csv: present
+- result_solution_exp4.csv: present
+- result_solution_exp5.csv: present
+- result_solution_exp6.csv: present
+- result_solution_exp7.csv: present
+- result_solution_exp8.csv: present
+- result_solution_exp9.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 8.5798E-02, best loss 8.5798E-02, final loss 8.5798E-02
+- NODE: 2 iterations, first loss 8.5762E-02, best loss 8.5753E-02, final loss 8.5753E-02
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 9
+Aggregation: equal_experiment_mean
+- Experiment 1: ca01.csv; loss=0.03635646047769694; output=result_solution_exp1.csv
+- Experiment 2: ca02.csv; loss=0.0571375299579579; output=result_solution_exp2.csv
+- Experiment 3: ca04.csv; loss=0.13297019183677075; output=result_solution_exp3.csv
+- Experiment 4: ca1.csv; loss=0.09152738936623653; output=result_solution_exp4.csv
+- Experiment 5: ca3.csv; loss=0.08396837073954805; output=result_solution_exp5.csv
+- Experiment 6: ca10.csv; loss=0.07033474593863796; output=result_solution_exp6.csv
+- Experiment 7: ip3.csv; loss=0.06602356179258619; output=result_solution_exp7.csv
+- Experiment 8: ip5.csv; loss=0.10337895368449242; output=result_solution_exp8.csv
+- Experiment 9: ip10.csv; loss=0.13007585478546835; output=result_solution_exp9.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 2; negative modes: 6
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.0243739; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.0243739; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 2 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, open_probability: RMSE=0.0363565, bias=-0.0209998, time correlation=0.5079629151135527, lag-1=0.2611398542467524.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, open_probability: RMSE=0.0571375, bias=-0.0316662, time correlation=0.5126155881572831, lag-1=0.3169295912782928.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 3, open_probability: RMSE=0.13297, bias=-0.0899309, time correlation=0.6388215942360216, lag-1=0.5610625856412678.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 4, open_probability: RMSE=0.0915274, bias=-0.0503022, time correlation=0.6195564379413973, lag-1=0.5619409504781735.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 5, open_probability: RMSE=0.0839684, bias=-0.0511649, time correlation=0.7157570218648994, lag-1=0.6434434981852898.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 6, open_probability: RMSE=0.0703347, bias=-0.0375665, time correlation=0.723791561002688, lag-1=0.7264845370607939.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 7, open_probability: RMSE=0.0660236, bias=-0.0601977, time correlation=0.05122165312446587, lag-1=0.7483680556299457.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 8, open_probability: RMSE=0.103379, bias=-0.078131, time correlation=0.5641443469691456, lag-1=0.635158262654642.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 9, open_probability: RMSE=0.130076, bias=-0.0924643, time correlation=0.6339933860766349, lag-1=0.6828840029243776.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp2.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp3.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp4.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp5.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp6.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp7.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp8.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/fit_exp9.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Gradient refinement exhausted its 5-iteration budget with a non-stationary gradient (‖g‖∞/‖x‖∞ = 0.0244) and a Hessian showing 6 negative and 2 weak modes; the loss barely moved (0.085798 → 0.085753). Residuals are systematically negative-biased across all 9 experiments, with the worst fits (RMSE ≈ 0.13) at Ca = 0.4 / IP3 = 10 and a near-zero time correlation (0.051) in experiment 7. The run is not converged and the curvature evidence raises identifiability and saddle-point concerns that must be resolved before further optimisation.
+1. Run diagnose --probe-gradients to verify the analytic/autodiff gradient against finite differences at the current parameter vector before any further optimisation. [STATIONARITY, SLOPPINESS] The Hessian has 6 negative modes (SLOPPINESS) and the gradient norm is 0.0244 (STATIONARITY). Negative curvature can be a genuine saddle point or a numerical artefact; without a passing gradient check, additional Adam steps may chase an incorrect gradient direction. A discriminating tolerance (e.g. rtol 1e-6, atol 1e-9) and a step-size sweep (1e-5, 1e-7, 1e-9) will separate a true saddle from finite-difference noise.
+2. Inspect fit_exp7.png (time_correlation = 0.051, lag-1 = 0.748) and fit_exp3.png / fit_exp9.png (RMSE ≈ 0.13, bias ≈ −0.09) to determine whether the early-time-region mismatch (RMSE 0.22 in exp 3, 0.21 in exp 9 for t ∈ [0, 0.327]) is a structural model limitation, an initial-condition artefact, or a parameter-value issue. [RESIDUAL] Experiment 7 (IP3 = 3, Ca = 0.4) shows near-zero time correlation despite a moderate RMSE of 0.066, indicating the model captures local slope but not the trajectory shape. Experiments 3 and 9 (both Ca = 0.4, IP3 = 10) have the largest RMSE (0.133, 0.130) and the most negative bias (−0.090, −0.092). The consistent early-time-region excess (e.g. exp 3: 0.222 vs 0.028 in the last region) suggests a systematic offset that more iterations alone may not fix. This is a scientific-model question, not a solver question.
+3. If the gradient check passes, increase gradient_opt.num_iters from 5 to at least 50–100 and run a gradient-only restart from this run's parameter vector, keeping the same model, bounds, and loss. [BUDGET, STATIONARITY] The refinement stopped at its 5-iteration budget (BUDGET) with the loss changing only 0.000045 over 5 Adam steps (0.085798 → 0.085753). The gradient norm of 0.0244 (STATIONARITY) is not negligible, so the optimizer has not reached a stationary point. Five iterations is far too few for 14 log-scale parameters with Adam; a longer run is needed to assess whether the current basin can be improved.
+4. Inspect the eigenvectors of the 6 negative and 2 weak Hessian modes to identify which parameter combinations are involved, before considering fixing any independently known parameters or redesigning experiments. [SLOPPINESS, WEAK_MODES] SLOPPINESS reports 6 negative and 2 weak modes among 14 parameters. Weak modes are not proof of individual non-identifiability (WEAK_MODES), and negative modes may indicate a saddle point rather than a flat direction. Understanding the eigenvector structure is a prerequisite for deciding whether to reduce the parameter space, add data, or accept the current identifiability.
+5. Assess whether the DE phase (population_size = 4, num_iters = 1) provided an adequate starting basin. If the gradient-only restart from the current point shows no improvement after 50+ iterations, consider a second DE phase with a larger population (e.g. 20–50) and more iterations (e.g. 50–100) to explore the 14-dimensional log-scale space more broadly. [OPTIMIZER_TRACES, BUDGET] The DE trace shows only 1 row (loss 0.085798) and the gradient trace shows 5 rows (0.085762 → 0.085753). A single DE iteration with 4 individuals in a 14-parameter log-scale space (each spanning 5 decades) is a very coarse search. The 6 negative Hessian modes (SLOPPINESS) are consistent with being in a saddle or a poor basin rather than near a true minimum.
+Limitation: The 6 negative Hessian modes cannot be attributed to a genuine saddle point versus a numerical artefact of the Hessian computation without a passing gradient check and a curvature recomputation at a perturbed point.
+Limitation: No noise level or measurement uncertainty is specified in the snapshot, so the residual magnitudes (RMSE 0.036–0.133) cannot be judged against expected experimental scatter; the negative bias may partly reflect unmodelled noise rather than model mismatch.
+Limitation: With 14 free parameters and 9 × 15 = 135 data points, the identifiability of individual rate constants is not established; the 2 weak and 6 negative modes suggest strong parameter correlations, but the eigenvector structure has not been inspected.
+Limitation: The DE phase used only 1 iteration and 4 individuals; the current parameter vector may be far from the global optimum, and the small loss change over 5 Adam steps is not evidence of convergence.
+Limitation: The near-zero time correlation in experiment 7 (0.051) could reflect a structural limitation of the Sneyd IPR model at IP3 = 3, a timing/calibration issue in the data, or a parameter-value problem; the evidence cannot distinguish these without additional experiments or model comparison.
+Limitation: No gradient-check result is present in the evidence; all curvature and stationarity statements are conditional on the gradient being correct.

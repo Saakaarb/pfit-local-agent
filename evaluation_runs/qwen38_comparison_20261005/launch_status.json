@@ -1,0 +1,7 @@
+{
+  "status": "runner_started",
+  "pid": 19407,
+  "started_utc": "2026-10-05T00:00:10Z",
+  "model": "qwen3.8:27b",
+  "runner_started_utc": "2026-10-05T00:09:27Z"
+}

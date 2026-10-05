@@ -1,0 +1,610 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/snapshot",
+  "findings": [
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 0.0243739; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "WEAK_MODES",
+      "priority": 4,
+      "evidence": "Saved curvature has 2 weak parameter combinations.",
+      "next_step": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, open_probability: RMSE=0.0363565, bias=-0.0209998, time correlation=0.5079629151135527, lag-1=0.2611398542467524.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, open_probability: RMSE=0.0571375, bias=-0.0316662, time correlation=0.5126155881572831, lag-1=0.3169295912782928.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 3, open_probability: RMSE=0.13297, bias=-0.0899309, time correlation=0.6388215942360216, lag-1=0.5610625856412678.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 4, open_probability: RMSE=0.0915274, bias=-0.0503022, time correlation=0.6195564379413973, lag-1=0.5619409504781735.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 5, open_probability: RMSE=0.0839684, bias=-0.0511649, time correlation=0.7157570218648994, lag-1=0.6434434981852898.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 6, open_probability: RMSE=0.0703347, bias=-0.0375665, time correlation=0.723791561002688, lag-1=0.7264845370607939.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 7, open_probability: RMSE=0.0660236, bias=-0.0601977, time correlation=0.05122165312446587, lag-1=0.7483680556299457.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 8, open_probability: RMSE=0.103379, bias=-0.078131, time correlation=0.5641443469691456, lag-1=0.635158262654642.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 9, open_probability: RMSE=0.130076, bias=-0.0924643, time correlation=0.6339933860766349, lag-1=0.6828840029243776.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.036356460477696945,
+          "mae": 0.022333165831431797,
+          "bias": -0.020999832498098468,
+          "max_abs": 0.11299982016992142,
+          "time_correlation": 0.5079629151135527,
+          "lag1_correlation": 0.2611398542467524,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.061557964322776534
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.01061114899719701
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.007962235916755777
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.0571375299579579,
+          "mae": 0.03406615603754482,
+          "bias": -0.03166615603754483,
+          "max_abs": 0.1739994508383509,
+          "time_correlation": 0.5126155881572831,
+          "lag1_correlation": 0.3169295912782928,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.09732068891860651
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.01396376220294166
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.011304372721965836
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "data_file": "dataset_3.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.13297019183677075,
+          "mae": 0.08993092858140407,
+          "bias": -0.08993092858140407,
+          "max_abs": 0.3269974011796189,
+          "time_correlation": 0.6388215942360216,
+          "lag1_correlation": 0.5610625856412678,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.221611901566941
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.05591712633521484
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.028366455852272536
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "data_file": "dataset_4.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.09152738936623653,
+          "mae": 0.05030218001852191,
+          "bias": -0.05030218001852191,
+          "max_abs": 0.2529655321098755,
+          "time_correlation": 0.6195564379413973,
+          "lag1_correlation": 0.5619409504781735,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.15747820463216783
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.015440280822734197
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.009695452879582124
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "data_file": "dataset_5.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.08396837073954806,
+          "mae": 0.05116485265057966,
+          "bias": -0.05116485265057966,
+          "max_abs": 0.2369818101036651,
+          "time_correlation": 0.7157570218648994,
+          "lag1_correlation": 0.6434434981852898,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.14340562357160247
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.022996121975046947
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.007620193968082123
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "data_file": "dataset_6.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.07033474593863796,
+          "mae": 0.04136219695650957,
+          "bias": -0.03756647490322076,
+          "max_abs": 0.1635833430896439,
+          "time_correlation": 0.723791561002688,
+          "lag1_correlation": 0.7264845370607939,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.12047131673405255
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.017340114619001475
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.005187651503496242
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "data_file": "dataset_7.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.06602356179258619,
+          "mae": 0.06019774308667834,
+          "bias": -0.06019774308667834,
+          "max_abs": 0.10199758445400915,
+          "time_correlation": 0.05122165312446587,
+          "lag1_correlation": 0.7483680556299457,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.07264377228651704
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.07339108393391472
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.049132100324819024
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "data_file": "dataset_8.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.10337895368449242,
+          "mae": 0.07813099342664233,
+          "bias": -0.07813099342664233,
+          "max_abs": 0.2629974949951949,
+          "time_correlation": 0.5641443469691456,
+          "lag1_correlation": 0.635158262654642,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.1642781151839303
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.06195560832887328
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.03515434059850751
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "data_file": "dataset_9.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 15,
+          "missing": 0,
+          "rmse": 0.13007585478546835,
+          "mae": 0.09246426191473742,
+          "bias": -0.09246426191473742,
+          "max_abs": 0.3369974251864858,
+          "time_correlation": 0.6339933860766349,
+          "lag1_correlation": 0.6828840029243776,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.32666666666666666,
+              "count": 5,
+              "rmse": 0.21358337663560006
+            },
+            {
+              "start": 0.32666666666666666,
+              "end": 0.6533333333333333,
+              "count": 5,
+              "rmse": 0.06522634905678665
+            },
+            {
+              "start": 0.6533333333333333,
+              "end": 0.98,
+              "count": 5,
+              "rmse": 0.029780003495103763
+            }
+          ],
+          "name": "open_probability",
+          "observes": "open_probability"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 0.3965808885822134,
+      "range_fraction": 0.32479147269001674,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 8645.186837803898,
+      "range_fraction": 0.8670967979480677,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 127.34858368244713,
+      "range_fraction": 0.6381242649106695,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 168.68630597567372,
+      "range_fraction": 0.6533849784767282,
+      "logscale": true
+    },
+    {
+      "name": "k_1",
+      "value": 182.1601163693859,
+      "range_fraction": 0.6575566618809514,
+      "logscale": true
+    },
+    {
+      "name": "k_2",
+      "value": 0.24203645489929285,
+      "range_fraction": 0.29798509790108796,
+      "logscale": true
+    },
+    {
+      "name": "k_3",
+      "value": 20.46080508227968,
+      "range_fraction": 0.5388653397663032,
+      "logscale": true
+    },
+    {
+      "name": "k_4",
+      "value": 303.0688327794115,
+      "range_fraction": 0.6851926595451717,
+      "logscale": true
+    },
+    {
+      "name": "l2",
+      "value": 5254.613978453172,
+      "range_fraction": 0.8400676021010633,
+      "logscale": true
+    },
+    {
+      "name": "l4",
+      "value": 431.19802283504487,
+      "range_fraction": 0.704334595102519,
+      "logscale": true
+    },
+    {
+      "name": "l6",
+      "value": 189.65695080697168,
+      "range_fraction": 0.6597460954934784,
+      "logscale": true
+    },
+    {
+      "name": "l_2",
+      "value": 15.68186455996203,
+      "range_fraction": 0.5244247123315022,
+      "logscale": true
+    },
+    {
+      "name": "l_4",
+      "value": 557.3827179698197,
+      "range_fraction": 0.7182691873737891,
+      "logscale": true
+    },
+    {
+      "name": "l_6",
+      "value": 0.013723428922181204,
+      "range_fraction": 0.14218282966411144,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png",
+    "fit_exp3.png",
+    "fit_exp4.png",
+    "fit_exp5.png",
+    "fit_exp6.png",
+    "fit_exp7.png",
+    "fit_exp8.png",
+    "fit_exp9.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.08579784115437102,
+    "final_loss": 0.08575256206437723,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.03635646047769694,
+      0.0571375299579579,
+      0.13297019183677075,
+      0.09152738936623653,
+      0.08396837073954805,
+      0.07033474593863796,
+      0.06602356179258619,
+      0.10337895368449242,
+      0.13007585478546835
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/de_fitting.log",
+      "rows": 1,
+      "first": 0.085798,
+      "final": 0.085798,
+      "best": 0.085798,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.085798
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261005_014222_185184/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.085762,
+      "final": 0.085753,
+      "best": 0.085753,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.085762
+        ],
+        [
+          5,
+          0.085753
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.08575256206437723,
+  "experiment_losses": [
+    0.03635646047769694,
+    0.0571375299579579,
+    0.13297019183677075,
+    0.09152738936623653,
+    0.08396837073954805,
+    0.07033474593863796,
+    0.06602356179258619,
+    0.10337895368449242,
+    0.13007585478546835
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 2,
+    "negative_modes": 6
+  },
+  "normalized_gradient_inf_norm": 0.02437385168260866,
+  "gradient_to_loss_ratio": 0.2842346758608847,
+  "verdict": "Normalized gradient infinity norm is 0.0243739; stationarity is not established."
+}

@@ -70,6 +70,25 @@
               ]
             }
           ]
+        },
+        {
+          "root": "evaluation_runs/qwen38_comparison_20261005",
+          "finished_utc": "2026-10-05T01:54:45Z",
+          "results": [
+            {
+              "model": "qwen38_27b",
+              "status": "pass",
+              "failed_stage": "",
+              "seconds": 306.116,
+              "pfit_steps_run": [
+                "new",
+                "check",
+                "jax",
+                "run",
+                "diagnose"
+              ]
+            }
+          ]
         }
       ],
       "input_directory": "cases/beer_indigoidine/inputs",
@@ -90,9 +109,6 @@
           "status": "pass",
           "failed_stage": ""
         }
-      ],
-      "planned_model_comparison_runs": [
-        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -159,6 +175,25 @@
               ]
             }
           ]
+        },
+        {
+          "root": "evaluation_runs/qwen38_comparison_20261005",
+          "finished_utc": "2026-10-05T01:54:45Z",
+          "results": [
+            {
+              "model": "qwen38_27b",
+              "status": "pass",
+              "failed_stage": "",
+              "seconds": 373.798,
+              "pfit_steps_run": [
+                "new",
+                "check",
+                "jax",
+                "run",
+                "diagnose"
+              ]
+            }
+          ]
         }
       ],
       "input_directory": "cases/raia_il13/inputs",
@@ -180,9 +215,6 @@
           "status": "pass",
           "failed_stage": ""
         }
-      ],
-      "planned_model_comparison_runs": [
-        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -244,6 +276,25 @@
               ]
             }
           ]
+        },
+        {
+          "root": "evaluation_runs/qwen38_comparison_20261005",
+          "finished_utc": "2026-10-05T01:54:45Z",
+          "results": [
+            {
+              "model": "qwen38_27b",
+              "status": "pass",
+              "failed_stage": "",
+              "seconds": 407.43,
+              "pfit_steps_run": [
+                "new",
+                "check",
+                "jax",
+                "run",
+                "diagnose"
+              ]
+            }
+          ]
         }
       ],
       "input_directory": "cases/schwen_insulin/inputs",
@@ -267,9 +318,6 @@
           "status": "fail",
           "failed_stage": "new"
         }
-      ],
-      "planned_model_comparison_runs": [
-        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -299,6 +347,25 @@
               "seconds": 49.376,
               "pfit_steps_run": [
                 "new"
+              ]
+            }
+          ]
+        },
+        {
+          "root": "evaluation_runs/qwen38_comparison_20261005",
+          "finished_utc": "2026-10-05T01:54:45Z",
+          "results": [
+            {
+              "model": "qwen38_27b",
+              "status": "pass",
+              "failed_stage": "",
+              "seconds": 347.834,
+              "pfit_steps_run": [
+                "new",
+                "check",
+                "jax",
+                "run",
+                "diagnose"
               ]
             }
           ]
@@ -343,9 +410,6 @@
       "limitations": [
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability."
-      ],
-      "planned_model_comparison_runs": [
-        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -383,6 +447,25 @@
               "seconds": 53.743,
               "pfit_steps_run": [
                 "new"
+              ]
+            }
+          ]
+        },
+        {
+          "root": "evaluation_runs/qwen38_comparison_20261005",
+          "finished_utc": "2026-10-05T01:54:45Z",
+          "results": [
+            {
+              "model": "qwen38_27b",
+              "status": "pass",
+              "failed_stage": "",
+              "seconds": 287.245,
+              "pfit_steps_run": [
+                "new",
+                "check",
+                "jax",
+                "run",
+                "diagnose"
               ]
             }
           ]
@@ -424,9 +507,6 @@
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability.",
         "Initial values use prior calibration information; not a blind parameter-recovery test."
-      ],
-      "planned_model_comparison_runs": [
-        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -456,6 +536,25 @@
               "seconds": 133.467,
               "pfit_steps_run": [
                 "new"
+              ]
+            }
+          ]
+        },
+        {
+          "root": "evaluation_runs/qwen38_comparison_20261005",
+          "finished_utc": "2026-10-05T01:54:45Z",
+          "results": [
+            {
+              "model": "qwen38_27b",
+              "status": "pass",
+              "failed_stage": "",
+              "seconds": 390.071,
+              "pfit_steps_run": [
+                "new",
+                "check",
+                "jax",
+                "run",
+                "diagnose"
               ]
             }
           ]
@@ -496,9 +595,6 @@
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability.",
         "Initial values use prior calibration information; not a blind parameter-recovery test."
-      ],
-      "planned_model_comparison_runs": [
-        "evaluation_runs/qwen38_comparison_20261005"
       ]
     }
   ],
@@ -524,5 +620,5 @@
       "reason": "Parameter-dependent steady-state initial conditions need a faithful initialization path."
     }
   ],
-  "latest_comparison": "evaluation_runs/external_comparison_20261004"
+  "latest_comparison": "evaluation_runs/qwen38_comparison_20261005"
 }

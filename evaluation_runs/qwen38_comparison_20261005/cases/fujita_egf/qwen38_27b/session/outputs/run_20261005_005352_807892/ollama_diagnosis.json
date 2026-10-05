@@ -1,0 +1,52 @@
+{
+  "verdict": "The fit is structurally constrained: six of sixteen parameters are at or within 0.03% of their log10 bounds, the pS6_tot channel shows negative time correlation (\u22120.76 in exp 1, \u22120.36 in exp 2) indicating qualitatively wrong dynamics, and the optimizer exhausted its 5-iteration budget with only ~0.1% loss reduction (0.52779\u21920.52727). No verified gradient is available, so convergence cannot be confirmed. The dominant issue is model\u2013data scale and dynamics mismatch, not insufficient optimization.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Inspect the three scaling parameters (scaling_pEGFR_tot=1.009e-08 at 0.03%, scaling_pAkt_tot=1e-08 at 0.00%, scaling_pS6_tot=1e+08 at 100%) against the initial conditions (EGFR\u22483.75e7, Akt\u22480.027, S6\u2248188) and the data magnitudes in dataset_1.csv / dataset_2.csv. Determine whether the model's natural output scale is incompatible with the data, which would indicate a structural mismatch in the ODE system or initial conditions rather than an optimization failure.",
+      "reason": "All three scaling parameters are pinned at their log10 bounds (0.00\u20130.03% from the edge), meaning the optimizer is using the full 16-decade range just to bring model outputs into the data's magnitude. This is a strong indicator that the model equations or initial conditions produce values orders of magnitude off from the measurements, and no amount of additional gradient iterations within the current bounds will resolve a structural scale mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png and fit_exp2.png, focusing on the pS6_tot trace. The time correlation is \u22120.762 (exp 1) and \u22120.364 (exp 2), meaning the model's pS6 trajectory is anti-correlated with the data. Check whether the pAkt_S6 \u2192 pS6 production (reaction_6_k1) and pS6 degradation (reaction_8_k1) produce the correct temporal shape, and whether the initial condition pS6=0 is consistent with the observed onset timing.",
+      "reason": "A negative time correlation (\u22120.762 in exp 1, \u22120.364 in exp 2) is qualitatively different from a positive-but-imperfect fit: the model is predicting the wrong direction of change over time for pS6_tot. The time-region RMSE for pS6_tot in exp 1 jumps to 0.992 in the 1200\u20132400 s window (single point) and 0.722 in 2400\u20133600 s, confirming the mismatch worsens at later times. This is a model-dynamics issue that additional optimization iterations cannot fix."
+    },
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Review the physical justification for reaction_5_k2=9.91e+07 (99.97% of range) and reaction_6_k1=1e+08 (100% of range). If literature or mechanistic reasoning supports values beyond 1e+08, revise the upper bound and run a full fit (DE + gradient). If the bounds are correct, the model structure may be missing a reaction or the rate-law form is inappropriate for these steps.",
+      "reason": "Two reaction rate constants are pinned at the upper bound of the 1e-08 to 1e+08 log10 interval. reaction_6_k1 is exactly at 100.00% and reaction_5_k2 at 99.97%. Combined with the scaling parameters at their opposite bounds, this pattern suggests the optimizer is compensating for a structural deficiency by pushing multiple parameters to extremes simultaneously, which is a hallmark of an under-determined or mis-specified model rather than a well-posed optimization problem."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "LIMITATIONS"
+      ],
+      "action": "Run diagnose --probe-gradients at the current parameter point to obtain a verified gradient before deciding whether a gradient-only restart is worthwhile. The optimizer log shows only 0.52779\u21920.52727 over 5 Adam iterations with no verified final-point gradient, so the flat log does not establish convergence or a local minimum.",
+      "reason": "The limitation explicitly states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The NODE trace shows last material improvement at iteration 5 (the final iteration), and the DE trace had only 1 iteration. Without a verified gradient, it is impossible to distinguish a true local minimum from a point where the optimizer simply ran out of budget while still on a slope."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BOUND"
+      ],
+      "action": "Before spending further optimization budget, check the pAkt_tot bias (\u22120.294 in exp 1, \u22120.322 in exp 2) and the time-region RMSE pattern (0.443 in 0\u20131200 s vs 0.129 in 1200\u20132400 s for exp 1). Verify that the Akt initial condition (0.0269) and the pEGFR_Akt \u2192 pAkt activation pathway (reactions 2, 3) are consistent with the observed pAkt_tot onset. If the model's pAkt dynamics are structurally correct but the scale is wrong, the scaling_pAkt_tot bound at 0.00% is the limiting factor.",
+      "reason": "pAkt_tot shows a consistent negative bias of ~0.3 in both experiments with moderate time correlation (~0.48), indicating the model captures the general shape but under-predicts the magnitude. The time-region RMSE decreases from 0.443 to 0.129 in exp 1, suggesting the early-time mismatch dominates. With scaling_pAkt_tot pinned at its lower bound (1e-08, 0.00%), the optimizer cannot increase the pAkt output further, so the bias is a bound-constrained artifact rather than a dynamics error."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer log (0.52779\u21920.52727 over 5 iterations) does not establish convergence or a local minimum.",
+    "Sloppiness analysis was skipped, so parameter identifiability and weak/negative curvature modes are unknown. The six bound-pinned parameters may be non-identifiable within the current model structure.",
+    "The negative time correlation for pS6_tot (\u22120.76, \u22120.36) indicates qualitative model mismatch, but the evidence cannot distinguish whether the cause is an incorrect rate-law form, missing reactions, wrong initial conditions, or an inappropriate bound range. Resolving this requires mechanistic judgement or additional experimental data.",
+    "The scaling parameters at bounds may reflect a genuine scale mismatch between model and data, or they may be a symptom of correlated parameter compensation (e.g., a rate constant at its upper bound offset by a scaling factor at its lower bound). The evidence cannot separate these causes without a sloppiness or profile-likelihood analysis.",
+    "Only 8 time points per channel per experiment are available, limiting the ability to diagnose temporal dynamics. The single-point time regions (1200\u20132400 s, 2400\u20133600 s) have n=1 and their RMSE values are not statistically robust.",
+    "The DE phase used only 1 iteration with population size 4, so the initial point for gradient refinement may not be representative of the global landscape. A flat best-so-far log from DE does not establish that the gradient phase started near a good basin."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

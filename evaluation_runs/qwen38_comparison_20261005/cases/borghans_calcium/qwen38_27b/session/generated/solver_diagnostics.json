@@ -1,0 +1,62 @@
+[
+  {
+    "code": "successful",
+    "experiment": 1,
+    "filename": "calcium.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 136,
+      "num_rejected_steps": 118,
+      "num_steps": 254
+    },
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "K2": 10.0,
+      "K_par": 10.0,
+      "Ka": 10.0,
+      "Kd": 10.0,
+      "Kf": 10.0,
+      "Kp": 10.0,
+      "Ky": 10.0,
+      "Kz": 10.0,
+      "Vd": 10.0,
+      "Vm2": 10.0,
+      "Vm3": 10.0,
+      "Vp": 10.0,
+      "beta_par": 10.0,
+      "epsilon_par": 10.0,
+      "n_par": 10.0,
+      "v0": 10.0,
+      "v1": 10.0,
+      "offset": 10.0,
+      "scale": 10.0
+    },
+    "time_start": 0.0,
+    "time_end": 8.983842293,
+    "requested_rows": 111,
+    "finite_rows": 111
+  }
+]

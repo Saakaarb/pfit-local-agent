@@ -1,0 +1,40 @@
+[
+  {
+    "code": "successful",
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "Ea1": 2.8284271247461905e-19,
+      "h1": 100.0,
+      "A1": 3.162277660168379e+16,
+      "A2": 3.162277660168379e+16,
+      "Ea2": 2.8284271247461905e-19,
+      "h2": 100.0,
+      "m2": 3.0,
+      "n2": 3.0
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142
+  }
+]

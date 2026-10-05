@@ -1,0 +1,12 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/piezo_bouc_wen/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/piezo_bouc_wen/qwen38_27b/session
+warning: Writeout is missing V(t). The user explicitly requested 'time, measured xp, simulated xp, simulated h, V(t), and simulated vp' (6 columns), but writeout_description produces only 5 columns (time, measured xp, simulated xp, simulated vp, simulated h). The driving voltage V(t) = de*(24 + 24*sin(16*pi*t)) is not included.
+warning: Writeout column order differs from the user's stated order. User listed 'simulated h' before 'V(t)' before 'simulated vp', but the code places simulated vp (col 3) before simulated h (col 4).
+warning: Population size 4 with only 1 DE iteration for 6 trainable parameters is an extremely small search budget and will almost certainly fail to locate a good basin before the gradient phase.
+warning: Gradient phase has only 5 iterations with a learning-rate schedule spanning 2000 transition steps; the effective number of ODE evaluations is very limited for a 3-state system with fast 16*pi oscillation.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Add V(t) as a 6th writeout column computed from the driving expression de*(24 + 24*sin(16*pi*t)) using solution_time, trainable_parameters['de'], to match the user's explicit writeout request.
+recommendation: Increase population_size (e.g., 20-40) and num_iters (e.g., 5-10) to give the DE phase a meaningful chance to explore the 6-dimensional parameter space before handing off to the gradient optimizer.
+recommendation: Increase gradient num_iters (e.g., 50-200) so the Adam phase can actually converge the loss; 5 iterations is insufficient for a stiff 3-ODE system with a 16*pi rad/s forcing term.
+recommendation: The loss construction (RMSE normalized by max|measured xp| ≈ 4.9e-6) is well-scaled and matches the user's stated contract; no change needed. The automatic log-loss rule does not apply (within-column range 0.52 orders < 3), so the linear residual form is correct.

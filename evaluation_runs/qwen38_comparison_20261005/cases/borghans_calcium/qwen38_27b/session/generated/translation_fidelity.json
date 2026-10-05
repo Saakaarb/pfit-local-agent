@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "points": [
+    {
+      "experiment": 1,
+      "parameter_offset": 0.0,
+      "components": [
+        "RHS for Z at row 0",
+        "RHS for Y at row 0",
+        "RHS for A at row 0",
+        "RHS for Z at row 55",
+        "RHS for Y at row 55",
+        "RHS for A at row 55",
+        "RHS for Z at row 110",
+        "RHS for Y at row 110",
+        "RHS for A at row 110",
+        "loss",
+        "writeout"
+      ]
+    },
+    {
+      "experiment": 1,
+      "parameter_offset": 0.1,
+      "components": [
+        "RHS for Z at row 0",
+        "RHS for Y at row 0",
+        "RHS for A at row 0",
+        "RHS for Z at row 55",
+        "RHS for Y at row 55",
+        "RHS for A at row 55",
+        "RHS for Z at row 110",
+        "RHS for Y at row 110",
+        "RHS for A at row 110",
+        "loss",
+        "writeout"
+      ]
+    }
+  ],
+  "limitations": [],
+  "rtol": 1e-06,
+  "atol": 1e-08,
+  "scope": "Source Python versus JAX at sampled parameters/states; not paper-equation verification"
+}

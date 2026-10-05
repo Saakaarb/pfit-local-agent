@@ -1,0 +1,43 @@
+{
+  "verdict": "Refinement exhausted its 5-iteration Adam budget with a negligible loss change (0.70310 \u2192 0.70303), no verified final-point gradient, and both channels show strongly negative time correlations (Bacnorm \u22120.859, IndconcNormRange \u22120.577) with large negative biases (\u22120.466, \u22120.494). The dominant concern is a fundamental trajectory mismatch between model and data, not merely insufficient optimisation iterations.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to obtain a verified finite-difference or autodiff gradient at the current parameter point before any further optimisation.",
+      "reason": "The limitations state 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The loss moved only 6.8e-5 over 5 Adam iterations (0.7031008 \u2192 0.7030330), and the DE phase ran a single iteration. Without a confirmed gradient, it is impossible to tell whether the optimizer is at a local minimum, stuck on a flat region, or receiving unreliable step sizes (stepsize_rtol=1e-7, atol=1e-9)."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the saved plot fit_exp1.png to visually confirm the trajectory shapes of Bacnorm and IndconcNormRange against the data, paying particular attention to the sign and phase of the model relative to the observations.",
+      "reason": "Bacnorm has time_correlation = \u22120.859 and bias = \u22120.466; IndconcNormRange has time_correlation = \u22120.577 and bias = \u22120.494. A negative time correlation means the model is anti-correlated with the data over the 0\u20133565 s window, which is inconsistent with a small parameter perturbation and points to a structural or sign/phase mismatch. The lag-1 correlations (\u22480.99998) indicate the residual is smooth, so the mismatch is systematic rather than noisy."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Check the model's tanh switch timing (tau = 0.1637 s) against the data's time axis (0\u20133565 s) and verify that the ODE structure (logistic Bac growth, cGlu\u00b2 production, linear Ind degradation) is consistent with the observed dynamics in dataset_1.csv. In particular, confirm whether the data show a single growth phase or multiple phases that the current single-switch model cannot represent.",
+      "reason": "The time-region RMSE for Bacnorm worsens from 0.188 (0\u20131188 s) to 0.654 (2377\u20133565 s), and IndconcNormRange peaks at 0.820 in the middle region (1188\u20132377 s). The tanh switch at t \u2248 0.16 s is effectively instantaneous on this time scale, so Bac growth is essentially logistic from t=0. If the data show a delayed or multi-phase response, the single-switch structure is the likely source of the negative time correlation, and no amount of parameter refinement within the current equations will fix it."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BUDGET"
+      ],
+      "action": "If the plot and model-structure check confirm a structural mismatch, treat this as a scientific model revision (new equations or additional state variables) rather than a numerical correction. Any equation change requires re-running the full fitting pipeline (DE + gradient) with the updated model; a gradient-only restart on the current equations is not appropriate.",
+      "reason": "The negative time correlations (\u22120.859, \u22120.577) and the worsening time-region RMSE pattern are hallmarks of model-form error, not parameter mis-estimation. The parameters are all interior (range fractions 0.33\u20130.87), so boundary effects are unlikely. Changing the loss magnitude or adding iterations to the same equations will not resolve an anti-correlated trajectory."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat loss trace (0.7031 \u2192 0.70303) cannot distinguish a true local minimum from unreliable gradients or an under-resolved step-size schedule.",
+    "Sloppiness analysis was skipped, so parameter identifiability and weak/negative curvature modes are unknown; the five parameters may be strongly correlated or partially unidentifiable from this single experiment.",
+    "Only one experiment (dataset_1.csv, 714 points) is available; the negative time correlation could reflect a data-collection artefact (e.g., normalisation convention, time offset) rather than a model-structure error, and this cannot be resolved without inspecting the raw data and the plot.",
+    "The DE phase ran only 1 iteration with population_size 4, so the seed point may be far from the basin of attraction of the best parameters; the gradient phase starting from that seed may not be representative.",
+    "The evidence cannot establish whether the negative time correlation is due to model structure, initial-condition mismatch (Bac\u2080 = 0.0138, Glu\u2080 = 10.0), a sign convention in the data, or a combination; resolving this requires the plot inspection and possibly new data."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

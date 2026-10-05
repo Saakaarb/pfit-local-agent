@@ -1,0 +1,29 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/boehm_stat5/qwen38_27b/session/outputs/run_20261005_003437_476615
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/boehm_stat5/qwen38_27b/session/outputs/run_20261005_003437_476615
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 2.5001E-01
+Time for iteration: 0.2636
+-------
+Final best position (scaled): [ 0.88501008 -0.5514161  -0.91520963 -0.39234565  0.22418553  0.62375746]
+Final best cost: 2.5001E-01
+Done with DE search
+Best Position from DE: [1.58995165e+00 7.89164975e-07 9.11729289e-05 2.69248037e-03
+ 2.74325143e+05 2.79365009e+05]
+Best cost from DE: 0.2500081197092242
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Trainable_params: [ 0.88501008 -0.5514161  -0.91520963 -0.39234565  0.22418553  0.62375746]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.25000811970958425 0.25000811970958425
+Iteration:,loss value, best loss: 4 0.24963166056051028 0.24963166056051028
+Iteration time: 9.56969428062439
+Final best position: [1.59361640e+00 7.90983258e-07 9.13830812e-05 2.69868684e-03
+ 2.74358480e+05 2.78722570e+05]
+Final loss: 0.24953757622190476
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/boehm_stat5/qwen38_27b/session/outputs/run_20261005_003437_476615

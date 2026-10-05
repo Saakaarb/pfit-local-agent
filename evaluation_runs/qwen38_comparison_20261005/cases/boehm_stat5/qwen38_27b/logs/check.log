@@ -1,0 +1,11 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/boehm_stat5/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/boehm_stat5/qwen38_27b/session
+warning: Population size of 4 with only 1 DE iteration for 6 trainable parameters spanning 4–7 orders of magnitude (e.g. k_exp_hetero: 1e-07 to 0.001) is extremely small and will very likely fail to locate a productive parameter region before the gradient stage.
+warning: Gradient stage has only 5 iterations for a stiff 8-variable ODE system with time-dependent forcing (Epo0*exp(-k_deg*t)); convergence to a meaningful minimum is unlikely in so few steps.
+warning: The pSTAT5A observable denominator (ApB + A*specC17 + 2*ApA*specC17) is positive at t=0 (≈15.4) but could approach zero in extreme parameter regimes where A, ApB, and ApA all decay simultaneously, producing a large or infinite observable value that would dominate the loss.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g. ≥ 2× the number of parameters, so ≥ 12) and num_iters (e.g. ≥ 50) for the DE stage to give a 6-parameter, 4–7-order search space a realistic chance of finding a good basin before gradient refinement.
+recommendation: Increase gradient num_iters well beyond 5 (e.g. 50–200) to allow the Adam optimizer to traverse the stiff 8-ODE landscape; the current 5 steps will likely stop at a poor local point.
+recommendation: The loss implementation correctly matches the user's stated column-wise max-abs normalization with sqrt of the pooled mean squared residual; the 1e-12 stabilizing epsilon is appropriate and does not alter the stated scale.
+recommendation: All three observable denominators are positive under the given initial conditions and typical parameter ranges; no additional guard is required, but monitoring for near-zero denominators during long runs is prudent given the wide k_imp_homo and k_phos ranges.
