@@ -1,0 +1,96 @@
+{
+  "case": "test_session",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/test_session/qwen38_27b",
+  "source_status": "pass",
+  "status": "completed",
+  "readiness_errors": [],
+  "readiness_warnings": [
+    "Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals."
+  ],
+  "parameters": 3,
+  "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/test_session/session",
+  "original_yaml_sha256": "81223403d87feaee97a77d257c7f0dd600601752686e2356775f0d83f6a04964",
+  "fit_yaml_sha256": "580f0f66957bb87b4546bbdffc867f60029cb826edebdc217b90e57a0a9d5c9d",
+  "generated_source_sha256": "d7412b9d958bee0661a1c48ff2f78fd5ee0894fb350ee2892a5cca0d763245dc",
+  "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+  "original_population": {
+    "population_size": 4,
+    "num_iters": 1,
+    "processors": 1,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "population": {
+    "population_size": 64,
+    "num_iters": 500,
+    "processors": 8,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 1000,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      "1e-9",
+      "1e-9",
+      "1e-9"
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 10000,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 120,
+    "integrator": "Kvaerno5",
+    "init_value_lr": "1e-4",
+    "end_value_lr": "1e-5",
+    "transition_steps_lr": 2000,
+    "decay_rate_lr": 0.9
+  },
+  "started_at": "2026-10-05T02:53:45.044489+00:00",
+  "cpu_affinity": [
+    2,
+    42,
+    60,
+    109,
+    130,
+    170,
+    188,
+    237
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "2,42,60,109,130,170,188,237",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/test_session/session",
+    "--no-sloppiness"
+  ],
+  "pid": 4658,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.0004730763470613147,
+    "final_loss": 0.0004730763470613147,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.0004730763470613147
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 1000,
+    "gradient_iterations_evaluated": 1000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/test_session/session/outputs/run_20261005_025345_626990",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-05T03:02:58.003583+00:00",
+  "elapsed_seconds": 552.9591251853853
+}

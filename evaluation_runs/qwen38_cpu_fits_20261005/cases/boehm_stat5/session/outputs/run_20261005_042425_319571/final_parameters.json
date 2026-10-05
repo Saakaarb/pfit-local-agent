@@ -1,0 +1,34 @@
+{
+  "parameters": [
+    {
+      "name": "k_deg",
+      "value": 0.026505044788207456,
+      "logscale": true
+    },
+    {
+      "name": "k_exp_hetero",
+      "value": 1e-07,
+      "logscale": true
+    },
+    {
+      "name": "k_exp_homo",
+      "value": 0.006912856930445034,
+      "logscale": true
+    },
+    {
+      "name": "k_imp_hetero",
+      "value": 0.01593987126954964,
+      "logscale": true
+    },
+    {
+      "name": "k_imp_homo",
+      "value": 9769999.999999989,
+      "logscale": true
+    },
+    {
+      "name": "k_phos",
+      "value": 16589.31958728537,
+      "logscale": true
+    }
+  ]
+}

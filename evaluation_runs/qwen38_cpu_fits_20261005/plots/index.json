@@ -1,0 +1,147 @@
+[
+  {
+    "case": "ARC_fitting",
+    "first_page": 2,
+    "experiments": 1,
+    "pdf": "ARC_fitting.pdf",
+    "run_dir": "cases/ARC_fitting/session/outputs/run_20261005_043812_142136",
+    "refinement": "refinement_degraded",
+    "prediction_columns_zero_based": [
+      5,
+      6
+    ]
+  },
+  {
+    "case": "armistead_sphingolipid",
+    "first_page": 3,
+    "experiments": 8,
+    "pdf": "armistead_sphingolipid.pdf",
+    "run_dir": "cases/armistead_sphingolipid/session/outputs/run_20261005_051121_019387",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      9,
+      10,
+      11
+    ]
+  },
+  {
+    "case": "beer_indigoidine",
+    "first_page": 11,
+    "experiments": 1,
+    "pdf": "beer_indigoidine.pdf",
+    "run_dir": "cases/beer_indigoidine/session/outputs/run_20261005_030430_150832",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      7,
+      8
+    ]
+  },
+  {
+    "case": "boehm_stat5",
+    "first_page": 12,
+    "experiments": 1,
+    "pdf": "boehm_stat5.pdf",
+    "run_dir": "cases/boehm_stat5/session/outputs/run_20261005_042425_319571",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "case": "cascaded_tanks",
+    "first_page": 13,
+    "experiments": 1,
+    "pdf": "cascaded_tanks.pdf",
+    "run_dir": "cases/cascaded_tanks/session/outputs/run_20261005_030258_612469",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4
+    ]
+  },
+  {
+    "case": "decay_multiexp",
+    "first_page": 14,
+    "experiments": 2,
+    "pdf": "decay_multiexp.pdf",
+    "run_dir": "cases/decay_multiexp/session/outputs/run_20261005_025314_994519",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      3,
+      4
+    ]
+  },
+  {
+    "case": "lotka_volterra",
+    "first_page": 16,
+    "experiments": 1,
+    "pdf": "lotka_volterra.pdf",
+    "run_dir": "cases/lotka_volterra/session/outputs/run_20261005_030404_995829",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      3,
+      4
+    ]
+  },
+  {
+    "case": "piezo_bouc_wen",
+    "first_page": 17,
+    "experiments": 1,
+    "pdf": "piezo_bouc_wen.pdf",
+    "run_dir": "cases/piezo_bouc_wen/session/outputs/run_20261005_031052_120985",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      2
+    ]
+  },
+  {
+    "case": "robertson_session",
+    "first_page": 18,
+    "experiments": 1,
+    "pdf": "robertson_session.pdf",
+    "run_dir": "cases/robertson_session/session/outputs/run_20261005_025441_510661",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "case": "test_session",
+    "first_page": 19,
+    "experiments": 1,
+    "pdf": "test_session.pdf",
+    "run_dir": "cases/test_session/session/outputs/run_20261005_025345_626990",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "case": "theophylline",
+    "first_page": 20,
+    "experiments": 1,
+    "pdf": "theophylline.pdf",
+    "run_dir": "cases/theophylline/session/outputs/run_20261005_030342_162037",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4
+    ]
+  },
+  {
+    "case": "vanderpol_session",
+    "first_page": 21,
+    "experiments": 1,
+    "pdf": "vanderpol_session.pdf",
+    "run_dir": "cases/vanderpol_session/session/outputs/run_20261005_025315_448164",
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      3,
+      4
+    ]
+  }
+]

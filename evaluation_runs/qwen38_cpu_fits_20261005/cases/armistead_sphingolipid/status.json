@@ -1,0 +1,107 @@
+{
+  "case": "armistead_sphingolipid",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_comparison_20261005/cases/armistead_sphingolipid/qwen38_27b",
+  "source_status": "pass",
+  "status": "completed",
+  "readiness_errors": [],
+  "readiness_warnings": [
+    "Dataset has very few rows; fitted parameters may be weakly constrained."
+  ],
+  "parameters": 10,
+  "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/armistead_sphingolipid/session",
+  "original_yaml_sha256": "185e86909b5824ff59bd4beab05b25b3e9daf5b10e991d1aa007ebe8a6ce858a",
+  "fit_yaml_sha256": "24881213c5f33487d84efdad4d0886e36bd2d45b6001a6f7184f93a8145f1fc4",
+  "generated_source_sha256": "82d65c4f6ed005fcef2780bacdc7396e862df01d4ea5cec648329cc8233f9572",
+  "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+  "original_population": {
+    "population_size": 4,
+    "num_iters": 1,
+    "processors": 1,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "population": {
+    "population_size": 80,
+    "num_iters": 500,
+    "processors": 8,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 1000,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7",
+      "1e-7",
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      "1e-9",
+      "1e-9",
+      "1e-9",
+      "1e-9",
+      "1e-9"
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 10000,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 120,
+    "integrator": "Kvaerno5",
+    "init_value_lr": "1e-4",
+    "end_value_lr": "1e-5",
+    "transition_steps_lr": 2000,
+    "decay_rate_lr": 0.9
+  },
+  "started_at": "2026-10-05T05:11:20.364919+00:00",
+  "cpu_affinity": [
+    0,
+    36,
+    57,
+    82,
+    128,
+    164,
+    185,
+    210
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "0,36,57,82,128,164,185,210",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/armistead_sphingolipid/session",
+    "--no-sloppiness"
+  ],
+  "pid": 15837,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.07959149391727326,
+    "final_loss": 0.07959149391727326,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.12609192707741257,
+      0.09025652868368883,
+      0.055187808687454,
+      0.07627254249581478,
+      0.07076645686000115,
+      0.0846299893987055,
+      0.05894188161678319,
+      0.07458481651832609
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 1000,
+    "gradient_iterations_evaluated": 1000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_cpu_fits_20261005/cases/armistead_sphingolipid/session/outputs/run_20261005_051121_019387",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-05T05:16:22.490996+00:00",
+  "elapsed_seconds": 302.12609563209116
+}
