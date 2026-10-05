@@ -1,6 +1,6 @@
 # Completed model comparison
 
-Single attempt per model/case, including the existing repair budget. Times include failed attempts and must be interpreted alongside status. Downloads and warm-up are recorded separately. These are workflow smoke tests, not converged fits.
+Initial attempts include the existing repair budget. Oregonator/Qwen3.8 now uses a successful follow-up after a documented framework prompt fix; its original failed attempt is preserved. Times include failed attempts and must be interpreted alongside status. Downloads and warm-up are recorded separately. These are workflow smoke tests, not converged fits.
 
 | Case | qwen32b (status; seconds) | qwen14b (status; seconds) | qwen38_27b (status; seconds) |
 |---|---|---|---|
@@ -10,7 +10,7 @@ Single attempt per model/case, including the existing repair budget. Times inclu
 | lotka_volterra | pass; 69.503 | pass; 57.364 | pass; 216.867 |
 | mapk_cascade | pass; 129.969 | pass; 104.904 | pass; 276.439 |
 | nfkb_signaling | fail at new; 247.685 | fail at new; 100.56 | fail at new; 164.024 |
-| oregonator | pass; 97.427 | pass; 88.682 | fail at new; 85.008 |
+| oregonator | pass; 97.427 | pass; 88.682 | **pass after fix; 278.412** |
 | piezo_bouc_wen | pass; 110.739 | fail at new; 31.047 | pass; 301.301 |
 | robertson_session | pass; 84.429 | pass; 71.083 | pass; 244.685 |
 | session1 | blocked; 0 | blocked; 0 | blocked; 0 |
@@ -35,7 +35,7 @@ Single attempt per model/case, including the existing repair budget. Times inclu
 |---|---:|---:|---:|---:|
 | qwen32b | 15 | 7 | 2 | 0 |
 | qwen14b | 13 | 9 | 2 | 0 |
-| qwen38_27b | 17 | 5 | 2 | 0 |
+| qwen38_27b | 18 | 4 | 2 | 0 |
 
 Two incomplete folders are excluded from the eligible denominator. test_session duplicates Robertson; sliding_basepoint_headered duplicates sliding_basepoint. Keep these rows visible but do not treat them as independent scientific problems.
 
@@ -44,6 +44,20 @@ A pass requires all five stages, the declared experiment files/count, finite res
 Models differ in architecture, generation, and quantization. Dense total parameters are used as nominal active counts; active counts for MoE models are approximate. Thinking capability and requested mode are recorded in model metadata. For thinking models, the generation budget also includes reasoning tokens. One trial cannot estimate success probabilities or timing variance.
 
 See [batch protocol and baseline provenance](BENCHMARK_NOTES.md).
+
+## Oregonator follow-up
+
+The original Qwen3.8 attempt failed because X_sd and Z_sd were mapped both as
+observables and as uncertainty columns. Commit `8607451` clarified the observable
+extraction instructions to exclude user-described uncertainty columns. The original
+scientific input, CSV, model digest and smoke settings were unchanged. The retry
+passed new, check, jax, run and diagnose in 278.412 seconds. Equations, bounds,
+initial conditions and the sigma-weighted pooled RMSE were inspected against the
+prompt. This is a pass after a framework correction, not a first-attempt pass.
+
+Original attempt: `superseded_attempts/oregonator/qwen38_27b/initial/`.
+Selected result provenance: `cases/oregonator/qwen38_27b/attempt_history.json`.
+Independent retry evidence: `evaluation_runs/qwen38_oregonator_retry_20261005/`.
 
 ## Post-run scientific audit: headered sliding-basepoint case
 

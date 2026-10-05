@@ -24,5 +24,16 @@
   },
   "status": "completed",
   "pid": 19407,
-  "finished_utc": "2026-10-05T01:54:45Z"
+  "finished_utc": "2026-10-05T01:54:45Z",
+  "result_updates": [
+    {
+      "case": "oregonator",
+      "model": "qwen38_27b",
+      "original_status": "fail",
+      "status": "pass",
+      "retry_root": "evaluation_runs/qwen38_oregonator_retry_20261005",
+      "finished_utc": "2026-10-05T02:27:34Z",
+      "fix_commit": "8607451"
+    }
+  ]
 }

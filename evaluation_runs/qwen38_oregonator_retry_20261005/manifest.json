@@ -1,0 +1,31 @@
+{
+  "status": "completed",
+  "started_utc": "2026-10-05T02:22:54Z",
+  "pid": 82503,
+  "framework_commit": "860745169b28b4b6e2235ddcd68ac0f985382aed",
+  "source_attempt": "evaluation_runs/qwen38_comparison_20261005/cases/oregonator/qwen38_27b",
+  "reason": "Retry after observable-extraction prompt distinguishes uncertainty columns; user input, data, model and smoke budgets unchanged.",
+  "case": {
+    "name": "oregonator",
+    "source": "sessions/oregonator",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "data.csv"
+    ],
+    "prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "original_prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "data.csv": "90a248e2bb6973c7e84b20b8bac6f1597a51a18789c9be93079e8a47a4ecabf8",
+      "user_info.txt": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  "case_status": "pass",
+  "failed_stage": "",
+  "finished_utc": "2026-10-05T02:27:34Z"
+}

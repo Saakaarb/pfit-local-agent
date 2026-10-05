@@ -1,0 +1,64 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_oregonator_retry_20261005/cases/oregonator/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_oregonator_retry_20261005/cases/oregonator/qwen38_27b/session/outputs/run_20261005_022542_101809
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.4745E+01, best loss 1.4745E+01, final loss 1.4745E+01
+- NODE: 2 iterations, first loss 1.4744E+01, best loss 1.4743E+01, final loss 1.4743E+01
+
+Generation workflow:
+- events: 4 passed, 1 failed, 1 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: data.csv; loss=14.743391562732338; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 4
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_oregonator_retry_20261005/cases/oregonator/qwen38_27b/session/outputs/run_20261005_022542_101809/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- f=99.77 is at 99.98% of its log10 search interval.
+- [BOUND] f=99.77 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 2.40773; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, X: RMSE=0.207572, bias=-0.0597131, time correlation=0.0434683027808779, lag-1=0.8901585451252844.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, Z: RMSE=0.107049, bias=-0.0611028, time correlation=0.00793317966805876, lag-1=0.9743532123935883.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_oregonator_retry_20261005/cases/oregonator/qwen38_27b/session/outputs/run_20261005_022542_101809/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_oregonator_retry_20261005/cases/oregonator/qwen38_27b/session/outputs/run_20261005_022542_101809/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The optimizer is pinned at the upper bound of f (99.77 / max 100, 99.98 % of the log10 interval) after only 5 gradient iterations, with a normalized gradient norm of 2.41 (not stationary) and all four Hessian eigenvalues negative. The loss moved only from 14.7448 to 14.7434. Temporal correlations are very low (X: 0.043, Z: 0.008), indicating the model captures levels but not oscillation timing. The boundary constraint on f is the dominant suspect; the negative Hessian modes may be a boundary/numerical artefact rather than a true saddle.
+1. Determine whether f = 100 is a physically meaningful ceiling for the Oregonator feed rate in this experiment. If the true value could exceed 100, widen the upper bound (e.g. to 1000) and run a full fit (DE + gradient) from scratch. If 100 is the correct physical maximum, the model structure or the other parameters may need re-examination. [BOUND] f = 99.77 sits at 99.98 % of its log10 search interval [0.01, 100]. The optimizer is pressing against the wall; any further gradient descent in the f-direction is blocked. Until this is resolved, no amount of additional iterations will move f past 100, and the negative Hessian mode in that direction is expected (one-sided boundary) rather than informative.
+2. Run 'diagnose --probe-gradients' to verify that the autodiff gradient is consistent with finite differences at the current point, paying special attention to the f-direction (boundary) and the stiff eps1/eps2 directions. If a mismatch is found, identify the offending parameter before any further optimisation. [SLOPPINESS, STATIONARITY] All four Hessian eigenvalues are negative (4 negative modes, 0 weak), which is atypical for a loss minimum and may indicate a numerical artefact (finite-difference instability in a stiff fast-slow system) or a true saddle. The normalized gradient norm of 2.41 confirms the point is not stationary. Gradient verification must precede any interpretation of the Hessian or any restart.
+3. If gradient checks pass and the f-bound is confirmed appropriate, increase gradient_opt.num_iters from 5 to at least 50–100 and perform a gradient-only restart from the current parameter vector. Monitor the loss trace for material improvement beyond the current 14.7434. [BUDGET, STATIONARITY] The optimizer terminated on iteration_budget after only 5 Adam steps, with the loss changing by only ~0.0014 (14.7448 → 14.7434). The gradient norm of 2.41 indicates there is still descent direction available. A budget-limited stop is not a convergence stop, so a longer gradient phase is warranted before concluding the model cannot fit better.
+4. Inspect the trajectory plot 'fit_exp1.png' and the time-region residual breakdown. For X, the time correlation is only 0.043 while lag-1 is 0.890; for Z, time correlation is 0.008 while lag-1 is 0.974. Check whether the model oscillation period matches the data, whether initial conditions (X=0.778, Y=0.267, Z=0.209) are consistent with the recorded trajectory, and whether the forcing timing in dataset_1.csv aligns with the model's q-driven input. [RESIDUAL] Near-zero time correlations with high lag-1 correlations indicate the model reproduces the amplitude/level of X and Z but is out of phase or has the wrong oscillation frequency. This pattern is consistent with f being stuck at its bound (affecting the Y-equation feed term f·Z and thus the oscillation period) or with a structural mismatch in the Oregonator parameterisation. Visual inspection of the named plot is needed before attributing the mismatch to a specific cause.
+Limitation: The four negative Hessian eigenvalues cannot be distinguished from a finite-difference artefact without a passing gradient probe; they do not by themselves prove the point is a saddle or that autodiff is wrong.
+Limitation: The very low time correlations (0.043 for X, 0.008 for Z) could result from the f-bound constraint, from incorrect initial conditions, from a period mismatch, or from a structural model limitation; the evidence does not isolate a single cause.
+Limitation: The DE phase ran only 1 iteration with a population of 4, so the seed point is a weak starting point; the gradient phase inherited a potentially suboptimal initialisation.
+Limitation: No noise-level or identifiability analysis is available; the negative Hessian modes and the boundary pinning together make it impossible to assess whether the parameters are identifiable from this single experiment.
+Limitation: The residual statistics are computed on the fitted (training) record; no independent validation data are present to assess generalisation.
