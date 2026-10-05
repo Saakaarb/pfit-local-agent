@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 import subprocess
 
+import pytest
+
 from scripts import run_model_comparison as comparison
 
 
@@ -113,3 +115,29 @@ def test_external_smoke_applies_start_time_before_check_and_skips_curvature(tmp_
     result = json.loads((tmp_path / 'cases/example/qwen32b/metadata.json').read_text())
     assert result['settings']['sloppiness'] is False
     assert result['pre_run_configuration'] == case['pre_run_configuration']
+
+
+@pytest.mark.parametrize('model,thinking', [('qwen3.8:27b', True), ('qwen2.5-coder:32b', None)])
+def test_benchmark_thinking_mode_preserves_content_and_budget(tmp_path, monkeypatch, model, thinking):
+    from local_agent.llm.ollama import OllamaClient
+    import local_agent.cli.main as cli
+
+    def fake_post(self, path, payload):
+        assert payload.get('think') is thinking
+        assert payload['options']['num_predict'] == 12000
+        assert payload['options']['num_ctx'] == 32768
+        return {'message': {'content': '{"ok":true}', 'thinking': 'reasoning' if thinking else ''},
+                'done_reason': 'stop', 'eval_count': 12}
+
+    def fake_main(arguments):
+        assert OllamaClient(model).complete([]) == '{"ok":true}'
+        return 0
+
+    monkeypatch.setattr(OllamaClient, '_post_json', fake_post)
+    monkeypatch.setattr(cli, 'main', fake_main)
+    with pytest.raises(SystemExit) as outcome:
+        comparison.instrumented_worker(tmp_path, 'new', [])
+    assert outcome.value.code == 0
+    metric = json.loads((tmp_path / 'llm_metrics.jsonl').read_text())
+    assert metric['think'] == (True if thinking else 'model default')
+    assert metric['thinking_characters'] == (9 if thinking else 0)

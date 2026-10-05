@@ -10,7 +10,10 @@
     "thinking_model": false,
     "thinking_mode": "non-thinking instruct; no separate reasoning channel",
     "expected_download_bytes": 20000000000,
-    "sources": ["https://ollama.com/library/qwen2.5-coder:32b", "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"]
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ]
   },
   {
     "key": "qwen14b",
@@ -23,7 +26,10 @@
     "thinking_model": false,
     "thinking_mode": "non-thinking instruct; no separate reasoning channel",
     "expected_download_bytes": 9000000000,
-    "sources": ["https://ollama.com/library/qwen2.5-coder:14b", "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct"]
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:14b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct"
+    ]
   },
   {
     "key": "qwen3_coder_next",
@@ -36,6 +42,27 @@
     "thinking_model": false,
     "thinking_mode": "non-thinking only, per Qwen model card",
     "expected_download_bytes": 36300000000,
-    "sources": ["https://huggingface.co/Qwen/Qwen3-Coder-Next", "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/tree/main"]
+    "sources": [
+      "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+      "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/tree/main"
+    ]
+  },
+  {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ]
   }
 ]

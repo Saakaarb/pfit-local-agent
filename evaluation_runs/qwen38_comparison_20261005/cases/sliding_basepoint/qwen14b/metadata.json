@@ -1,0 +1,170 @@
+{
+  "case": "sliding_basepoint",
+  "model_metadata": {
+    "key": "qwen14b",
+    "model": "qwen2.5-coder:14b",
+    "label": "Qwen2.5-Coder 14B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 14.8,
+    "nominal_active_parameters_billion": 14.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 9000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:14b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct"
+    ],
+    "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+    "size_bytes": 8988124298,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 147.93025953508914,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 14770033664,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "60022b84afca11b529c34eeb0d05d18dd171b7c8",
+    "warmup_seconds": 4.987539296969771,
+    "warmup_response": {
+      "model": "qwen2.5-coder:14b",
+      "created_at": "2026-10-03T22:41:40.410271764Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 4986875854,
+      "load_duration": 4892824955,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 76394000,
+      "eval_count": 2,
+      "eval_duration": 15465000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:14b",
+          "model": "qwen2.5-coder:14b",
+          "size": 12266745363,
+          "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "14.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-13T22:28:57.265190133Z",
+          "size_vram": 12266745363,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 12307 MiB"
+  },
+  "input_audit": {
+    "name": "sliding_basepoint",
+    "source": "sessions/sliding_basepoint",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "force_disp_data_sliding_basepoint.csv"
+    ],
+    "prompt_sha256": "66462d8b852450322622110fd57501fa0d936ef3109ad9c6987d5c5ede155deb",
+    "original_prompt_sha256": "66462d8b852450322622110fd57501fa0d936ef3109ad9c6987d5c5ede155deb",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "force_disp_data_sliding_basepoint.csv": "77c96e34f79a89cfe7a6db42fb923c7ea8a4e47d12005fde6bd0a9a3310a4cb0",
+      "user_info.txt": "66462d8b852450322622110fd57501fa0d936ef3109ad9c6987d5c5ede155deb"
+    }
+  },
+  "status": "fail",
+  "started_utc": "2026-10-03T22:55:47Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-03T22:55:47Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/sliding_basepoint/qwen14b/session",
+        "--model",
+        "qwen2.5-coder:14b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 83568,
+      "exit_code": 1,
+      "seconds": 39.202,
+      "finished_utc": "2026-10-03T22:56:26Z",
+      "status": "fail",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "failed_stage": "new",
+  "finished_utc": "2026-10-03T22:56:26Z",
+  "total_wall_seconds": 39.244,
+  "repair_calls": 5,
+  "logged_successful_llm_calls": 11,
+  "llm_calls": 11,
+  "llm_wall_seconds": 38.195682410150766,
+  "prompt_tokens": 25277,
+  "generated_tokens": 1901,
+  "token_counts_incomplete": false
+}

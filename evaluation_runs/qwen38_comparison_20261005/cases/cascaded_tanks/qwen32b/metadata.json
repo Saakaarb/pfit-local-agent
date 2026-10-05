@@ -1,0 +1,303 @@
+{
+  "case": "cascaded_tanks",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.07711667940020561,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "60022b84afca11b529c34eeb0d05d18dd171b7c8",
+    "warmup_seconds": 0.4274640716612339,
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-10-03T22:09:42.036174204Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 426861832,
+      "load_duration": 25563470,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 4,
+      "prompt_eval_duration": 70236000,
+      "eval_count": 2,
+      "eval_duration": 15718000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-13T21:56:58.891098717Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 23961 MiB"
+  },
+  "input_audit": {
+    "name": "cascaded_tanks",
+    "source": "tests/fixtures/cascaded_tanks",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "estimation.csv"
+    ],
+    "prompt_sha256": "08e3877c1bbf117dcf2a93a81a4937ed01594fc7b8e1afa6acc40a578255d0eb",
+    "original_prompt_sha256": "3abd00dfd55320f37c60ab1bc191946bf4a2d396b848a1f95d62c8946cf9708d",
+    "prompt_audit": "Expanded loss-only notes into scientific equations, bounds, initial conditions, observations, inputs and experiment definitions. No Python or YAML supplied.",
+    "input_hashes": {
+      "estimation.csv": "c48c8602fdf03b6445f5e54494e4aff251035450d546865053bcb0fa7de84b82",
+      "user_info.txt": "08e3877c1bbf117dcf2a93a81a4937ed01594fc7b8e1afa6acc40a578255d0eb",
+      "validation.csv": "b0978e1a4933dc79db58a9ed66e9776e675a9ac826d33053bae94323d1864a2b"
+    }
+  },
+  "status": "degraded",
+  "started_utc": "2026-10-03T22:15:40Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-03T22:15:40Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 42256,
+      "exit_code": 0,
+      "seconds": 27.886,
+      "finished_utc": "2026-10-03T22:16:08Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-03T22:16:08Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 42321,
+      "exit_code": 0,
+      "seconds": 10.346,
+      "finished_utc": "2026-10-03T22:16:19Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-03T22:16:19Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 42393,
+      "exit_code": 0,
+      "seconds": 15.204,
+      "finished_utc": "2026-10-03T22:16:34Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-03T22:16:34Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session"
+      ],
+      "pid": 43050,
+      "exit_code": 0,
+      "seconds": 12.242,
+      "finished_utc": "2026-10-03T22:16:46Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-03T22:16:46Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/model_comparison_20261003/cases/cascaded_tanks/qwen32b/session",
+        "run_20261003_221634_967879",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 43768,
+      "exit_code": 0,
+      "seconds": 16.549,
+      "finished_utc": "2026-10-03T22:17:03Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 120,
+      "integrator": "Tsit5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20261003_221634_967879",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 1.8033226240240372,
+    "final_loss": 1.8033226240240372,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      1.8033226240240372
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 0,
+    "refinement_error": null,
+    "termination": "invalid_loss_or_gradient",
+    "termination_detail": "Iteration 0: non-finite gradient (NaN/Inf) for k1, k4"
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-03T22:17:03Z",
+  "total_wall_seconds": 82.422,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 56.804442865774035,
+  "prompt_tokens": 20003,
+  "generated_tokens": 1702,
+  "token_counts_incomplete": false
+}

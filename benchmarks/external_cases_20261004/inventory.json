@@ -90,6 +90,9 @@
           "status": "pass",
           "failed_stage": ""
         }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -177,6 +180,9 @@
           "status": "pass",
           "failed_stage": ""
         }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -261,6 +267,9 @@
           "status": "fail",
           "failed_stage": "new"
         }
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -334,6 +343,9 @@
       "limitations": [
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -412,6 +424,9 @@
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability.",
         "Initial values use prior calibration information; not a blind parameter-recovery test."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/qwen38_comparison_20261005"
       ]
     },
     {
@@ -481,6 +496,9 @@
         "Adapted inverse problem, not an exact reproduction of the full published estimation problem.",
         "Smoke-test success does not establish convergence or parameter identifiability.",
         "Initial values use prior calibration information; not a blind parameter-recovery test."
+      ],
+      "planned_model_comparison_runs": [
+        "evaluation_runs/qwen38_comparison_20261005"
       ]
     }
   ],

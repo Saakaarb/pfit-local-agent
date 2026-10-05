@@ -57,13 +57,17 @@ def instrumented_worker(directory, stage, arguments):
     from local_agent.llm.ollama import OllamaClient
     from local_agent.cli.main import main
     original = OllamaClient._post_json
+    specifications = json.loads((REPO / "benchmarks/model_comparison/models.json").read_text())
+    request_options = {m["model"]: m.get("request_options", {}) for m in specifications}
 
     def timed(self, path, payload):
         # Benchmark-only controls, equal across models. No prompt modifications.
         payload['options'].update(OPTIONS)
         payload['keep_alive'] = -1
+        if 'think' in request_options.get(self.model, {}):
+            payload['think'] = request_options[self.model]['think']
         record = dict(started_utc=utc(), stage=stage, model=self.model,
-                      options=payload['options'].copy(), status='error')
+                      options=payload['options'].copy(), think=payload.get('think', 'model default'), status='error')
         start = time.monotonic()
         try:
             response = original(self, path, payload)
@@ -152,8 +156,12 @@ def report(root, models, inventory):
         'semantic checks and source-to-JAX fidelity checks. This is not an independent proof that '
         'every generated equation matches the original scientific specification.', '',
         'Models differ in architecture, generation, and quantization. Dense total parameters are used '
-        'as nominal active counts; the MoE 3B active count is approximate. All are non-thinking. '
+        'as nominal active counts; active counts for MoE models are approximate. '
+        'Thinking capability and requested mode are recorded in model metadata. '
+        'For thinking models, the generation budget also includes reasoning tokens. '
         'One trial cannot estimate success probabilities or timing variance.', '']
+    if (root / 'BENCHMARK_NOTES.md').exists():
+        lines += ['See [batch protocol and baseline provenance](BENCHMARK_NOTES.md).', '']
     (root / 'comparison.md').write_text('\n'.join(lines))
     if rows:
         with (root / 'comparison.csv').open('w') as handle:
@@ -293,8 +301,10 @@ def ensure_model(root, model, rotate, env):
     save(directory / 'metadata.json', result)
     warm_start = time.monotonic()
     warm = api('chat', dict(model=model['model'], messages=[dict(role='user', content='Reply with OK.')],
-                           stream=False, options=dict(OPTIONS, num_predict=8), keep_alive=-1))
+                           stream=False, options=dict(OPTIONS, num_predict=8), keep_alive=-1,
+                           **({'think': False} if model.get('thinking_model') else {})))
     result['warmup_seconds'] = time.monotonic() - warm_start
+    result['warmup_thinking'] = False if model.get('thinking_model') else 'not applicable'
     result['warmup_response'] = warm
     result['loaded_model'] = api('ps')
     result['gpu_after_load'] = command_output(['nvidia-smi', '--query-gpu=name,memory.total,memory.used', '--format=csv'])
@@ -310,6 +320,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--models', nargs='*')
+    parser.add_argument('--report-models', nargs='+', help='Include existing baseline results without rerunning them')
     parser.add_argument('--rotate-models', action='store_true')
     parser.add_argument('--restore-current-model', action='store_true')
     args = parser.parse_args()
@@ -321,6 +332,9 @@ def main():
     selected = [m for m in models if not args.models or m['key'] in args.models]
     if not selected or (args.models and set(args.models) - {m['key'] for m in models}):
         parser.error('Select at least one known comparison model')
+    displayed = [m for m in models if m['key'] in args.report_models] if args.report_models else selected
+    if args.report_models and set(args.report_models) - {m['key'] for m in models}:
+        parser.error('Unknown report model')
     env = dict(os.environ, JAX_PLATFORMS='cpu', JAX_ENABLE_X64='true',
                XLA_PYTHON_CLIENT_PREALLOCATE='false', PYTHONUNBUFFERED='1')
     manifest_path = root / 'manifest.json'
@@ -354,7 +368,7 @@ def main():
                 raise ValueError(f'Frozen input changed: {path}')
     manifest.update(status='running', pid=os.getpid())
     save(manifest_path, manifest)
-    report(root, selected, inventory)
+    report(root, displayed, inventory)
     for model in selected:
         outstanding = [c for c in inventory if not (root / 'cases' / c['name'] / model['key'] / 'metadata.json').exists()]
         if not outstanding:
@@ -371,14 +385,14 @@ def main():
                      dict(status='blocked' if case['status'] == 'blocked' else 'infrastructure_error',
                           reason=case.get('reason', batch['error']), model_metadata=model))
             save(manifest_path, manifest)
-            report(root, selected, inventory)
+            report(root, displayed, inventory)
             continue
         batch['status'] = 'running'
         save(manifest_path, manifest)
         # A simple case first, then a fixed alphabetical order for every model.
         for case in sorted(outstanding, key=lambda c: (c['name'] != 'theophylline', c['name'])):
             run_case(root, case, model, metadata, env)
-            report(root, selected, inventory)
+            report(root, displayed, inventory)
         batch.update(status='completed', finished_utc=utc())
         save(manifest_path, manifest)
     if args.restore_current_model:
@@ -392,7 +406,7 @@ def main():
             manifest['default_model_restoration_error'] = str(exc)
     manifest.update(status='completed', finished_utc=utc())
     save(manifest_path, manifest)
-    report(root, selected, inventory)
+    report(root, displayed, inventory)
     print(f'Completed: {root / "comparison.md"}', flush=True)
 
 
