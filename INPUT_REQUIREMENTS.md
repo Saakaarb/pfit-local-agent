@@ -879,42 +879,40 @@ the DE comparison. Disable both options to keep all configured tolerances.
 Legacy scripts without solver statistics skip both checks. Additional tolerance
 checks count against the recovery deadline when run inside bounded recovery.
 
-### Sampled integrator selection
+### Dataset-based integrator selection
 
-Fresh `pfit new` configurations start with `Tsit5` and
-`gradient_opt.auto_integrator: true`. Solver selection no longer depends on
-keywords in the model description/LLM review or on parameter-bound ratios.
-Existing YAML without this flag keeps its selected integrator. Set the flag to
-`false` to prevent switching. Explicit choices other than `Tsit5` are preserved.
+Fresh configurations enable `gradient_opt.auto_integrator: true`. Before JAX
+translation, the workflow selects one solver using only mapped measurement
+columns across all experiments. The initial YAML uses Kvaerno5 as a placeholder.
+Existing YAML without this flag, or with it false, preserves its explicit solver.
+With the flag true, dataset selection replaces the configured integrator.
 
-If Tsit5 fails the sampled completion target after bounded step/sample recovery,
-the workflow makes one Kvaerno5 trial at the **same last attempted step ceiling,
-parameter sample count, seed, bounds, experiments and reference tolerances**.
-Step exhaustion, failed integration or nonfinite trajectories can trigger it;
-invalid losses alone cannot. Failed or inconclusive accuracy comparisons and
-Tsit5 recovery timeouts also trigger the bounded Kvaerno5 trial. Worker failures,
-missing prediction interfaces, and source-fidelity/contract errors do not. Kvaerno5 must meet the same
-completion target and pass all subsequent acceptance checks. Only then is it
-saved to YAML and stamped as ready. State-scaled tolerance selection and DE
-relaxation run after successful coverage, using the selected integrator.
+For each column with at least eight finite observations, a five-point rolling
+median suppresses isolated spikes. Using the corresponding interior time points,
+let A be the smoothed peak-to-peak amplitude and v the absolute adjacent slopes.
+Exclude numerically zero slopes. Estimate fast and slow times as
+`A / percentile90(v)` and `A / percentile10(v)`. Across all measured columns and
+experiments, divide the largest slow time by the smallest fast time:
 
-There is no additional solver ladder or per-particle solver switching. Failure
-of the implicit trial restores the pre-recovery configuration and leaves the
-script pending. A switch is evidence of sampled feasibility, not a stiffness
-diagnosis or proof that Kvaerno5 is fastest. Equations and loss expressions are
-not changed. Numerical failures do not invoke LLM repair.
+- Ratio >= 100: select Kvaerno5.
+- Ratio < 100 with informative, resolved data: select Tsit5.
+- Insufficient observations/changes, unresolved fast variation (fast time less
+  than two median sample intervals), or no non-flat measurements: select Kvaerno5.
 
-The Kvaerno5 trial has its own `solver_recovery_timeout_seconds` deadline,
-including compilation and subsequent acceptance checks. Thus additional recovery
-is bounded by at most twice that setting: one budget for Tsit5 recovery and one
-for Kvaerno5. The initial ordinary validation remains outside that deadline.
-`generated/solver_selection.json` records the fallback decision;
-`solver_recovery.json` records the preceding Tsit5 budget-recovery phase.
-`solver_coverage.json` labels each trial by integrator, with first-sample and
-remaining-sample wall times. First-sample time may include JIT compilation;
-these are not isolated compilation or throughput measurements. Per-solve step
-statistics remain in `solver_diagnostics.json`.
+Forcing, uncertainty and auxiliary columns do not enter the calculation. Missing
+observations are omitted. Flat columns provide no time-scale evidence. The
+100-fold threshold is an explicit heuristic, not a mathematical stiffness test.
+Observed curves can hide fast unmeasured or already-decayed modes; no dataset-only
+method can certify non-stiffness across the parameter search space. Noise and
+sparse sampling can also affect the estimate. Reports expose the evidence and
+limitations in `generated/solver_selection.json`.
 
+This is the only automatic solver-selection method. There are no keyword rules,
+parameter-bound heuristics, or switches triggered by successful/failed solver
+probes. Sampled coverage, bounded step/sample recovery, tolerance calibration,
+and forward-accuracy validation still run, using the selected solver throughout.
+A validation failure blocks readiness; it does not select another integrator.
+Numerical failures do not invoke LLM repair.
 
 ### Parallel forward-accuracy acceptance
 
@@ -928,7 +926,7 @@ this check passes. If only the automatic DE relaxation fails, DE retains the
 already-validated refinement settings; no additional solves are needed. Explicit
 population tolerances are not overwritten. A failed refinement check does not
 automatically adopt the tighter reference: those settings have not themselves been validated against a further
-reference. It instead permits the bounded implicit-solver fallback when enabled.
+reference. It blocks readiness without changing the selected solver.
 
 At most four feasible parameter vectors are selected deterministically: the
 lowest mean-loss candidate, the candidate with most integration steps across
@@ -962,10 +960,8 @@ existing `1e-8 + 1% * abs(reference_loss)` comparison. Reports are saved in
 `generated/solver_accuracy.json`, including selected probes, workers, thresholds,
 solver statistics and per-observable discrepancies. A finite prediction
 mismatch is `accuracy_failed`; a numerical failure in a candidate/reference
-integration is `accuracy_inconclusive`. Either causes Tsit5 to try Kvaerno5 when
-`auto_integrator` is enabled. Kvaerno5 must still pass coverage, valid-loss,
-fidelity and accuracy checks: inconclusive accuracy is never labelled passed.
-A missing prediction interface is a contract issue, not a reason to switch.
-Recovery deadlines include these checks; an implicit-trial timeout remains
-inconclusive and blocks readiness. This is a sampled forward-convergence test,
+integration is `accuracy_inconclusive`. Either blocks readiness without changing the selected solver. Coverage, valid-loss,
+fidelity and accuracy checks must still pass: inconclusive accuracy is never
+labelled passed. Recovery deadlines include these checks.
+This is a sampled forward-convergence test,
 not a guarantee for the entire parameter space or for gradients/Hessians.

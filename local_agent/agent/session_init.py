@@ -629,8 +629,6 @@ def _assemble_split_new_session_response(
         for data in (states_data, equations_data, observables_data, loss_data)
         if _require_string(data, "review", allow_empty=True)
     ]
-    if _text_requests_stiff_integrator(session_context):
-        reviews.append("Original user context indicates a stiff model.")
     return {
         "missing_inputs": [],
         "review": "\n".join(reviews),
@@ -2270,7 +2268,6 @@ def _render_user_input_yaml(spec: NewSessionSpec) -> str:
     )
     rtol = "[" + ", ".join("1e-7" for _ in spec.states) + "]"
     atol = "[" + ", ".join("1e-9" for _ in spec.states) + "]"
-    integrator = _select_integrator(spec)
     experiments = spec.experiments or ({"data_file": spec.filename_data, "initial_conditions": {}},)
     experiment_lines = []
     for experiment in experiments:
@@ -2314,7 +2311,7 @@ gradient_opt:
   solver_accuracy_check: true
   solver_accuracy_workers: 4
   auto_integrator: true
-  integrator: {integrator}
+  integrator: Kvaerno5
   init_value_lr: 1e-4
   end_value_lr: 1e-5
   transition_steps_lr: 2000
@@ -2323,25 +2320,6 @@ gradient_opt:
 output:
   write_results: true
 """
-
-
-def _select_integrator(spec: NewSessionSpec) -> str:
-    # Numerical readiness may replace this with Kvaerno5 after a matched trial.
-    return "Tsit5"
-
-
-def _text_requests_stiff_integrator(text: str) -> bool:
-    lower = text.lower()
-    stiff_markers = (
-        "stiff",
-        "stiffness",
-        "fast-slow",
-        "fast slow",
-        "chemical kinetics",
-        "combustion",
-        "reaction network",
-    )
-    return any(marker in lower for marker in stiff_markers)
 
 
 def _render_experiment_columns(spec: NewSessionSpec) -> list[str]:
