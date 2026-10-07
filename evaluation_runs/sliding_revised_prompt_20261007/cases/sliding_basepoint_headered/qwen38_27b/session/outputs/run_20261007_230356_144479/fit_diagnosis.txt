@@ -1,0 +1,65 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b/session/outputs/run_20261007_230356_144479
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.0923E-01, best loss 1.0923E-01, final loss 1.0923E-01
+- NODE: 2 iterations, first loss 1.0905E-01, best loss 1.0901E-01, final loss 1.0901E-01
+
+Generation workflow:
+- events: 3 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: force_disp_data_sliding_basepoint.csv; loss=0.1090104985897661; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b/session/outputs/run_20261007_230356_144479/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- Estimated Hessian has substantial asymmetry before symmetrization.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.71394; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.71394; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, contact_force: RMSE=60.2275, bias=16.7362, time correlation=-0.3815898573492145, lag-1=0.9499859027675884.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, displacement: RMSE=0.0177304, bias=-0.0138602, time correlation=-0.1279299381369145, lag-1=0.9751870788957638.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b/session/outputs/run_20261007_230356_144479/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b/session/outputs/run_20261007_230356_144479/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The run stopped at its 5-iteration Adam budget with a normalized gradient norm of 0.714 (not stationary) and one negative Hessian mode, meaning the current point is not a local minimum. The contact_force residual (RMSE 60.2, negative time correlation −0.38) indicates substantial model–data mismatch that additional iterations from this non-convex point are unlikely to resolve.
+1. Before any restart, investigate the single negative Hessian mode: recompute the Hessian with a tighter finite-difference step or verify autodiff gradients (diagnose --probe-gradients) to confirm the negative mode is not a numerical artefact. If it is genuine, the current point is a saddle or non-convex region and a gradient-only restart from here is unreliable. [SLOPPINESS] SLOPPINESS reports 1 negative mode and 0 weak modes. A negative eigenvalue means the loss surface curves downward in at least one direction, so the point is not a local minimum. Adam's descent direction at this point may lead away from a minimum rather than toward one, making a simple iteration-budget increase ineffective or counterproductive.
+2. Inspect the plot fit_exp1.png and the per-time-region contact_force residuals. The overall RMSE is 60.23 (max_abs 140.64) with a negative time correlation of −0.38, while the last time region (t ≈ 0.101–0.151) drops to RMSE 8.41. Check whether the initial conditions (v1=11.06, x1=x2=0), the input timing, and the contact-force observable definition (|k(x2−x1) − c1|v1||/1000) are consistent with the measured data before spending more optimizer iterations. [RESIDUAL] A negative time correlation (−0.38) means the model's contact-force trajectory is anti-correlated with the measurement over the full window, which is a strong signal of phase offset, wrong initial conditions, or structural mismatch rather than a small parameter error. The large improvement in the last time region (RMSE 66.6 → 8.4) suggests the model recovers later, pointing to an early-transient or initial-condition issue. The displacement channel (RMSE 0.0177, time correlation −0.13) is much smaller in magnitude but also shows a mild anti-correlation, reinforcing a possible phase or IC problem.
+3. If the negative Hessian mode is confirmed to be numerical (not structural) and the residual investigation does not reveal an IC or timing error, increase gradient_opt.num_iters from 5 to at least 50 and run a gradient-only restart from this run. Monitor the loss trace for material improvement beyond the 0.10901 → 0.10901 plateau seen in iterations 4–5. [BUDGET, STATIONARITY] BUDGET shows the optimizer terminated at its 5-iteration budget, and STATIONARITY confirms the normalized gradient norm is 0.714, well above a convergence threshold. The Adam trace shows only a 0.0002 loss reduction over 5 iterations (0.10905 → 0.10901), consistent with a very small learning rate (init 1e-4, end 1e-5) and insufficient iterations. However, this step is conditional on the SLOPPINESS and RESIDUAL checks above.
+4. Review whether the fitted parameter values are physically plausible for the sliding-contact system: Dk=2.94 (86.7 % of its [0.001, 10] range), c2=94 270 (32.5 % of [10 000, 10 000 000]), m1=2022, m2=20.6. In particular, Dk near the upper bound combined with the large contact_force residual may indicate the stiffness-decay law dk/dt = Dk·|m1·v1·(k(x2−x1)−c1|v1|)/m1| is not capturing the measured force decay. Consider whether the functional form of the decay (linear in force) matches the physics, or whether a different decay law is needed. This is a scientific model question, not a numerical fix. [RESIDUAL, PARAMETERS] PARAMETERS shows Dk at 86.7 % of its allowed range, suggesting the optimizer is pushing it toward the boundary to compensate for a structural mismatch. The contact_force RMSE of 60.2 with a bias of +16.7 (model over-predicts on average) and the negative time correlation together indicate the model's force trajectory shape is wrong, not just its amplitude. Changing the decay law or the contact-force observable would be a scientific model change requiring re-derivation and re-fitting, not a parameter tweak.
+Limitation: The single negative Hessian mode could be a genuine non-convexity or a numerical artefact of the Hessian computation; the evidence cannot distinguish these without a tighter finite-difference or autodiff cross-check.
+Limitation: The negative time correlation in contact_force (−0.38) could arise from a phase offset, incorrect initial conditions, a timing misalignment in dataset_1.csv, or a structural model mismatch; the residual statistics alone cannot identify which cause is responsible.
+Limitation: With 71 data points and 5 trainable parameters, the effective degrees of freedom are limited; identifiability of individual parameters (especially Dk vs c2, which both affect the contact force) cannot be assessed from this run alone.
+Limitation: The DE phase used only 1 iteration with a population of 4, so the initial search was extremely limited; the gradient phase started from a single point that may not be near the global minimum. The evidence cannot establish whether a better starting point would yield a different local minimum.
+Limitation: The loss is a normalized RMSE (divided by max|data|), so the absolute magnitude of the loss (0.109) does not directly indicate the physical size of the mismatch; the per-channel RMSE values are the more informative metric.
+Limitation: No gradient-check or finite-difference stability evidence is available in this snapshot; the reliability of the reported gradient norm (0.714) and Hessian eigenvalues is assumed but not independently verified.

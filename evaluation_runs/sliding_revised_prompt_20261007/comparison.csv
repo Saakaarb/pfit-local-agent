@@ -1,0 +1,2 @@
+case,model,status,failed_stage,total_wall_seconds,llm_wall_seconds,repair_calls,model_size_bytes,total_parameters_billion,active_parameters_billion,quantization,thinking_model,duplicate_of,result_origin,initial_status,source_metadata,manual_intervention,new_seconds,check_seconds,jax_seconds,run_seconds,diagnose_seconds
+sliding_basepoint_headered,qwen38_27b,pass,,219.251,192.00260332599282,0,17741872154,27.3,27.3,Q4_K_M,True,sliding_basepoint,fresh_attempt,pass,,False,74.452,42.416,35.655,13.544,52.682

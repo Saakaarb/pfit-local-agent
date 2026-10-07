@@ -1,0 +1,14 @@
+{
+  "source_batch": "evaluation_runs/final_three_model_comparison_20261007",
+  "case": "sliding_basepoint_headered",
+  "model": "qwen3.8:27b",
+  "change": "Prompt clarification only; no manual source-code correction",
+  "comparison_scope": "Separate prompt revision experiment; original final comparison preserved",
+  "original_prompt_sha256": "66462d8b852450322622110fd57501fa0d936ef3109ad9c6987d5c5ede155deb",
+  "revised_prompt_sha256": "1b5cc8723f6cb70bdf07130544a5df7a480a0347975c99aa8988b91e31104ac6",
+  "smoke_budget": {
+    "de_particles": 4,
+    "de_iterations": 1,
+    "adam_iterations": 5
+  }
+}

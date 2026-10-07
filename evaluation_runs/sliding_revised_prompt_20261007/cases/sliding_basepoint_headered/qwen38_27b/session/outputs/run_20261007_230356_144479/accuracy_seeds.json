@@ -1,0 +1,411 @@
+{
+  "code": "accuracy_passed",
+  "integrator": "Tsit5",
+  "max_steps": 1000,
+  "sample_count": 80,
+  "probe_samples": [
+    70,
+    65,
+    49,
+    20
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 70,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ],
+      "observables": [],
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 1000,
+          "num_accepted_steps": 517,
+          "num_rejected_steps": 483,
+          "num_steps": 1000
+        },
+        "sample": 70,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10
+        ]
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 65,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ],
+      "observables": [],
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 1000,
+          "num_accepted_steps": 524,
+          "num_rejected_steps": 476,
+          "num_steps": 1000
+        },
+        "sample": 65,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10
+        ]
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 49,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 0.030884061720881043
+        },
+        {
+          "name": "displacement",
+          "max_normalized_difference": 0.014782080441321154
+        }
+      ],
+      "loss": 0.6578864688602318,
+      "reference_loss": 0.6578864774004054,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 107,
+        "num_rejected_steps": 38,
+        "num_steps": 145
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 165,
+        "num_rejected_steps": 62,
+        "num_steps": 227
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 49,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1e-08,
+        1e-08,
+        1e-08,
+        1e-08,
+        1e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 1.126760372609412
+        }
+      ],
+      "loss": 0.6578865745671264,
+      "reference_loss": 0.6578864688602318,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 27,
+        "num_steps": 95
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 107,
+        "num_rejected_steps": 38,
+        "num_steps": 145
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 0.0015252864377388582
+        },
+        {
+          "name": "displacement",
+          "max_normalized_difference": 5.009694418930928e-06
+        }
+      ],
+      "loss": 0.2540964322880779,
+      "reference_loss": 0.25409643458589126,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 218,
+        "num_rejected_steps": 245,
+        "num_steps": 463
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 289,
+        "num_rejected_steps": 280,
+        "num_steps": 569
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1e-08,
+        1e-08,
+        1e-08,
+        1e-08,
+        1e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 0.032279401239461984
+        },
+        {
+          "name": "displacement",
+          "max_normalized_difference": 5.295165766832819e-05
+        }
+      ],
+      "loss": 0.25409640735054295,
+      "reference_loss": 0.2540964322880779,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 159,
+        "num_rejected_steps": 219,
+        "num_steps": 378
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 218,
+        "num_rejected_steps": 245,
+        "num_steps": 463
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "unresolved_probes": [
+    {
+      "sample": 70,
+      "reason": "Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 1000,
+          "num_accepted_steps": 517,
+          "num_rejected_steps": 483,
+          "num_steps": 1000
+        },
+        "sample": 70,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10
+        ]
+      }
+    },
+    {
+      "sample": 65,
+      "reason": "Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 1000,
+          "num_accepted_steps": 524,
+          "num_rejected_steps": 476,
+          "num_steps": 1000
+        },
+        "sample": 65,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10,
+          1.0000000000000002e-10
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    "2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified."
+  ],
+  "population_relaxation_rejected": {
+    "code": "accuracy_failed",
+    "reason": "population: contact_force disagrees with tighter reference"
+  },
+  "result": "Refinement tolerances validated; DE retains those validated tolerances",
+  "validated_seeds": [
+    {
+      "sample": 20,
+      "normalized_parameters": [
+        -0.8786882481302691,
+        0.1533044392328562,
+        0.9933251950784519,
+        0.37087546923928927,
+        0.996439001923022
+      ],
+      "experiment_losses": [
+        0.2540964322880779
+      ]
+    },
+    {
+      "sample": 49,
+      "normalized_parameters": [
+        0.6027826014389672,
+        -0.909061407302975,
+        0.48478281119723676,
+        -0.9708864891122503,
+        0.9267530573310492
+      ],
+      "experiment_losses": [
+        0.6578864688602318
+      ]
+    }
+  ],
+  "seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=d02539900742d663 user_input.yaml=5e37c9b79800ca0e",
+    "data_hashes": {
+      "dataset_1.csv": "77c96e34f79a89cfe7a6db42fb923c7ea8a4e47d12005fde6bd0a9a3310a4cb0"
+    },
+    "runtime_config_hash": "87c60ed1dfb8da6074c9dcc016f459eb603d5ad67c1b66407d54df9ad3180fa8"
+  },
+  "source_seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=d02539900742d663 user_input.yaml=5e37c9b79800ca0e",
+    "data_hashes": {
+      "force_disp_data_sliding_basepoint.csv": "77c96e34f79a89cfe7a6db42fb923c7ea8a4e47d12005fde6bd0a9a3310a4cb0"
+    }
+  }
+}
