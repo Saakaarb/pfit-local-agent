@@ -498,3 +498,20 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     inlined = json.loads(_inline_referenced_rhs_intermediates(response, session))
 
     assert inlined["rhs"] == ["-(k * x)"]
+
+
+def test_real_generated_workflow_passes_parallel_accuracy_gate(tmp_path):
+    import yaml
+    session=make_session(tmp_path)
+    path=session/'inputs/user_input.yaml';config=yaml.safe_load(path.read_text())
+    config['model']['trainable_parameters'][0]['max_val']=5.0
+    config['gradient_opt'].update(solver_accuracy_check=True,solver_accuracy_workers=2)
+    path.write_text(yaml.safe_dump(config))
+    result=LocalWorkflow(FakeLLMClient(VALID_SPLIT_RESPONSES),PromptRenderer()).generate_script(session)
+    assert result.success, result.events
+    report=json.loads((session/'generated/solver_accuracy.json').read_text())
+    assert report['code']=='accuracy_passed'
+    assert len(report['probe_samples'])==4
+    assert len(report['comparisons'])>=4
+    from lib.utils.source_stamp import verify_stamp
+    assert verify_stamp(session)[0] is True

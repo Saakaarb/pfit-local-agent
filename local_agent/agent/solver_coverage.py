@@ -51,6 +51,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
         failures = []
         losses = []
         state_scales = []
+        integration_steps = 0
         for record in records:
             constants = experiment_constants(record, reader)
             constants.update(min_limits=lo, max_limits=hi, is_logscale=logs)
@@ -91,9 +92,10 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
                 failures.append(item['code'])
             losses.append(item.get("loss"))
             state_scales.append(item.get("state_scale"))
+            integration_steps += item.get('stats', {}).get('num_steps', 0)
             diagnostics.append(item)
         candidates.append(dict(sample=index, successful=complete, failures=failures,
-                               experiment_losses=losses, experiment_state_scales=state_scales,
+                               experiment_losses=losses, experiment_state_scales=state_scales, integration_steps=integration_steps,
                                normalized_parameters=point.tolist()))
         sample_seconds.append(time.monotonic() - sample_started)
         if complete:

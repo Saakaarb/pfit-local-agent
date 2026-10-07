@@ -118,8 +118,16 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
     if points is not None:
         from local_agent.agent.tolerance_calibration import calibrate_tolerances
         raw = yaml.safe_load((Path(session_dir) / "inputs/user_input.yaml").read_text())
-        calibrate_tolerances(module, reader, script_path, records, raw.get('population_opt') or {},
+        calibration = calibrate_tolerances(module, reader, script_path, records, raw.get('population_opt') or {},
                              raw.get('gradient_opt') or {})
+        if (raw.get('gradient_opt') or {}).get('solver_accuracy_check', False):
+            from local_agent.agent.solver_accuracy import assess_solver_accuracy
+            assess_solver_accuracy(module, reader, session_dir, script_path, records,
+                raw.get('gradient_opt') or {}, raw.get('population_opt') or {}, calibration)
+
+    elif (yaml.safe_load((Path(session_dir) / "inputs/user_input.yaml").read_text()).get('gradient_opt') or {}).get('solver_accuracy_check', False):
+        raise SolverValidationError(dict(code='accuracy_interface_error',
+            result='Accuracy validation requires the generated solver-statistics interface; regenerate with pfit jax'))
 
 
 def validate_generated_script_contract(script_path: Path):
@@ -225,6 +233,16 @@ def _validate_raw_settings(raw):
     if type(population.get('auto_tolerances', True)) is not bool:
         raise ValidationError('population_opt.auto_tolerances must be a YAML boolean')
     gradient = raw.get('gradient_opt') or {}
+    if type(gradient.get('solver_accuracy_check', False)) is not bool:
+        raise ValidationError('solver_accuracy_check must be a YAML boolean')
+    workers = gradient.get('solver_accuracy_workers', 4)
+    if type(workers) is not int or not 1 <= workers <= 4:
+        raise ValidationError('solver_accuracy_workers must be an integer in [1, 4]')
+    for name, default in (('solver_accuracy_rtol', 1e-3), ('solver_accuracy_atol_scale', 1e-6),
+                          ('solver_accuracy_uncertainty_fraction', .01)):
+        value = gradient.get(name, default)
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not np.isfinite(value) or value <= 0:
+            raise ValidationError(f'{name} must be positive and finite')
     if type(gradient.get('auto_integrator', False)) is not bool:
         raise ValidationError('gradient_opt.auto_integrator must be a YAML boolean')
     if type(gradient.get('auto_state_tolerances', True)) is not bool:

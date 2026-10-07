@@ -313,3 +313,21 @@ def test_real_stiff_system_selects_implicit_solver_at_same_ceiling(tmp_path):
     coverage=json.loads((session/'generated/solver_coverage.json').read_text())
     assert [(c['integrator'],c['max_steps'],c['sample_count']) for c in coverage]==[
         ('Tsit5',10000,1),('Tsit5',20000,1),('Kvaerno5',20000,1)]
+
+
+@pytest.mark.parametrize('code',['accuracy_failed','accuracy_inconclusive','recovery_timeout'])
+def test_inconclusive_or_inaccurate_explicit_solver_tries_kvaerno(tmp_path,monkeypatch,code):
+    session,config,llm=oregonator(tmp_path,cap=20000)
+    config['gradient_opt'].update(integrator='Tsit5',auto_integrator=True)
+    path=session/'inputs/user_input.yaml';path.write_text(yaml.safe_dump(config));seen=[]
+    def check(script,session):
+        g=yaml.safe_load(path.read_text())['gradient_opt'];seen.append(g['integrator'])
+        if g['integrator']=='Tsit5':
+            raise SolverValidationError(dict(code=code,result='test',max_steps=10000,sample_count=1))
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script',check)
+    monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',lambda script,session,timeout:check(script,session))
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert result.success
+    assert seen==['Tsit5','Kvaerno5']
+    assert yaml.safe_load(path.read_text())['gradient_opt']['integrator']=='Kvaerno5'
+    assert verify_stamp(session)[0] is True

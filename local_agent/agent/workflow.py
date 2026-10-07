@@ -142,7 +142,7 @@ class LocalWorkflow:
 
         generated_dir = session_dir / "generated"
         generated_dir.mkdir(exist_ok=True)
-        for name in ('solver_diagnostics.json', 'solver_coverage.json', 'solver_recovery.json', 'tolerance_calibration.json', 'solver_selection.json'):
+        for name in ('solver_diagnostics.json', 'solver_coverage.json', 'solver_recovery.json', 'tolerance_calibration.json', 'solver_selection.json', 'solver_accuracy.json'):
             (generated_dir / name).unlink(missing_ok=True)
         script_path = generated_dir / "generated_script.py"
 
@@ -371,7 +371,7 @@ class LocalWorkflow:
             return True
         failure = self._solver_failure or {}
         counts = failure.get('failure_counts', {})
-        numerical = failure.get('code') == 'step_limit' or (
+        numerical = failure.get('code') in ('step_limit', 'accuracy_failed', 'accuracy_inconclusive', 'recovery_timeout') or (
             failure.get('code') == 'coverage_below_target' and any(
                 counts.get(code, 0) for code in ('step_limit', 'integration_failure', 'nonfinite_solution')))
         if not (gradient.get('auto_integrator', False) and gradient.get('integrator', 'Tsit5') == 'Tsit5' and numerical):

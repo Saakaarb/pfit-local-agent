@@ -888,11 +888,12 @@ Existing YAML without this flag keeps its selected integrator. Set the flag to
 `false` to prevent switching. Explicit choices other than `Tsit5` are preserved.
 
 If Tsit5 fails the sampled completion target after bounded step/sample recovery,
-the workflow makes one Kvaerno5 trial at the **same last tested step ceiling,
+the workflow makes one Kvaerno5 trial at the **same last attempted step ceiling,
 parameter sample count, seed, bounds, experiments and reference tolerances**.
 Step exhaustion, failed integration or nonfinite trajectories can trigger it;
-invalid losses alone cannot. Timeouts, worker failures and source-fidelity or
-contract errors do not trigger an integrator switch. Kvaerno5 must meet the same
+invalid losses alone cannot. Failed or inconclusive accuracy comparisons and
+Tsit5 recovery timeouts also trigger the bounded Kvaerno5 trial. Worker failures,
+missing prediction interfaces, and source-fidelity/contract errors do not. Kvaerno5 must meet the same
 completion target and pass all subsequent acceptance checks. Only then is it
 saved to YAML and stamped as ready. State-scaled tolerance selection and DE
 relaxation run after successful coverage, using the selected integrator.
@@ -913,3 +914,58 @@ for Kvaerno5. The initial ordinary validation remains outside that deadline.
 remaining-sample wall times. First-sample time may include JIT compilation;
 these are not isolated compilation or throughput measurements. Per-solve step
 statistics remain in `solver_diagnostics.json`.
+
+
+### Parallel forward-accuracy acceptance
+
+Fresh configurations enable `gradient_opt.solver_accuracy_check: true`.
+Existing YAML can opt in with that flag; absent/false preserves legacy behaviour
+without claiming an accuracy check. After coverage and tolerance proposals, the
+workflow checks the exact proposed refinement and population settings against
+integrations at 10x tighter relative **and** absolute tolerances. The step
+ceiling stays fixed. No proposed tolerance configuration is saved/stamped until
+this check passes. If only the automatic DE relaxation fails, DE retains the
+already-validated refinement settings; no additional solves are needed. Explicit
+population tolerances are not overwritten. A failed refinement check does not
+automatically adopt the tighter reference: those settings have not themselves been validated against a further
+reference. It instead permits the bounded implicit-solver fallback when enabled.
+
+At most four feasible parameter vectors are selected deterministically: the
+lowest mean-loss candidate, the candidate with most integration steps across
+experiments, and additional points maximizing distance from those already
+selected in normalized parameter coordinates. If fewer are feasible, all are
+used; the report records the actual probe count. Each probe covers every
+experiment and both tolerance profiles. `solver_accuracy_workers` defaults to
+4 (allowed 1–4), capped by available CPU affinity and probe count. Independent
+probes run concurrently in a shared-process thread pool; experiments and
+profiles within a probe run sequentially. This adds bounded validation
+parallelism, not parallelism to the fitting stages. Trajectories are reused for
+loss evaluation and shared between profiles when their tolerance levels match.
+First-use JIT compilation can still dominate a small check.
+
+For every mapped measured state or derived observable at finite observation
+rows, require the maximum absolute prediction difference divided by its allowed
+error to be at most one. With valid positive measurement uncertainty `sigma`,
+the allowed difference is `solver_accuracy_uncertainty_fraction * sigma`
+(default 0.01). Otherwise it is
+`solver_accuracy_atol_scale * S + solver_accuracy_rtol * abs(reference)`
+(defaults 1e-6 and 1e-3), where `S` is the maximum absolute measured/reference
+value for that observable in that experiment and probe. These are declared
+comparison thresholds, separate from integrator tolerances; they are adjustable
+positive finite numbers. An identically zero signal requires exact agreement
+when its allowed error is zero. Forcing and auxiliary columns are excluded.
+Derived measurements use the generated `_observables` helper; a missing helper
+or absence of mapped finite measurements blocks validation explicitly.
+
+Per-experiment losses and meaningful mean-loss ordering must also pass the
+existing `1e-8 + 1% * abs(reference_loss)` comparison. Reports are saved in
+`generated/solver_accuracy.json`, including selected probes, workers, thresholds,
+solver statistics and per-observable discrepancies. A finite prediction
+mismatch is `accuracy_failed`; a numerical failure in a candidate/reference
+integration is `accuracy_inconclusive`. Either causes Tsit5 to try Kvaerno5 when
+`auto_integrator` is enabled. Kvaerno5 must still pass coverage, valid-loss,
+fidelity and accuracy checks: inconclusive accuracy is never labelled passed.
+A missing prediction interface is a contract issue, not a reason to switch.
+Recovery deadlines include these checks; an implicit-trial timeout remains
+inconclusive and blocks readiness. This is a sampled forward-convergence test,
+not a guarantee for the entire parameter space or for gradients/Hessians.

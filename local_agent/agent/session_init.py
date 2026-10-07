@@ -2311,6 +2311,8 @@ gradient_opt:
   solver_validation_success_fraction: 0.25
   solver_validation_seed: 7
   solver_recovery_stagnation_patience: 2
+  solver_accuracy_check: true
+  solver_accuracy_workers: 4
   auto_integrator: true
   integrator: {integrator}
   init_value_lr: 1e-4
