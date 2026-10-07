@@ -2311,6 +2311,7 @@ gradient_opt:
   solver_validation_success_fraction: 0.25
   solver_validation_seed: 7
   solver_recovery_stagnation_patience: 2
+  auto_integrator: true
   integrator: {integrator}
   init_value_lr: 1e-4
   end_value_lr: 1e-5
@@ -2323,22 +2324,7 @@ output:
 
 
 def _select_integrator(spec: NewSessionSpec) -> str:
-    text = " ".join(
-        [
-            spec.review,
-            spec.user_info_txt,
-            spec.filename_data,
-            " ".join(state.rhs for state in spec.states),
-            " ".join(parameter.name for parameter in spec.parameters),
-        ]
-    ).lower()
-    if _text_requests_stiff_integrator(text):
-        return "Kvaerno5"
-    for parameter in spec.parameters:
-        lower = max(abs(parameter.min_value), 1e-300)
-        upper = max(abs(parameter.max_value), 1e-300)
-        if upper / lower >= 1e8:
-            return "Kvaerno5"
+    # Numerical readiness may replace this with Kvaerno5 after a matched trial.
     return "Tsit5"
 
 

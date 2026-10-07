@@ -878,3 +878,38 @@ DE selection again. Set `population_opt.auto_tolerances: false` to disable only
 the DE comparison. Disable both options to keep all configured tolerances.
 Legacy scripts without solver statistics skip both checks. Additional tolerance
 checks count against the recovery deadline when run inside bounded recovery.
+
+### Sampled integrator selection
+
+Fresh `pfit new` configurations start with `Tsit5` and
+`gradient_opt.auto_integrator: true`. Solver selection no longer depends on
+keywords in the model description/LLM review or on parameter-bound ratios.
+Existing YAML without this flag keeps its selected integrator. Set the flag to
+`false` to prevent switching. Explicit choices other than `Tsit5` are preserved.
+
+If Tsit5 fails the sampled completion target after bounded step/sample recovery,
+the workflow makes one Kvaerno5 trial at the **same last tested step ceiling,
+parameter sample count, seed, bounds, experiments and reference tolerances**.
+Step exhaustion, failed integration or nonfinite trajectories can trigger it;
+invalid losses alone cannot. Timeouts, worker failures and source-fidelity or
+contract errors do not trigger an integrator switch. Kvaerno5 must meet the same
+completion target and pass all subsequent acceptance checks. Only then is it
+saved to YAML and stamped as ready. State-scaled tolerance selection and DE
+relaxation run after successful coverage, using the selected integrator.
+
+There is no additional solver ladder or per-particle solver switching. Failure
+of the implicit trial restores the pre-recovery configuration and leaves the
+script pending. A switch is evidence of sampled feasibility, not a stiffness
+diagnosis or proof that Kvaerno5 is fastest. Equations and loss expressions are
+not changed. Numerical failures do not invoke LLM repair.
+
+The Kvaerno5 trial has its own `solver_recovery_timeout_seconds` deadline,
+including compilation and subsequent acceptance checks. Thus additional recovery
+is bounded by at most twice that setting: one budget for Tsit5 recovery and one
+for Kvaerno5. The initial ordinary validation remains outside that deadline.
+`generated/solver_selection.json` records the fallback decision;
+`solver_recovery.json` records the preceding Tsit5 budget-recovery phase.
+`solver_coverage.json` labels each trial by integrator, with first-sample and
+remaining-sample wall times. First-sample time may include JIT compilation;
+these are not isolated compilation or throughput measurements. Per-solve step
+statistics remain in `solver_diagnostics.json`.

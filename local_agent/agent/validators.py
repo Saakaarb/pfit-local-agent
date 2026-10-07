@@ -225,6 +225,8 @@ def _validate_raw_settings(raw):
     if type(population.get('auto_tolerances', True)) is not bool:
         raise ValidationError('population_opt.auto_tolerances must be a YAML boolean')
     gradient = raw.get('gradient_opt') or {}
+    if type(gradient.get('auto_integrator', False)) is not bool:
+        raise ValidationError('gradient_opt.auto_integrator must be a YAML boolean')
     if type(gradient.get('auto_state_tolerances', True)) is not bool:
         raise ValidationError('gradient_opt.auto_state_tolerances must be a YAML boolean')
     cap = gradient.get('solver_recovery_max_steps', gradient.get('max_steps', 10000))

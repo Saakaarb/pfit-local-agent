@@ -142,7 +142,7 @@ class LocalWorkflow:
 
         generated_dir = session_dir / "generated"
         generated_dir.mkdir(exist_ok=True)
-        for name in ('solver_diagnostics.json', 'solver_coverage.json', 'solver_recovery.json', 'tolerance_calibration.json'):
+        for name in ('solver_diagnostics.json', 'solver_coverage.json', 'solver_recovery.json', 'tolerance_calibration.json', 'solver_selection.json'):
             (generated_dir / name).unlink(missing_ok=True)
         script_path = generated_dir / "generated_script.py"
 
@@ -361,6 +361,63 @@ class LocalWorkflow:
         return False
 
     def _recover_solver(self, fragments, script_path, session_dir, events):
+        """Try existing bounded recovery, then one matched implicit-solver trial."""
+        from lib.utils.source_stamp import build_stamp, normalized_hash
+        input_path = session_dir / 'inputs/user_input.yaml'
+        original = input_path.read_text()
+        config = yaml.safe_load(original)
+        gradient = config.setdefault('gradient_opt', {})
+        if self._recover_solver_budget(fragments, script_path, session_dir, events):
+            return True
+        failure = self._solver_failure or {}
+        counts = failure.get('failure_counts', {})
+        numerical = failure.get('code') == 'step_limit' or (
+            failure.get('code') == 'coverage_below_target' and any(
+                counts.get(code, 0) for code in ('step_limit', 'integration_failure', 'nonfinite_solution')))
+        if not (gradient.get('auto_integrator', False) and gradient.get('integrator', 'Tsit5') == 'Tsit5' and numerical):
+            return False
+        if build_stamp(session_dir) != self._generation_source_stamp:
+            return False
+        recovery = json.loads((script_path.parent / 'solver_recovery.json').read_text())
+        if recovery['status'] == 'sources_changed':
+            return False
+        # The last completed failed trial defines the matched comparison budget.
+        last = recovery['attempts'][-1] if recovery['attempts'] else {}
+        budget = failure.get('max_steps', last.get('max_steps', gradient.get('max_steps', 10000)))
+        samples = failure.get('sample_count', last.get('samples', gradient.get('solver_validation_samples', 32)))
+        selection = dict(status='running', initial_integrator='Tsit5', proposed_integrator='Kvaerno5',
+                         max_steps=budget, samples=samples, seed=gradient.get('solver_validation_seed', 7),
+                         reference_rtol=gradient['stepsize_rtol'], reference_atol=gradient['stepsize_atol'],
+                         tsit5_failure=failure, timeout_seconds=gradient.get('solver_recovery_timeout_seconds', 120))
+        gradient.update(integrator='Kvaerno5', max_steps=budget, solver_validation_samples=samples)
+        input_path.write_text(yaml.safe_dump(config, sort_keys=False))
+        self._generation_source_stamp = re.sub(r'user_input\.yaml=\S+',
+            'user_input.yaml=' + normalized_hash(input_path), self._generation_source_stamp)
+        script_path.write_text(render_generated_script_from_fragments(fragments, load_session_spec(input_path)))
+        events.append(WorkflowEvent('solver_selection', 'attempted',
+            f'Kvaerno5 at the same max_steps={budget}, samples={samples}, seed and reference tolerances as Tsit5'))
+        started = time.monotonic()
+        accepted = False
+        try:
+            accepted = self._validate_generated_script(script_path, session_dir, events,
+                smoke_timeout=float(selection['timeout_seconds']))
+            selection.update(status='passed' if accepted else 'failed', kvaerno5_failure=self._solver_failure)
+            if accepted:
+                self._repair_blocked = False
+                events.append(WorkflowEvent('solver_selection', 'passed', 'Selected Kvaerno5 after matched sampled validation'))
+            else:
+                self._repair_blocked = True
+                events.append(WorkflowEvent('solver_selection', 'failed', 'Implicit fallback did not pass all acceptance gates; no further solver trials'))
+            return accepted
+        finally:
+            if not accepted and build_stamp(session_dir) == self._generation_source_stamp:
+                input_path.write_text(original)
+                self._generation_source_stamp = build_stamp(session_dir)
+                script_path.write_text('# pfit-sources: pending=true\n' + render_generated_script_from_fragments(fragments, load_session_spec(input_path)))
+            selection['elapsed_seconds'] = time.monotonic() - started
+            (script_path.parent / 'solver_selection.json').write_text(json.dumps(selection, indent=2)+'\n')
+
+    def _recover_solver_budget(self, fragments, script_path, session_dir, events):
         from lib.utils.source_stamp import build_stamp, normalized_hash
         input_path = session_dir / 'inputs/user_input.yaml'
         original = input_path.read_text()

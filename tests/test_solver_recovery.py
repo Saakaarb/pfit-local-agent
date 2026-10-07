@@ -201,3 +201,115 @@ def test_coverage_improvement_resets_stagnation_counter(tmp_path, monkeypatch):
     assert seen==[(10000,32),(20000,64),(40000,128),(50000,128)]
     assert yaml.safe_load(path.read_text())['gradient_opt']['solver_validation_samples']==128
     assert verify_stamp(session)[0] is True
+
+
+@pytest.mark.parametrize('fallback_succeeds', [True, False])
+def test_implicit_fallback_reuses_last_explicit_samples_and_budget(tmp_path, monkeypatch, fallback_succeeds):
+    session, config, llm = oregonator(tmp_path, cap=50000)
+    config['gradient_opt'].update(integrator='Tsit5', auto_integrator=True,
+        solver_validation_samples=32, solver_validation_max_samples=128,
+        solver_validation_success_fraction=.25)
+    path = session/'inputs/user_input.yaml'
+    path.write_text(yaml.safe_dump(config)); original = path.read_bytes(); seen=[]
+    def check(script, session):
+        g=yaml.safe_load(path.read_text())['gradient_opt']
+        seen.append((g['integrator'], g['max_steps'], g['solver_validation_samples']))
+        assert g['stepsize_rtol']==config['gradient_opt']['stepsize_rtol']
+        assert g['stepsize_atol']==config['gradient_opt']['stepsize_atol']
+        if g['integrator']=='Kvaerno5' and fallback_succeeds:return
+        n=g['solver_validation_samples']
+        raise SolverValidationError(dict(code='coverage_below_target', result='Below target',
+            max_steps=g['max_steps'], sample_count=n, success_fraction=0.,
+            failure_counts={'step_limit':n}, candidates=[{'successful':False} for _ in range(n)]))
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script',check)
+    monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',lambda script,session,timeout:check(script,session))
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert result.success is fallback_succeeds
+    assert seen==[('Tsit5',10000,32),('Tsit5',20000,64),('Tsit5',40000,128),('Kvaerno5',40000,128)]
+    assert len(llm.requests)==2
+    report=json.loads((session/'generated/solver_selection.json').read_text())
+    assert report['status']==('passed' if fallback_succeeds else 'failed')
+    assert (session/'generated/user_model.py').read_text()==SOURCE
+    if fallback_succeeds:
+        g=yaml.safe_load(path.read_text())['gradient_opt']
+        assert g['integrator']=='Kvaerno5'
+        assert g['max_steps']==40000
+        assert 'diffrax.Kvaerno5()' in (session/'generated/generated_script.py').read_text()
+        assert verify_stamp(session)[0] is True
+    else:
+        assert path.read_bytes()==original
+        assert verify_stamp(session)[0] is False
+
+
+@pytest.mark.parametrize('enabled,code', [(False,'step_limit'),(True,'invalid_loss')])
+def test_no_solver_fallback_for_override_or_invalid_loss(tmp_path, monkeypatch, enabled, code):
+    session, config, llm = oregonator(tmp_path, cap=10000)
+    config['gradient_opt'].update(integrator='Tsit5',auto_integrator=enabled)
+    path=session/'inputs/user_input.yaml';path.write_text(yaml.safe_dump(config));seen=[]
+    def check(script,session):
+        seen.append(yaml.safe_load(path.read_text())['gradient_opt']['integrator'])
+        raise SolverValidationError(dict(code='coverage_below_target',result='Below target',
+            sample_count=1,success_fraction=0.,failure_counts={code:1},candidates=[{'successful':False}]))
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script',check)
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert not result.success
+    assert seen==['Tsit5']
+    assert not (session/'generated/solver_selection.json').exists()
+    assert len(llm.requests)==2
+
+
+def test_real_oregonator_keeps_explicit_solver_when_recovery_succeeds(tmp_path):
+    session, config, llm = oregonator(tmp_path, cap=20000)
+    config['gradient_opt'].update(integrator='Tsit5',auto_integrator=True)
+    path=session/'inputs/user_input.yaml';path.write_text(yaml.safe_dump(config))
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert result.success, result.events
+    g=yaml.safe_load(path.read_text())['gradient_opt']
+    assert g['integrator']=='Tsit5'
+    assert g['max_steps']==20000
+    assert verify_stamp(session)[0] is True
+    assert len(llm.requests)==2
+    coverage=json.loads((session/'generated/solver_coverage.json').read_text())
+    assert [(c['integrator'],c['max_steps'],c['sample_count']) for c in coverage]==[
+        ('Tsit5',10000,1),('Tsit5',20000,1)]
+
+
+def test_auto_integrator_requires_boolean():
+    from local_agent.agent.validators import _validate_raw_settings
+    with pytest.raises(ValueError, match='auto_integrator'):
+        _validate_raw_settings({'gradient_opt':{'auto_integrator':'true'}})
+
+
+def test_successful_explicit_validation_does_not_try_implicit_solver(tmp_path, monkeypatch):
+    session, config, llm = oregonator(tmp_path, cap=20000)
+    config['gradient_opt'].update(integrator='Tsit5',auto_integrator=True)
+    path=session/'inputs/user_input.yaml';path.write_text(yaml.safe_dump(config));seen=[]
+    def check(script, session):
+        seen.append(yaml.safe_load(path.read_text())['gradient_opt']['integrator'])
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script',check)
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert result.success
+    assert seen==['Tsit5']
+    assert verify_stamp(session)[0] is True
+    assert not (session/'generated/solver_selection.json').exists()
+
+
+def test_real_stiff_system_selects_implicit_solver_at_same_ceiling(tmp_path):
+    session, config, _ = oregonator(tmp_path, cap=20000)
+    config['gradient_opt'].update(integrator='Tsit5',auto_integrator=True)
+    path=session/'inputs/user_input.yaml';path.write_text(yaml.safe_dump(config))
+    rhs = ['-eps1 * X', '-1e6 * Y', '-Z']
+    source = SOURCE.replace('[(q*Y-X*Y+X*(1-X))/eps1, (-q*Y-X*Y+f*Z)/eps2, X-Z]',
+                            '[-eps1 * X, -1e6 * Y, -Z]')
+    (session/'generated/user_model.py').write_text(source)
+    llm=FakeLLMClient([json.dumps({'helper_functions': []}), json.dumps({'rhs': rhs})])
+    result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
+    assert result.success, result.events
+    g=yaml.safe_load(path.read_text())['gradient_opt']
+    assert g['integrator']=='Kvaerno5'
+    assert g['max_steps']==20000
+    assert verify_stamp(session)[0] is True
+    assert len(llm.requests)==2
+    coverage=json.loads((session/'generated/solver_coverage.json').read_text())
+    assert [(c['integrator'],c['max_steps'],c['sample_count']) for c in coverage]==[
+        ('Tsit5',10000,1),('Tsit5',20000,1),('Kvaerno5',20000,1)]

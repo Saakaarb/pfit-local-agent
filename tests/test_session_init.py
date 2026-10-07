@@ -557,7 +557,7 @@ def test_init_session_automatic_log_loss_respects_user_loss(tmp_path, explicit_l
     assert "log_sim_y1" not in user_model
 
 
-def test_init_session_selects_stiff_integrator_from_problem_description(tmp_path):
+def test_init_session_starts_explicit_even_for_stiff_problem_description(tmp_path):
     session = tmp_path / "stiff"
     inputs = session / "inputs"
     inputs.mkdir(parents=True)
@@ -573,7 +573,8 @@ def test_init_session_selects_stiff_integrator_from_problem_description(tmp_path
     init_session(session, llm, PromptRenderer())
 
     user_input = session.joinpath("inputs", "user_input.yaml").read_text()
-    assert "integrator: Kvaerno5" in user_input
+    assert "integrator: Tsit5" in user_input
+    assert "auto_integrator: true" in user_input
 
 
 def test_init_session_repairs_only_invalid_loss_body(tmp_path):

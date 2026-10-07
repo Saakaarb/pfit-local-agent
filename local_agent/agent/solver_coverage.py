@@ -1,6 +1,7 @@
 """Deterministic, nested parameter coverage for numerical readiness checks."""
 import json
 import math
+import time
 from pathlib import Path
 
 import numpy as np
@@ -42,7 +43,10 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
     points = parameter_samples(count, reader.n_search_axes, seed)
     lo, hi, logs = parameter_axes(reader)
     diagnostics, candidates, successful = [], [], []
+    started = time.monotonic()
+    sample_seconds = []
     for index, point in enumerate(points):
+        sample_started = time.monotonic()
         complete = True
         failures = []
         losses = []
@@ -91,6 +95,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
         candidates.append(dict(sample=index, successful=complete, failures=failures,
                                experiment_losses=losses, experiment_state_scales=state_scales,
                                normalized_parameters=point.tolist()))
+        sample_seconds.append(time.monotonic() - sample_started)
         if complete:
             successful.append(point)
     required = math.ceil(count * target)
@@ -99,7 +104,10 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
         if item['code'] != 'successful':
             failure_counts[item['code']] = failure_counts.get(item['code'], 0) + 1
     summary = dict(code='successful' if len(successful) >= required else 'coverage_below_target',
-                   sample_count=count, seed=seed,
+                   sample_count=count, seed=seed, integrator=reader.integrator,
+                   elapsed_seconds=time.monotonic()-started, first_sample_seconds=sample_seconds[0],
+                   remaining_samples_seconds=sum(sample_seconds[1:]),
+                   timing_note='First sample may include JIT compilation; timings include integrations and loss evaluations, not a solver speed benchmark',
                    sampling='midpoint plus nested Latin-hypercube blocks in normalized linear/log coordinates',
                    successful_samples=len(successful), success_fraction=len(successful)/count,
                    required_success_fraction=target, required_successful_samples=required,
