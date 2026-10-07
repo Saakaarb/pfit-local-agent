@@ -1,0 +1,12 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/fujita_validated_seeds_20261007/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/fujita_validated_seeds_20261007/session
+warning: Population size of 4 with 1 DE iteration for 16 trainable parameters is extremely small; the differential-evolution search will barely sample the 16-dimensional log-scale space (1e-8 to 1e8 per parameter), making it unlikely to find a good basin before the gradient stage.
+warning: Gradient optimizer is set to only 5 Adam iterations for 16 parameters; this is very few steps to converge a stiff 10-state ODE system with tightly coupled binding/turnover time scales.
+warning: Each experiment provides only 7 non-trivial time points (t=0 row is all zeros and trivially matched by the zero initial conditions), giving 42 total data points for 16 shared parameters; the fit is underdetermined and sensitive to solver accuracy and initial parameter placement.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 10–20 and num_iters to 5–10 for the DE stage so the 16-parameter log-scale space (1e-8 to 1e8) is meaningfully explored before gradient refinement.
+recommendation: Increase gradient_opt.num_iters from 5 to at least 50–100; with 16 parameters and a stiff 10-state system, 5 Adam steps is insufficient for convergence, especially given the wide initial parameter ranges.
+recommendation: The loss correctly implements the user's stated per-channel max-absolute-value normalization and RMSE over all channels/times (sqrt of the mean of three per-channel MSEs divided by 3), and the framework's equal-mean experiment aggregation matches 'minimize the average of the two record losses'—no change needed.
+recommendation: All 16 parameters use logscale with bounds 1e-8 to 1e8, which is appropriate for the wide dynamic range of rate constants and scaling factors; no further bound adjustment is warranted.
+recommendation: The ODE system, observable definitions, dataset column mapping (dataset[:,0]=pEGFR_tot, dataset[:,1]=pAkt_tot, dataset[:,2]=pS6_tot), and writeout shape (N×17) are all internally consistent with the YAML and the user's specification; no structural changes are required before JAX translation.

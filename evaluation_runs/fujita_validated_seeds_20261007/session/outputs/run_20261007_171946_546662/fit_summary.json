@@ -1,0 +1,17 @@
+{
+  "mode": "full",
+  "seed_loss": 0.5215470095552546,
+  "final_loss": 0.5205146383861067,
+  "accuracy_seed_fallback": false,
+  "aggregation": "equal_experiment_mean",
+  "experiment_losses": [
+    0.5343455267694877,
+    0.5066837500027258
+  ],
+  "gradient_optimizer": "adam",
+  "gradient_iteration_budget": 5,
+  "gradient_iterations_evaluated": 5,
+  "refinement_error": null,
+  "termination": "iteration_budget",
+  "termination_detail": null
+}

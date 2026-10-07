@@ -1,0 +1,53 @@
+{
+  "verdict": "Limited fit with qualitative model mismatch: pS6_tot shows negative time correlation in both experiments (\u22120.76 and \u22120.36), indicating the model predicts the wrong temporal direction for this channel. Six of sixteen parameters are pinned at or within 0.03 % of their log10 bounds, including all three scaling factors, suggesting the search space or model-unit conventions are inconsistent with the data. The optimizer exhausted its 5-iteration budget with only a 0.0005 loss reduction and no verified final-point gradient, so convergence cannot be confirmed.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png and fit_exp2.png, focusing on the pS6_tot channel. The negative time correlation (\u22120.762 in Exp 1, \u22120.364 in Exp 2) means the model trajectory is anti-correlated with the data \u2014 a qualitative structural mismatch, not a small residual. Before any further optimisation, determine whether the pS6 production/degradation terms (reaction_6_k1, reaction_8_k1, reaction_5_k2) and the initial condition pS6=0 can produce the observed temporal shape, or whether a missing activation/inactivation step is needed.",
+      "reason": "A negative time correlation (\u22120.762, \u22120.364) is far more severe than the RMSE values (0.515, 0.379) suggest: the model is moving in the opposite direction to the data. No amount of parameter refinement within the current model structure will fix a sign error in the predicted dynamics. This must be resolved before further fitting."
+    },
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Audit the six parameters at or near bounds: EGFR_turnover (0.00 %), scaling_pEGFR_tot (0.03 %), scaling_pAkt_tot (0.00 %), scaling_pS6_tot (100.00 %), reaction_5_k2 (99.97 %), reaction_6_k1 (100.00 %). Verify each bound against the physical units of the model equations and the data. In particular, the three scaling factors sitting at opposite extremes (two at 1e-08, one at 1e+08) indicate a unit-convention mismatch between the ODE state variables and the measured data. If the bounds are unjustified, revise them and run a full fit (DE + gradient); do not widen them automatically.",
+      "reason": "6/16 parameters at bounds means the optimiser is being constrained in at least half the parameter space. The scaling parameters at 1e-08 and 1e+08 (a 16-order-of-magnitude spread) strongly suggest the model's internal units differ from the data units by orders of magnitude, and the optimiser is compensating by pushing scalings to their limits. This inflates the effective condition number and can mask true parameter sensitivity."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "LIMITATIONS"
+      ],
+      "action": "Before deciding whether a gradient-only restart is worthwhile, run diagnose --probe-gradients at the current point to obtain a verified gradient. The 5-iteration Adam refinement reduced loss by only 0.0005 (0.52779 \u2192 0.52727) and the limitations note explicitly states no verified final-point gradient is available. If the gradient is near-zero, the landscape is flat and further iterations will not help; if the gradient is large, the budget was simply too small and a longer refinement (or a different learning-rate schedule) is justified.",
+      "reason": "The optimizer terminated on iteration_budget with a negligible loss change (\u0394=0.0005 over 5 steps). Without a verified gradient, it is impossible to distinguish a true local minimum from an under-trained point or a numerically unreliable gradient. A gradient-only restart is appropriate only if the gradient evidence supports refinement and the model/bounds remain valid."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BOUND"
+      ],
+      "action": "Examine the early-time region (0\u20131200 s) residuals, which dominate the RMSE for pAkt_tot (0.443 in Exp 1, 0.557 in Exp 2) and pEGFR_tot (0.108 in Exp 1, 0.426 in Exp 2). Check whether the initial conditions (EGFR\u22483.75e7, Akt\u22480.027, S6\u2248188, all phosphorylated species = 0) and the forcing term L (1.0 in Exp 1, 10.0 in Exp 2) are consistent with the experimental protocol. A systematic negative bias (\u22120.29 to \u22120.35) in the early window may indicate a missing pre-steady-state phase or an incorrect initial complex concentration.",
+      "reason": "The 0\u20131200 s window contains 6 of 8 data points and carries the largest per-region RMSE for most channels. The consistent negative bias (model below data) in this window, combined with scaling parameters at bounds, suggests the model's early-time dynamics are structurally offset rather than merely poorly parameterised."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "BOUND"
+      ],
+      "action": "Run a sloppiness / Hessian analysis at the current point (or a nearby interior point if parameters are at bounds) to identify weak or flat directions. With six parameters at bounds, the Hessian at the boundary is not a valid interior Hessian; if the bound audit in step 2 changes the search space, re-run sloppiness on the new interior. This will reveal whether the negative pS6 correlation is a consequence of an unidentifiable parameter combination rather than a missing reaction.",
+      "reason": "Sloppiness was skipped in this run. With multiple parameters at bounds and a qualitatively wrong pS6 trajectory, it is critical to determine whether the model has flat directions (parameter correlations masking a structural deficiency) or whether the model structure itself is inadequate. This distinction determines whether the fix is re-parameterisation or a model change."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat loss trace (0.52779 \u2192 0.52727 over 5 Adam steps) does not establish convergence or a local minimum.",
+    "Sloppiness analysis was skipped, so parameter identifiability, weak modes, and the condition number of the local landscape are unknown.",
+    "The negative time correlation for pS6_tot indicates a qualitative model\u2013data mismatch, but the evidence cannot distinguish between a missing reaction step, an incorrect initial condition, a unit-convention error in the scaling parameters, or an inappropriate bound that forces the optimiser into a non-physical region.",
+    "The DE phase ran only 1 iteration with population size 4, so the seed point is a single random draw; the final parameters may not represent a meaningful basin of attraction.",
+    "The loss is a normalised RMS (divided by max|data| per channel), so the absolute magnitude (0.527) does not directly indicate the physical size of the residuals; the per-channel RMSE and bias values are the more informative quantities.",
+    "No noise level or measurement uncertainty was supplied, so it is not possible to assess whether the observed residuals are statistically consistent with the data's inherent variability."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}
