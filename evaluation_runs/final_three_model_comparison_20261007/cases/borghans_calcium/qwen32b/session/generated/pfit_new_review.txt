@@ -1,0 +1,4 @@
+At t = 0 use Z = 0.087920524425504, Y = 0.999348084438687 and A = 0.99999999999996. The frozen experiment initial_conditions override these values.
+All required equations and parameters are provided.
+The CSV contains a single measured signal 'Ca' which is related to the state 'Z' through a linear transformation involving 'offset' and 'scale'.
+User requested RMSE normalized by the largest absolute measured Ca value.

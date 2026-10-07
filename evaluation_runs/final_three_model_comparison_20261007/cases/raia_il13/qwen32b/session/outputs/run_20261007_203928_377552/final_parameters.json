@@ -1,0 +1,79 @@
+{
+  "parameters": [
+    {
+      "name": "Kon_IL13Rec",
+      "value": 1.3038520837667328e-05,
+      "logscale": true
+    },
+    {
+      "name": "Rec_intern",
+      "value": 0.09672132260019337,
+      "logscale": true
+    },
+    {
+      "name": "Rec_recycle",
+      "value": 0.0002983138594124978,
+      "logscale": true
+    },
+    {
+      "name": "Rec_phosphorylation",
+      "value": 647.3934642286408,
+      "logscale": true
+    },
+    {
+      "name": "JAK2_phosphorylation",
+      "value": 0.03432444448455869,
+      "logscale": true
+    },
+    {
+      "name": "JAK2_p_inhibition",
+      "value": 0.002797851339330758,
+      "logscale": true
+    },
+    {
+      "name": "pRec_intern",
+      "value": 72.93804016382384,
+      "logscale": true
+    },
+    {
+      "name": "pRec_degradation",
+      "value": 0.0018696398080159627,
+      "logscale": true
+    },
+    {
+      "name": "pJAK2_dephosphorylation",
+      "value": 3.054817324948724e-05,
+      "logscale": true
+    },
+    {
+      "name": "STAT5_phosphorylation",
+      "value": 115.4834045140202,
+      "logscale": true
+    },
+    {
+      "name": "pSTAT5_dephosphorylation",
+      "value": 0.002640132084941512,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3mRNA_production",
+      "value": 0.07028070265880583,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3_translation",
+      "value": 0.0003787366611930627,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3_accumulation",
+      "value": 21.15037270029329,
+      "logscale": true
+    },
+    {
+      "name": "SOCS3_degradation",
+      "value": 1.2685798436217852e-05,
+      "logscale": true
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "verdict": "Stationarity not established; refinement stopped at iteration budget.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and residual plots, then increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.540791, indicating stationarity is not established. The refinement stopped at its iteration budget, suggesting more iterations might help."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, level_lower.",
+      "reason": "The RMSE for Experiment 1, level_lower is 5.34324, with a bias of -4.85337. Time correlation and lag-1 correlation suggest potential issues with model fit or input data. Inspecting the residuals and trajectory plot can provide more insight."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the model is identifiable or if the current parameters are optimal.",
+    "The gradient-only restart assumes the current model and bounds are valid and that the gradient evidence supports refinement."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

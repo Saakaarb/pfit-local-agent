@@ -1,0 +1,9 @@
+{
+  "parameters": [
+    {
+      "name": "mu",
+      "value": 2.5883960038901663,
+      "logscale": true
+    }
+  ]
+}

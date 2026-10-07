@@ -1,0 +1,53 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen32b/session/outputs/run_20261007_201352_276613
+Readiness warning: 2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.
+Launching driver script
+ERROR:2026-10-07 20:13:55,442:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 197, in _version_check
+    version = get_version()
+              ^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:81: operation cusparseGetProperty(MAJOR_VERSION, &major) failed: The cuSPARSE library was not found.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 262, in _check_cuda_versions
+    _version_check("cuSPARSE", cuda_versions.cusparse_get_version,
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 201, in _version_check
+    raise RuntimeError(err_msg) from e
+RuntimeError: Unable to load cuSPARSE. Is it installed?
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 128, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen32b/session/outputs/run_20261007_201352_276613
+Using 2 accuracy-validated seed points
+Accuracy warning: 2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06], atol: [1e-08, 4.000000505294719e-10, 3.540258860836423e-06]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 1.0000E+04
+Time for iteration: 0.3165
+-------
+Final best position (scaled): [-0.14422371 -0.02265652  0.23726009  0.3062698  -0.78618113 -1.
+  0.07723054  0.37088547]
+Final best cost: 1.0000E+04
+Done with DE search
+Best Position from DE: [2.69052581e-19 9.49168846e+01 3.28632662e+18 1.26850831e+19
+ 2.15383754e-19 1.00000000e+01 3.15446108e+00 3.74177095e+00]
+Best cost from DE: 10000.265083581786
+NODE effective tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 4.0000005052947185e-11, 3.540258860836423e-07]
+Trainable_params: [-0.14422371 -0.02265652  0.23726009  0.3062698  -0.78618113 -1.
+  0.07723054  0.37088547]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 10000.265083579621 10000.265083579621
+Iteration:,loss value, best loss: 4 10000.26494265496 10000.26494265496
+Iteration time: 6.1002655029296875
+Final best position: [2.69098870e-19 9.48077417e+01 3.25455291e+18 1.25638173e+19
+ 2.15420393e-19 1.00000000e+01 3.15544474e+00 3.74275257e+00]
+Final loss: 10000.26491426101
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen32b/session/outputs/run_20261007_201352_276613

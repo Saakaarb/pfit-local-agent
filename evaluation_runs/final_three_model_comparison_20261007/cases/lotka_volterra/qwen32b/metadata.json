@@ -1,0 +1,336 @@
+{
+  "case": "lotka_volterra",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.1341695487499237,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "434c6de46944d6c2744ac13fdc0e94dd6f02311e",
+    "warmup_seconds": 8.09182739071548,
+    "warmup_thinking": "not applicable",
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-10-07T20:12:14.711879883Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 8091095512,
+      "load_duration": 7791777748,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 193032000,
+      "eval_count": 2,
+      "eval_duration": 102483000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-17T19:59:31.566857882Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 23917 MiB"
+  },
+  "input_audit": {
+    "name": "lotka_volterra",
+    "source": "sessions/lotka_volterra",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "lynx_hare.csv"
+    ],
+    "prompt_sha256": "c6673011318c7a2cb78aefd4e9fb32b2fb7751e23f393e5be5dd5c9249e9db97",
+    "original_prompt_sha256": "c6673011318c7a2cb78aefd4e9fb32b2fb7751e23f393e5be5dd5c9249e9db97",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "lynx_hare.csv": "2cd4fb7326858c38b64293b7847a129e1c3c74e216a1426c11fed24c84c881a1",
+      "user_info.txt": "c6673011318c7a2cb78aefd4e9fb32b2fb7751e23f393e5be5dd5c9249e9db97"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  "status": "pass",
+  "started_utc": "2026-10-07T20:25:47Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-07T20:25:47Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 79939,
+      "exit_code": 0,
+      "seconds": 23.989,
+      "finished_utc": "2026-10-07T20:26:11Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-07T20:26:11Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 79955,
+      "exit_code": 0,
+      "seconds": 9.809,
+      "finished_utc": "2026-10-07T20:26:21Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-07T20:26:21Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen32b/session",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 79957,
+      "exit_code": 0,
+      "seconds": 16.497,
+      "finished_utc": "2026-10-07T20:26:38Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-07T20:26:38Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen32b/session"
+      ],
+      "pid": 80472,
+      "exit_code": 0,
+      "seconds": 18.706,
+      "finished_utc": "2026-10-07T20:26:56Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-07T20:26:56Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen32b/session",
+        "run_20261007_202638_688063",
+        "--model",
+        "qwen2.5-coder:32b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 81187,
+      "exit_code": 0,
+      "seconds": 14.209,
+      "finished_utc": "2026-10-07T20:27:11Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "pre_run_configuration": {},
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "auto_state_tolerances": true,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "auto_max_steps": true,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 900,
+      "solver_validation_min_successful": 10,
+      "solver_validation_seed": 7,
+      "solver_accuracy_check": true,
+      "solver_accuracy_workers": 4,
+      "auto_integrator": true,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20261007_202638_688063",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.3028275196338689,
+    "final_loss": 0.3025040664720137,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.3025040664720138
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-07T20:27:11Z",
+  "total_wall_seconds": 83.323,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 45.157958367839456,
+  "prompt_tokens": 19071,
+  "generated_tokens": 1372,
+  "token_counts_incomplete": false
+}

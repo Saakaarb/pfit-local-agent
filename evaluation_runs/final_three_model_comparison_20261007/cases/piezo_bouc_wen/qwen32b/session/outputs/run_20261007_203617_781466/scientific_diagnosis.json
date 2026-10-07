@@ -1,0 +1,210 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen32b/session/outputs/run_20261007_203617_781466",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen32b/session/outputs/run_20261007_203617_781466/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "gamma=0.000976146 is at 0.98% of its linear search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 0.232267; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "WEAK_MODES",
+      "priority": 4,
+      "evidence": "Saved curvature has 1 weak parameter combinations.",
+      "next_step": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, xp: RMSE=7.49745e-07, bias=-2.26468e-08, time correlation=0.38430716357000444, lag-1=0.9312792605812021.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 79,
+          "missing": 0,
+          "rmse": 7.497449757863047e-07,
+          "mae": 6.332664255837401e-07,
+          "bias": -2.2646814839373163e-08,
+          "max_abs": 1.7429239831190295e-06,
+          "time_correlation": 0.38430716357000444,
+          "lag1_correlation": 0.9312792605812021,
+          "time_regions": [
+            {
+              "start": 0.10061349693251534,
+              "end": 0.23374233128834354,
+              "count": 28,
+              "rmse": 7.481029198426543e-07
+            },
+            {
+              "start": 0.23374233128834354,
+              "end": 0.36687116564417177,
+              "count": 25,
+              "rmse": 6.08851596122752e-07
+            },
+            {
+              "start": 0.36687116564417177,
+              "end": 0.49999999999999994,
+              "count": 26,
+              "rmse": 8.653446337273381e-07
+            }
+          ],
+          "name": "xp",
+          "observes": "xp"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "alpha",
+      "value": 0.31688943898160915,
+      "range_fraction": 0.31688943898160915,
+      "logscale": false
+    },
+    {
+      "name": "beta",
+      "value": 0.007892281922783701,
+      "range_fraction": 0.078922819227837,
+      "logscale": false
+    },
+    {
+      "name": "gamma",
+      "value": 0.0009761460733912265,
+      "range_fraction": 0.009761460733912264,
+      "logscale": false
+    },
+    {
+      "name": "cp",
+      "value": 28.285821157523316,
+      "range_fraction": 0.8285821157523315,
+      "logscale": false
+    },
+    {
+      "name": "kp",
+      "value": 13893470.362679526,
+      "range_fraction": 0.811004133562524,
+      "logscale": true
+    },
+    {
+      "name": "de",
+      "value": 1.400005682669012e-07,
+      "range_fraction": 0.8298526529994502,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.15294541138729623,
+    "final_loss": 0.15276732295555062,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.8498373287898295e-11,
+        7.618349822204889e-10,
+        1.8495557017505334e-11
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.8498373287898295e-11,
+        7.618349822204889e-10,
+        1.8495557017505334e-11
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.15276721417084183
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen32b/session/outputs/run_20261007_203617_781466/de_fitting.log",
+      "rows": 1,
+      "first": 0.15294,
+      "final": 0.15294,
+      "best": 0.15294,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.15294
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen32b/session/outputs/run_20261007_203617_781466/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.1528,
+      "final": 0.15277,
+      "best": 0.15277,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.1528
+        ],
+        [
+          5,
+          0.15277
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.15276721417084183,
+  "experiment_losses": [
+    0.15276721417084183
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 1,
+    "negative_modes": 2
+  },
+  "normalized_gradient_inf_norm": 0.23226737174549458,
+  "gradient_to_loss_ratio": 1.5204006501404586,
+  "verdict": "gamma=0.000976146 is at 0.98% of its linear search interval."
+}

@@ -1,0 +1,38 @@
+{
+  "verdict": "k1=0.00100231 is at 0.03% of its log10 search interval, stationarity is not established, and refinement stopped at its iteration budget.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for k1 is physically justified.",
+      "reason": "k1 is very close to its lower bound, which may indicate that the bound is too restrictive or that the model is sensitive to this parameter."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.166545, indicating that stationarity is not established. If the bounds are appropriate, increasing the number of iterations may help achieve convergence."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The refinement stopped at its iteration budget, so it is important to evaluate the current state of the fit before proceeding with further iterations."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for y1, y2, and y3.",
+      "reason": "The residuals for y1 and y3 have high RMSE and bias, while y2 has a very low RMSE. Inspecting the plots can help identify issues with the model, initial conditions, or data calibration."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the current model is the best fit or if there are other issues with the data or model assumptions."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

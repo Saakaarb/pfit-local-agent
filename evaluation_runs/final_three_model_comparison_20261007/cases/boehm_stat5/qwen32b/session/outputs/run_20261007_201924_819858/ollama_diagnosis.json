@@ -1,0 +1,32 @@
+{
+  "verdict": "Stationarity not established; weak modes identified; budget reached; residual analysis needed.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.155051, indicating that stationarity is not established. If gradient checks pass and bounds are appropriate, increasing the number of iterations can help achieve convergence."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters.",
+      "reason": "There is 1 weak parameter combination, suggesting potential non-identifiability. Inspecting eigenvectors can provide insights into which parameters are causing the weakness."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, pSTAT5B.",
+      "reason": "Experiment 1, pSTAT5B has an RMSE of 6.56028, bias of -2.67515, and negative time correlation. Inspecting the residuals and trajectory plot can help identify issues with input timing, calibration, initial conditions, or model mismatch."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish the cause of the weak modes or the specific issues with the residuals.",
+    "The gradient-only restart assumes that the current model and bounds are valid and that the gradient evidence supports refinement."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

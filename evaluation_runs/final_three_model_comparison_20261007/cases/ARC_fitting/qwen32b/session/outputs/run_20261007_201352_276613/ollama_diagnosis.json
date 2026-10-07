@@ -1,0 +1,33 @@
+{
+  "verdict": "h2=10 is at 0.00% of its log10 search interval; stationarity not established.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound h2=10 is physically justified.",
+      "reason": "h2 is at the lower bound of its log10 search interval, which may indicate that the bound is too restrictive or not physically justified."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.0753166, indicating that stationarity is not established. If gradient checks pass and bounds are appropriate, increasing the number of iterations can help achieve convergence."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, T and dTdt.",
+      "reason": "The residuals for Experiment 1, T and dTdt, indicate potential issues with input timing, calibration, initial conditions, or model mismatch. Inspecting the plots can provide more insight into these issues."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the current bounds are physically justified or if they are too restrictive.",
+    "The current gradient norm does not indicate convergence, but it is not conclusive evidence of non-convergence without further iterations.",
+    "The residuals suggest potential issues with the model fit, but they do not specify the cause, which could be due to model mismatch, input errors, or other factors."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

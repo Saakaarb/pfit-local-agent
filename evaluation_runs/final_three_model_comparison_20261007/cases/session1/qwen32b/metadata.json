@@ -1,0 +1,131 @@
+{
+  "case": "session1",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ],
+    "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+    "size_bytes": 19851349898,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "32.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.1341695487499237,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "insert"
+    ],
+    "gguf_parameter_count": 32763876352,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "434c6de46944d6c2744ac13fdc0e94dd6f02311e",
+    "warmup_seconds": 8.09182739071548,
+    "warmup_thinking": "not applicable",
+    "warmup_response": {
+      "model": "qwen2.5-coder:32b",
+      "created_at": "2026-10-07T20:12:14.711879883Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 8091095512,
+      "load_duration": 7791777748,
+      "prompt_eval_count": 33,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 193032000,
+      "eval_count": 2,
+      "eval_duration": 102483000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:32b",
+          "model": "qwen2.5-coder:32b",
+          "size": 24440681266,
+          "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "32.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-17T19:59:31.566857882Z",
+          "size_vram": 24440681266,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 23917 MiB"
+  },
+  "input_audit": {
+    "name": "session1",
+    "source": "sessions/session1",
+    "adaptations": [],
+    "status": "blocked",
+    "expected_experiments": null,
+    "reason": "No scientific problem specification; not invented for benchmark",
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  "status": "blocked",
+  "started_utc": "2026-10-07T20:42:56Z",
+  "stages": {},
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "reason": "No scientific problem specification; not invented for benchmark",
+  "total_wall_seconds": 0
+}

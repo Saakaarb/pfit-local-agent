@@ -1,0 +1,39 @@
+{
+  "verdict": "gamma is near its bound, stationarity not established, and refinement stopped at budget.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for gamma is physically justified.",
+      "reason": "gamma=0.000976146 is at 0.98% of its linear search interval, indicating it may be constrained by its bound."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "Normalized gradient infinity norm is 0.232267, which is not sufficiently small to establish stationarity."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "Refinement stopped at its iteration budget, and further iterations may improve the fit."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for experiment 1.",
+      "reason": "Experiment 1 has an RMSE of 7.49745e-07, bias of -2.26468e-08, and time correlation of 0.38430716357000444, indicating potential issues with input timing, calibration, initial conditions, or model mismatch."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the current model is the best possible fit or if the bounds are optimal.",
+    "The gradient-only restart assumes the current model and bounds are valid and that the gradient evidence supports refinement."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

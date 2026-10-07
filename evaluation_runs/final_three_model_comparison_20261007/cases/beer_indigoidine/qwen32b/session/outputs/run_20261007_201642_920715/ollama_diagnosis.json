@@ -1,0 +1,26 @@
+{
+  "verdict": "Refinement stopped at its iteration budget without establishing convergence.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png) for Experiment 1.",
+      "reason": "The iteration budget was reached without a verified final-point gradient, and the residuals indicate potential issues with model fit and input data consistency."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Diagnose the final gradient (using diagnose --probe-gradients) to assess the possibility of a gradient-only restart.",
+      "reason": "A flat optimizer log does not establish convergence, and a gradient-only restart could refine the current model parameters if the gradients are small but non-zero."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available, which prevents establishing convergence.",
+    "The optimizer log is flat, indicating no material improvement in the loss function over iterations."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,41 @@
+{
+  "mode": "full",
+  "seed_loss": 0.20210241161500786,
+  "final_loss": 0.19950530203979863,
+  "refinement_tolerance_fallback": false,
+  "requested_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      1.1150071404931246e-06,
+      4.1226773005409576e-09,
+      1.298467285584272e-09
+    ]
+  },
+  "effective_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      1.1150071404931246e-06,
+      4.1226773005409576e-09,
+      1.298467285584272e-09
+    ]
+  },
+  "warnings": [],
+  "aggregation": "equal_experiment_mean",
+  "experiment_losses": [
+    0.19950530203979863
+  ],
+  "gradient_optimizer": "adam",
+  "gradient_iteration_budget": 5,
+  "gradient_iterations_evaluated": 5,
+  "refinement_error": null,
+  "termination": "iteration_budget",
+  "termination_detail": null
+}

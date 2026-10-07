@@ -1,0 +1,25 @@
+{
+  "verdict": "Stationarity not established; gradient infinity norm is 0.604559.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.604559, indicating that stationarity is not established. Since the refinement stopped at its iteration budget, increasing the number of iterations may help in achieving a more stationary solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png).",
+      "reason": "The RMSE for Experiment 1, C_plasma is 1.2192, with a bias of -0.926245. Inspecting the residuals and trajectory plot can provide insights into the model's performance and help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish the presence of numerical failures or unreliable gradients, but stationarity is not confirmed."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

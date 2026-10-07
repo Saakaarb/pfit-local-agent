@@ -1,0 +1,4 @@
+Bac=0.013816608995338, Glu=10, and both cGlu and Ind equal to zero.
+All required equations and parameters are provided.
+All response measurements are mapped to the corresponding states.
+User wants to fit a model to culture.csv with specific normalization and loss criteria.

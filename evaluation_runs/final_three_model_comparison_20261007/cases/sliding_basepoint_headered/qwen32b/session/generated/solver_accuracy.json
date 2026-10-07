@@ -1,0 +1,324 @@
+{
+  "code": "accuracy_failed",
+  "integrator": "Tsit5",
+  "max_steps": 1000,
+  "sample_count": 80,
+  "probe_samples": [
+    23,
+    26,
+    25,
+    20
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 23,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2.429136306402055e-10,
+        1e-09,
+        1.1060000000000001e-08,
+        1e-09,
+        0.0013022751328631158,
+        3.998102148608517e-05
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 0.19175227540962994
+        },
+        {
+          "name": "displacement",
+          "max_normalized_difference": 0.10490339287353215
+        }
+      ],
+      "loss": 0.33879064293259403,
+      "reference_loss": 0.3387904081747604,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 40,
+        "num_rejected_steps": 17,
+        "num_steps": 57
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 17,
+        "num_steps": 76
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 23,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        2.429136306402055e-09,
+        1e-08,
+        1.1060000000000001e-07,
+        1e-08,
+        0.013022751328631158,
+        0.0003998102148608517
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 0.18807353002002195
+        },
+        {
+          "name": "displacement",
+          "max_normalized_difference": 0.31207492044623447
+        }
+      ],
+      "loss": 0.3387900438825183,
+      "reference_loss": 0.33879064293259403,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 28,
+        "num_rejected_steps": 14,
+        "num_steps": 42
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 40,
+        "num_rejected_steps": 17,
+        "num_steps": 57
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2.429136306402055e-10,
+        1e-09,
+        1.1060000000000001e-08,
+        1e-09,
+        0.0013022751328631158,
+        3.998102148608517e-05
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 1.0149961297274288
+        }
+      ],
+      "loss": 0.6473845702564961,
+      "reference_loss": 0.6473844688042111,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 91,
+        "num_rejected_steps": 17,
+        "num_steps": 108
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 149,
+        "num_rejected_steps": 41,
+        "num_steps": 190
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 25,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2.429136306402055e-10,
+        1e-09,
+        1.1060000000000001e-08,
+        1e-09,
+        0.0013022751328631158,
+        3.998102148608517e-05
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 0.060989255244769676
+        },
+        {
+          "name": "displacement",
+          "max_normalized_difference": 0.0008668481300957831
+        }
+      ],
+      "loss": 1.6187553360199696,
+      "reference_loss": 1.6187552825665465,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 53,
+        "num_rejected_steps": 8,
+        "num_steps": 61
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 84,
+        "num_rejected_steps": 28,
+        "num_steps": 112
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 25,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        2.429136306402055e-09,
+        1e-08,
+        1.1060000000000001e-07,
+        1e-08,
+        0.013022751328631158,
+        0.0003998102148608517
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 1.2787653140745745
+        }
+      ],
+      "loss": 1.618755398631051,
+      "reference_loss": 1.6187553360199696,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 36,
+        "num_rejected_steps": 7,
+        "num_steps": 43
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 53,
+        "num_rejected_steps": 8,
+        "num_steps": 61
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2.429136306402055e-10,
+        1e-09,
+        1.1060000000000001e-08,
+        1e-09,
+        0.0013022751328631158,
+        3.998102148608517e-05
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 0.17621579593470338
+        },
+        {
+          "name": "displacement",
+          "max_normalized_difference": 0.0017534125104423062
+        }
+      ],
+      "loss": 0.5592813383868983,
+      "reference_loss": 0.5592812759515303,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 52,
+        "num_rejected_steps": 14,
+        "num_steps": 66
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 79,
+        "num_rejected_steps": 25,
+        "num_steps": 104
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        2.429136306402055e-09,
+        1e-08,
+        1.1060000000000001e-07,
+        1e-08,
+        0.013022751328631158,
+        0.0003998102148608517
+      ],
+      "observables": [
+        {
+          "name": "contact_force",
+          "max_normalized_difference": 1.0870990244922976
+        }
+      ],
+      "loss": 0.5592810873427804,
+      "reference_loss": 0.5592813383868983,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 35,
+        "num_rejected_steps": 7,
+        "num_steps": 42
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 52,
+        "num_rejected_steps": 14,
+        "num_steps": 66
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "result": "refinement: contact_force disagrees with tighter reference"
+}

@@ -1,0 +1,26 @@
+{
+  "verdict": "Refinement stopped at its iteration budget without establishing convergence.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1 and Experiment 2.",
+      "reason": "The residuals indicate significant RMSE values (23.0673 and 11.5429) and biases (-7.53194 and -1.76751) for Experiment 1 and Experiment 2, respectively. Inspecting the plots can help identify specific time regions or patterns that may indicate issues with the model, initial conditions, or calibration."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient (diagnose --probe-gradients) to determine if a gradient-only restart is worthwhile.",
+      "reason": "Since the refinement stopped at the iteration budget, assessing the final gradient can provide insight into whether the current solution is close to a local optimum and whether further refinement is likely to improve the fit."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence.",
+    "The high RMSE and bias values suggest that the model may not be capturing the data accurately, and further investigation is required."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

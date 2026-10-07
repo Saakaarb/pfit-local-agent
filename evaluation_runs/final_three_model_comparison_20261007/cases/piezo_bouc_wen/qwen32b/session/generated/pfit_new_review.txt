@@ -1,0 +1,4 @@
+xp(0) = 0.0; vp(0) = 0.0; h(0) = 0.0
+All required equations and formulas are provided.
+The CSV contains a time column and a measured displacement column 'xp'. The model has an integrated state 'xp' which directly corresponds to the measured displacement.
+User provided a custom loss function to compare simulated xp to measured xp, normalizing by max(abs(measured xp)) and using RMSE.

@@ -1,0 +1,4 @@
+x1(0) = 2.0; x2(0) = 0.1; the experiment initial_conditions override these with the same values.
+Van der Pol oscillator equations are well-defined and complete.
+All response measurement columns are directly mapped to the integrated states.
+User provided a custom loss with normalization by max(abs(measured column)) and RMSE.

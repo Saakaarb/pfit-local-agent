@@ -1,0 +1,7 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen32b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen32b/session
+warning: The automatic log-loss rule does not apply to 'Bacnorm' because its within-column log10(max/min) is 2.0034, which is below the threshold of 3 orders. However, the data spans multiple orders of magnitude, which may affect convergence.
+warning: The automatic log-loss rule does not apply to 'IndconcNormRange' because it contains zero/negative values or has fewer than two finite values. Ensure that the loss function is appropriate for this data.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Consider using a well-scaled loss for better convergence, especially for 'Bacnorm' given its dynamic range.
+recommendation: Review the loss function for 'IndconcNormRange' to ensure it handles zero/negative values appropriately.

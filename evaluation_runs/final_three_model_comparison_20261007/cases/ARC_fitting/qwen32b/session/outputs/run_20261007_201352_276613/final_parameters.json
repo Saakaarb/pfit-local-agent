@@ -1,0 +1,44 @@
+{
+  "parameters": [
+    {
+      "name": "Ea1",
+      "value": 2.690988702566633e-19,
+      "logscale": true
+    },
+    {
+      "name": "h1",
+      "value": 94.80774170184317,
+      "logscale": true
+    },
+    {
+      "name": "A1",
+      "value": 3.2545529131746964e+18,
+      "logscale": true
+    },
+    {
+      "name": "A2",
+      "value": 1.256381734423743e+19,
+      "logscale": true
+    },
+    {
+      "name": "Ea2",
+      "value": 2.1542039286134713e-19,
+      "logscale": true
+    },
+    {
+      "name": "h2",
+      "value": 10.0,
+      "logscale": true
+    },
+    {
+      "name": "m2",
+      "value": 3.1554447444241323,
+      "logscale": false
+    },
+    {
+      "name": "n2",
+      "value": 3.7427525723242328,
+      "logscale": false
+    }
+  ]
+}

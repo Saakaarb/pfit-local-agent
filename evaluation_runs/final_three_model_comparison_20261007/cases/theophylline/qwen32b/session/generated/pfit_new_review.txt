@@ -1,0 +1,4 @@
+A_gut(0) = 320.0 mg; A_plasma(0) = 0.0 mg. The frozen experiment initial_conditions supply A_gut = 320.0 and A_plasma = 0.0.
+Extracted the RHS expressions for the states A_gut and A_plasma based on the provided ODE system.
+The CSV contains time and C_plasma columns. C_plasma is a derived observable from the state A_plasma and parameter Vd.
+User provided a custom loss definition to normalize residuals by max(abs(measured C_plasma column)) and use RMSE.

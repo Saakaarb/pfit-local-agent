@@ -1,0 +1,4 @@
+y1(0) = 1.0; y2(0) = 0.0; y3(0) = 0.0
+All required equations are provided and complete.
+All response measurement columns are directly mapped to the integrated states.
+User provided a custom loss with normalization by max(abs(measured column)) and RMSE.

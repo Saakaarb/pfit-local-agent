@@ -1,0 +1,26 @@
+{
+  "verdict": "Refinement stopped at its iteration budget without establishing convergence.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png) to identify potential issues with input timing, calibration, initial conditions, or model mismatch.",
+      "reason": "The iteration budget was reached without improvement, and the high RMSE and negative time correlation suggest significant discrepancies between the model and the data."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient using diagnose --probe-gradients to determine if a gradient-only restart is worthwhile.",
+      "reason": "A flat optimizer log does not establish convergence, and checking the gradient can provide insights into whether further refinement is possible with the current model and bounds."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available, making it uncertain whether the current solution is optimal or if further refinement could improve it.",
+    "The high RMSE and negative time correlation indicate significant model-data mismatch, which may require adjustments to the model, initial conditions, or input data."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

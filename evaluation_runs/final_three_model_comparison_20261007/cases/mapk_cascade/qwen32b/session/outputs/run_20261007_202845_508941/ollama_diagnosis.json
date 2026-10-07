@@ -1,0 +1,32 @@
+{
+  "verdict": "h_4=0.0108715 is at 0.91% of its log10 search interval; stationarity not established; refinement stopped at budget.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for h_4 is physically justified.",
+      "reason": "h_4 is very close to its lower bound, which may indicate an issue with the bound or the model's ability to explore the parameter space."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Assess the final gradient and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The normalized gradient infinity norm is 1.9573, indicating that stationarity is not established. A gradient-only restart may help if the bounds are appropriate."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, Mpp.",
+      "reason": "The RMSE for Experiment 1, Mpp is 3.37453 with a significant bias and time correlation, suggesting potential issues with the model fit or input data."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the model is overfitting or underfitting.",
+    "The evidence does not provide information on the stability of finite differences or the reliability of autodiff."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}
