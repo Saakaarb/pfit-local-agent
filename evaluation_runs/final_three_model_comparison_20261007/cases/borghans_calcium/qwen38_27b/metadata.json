@@ -1,0 +1,115 @@
+{
+  "case": "borghans_calcium",
+  "status": "pass",
+  "manual_intervention": false,
+  "started_utc": "2026-10-07T18:44:01Z",
+  "stages": {
+    "run": {
+      "started_utc": "2026-10-07T18:44:01Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/population_tolerance_retries_20261007/cases/borghans_calcium/session",
+        "--no-sloppiness"
+      ],
+      "pid": 28561,
+      "exit_code": 0,
+      "seconds": 11.039,
+      "finished_utc": "2026-10-07T18:44:12Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-07T18:44:12Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/population_tolerance_retries_20261007/cases/borghans_calcium/session",
+        "run_20261007_184401_995534",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 29198,
+      "exit_code": 0,
+      "seconds": 72.438,
+      "finished_utc": "2026-10-07T18:45:24Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "protocol": "protocol.json",
+  "run_id": "run_20261007_184401_995534",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.20210241161500792,
+    "final_loss": 0.19950530203979863,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.1150071404633319e-06,
+        4.122677302568541e-09,
+        1.298467285589407e-09
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.1150071404633319e-06,
+        4.122677302568541e-09,
+        1.298467285589407e-09
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.19950530203979863
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "validated_seed_count": 4,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-07T18:45:24Z",
+  "total_wall_seconds": 83.504,
+  "initial_status": "fail",
+  "result_origin": "historical_retry",
+  "source_metadata": "evaluation_runs/population_tolerance_retries_20261007/cases/borghans_calcium/metadata.json",
+  "model_metadata": {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ]
+  },
+  "timing_scope": "latest retry only"
+}

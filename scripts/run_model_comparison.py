@@ -116,11 +116,16 @@ def stage(directory, label, command, timeout, env):
 def report(root, models, inventory):
     rows = []
     lines = ['# Live model comparison', '',
-        'Single attempt per model/case, including the existing repair budget. '
+        'Fresh runs use one attempt per model/case, including the existing repair budget. '
         'Times include failed attempts and must be interpreted alongside status. '
         'Downloads and warm-up are recorded separately. These are workflow smoke tests, not converged fits.', '',
         '| Case | ' + ' | '.join(m['key'] + ' (status; seconds)' for m in models) + ' |',
         '|---|' + '---|' * len(models)]
+    if (root / 'baseline_provenance.json').exists():
+        lines += ['Qwen3.8 is an imported historical baseline with retries across workflow revisions; '
+                  '32B and 14B are fresh attempts at the recorded commit. Retry/manual passes are labelled. '
+                  'These are cumulative workflow outcomes, not a controlled first-attempt model ranking. '
+                  'The CSV retains original baseline statuses and source paths.', '']
     for case in inventory:
         cells = []
         for model in models:
@@ -134,20 +139,29 @@ def report(root, models, inventory):
                 active_parameters_billion=model['nominal_active_parameters_billion'],
                 quantization=model['quantization'], thinking_model=model['thinking_model'],
                 duplicate_of=case.get('duplicate_of', ''))
+            row.update(result_origin=entry.get('result_origin', 'fresh_attempt'),
+                       initial_status=entry.get('initial_status', entry['status']),
+                       source_metadata=entry.get('source_metadata', ''),
+                       manual_intervention=entry.get('manual_intervention', False))
             row.update({s + '_seconds': entry.get('stages', {}).get(s, {}).get('seconds', '') for s in STAGES})
             rows.append(row)
             label = entry['status']
+            if entry.get('result_origin') == 'historical_retry':
+                label += ' (manual retry)' if entry.get('manual_intervention') else ' (retry)'
             if entry.get('failed_stage'):
                 label += ' at ' + entry['failed_stage']
             cells.append(f'{label}; {row["total_wall_seconds"]}' if row['total_wall_seconds'] != '' else label)
         lines.append('| ' + case['name'] + ' | ' + ' | '.join(cells) + ' |')
-    lines += ['', '## Counts', '', '| Model | Pass | Fail/degraded | Infrastructure/blocked | Pending/running |',
-              '|---|---:|---:|---:|---:|']
+    lines += ['', '## Counts', '', '| Model | Pass | Fail/degraded | Infrastructure/blocked | Pending/running | Pass / eligible |',
+              '|---|---:|---:|---:|---:|---:|']
+    eligible = sum(c['status'] != 'blocked' for c in inventory)
     for model in models:
         selected = [r for r in rows if r['model'] == model['key']]
         count = lambda statuses: sum(r['status'] in statuses for r in selected)
+        rate = f'{100 * count(["pass"]) / eligible:.1f}%' if eligible else 'n/a'
         lines.append(f'| {model["key"]} | {count(["pass"])} | {count(["fail", "degraded"])} | '
-                     f'{count(["blocked", "infrastructure_error", "interrupted"])} | {count(["pending", "running"])} |')
+                     f'{count(["blocked", "infrastructure_error", "interrupted"])} | {count(["pending", "running"])} | '
+                     f'{count(["pass"])}/{eligible} ({rate}) |')
     lines += ['', 'Two incomplete folders are excluded from the eligible denominator. '
         'test_session duplicates Robertson; sliding_basepoint_headered duplicates sliding_basepoint. '
         'Keep these rows visible but do not treat them as independent scientific problems.', '',
@@ -332,7 +346,8 @@ def main():
     if args.first_case not in {c['name'] for c in inventory}:
         parser.error('Unknown first case')
     models = json.loads((REPO / 'benchmarks/model_comparison/models.json').read_text())
-    selected = [m for m in models if not args.models or m['key'] in args.models]
+    selected = ([next(m for m in models if m['key'] == key) for key in args.models
+                 if key in {m['key'] for m in models}] if args.models else models)
     if not selected or (args.models and set(args.models) - {m['key'] for m in models}):
         parser.error('Select at least one known comparison model')
     displayed = [m for m in models if m['key'] in args.report_models] if args.report_models else selected

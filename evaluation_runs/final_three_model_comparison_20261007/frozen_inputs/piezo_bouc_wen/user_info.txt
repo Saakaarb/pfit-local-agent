@@ -1,0 +1,37 @@
+Fit the piezoelectric actuator Bouc-Wen hysteresis model to correct_units_piezo_electric_actuator.csv.
+
+Dataset columns:
+- time in seconds
+- xp, observed displacement in meters
+
+Integrated states and initial values:
+- xp(0) = 0.0
+- vp(0) = 0.0
+- h(0) = 0.0
+
+Trainable parameters:
+- alpha in [0.0, 1.0], linear scale
+- beta in [0.0, 0.1], linear scale
+- gamma in [0.0, 0.1], linear scale
+- cp in [20.0, 30.0], linear scale
+- kp in [1.0e7, 1.5e7], log scale
+- de in [1.0e-7, 1.5e-7], log scale
+
+Fixed parameter:
+- mp = 0.1
+
+Input voltage:
+- V(t) = 24 + 24 * sin(16 * pi * t)
+- dV/dt = 24 * 16 * pi * cos(16 * pi * t)
+
+ODE system:
+- dxp/dt = vp
+- dvp/dt = (kp * (de * V(t) - h) - cp * vp - kp * xp) / mp
+- dh/dt = alpha * de * dV/dt - beta * abs(dV/dt) * abs(h) - gamma * dV/dt * abs(h)
+
+Loss:
+- Compare simulated xp to the measured xp column.
+- Normalize residuals by max(abs(measured xp)).
+- loss = sqrt(mean(normalized squared residuals)).
+
+Write out time, measured xp, simulated xp, simulated h, V(t), and simulated vp.

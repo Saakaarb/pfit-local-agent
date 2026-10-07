@@ -1,0 +1,17 @@
+{
+  "model_order": [
+    "qwen14b",
+    "qwen32b"
+  ],
+  "baseline": "qwen38_27b",
+  "baseline_scope": "Historical cumulative results, across workflow revisions; not a matched-commit first-attempt baseline",
+  "budgets": {
+    "population": 4,
+    "de_iterations": 1,
+    "adam_iterations": 5
+  },
+  "eligible_cases": 21,
+  "blocked_cases": 2,
+  "unchanged_frozen_inputs": "evaluation_runs/qwen38_fixed_samples_all_20261007/frozen_inputs",
+  "manual_model_edits_for_new_batches": false
+}
