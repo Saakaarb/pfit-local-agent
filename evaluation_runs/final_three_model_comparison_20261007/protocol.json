@@ -13,5 +13,7 @@
   "eligible_cases": 21,
   "blocked_cases": 2,
   "unchanged_frozen_inputs": "evaluation_runs/qwen38_fixed_samples_all_20261007/frozen_inputs",
-  "manual_model_edits_for_new_batches": false
+  "manual_model_edits_for_new_batches": false,
+  "resume_note": "32B preparation initially blocked by stale network-volume free-space accounting. 14B results preserved. Resume changes only benchmark reporting and model preparation; numerical workflow unchanged.",
+  "original_framework_commit": "62470f69802ba6561b80406a0be858cae41d49c4"
 }

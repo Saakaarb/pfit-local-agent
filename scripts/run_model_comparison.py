@@ -154,7 +154,7 @@ def report(root, models, inventory):
         lines.append('| ' + case['name'] + ' | ' + ' | '.join(cells) + ' |')
     lines += ['', '## Counts', '', '| Model | Pass | Fail/degraded | Infrastructure/blocked | Pending/running | Pass / eligible |',
               '|---|---:|---:|---:|---:|---:|']
-    eligible = sum(c['status'] != 'blocked' for c in inventory)
+    eligible = sum(c.get('status', 'ready') != 'blocked' for c in inventory)
     for model in models:
         selected = [r for r in rows if r['model'] == model['key']]
         count = lambda statuses: sum(r['status'] in statuses for r in selected)
@@ -283,6 +283,17 @@ def run_case(root, case, model, metadata, env):
         print(f'{model["key"]}/{case["name"]}: {entry["status"]} ({entry["total_wall_seconds"]}s)', flush=True)
 
 
+def wait_for_disk_space(required, timeout=60):
+    """Network volumes can report stale free space briefly after model deletion."""
+    deadline = time.monotonic() + timeout
+    while True:
+        free = shutil.disk_usage('/workspace').free
+        remaining = deadline - time.monotonic()
+        if free >= required or remaining <= 0:
+            return free
+        time.sleep(min(2, remaining))
+
+
 def ensure_model(root, model, rotate, env):
     directory = root / 'models' / model['key']
     directory.mkdir(parents=True, exist_ok=True)
@@ -297,8 +308,9 @@ def ensure_model(root, model, rotate, env):
                 if item['name'] in known and item['name'] != model['model']:
                     subprocess.run([str(OLLAMA), 'stop', item['name']], env=env, check=True, stdout=subprocess.DEVNULL)
                     subprocess.run([str(OLLAMA), 'rm', item['name']], env=env, check=True)
-        free = shutil.disk_usage('/workspace').free
-        if free < model['expected_download_bytes'] + 2_000_000_000:
+        required = model['expected_download_bytes'] + 2_000_000_000
+        free = wait_for_disk_space(required, timeout=60 if rotate else 0)
+        if free < required:
             raise RuntimeError(f'Insufficient disk: {free} free, need weights plus 2GB headroom')
         with (directory / 'pull.log').open('a') as log:
             subprocess.run([str(OLLAMA), 'pull', model['model']], env=env, check=True,

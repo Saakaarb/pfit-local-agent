@@ -141,3 +141,24 @@ def test_benchmark_thinking_mode_preserves_content_and_budget(tmp_path, monkeypa
     metric = json.loads((tmp_path / 'llm_metrics.jsonl').read_text())
     assert metric['think'] == (True if thinking else 'model default')
     assert metric['thinking_characters'] == (9 if thinking else 0)
+
+
+def test_disk_space_wait_handles_delayed_volume_accounting(monkeypatch):
+    from types import SimpleNamespace
+    available = iter([12, 12, 37])
+    clock = [0.]
+    monkeypatch.setattr(comparison.shutil, 'disk_usage', lambda _: SimpleNamespace(free=next(available)))
+    monkeypatch.setattr(comparison.time, 'monotonic', lambda: clock[0])
+    monkeypatch.setattr(comparison.time, 'sleep', lambda seconds: clock.__setitem__(0, clock[0]+seconds))
+    assert comparison.wait_for_disk_space(22, timeout=10) == 37
+    assert clock[0] == 4
+
+
+def test_disk_space_wait_stops_when_space_is_really_insufficient(monkeypatch):
+    from types import SimpleNamespace
+    clock = [0.]
+    monkeypatch.setattr(comparison.shutil, 'disk_usage', lambda _: SimpleNamespace(free=12))
+    monkeypatch.setattr(comparison.time, 'monotonic', lambda: clock[0])
+    monkeypatch.setattr(comparison.time, 'sleep', lambda seconds: clock.__setitem__(0, clock[0]+seconds))
+    assert comparison.wait_for_disk_space(22, timeout=3) == 12
+    assert clock[0] == 3

@@ -5,7 +5,7 @@ root=Path(__file__).resolve().parent
 repo=root.parents[1]
 env=dict(os.environ,OPENBLAS_NUM_THREADS='1',JAX_PLATFORMS='cpu',JAX_ENABLE_X64='true',PYTHONUNBUFFERED='1')
 command=[str(repo/'.venv/bin/python'),str(repo/'scripts/run_model_comparison.py'),
-         '--root',str(root),'--models','qwen14b','qwen32b',
+         '--root',str(root),'--models','qwen32b',
          '--report-models','qwen38_27b','qwen14b','qwen32b',
          '--first-case','ARC_fitting','--rotate-models']
 result=subprocess.run(command,cwd=repo,env=env)
