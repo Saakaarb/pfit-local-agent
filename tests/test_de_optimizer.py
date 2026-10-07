@@ -59,3 +59,12 @@ def test_de_writes_iteration_log(tmp_path):
     log = log_path.read_text()
     assert "Population size: 6" in log
     assert "Max iterations: 1" in log
+
+
+def test_de_starts_with_accuracy_validated_point(tmp_path):
+    info = make_reader(tmp_path)
+    info.n_iters_pop = 0
+    info.accuracy_validated_seeds = [[.25, .25]]
+    point, cost = FitParamsDE(info, QuadraticProblem()).run(tmp_path/'seeded.log')
+    np.testing.assert_array_equal(point, [.25, .25])
+    assert cost == 0

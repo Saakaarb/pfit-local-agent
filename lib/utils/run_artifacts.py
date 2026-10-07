@@ -69,3 +69,58 @@ def write_final_parameters(output_dir, reader, values):
         for name, value, logscale in zip(reader.trainable_parameter_names, values, reader.axis_logscale)
     ]}
     (Path(output_dir) / "final_parameters.json").write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
+
+
+def accuracy_seed_context(session, reader):
+    """Bind validated seeds to the exact model, configuration and experiment data."""
+    import hashlib
+    from lib.utils.source_stamp import build_stamp
+    session = Path(session)
+    return dict(source_stamp=build_stamp(session), data_hashes={
+        experiment['filename']: hashlib.sha256((session / reader.user_input_dirname / experiment['filename']).read_bytes()).hexdigest()
+        for experiment in reader.experiments})
+
+
+def load_accuracy_seeds(session, reader):
+    path = Path(session) / 'generated/solver_accuracy.json'
+    if not path.exists():
+        return []
+    report = json.loads(path.read_text())
+    if 'validated_seeds' not in report:  # legacy reports did not persist seeds
+        return []
+    if report.get('code') != 'accuracy_passed' or report.get('seed_context') != accuracy_seed_context(session, reader):
+        raise ValueError('Accuracy-validated seeds are stale or unvalidated; rerun pfit jax')
+    seeds = [seed['normalized_parameters'] for seed in report['validated_seeds']]
+    points = np.asarray(seeds, dtype=float)
+    if points.ndim != 2 or points.shape[1] != reader.n_search_axes or not len(points) or not np.all(np.isfinite(points)) or np.any(np.abs(points) > 1):
+        raise ValueError('Invalid accuracy-validated parameter seeds; rerun pfit jax')
+    return points.tolist()
+
+
+def seed_population(population, seeds):
+    """Inject validated normalized points while retaining an exploratory particle."""
+    if not len(seeds):
+        return population
+    seeds = np.asarray(seeds, dtype=float)
+    if seeds.ndim != 2 or seeds.shape[1] != population.shape[1] or not np.all(np.isfinite(seeds)) or np.any(np.abs(seeds) > 1):
+        raise ValueError('Invalid normalized population seeds')
+    count = min(len(seeds), max(1, len(population)-1))
+    population[:count] = seeds[:count]
+    return population
+
+
+def refinement_start(loss_function, point, validated_seeds, error_loss):
+    """Keep a valid search winner, otherwise use the best finite validated seed."""
+    loss = float(loss_function(point))
+    if np.isfinite(loss) and loss != error_loss:
+        return point, loss, False
+    feasible = []
+    for seed in validated_seeds:
+        seed = np.asarray(seed, dtype=float)
+        value = float(loss_function(seed))
+        if np.isfinite(value) and value != error_loss:
+            feasible.append((value, seed))
+    if not feasible:
+        raise ValueError('Starting point has invalid loss or fails integration at refinement tolerances')
+    loss, point = min(feasible, key=lambda item: item[0])
+    return point, loss, True

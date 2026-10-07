@@ -60,6 +60,13 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
         scope='Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee')
     def finish(code,reason,failure=None):
         report.update(code=code,result=reason)
+        if code == 'accuracy_passed':
+            approved = [probe for probe, result in zip(probes, results)
+                        if 'refinement' in result[1] and probe['sample'] not in excluded]
+            approved.sort(key=lambda probe: np.mean(probe['experiment_losses']))
+            report['validated_seeds'] = [dict(sample=p['sample'],
+                normalized_parameters=p['normalized_parameters'],
+                experiment_losses=p['experiment_losses']) for p in approved]
         if failure is not None:
             report['failure_cause'] = failure['code']
             report['failure'] = failure
@@ -146,18 +153,31 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
     for items,_,_,_ in results:report['comparisons'].extend(items)
     # Refuse a bad refinement profile. A failed automatic DE relaxation may
     # instead use the already-validated refinement profile, without new solves.
+    excluded = set()
     fatal=[r for r in results if r[2]!='accuracy_passed' and
            (not r[0] or r[0][-1]['profile']!='population')]
-    for code in ('accuracy_interface_error','accuracy_failed','accuracy_inconclusive'):
+    # Contract errors and demonstrated inaccuracies still block readiness.
+    for code in ('accuracy_interface_error', 'accuracy_failed'):
         failed=next((r for r in fatal if r[2]==code),None)
         if failed:return finish(code,failed[3],failed[0][-1].get('failure') if failed[0] else None)
+    excluded = {probe['sample'] for probe, result in zip(probes, results)
+                if result in fatal and result[2] == 'accuracy_inconclusive'}
+    accepted_results = [result for probe, result in zip(probes, results) if probe['sample'] not in excluded]
+    if not accepted_results:
+        failed = fatal[0]
+        return finish(failed[2], failed[3], failed[0][-1].get('failure') if failed[0] else None)
+    if excluded:
+        report['unresolved_probes'] = [dict(sample=probe['sample'], reason=result[3],
+            failure=result[0][-1].get('failure') if result[0] else None)
+            for probe,result in zip(probes,results) if probe['sample'] in excluded]
+        report['warnings'] = [f'{len(excluded)} accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.']
     for name,_,_ in profiles:
-        failed=next((r for r in results if r[2]!='accuracy_passed' and r[0][-1]['profile']==name),None)
+        failed=next((r for r in accepted_results if r[2]!='accuracy_passed' and r[0][-1]['profile']==name),None)
         if failed:
             code,reason=failed[2],failed[3]
         else:
-            current=[[p[0] for p in r[1][name]] for r in results]
-            reference=[[p[1] for p in r[1][name]] for r in results]
+            current=[[p[0] for p in r[1][name]] for r in accepted_results]
+            reference=[[p[1] for p in r[1][name]] for r in accepted_results]
             accepted,reason=stable_losses(reference,current)
             if accepted:continue
             code='accuracy_failed'
@@ -170,4 +190,4 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
             report['population_relaxation_rejected']=dict(code=code,reason=reason)
             return finish('accuracy_passed','Refinement tolerances validated; DE retains those validated tolerances')
         return finish(code,f'{name}: {reason}',failed[0][-1].get('failure') if failed else None)
-    return finish('accuracy_passed','Predictions and losses agree with ten-times tighter tolerances on all selected probes')
+    return finish('accuracy_passed','Predictions and losses agree with ten-times tighter tolerances on validated probes; see unresolved_probes for exclusions')

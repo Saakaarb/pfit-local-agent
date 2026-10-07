@@ -201,7 +201,8 @@ class FitParamsPSO:
         )
 
         
-        self.swarm_obj.position = np.array(best_sampling)
+        from lib.utils.run_artifacts import seed_population
+        self.swarm_obj.position = seed_population(np.array(best_sampling), getattr(self.input_reader, 'accuracy_validated_seeds', []))
         self.bh = pyswarms.backend.handlers.BoundaryHandler(strategy="nearest")
         self.vh = pyswarms.backend.handlers.VelocityHandler(strategy="invert")
         self.oh = pyswarms.backend.handlers.OptionsHandler(

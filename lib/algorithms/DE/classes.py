@@ -75,6 +75,8 @@ class FitParamsDE:
         n_pop = self.input_reader.n_particles
         rng = np.random.default_rng(self.random_seed)
         population = self._latin_hypercube(n_pop, self.n_search_axes, rng)
+        from lib.utils.run_artifacts import seed_population
+        population = seed_population(population, getattr(self.input_reader, 'accuracy_validated_seeds', []))
         costs = self.problem_obj.compute_all_losses(population)
         best_idx = int(np.argmin(costs))
         best_pos = population[best_idx].copy()

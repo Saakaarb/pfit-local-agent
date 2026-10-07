@@ -507,6 +507,16 @@ class LocalWorkflow:
             self._generation_source_stamp = build_stamp(session_dir)
             events.append(WorkflowEvent("tolerance_calibration", "passed", "Applied validated state-scale and/or DE tolerances at the fixed step ceiling"))
         write_stamp(session_dir)
+        accuracy_path = script_path.parent / 'solver_accuracy.json'
+        if accuracy_path.exists():
+            accuracy = json.loads(accuracy_path.read_text())
+            if accuracy.get('validated_seeds'):
+                from lib.utils.run_artifacts import accuracy_seed_context
+                from local_agent.agent.validators import parse_input_yaml
+                accuracy['seed_context'] = accuracy_seed_context(session_dir, parse_input_yaml(session_dir / 'inputs/user_input.yaml'))
+                accuracy_path.write_text(json.dumps(accuracy, indent=2) + '\n')
+                for warning in accuracy.get('warnings', []):
+                    events.append(WorkflowEvent('solver_accuracy', 'warning', warning))
         events.append(WorkflowEvent("smoke_test_generated_script", "passed", str(script_path)))
         return True
 

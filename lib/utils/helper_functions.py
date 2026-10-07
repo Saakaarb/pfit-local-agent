@@ -270,6 +270,15 @@ def fit_generic_system(path_to_input: Path, path_to_output_dir: Path, generated_
 
         # variable and parameter name uniqueness 
         input_reader.check_name_uniqueness()
+        from lib.utils.run_artifacts import load_accuracy_seeds
+        input_reader.accuracy_validated_seeds = load_accuracy_seeds(session_path, input_reader)
+        if input_reader.accuracy_validated_seeds:
+            print(f"Using {len(input_reader.accuracy_validated_seeds)} accuracy-validated seed points")
+            accuracy = json.loads((Path(session_path) / 'generated/solver_accuracy.json').read_text())
+            for warning in accuracy.get('warnings', []):
+                print('Accuracy warning: ' + warning)
+            Path(path_to_output_dir, 'accuracy_seeds.json').write_text(json.dumps(accuracy, indent=2) + '\n')
+
 
         # assign output dir
         input_reader.output_dir=path_to_output_dir
@@ -406,14 +415,17 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
     problem_obj_node.set_is_logscale(input_reader.axis_logscale)
     print(f"NODE tolerances — rtol: {input_reader.stepsize_rtol}, atol: {input_reader.stepsize_atol}")
 
-    fit_obj_NODE = FitParamsNODE(
-        input_reader, problem_obj_node, init_guess=unscaled_best_position
-    )
-
-    # Re-evaluate the seed with refinement tolerances, including on restarts.
-    seed_loss = float(problem_obj_node._compute_loss(best_position))
-    if not np.isfinite(seed_loss) or seed_loss == input_reader.error_loss:
-        raise ValueError("Starting point has invalid loss or fails integration at refinement tolerances")
+    # Re-evaluate the global-search winner at refinement tolerances. Retain a
+    # validated starting point if the population's best is invalid here.
+    from lib.utils.run_artifacts import refinement_start
+    best_position, seed_loss, accuracy_seed_fallback = refinement_start(
+        problem_obj_node._compute_loss, best_position,
+        getattr(input_reader, 'accuracy_validated_seeds', []) if initial_parameters is None else [],
+        input_reader.error_loss)
+    if accuracy_seed_fallback:
+        unscaled_best_position = unscale_parameters(best_position, input_reader)
+        print('Global-search winner invalid at refinement tolerances; using an accuracy-validated seed')
+    fit_obj_NODE = FitParamsNODE(input_reader, problem_obj_node, init_guess=unscaled_best_position)
     refinement_error = None
     try:
         tuned_best_position, tuned_best_loss = fit_obj_NODE.train_NODE()
@@ -435,6 +447,7 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
     summary = {
         "mode": "gradient-only" if initial_parameters is not None else "full",
         "seed_loss": seed_loss, "final_loss": float(tuned_best_loss),
+        "accuracy_seed_fallback": accuracy_seed_fallback,
         "aggregation": "equal_experiment_mean",
         "experiment_losses": [float(problem_obj_node._compute_loss_problem(c, tuned_best_position))
                               for c in problem_obj_node.constants_list],

@@ -26,4 +26,16 @@ def check_ready(session_dir):
         if any(p.is_file() and p.stat().st_mtime_ns > script.stat().st_mtime_ns for p in sources):
             report.critical_errors.append("Generated script is older than its sources; run pfit jax again")
         report.warnings.append(detail + "; using timestamps only, which copies/clones can invalidate. Run pfit jax to stamp it.")
+    accuracy_path = session_dir / 'generated/solver_accuracy.json'
+    if accuracy_path.exists():
+        import json
+        from local_agent.agent.validators import parse_input_yaml
+        from lib.utils.run_artifacts import load_accuracy_seeds
+        try:
+            accuracy = json.loads(accuracy_path.read_text())
+            if 'validated_seeds' in accuracy:
+                load_accuracy_seeds(session_dir, parse_input_yaml(session_dir / 'inputs/user_input.yaml'))
+                report.warnings.extend(accuracy.get('warnings', []))
+        except (ValueError, OSError, KeyError) as exc:
+            report.critical_errors.append(str(exc))
     return report

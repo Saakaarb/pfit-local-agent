@@ -984,8 +984,31 @@ integration is `accuracy_inconclusive`. A step-limit failure in an accuracy inte
 uses the existing bounded step-budget recovery (doubling up to the configured
 ceiling). Accuracy-only recovery keeps the sample count unchanged and reruns all
 validation gates. Other inconclusive failures and accuracy disagreements do not
-trigger step increases. Unresolved failures block readiness without changing the selected solver. Coverage, valid-loss,
+trigger step increases. If no fully validated seed remains, unresolved failures block readiness without changing the selected solver. Otherwise the fit may proceed from validated seeds with explicit warnings, as described below. Coverage, valid-loss,
 fidelity and accuracy checks must still pass: inconclusive accuracy is never
 labelled passed. Recovery deadlines include these checks.
 This is a sampled forward-convergence test,
 not a guarantee for the entire parameter space or for gradients/Hessians.
+
+### Accuracy-validated starting points
+
+Coverage still requires ten successful parameter vectors. The tighter-reference
+accuracy gate may proceed when at least one selected probe passes every
+experiment and its loss/prediction checks, even if other probes are numerically
+inconclusive. Inconclusive probes remain explicitly listed in the report; they
+are never labelled accurate. Demonstrated prediction/loss mismatches and
+interface errors still block readiness. If all probes are inconclusive, the
+existing bounded step recovery applies.
+
+Validated normalized points are saved in `solver_accuracy.json`, ordered by
+ordinary loss, and bound to the final model/configuration and CSV content hashes.
+`pfit run` rejects stale seed reports. DE and PSO insert these points into their
+initial populations while retaining an exploratory particle. Search continues
+across the original bounds; this does not certify every subsequent candidate.
+If the population winner fails at refinement tolerances, the best finite
+validated seed is used instead. Explicit gradient-only restart seeds are not
+silently replaced. The run records its seed evidence and any partial-validation
+warning in `accuracy_seeds.json`; a refinement fallback is recorded in
+`fit_summary.json`. The accuracy report and readiness warnings identify the
+remaining unverified region. This is a sampled forward check, not a guarantee
+of derivative accuracy or final fit quality.

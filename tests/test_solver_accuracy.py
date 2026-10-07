@@ -42,7 +42,8 @@ def run_check(tmp_path, monkeypatch, factor=1., fail_reference=False, derived=Fa
             threads.add(threading.get_ident());calls.append(float(c['stepsize_rtol'][0]))
         if barrier is not None and first:barrier.wait(timeout=10)
         rtol=c['stepsize_rtol'][0]
-        result=RESULTS.max_steps_reached if fail_reference and rtol<1e-3 else RESULTS.successful
+        fail = fail_reference(p) if callable(fail_reference) else fail_reference
+        result=RESULTS.max_steps_reached if fail and rtol<1e-3 else RESULTS.successful
         return np.array([0.,1.]),np.full((2,1),1+rtol*factor),result,dict(num_steps=5)
     module=SimpleNamespace(_integrate_system_with_stats=integrate,_compute_loss_value=lambda c,p,t,y:1.)
     if derived and derived!='missing':module._observables=lambda y,p,f:dict(z=y[:,0]*1000)
@@ -117,3 +118,17 @@ def test_explicit_population_settings_are_not_silently_overwritten(tmp_path,monk
         run_check(tmp_path,monkeypatch,population=dict(stepsize_rtol=[.01],stepsize_atol=[1e-5]))
     assert exc.value.diagnostics['code']=='accuracy_failed'
     assert not (tmp_path/'tolerance_calibration.json').exists()
+
+
+def test_partial_reference_failure_keeps_only_fully_validated_seeds(tmp_path, monkeypatch):
+    report, _, _ = run_check(tmp_path, monkeypatch, fail_reference=lambda p: p[0] != 0)
+    assert report['code'] == 'accuracy_passed'
+    assert [s['sample'] for s in report['validated_seeds']] == [0]
+    assert len(report['unresolved_probes']) == 3
+    assert report['warnings']
+
+
+def test_complete_accuracy_pass_persists_all_probes(tmp_path, monkeypatch):
+    report, _, _ = run_check(tmp_path, monkeypatch)
+    assert len(report['validated_seeds']) == 4
+    assert report.get('unresolved_probes', []) == []
