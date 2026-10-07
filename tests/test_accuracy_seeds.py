@@ -42,16 +42,44 @@ def test_seeding_keeps_exploration_and_rejects_out_of_bounds():
     with pytest.raises(ValueError):seed_population(population, [[2.,0.]])
 
 
-def test_invalid_refinement_winner_falls_back_to_best_validated_seed():
+@pytest.mark.parametrize('invalid_loss', [1e10, float('nan'), float('inf')])
+def test_invalid_refinement_winner_keeps_parameters_and_uses_population_tolerances(invalid_loss):
+    import jax
+    import jax.numpy as jnp
     from lib.utils.run_artifacts import refinement_start
-    def loss(p):return 1e10 if p[0] > .5 else float(p[0]**2)
-    point, value, fallback=refinement_start(loss, [.9], [[.3],[.1],[.8]], 1e10)
-    np.testing.assert_array_equal(point,[.1])
-    assert value == pytest.approx(.01)
+    attempts = []
+    winner = np.array([.9])
+    def make_problem(rtol, atol):
+        attempts.append((rtol, atol))
+        # Captured tolerance simulates the runtime JIT closure.
+        loss = jax.jit(lambda p: jnp.sum(p**2) if rtol >= 1e-6 else jnp.asarray(invalid_loss))
+        return SimpleNamespace(_compute_loss=loss)
+    problem, value, fallback = refinement_start(make_problem, winner, (1e-7, 1e-9), (1e-6, 1e-8), 1e10)
     assert fallback
-    point, value, fallback=refinement_start(loss, [.2], [[.1]], 1e10)
-    assert not fallback  # Preserve a valid global-search winner.
-    with pytest.raises(ValueError):refinement_start(loss, [.9], [], 1e10)
+    assert value == pytest.approx(.81)
+    assert attempts == [(1e-7, 1e-9), (1e-6, 1e-8)]
+    np.testing.assert_array_equal(winner, [.9])
+    np.testing.assert_allclose(jax.grad(problem._compute_loss)(winner), [1.8])
+
+
+def test_valid_refinement_winner_retains_requested_tolerances():
+    from lib.utils.run_artifacts import refinement_start
+    attempts = []
+    def make_problem(rtol, atol):
+        attempts.append((rtol, atol))
+        return SimpleNamespace(_compute_loss=lambda p: p[0]**2)
+    _, value, fallback = refinement_start(make_problem, [.9], (1e-7, 1e-9), (1e-6, 1e-8), 1e10)
+    assert not fallback
+    assert value == pytest.approx(.81)
+    assert attempts == [(1e-7, 1e-9)]
+
+
+@pytest.mark.parametrize('population', [None, (1e-6, 1e-8)])
+def test_invalid_winner_is_never_replaced_with_another_seed(population):
+    from lib.utils.run_artifacts import refinement_start
+    make_problem = lambda rtol, atol: SimpleNamespace(_compute_loss=lambda p: 1e10)
+    with pytest.raises(ValueError, match='Starting point'):
+        refinement_start(make_problem, [.9], (1e-7, 1e-9), population, 1e10)
 
 
 def test_run_snapshot_preserves_seeds_across_dataset_renaming(tmp_path):

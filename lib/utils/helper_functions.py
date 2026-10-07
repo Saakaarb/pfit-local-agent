@@ -404,35 +404,40 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
         best_position = scale_parameters(unscaled_best_position, input_reader)
         print("Gradient-only restart: skipping global search")
 
-    # NODE uses a separate problem object so its JIT compilation bakes in tight tolerances
-    problem_obj_node = CreatedClass(
-        experiments=problem_obj.experiments, input_reader=input_reader,
-        compute_loss_problem=problem_obj._compute_loss_problem,
-        write_problem_result=problem_obj._write_problem_result,
-    )
-    problem_obj_node.set_min_limit(min_axis)
-    problem_obj_node.set_max_limit(max_axis)
-    problem_obj_node.set_is_logscale(input_reader.axis_logscale)
-    print(f"NODE tolerances — rtol: {input_reader.stepsize_rtol}, atol: {input_reader.stepsize_atol}")
+    # Every tolerance attempt needs a fresh problem before JIT captures constants.
+    def make_refinement_problem(rtol, atol):
+        problem = CreatedClass(
+            experiments=problem_obj.experiments, input_reader=input_reader,
+            compute_loss_problem=problem_obj._compute_loss_problem,
+            write_problem_result=problem_obj._write_problem_result,
+        )
+        for constants in problem.constants_list:
+            constants['stepsize_rtol'] = jnp.array(rtol)
+            constants['stepsize_atol'] = jnp.array(atol)
+        problem.set_min_limit(min_axis)
+        problem.set_max_limit(max_axis)
+        problem.set_is_logscale(input_reader.axis_logscale)
+        return problem
 
-    # Re-evaluate the global-search winner at refinement tolerances. Retain a
-    # validated starting point if the population's best is invalid here.
     from lib.utils.run_artifacts import refinement_start
-    best_position, seed_loss, accuracy_seed_fallback = refinement_start(
-        problem_obj_node._compute_loss, best_position,
-        getattr(input_reader, 'accuracy_validated_seeds', []) if initial_parameters is None else [],
-        input_reader.error_loss)
+    requested_tolerances = (input_reader.stepsize_rtol, input_reader.stepsize_atol)
+    population_tolerances = (pop_rtol, pop_atol) if initial_parameters is None else None
+    problem_obj_node, seed_loss, tolerance_fallback = refinement_start(
+        make_refinement_problem, best_position, requested_tolerances,
+        population_tolerances, input_reader.error_loss)
+    effective_rtol, effective_atol = population_tolerances if tolerance_fallback else requested_tolerances
     fitting_warnings = []
-    if accuracy_seed_fallback:
-        unscaled_best_position = unscale_parameters(best_position, input_reader)
+    if tolerance_fallback:
         warning = (
-            'The global-search winner could not be evaluated successfully at gradient-refinement '
-            'tolerances (integration failure or invalid loss). Gradient refinement is restarting '
-            'from the best usable accuracy-validated seed. Improvements found by global search '
-            'may be lost; this is a change of starting point, not an Adam convergence failure.'
+            'The global-search winner could not be evaluated successfully at requested '
+            'gradient-refinement tolerances (integration failure or invalid loss). '
+            'Keeping the same winning parameters and using population-search integration '
+            f'tolerances for gradient refinement: rtol={effective_rtol}, atol={effective_atol}. '
+            'The tighter refinement accuracy was not achieved; this is not an Adam convergence failure.'
         )
         fitting_warnings.append(warning)
         print('WARNING: ' + warning, flush=True)
+    print(f"NODE effective tolerances — rtol: {effective_rtol}, atol: {effective_atol}")
     fit_obj_NODE = FitParamsNODE(input_reader, problem_obj_node, init_guess=unscaled_best_position)
     refinement_error = None
     try:
@@ -455,7 +460,11 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
     summary = {
         "mode": "gradient-only" if initial_parameters is not None else "full",
         "seed_loss": seed_loss, "final_loss": float(tuned_best_loss),
-        "accuracy_seed_fallback": accuracy_seed_fallback,
+        "refinement_tolerance_fallback": tolerance_fallback,
+        "requested_refinement_tolerances": {"rtol": np.asarray(requested_tolerances[0]).tolist(),
+                                            "atol": np.asarray(requested_tolerances[1]).tolist()},
+        "effective_refinement_tolerances": {"rtol": np.asarray(effective_rtol).tolist(),
+                                            "atol": np.asarray(effective_atol).tolist()},
         "warnings": fitting_warnings,
         "aggregation": "equal_experiment_mean",
         "experiment_losses": [float(problem_obj_node._compute_loss_problem(c, tuned_best_position))

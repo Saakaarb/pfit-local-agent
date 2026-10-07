@@ -1005,16 +1005,18 @@ ordinary loss, and bound to the final model/configuration and CSV content hashes
 `pfit run` rejects stale seed reports. DE and PSO insert these points into their
 initial populations while retaining an exploratory particle. Search continues
 across the original bounds; this does not certify every subsequent candidate.
-If the population winner fails at refinement tolerances, the best finite
-validated seed is used instead. Explicit gradient-only restart seeds are not
-silently replaced. The run records its seed evidence and any partial-validation
-warning in `accuracy_seeds.json`; a refinement fallback is recorded in
-`fit_summary.json`. The accuracy report and readiness warnings identify the
-remaining unverified region. This is a sampled forward check, not a guarantee
-of derivative accuracy or final fit quality.
+If the population winner fails at refinement tolerances, gradient refinement
+permanently defaults to retrying the **same winning parameters** with the
+population-search rtol and atol. A fresh problem is compiled with these
+constants, and the winner must have a finite valid loss before Adam starts.
+There is no substitution of another parameter seed. If both tolerance profiles
+fail, fitting stops explicitly. Gradient-only restarts have no preceding
+population stage and retain their requested tolerances.
 
-If the global-search winner fails at gradient-refinement tolerances, fitting
-prints an explicit warning before restarting refinement from a usable
-accuracy-validated seed. The warning notes that global-search improvements may
-be lost and is preserved in `fit_summary.json` alongside
-`accuracy_seed_fallback: true`. This is not an Adam convergence failure.
+The run prints a warning whenever it uses population tolerances for refinement:
+the requested tighter accuracy was not achieved, but the search winner is
+preserved. `fit_summary.json` records `refinement_tolerance_fallback`, requested
+and effective refinement tolerances, and the warning. Effective tolerances also
+apply to final losses, predictions and sloppiness. The run records its seed
+evidence and partial-validation warnings in `accuracy_seeds.json`. Sampled
+forward checks do not guarantee derivative accuracy or final fit quality.

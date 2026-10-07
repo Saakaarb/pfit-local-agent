@@ -113,21 +113,23 @@ def seed_population(population, seeds):
     return population
 
 
-def refinement_start(loss_function, point, validated_seeds, error_loss):
-    """Keep a valid search winner, otherwise use the best finite validated seed."""
-    loss = float(loss_function(point))
+def refinement_start(make_problem, point, tolerances, population_tolerances, error_loss):
+    """Preserve the search winner, retrying with population tolerances if needed.
+
+    Build a fresh problem for each attempt: JIT closures may already have captured
+    the first problem's constants, so mutating those constants is not sufficient.
+    Explicit gradient-only restarts supply no population tolerances.
+    """
+    problem = make_problem(*tolerances)
+    loss = float(problem._compute_loss(point))
     if np.isfinite(loss) and loss != error_loss:
-        return point, loss, False
-    feasible = []
-    for seed in validated_seeds:
-        seed = np.asarray(seed, dtype=float)
-        value = float(loss_function(seed))
-        if np.isfinite(value) and value != error_loss:
-            feasible.append((value, seed))
-    if not feasible:
-        raise ValueError('Starting point has invalid loss or fails integration at refinement tolerances')
-    loss, point = min(feasible, key=lambda item: item[0])
-    return point, loss, True
+        return problem, loss, False
+    if population_tolerances is not None:
+        problem = make_problem(*population_tolerances)
+        loss = float(problem._compute_loss(point))
+        if np.isfinite(loss) and loss != error_loss:
+            return problem, loss, True
+    raise ValueError('Starting point has invalid loss or fails integration at available refinement tolerances')
 
 
 def snapshot_accuracy_seeds(session, reader, snapshot, runtime_reader):
