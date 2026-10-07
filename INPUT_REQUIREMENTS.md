@@ -1012,3 +1012,9 @@ warning in `accuracy_seeds.json`; a refinement fallback is recorded in
 `fit_summary.json`. The accuracy report and readiness warnings identify the
 remaining unverified region. This is a sampled forward check, not a guarantee
 of derivative accuracy or final fit quality.
+
+If the global-search winner fails at gradient-refinement tolerances, fitting
+prints an explicit warning before restarting refinement from a usable
+accuracy-validated seed. The warning notes that global-search improvements may
+be lost and is preserved in `fit_summary.json` alongside
+`accuracy_seed_fallback: true`. This is not an Adam convergence failure.

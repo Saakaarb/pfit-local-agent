@@ -422,9 +422,17 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
         problem_obj_node._compute_loss, best_position,
         getattr(input_reader, 'accuracy_validated_seeds', []) if initial_parameters is None else [],
         input_reader.error_loss)
+    fitting_warnings = []
     if accuracy_seed_fallback:
         unscaled_best_position = unscale_parameters(best_position, input_reader)
-        print('Global-search winner invalid at refinement tolerances; using an accuracy-validated seed')
+        warning = (
+            'The global-search winner could not be evaluated successfully at gradient-refinement '
+            'tolerances (integration failure or invalid loss). Gradient refinement is restarting '
+            'from the best usable accuracy-validated seed. Improvements found by global search '
+            'may be lost; this is a change of starting point, not an Adam convergence failure.'
+        )
+        fitting_warnings.append(warning)
+        print('WARNING: ' + warning, flush=True)
     fit_obj_NODE = FitParamsNODE(input_reader, problem_obj_node, init_guess=unscaled_best_position)
     refinement_error = None
     try:
@@ -448,6 +456,7 @@ def fit_equation_system(input_reader: YAMLReader, y0: jnp.ndarray, t_eval: np.nd
         "mode": "gradient-only" if initial_parameters is not None else "full",
         "seed_loss": seed_loss, "final_loss": float(tuned_best_loss),
         "accuracy_seed_fallback": accuracy_seed_fallback,
+        "warnings": fitting_warnings,
         "aggregation": "equal_experiment_mean",
         "experiment_losses": [float(problem_obj_node._compute_loss_problem(c, tuned_best_position))
                               for c in problem_obj_node.constants_list],
