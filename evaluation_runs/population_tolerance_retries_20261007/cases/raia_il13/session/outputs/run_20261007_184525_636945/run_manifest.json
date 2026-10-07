@@ -1,0 +1,116 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 128,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1008-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "41c55e6ecf278c1e4ff9c4e981473672f64aef9826d47b0437a28593db5de9dd",
+      "generated_script": "47658e0d6b9e36c592695f183d3eb9851a802cdb3c883e872b28053442ada6bf",
+      "user_model": "270f188c3b1822c3787630119100c62bb7f064d5abfddd55c9f566e1e1416e23"
+    },
+    "git": {
+      "commit": "71c335932350e8b034163bf27dabe0b5c16330c4",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "il13_4.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "c52c2cff8ba02af6d3d9813081f12267d16d38c1982f0cd6cdb4af2c63988cda",
+      "initial_conditions": {
+        "Rec": 1.3,
+        "Rec_i": 235.058493601113,
+        "IL13_Rec": 0.0,
+        "p_IL13_Rec": 0.0,
+        "p_IL13_Rec_i": 0.0,
+        "JAK2": 2.8,
+        "pJAK2": 0.0,
+        "STAT5": 165.0,
+        "pSTAT5": 0.0,
+        "SOCS3mRNA": 0.0,
+        "DecoyR": 0.34,
+        "IL13_DecoyR": 0.0,
+        "SOCS3": 0.0,
+        "CD274mRNA": 0.0,
+        "il13_level": 4.0
+      },
+      "output_file": "result_solution_exp1.csv"
+    },
+    {
+      "index": 2,
+      "data_file": "il13_20.csv",
+      "snapshot_data_file": "dataset_2.csv",
+      "sha256": "350306ed58bb7f214654ac42f6f778e0a86b1eb98052eb7f54dd997fcbab98ab",
+      "initial_conditions": {
+        "Rec": 1.3,
+        "Rec_i": 235.058493601113,
+        "IL13_Rec": 0.0,
+        "p_IL13_Rec": 0.0,
+        "p_IL13_Rec_i": 0.0,
+        "JAK2": 2.8,
+        "pJAK2": 0.0,
+        "STAT5": 165.0,
+        "pSTAT5": 0.0,
+        "SOCS3mRNA": 0.0,
+        "DecoyR": 0.34,
+        "IL13_DecoyR": 0.0,
+        "SOCS3": 0.0,
+        "CD274mRNA": 0.0,
+        "il13_level": 20.0
+      },
+      "output_file": "result_solution_exp2.csv"
+    }
+  ]
+}

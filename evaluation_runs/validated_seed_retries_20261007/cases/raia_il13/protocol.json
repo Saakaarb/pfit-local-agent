@@ -1,0 +1,12 @@
+{
+  "source_session": "evaluation_runs/qwen38_long_recovery_h100_20261007/cases/raia_il13/qwen38_27b/session",
+  "manual_model_change": false,
+  "stages": [
+    "check",
+    "jax",
+    "run",
+    "diagnose"
+  ],
+  "purpose": "Retry using persisted accuracy seeds and explicit refinement-fallback warning",
+  "framework_commit": "427ac1a"
+}

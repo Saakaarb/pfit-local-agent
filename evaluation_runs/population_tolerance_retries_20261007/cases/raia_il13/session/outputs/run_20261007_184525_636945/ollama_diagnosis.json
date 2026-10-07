@@ -1,0 +1,53 @@
+{
+  "verdict": "Gradient refinement exhausted its 5-iteration budget with only a ~1.3 % relative loss reduction (0.16059 \u2192 0.15858). No verified final-point gradient is available, so convergence is unconfirmed. Residuals remain large (RMSE 11.5 and 23.1) with very low time correlations (0.19 and 0.14), indicating substantial trajectory-shape mismatch in both IL-13 dose conditions. Several parameters sit near their log-scale bounds, raising the possibility that the search region or model structure\u2014not merely the iteration count\u2014is limiting the fit.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "LIMITATIONS"
+      ],
+      "action": "Run diagnose --probe-gradients at the current parameter point to obtain a verified gradient norm and confirm whether the optimizer is at a true stationary point or still has a descent direction.",
+      "reason": "The run terminated on 'iteration_budget' after 5 gradient iterations (OPTIMIZER_TRACES: NODE_fitting.log final loss 0.15858, last material improvement at iteration 5). The limitations state explicitly that no verified final-point gradient is available and a flat log does not establish convergence. Without a gradient check, a restart or further iteration cannot be justified or ruled out."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plots fit_exp1.png and fit_exp2.png, focusing on the 40\u201380 time window where experiment 2 shows the worst regional RMSE (29.63) and both experiments show low time correlation (0.19, 0.14). Compare the model's pSTAT5 peak timing and amplitude against the data to identify whether the mismatch is in onset, peak height, decay rate, or all three.",
+      "reason": "Experiment 2 (il13_level=20) has RMSE=23.07, bias=\u22127.53, and the 40\u201380 region RMSE of 29.63 dominates. Experiment 1 (il13_level=4) has RMSE=11.54 with the 40\u201380 region at 16.70. Time correlations of 0.186 and 0.139 are far below what a well-fitted trajectory would show, suggesting the model's dynamic shape (not just amplitude) is off. Visual inspection of the named plots is the fastest way to localise the structural mismatch before spending more compute."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "RESIDUAL"
+      ],
+      "action": "Evaluate whether the near-bound parameters are physically plausible: Kon_IL13Rec at range_fraction 0.014 (value 1.30e-05, near the 1e-05 lower bound), SOCS3_degradation at 0.013 (value 1.27e-05, near lower bound), and Rec_phosphorylation at 0.976 (value 647.4, near the 1000 upper bound). If the biological literature supports values outside these bounds, widen the search region and re-run the full fit (DE + gradient). If the bounds are correct, treat the near-bound placement as evidence that the model structure may be compensating for a missing or mis-specified interaction.",
+      "reason": "Three of fifteen parameters sit within ~2 % of a log-scale bound (PARAMETERS evidence). Combined with the large residuals and low time correlations (RESIDUAL evidence), this pattern is consistent with the optimizer pushing parameters to the edge of the allowed region to partially compensate for a structural deficiency. Changing bounds requires a full re-fit, not a gradient-only restart."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER"
+      ],
+      "action": "If the gradient probe confirms a non-zero gradient (i.e., the optimizer has not reached a stationary point), increase the gradient iteration budget from 5 to 20\u201330 and re-run the refinement phase only, keeping the same model, bounds, and initial point. If the gradient is near zero, do not restart; instead address the structural or bound issues identified above.",
+      "reason": "The optimizer used Adam with 5 iterations (OPTIMIZER: gradient_iterations_evaluated=5, termination='iteration_budget'). The loss decreased from 0.15896 to 0.15858 over those 5 steps (NODE_fitting.log), a small but non-zero slope, which is consistent with the optimizer still descending. A budget-limited stop with a non-zero gradient warrants more iterations before concluding the fit is stuck."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "Check the initial conditions and input timing for both experiments. Experiment 1 uses il13_level=4.0 and experiment 2 uses il13_level=20.0 (snapshot initial_conditions). Verify that the data files dataset_1.csv and dataset_2.csv have the correct time origin, that the IL-13 pulse or steady-state assumption matches the experimental protocol, and that the pSTAT5 initial value (init_val=0.0) is consistent with the first data point. A timing or initial-condition offset would produce the observed low time correlation without any parameter error.",
+      "reason": "Both experiments show negative bias (\u22121.77 and \u22127.53) and low time correlation (0.19, 0.14) but moderate lag-1 correlation (0.52, 0.56). This pattern\u2014correct local slope but wrong absolute timing or offset\u2014is characteristic of an initial-condition or input-timing mismatch rather than a pure parameter error. The RESIDUAL evidence shows the 0\u201340 region has lower RMSE than 40\u201380 in both experiments, consistent with a growing offset over time."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer log and budget termination do not establish convergence or rule out a remaining descent direction.",
+    "Sloppiness analysis was skipped, so parameter identifiability and the number of weak or flat directions in the loss landscape are unknown. The near-bound parameter placements may reflect identifiability issues rather than true physical limits.",
+    "The two experiments differ only in il13_level (4 vs 20) and both observe a single channel (pSTAT5). This provides limited information to constrain 15 parameters; the evidence cannot distinguish whether the poor fit is due to model structure, insufficient data diversity, or parameter non-identifiability.",
+    "The residual metrics (RMSE, bias, time correlation) quantify mismatch but cannot by themselves identify the causal mechanism (e.g., missing feedback, wrong kinetic order, incorrect initial conditions). Judgement and, if needed, additional experimental conditions are required to discriminate among these causes.",
+    "No numerical solver failures, gradient anomalies, or finite-difference/autodiff mismatches were reported, so the evidence does not indicate a numerical defect; however, the absence of a verified gradient means the correctness of the gradient computation at the final point is unconfirmed."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

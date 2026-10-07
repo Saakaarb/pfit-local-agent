@@ -1,0 +1,10 @@
+{
+  "source_session": "evaluation_runs/validated_seed_retries_20261007/cases/borghans_calcium/session",
+  "manual_model_change": false,
+  "stages": [
+    "run",
+    "diagnose"
+  ],
+  "purpose": "Permanent tolerance fallback preserves population winner; reuse completed validation",
+  "framework_commit": "71c3359"
+}

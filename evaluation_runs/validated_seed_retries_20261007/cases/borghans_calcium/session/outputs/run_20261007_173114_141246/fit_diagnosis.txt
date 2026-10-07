@@ -1,0 +1,55 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/validated_seed_retries_20261007/cases/borghans_calcium/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/validated_seed_retries_20261007/cases/borghans_calcium/session/outputs/run_20261007_173114_141246
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 2.0210E-01, best loss 2.0210E-01, final loss 2.0210E-01
+- NODE: 2 iterations, first loss 2.0002E-01, best loss 1.9951E-01, final loss 1.9951E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: calcium.csv; loss=0.19950530203979863; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Ca: RMSE=1653.94, bias=1653.36, time correlation=-0.25183403382119574, lag-1=0.9921350579054101.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/validated_seed_retries_20261007/cases/borghans_calcium/session/outputs/run_20261007_173114_141246/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/validated_seed_retries_20261007/cases/borghans_calcium/session/outputs/run_20261007_173114_141246/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The fit is qualitatively wrong, not merely under-converged: the Ca channel shows a near-constant model output (bias 1653.36 ≈ RMSE 1653.94) with a negative time correlation (−0.252) against the data, while the lag-1 autocorrelation of the residual (0.992) confirms the model trajectory is nearly flat. The gradient phase improved the loss only from 0.20002 to 0.19951 over its full 5-iteration budget. Additionally, the loss function compares the raw state Z directly to the Ca measurement, bypassing the user-defined observable Ca = offset + scale·Z, which makes the offset and scale parameters inactive in the objective. No verified gradient or Hessian is available, so convergence and identifiability cannot be assessed.
+1. Audit the loss function against the observable definition. The loss computes mean((Z − Ca_data)²/max|Ca_data|) using the raw state Z, but the model defines the observable as Ca = offset + scale·Z. Confirm with the user whether the intended objective is to fit the observable (offset + scale·Z) to the Ca measurement, or to fit Z directly. If the observable was intended, the loss must be corrected to use _observables() output before any further fitting. [RESIDUAL, LOSS] RESIDUAL shows bias 1653.36 out of RMSE 1653.94, meaning the model output is essentially a constant offset from the data. The negative time correlation (−0.252) and lag-1 residual autocorrelation (0.992) indicate the model produces almost no temporal variation. The LOSS evidence shows the loss compares solution[:,0] (Z) to dataset[:,0] (Ca), ignoring the offset (1328.63) and scale (782.55) parameters defined in the observable. If the user intended the observable, the current loss makes those two parameters irrelevant to the fit, which is a model/loss inconsistency rather than a convergence problem.
+2. Inspect the named plot fit_exp1.png to visually confirm whether the model trajectory is flat or anti-phased relative to the Ca data, and check the time-region residual breakdown (RMSE 1669.9 / 1647.5 / 1647.4 across the three regions) for any systematic drift or step mismatch. [RESIDUAL, EXPERIMENTS] RESIDUAL reports a uniform RMSE of ~1647–1670 across all three time regions, a bias of 1653.36, and a negative time correlation of −0.252. The EXPERIMENTS evidence confirms 111 data points with zero missing values. A visual check of fit_exp1.png will distinguish between a constant-offset error (model flat, data varying) and a genuine anti-phase dynamic, which have very different scientific implications for the Borghans calcium model.
+3. Before any gradient-only restart, run diagnose --probe-gradients to obtain a verified final-point gradient. The current run has no verified gradient (LIMITATIONS), the DE phase made zero improvement (0.2021 → 0.2021 in 1 iteration), and the NODE phase improved only 0.20002 → 0.19951 over 5 iterations (OPTIMIZER_TRACES). A restart without gradient evidence risks repeating the same flat trajectory. [BUDGET, LIMITATIONS, OPTIMIZER_TRACES] BUDGET confirms the run stopped at its 5-iteration gradient budget. LIMITATIONS explicitly states no verified final-point gradient is available. OPTIMIZER_TRACES shows the DE phase had last_material_improvement_iteration=1 (no improvement) and the NODE phase improved only ~0.0005 over 5 iterations. Without a gradient probe, it is impossible to determine whether the small loss change reflects a genuine descent direction or numerical noise in the finite-difference / autodiff pipeline.
+4. Evaluate whether the 19 free parameters (all log-scaled, bounds 0.001–100000) are identifiable from a single Ca trace of 111 points. In particular, Ka (range_fraction 0.951) and Ky (range_fraction 0.930) sit near the upper bound, while Vm2 (0.110) and Vm3 (0.092) sit near the lower bound, suggesting the optimizer is pushing parameters to the edges of a very wide search space. Consider whether some parameters can be fixed to literature values or whether the parameterisation needs re-scaling before further fitting. [PARAMETERS, RESIDUAL] PARAMETERS shows 19 trainable parameters with 5 orders of magnitude of range each, fitted to a single 111-point Ca channel. RESIDUAL shows the fit is dominated by a constant bias (1653.36) with negligible temporal structure captured. The boundary-hugging of Ka, Ky, Vm2, and Vm3 (range fractions 0.951, 0.930, 0.110, 0.092) is a warning sign of weak identifiability or a mismatch between the model's dynamic range and the data's dynamic range. This is a scientific modelling question that requires user judgement and possibly new data or literature constraints.
+5. If the loss/observable inconsistency is resolved and the model structure is confirmed, re-run with sloppiness (Hessian) analysis enabled to identify weak or flat directions in parameter space. The current run skipped sloppiness, so no curvature information is available to guide parameter fixing or re-parameterisation. [SLOPPINESS, LIMITATIONS] SLOPPINESS status is 'skipped' with no weak or negative modes reported. LIMITATIONS confirms no verified gradient is available. Without curvature information, it is impossible to distinguish between a genuinely flat loss landscape (many parameter combinations give similar loss) and a poorly conditioned one (steep in some directions, flat in others). This is essential before deciding whether to fix parameters, change bounds, or add data.
+Limitation: No verified final-point gradient is available; the flat optimizer log (0.20002 → 0.19951 over 5 iterations) does not establish convergence or the absence of a descent direction.
+Limitation: Sloppiness/Hessian analysis was skipped, so parameter identifiability, weak modes, and curvature cannot be assessed from this run.
+Limitation: The negative time correlation (−0.252) and near-constant residual (bias ≈ RMSE) could arise from a loss/observable inconsistency, a genuinely wrong model structure, inappropriate initial conditions (Z=0.088, Y=0.999, A=1.0), or a data-timing/calibration issue; the evidence cannot distinguish among these causes without the user's scientific context.
+Limitation: The loss function compares the raw state Z to the Ca measurement rather than the defined observable (offset + scale·Z); whether this is intentional or a bug requires user confirmation and cannot be resolved from the run data alone.
+Limitation: A single 111-point Ca trace provides limited information for 19 free parameters; identifiability and the adequacy of the model structure cannot be established from this run.
+Limitation: No numerical failure, replay mismatch, or gradient instability was detected, but the absence of a gradient probe means gradient correctness is unverified.
