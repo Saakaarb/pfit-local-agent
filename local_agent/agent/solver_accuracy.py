@@ -58,8 +58,11 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
         prediction_atol_scale=gradient.get('solver_accuracy_atol_scale',1e-6),
         uncertainty_fraction=gradient.get('solver_accuracy_uncertainty_fraction',.01),comparisons=[],
         scope='Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee')
-    def finish(code,reason):
+    def finish(code,reason,failure=None):
         report.update(code=code,result=reason)
+        if failure is not None:
+            report['failure_cause'] = failure['code']
+            report['failure'] = failure
         path=folder/'solver_accuracy.json';temp=path.with_suffix('.tmp')
         temp.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');temp.replace(path)
         if code!='accuracy_passed':raise SolverValidationError(report)
@@ -87,6 +90,12 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
             point=np.asarray(probe['normalized_parameters'])
             ts,ys,result,stats=module._integrate_system_with_stats(c,point)
             if result!=RESULTS.successful or not np.all(np.isfinite(ys)):
+                item['failure'] = dict(
+                    code='step_limit' if result == RESULTS.max_steps_reached else
+                         ('integration_failure' if result != RESULTS.successful else 'nonfinite_solution'),
+                    result=str(result), stats={k:int(v) for k,v in stats.items()},
+                    sample=probe['sample'], experiment=record['index'],
+                    rtol=np.asarray(rtol).tolist(), atol=np.asarray(atol).tolist())
                 raise RuntimeError(f'Integration did not complete with finite states: {result}')
             loss=module._compute_loss_value(c,point,ts,ys) if hasattr(module,'_compute_loss_value') else module._compute_loss_problem(c,point)
             loss=np.asarray(loss)
@@ -141,7 +150,7 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
            (not r[0] or r[0][-1]['profile']!='population')]
     for code in ('accuracy_interface_error','accuracy_failed','accuracy_inconclusive'):
         failed=next((r for r in fatal if r[2]==code),None)
-        if failed:return finish(code,failed[3])
+        if failed:return finish(code,failed[3],failed[0][-1].get('failure') if failed[0] else None)
     for name,_,_ in profiles:
         failed=next((r for r in results if r[2]!='accuracy_passed' and r[0][-1]['profile']==name),None)
         if failed:
@@ -160,5 +169,5 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
             temp.write_text(json.dumps(calibration,indent=2,allow_nan=False)+'\n');temp.replace(path)
             report['population_relaxation_rejected']=dict(code=code,reason=reason)
             return finish('accuracy_passed','Refinement tolerances validated; DE retains those validated tolerances')
-        return finish(code,f'{name}: {reason}')
+        return finish(code,f'{name}: {reason}',failed[0][-1].get('failure') if failed else None)
     return finish('accuracy_passed','Predictions and losses agree with ten-times tighter tolerances on all selected probes')

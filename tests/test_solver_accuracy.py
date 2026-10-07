@@ -77,6 +77,9 @@ def test_failed_tighter_reference_is_inconclusive(tmp_path,monkeypatch):
     with pytest.raises(SolverValidationError) as exc:
         run_check(tmp_path,monkeypatch,fail_reference=True)
     assert exc.value.diagnostics['code']=='accuracy_inconclusive'
+    assert exc.value.diagnostics['failure_cause']=='step_limit'
+    assert exc.value.diagnostics['failure']['rtol']==[.0001]
+    assert exc.value.diagnostics['failure']['stats']['num_steps']==5
 
 
 @pytest.mark.parametrize('key,value',[('solver_accuracy_workers',0),('solver_accuracy_workers',5),

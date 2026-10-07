@@ -239,9 +239,11 @@ def test_successful_explicit_validation_does_not_try_implicit_solver(tmp_path, m
     assert not (session/'generated/solver_selection.json').exists()
 
 
-@pytest.mark.parametrize('code', ['accuracy_failed', 'accuracy_inconclusive', 'recovery_timeout'])
-def test_validation_failure_never_switches_dataset_selected_solver(tmp_path, monkeypatch, code):
-    session, config, llm = oregonator(tmp_path, cap=10000)
+@pytest.mark.parametrize('code,cause', [('accuracy_failed', None), ('accuracy_inconclusive', None),
+    ('accuracy_inconclusive', 'nonfinite_solution'), ('accuracy_inconclusive', 'integration_failure'),
+    ('accuracy_interface_error', None), ('recovery_timeout', None)])
+def test_validation_failure_never_switches_dataset_selected_solver(tmp_path, monkeypatch, code, cause):
+    session, config, llm = oregonator(tmp_path, cap=50000)
     config['gradient_opt'].update(integrator='Tsit5', auto_integrator=True)
     path = session/'inputs/user_input.yaml'
     path.write_text(yaml.safe_dump(config))
@@ -249,7 +251,7 @@ def test_validation_failure_never_switches_dataset_selected_solver(tmp_path, mon
     seen = []
     def check(script, session):
         seen.append(yaml.safe_load(path.read_text())['gradient_opt']['integrator'])
-        raise SolverValidationError(dict(code=code, result='test', max_steps=10000, sample_count=1))
+        raise SolverValidationError(dict(code=code, failure_cause=cause, result='test', max_steps=10000, sample_count=1))
     monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script', check)
     result = LocalWorkflow(llm, PromptRenderer()).generate_script(session)
     assert not result.success
@@ -279,3 +281,32 @@ def test_dataset_budget_applied_before_generation_without_changing_explicit_solv
     assert verify_stamp(session)[0] is True
     report = json.loads((session/'generated/solver_selection.json').read_text())
     assert report['max_steps_estimate']['selected_max_steps'] == 1000
+
+
+@pytest.mark.parametrize('succeeds', [True, False])
+def test_accuracy_step_limit_increases_budget_to_cap_without_switching(tmp_path, monkeypatch, succeeds):
+    session, config, llm = oregonator(tmp_path, cap=50000)
+    config['gradient_opt'].update(max_steps=7000, solver_validation_samples=32, solver_validation_max_samples=32)
+    path = session/'inputs/user_input.yaml'
+    path.write_text(yaml.safe_dump(config)); original = path.read_bytes(); seen = []
+    def check(script, session):
+        g = yaml.safe_load(path.read_text())['gradient_opt']
+        seen.append(g['max_steps'])
+        assert g['integrator'] == 'Kvaerno5'
+        assert g['solver_validation_samples'] == 32
+        assert g['stepsize_rtol'] == config['gradient_opt']['stepsize_rtol']
+        assert g['stepsize_atol'] == config['gradient_opt']['stepsize_atol']
+        if succeeds and g['max_steps'] == 50000:
+            return
+        raise SolverValidationError(dict(code='accuracy_inconclusive', failure_cause='step_limit',
+            result='Tighter reference reached the ceiling', max_steps=g['max_steps']))
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script', check)
+    monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',
+                        lambda script, session, timeout: check(script, session))
+    result = LocalWorkflow(llm, PromptRenderer()).generate_script(session)
+    assert result.success is succeeds
+    assert seen == [7000, 14000, 28000, 50000]
+    assert len(llm.requests) == 2
+    assert verify_stamp(session)[0] is succeeds
+    if not succeeds:
+        assert path.read_bytes() == original

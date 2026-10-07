@@ -981,7 +981,11 @@ existing `1e-8 + 1% * abs(reference_loss)` comparison. Reports are saved in
 `generated/solver_accuracy.json`, including selected probes, workers, thresholds,
 solver statistics and per-observable discrepancies. A finite prediction
 mismatch is `accuracy_failed`; a numerical failure in a candidate/reference
-integration is `accuracy_inconclusive`. Either blocks readiness without changing the selected solver. Coverage, valid-loss,
+integration is `accuracy_inconclusive`. A step-limit failure in an accuracy integration retains its structured cause and
+uses the existing bounded step-budget recovery (doubling up to the configured
+ceiling). Accuracy-only recovery keeps the sample count unchanged and reruns all
+validation gates. Other inconclusive failures and accuracy disagreements do not
+trigger step increases. Unresolved failures block readiness without changing the selected solver. Coverage, valid-loss,
 fidelity and accuracy checks must still pass: inconclusive accuracy is never
 labelled passed. Recovery deadlines include these checks.
 This is a sampled forward-convergence test,

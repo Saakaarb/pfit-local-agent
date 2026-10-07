@@ -389,7 +389,11 @@ class LocalWorkflow:
         budget = initial
         recovered = False
         try:
-            while self._solver_failure and self._solver_failure['code'] in ('step_limit', 'coverage_below_target'):
+            while self._solver_failure and (
+                self._solver_failure['code'] in ('step_limit', 'coverage_below_target') or
+                (self._solver_failure['code'] == 'accuracy_inconclusive' and
+                 self._solver_failure.get('failure_cause') == 'step_limit')
+            ):
                 coverage_failure = self._solver_failure['code'] == 'coverage_below_target'
                 step_exhausted = not coverage_failure or self._solver_failure.get('failure_counts', {}).get('step_limit', 0) > 0
                 next_budget = min(cap, budget * 2) if step_exhausted else budget
