@@ -1,0 +1,2019 @@
+[
+  {
+    "code": "successful",
+    "sample_count": 80,
+    "search_dimensions": 5,
+    "seed": 7,
+    "integrator": "Tsit5",
+    "elapsed_seconds": 1.5945314299315214,
+    "first_sample_seconds": 1.409803118556738,
+    "remaining_samples_seconds": 0.1846318170428276,
+    "timing_note": "First sample may include JIT compilation; timings include integrations and loss evaluations, not a solver speed benchmark",
+    "sampling": "midpoint plus nested Latin-hypercube blocks in normalized linear/log coordinates",
+    "successful_samples": 63,
+    "success_fraction": 0.7875,
+    "required_successful_samples": 10,
+    "max_steps": 1000,
+    "failure_counts": {
+      "step_limit": 17
+    },
+    "candidates": [
+      {
+        "sample": 0,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.32201537846561484
+        ],
+        "experiment_state_scales": [
+          [
+            0.25794965729924874,
+            0.3681883522791698,
+            11.06,
+            3.946404496628479,
+            1297796.0829680194,
+            42878.45632409226
+          ]
+        ],
+        "integration_steps": 204,
+        "normalized_parameters": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "sample": 1,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.26124942298116105
+        ],
+        "experiment_state_scales": [
+          [
+            0.7623744947919215,
+            0.7673748768977633,
+            11.06,
+            16.39560440002723,
+            1295682.4818837247,
+            40981.16774974289
+          ]
+        ],
+        "integration_steps": 277,
+        "normalized_parameters": [
+          -0.057255509401739846,
+          -0.23393051444196755,
+          -0.6764986329235736,
+          0.4494090345200725,
+          0.9279110141872207
+        ]
+      },
+      {
+        "sample": 2,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3012176078770711
+        ],
+        "experiment_state_scales": [
+          [
+            0.3490001405100265,
+            0.2941459712275425,
+            11.06,
+            19.963274659248217,
+            1290341.9854181116,
+            41249.92804125587
+          ]
+        ],
+        "integration_steps": 300,
+        "normalized_parameters": [
+          -0.3520037414218462,
+          -0.5701796943007449,
+          0.7179652869591155,
+          -0.12076768678290917,
+          -0.47114306001085515
+        ]
+      },
+      {
+        "sample": 3,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.8889537625199635
+        ],
+        "experiment_state_scales": [
+          [
+            0.434545435205989,
+            0.0,
+            11.06,
+            0.0,
+            1304288.268307501,
+            186441.98146426879
+          ]
+        ],
+        "integration_steps": 55,
+        "normalized_parameters": [
+          0.4216567921789418,
+          -0.15279897962527056,
+          0.21245313923213116,
+          0.6538855602515945,
+          -0.9629908916452565
+        ]
+      },
+      {
+        "sample": 4,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.7087168503050729,
+          0.667424149733842,
+          -0.38625783336630914,
+          -0.020394232483245678,
+          -0.31362903445018697
+        ]
+      },
+      {
+        "sample": 5,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5600851665515886
+        ],
+        "experiment_state_scales": [
+          [
+            0.29205430916675423,
+            0.0,
+            11.06,
+            0.0,
+            2447124.481430048,
+            111090.9161134608
+          ]
+        ],
+        "integration_steps": 81,
+        "normalized_parameters": [
+          0.6429810338919542,
+          0.9319321400738696,
+          0.337151575519425,
+          0.2943138979455724,
+          -0.638107467258542
+        ]
+      },
+      {
+        "sample": 6,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          1.1511436496927494
+        ],
+        "experiment_state_scales": [
+          [
+            0.5639907537587083,
+            0.0,
+            11.06,
+            0.0,
+            1291034.1631133128,
+            198547.29235751746
+          ]
+        ],
+        "integration_steps": 45,
+        "normalized_parameters": [
+          0.9301398563350227,
+          -0.8126505297938111,
+          -0.2111984849872811,
+          0.8330010853869663,
+          -0.2195970530562552
+        ]
+      },
+      {
+        "sample": 7,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          1.5905643572005228
+        ],
+        "experiment_state_scales": [
+          [
+            0.5435549601062439,
+            0.0,
+            11.06,
+            0.0,
+            1361798.8236937374,
+            313142.45801050693
+          ]
+        ],
+        "integration_steps": 53,
+        "normalized_parameters": [
+          0.8470468551284522,
+          0.06901413857156635,
+          0.1095820095479143,
+          0.9202600057057075,
+          -0.11863280896677741
+        ]
+      },
+      {
+        "sample": 8,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3788005273367521
+        ],
+        "experiment_state_scales": [
+          [
+            0.3812036670651322,
+            0.2930390445166775,
+            11.06,
+            7.440705100838109,
+            1332075.4108819803,
+            6457.709926356314
+          ]
+        ],
+        "integration_steps": 397,
+        "normalized_parameters": [
+          -0.1281214421548701,
+          0.42873935185554357,
+          -0.9765724548032031,
+          -0.36675988462633724,
+          0.4601261112696464
+        ]
+      },
+      {
+        "sample": 9,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6550978279954314
+        ],
+        "experiment_state_scales": [
+          [
+            0.39080344399050665,
+            0.0,
+            11.06,
+            0.0,
+            1292521.645762546,
+            145224.3197591849
+          ]
+        ],
+        "integration_steps": 54,
+        "normalized_parameters": [
+          0.1933466732511937,
+          -0.47145396806655915,
+          0.23738103403659006,
+          0.530967048322714,
+          0.40799261219367833
+        ]
+      },
+      {
+        "sample": 10,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.7904829082563012,
+          -0.35948995582293386,
+          0.5061975122008051,
+          0.10407773887259508,
+          0.14861372252453742
+        ]
+      },
+      {
+        "sample": 11,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5213302000304663
+        ],
+        "experiment_state_scales": [
+          [
+            0.1916042729049372,
+            0.0,
+            11.06,
+            0.0,
+            1290137.9337213559,
+            27028.496938553853
+          ]
+        ],
+        "integration_steps": 101,
+        "normalized_parameters": [
+          0.09753509842209729,
+          -0.7708176459569507,
+          0.028911229768439517,
+          -0.2959125895786422,
+          -0.9143762446495061
+        ]
+      },
+      {
+        "sample": 12,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3668258036666529
+        ],
+        "experiment_state_scales": [
+          [
+            0.4243869061726098,
+            0.3382925396794254,
+            11.06,
+            13.83944875638727,
+            1302485.3231519037,
+            8522.562152181697
+          ]
+        ],
+        "integration_steps": 361,
+        "normalized_parameters": [
+          -0.21339341006546386,
+          0.2374549998999298,
+          -0.7694624053154115,
+          -0.4966428014195301,
+          -0.6953517849724804
+        ]
+      },
+      {
+        "sample": 13,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6025891674940449
+        ],
+        "experiment_state_scales": [
+          [
+            0.13483465340269252,
+            0.0,
+            11.06,
+            0.0,
+            1337971.7128172708,
+            6672.967546630729
+          ]
+        ],
+        "integration_steps": 144,
+        "normalized_parameters": [
+          0.27045368521818336,
+          0.5409068963997723,
+          -0.8490278666180103,
+          -0.6853102344097075,
+          0.8624047346820876
+        ]
+      },
+      {
+        "sample": 14,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5721467562335718
+        ],
+        "experiment_state_scales": [
+          [
+            0.17129769079208723,
+            0.0,
+            11.06,
+            0.0,
+            1290055.625023223,
+            14302.074179967947
+          ]
+        ],
+        "integration_steps": 109,
+        "normalized_parameters": [
+          0.49681333703141894,
+          -0.9586082770824206,
+          -0.5308693793671752,
+          -0.4501094094854724,
+          -0.23271304785865876
+        ]
+      },
+      {
+        "sample": 15,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.9761589477030834,
+          -0.6406648855178187,
+          0.48077674133596937,
+          0.60746035065166,
+          -0.0863540434227742
+        ]
+      },
+      {
+        "sample": 16,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4537189882988995
+        ],
+        "experiment_state_scales": [
+          [
+            0.2131695419837043,
+            0.0,
+            11.06,
+            0.0,
+            1290538.71274475,
+            55731.256832666004
+          ]
+        ],
+        "integration_steps": 80,
+        "normalized_parameters": [
+          0.6776602736807791,
+          -0.5241104621851664,
+          0.8351276264288459,
+          -0.09376437174491048,
+          0.03398079677976029
+        ]
+      },
+      {
+        "sample": 17,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6084929791347822
+        ],
+        "experiment_state_scales": [
+          [
+            0.13107417878574718,
+            0.0,
+            11.06,
+            0.0,
+            1305766.5798585056,
+            11403.164345682526
+          ]
+        ],
+        "integration_steps": 131,
+        "normalized_parameters": [
+          0.6019385632130159,
+          0.3813519536875567,
+          -0.29158743542705867,
+          -0.6754652365205418,
+          0.009729512478853453
+        ]
+      },
+      {
+        "sample": 18,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4217228299196203
+        ],
+        "experiment_state_scales": [
+          [
+            0.364862683676319,
+            0.38571790033657416,
+            11.06,
+            18.69369210070961,
+            1291562.0501464414,
+            15170.174391969704
+          ]
+        ],
+        "integration_steps": 526,
+        "normalized_parameters": [
+          -0.47390573670571357,
+          -0.016807147568913217,
+          0.775195010910082,
+          -0.6115989952673453,
+          -0.5345370146616927
+        ]
+      },
+      {
+        "sample": 19,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.47858672672336283
+        ],
+        "experiment_state_scales": [
+          [
+            0.21861519491360704,
+            0.20820367626318567,
+            11.06,
+            13.004791604235145,
+            1290046.5034918117,
+            7307.4981039059385
+          ]
+        ],
+        "integration_steps": 498,
+        "normalized_parameters": [
+          -0.5311226255120138,
+          -0.7394801750521781,
+          -0.06315057232088883,
+          -0.7901439562611319,
+          0.5202393370494884
+        ]
+      },
+      {
+        "sample": 20,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.2539083218228851
+        ],
+        "experiment_state_scales": [
+          [
+            0.4180032289999166,
+            0.46706309280686065,
+            11.06,
+            19.70714072781841,
+            1319162.3667121616,
+            143518.35617477342
+          ]
+        ],
+        "integration_steps": 775,
+        "normalized_parameters": [
+          -0.8786882481302691,
+          0.1533044392328562,
+          0.9933251950784519,
+          0.37087546923928927,
+          0.996439001923022
+        ]
+      },
+      {
+        "sample": 21,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.27006637313005905
+        ],
+        "experiment_state_scales": [
+          [
+            0.5106046135644324,
+            0.4834436719324916,
+            11.06,
+            20.88040134387964,
+            2187672.200079735,
+            52466.72955282702
+          ]
+        ],
+        "integration_steps": 377,
+        "normalized_parameters": [
+          0.0006316651528015527,
+          0.9656600139880063,
+          -0.11336984398612648,
+          0.1733873118939333,
+          0.18576255640339134
+        ]
+      },
+      {
+        "sample": 22,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.5582483712022019,
+          -0.31950740650233966,
+          -0.44640949265465657,
+          0.9720681173151868,
+          0.5646951322828584
+        ]
+      },
+      {
+        "sample": 23,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.24092173767945518
+        ],
+        "experiment_state_scales": [
+          [
+            0.3776960084518232,
+            0.667605337240444,
+            11.06,
+            8.170688002133566,
+            1290185.0250155488,
+            35799.32457678841
+          ]
+        ],
+        "integration_steps": 323,
+        "normalized_parameters": [
+          0.07353013980274348,
+          -0.9146991413045016,
+          -0.5853774513654026,
+          0.22832166716342228,
+          -0.3899025774218149
+        ]
+      },
+      {
+        "sample": 24,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.48528341176452555
+        ],
+        "experiment_state_scales": [
+          [
+            0.20711935166553191,
+            0.0,
+            11.06,
+            0.0,
+            1520290.817108781,
+            35671.49221709666
+          ]
+        ],
+        "integration_steps": 76,
+        "normalized_parameters": [
+          0.3381787707975392,
+          0.7904080593454792,
+          0.08891534576892135,
+          -0.1877169117525902,
+          -0.764048779788985
+        ]
+      },
+      {
+        "sample": 25,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.6715164125765777,
+          0.8080772174710813,
+          0.8975255580585091,
+          0.752645880841756,
+          -0.8644452278803446
+        ]
+      },
+      {
+        "sample": 26,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6473845097435772
+        ],
+        "experiment_state_scales": [
+          [
+            0.09083438496634241,
+            0.0,
+            11.06,
+            0.0,
+            1326858.8250859757,
+            10735.74751438996
+          ]
+        ],
+        "integration_steps": 148,
+        "normalized_parameters": [
+          0.9703963755726768,
+          0.7014313079074326,
+          0.414371585559256,
+          -0.8917500833182381,
+          0.2503603073226157
+        ]
+      },
+      {
+        "sample": 27,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.7319202255081563
+        ],
+        "experiment_state_scales": [
+          [
+            0.6104981466644559,
+            0.0,
+            11.06,
+            0.0,
+            1302522.2417195267,
+            45998.147908857754
+          ]
+        ],
+        "integration_steps": 45,
+        "normalized_parameters": [
+          0.7746949829871195,
+          -0.2238483681042508,
+          -0.9310506224437509,
+          0.6787790551254123,
+          -0.6042760523329985
+        ]
+      },
+      {
+        "sample": 28,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.2082524223715885
+        ],
+        "experiment_state_scales": [
+          [
+            0.4351074434637001,
+            0.4474967852355499,
+            11.06,
+            20.012460901093895,
+            1294582.4800374825,
+            55831.45043746192
+          ]
+        ],
+        "integration_steps": 832,
+        "normalized_parameters": [
+          -0.8147522982778787,
+          -0.08884567082548334,
+          0.5761288298000751,
+          0.05229485142278678,
+          0.7201578207493067
+        ]
+      },
+      {
+        "sample": 29,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6476933406969272
+        ],
+        "experiment_state_scales": [
+          [
+            0.08843661384703908,
+            0.0,
+            11.06,
+            0.0,
+            1294675.5541212815,
+            7250.8088389951245
+          ]
+        ],
+        "integration_steps": 156,
+        "normalized_parameters": [
+          0.37814606832349407,
+          0.22368698292886235,
+          -0.256805495491751,
+          -0.9394618524603475,
+          0.6664872601460119
+        ]
+      },
+      {
+        "sample": 30,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4887444169883034
+        ],
+        "experiment_state_scales": [
+          [
+            0.2210113447799394,
+            0.18911165135299746,
+            11.06,
+            10.397479690238585,
+            1298192.0213151635,
+            4313.153065044013
+          ]
+        ],
+        "integration_steps": 403,
+        "normalized_parameters": [
+          -0.38076231824469586,
+          0.3327587567766783,
+          -0.6805846325431064,
+          -0.8362324916208229,
+          0.3146357278328247
+        ]
+      },
+      {
+        "sample": 31,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.37018110979520874
+        ],
+        "experiment_state_scales": [
+          [
+            0.30268715338169694,
+            0.31735296319625594,
+            11.06,
+            12.558841071330088,
+            1345943.0319244321,
+            32840.61949521775
+          ]
+        ],
+        "integration_steps": 323,
+        "normalized_parameters": [
+          -0.28649989404222553,
+          0.5760142094444827,
+          0.6290967255912747,
+          -0.23796210304859666,
+          0.7659176743725431
+        ]
+      },
+      {
+        "sample": 32,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.8064495181977207,
+          -0.30676188042802444,
+          0.30718474392117745,
+          0.7223817933030992,
+          0.14703449636741706
+        ]
+      },
+      {
+        "sample": 33,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.954542201453841,
+          -0.8132580261345916,
+          0.3150330537434236,
+          -0.8167428817681988,
+          -0.6595387948862957
+        ]
+      },
+      {
+        "sample": 34,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6172779753372409
+        ],
+        "experiment_state_scales": [
+          [
+            0.12271822825549761,
+            0.0,
+            11.06,
+            0.0,
+            1291645.9247640097,
+            15442.570553648831
+          ]
+        ],
+        "integration_steps": 109,
+        "normalized_parameters": [
+          0.48602959525407785,
+          -0.05520271968115076,
+          0.39470942590214886,
+          -0.6850246513694604,
+          -0.7892732772608467
+        ]
+      },
+      {
+        "sample": 35,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.716141940510021
+        ],
+        "experiment_state_scales": [
+          [
+            0.5702463230907937,
+            0.0,
+            11.06,
+            0.0,
+            1403457.25229814,
+            59032.2474820387
+          ]
+        ],
+        "integration_steps": 41,
+        "normalized_parameters": [
+          0.9891104238563833,
+          0.26105047244605606,
+          -0.837501581345892,
+          0.6533012276910255,
+          0.03633923372030434
+        ]
+      },
+      {
+        "sample": 36,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5655502304159308
+        ],
+        "experiment_state_scales": [
+          [
+            0.12553074554726823,
+            0.12429815557102739,
+            11.06,
+            6.311066782056327,
+            1303223.0946320398,
+            9651.38003761437
+          ]
+        ],
+        "integration_steps": 357,
+        "normalized_parameters": [
+          -0.5203624380977994,
+          0.5359345583643136,
+          0.691649888656455,
+          -0.898057942989998,
+          0.9967436612172382
+        ]
+      },
+      {
+        "sample": 37,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.8986050023715016
+        ],
+        "experiment_state_scales": [
+          [
+            0.3958612099715133,
+            0.0,
+            11.06,
+            0.0,
+            2021190.5020246068,
+            166202.72816494398
+          ]
+        ],
+        "integration_steps": 67,
+        "normalized_parameters": [
+          0.8356707996766408,
+          0.7153920647681022,
+          0.1397844110253763,
+          0.5969216844542657,
+          0.8055670558574075
+        ]
+      },
+      {
+        "sample": 38,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.32221232617831475
+        ],
+        "experiment_state_scales": [
+          [
+            0.4553891450619183,
+            0.495287649363139,
+            11.06,
+            17.969486973006703,
+            1305705.9276109594,
+            113969.02211310416
+          ]
+        ],
+        "integration_steps": 299,
+        "normalized_parameters": [
+          -0.12098674998961856,
+          0.04689951195798958,
+          0.7790664658810962,
+          0.31713506861358787,
+          -0.2889288283934667
+        ]
+      },
+      {
+        "sample": 39,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5955099825957699
+        ],
+        "experiment_state_scales": [
+          [
+            0.14658978131891337,
+            0.0,
+            11.06,
+            0.0,
+            1305313.9116333586,
+            12024.143020963642
+          ]
+        ],
+        "integration_steps": 120,
+        "normalized_parameters": [
+          0.40742351462876836,
+          0.32440982800988216,
+          -0.4449464358206733,
+          -0.5879232254258971,
+          -0.4208186786223792
+        ]
+      },
+      {
+        "sample": 40,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5226207391956385
+        ],
+        "experiment_state_scales": [
+          [
+            0.1865607035406373,
+            0.0,
+            11.06,
+            0.0,
+            1661475.0011403267,
+            40435.09401080714
+          ]
+        ],
+        "integration_steps": 93,
+        "normalized_parameters": [
+          0.6723412441488876,
+          0.932151735097495,
+          0.5475599701036118,
+          -0.236112694673296,
+          0.5552749127719625
+        ]
+      },
+      {
+        "sample": 41,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3693838629695707
+        ],
+        "experiment_state_scales": [
+          [
+            0.5176206201100266,
+            0.4847337455866051,
+            11.06,
+            17.687261348330512,
+            1291906.956172077,
+            6616.176776522242
+          ]
+        ],
+        "integration_steps": 621,
+        "normalized_parameters": [
+          -0.42557261228189514,
+          -0.11142532210576739,
+          -0.7606887206523911,
+          -0.42527817629144704,
+          0.28086458368213485
+        ]
+      },
+      {
+        "sample": 42,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.608360173336691,
+          -0.514430563113335,
+          -0.952433139216918,
+          0.5549181802967285,
+          -0.8321536783051152
+        ]
+      },
+      {
+        "sample": 43,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.20914523881579197
+        ],
+        "experiment_state_scales": [
+          [
+            0.5365649134121407,
+            0.5567891110074195,
+            11.06,
+            10.857063285808426,
+            1290094.0089011919,
+            29206.250523674033
+          ]
+        ],
+        "integration_steps": 334,
+        "normalized_parameters": [
+          -0.02899249735128928,
+          -0.9957747796703712,
+          -0.5182674514968886,
+          0.07486513173373033,
+          0.3795807139268532
+        ]
+      },
+      {
+        "sample": 44,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.43144986451050005
+        ],
+        "experiment_state_scales": [
+          [
+            0.23789128156355951,
+            0.0,
+            11.06,
+            0.0,
+            1290199.182181546,
+            35879.62790540641
+          ]
+        ],
+        "integration_steps": 87,
+        "normalized_parameters": [
+          0.79677072268112,
+          -0.7829123382651771,
+          -0.1343941660845971,
+          -0.09660682799959552,
+          -0.008340143944609468
+        ]
+      },
+      {
+        "sample": 45,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          1.0487667876283011
+        ],
+        "experiment_state_scales": [
+          [
+            0.5563847412745839,
+            0.0,
+            11.06,
+            0.0,
+            1307303.1704054382,
+            174200.2651737365
+          ]
+        ],
+        "integration_steps": 43,
+        "normalized_parameters": [
+          0.24353667067244866,
+          -0.18546510458467547,
+          -0.26990770682895693,
+          0.7968929301399501,
+          -0.4804396773364421
+        ]
+      },
+      {
+        "sample": 46,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          1.9844049007586773
+        ],
+        "experiment_state_scales": [
+          [
+            0.5565705368529161,
+            0.5536272763000473,
+            11.06,
+            22.412748497208202,
+            2145879.5723151965,
+            565538.3053332317
+          ]
+        ],
+        "integration_steps": 548,
+        "normalized_parameters": [
+          -0.3671411551541144,
+          0.5821131691498189,
+          0.9209801912071001,
+          0.9817072116265371,
+          0.21840793483046683
+        ]
+      },
+      {
+        "sample": 47,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.6759831116958439,
+          0.7695144171359394,
+          0.08135278142201341,
+          0.4095911878700811,
+          -0.23762368239003395
+        ]
+      },
+      {
+        "sample": 48,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5723765425823952
+        ],
+        "experiment_state_scales": [
+          [
+            0.16571987460494716,
+            0.0,
+            11.06,
+            0.0,
+            1520161.0065451367,
+            17124.22791078205
+          ]
+        ],
+        "integration_steps": 124,
+        "normalized_parameters": [
+          0.36247106071175894,
+          0.8574842774461611,
+          -0.3645224548188286,
+          -0.44955964081710065,
+          0.08876516392038813
+        ]
+      },
+      {
+        "sample": 49,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6578864688845525
+        ],
+        "experiment_state_scales": [
+          [
+            0.08126214623277711,
+            0.0,
+            11.06,
+            0.0,
+            1290018.6932774882,
+            9446.166209942085
+          ]
+        ],
+        "integration_steps": 145,
+        "normalized_parameters": [
+          0.6027826014389672,
+          -0.909061407302975,
+          0.48478281119723676,
+          -0.9708864891122503,
+          0.9267530573310492
+        ]
+      },
+      {
+        "sample": 50,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.509871399873162
+        ],
+        "experiment_state_scales": [
+          [
+            0.19851520181752214,
+            0.0,
+            11.06,
+            0.0,
+            1290224.151360867,
+            26063.634031465528
+          ]
+        ],
+        "integration_steps": 91,
+        "normalized_parameters": [
+          0.2950607994881236,
+          -0.6839516023504427,
+          -0.1146351690144587,
+          -0.2737259103912856,
+          -0.6982762970078938
+        ]
+      },
+      {
+        "sample": 51,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.7269829204137633
+        ],
+        "experiment_state_scales": [
+          [
+            0.3305734979654171,
+            0.0,
+            11.06,
+            0.0,
+            1291459.5145458744,
+            194447.91696292267
+          ]
+        ],
+        "integration_steps": 68,
+        "normalized_parameters": [
+          0.749798197814457,
+          -0.5627898962856877,
+          0.9949659907199981,
+          0.48868229004493347,
+          -0.15789549918322598
+        ]
+      },
+      {
+        "sample": 52,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.352812949334007
+        ],
+        "experiment_state_scales": [
+          [
+            0.3774269848066539,
+            0.0,
+            11.06,
+            0.0,
+            1328435.1028901935,
+            43078.30348986898
+          ]
+        ],
+        "integration_steps": 51,
+        "normalized_parameters": [
+          0.5586987474181802,
+          0.18054370666927078,
+          -0.6502098226652424,
+          0.2923807272508101,
+          -0.8895055811763428
+        ]
+      },
+      {
+        "sample": 53,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6261222550158848
+        ],
+        "experiment_state_scales": [
+          [
+            0.11276814539203074,
+            0.0,
+            11.06,
+            0.0,
+            1293502.2718916144,
+            11283.069610963463
+          ]
+        ],
+        "integration_steps": 144,
+        "normalized_parameters": [
+          -0.1973109333224009,
+          0.11977024593583763,
+          0.02058963205448916,
+          -0.7723857270807888,
+          -0.5338708208920893
+        ]
+      },
+      {
+        "sample": 54,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.7014302619341761,
+          -0.7345890293703976,
+          -0.003959802709228022,
+          0.2128830452335697,
+          -0.35166522873879946
+        ]
+      },
+      {
+        "sample": 55,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5512647943283331
+        ],
+        "experiment_state_scales": [
+          [
+            1.18309113174268,
+            1.198160655897363,
+            11.06,
+            20.998552983891994,
+            1292924.8538726792,
+            34595.29698644152
+          ]
+        ],
+        "integration_steps": 640,
+        "normalized_parameters": [
+          -0.16281129904959768,
+          -0.4753681090796895,
+          -0.9278043580038847,
+          0.8473952161308351,
+          0.7216180610362783
+        ]
+      },
+      {
+        "sample": 56,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4474950900926679
+        ],
+        "experiment_state_scales": [
+          [
+            0.2880233241721119,
+            0.22846139006555216,
+            11.06,
+            9.87488484000742,
+            1290366.6667839545,
+            5845.7653105894915
+          ]
+        ],
+        "integration_steps": 380,
+        "normalized_parameters": [
+          -0.2724231805868865,
+          -0.42330128119291544,
+          -0.7178458538940471,
+          -0.725244833501479,
+          -0.11241620205253178
+        ]
+      },
+      {
+        "sample": 57,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.23506145351160576
+        ],
+        "experiment_state_scales": [
+          [
+            0.44276523794463324,
+            0.44878032993091577,
+            11.06,
+            19.37436009811188,
+            1304492.94439212,
+            47502.522164424205
+          ]
+        ],
+        "integration_steps": 900,
+        "normalized_parameters": [
+          -0.8634721473470888,
+          0.19530664888610416,
+          0.5682221295760148,
+          -0.01598173404392822,
+          0.5822850953050043
+        ]
+      },
+      {
+        "sample": 58,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4034765992369199
+        ],
+        "experiment_state_scales": [
+          [
+            0.3276604443645761,
+            0.3354907926681092,
+            11.06,
+            15.531222857248606,
+            1302745.3436328778,
+            14851.54250838152
+          ]
+        ],
+        "integration_steps": 816,
+        "normalized_parameters": [
+          -0.8900315959199496,
+          0.3770639952916084,
+          0.24783923181778578,
+          -0.5387231152428593,
+          0.8566580482077111
+        ]
+      },
+      {
+        "sample": 59,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4192880248576113
+        ],
+        "experiment_state_scales": [
+          [
+            0.2381936189825068,
+            0.0,
+            11.06,
+            0.0,
+            1455087.614622023,
+            68061.65845557649
+          ]
+        ],
+        "integration_steps": 72,
+        "normalized_parameters": [
+          0.9223556665323993,
+          0.6564585279991504,
+          0.6609610038632268,
+          0.029163822144965268,
+          0.3606571238459175
+        ]
+      },
+      {
+        "sample": 60,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5327332976006414
+        ],
+        "experiment_state_scales": [
+          [
+            0.18892362370321553,
+            0.0,
+            11.06,
+            0.0,
+            1328224.39538325,
+            22636.230040815626
+          ]
+        ],
+        "integration_steps": 97,
+        "normalized_parameters": [
+          0.1700809508521699,
+          0.44519585350414936,
+          -0.1997708376374966,
+          -0.3277839318751343,
+          0.4410442584559533
+        ]
+      },
+      {
+        "sample": 61,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.8906701807248047
+        ],
+        "experiment_state_scales": [
+          [
+            0.7947109531054031,
+            1.0624199040289586,
+            11.06,
+            17.24876216171557,
+            1298651.1515362146,
+            166958.33900955692
+          ]
+        ],
+        "integration_steps": 293,
+        "normalized_parameters": [
+          0.09029993902667366,
+          -0.36398097678949204,
+          -0.41987984883451857,
+          0.9064784874045428,
+          0.6708016337532967
+        ]
+      },
+      {
+        "sample": 62,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.4763637294505737,
+          -0.19622026997139874,
+          -0.5748877108332163,
+          -0.16637296433237725,
+          -0.9489106290188617
+        ]
+      },
+      {
+        "sample": 63,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3667728219278696
+        ],
+        "experiment_state_scales": [
+          [
+            0.4349742535496577,
+            0.44319052047155977,
+            11.06,
+            20.89200402120641,
+            2144214.8065647176,
+            92689.51292146422
+          ]
+        ],
+        "integration_steps": 353,
+        "normalized_parameters": [
+          0.026235683273121424,
+          0.9677651730396206,
+          0.8564276228493186,
+          0.1766761836793389,
+          -0.5971754016719834
+        ]
+      },
+      {
+        "sample": 64,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.37817977571683076
+        ],
+        "experiment_state_scales": [
+          [
+            0.27609687245900294,
+            0.0,
+            11.06,
+            0.0,
+            1290100.9547991052,
+            42712.996444709264
+          ]
+        ],
+        "integration_steps": 79,
+        "normalized_parameters": [
+          0.036678794141039806,
+          -0.9933001209031929,
+          -0.2525603591891086,
+          0.03890678898893207,
+          0.5118458634496665
+        ]
+      },
+      {
+        "sample": 65,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.8348958935825546,
+          -0.4144134215286098,
+          0.4159540511928923,
+          -0.6262265737795175,
+          -0.7703038919648513
+        ]
+      },
+      {
+        "sample": 66,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5151362023048207
+        ],
+        "experiment_state_scales": [
+          [
+            0.1953891381918853,
+            0.0,
+            11.06,
+            0.0,
+            1293750.7790022828,
+            26207.708035960135
+          ]
+        ],
+        "integration_steps": 89,
+        "normalized_parameters": [
+          0.4050534148399825,
+          -0.0649210074124087,
+          -0.07075113584098092,
+          -0.28444718209609465,
+          0.31466912572673156
+        ]
+      },
+      {
+        "sample": 67,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.43669402210639185,
+          0.3835307718663623,
+          -0.6483400942852637,
+          0.23862266407515964,
+          0.28932433429533333
+        ]
+      },
+      {
+        "sample": 68,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3820833558722862
+        ],
+        "experiment_state_scales": [
+          [
+            0.34445969582064706,
+            0.0,
+            11.06,
+            0.0,
+            1430980.2067860712,
+            67997.57483324672
+          ]
+        ],
+        "integration_steps": 56,
+        "normalized_parameters": [
+          0.22449184744628625,
+          0.48663275908676673,
+          -0.2143898946709908,
+          0.2841625866052808,
+          -0.6992769679751488
+        ]
+      },
+      {
+        "sample": 69,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.6510922550194624,
+          0.4220851770263989,
+          -0.29881621745901565,
+          0.7286890889144941,
+          -0.028200313768557694
+        ]
+      },
+      {
+        "sample": 70,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4168746966681349
+        ],
+        "experiment_state_scales": [
+          [
+            0.8414808538363465,
+            0.8439457826173861,
+            11.06,
+            21.02302546844842,
+            1552759.1678900295,
+            22309.801495480126
+          ]
+        ],
+        "integration_steps": 712,
+        "normalized_parameters": [
+          -0.17267662421394958,
+          0.7210971418355323,
+          -0.6999227365937245,
+          0.15712289219242792,
+          -0.5103310206135233
+        ]
+      },
+      {
+        "sample": 71,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.9995289756709245,
+          0.09765232444910676,
+          -0.5332627846234053,
+          -0.2119002811098596,
+          -0.5636795831519581
+        ]
+      },
+      {
+        "sample": 72,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.35439518560732053
+        ],
+        "experiment_state_scales": [
+          [
+            0.5840282294284256,
+            0.5694466484195897,
+            11.06,
+            16.072549481396397,
+            1299145.4107412007,
+            5894.376748355278
+          ]
+        ],
+        "integration_steps": 771,
+        "normalized_parameters": [
+          -0.4856820868580509,
+          0.15264935805939017,
+          -0.932940577530231,
+          -0.28045518363803124,
+          0.9368992532358811
+        ]
+      },
+      {
+        "sample": 73,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.48825463695942867
+        ],
+        "experiment_state_scales": [
+          [
+            0.203480042078274,
+            0.19640314972487724,
+            11.06,
+            10.760240615476556,
+            1290014.137954118,
+            6243.225089032911
+          ]
+        ],
+        "integration_steps": 611,
+        "normalized_parameters": [
+          -0.6824086734402031,
+          -0.9539327488177252,
+          -0.008988666396047895,
+          -0.9023073850322585,
+          0.8090387880448278
+        ]
+      },
+      {
+        "sample": 74,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          2.2065462071241506
+        ],
+        "experiment_state_scales": [
+          [
+            0.5163888363899045,
+            0.7243566480981287,
+            11.06,
+            18.046808309010206,
+            1295005.2734097475,
+            581738.3392843081
+          ]
+        ],
+        "integration_steps": 314,
+        "normalized_parameters": [
+          0.008426256958221412,
+          -0.5373559403029363,
+          0.9523582657771739,
+          0.9885379544115753,
+          0.08770658919561991
+        ]
+      },
+      {
+        "sample": 75,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5567589347438131
+        ],
+        "experiment_state_scales": [
+          [
+            0.18616798197926823,
+            0.0,
+            11.06,
+            0.0,
+            1291728.1616102448,
+            10761.357795355329
+          ]
+        ],
+        "integration_steps": 107,
+        "normalized_parameters": [
+          0.7122637689300124,
+          -0.2791693517258077,
+          -0.8396340844494135,
+          -0.4031111611169391,
+          0.9743110409749209
+        ]
+      },
+      {
+        "sample": 76,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3450324387044586
+        ],
+        "experiment_state_scales": [
+          [
+            0.47729658171864675,
+            0.5031081515896694,
+            11.06,
+            24.06187441874263,
+            2779335.202834999,
+            138658.37932698365
+          ]
+        ],
+        "integration_steps": 604,
+        "normalized_parameters": [
+          -0.2754978993288465,
+          0.956087910518133,
+          0.4678955639781168,
+          0.4736175961171252,
+          0.8740673735531748
+        ]
+      },
+      {
+        "sample": 77,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.7307147239665949,
+          0.7770409985710909,
+          0.865492779639291,
+          -0.5967872505300615,
+          -0.8374148999178386
+        ]
+      },
+      {
+        "sample": 78,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4265706083143009
+        ],
+        "experiment_state_scales": [
+          [
+            0.32580190676261966,
+            0.30214562305822196,
+            11.06,
+            14.584466869224288,
+            1429439.2467999917,
+            3845.5664334027238
+          ]
+        ],
+        "integration_steps": 667,
+        "normalized_parameters": [
+          -0.5498027415658934,
+          0.9958458155229954,
+          -0.6209731663823825,
+          -0.8332671117646651,
+          -0.06659219508851744
+        ]
+      },
+      {
+        "sample": 79,
+        "successful": false,
+        "failures": [
+          "step_limit"
+        ],
+        "experiment_losses": [
+          null
+        ],
+        "experiment_state_scales": [
+          null
+        ],
+        "integration_steps": 1000,
+        "normalized_parameters": [
+          -0.7682001384613759,
+          -0.8123211740820808,
+          -0.7841951431680392,
+          0.19790615389155075,
+          -0.7850664478663113
+        ]
+      }
+    ],
+    "result": "63/80 parameter samples complete all experiments with valid loss; require 10/80."
+  }
+]

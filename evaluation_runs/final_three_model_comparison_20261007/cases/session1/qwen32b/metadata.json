@@ -1,0 +1,20 @@
+{
+  "status": "blocked",
+  "reason": "No scientific problem specification; not invented for benchmark",
+  "model_metadata": {
+    "key": "qwen32b",
+    "model": "qwen2.5-coder:32b",
+    "label": "Qwen2.5-Coder 32B",
+    "architecture": "dense",
+    "nominal_total_parameters_billion": 32.8,
+    "nominal_active_parameters_billion": 32.8,
+    "quantization": "Q4_K_M",
+    "thinking_model": false,
+    "thinking_mode": "non-thinking instruct; no separate reasoning channel",
+    "expected_download_bytes": 20000000000,
+    "sources": [
+      "https://ollama.com/library/qwen2.5-coder:32b",
+      "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct"
+    ]
+  }
+}

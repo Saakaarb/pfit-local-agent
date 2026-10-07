@@ -1,0 +1,773 @@
+{
+  "status": "accepted",
+  "max_steps": 2000,
+  "source_stamp": "# pfit-sources: user_model.py=8bd00b8a0e01f32b user_input.yaml=a30fe7122d3ba32d",
+  "relaxation_factor": 10.0,
+  "loss_rtol": 0.01,
+  "loss_atol": 1e-08,
+  "comparisons": [
+    {
+      "sample": 0,
+      "experiment": 1,
+      "reference_loss": 3.9980271370561375,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 425,
+        "num_rejected_steps": 32,
+        "num_steps": 457
+      },
+      "proposed_loss": 3.998029236290544
+    },
+    {
+      "sample": 1,
+      "experiment": 1,
+      "reference_loss": 5.587124886766662,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 411,
+        "num_rejected_steps": 44,
+        "num_steps": 455
+      },
+      "proposed_loss": 5.587127085198769
+    },
+    {
+      "sample": 2,
+      "experiment": 1,
+      "reference_loss": 31.151334170775517,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 420,
+        "num_rejected_steps": 97,
+        "num_steps": 517
+      },
+      "proposed_loss": 31.151334247927178
+    },
+    {
+      "sample": 3,
+      "experiment": 1,
+      "reference_loss": 1.0814899609483841,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 860,
+        "num_rejected_steps": 195,
+        "num_steps": 1055
+      },
+      "proposed_loss": 1.0814899535879707
+    },
+    {
+      "sample": 4,
+      "experiment": 1,
+      "reference_loss": 243.93518226389955,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 429,
+        "num_rejected_steps": 104,
+        "num_steps": 533
+      },
+      "proposed_loss": 243.9350026616181
+    },
+    {
+      "sample": 5,
+      "experiment": 1,
+      "reference_loss": 1.0463955864951022,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1091,
+        "num_rejected_steps": 91,
+        "num_steps": 1182
+      },
+      "proposed_loss": 1.0463950228603862
+    },
+    {
+      "sample": 8,
+      "experiment": 1,
+      "reference_loss": 8.47043903099846,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 408,
+        "num_rejected_steps": 104,
+        "num_steps": 512
+      },
+      "proposed_loss": 8.47044312229175
+    },
+    {
+      "sample": 9,
+      "experiment": 1,
+      "reference_loss": 1.7995451634997048,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 579,
+        "num_rejected_steps": 122,
+        "num_steps": 701
+      },
+      "proposed_loss": 1.7995454993314888
+    },
+    {
+      "sample": 10,
+      "experiment": 1,
+      "reference_loss": 390.6623262910771,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 430,
+        "num_rejected_steps": 104,
+        "num_steps": 534
+      },
+      "proposed_loss": 390.66200726260547
+    },
+    {
+      "sample": 11,
+      "experiment": 1,
+      "reference_loss": 2.49102853364667,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 493,
+        "num_rejected_steps": 123,
+        "num_steps": 616
+      },
+      "proposed_loss": 2.491030617779979
+    },
+    {
+      "sample": 12,
+      "experiment": 1,
+      "reference_loss": 13.937095591900258,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 414,
+        "num_rejected_steps": 118,
+        "num_steps": 532
+      },
+      "proposed_loss": 13.937100387332928
+    },
+    {
+      "sample": 13,
+      "experiment": 1,
+      "reference_loss": 1.3932374178469151,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 674,
+        "num_rejected_steps": 165,
+        "num_steps": 839
+      },
+      "proposed_loss": 1.3932375064346338
+    },
+    {
+      "sample": 14,
+      "experiment": 1,
+      "reference_loss": 1.0730526853926141,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 931,
+        "num_rejected_steps": 155,
+        "num_steps": 1086
+      },
+      "proposed_loss": 1.0730529775717992
+    },
+    {
+      "sample": 15,
+      "experiment": 1,
+      "reference_loss": 1137.9260445440925,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 430,
+        "num_rejected_steps": 105,
+        "num_steps": 535
+      },
+      "proposed_loss": 1137.9250044203889
+    },
+    {
+      "sample": 16,
+      "experiment": 1,
+      "reference_loss": 1.0794739756236358,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1189,
+        "num_rejected_steps": 97,
+        "num_steps": 1286
+      },
+      "proposed_loss": 1.0794739502885211
+    },
+    {
+      "sample": 17,
+      "experiment": 1,
+      "reference_loss": 0.29834201305152586,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1034,
+        "num_rejected_steps": 112,
+        "num_steps": 1146
+      },
+      "proposed_loss": 0.29834723093804977
+    },
+    {
+      "sample": 18,
+      "experiment": 1,
+      "reference_loss": 63.007900543458526,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 426,
+        "num_rejected_steps": 107,
+        "num_steps": 533
+      },
+      "proposed_loss": 63.00788035482714
+    },
+    {
+      "sample": 19,
+      "experiment": 1,
+      "reference_loss": 87.65148382889939,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 427,
+        "num_rejected_steps": 107,
+        "num_steps": 534
+      },
+      "proposed_loss": 87.65144461947806
+    },
+    {
+      "sample": 20,
+      "experiment": 1,
+      "reference_loss": 649.2158149035056,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 430,
+        "num_rejected_steps": 105,
+        "num_steps": 535
+      },
+      "proposed_loss": 649.2152474541549
+    },
+    {
+      "sample": 21,
+      "experiment": 1,
+      "reference_loss": 3.983494845785954,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 425,
+        "num_rejected_steps": 35,
+        "num_steps": 460
+      },
+      "proposed_loss": 3.9834969669752778
+    },
+    {
+      "sample": 22,
+      "experiment": 1,
+      "reference_loss": 102.49273922378961,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 428,
+        "num_rejected_steps": 105,
+        "num_steps": 533
+      },
+      "proposed_loss": 102.49268839414384
+    },
+    {
+      "sample": 23,
+      "experiment": 1,
+      "reference_loss": 2.7180622556881575,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 476,
+        "num_rejected_steps": 122,
+        "num_steps": 598
+      },
+      "proposed_loss": 2.718064994014392
+    },
+    {
+      "sample": 24,
+      "experiment": 1,
+      "reference_loss": 1.1885285797258764,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 759,
+        "num_rejected_steps": 183,
+        "num_steps": 942
+      },
+      "proposed_loss": 1.1885285703655506
+    },
+    {
+      "sample": 25,
+      "experiment": 1,
+      "reference_loss": 196.88026730370632,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 429,
+        "num_rejected_steps": 103,
+        "num_steps": 532
+      },
+      "proposed_loss": 196.88013153627972
+    },
+    {
+      "sample": 28,
+      "experiment": 1,
+      "reference_loss": 449.26160383508926,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 430,
+        "num_rejected_steps": 105,
+        "num_steps": 535
+      },
+      "proposed_loss": 449.26122896802343
+    },
+    {
+      "sample": 29,
+      "experiment": 1,
+      "reference_loss": 1.1225994665127634,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 805,
+        "num_rejected_steps": 184,
+        "num_steps": 989
+      },
+      "proposed_loss": 1.1225994646580717
+    },
+    {
+      "sample": 30,
+      "experiment": 1,
+      "reference_loss": 36.789539271388286,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 420,
+        "num_rejected_steps": 96,
+        "num_steps": 516
+      },
+      "proposed_loss": 36.78953650863089
+    },
+    {
+      "sample": 31,
+      "experiment": 1,
+      "reference_loss": 21.314112633839716,
+      "result": "diffrax._solution.RESULTS<>",
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 420,
+        "num_rejected_steps": 111,
+        "num_steps": 531
+      },
+      "proposed_loss": 21.314116289091853
+    }
+  ],
+  "state_scaling": {
+    "status": "accepted",
+    "fraction": 0.01,
+    "state_names": [
+      "x1",
+      "x2"
+    ],
+    "method": "per-trajectory max(p95(abs(saved states)), abs(initial state)); median across candidates, maximum across experiments",
+    "reference_rtol": [
+      1e-07,
+      1e-07
+    ],
+    "reference_atol": [
+      1e-09,
+      1e-09
+    ],
+    "state_scales": [
+      2.0,
+      11.001484366006487
+    ],
+    "proposed_atol": [
+      2e-09,
+      1.1001484366006488e-08
+    ],
+    "fallback_state_indices": [],
+    "comparisons": [
+      {
+        "sample": 0,
+        "experiment": 1,
+        "reference_loss": 3.9980271370561375,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 669,
+          "num_rejected_steps": 63,
+          "num_steps": 732
+        },
+        "proposed_loss": 3.99802714095995
+      },
+      {
+        "sample": 1,
+        "experiment": 1,
+        "reference_loss": 5.587124886766662,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 665,
+          "num_rejected_steps": 113,
+          "num_steps": 778
+        },
+        "proposed_loss": 5.587124887439983
+      },
+      {
+        "sample": 2,
+        "experiment": 1,
+        "reference_loss": 31.151334170775517,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 678,
+          "num_rejected_steps": 141,
+          "num_steps": 819
+        },
+        "proposed_loss": 31.151334171767886
+      },
+      {
+        "sample": 3,
+        "experiment": 1,
+        "reference_loss": 1.0814899609483841,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1299,
+          "num_rejected_steps": 237,
+          "num_steps": 1536
+        },
+        "proposed_loss": 1.0814899605470925
+      },
+      {
+        "sample": 4,
+        "experiment": 1,
+        "reference_loss": 243.93518226389955,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 690,
+          "num_rejected_steps": 163,
+          "num_steps": 853
+        },
+        "proposed_loss": 243.9351821386597
+      },
+      {
+        "sample": 5,
+        "experiment": 1,
+        "reference_loss": 1.0463955864951022,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1583,
+          "num_rejected_steps": 143,
+          "num_steps": 1726
+        },
+        "proposed_loss": 1.0463955716818842
+      },
+      {
+        "sample": 8,
+        "experiment": 1,
+        "reference_loss": 8.47043903099846,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 662,
+          "num_rejected_steps": 181,
+          "num_steps": 843
+        },
+        "proposed_loss": 8.470439021143221
+      },
+      {
+        "sample": 9,
+        "experiment": 1,
+        "reference_loss": 1.7995451634997048,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 880,
+          "num_rejected_steps": 151,
+          "num_steps": 1031
+        },
+        "proposed_loss": 1.7995451746096824
+      },
+      {
+        "sample": 10,
+        "experiment": 1,
+        "reference_loss": 390.6623262910771,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 690,
+          "num_rejected_steps": 158,
+          "num_steps": 848
+        },
+        "proposed_loss": 390.66232564556185
+      },
+      {
+        "sample": 11,
+        "experiment": 1,
+        "reference_loss": 2.49102853364667,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 776,
+          "num_rejected_steps": 143,
+          "num_steps": 919
+        },
+        "proposed_loss": 2.4910285375842665
+      },
+      {
+        "sample": 12,
+        "experiment": 1,
+        "reference_loss": 13.937095591900258,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 673,
+          "num_rejected_steps": 188,
+          "num_steps": 861
+        },
+        "proposed_loss": 13.937095598662106
+      },
+      {
+        "sample": 13,
+        "experiment": 1,
+        "reference_loss": 1.3932374178469151,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1018,
+          "num_rejected_steps": 211,
+          "num_steps": 1229
+        },
+        "proposed_loss": 1.3932374187027328
+      },
+      {
+        "sample": 14,
+        "experiment": 1,
+        "reference_loss": 1.0730526853926141,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1402,
+          "num_rejected_steps": 210,
+          "num_steps": 1612
+        },
+        "proposed_loss": 1.0730526762706372
+      },
+      {
+        "sample": 15,
+        "experiment": 1,
+        "reference_loss": 1137.9260445440925,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 690,
+          "num_rejected_steps": 158,
+          "num_steps": 848
+        },
+        "proposed_loss": 1137.9260429133951
+      },
+      {
+        "sample": 16,
+        "experiment": 1,
+        "reference_loss": 1.0794739756236358,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1667,
+          "num_rejected_steps": 135,
+          "num_steps": 1802
+        },
+        "proposed_loss": 1.0794739782196576
+      },
+      {
+        "sample": 17,
+        "experiment": 1,
+        "reference_loss": 0.29834201305152586,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1530,
+          "num_rejected_steps": 164,
+          "num_steps": 1694
+        },
+        "proposed_loss": 0.29834206489345205
+      },
+      {
+        "sample": 18,
+        "experiment": 1,
+        "reference_loss": 63.007900543458526,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 685,
+          "num_rejected_steps": 153,
+          "num_steps": 838
+        },
+        "proposed_loss": 63.007900487564946
+      },
+      {
+        "sample": 19,
+        "experiment": 1,
+        "reference_loss": 87.65148382889939,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 689,
+          "num_rejected_steps": 165,
+          "num_steps": 854
+        },
+        "proposed_loss": 87.65148378447424
+      },
+      {
+        "sample": 20,
+        "experiment": 1,
+        "reference_loss": 649.2158149035056,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 690,
+          "num_rejected_steps": 158,
+          "num_steps": 848
+        },
+        "proposed_loss": 649.2158138768808
+      },
+      {
+        "sample": 21,
+        "experiment": 1,
+        "reference_loss": 3.983494845785954,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 669,
+          "num_rejected_steps": 73,
+          "num_steps": 742
+        },
+        "proposed_loss": 3.9834948543894866
+      },
+      {
+        "sample": 22,
+        "experiment": 1,
+        "reference_loss": 102.49273922378961,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 690,
+          "num_rejected_steps": 173,
+          "num_steps": 863
+        },
+        "proposed_loss": 102.49273924664271
+      },
+      {
+        "sample": 23,
+        "experiment": 1,
+        "reference_loss": 2.7180622556881575,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 750,
+          "num_rejected_steps": 129,
+          "num_steps": 879
+        },
+        "proposed_loss": 2.7180622521128903
+      },
+      {
+        "sample": 24,
+        "experiment": 1,
+        "reference_loss": 1.1885285797258764,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1145,
+          "num_rejected_steps": 219,
+          "num_steps": 1364
+        },
+        "proposed_loss": 1.1885285791305646
+      },
+      {
+        "sample": 25,
+        "experiment": 1,
+        "reference_loss": 196.88026730370632,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 690,
+          "num_rejected_steps": 166,
+          "num_steps": 856
+        },
+        "proposed_loss": 196.88026725747235
+      },
+      {
+        "sample": 28,
+        "experiment": 1,
+        "reference_loss": 449.26160383508926,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 690,
+          "num_rejected_steps": 158,
+          "num_steps": 848
+        },
+        "proposed_loss": 449.26160309340145
+      },
+      {
+        "sample": 29,
+        "experiment": 1,
+        "reference_loss": 1.1225994665127634,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1223,
+          "num_rejected_steps": 262,
+          "num_steps": 1485
+        },
+        "proposed_loss": 1.1225994667134818
+      },
+      {
+        "sample": 30,
+        "experiment": 1,
+        "reference_loss": 36.789539271388286,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 681,
+          "num_rejected_steps": 142,
+          "num_steps": 823
+        },
+        "proposed_loss": 36.78953925024415
+      },
+      {
+        "sample": 31,
+        "experiment": 1,
+        "reference_loss": 21.314112633839716,
+        "result": "diffrax._solution.RESULTS<>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 674,
+          "num_rejected_steps": 165,
+          "num_steps": 839
+        },
+        "proposed_loss": 21.314112627301668
+      }
+    ],
+    "reason": "paired losses and candidate ordering stable"
+  },
+  "gradient_stepsize_atol": [
+    2e-09,
+    1.1001484366006488e-08
+  ],
+  "de_status": "retained",
+  "reason": "Automatic DE relaxation rejected by forward-accuracy check: population: x1 disagrees with tighter reference"
+}

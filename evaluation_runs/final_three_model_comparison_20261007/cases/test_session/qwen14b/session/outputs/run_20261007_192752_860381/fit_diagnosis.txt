@@ -1,0 +1,62 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen14b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen14b/session/outputs/run_20261007_192752_860381
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.4359E-01, best loss 3.4359E-01, final loss 3.4359E-01
+- NODE: 2 iterations, first loss 3.4348E-01, best loss 3.4345E-01, final loss 3.4345E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: robertson_data.csv; loss=0.3434528285041241; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen14b/session/outputs/run_20261007_192752_860381/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- k1=0.00100231 is at 0.03% of its log10 search interval.
+- [BOUND] k1=0.00100231 is at 0.03% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.166545; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, y1: RMSE=0.155381, bias=0.0898773, time correlation=0.9245972748547722, lag-1=0.9833479120708323.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y2: RMSE=1.47894e-05, bias=-4.83664e-06, time correlation=0.294140321375973, lag-1=0.8128546111893444.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y3: RMSE=0.155383, bias=-0.0898726, time correlation=-0.9245856994780133, lag-1=0.9833512372907833.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen14b/session/outputs/run_20261007_192752_860381/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen14b/session/outputs/run_20261007_192752_860381/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+k1=0.00100231 is at 0.03% of its log10 search interval, and stationarity is not established.
+1. Check whether the bound for k1 is physically justified. If revising bounds, run a full fit; do not widen them automatically. [BOUND] k1 is at 0.03% of its log10 search interval, which may indicate an inappropriate bound.
+2. If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters to 10 and run a gradient-only restart from this run. [STATIONARITY] The normalized gradient infinity norm is 0.166545, indicating that stationarity is not established. Increasing the number of gradient iterations may help refine the solution.
+3. Inspect the time-region residuals and trajectory plot for Experiment 1, y1, y2, and y3. Check input timing, calibration, initial conditions, and model mismatch before deciding whether a gradient-only restart is worthwhile. [RESIDUAL] The residuals for y1, y2, and y3 have varying RMSE and time correlations, suggesting potential issues with the model or data that need further investigation.
+Limitation: The evidence cannot establish whether the current model is globally optimal or identifiable.
+Limitation: The evidence does not provide information on the stability of the numerical solver or the presence of stiffness.

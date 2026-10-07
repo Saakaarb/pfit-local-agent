@@ -1,0 +1,8 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session
+warning: Large trainable parameter count detected; consider increasing population search budget.
+warning: No explicit loss description provided. The automatic log-loss rule does not apply to any column due to insufficient dynamic range or presence of zero/negative values.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Consider increasing the population size and number of iterations for better convergence.

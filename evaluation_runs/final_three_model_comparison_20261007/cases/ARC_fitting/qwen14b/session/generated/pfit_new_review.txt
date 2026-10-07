@@ -1,0 +1,4 @@
+The initial conditions provided are: c1(0) = 1.0, c2(0) = 0.04, T(0) = 354.0. The frozen experiment overrides confirm these values.
+The provided ODE and parameter definitions have been extracted and formatted according to the schema. All formulas and RHS expressions are based on the frozen states and parameters.
+The CSV columns T and dTdt are directly mapped to the simulated states T and the heat rate q, respectively.
+The user has provided a custom loss function with specific normalization and penalty terms. The data terms include normalized MSE for temperature and log10-normalized MSE for heat rate. Penalties are applied to ensure final state constraints are met smoothly.

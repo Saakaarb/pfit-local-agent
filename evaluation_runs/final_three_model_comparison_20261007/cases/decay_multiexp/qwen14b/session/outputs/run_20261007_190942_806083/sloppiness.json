@@ -1,0 +1,72 @@
+{
+  "status": "ok",
+  "method": "finite-difference",
+  "fallback_reason": "TypeError: can't apply forward-mode autodiff (jvp) to a custom_vjp function.",
+  "parameter_names": [
+    "k1",
+    "k2"
+  ],
+  "coordinates": [
+    "log10(k1)",
+    "log10(k2)"
+  ],
+  "point": [
+    0.1317352957800364,
+    -0.7284485483069545
+  ],
+  "normalized_point": [
+    0.42115686385335754,
+    -0.15229903220463634
+  ],
+  "loss": 0.1567998875516053,
+  "gradient": [
+    0.054534490198403965,
+    -0.755977629383904
+  ],
+  "normalized_gradient_inf_norm": 1.1339664440758561,
+  "hessian": [
+    [
+      0.6064797293069135,
+      0.4459757957601604
+    ],
+    [
+      0.4459757957601604,
+      0.4346146585110233
+    ]
+  ],
+  "eigenvalues": [
+    0.9747264658312209,
+    0.06636792198671593
+  ],
+  "relative_eigenvalues": [
+    1.0,
+    0.06808876573400428
+  ],
+  "eigenvectors": [
+    [
+      -0.7711044030978348,
+      0.6367087242398457
+    ],
+    [
+      -0.6367087242398457,
+      -0.7711044030978348
+    ]
+  ],
+  "relative_floor": 1e-06,
+  "positive_spectrum_decades": 1.166924538339935,
+  "weak_modes": 0,
+  "negative_modes": 0,
+  "parameters_at_bounds": [],
+  "verdict": "no weak curvature directions at the specified relative floor",
+  "warnings": [
+    "The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.",
+    "Local curvature only: not proof of structural/global identifiability or convergence."
+  ],
+  "stationary_at_tolerance": false,
+  "finite_difference_relative_change": 1.3454454622400497e-07,
+  "finite_difference_stencils": [
+    "central",
+    "central"
+  ],
+  "hessian_relative_asymmetry": 1.0569835203765362e-05
+}

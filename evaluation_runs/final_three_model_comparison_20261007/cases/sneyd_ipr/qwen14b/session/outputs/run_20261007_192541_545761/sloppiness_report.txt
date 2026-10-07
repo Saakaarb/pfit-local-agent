@@ -1,0 +1,32 @@
+Post-fit sloppiness
+Status: ok
+Method: finite-difference
+Coordinates: log10(k1), log10(k2), log10(k3), log10(k4), log10(k_1), log10(k_2), log10(k_3), log10(k_4), log10(l2), log10(l4), log10(l6), log10(l_2), log10(l_4), log10(l_6)
+Verdict: indefinite curvature
+Weak modes: 0
+Negative modes: 6
+Normalized gradient infinity norm: 0.0031577
+Eigenvectors are columns in descending eigenvalue order.
+Eigenvalues (largest to smallest):
+  mode 1: 1.41332573e-02
+  mode 2: 2.08077180e-03
+  mode 3: 1.07264791e-03
+  mode 4: 5.81194112e-04
+  mode 5: 2.45417681e-04
+  mode 6: 1.77088554e-04
+  mode 7: 1.19194373e-04
+  mode 8: 6.19473851e-05
+  mode 9: -3.53233442e-05
+  mode 10: -8.03998728e-05
+  mode 11: -2.07430818e-04
+  mode 12: -3.52381741e-04
+  mode 13: -5.38847728e-04
+  mode 14: -3.73806400e-03
+Positive spectrum span: 2.35822 decades
+STIFFEST direction: l_2(-0.70), l2(+0.69), l_6(+0.09), k2(+0.08)
+SLOPPIEST direction: k4(-0.67), k_4(+0.52), l6(-0.32), k3(+0.28)
+Eigenvectors describe parameter combinations, not individual parameter identifiability.
+AD fallback: TypeError: can't apply forward-mode autodiff (jvp) to a custom_vjp function.
+Warning: The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+Warning: Negative curvature detected; do not interpret this point as a local minimum.
+Warning: Local curvature only: not proof of structural/global identifiability or convergence.

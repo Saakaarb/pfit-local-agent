@@ -1,0 +1,5 @@
+A_gut(0) = 320.0 mg; A_plasma(0) = 0.0 mg; the frozen experiment initial_conditions supply A_gut=320.0 and A_plasma=0.0
+The model equations have been extracted from the user-provided context. The RHS expressions for the integrated states A_gut and A_plasma are provided, along with the formula for the derived observable C_plasma.
+The CSV column 'C_plasma' is directly mapped to the derived observable 'C_plasma' in the model.
+The user has provided a custom loss definition, which is to compare simulated C_plasma to the measured C_plasma column, normalize residuals by max(abs(measured C_plasma column)), and calculate the loss as the square root of the mean of the normalized squared residuals.
+Applied pooled RMSE from the original user loss specification; the final square root follows averaging across observation channels.

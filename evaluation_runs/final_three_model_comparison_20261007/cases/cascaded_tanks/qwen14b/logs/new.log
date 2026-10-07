@@ -1,0 +1,1 @@
+error: pfit-new expressions may only call np.* functions

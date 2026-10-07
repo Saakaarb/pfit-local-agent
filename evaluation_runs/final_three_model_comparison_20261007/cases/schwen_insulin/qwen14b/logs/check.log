@@ -1,0 +1,2 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen14b/session/generated/user_input_check.txt
+validation failed: User prompt specifies log/log10 residuals, but _compute_loss_problem does not use a log transform.

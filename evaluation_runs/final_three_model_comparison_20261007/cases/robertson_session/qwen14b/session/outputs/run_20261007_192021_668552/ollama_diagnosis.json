@@ -1,0 +1,38 @@
+{
+  "verdict": "k1=0.00100231 is at 0.03% of its log10 search interval.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for k1 is physically justified. If revising bounds, run a full fit; do not widen them automatically.",
+      "reason": "k1 is at 0.03% of its log10 search interval, which may indicate an inappropriate bound."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.166545, indicating that stationarity is not established."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "Refinement stopped at its iteration budget, suggesting that more iterations might be beneficial."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for y1, y2, and y3. Check input timing, calibration, initial conditions, and model mismatch before spending more iterations; do not change the user loss automatically.",
+      "reason": "The residuals for y1, y2, and y3 indicate varying levels of fit quality, and further inspection is needed to understand the model's performance."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish the global optimum or identifiability of the model parameters."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,103 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- result_solution_exp3.csv: present
+- result_solution_exp4.csv: present
+- result_solution_exp5.csv: present
+- result_solution_exp6.csv: present
+- result_solution_exp7.csv: present
+- result_solution_exp8.csv: present
+- result_solution_exp9.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 8.0440E-03, best loss 8.0440E-03, final loss 8.0440E-03
+- NODE: 2 iterations, first loss 8.0379E-03, best loss 8.0363E-03, final loss 8.0363E-03
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 9
+Aggregation: equal_experiment_mean
+- Experiment 1: ca01.csv; loss=0.0013183367548935808; output=result_solution_exp1.csv
+- Experiment 2: ca02.csv; loss=0.0032462341227794947; output=result_solution_exp2.csv
+- Experiment 3: ca04.csv; loss=0.017460105087898813; output=result_solution_exp3.csv
+- Experiment 4: ca1.csv; loss=0.007845452843101872; output=result_solution_exp4.csv
+- Experiment 5: ca3.csv; loss=0.006065934276901339; output=result_solution_exp5.csv
+- Experiment 6: ca10.csv; loss=0.004896309666079765; output=result_solution_exp6.csv
+- Experiment 7: ip3.csv; loss=0.0042709068627957494; output=result_solution_exp7.csv
+- Experiment 8: ip5.csv; loss=0.010539225806094687; output=result_solution_exp8.csv
+- Experiment 9: ip10.csv; loss=0.016684563623035095; output=result_solution_exp9.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 6
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.0031577; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.0031577; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, open_probability: RMSE=0.0363089, bias=-0.0209356, time correlation=0.5082553324520332, lag-1=0.26159992863376974.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, open_probability: RMSE=0.0569757, bias=-0.0314083, time correlation=0.5133948851971666, lag-1=0.3180692801254062.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 3, open_probability: RMSE=0.132137, bias=-0.0886519, time correlation=0.6408620928502416, lag-1=0.5635332509137172.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 4, open_probability: RMSE=0.0885746, bias=-0.0421525, time correlation=0.6355455822947107, lag-1=0.5840210028812305.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 5, open_probability: RMSE=0.0778841, bias=-0.0273009, time correlation=0.7492668877234283, lag-1=0.7028010588077733.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 6, open_probability: RMSE=0.0699736, bias=-0.020434, time correlation=0.7563475097910368, lag-1=0.7490634283343981.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 7, open_probability: RMSE=0.0653522, bias=-0.0595258, time correlation=0.05837437302456316, lag-1=0.7481314317288663.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 8, open_probability: RMSE=0.102661, bias=-0.0771705, time correlation=0.5672055551863091, lag-1=0.6371011885234527.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 9, open_probability: RMSE=0.129169, bias=-0.0911852, time correlation=0.6364544164253878, lag-1=0.6848119156965932.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp2.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp3.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp4.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp5.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp6.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp7.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp8.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/fit_exp9.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Stationarity is not established with a normalized gradient infinity norm of 0.0031577.
+1. Increase gradient_opt.num_iters to 10 and run a gradient-only restart from this run. [STATIONARITY] The normalized gradient infinity norm is 0.0031577, indicating that stationarity is not established. Increasing the number of gradient iterations may help refine the solution further.
+2. Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile. [BUDGET] The refinement stopped at its iteration budget. Assessing the final gradient and residual plots will help determine if further refinement is necessary.
+3. Inspect the time-region residuals and trajectory plot for Experiment 1. [RESIDUAL] Experiment 1 has an RMSE of 0.0363089, bias of -0.0209356, time correlation of 0.508255, and lag-1 of 0.261599. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+4. Inspect the time-region residuals and trajectory plot for Experiment 2. [RESIDUAL] Experiment 2 has an RMSE of 0.0569757, bias of -0.0314083, time correlation of 0.513395, and lag-1 of 0.318069. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+5. Inspect the time-region residuals and trajectory plot for Experiment 3. [RESIDUAL] Experiment 3 has an RMSE of 0.132137, bias of -0.0886519, time correlation of 0.640862, and lag-1 of 0.563533. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+6. Inspect the time-region residuals and trajectory plot for Experiment 4. [RESIDUAL] Experiment 4 has an RMSE of 0.0885746, bias of -0.0421525, time correlation of 0.635546, and lag-1 of 0.584021. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+7. Inspect the time-region residuals and trajectory plot for Experiment 5. [RESIDUAL] Experiment 5 has an RMSE of 0.0778841, bias of -0.0273009, time correlation of 0.749267, and lag-1 of 0.702801. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+8. Inspect the time-region residuals and trajectory plot for Experiment 6. [RESIDUAL] Experiment 6 has an RMSE of 0.0699736, bias of -0.020434, time correlation of 0.756348, and lag-1 of 0.749063. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+9. Inspect the time-region residuals and trajectory plot for Experiment 7. [RESIDUAL] Experiment 7 has an RMSE of 0.0653522, bias of -0.0595258, time correlation of 0.058374, and lag-1 of 0.748131. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+10. Inspect the time-region residuals and trajectory plot for Experiment 8. [RESIDUAL] Experiment 8 has an RMSE of 0.102661, bias of -0.0771705, time correlation of 0.567206, and lag-1 of 0.637101. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+11. Inspect the time-region residuals and trajectory plot for Experiment 9. [RESIDUAL] Experiment 9 has an RMSE of 0.129169, bias of -0.0911852, time correlation of 0.636454, and lag-1 of 0.684812. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch.
+Limitation: The evidence cannot establish whether the model is globally optimal or identifiable.

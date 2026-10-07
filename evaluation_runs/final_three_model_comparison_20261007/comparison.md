@@ -6,36 +6,36 @@ Fresh runs use one attempt per model/case, including the existing repair budget.
 |---|---|---|---|
 Qwen3.8 is an imported historical baseline with retries across workflow revisions; 32B and 14B are fresh attempts at the recorded commit. Retry/manual passes are labelled. These are cumulative workflow outcomes, not a controlled first-attempt model ranking. The CSV retains original baseline statuses and source paths.
 
-| ARC_fitting | pending | pending | pass; 620.018 |
-| boehm_stat5 | pending | pending | pass; 463.132 |
-| hodgkin_huxley | pending | pending | blocked; 0 |
-| lotka_volterra | pending | pending | pass; 274.647 |
-| mapk_cascade | pending | pending | pass (retry); 385.048 |
-| nfkb_signaling | pending | pending | fail at new; 168.618 |
-| oregonator | pending | pending | pass (retry); 245.199 |
-| piezo_bouc_wen | pending | pending | pass; 326.306 |
-| robertson_session | pending | pending | pass; 285.93 |
-| session1 | pending | pending | blocked; 0 |
-| sliding_basepoint_headered | pending | pending | pass (manual retry); 381.428 |
-| test_session | pending | pending | pass; 297.741 |
-| theophylline | pending | pending | pass; 223.501 |
-| vanderpol_session | pending | pending | pass; 213.881 |
-| cascaded_tanks | pending | pending | pass; 400.779 |
-| decay_multiexp | pending | pending | pass; 272.719 |
-| sneyd_ipr | pending | pending | pass; 463.458 |
-| beer_indigoidine | pending | pending | pass; 250.156 |
-| raia_il13 | pending | pending | pass (retry); 68.254 |
-| schwen_insulin | pending | pending | pass; 530.781 |
-| armistead_sphingolipid | pending | pending | pass; 387.522 |
-| borghans_calcium | pending | pending | pass (retry); 83.504 |
-| fujita_egf | pending | pending | pass (retry); 21.569 |
+| ARC_fitting | infrastructure_error | pass; 108.767 | pass; 620.018 |
+| boehm_stat5 | infrastructure_error | pass; 130.897 | pass; 463.132 |
+| hodgkin_huxley | blocked | blocked; 0 | blocked; 0 |
+| lotka_volterra | infrastructure_error | pass; 69.787 | pass; 274.647 |
+| mapk_cascade | infrastructure_error | pass; 94.394 | pass (retry); 385.048 |
+| nfkb_signaling | infrastructure_error | fail at new; 95.016 | fail at new; 168.618 |
+| oregonator | infrastructure_error | pass; 77.677 | pass (retry); 245.199 |
+| piezo_bouc_wen | infrastructure_error | fail at new; 30.809 | pass; 326.306 |
+| robertson_session | infrastructure_error | pass; 85.01 | pass; 285.93 |
+| session1 | blocked | blocked; 0 | blocked; 0 |
+| sliding_basepoint_headered | infrastructure_error | pass; 84.663 | pass (manual retry); 381.428 |
+| test_session | infrastructure_error | pass; 84.375 | pass; 297.741 |
+| theophylline | infrastructure_error | pass; 66.568 | pass; 223.501 |
+| vanderpol_session | infrastructure_error | pass; 54.391 | pass; 213.881 |
+| cascaded_tanks | infrastructure_error | fail at new; 42.049 | pass; 400.779 |
+| decay_multiexp | infrastructure_error | pass; 82.187 | pass; 272.719 |
+| sneyd_ipr | infrastructure_error | pass; 209.931 | pass; 463.458 |
+| beer_indigoidine | infrastructure_error | pass; 70.445 | pass; 250.156 |
+| raia_il13 | infrastructure_error | fail at new; 67.008 | pass (retry); 68.254 |
+| schwen_insulin | infrastructure_error | fail at check; 69.829 | pass; 530.781 |
+| armistead_sphingolipid | infrastructure_error | fail at new; 42.834 | pass; 387.522 |
+| borghans_calcium | infrastructure_error | fail at new; 41.119 | pass (retry); 83.504 |
+| fujita_egf | infrastructure_error | fail at new; 116.522 | pass (retry); 21.569 |
 
 ## Counts
 
 | Model | Pass | Fail/degraded | Infrastructure/blocked | Pending/running | Pass / eligible |
 |---|---:|---:|---:|---:|---:|
-| qwen32b | 0 | 0 | 0 | 23 | 0/21 (0.0%) |
-| qwen14b | 0 | 0 | 0 | 23 | 0/21 (0.0%) |
+| qwen32b | 0 | 0 | 23 | 0 | 0/21 (0.0%) |
+| qwen14b | 13 | 8 | 2 | 0 | 13/21 (61.9%) |
 | qwen38_27b | 20 | 1 | 2 | 0 | 20/21 (95.2%) |
 
 Two incomplete folders are excluded from the eligible denominator. test_session duplicates Robertson; sliding_basepoint_headered duplicates sliding_basepoint. Keep these rows visible but do not treat them as independent scientific problems.

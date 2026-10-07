@@ -1,0 +1,8 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen14b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen14b/session
+warning: Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Measured column spans orders of magnitude: Experiment 2 (decay_run_B.csv): A uses dataset[:, 0], positive min=9.07999e-05, max=2, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Measured column spans orders of magnitude: Experiment 2 (decay_run_B.csv): A uses dataset[:, 0], positive min=9.07999e-05, max=2, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.

@@ -1,0 +1,87 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 0.0031577.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters to 10 and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.0031577, indicating that stationarity is not established. Increasing the number of gradient iterations may help refine the solution further."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET"
+      ],
+      "action": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The refinement stopped at its iteration budget. Assessing the final gradient and residual plots will help determine if further refinement is necessary."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1.",
+      "reason": "Experiment 1 has an RMSE of 0.0363089, bias of -0.0209356, time correlation of 0.508255, and lag-1 of 0.261599. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 2.",
+      "reason": "Experiment 2 has an RMSE of 0.0569757, bias of -0.0314083, time correlation of 0.513395, and lag-1 of 0.318069. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 3.",
+      "reason": "Experiment 3 has an RMSE of 0.132137, bias of -0.0886519, time correlation of 0.640862, and lag-1 of 0.563533. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 4.",
+      "reason": "Experiment 4 has an RMSE of 0.0885746, bias of -0.0421525, time correlation of 0.635546, and lag-1 of 0.584021. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 5.",
+      "reason": "Experiment 5 has an RMSE of 0.0778841, bias of -0.0273009, time correlation of 0.749267, and lag-1 of 0.702801. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 6.",
+      "reason": "Experiment 6 has an RMSE of 0.0699736, bias of -0.020434, time correlation of 0.756348, and lag-1 of 0.749063. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 7.",
+      "reason": "Experiment 7 has an RMSE of 0.0653522, bias of -0.0595258, time correlation of 0.058374, and lag-1 of 0.748131. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 8.",
+      "reason": "Experiment 8 has an RMSE of 0.102661, bias of -0.0771705, time correlation of 0.567206, and lag-1 of 0.637101. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 9.",
+      "reason": "Experiment 9 has an RMSE of 0.129169, bias of -0.0911852, time correlation of 0.636454, and lag-1 of 0.684812. Inspecting the residuals and trajectory plot will help identify potential issues with input timing, calibration, initial conditions, or model mismatch."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the model is globally optimal or identifiable."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

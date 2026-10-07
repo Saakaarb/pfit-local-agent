@@ -1,0 +1,23 @@
+Post-fit sloppiness
+Status: ok
+Method: finite-difference
+Coordinates: log10(k_deg), log10(k_exp_hetero), log10(k_exp_homo), log10(k_imp_hetero), log10(k_imp_homo), log10(k_phos)
+Verdict: sloppy: locally weak curvature directions
+Weak modes: 1
+Negative modes: 0
+Normalized gradient infinity norm: 0.155051
+Eigenvectors are columns in descending eigenvalue order.
+Eigenvalues (largest to smallest):
+  mode 1: 5.56982375e+00
+  mode 2: 8.46036277e-01
+  mode 3: 8.20451531e-02
+  mode 4: 1.72527337e-02
+  mode 5: 1.93323853e-04
+  mode 6: 1.48283998e-07
+Positive spectrum span: 7.57475 decades
+STIFFEST direction: k_imp_hetero(-0.76), k_deg(-0.57), k_phos(+0.30), k_exp_homo(-0.02)
+SLOPPIEST direction: k_imp_homo(-1.00), k_exp_hetero(-0.00), k_exp_homo(-0.00), k_deg(+0.00)
+Eigenvectors describe parameter combinations, not individual parameter identifiability.
+AD fallback: TypeError: can't apply forward-mode autodiff (jvp) to a custom_vjp function.
+Warning: The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+Warning: Local curvature only: not proof of structural/global identifiability or convergence.

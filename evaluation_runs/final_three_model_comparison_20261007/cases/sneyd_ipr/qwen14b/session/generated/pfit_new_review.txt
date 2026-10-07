@@ -1,0 +1,4 @@
+Initially R=1 and all the other gating states are zero. The group declaration supplies O=0, I1=0, S=0, A=0, and I2=0. Each experiment overrides the initial conditions for IP3 and Ca.
+Extracted equations for the Sneyd-Dufour IP3 receptor model based on the provided user information and session files.
+The CSV columns 'open_probability' from all files are mapped to the simulated open probability 'Po'.
+The user wants to fit the Sneyd-Dufour IP3 receptor model to nine clamp experiments using plain RMSE between simulated and measured open probability. The rates are on a logarithmic scale, and the loss should be averaged across the nine experiments.

@@ -1,0 +1,188 @@
+experiments:
+- data_file: dataset_1.csv
+  initial_conditions:
+    M: 500.0
+    Mp: 0.0
+    Mpp: 0.0
+    MAPKK: 50.0
+    MKP3: 100.0
+    M_MAPKK: 0.0
+    Mp_MAPKK: 0.0
+    Mpp_MKP3: 0.0
+    Mp_MKP3_dep: 0.0
+    Mp_MKP3: 0.0
+    M_MKP3: 0.0
+  columns:
+  - name: time
+  - name: Mpp
+    observes: Mpp
+model:
+  trainable_parameters:
+  - name: k1
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: k_1
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  - name: k2
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: k3
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: k_3
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  - name: k4
+    min_val: 1.0
+    max_val: 1000.0
+    logscale: true
+  - name: h1
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: h_1
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  - name: h2
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: h3
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  - name: h_3
+    min_val: 0.0001
+    max_val: 1.0
+    logscale: true
+  - name: h4
+    min_val: 0.0001
+    max_val: 1.0
+    logscale: true
+  - name: h_4
+    min_val: 0.01
+    max_val: 100.0
+    logscale: true
+  - name: h5
+    min_val: 0.01
+    max_val: 10.0
+    logscale: true
+  - name: h6
+    min_val: 0.001
+    max_val: 1.0
+    logscale: true
+  - name: h_6
+    min_val: 0.0001
+    max_val: 0.1
+    logscale: true
+  fixed_parameters: []
+  integrated_variables:
+  - name: M
+    init_val: 500.0
+  - name: Mp
+    init_val: 0.0
+  - name: Mpp
+    init_val: 0.0
+  - name: MAPKK
+    init_val: 50.0
+  - name: MKP3
+    init_val: 100.0
+  - name: M_MAPKK
+    init_val: 0.0
+  - name: Mp_MAPKK
+    init_val: 0.0
+  - name: Mpp_MKP3
+    init_val: 0.0
+  - name: Mp_MKP3_dep
+    init_val: 0.0
+  - name: Mp_MKP3
+    init_val: 0.0
+  - name: M_MKP3
+    init_val: 0.0
+  observables: []
+population_opt:
+  population_size: 4
+  num_iters: 1
+  processors: 1
+  algorithm: DE
+  random_seed: 7
+  stepsize_rtol:
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  stepsize_atol:
+  - 5.000000000000001e-06
+  - 4.8164690922503313e-08
+  - 9.92486034564945e-08
+  - 5.000000000000001e-07
+  - 1.0000000000000002e-06
+  - 4.4728461311011023e-07
+  - 1.2923929304853815e-09
+  - 1.9794760003076535e-08
+  - 9.690386096420096e-09
+  - 6.016334328895507e-10
+  - 9.49454256973941e-07
+gradient_opt:
+  gradient_optimizer: adam
+  num_iters: 5
+  auto_state_tolerances: true
+  stepsize_rtol:
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  stepsize_atol:
+  - 5.000000000000001e-07
+  - 4.8164690922503315e-09
+  - 9.92486034564945e-09
+  - 5.0000000000000004e-08
+  - 1.0000000000000001e-07
+  - 4.472846131101102e-08
+  - 1.2923929304853814e-10
+  - 1.9794760003076535e-09
+  - 9.690386096420097e-10
+  - 6.016334328895507e-11
+  - 9.49454256973941e-08
+  initial_timestep: 1e-6
+  max_steps: 1000
+  auto_max_steps: true
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 900
+  solver_validation_min_successful: 10
+  solver_validation_seed: 7
+  solver_accuracy_check: true
+  solver_accuracy_workers: 4
+  auto_integrator: true
+  integrator: Tsit5
+  init_value_lr: 1e-4
+  end_value_lr: 1e-5
+  transition_steps_lr: 2000
+  decay_rate_lr: 0.9
+output:
+  write_results: true
+paths:
+  user_input_dir: inputs
+  generated_dir: generated
+  output_dir: outputs

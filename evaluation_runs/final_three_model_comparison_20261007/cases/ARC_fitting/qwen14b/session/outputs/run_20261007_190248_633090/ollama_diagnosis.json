@@ -1,0 +1,31 @@
+{
+  "verdict": "h2=10 is at 0.00% of its log10 search interval.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound h2=10 is physically justified. If revising bounds, run a full fit; do not widen them automatically.",
+      "reason": "The bound h2=10 is at 0.00% of its log10 search interval, which suggests it may be too restrictive or not representative of the true parameter space."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 0.0753166, indicating that stationarity is not established. A gradient-only restart with more iterations may help refine the solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, T and dTdt. Check input timing, calibration, initial conditions, and model mismatch before deciding whether to spend more iterations.",
+      "reason": "The RMSE and bias for Experiment 1, T and dTdt are relatively high, suggesting potential issues with the model or data. Inspecting the residuals and trajectory plot can provide insights into these issues."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the current model is globally optimal or if there are other issues not captured by the current diagnostics."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,45 @@
+{
+  "verdict": "Stationarity is not established with a normalized gradient infinity norm of 1.13397.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 1.13397, indicating that stationarity is not established. A gradient-only restart with more iterations can help refine the solution further."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, A.",
+      "reason": "The RMSE for Experiment 1, A is 0.0431528, with a time correlation of 0.7201207024326541 and lag-1 correlation of 0.7788631357673109. Inspecting the residuals and trajectory plot can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, B.",
+      "reason": "The RMSE for Experiment 1, B is 0.128987, with a time correlation of 0.29432540479619823 and lag-1 correlation of 0.7273219251273944. Inspecting the residuals and trajectory plot can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 2, A.",
+      "reason": "The RMSE for Experiment 2, A is 0.0863056, with a time correlation of 0.7201208850155326 and lag-1 correlation of 0.77886379476989. Inspecting the residuals and trajectory plot can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 2, B.",
+      "reason": "The RMSE for Experiment 2, B is 0.326451, with a time correlation of 0.30485821829413373 and lag-1 correlation of 0.8307587839012721. Inspecting the residuals and trajectory plot can help identify any issues with input timing, calibration, initial conditions, or model mismatch."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the model is globally optimal or identifiable."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

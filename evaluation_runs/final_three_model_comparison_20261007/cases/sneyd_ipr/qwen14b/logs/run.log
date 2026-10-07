@@ -1,0 +1,49 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761
+Launching driver script
+ERROR:2026-10-07 19:25:45,225:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 197, in _version_check
+    version = get_version()
+              ^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:81: operation cusparseGetProperty(MAJOR_VERSION, &major) failed: The cuSPARSE library was not found.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 262, in _check_cuda_versions
+    _version_check("cuSPARSE", cuda_versions.cusparse_get_version,
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 201, in _version_check
+    raise RuntimeError(err_msg) from e
+RuntimeError: Unable to load cuSPARSE. Is it installed?
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 128, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761
+Using 4 accuracy-validated seed points
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06], atol: [5.598999498778205e-10, 1e-08, 6.390680456042781e-12, 6.908084862128594e-13, 4.752753182713575e-12, 9.875560064942657e-13, 1e-07, 1e-07]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 8.0440E-03
+Time for iteration: 0.0248
+-------
+Final best position (scaled): [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+Final best cost: 8.0440E-03
+Done with DE search
+Best Position from DE: [10. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10.]
+Best cost from DE: 0.00804400343722544
+NODE effective tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [5.5989994987782054e-11, 1e-09, 6.390680456042781e-13, 6.908084862128594e-14, 4.752753182713575e-13, 9.875560064942657e-14, 1e-08, 1e-08]
+Trainable_params: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.00804400344336534 0.00804400344336534
+Iteration:,loss value, best loss: 4 0.008037873383023622 0.008037873383023622
+Iteration time: 13.689404964447021
+Final best position: [ 9.95405619 10.0461587   9.95404569 10.04616773 10.0461446   9.95405368
+ 10.04616636  9.95404554  9.9541172  10.04616615 10.04616492 10.0460407
+ 10.04614854  9.95407151]
+Final loss: 0.008036341004842266
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen14b/session/outputs/run_20261007_192541_545761
