@@ -10,6 +10,12 @@ DEFAULT_MAX_SAMPLES = 128
 DEFAULT_MIN_SUCCESSFUL = 10
 
 
+def validation_sample_count(settings, dimensions):
+    """Bounded dimension-sized design, fixed for every budget trial."""
+    return settings.get('solver_validation_samples', min(DEFAULT_MAX_SAMPLES,
+        max(DEFAULT_SAMPLES, 16 * dimensions)))
+
+
 def parameter_samples(count, dimensions, seed=7):
     """Midpoint plus seeded Latin-hypercube blocks, stable when count grows.
 
@@ -35,7 +41,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
     from lib.utils.run_artifacts import parameter_axes, unscale_parameters
     from local_agent.agent.validators import SolverValidationError, ValidationError
 
-    count = settings.get('solver_validation_samples', DEFAULT_SAMPLES)
+    count = validation_sample_count(settings, reader.n_search_axes)
     required = settings.get('solver_validation_min_successful', DEFAULT_MIN_SUCCESSFUL)
     seed = settings.get('solver_validation_seed', 7)
     points = parameter_samples(count, reader.n_search_axes, seed)
@@ -103,7 +109,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
         if item['code'] != 'successful':
             failure_counts[item['code']] = failure_counts.get(item['code'], 0) + 1
     summary = dict(code='successful' if len(successful) >= required else 'coverage_below_target',
-                   sample_count=count, seed=seed, integrator=reader.integrator,
+                   sample_count=count, search_dimensions=reader.n_search_axes, seed=seed, integrator=reader.integrator,
                    elapsed_seconds=time.monotonic()-started, first_sample_seconds=sample_seconds[0],
                    remaining_samples_seconds=sum(sample_seconds[1:]),
                    timing_note='First sample may include JIT compilation; timings include integrations and loss evaluations, not a solver speed benchmark',

@@ -380,9 +380,9 @@ class LocalWorkflow:
         history = {'initial_max_steps': initial, 'max_steps_limit': cap, 'timeout_seconds': timeout,
                    'initial_failure': self._solver_failure, 'attempts': [], 'status': 'running'}
         report = script_path.parent / 'solver_recovery.json'
-        from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MAX_SAMPLES
-        samples = gradient.get('solver_validation_samples', DEFAULT_SAMPLES)
-        max_samples = gradient.get('solver_validation_max_samples', DEFAULT_MAX_SAMPLES)
+        from local_agent.agent.solver_coverage import validation_sample_count
+        from local_agent.agent.validators import parse_input_yaml
+        samples = validation_sample_count(gradient, parse_input_yaml(input_path).n_search_axes)
         budget = initial
         recovered = False
         try:
@@ -394,22 +394,21 @@ class LocalWorkflow:
                 coverage_failure = self._solver_failure['code'] == 'coverage_below_target'
                 step_exhausted = not coverage_failure or self._solver_failure.get('failure_counts', {}).get('step_limit', 0) > 0
                 next_budget = min(cap, budget * 2) if step_exhausted else budget
-                next_samples = min(max_samples, samples * 2) if coverage_failure else samples
-                if next_budget == budget and next_samples == samples:
+                if next_budget == budget:
                     break
                 if time.monotonic() >= deadline:
+                    self._solver_failure = dict(code='recovery_timeout', result='Recovery deadline reached before the next trial')
+                    events.append(WorkflowEvent('solver_recovery', 'failed', 'recovery_timeout: Recovery deadline reached before the next trial'))
                     break
                 if build_stamp(session_dir) != self._generation_source_stamp:
                     self._repair_blocked = True
                     history['status'] = 'sources_changed'
                     events.append(WorkflowEvent('source_freshness', 'failed', 'Sources changed during numerical recovery; rerun pfit jax'))
                     return False
-                budget, samples = next_budget, next_samples
+                budget = next_budget
                 attempt = {'max_steps': budget, 'samples': samples, 'failure': self._solver_failure}
                 history['attempts'].append(attempt)
                 gradient['max_steps'] = budget
-                if coverage_failure:
-                    gradient['solver_validation_samples'] = samples
                 input_path.write_text(yaml.safe_dump(config, sort_keys=False))
                 # Only bless the setting we changed, not a concurrent model edit.
                 self._generation_source_stamp = re.sub(r'user_input\.yaml=\S+',

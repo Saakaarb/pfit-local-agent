@@ -745,20 +745,24 @@ gradient_opt:
   max_steps: 10000
   solver_recovery_max_steps: 50000
   solver_recovery_timeout_seconds: 120
-  solver_validation_samples: 32
-  solver_validation_max_samples: 128
   solver_validation_min_successful: 10
   solver_validation_seed: 7
 ```
 
 `pfit jax` tests a reproducible parameter sample across the supplied search
-bounds. The first vector is the midpoint; subsequent vectors are generated in
+bounds. One sample set is chosen before integration and reused unchanged at
+every step budget. The default count is `min(128, max(32, 16*d))`, where `d` is
+the total number of search axes, including estimated initial conditions. An
+explicit `solver_validation_samples` overrides this default with a fixed count.
+The legacy `solver_validation_max_samples` is ignored: sample sizes never grow.
+The first vector is the midpoint; subsequent vectors are generated in
 seeded Latin-hypercube blocks. Coordinates are linear for linear parameters
-and logarithmic for log-scaled parameters. Larger sample sets retain earlier
-vectors exactly. The combined set is not a single Latin hypercube.
+and logarithmic for log-scaled parameters. The combined design is not a single Latin hypercube.
+The count is a bounded heuristic based on dimension, not physical bound volume
+(which depends on units) or a guarantee of high-dimensional coverage.
 
 Require **10 successful parameter vectors**, independent of the total sample count
-(32, 64 or 128). `solver_validation_min_successful` is a fixed count, default 10.
+(for example, 32, 80 or 128). `solver_validation_min_successful` is a fixed count, default 10.
 Legacy fraction and stagnation settings no longer control readiness. A vector
 passes when every experiment integrates successfully with finite outputs and
 returns a finite, non-sentinel loss. Completion does not require a low loss.
@@ -775,16 +779,14 @@ solutions fit within the selected step budget. Custom legacy scripts lacking
 cannot provide this sampled solver-coverage report; regenerate with `pfit jax`
 to obtain the generated statistics interface.
 
-If the successful count is too low, recovery doubles the sample count, capped at
-`solver_validation_max_samples`. It also doubles `max_steps`, capped at
-`solver_recovery_max_steps`, **only if step exhaustion occurred**. For default
-settings this normally gives 10k/32, 20k/64, 40k/128, then 50k/128. Sampling may
-expand at the same step budget if failure categories do not justify more steps
-or the step ceiling has already been reached. Equations, solver, tolerances,
-initial conditions, losses and data are unchanged. No per-particle step limits
-or runtime fitting retries are introduced.
+If fewer than ten samples succeed and step exhaustion occurred, recovery doubles
+`max_steps` up to `solver_recovery_max_steps`. It reuses the exact same parameter
+vectors and seed; it never adds points. Without step exhaustion there is no
+step-budget retry. Equations, solver, reference tolerances, initial conditions,
+losses and data remain unchanged. No per-particle step limits or runtime fitting
+retries are introduced.
 
-Recovery stops when the required successful count is met or step/sample/time
+Recovery stops when the required successful count is met or step/time
 limits are exhausted. There is no fraction-based stagnation stop. The success
 fraction remains diagnostic only. A small feasible region is not rejected merely
 for occupying a small percentage of the search space. Ten successful points do
@@ -797,11 +799,11 @@ sets may need a larger timeout; a timeout does not establish stagnation.
 Existing/custom YAML without `solver_recovery_max_steps` retains its configured
 `max_steps` as the hard ceiling. New sampling fields use the defaults above
 when omitted. Sample counts and the required-success count must be positive
-integers; maximum samples must be at least both initial samples and the required
+integers; the selected fixed sample count must be at least the required
 success count. The seed must be a nonnegative integer. The step ceiling must be an
 integer at least as large as `max_steps`, and timeout positive and finite.
 
-After successful recovery, accepted step and sample budgets are saved to YAML.
+After successful recovery, accepted step budgets are saved to YAML.
 The script receives a fresh source/config stamp only after numerical, contract
 and source/JAX fidelity checks pass. On exhausted recovery the original
 configuration is restored and the script remains marked pending. Concurrent
@@ -906,7 +908,7 @@ limitations in `generated/solver_selection.json`.
 
 This is the only automatic solver-selection method. There are no keyword rules,
 parameter-bound heuristics, or switches triggered by successful/failed solver
-probes. Sampled coverage, bounded step/sample recovery, tolerance calibration,
+probes. Sampled coverage, bounded step recovery, tolerance calibration,
 and forward-accuracy validation still run, using the selected solver throughout.
 A validation failure blocks readiness; it does not select another integrator.
 Numerical failures do not invoke LLM repair.
@@ -928,7 +930,7 @@ when other informative columns exist. This estimate can lower the initial budget
 The multipliers are heuristic, not guarantees or prescribed internal time steps.
 The estimated budget and any clipping are recorded under `max_steps_estimate`
 in `generated/solver_selection.json`. Existing sampled completion checks,
-step/sample increases, recovery deadline and tolerance
+step increases, recovery deadline and tolerance
 validation remain unchanged. Explicit solver selection and automatic budget
 estimation can be enabled independently. No fitting proceeds solely on this estimate.
 

@@ -172,7 +172,7 @@ def test_flat_coverage_reaches_cap_and_restores_inputs(tmp_path, monkeypatch):
     monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',lambda script,session,timeout:flat(script,session))
     result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
     assert not result.success
-    assert seen==[(10000,32),(20000,64),(40000,128),(50000,128)]
+    assert seen==[(10000,32),(20000,32),(40000,32),(50000,32)]
     history=json.loads((session/'generated/solver_recovery.json').read_text())
     assert history['status']=='exhausted'
     assert 'inadequate search coverage' in history['diagnosis']
@@ -198,8 +198,8 @@ def test_recovery_uses_limits_not_fraction_stagnation(tmp_path, monkeypatch):
     monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',lambda script,session,timeout:improving(script,session))
     result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
     assert result.success
-    assert seen==[(10000,32),(20000,64),(40000,128),(50000,128)]
-    assert yaml.safe_load(path.read_text())['gradient_opt']['solver_validation_samples']==128
+    assert seen==[(10000,32),(20000,32),(40000,32),(50000,32)]
+    assert yaml.safe_load(path.read_text())['gradient_opt']['solver_validation_samples']==32
     assert verify_stamp(session)[0] is True
 
 

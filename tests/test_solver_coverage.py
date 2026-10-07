@@ -70,9 +70,9 @@ def test_finite_integration_with_invalid_loss_does_not_count(tmp_path, monkeypat
 
 
 @pytest.mark.parametrize('field,value', [('solver_validation_samples',0),('solver_validation_samples',True),
-    ('solver_validation_max_samples',16),('solver_validation_seed',-1),
+    ('solver_validation_samples',9),('solver_validation_seed',-1),
     ('solver_validation_min_successful',0),('solver_validation_min_successful',True),
-    ('solver_validation_min_successful',129)])
+    ('solver_validation_samples',-1)])
 def test_bad_policy_rejected(field,value):
     with pytest.raises(ValueError):
         _validate_raw_settings({'gradient_opt':{field:value}})
@@ -89,3 +89,16 @@ def test_nine_successes_never_suffice(tmp_path, monkeypatch, count):
     with pytest.raises(SolverValidationError) as exc:
         check(tmp_path, monkeypatch, lambda i,e: i < 9, count=count)
     assert exc.value.diagnostics['required_successful_samples'] == 10
+
+
+@pytest.mark.parametrize('dimensions,expected', [(1,32),(2,32),(4,64),(6,96),(8,128),(50,128)])
+def test_one_sample_design_scales_with_search_dimensions(dimensions, expected):
+    from local_agent.agent.solver_coverage import validation_sample_count
+    assert validation_sample_count({}, dimensions) == expected
+    # A legacy growth cap does not change the fixed design.
+    assert validation_sample_count({'solver_validation_max_samples': 1}, dimensions) == expected
+
+
+def test_explicit_sample_count_is_preserved():
+    from local_agent.agent.solver_coverage import validation_sample_count
+    assert validation_sample_count({'solver_validation_samples': 64}, 8) == 64

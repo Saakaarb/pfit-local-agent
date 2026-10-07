@@ -55,6 +55,10 @@ def parse_input_yaml(input_yaml: Path) -> YAMLReader:
         raise ValidationError(f"Invalid YAML contents in {input_yaml}: {exc}") from exc
 
     _validate_reader(reader, input_yaml)
+    from local_agent.agent.solver_coverage import validation_sample_count, DEFAULT_MIN_SUCCESSFUL
+    gradient = raw.get('gradient_opt') or {}
+    if validation_sample_count(gradient, reader.n_search_axes) < gradient.get('solver_validation_min_successful', DEFAULT_MIN_SUCCESSFUL):
+        raise ValidationError('Required successful samples exceed the selected fixed sample count')
     return reader
 
 
@@ -255,18 +259,15 @@ def _validate_raw_settings(raw):
     timeout = gradient.get('solver_recovery_timeout_seconds', 120)
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not np.isfinite(timeout) or timeout <= 0:
         raise ValidationError('solver_recovery_timeout_seconds must be positive and finite')
-    from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MAX_SAMPLES, DEFAULT_MIN_SUCCESSFUL
+    from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MIN_SUCCESSFUL
     for name, default, minimum in (("solver_validation_samples", DEFAULT_SAMPLES, 1),
-                                  ("solver_validation_max_samples", DEFAULT_MAX_SAMPLES, 1),
                                   ("solver_validation_seed", 7, 0),
                                   ("solver_validation_min_successful", DEFAULT_MIN_SUCCESSFUL, 1)):
         value = gradient.get(name, default)
         if type(value) is not int or value < minimum:
             raise ValidationError(f"{name} must be an integer >= {minimum}")
-    if gradient.get('solver_validation_max_samples', DEFAULT_MAX_SAMPLES) < gradient.get('solver_validation_samples', DEFAULT_SAMPLES):
-        raise ValidationError('solver_validation_max_samples must be >= solver_validation_samples')
-    if gradient.get('solver_validation_min_successful', DEFAULT_MIN_SUCCESSFUL) > gradient.get('solver_validation_max_samples', DEFAULT_MAX_SAMPLES):
-        raise ValidationError('solver_validation_max_samples must be >= solver_validation_min_successful')
+    if 'solver_validation_samples' in gradient and gradient['solver_validation_samples'] < gradient.get('solver_validation_min_successful', DEFAULT_MIN_SUCCESSFUL):
+        raise ValidationError('solver_validation_samples must be >= solver_validation_min_successful')
     for section, fields in (("population_opt", ("population_size", "num_particles", "num_iters", "processors", "random_seed")), ("gradient_opt", ("num_iters", "max_steps"))):
         for name in fields:
             value = (raw.get(section) or {}).get(name)

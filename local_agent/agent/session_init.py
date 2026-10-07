@@ -2304,8 +2304,6 @@ gradient_opt:
   auto_max_steps: true
   solver_recovery_max_steps: 50000
   solver_recovery_timeout_seconds: 120
-  solver_validation_samples: 32
-  solver_validation_max_samples: 128
   solver_validation_min_successful: 10
   solver_validation_seed: 7
   solver_accuracy_check: true
