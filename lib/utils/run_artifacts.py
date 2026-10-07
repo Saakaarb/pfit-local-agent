@@ -76,9 +76,13 @@ def accuracy_seed_context(session, reader):
     import hashlib
     from lib.utils.source_stamp import build_stamp
     session = Path(session)
-    return dict(source_stamp=build_stamp(session), data_hashes={
+    context = dict(source_stamp=build_stamp(session), data_hashes={
         experiment['filename']: hashlib.sha256((session / reader.user_input_dirname / experiment['filename']).read_bytes()).hexdigest()
         for experiment in reader.experiments})
+    runtime_config = session / 'inputs/run_config.yaml'
+    if runtime_config.exists():
+        context['runtime_config_hash'] = hashlib.sha256(runtime_config.read_bytes()).hexdigest()
+    return context
 
 
 def load_accuracy_seeds(session, reader):
@@ -124,3 +128,20 @@ def refinement_start(loss_function, point, validated_seeds, error_loss):
         raise ValueError('Starting point has invalid loss or fails integration at refinement tolerances')
     loss, point = min(feasible, key=lambda item: item[0])
     return point, loss, True
+
+
+def snapshot_accuracy_seeds(session, reader, snapshot, runtime_reader):
+    """Transfer validated seeds only after checking the immutable run copy."""
+    if not load_accuracy_seeds(session, reader):
+        return
+    report = json.loads((Path(session) / 'generated/solver_accuracy.json').read_text())
+    original = report['seed_context']
+    copied = accuracy_seed_context(snapshot, runtime_reader)
+    if copied['source_stamp'] != original['source_stamp']:
+        raise ValueError('Model/config changed while snapshotting accuracy seeds')
+    for source, target in zip(reader.experiments, runtime_reader.experiments):
+        if original['data_hashes'][source['filename']] != copied['data_hashes'][target['filename']]:
+            raise ValueError('Data changed while snapshotting accuracy seeds')
+    report['source_seed_context'] = original
+    report['seed_context'] = copied
+    (Path(snapshot) / 'generated/solver_accuracy.json').write_text(json.dumps(report, indent=2) + '\n')

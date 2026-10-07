@@ -52,3 +52,27 @@ def test_invalid_refinement_winner_falls_back_to_best_validated_seed():
     point, value, fallback=refinement_start(loss, [.2], [[.1]], 1e10)
     assert not fallback  # Preserve a valid global-search winner.
     with pytest.raises(ValueError):refinement_start(loss, [.9], [], 1e10)
+
+
+def test_run_snapshot_preserves_seeds_across_dataset_renaming(tmp_path):
+    import shutil
+    from lib.utils.run_artifacts import snapshot_accuracy_seeds
+    source=tmp_path/'source';source.mkdir();reader=prepare(source)
+    target=tmp_path/'snapshot';shutil.copytree(source,target)
+    (target/'inputs/data.csv').rename(target/'inputs/dataset_1.csv')
+    (target/'inputs/run_config.yaml').write_text('runtime config')
+    runtime=SimpleNamespace(n_search_axes=2,user_input_dirname='inputs',experiments=[dict(filename='dataset_1.csv')])
+    snapshot_accuracy_seeds(source,reader,target,runtime)
+    assert load_accuracy_seeds(target,runtime)==[[0.,.5]]
+    (target/'inputs/run_config.yaml').write_text('changed solver')
+    with pytest.raises(ValueError,match='stale'):load_accuracy_seeds(target,runtime)
+
+
+def test_run_snapshot_rejects_changed_data(tmp_path):
+    import shutil
+    from lib.utils.run_artifacts import snapshot_accuracy_seeds
+    source=tmp_path/'source';source.mkdir();reader=prepare(source)
+    target=tmp_path/'snapshot';shutil.copytree(source,target)
+    (target/'inputs/data.csv').write_text('different measurements')
+    with pytest.raises(ValueError,match='Data changed'):
+        snapshot_accuracy_seeds(source,reader,target,reader)

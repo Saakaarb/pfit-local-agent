@@ -128,6 +128,9 @@ def run_driver(session_dir: Path, input_reader, output_dir_override: Path | None
     user_model = generated_dir / "user_model.py"
     if user_model.exists():
         shutil.copy2(user_model, snapshot_generated / "user_model.py")
+    from lib.utils.run_artifacts import snapshot_accuracy_seeds
+    from lib.utils.yamlread import YAMLReader
+    snapshot_accuracy_seeds(session_path, input_reader, snapshot_dir, YAMLReader.from_file(runtime_config))
     events = generated_dir / "agent_logs" / "workflow_events.jsonl"
     if events.exists():
         (snapshot_generated / "agent_logs").mkdir()
