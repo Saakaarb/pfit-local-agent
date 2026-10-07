@@ -1,0 +1,60 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/outputs/run_20261007_222754_033793
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.6059E-01, best loss 1.6059E-01, final loss 1.6059E-01
+- NODE: 2 iterations, first loss 1.5896E-01, best loss 1.5858E-01, final loss 1.5858E-01
+
+Generation workflow:
+- events: 6 passed, 2 failed, 2 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 2
+Aggregation: equal_experiment_mean
+- Experiment 1: il13_4.csv; loss=0.13727478492713258; output=result_solution_exp1.csv
+- Experiment 2: il13_20.csv; loss=0.17988007307465997; output=result_solution_exp2.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, pSTAT5: RMSE=11.5429, bias=-1.76751, time correlation=0.1859328092769977, lag-1=0.5204177468462591.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, pSTAT5: RMSE=23.0673, bias=-7.53194, time correlation=0.1389056416787668, lag-1=0.5611810606112975.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/outputs/run_20261007_222754_033793/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/outputs/run_20261007_222754_033793/fit_exp2.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/outputs/run_20261007_222754_033793/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Refinement exhausted its 5-iteration budget with only ~1.2% relative loss reduction (0.16059→0.15858). Both experiments show systematic underprediction of pSTAT5 (bias −1.77 and −7.53) and very low time correlation (0.186 and 0.139), indicating the model trajectory shape is qualitatively mismatched rather than merely amplitude-scaled. Several parameters sit near their log-scale bounds, and no verified final-point gradient exists. No numerical or solver failures were detected; the limitation is scientific (model/parameter-space) rather than numerical.
+1. Inspect the trajectory plots fit_exp1.png and fit_exp2.png to characterise the shape mismatch: compare the timing and magnitude of the pSTAT5 peak, the rise/fall kinetics, and the 40–80 min window where RMSE is worst (16.70 and 29.63) against the data. [RESIDUAL] Time correlations of 0.186 (exp 1) and 0.139 (exp 2) are far below 1, and the negative bias (−1.77, −7.53) means the model consistently underpredicts. The 40–80 min region carries the largest RMSE in both experiments, so the kinetic mismatch is concentrated there. Visual inspection of the named plots is the fastest way to distinguish a timing offset, a missing peak, or a wrong decay rate before spending further compute.
+2. Run diagnose --probe-gradients at the current parameter point to obtain a verified gradient vector and check for vanishing, exploding, or NaN components before deciding whether a gradient-only restart is worthwhile. [BUDGET, LIMITATIONS] The stated limitation is that no verified final-point gradient is available and the flat optimizer log does not establish convergence. The NODE trace shows only 0.15896→0.15858 over 5 Adam iterations (last material improvement at iteration 5), so the gradient may be near-zero or the landscape may be flat in the current region. A probe is a cheap, non-destructive check that discriminates between 'converged' and 'stuck in a flat basin'.
+3. Review whether the log-scale bounds [1e-5, 1000] are scientifically justified for the parameters sitting at extreme range fractions: Kon_IL13Rec (1.4 %), SOCS3_degradation (1.3 %), pJAK2_dephosphorylation (6.1 %), Rec_phosphorylation (97.6 %), STAT5_phosphorylation (88.3 %), pRec_intern (85.8 %). If domain knowledge permits, widen the relevant bounds and re-run the full fitting pipeline (DE + gradient). [PARAMETERS, RESIDUAL] Six of fifteen parameters are within ~15 % of a bound. When the optimiser pushes a parameter to the edge of its allowed range while the residual is still large (RMSE 11.5 and 23.1), the true value may lie outside the current box. Changing bounds is a model-setting change, not a numerical fix, so it requires a full re-fit rather than a gradient-only continuation.
+4. Evaluate whether the SOCS3 negative-feedback branch (SOCS3mRNA_production, SOCS3_translation, SOCS3_accumulation, SOCS3_degradation) and the JAK2_p_inhibition term are capturing the observed desensitisation kinetics. If the plots show the model's pSTAT5 decay is too slow or too fast relative to data, this is a structural-model question that requires new data or a revised equation set, not additional iterations. [RESIDUAL, PARAMETERS] The model includes a SOCS3-mediated inhibition of JAK2 phosphorylation (denominator 1 + JAK2_p_inhibition·SOCS3) and a full SOCS3 mRNA→protein cascade. The low time correlation in both experiments, especially the 40–80 min window, suggests the feedback timing may be wrong. This is a scientific judgement call: no amount of parameter tuning within the current structure can fix a missing or mis-specified dynamic. New time-course data at intermediate IL13 concentrations or a sensitivity analysis (sloppiness, currently skipped) would help discriminate.
+5. If the gradient probe confirms a healthy, non-vanishing gradient and the bounds are confirmed adequate, a gradient-only restart with a larger iteration budget (e.g. 20–50 Adam steps) and a slightly higher initial learning rate (1e-3) is a reasonable next step. Do not change the user-defined loss function. [BUDGET, OPTIMIZER_TRACES] The NODE trace shows the loss was still decreasing at iteration 5 (0.15896→0.15858), so the optimiser had not plateaued. The DE phase contributed no improvement (single iteration, loss unchanged at 0.16059), so the gradient phase is the productive one. A modest budget increase is a numerical correction, not a model change, and is appropriate only if the gradient probe and bound review above do not reveal a deeper issue.
+Limitation: No verified final-point gradient is available; the flat tail of the NODE log (iterations 4–5: 0.15896→0.15858) does not by itself prove convergence or a local optimum.
+Limitation: Sloppiness / Hessian analysis was skipped, so parameter identifiability and the presence of flat or weakly-constrained directions cannot be assessed from this run.
+Limitation: The low time correlations (0.186, 0.139) and negative biases indicate a qualitative model–data mismatch, but the evidence cannot distinguish whether the cause is (a) parameters outside the current bounds, (b) a missing or mis-specified kinetic term (e.g. SOCS3 feedback timing, JAK2-STAT5 coupling), (c) incorrect initial conditions (Rec_i = 235.06, STAT5 = 165.0), or (d) insufficient data coverage (16–17 points over 0–120 min).
+Limitation: The two experiments differ only in il13_level (4.0 vs 20.0); the ~2× RMSE ratio (11.5 vs 23.1) is consistent with a dose-dependent mismatch but cannot by itself identify which parameter or mechanism is responsible.
+Limitation: No noise level, measurement error model, or replicate data are supplied, so statistical confidence intervals on the fitted parameters and residuals cannot be computed.
+Limitation: The plots fit_exp1.png and fit_exp2.png are referenced by filename only; no visual inspection has been performed.

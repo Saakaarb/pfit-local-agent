@@ -1,0 +1,404 @@
+{
+  "case": "schwen_insulin",
+  "model_metadata": {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ],
+    "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+    "size_bytes": 17741872154,
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 337.34975393116474,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ],
+    "gguf_parameter_count": 27320697856,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "607827ca9750fd0dd741c618345f72ae16ecb08d",
+    "warmup_seconds": 8.721811532974243,
+    "warmup_thinking": false,
+    "warmup_response": {
+      "model": "qwen3.8:27b",
+      "created_at": "2026-10-07T21:35:24.441093429Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 8720941539,
+      "load_duration": 7771746360,
+      "prompt_eval_count": 16,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 719769000,
+      "eval_count": 2,
+      "eval_duration": 227649000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen3.8:27b",
+          "model": "qwen3.8:27b",
+          "size": 17536059964,
+          "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen35",
+            "families": [
+              "qwen35"
+            ],
+            "parameter_size": "27.3B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-17T21:22:41.296100549Z",
+          "size_vram": 17536059964,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 19667 MiB"
+  },
+  "input_audit": {
+    "name": "schwen_insulin",
+    "status": "ready",
+    "expected_experiments": 4,
+    "expected_data_files": [
+      "insulin_100_r1.csv",
+      "insulin_100_r2.csv",
+      "insulin_10_r1.csv",
+      "insulin_10_r2.csv"
+    ],
+    "sloppiness": false,
+    "pre_run_configuration": {
+      "gradient_opt.initial_time": 0.0
+    },
+    "input_hashes": {
+      "insulin_100_r1.csv": "706a2ddbe980e8d705d8dd5c725e301308639a887fa4803e4e979e5e3c8c8bd4",
+      "insulin_100_r2.csv": "d98ac76844fbc609ffbeea44094aec016e7d05e9726d695e75a5f58d9f31ec6d",
+      "insulin_10_r1.csv": "2e0c2cecd856a41543e34601021c9d246061c99847a732a030f208f5982394c4",
+      "insulin_10_r2.csv": "f347e4730b29680cf4b8011fa4efe28b94852958244b9777d285fa15f37d8f95",
+      "user_info.txt": "640201dfdb98ce97a21830a9e7272e42f1c227ebb97230aed0f2c5a105237d3d"
+    },
+    "cohort": "external",
+    "source_benchmark": "evaluation_runs/external_comparison_20261004"
+  },
+  "status": "pass",
+  "started_utc": "2026-10-07T22:32:28Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-07T22:32:29Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 128128,
+      "exit_code": 0,
+      "seconds": 108.949,
+      "finished_utc": "2026-10-07T22:34:17Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-07T22:34:18Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 128149,
+      "exit_code": 0,
+      "seconds": 92.732,
+      "finished_utc": "2026-10-07T22:35:50Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-07T22:35:50Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 128183,
+      "exit_code": 0,
+      "seconds": 77.06,
+      "finished_utc": "2026-10-07T22:37:07Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-07T22:37:07Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session",
+        "--no-sloppiness"
+      ],
+      "pid": 128723,
+      "exit_code": 0,
+      "seconds": 27.273,
+      "finished_utc": "2026-10-07T22:37:35Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-07T22:37:35Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session",
+        "run_20261007_223708_752746",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 129419,
+      "exit_code": 0,
+      "seconds": 59.853,
+      "finished_utc": "2026-10-07T22:38:35Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": false
+  },
+  "pre_run_configuration": {
+    "gradient_opt.initial_time": 0.0
+  },
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "auto_state_tolerances": true,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "auto_max_steps": true,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 900,
+      "solver_validation_min_successful": 10,
+      "solver_validation_seed": 7,
+      "solver_accuracy_check": true,
+      "solver_accuracy_workers": 4,
+      "auto_integrator": true,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9,
+      "initial_time": 0.0
+    }
+  },
+  "run_id": "run_20261007_223708_752746",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.5049541518120625,
+    "final_loss": 0.4930703154747848,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.4941528825237478,
+      0.5395443209524166,
+      0.5306821661128265,
+      0.40790189231014823
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "output_count": 4,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-07T22:38:35Z",
+  "total_wall_seconds": 366.171,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 280.40965844504535,
+  "prompt_tokens": 54701,
+  "generated_tokens": 19404,
+  "token_counts_incomplete": false
+}

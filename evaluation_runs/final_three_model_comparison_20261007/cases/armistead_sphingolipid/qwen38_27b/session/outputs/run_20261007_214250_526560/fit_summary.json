@@ -1,0 +1,56 @@
+{
+  "mode": "full",
+  "seed_loss": 0.35063732151501464,
+  "final_loss": 0.35054358054028534,
+  "refinement_tolerance_fallback": false,
+  "requested_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      2.400145887402358e-10,
+      9.880000000000001e-10,
+      7.663524083125084e-11,
+      2.07e-09,
+      1e-09
+    ]
+  },
+  "effective_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      2.400145887402358e-10,
+      9.880000000000001e-10,
+      7.663524083125084e-11,
+      2.07e-09,
+      1e-09
+    ]
+  },
+  "warnings": [],
+  "aggregation": "equal_experiment_mean",
+  "experiment_losses": [
+    0.2748346923380502,
+    0.319928027204209,
+    0.3123553324169219,
+    0.25189907146666013,
+    0.4100718899522234,
+    0.41656758969919333,
+    0.41489808107981924,
+    0.40379396016520547
+  ],
+  "gradient_optimizer": "adam",
+  "gradient_iteration_budget": 5,
+  "gradient_iterations_evaluated": 5,
+  "refinement_error": null,
+  "termination": "iteration_budget",
+  "termination_detail": null
+}

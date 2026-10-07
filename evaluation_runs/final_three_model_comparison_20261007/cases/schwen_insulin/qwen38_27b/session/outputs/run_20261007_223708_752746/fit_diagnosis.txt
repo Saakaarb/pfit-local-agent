@@ -1,0 +1,70 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- result_solution_exp3.csv: present
+- result_solution_exp4.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 5.0495E-01, best loss 5.0495E-01, final loss 5.0495E-01
+- NODE: 2 iterations, first loss 4.9543E-01, best loss 4.9307E-01, final loss 4.9307E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 4
+Aggregation: equal_experiment_mean
+- Experiment 1: insulin_10_r1.csv; loss=0.4941528825237478; output=result_solution_exp1.csv
+- Experiment 2: insulin_10_r2.csv; loss=0.5395443209524166; output=result_solution_exp2.csv
+- Experiment 3: insulin_100_r1.csv; loss=0.5306821661128265; output=result_solution_exp3.csv
+- Experiment 4: insulin_100_r2.csv; loss=0.40790189231014823; output=result_solution_exp4.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Insulin_signal: RMSE=0.534396, bias=-0.477006, time correlation=-0.690859555463173, lag-1=0.5839119144124632.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, Insulin_signal: RMSE=0.477521, bias=-0.424968, time correlation=-0.6366708572017178, lag-1=0.6286220934643034.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 3, Insulin_signal: RMSE=10.645, bias=-9.79658, time correlation=-0.3247708092348289, lag-1=-0.020874679241141673.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 4, Insulin_signal: RMSE=10.4897, bias=-9.46778, time correlation=-0.3394471509555107, lag-1=-0.03487201756226596.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/fit_exp2.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/fit_exp3.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/fit_exp4.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Gradient refinement exhausted its 5-iteration budget with a modest loss reduction (0.5050→0.4931), but the dominant problem is a qualitative trajectory mismatch: all four experiments show negative time correlations (−0.69 to −0.32), and the high-dose experiments (Ins₀=100) carry RMSE ≈10.5 with bias ≈−9.5, roughly 20× worse than the low-dose pair (RMSE ≈0.5). The log-normalised loss masks this disparity, so the optimiser is balancing four experiments it cannot simultaneously fit well. No numerical failure or gradient instability is recorded, but no verified final-point gradient exists either.
+1. Inspect the four trajectory plots (fit_exp1.png, fit_exp2.png, fit_exp3.png, fit_exp4.png) to confirm whether the negative time correlations reflect a phase/shape mismatch (model peaks at the wrong time) or a monotonic offset. Pay particular attention to the 20–40 min window where RMSE jumps to 0.78 (exp 1) and 14.05 (exp 3). [RESIDUAL, BUDGET] Time correlations of −0.69, −0.64, −0.32, −0.34 and lag-1 correlations that flip from +0.58/+0.63 (low dose) to −0.02/−0.03 (high dose) indicate the model trajectory is anti-correlated with data, not merely offset. The time-region RMSE breakdown (e.g. exp 3: 9.34 → 14.05 → 11.42) localises the worst mismatch to the mid-time window. Visual inspection of the named plots is the fastest way to distinguish a timing error from a structural model deficiency before spending further iterations.
+2. Before any further optimisation, run diagnose --probe-gradients to verify the autodiff gradient at the current parameter point. Compare a finite-difference gradient with a deliberately perturbed step size (e.g. 1e-4 vs 1e-6) to rule out a silent numerical issue in the Kvaerno5 solver or the log-loss derivative. [RESIDUAL, BUDGET] The limitations note states 'No verified final-point gradient is available.' The optimizer consumed all 5 gradient iterations (NODE_fitting.log: 0.49543→0.49307) with no convergence flag, and the DE phase ran only 1 iteration. Without a verified gradient, a flat or slowly-decreasing loss trace cannot be distinguished from a gradient error. A discriminating step-size comparison is the appropriate test; it does not require changing the user's loss or model.
+3. Audit the dose-response pathway: with Ins₀=100 the model underpredicts by ~9.5 units (bias −9.80, exp 3) while with Ins₀=10 the bias is only −0.48. Check whether km (fitted to 2192, range_fraction 0.068, near its lower bound of 1000) and the receptor pool sizes (Rec1=58.85, Rec2=918.60) can jointly produce the observed high-dose signal. If the model saturates too early or the fragments term (fragments=0.251, kout_frag=2.0e-5 near its lower bound) cannot contribute enough signal at high dose, the parameter space may be too constrained. [RESIDUAL, PARAMETERS] The 20× RMSE gap between the Ins₀=10 pair (0.53, 0.48) and the Ins₀=100 pair (10.65, 10.49) is the single largest source of loss. km at range_fraction 0.068 and kout_frag at 0.038 are both pressed against their lower bounds, suggesting the optimiser is pushing toward the boundary to increase the predicted signal at high dose but cannot reach the needed magnitude. This is a model-capacity or bounds question, not a convergence question, and requires the user's scientific judgement about whether the receptor/fragment architecture is adequate for the 100-unit dose regime.
+4. If the gradient probe (step 2) confirms correct gradients and the trajectory inspection (step 1) shows the model shape is plausible but offset, a gradient-only restart with a larger iteration budget (e.g. 20–50 iterations) and the same model/bounds is reasonable. If the shape is wrong, do not restart; instead address the structural issue first. [BUDGET, OPTIMIZER_TRACES] The DE phase (de_fitting.log) ran only 1 iteration with population_size=4, and the gradient phase (NODE_fitting.log) improved loss by only 0.0024 over 5 iterations. The budget is small relative to the 15-parameter space. However, a restart is only justified if the model can in principle produce the observed trajectories; the negative time correlations and dose-dependent bias must be resolved first.
+5. Run a sloppiness / Hessian analysis at the current parameter point (or a nearby converged point) to identify weak or flat directions. Several parameters sit at extreme range fractions (kd1 at 0.974, kout_frag at 0.038, km at 0.068), which may indicate compensatory parameter pairs rather than independent identifiability. [SLOPPINESS, PARAMETERS] Sloppiness was skipped in this run. With 15 trainable parameters, 4 experiments × 16 time points = 64 data points, and several parameters at boundary fractions, the parameter space is likely over-parameterised. Identifying flat directions would clarify whether the poor high-dose fit is due to a structural gap or to the optimiser being trapped in a valley where multiple parameters compensate. This is a diagnostic step, not a model change.
+Limitation: No verified final-point gradient exists; the 5-iteration gradient trace (0.49543→0.49307) cannot be distinguished from a gradient error without a probe.
+Limitation: Sloppiness was skipped, so parameter identifiability and the number of well-determined directions are unknown.
+Limitation: The log-normalised loss (divided by the log-range of measured signal) makes the four experiment losses appear comparable (0.41–0.54) despite a 20× difference in absolute RMSE; the loss does not reveal which experiments are structurally unfit.
+Limitation: The negative time correlations and dose-dependent bias could arise from (a) incorrect initial conditions or input timing, (b) an inadequate model structure for the high-dose regime, (c) parameter bounds that prevent the model from reaching the observed signal magnitude, or (d) a combination. The evidence cannot distinguish these without further diagnostics or new data.
+Limitation: The DE phase ran only 1 iteration with population_size=4; the seed point may be far from the global optimum, and the gradient refinement may be exploring a local region that is not representative of the full parameter space.
+Limitation: No noise level or measurement uncertainty is specified in the snapshot; the residuals are computed against point measurements without weighting, so the apparent fit quality may be sensitive to unmodelled noise.

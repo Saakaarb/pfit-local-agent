@@ -1,0 +1,12 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/mapk_cascade/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/mapk_cascade/qwen38_27b/session
+warning: Population size is 4 with 16 trainable parameters and only 1 DE iteration; Differential Evolution with a population smaller than the parameter count provides extremely limited exploration before the gradient phase begins.
+warning: Gradient phase is limited to 5 Adam iterations for 16 parameters; convergence to a meaningful optimum is unlikely within this budget.
+warning: The writeout_description outputs all 11 integrated variables (13 columns total) rather than the 4 columns the user requested (time, measured Mpp, simulated Mpp, simulated Mp). This is a superset and will not break execution, but the output file will be wider than specified.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 5×16 = 80 and num_iters to ≥ 50 to give DE a meaningful chance to explore the 16-dimensional log-scaled parameter space before the gradient phase.
+recommendation: Increase gradient_opt.num_iters from 5 to at least 200–500 so Adam can traverse the 16-parameter landscape; the current 5 steps will barely move the parameters.
+recommendation: All 16 parameters use logscale with ranges spanning 2–4 orders of magnitude, which is appropriate. The ODE system conserves total M-pool mass and both MAPKK and MKP3 pools (verified by summing all rate terms), so the model is structurally sound.
+recommendation: The loss correctly maps solution[:, 2] (simulated Mpp, integrated variable index 2) to dataset[:, 0] (measured Mpp), normalizes by max(|measured Mpp|) + 1e-12, and computes RMSE as stated. The automatic log-loss rule does not apply because the Mpp column contains zero values (min=0).
+recommendation: Solver settings (Kvaerno5, rtol 1e-7, atol 1e-9, initial step 1e-6, max_steps 10000) are reasonable for a 11-state ODE system with rate constants spanning 1e-4 to 1e3.

@@ -1,0 +1,422 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, Insulin_signal: RMSE=0.534396, bias=-0.477006, time correlation=-0.690859555463173, lag-1=0.5839119144124632.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, Insulin_signal: RMSE=0.477521, bias=-0.424968, time correlation=-0.6366708572017178, lag-1=0.6286220934643034.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 3, Insulin_signal: RMSE=10.645, bias=-9.79658, time correlation=-0.3247708092348289, lag-1=-0.020874679241141673.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 4, Insulin_signal: RMSE=10.4897, bias=-9.46778, time correlation=-0.3394471509555107, lag-1=-0.03487201756226596.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 0.5343964540575111,
+          "mae": 0.47700565952161245,
+          "bias": -0.47700565952161245,
+          "max_abs": 0.9697655299904161,
+          "time_correlation": -0.690859555463173,
+          "lag1_correlation": 0.5839119144124632,
+          "time_regions": [
+            {
+              "start": 0.25,
+              "end": 20.166666666666668,
+              "count": 11,
+              "rmse": 0.3686048335701332
+            },
+            {
+              "start": 20.166666666666668,
+              "end": 40.083333333333336,
+              "count": 3,
+              "rmse": 0.7808305684850283
+            },
+            {
+              "start": 40.083333333333336,
+              "end": 60.0,
+              "count": 2,
+              "rmse": 0.78918287964894
+            }
+          ],
+          "name": "Insulin_signal",
+          "observes": "Insulin_signal"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 0.47752094252974625,
+          "mae": 0.42496759702161246,
+          "bias": -0.42496759702161246,
+          "max_abs": 0.8499502450791219,
+          "time_correlation": -0.6366708572017178,
+          "lag1_correlation": 0.6286220934643034,
+          "time_regions": [
+            {
+              "start": 0.25,
+              "end": 20.166666666666668,
+              "count": 11,
+              "rmse": 0.3246427744010618
+            },
+            {
+              "start": 20.166666666666668,
+              "end": 40.083333333333336,
+              "count": 3,
+              "rmse": 0.7783606965081449
+            },
+            {
+              "start": 40.083333333333336,
+              "end": 60.0,
+              "count": 2,
+              "rmse": 0.5794659811356561
+            }
+          ],
+          "name": "Insulin_signal",
+          "observes": "Insulin_signal"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "data_file": "dataset_3.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 10.645031561770184,
+          "mae": 9.796583140112553,
+          "bias": -9.796583140112553,
+          "max_abs": 16.500577826839887,
+          "time_correlation": -0.3247708092348289,
+          "lag1_correlation": -0.020874679241141673,
+          "time_regions": [
+            {
+              "start": 0.25,
+              "end": 20.166666666666668,
+              "count": 11,
+              "rmse": 9.341532423744708
+            },
+            {
+              "start": 20.166666666666668,
+              "end": 40.083333333333336,
+              "count": 3,
+              "rmse": 14.048870853089358
+            },
+            {
+              "start": 40.083333333333336,
+              "end": 60.0,
+              "count": 2,
+              "rmse": 11.424717200315559
+            }
+          ],
+          "name": "Insulin_signal",
+          "observes": "Insulin_signal"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "data_file": "dataset_4.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 10.489689903934815,
+          "mae": 9.518800218896908,
+          "bias": -9.467778827612591,
+          "max_abs": 17.315794826839586,
+          "time_correlation": -0.3394471509555107,
+          "lag1_correlation": -0.03487201756226596,
+          "time_regions": [
+            {
+              "start": 0.25,
+              "end": 20.166666666666668,
+              "count": 11,
+              "rmse": 9.078945841988228
+            },
+            {
+              "start": 20.166666666666668,
+              "end": 40.083333333333336,
+              "count": 3,
+              "rmse": 13.889526174369117
+            },
+            {
+              "start": 40.083333333333336,
+              "end": 60.0,
+              "count": 2,
+              "rmse": 11.727763274099395
+            }
+          ],
+          "name": "Insulin_signal",
+          "observes": "Insulin_signal"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ka1",
+      "value": 0.004466637767376285,
+      "range_fraction": 0.3312475917193667,
+      "logscale": true
+    },
+    {
+      "name": "ka2fold",
+      "value": 0.00011780106473947784,
+      "range_fraction": 0.13389365197742753,
+      "logscale": true
+    },
+    {
+      "name": "kd1",
+      "value": 624.7408800002553,
+      "range_fraction": 0.9744624906239259,
+      "logscale": true
+    },
+    {
+      "name": "kd2fold",
+      "value": 0.0002696223435998794,
+      "range_fraction": 0.1788444849165386,
+      "logscale": true
+    },
+    {
+      "name": "kin",
+      "value": 0.018408226248899998,
+      "range_fraction": 0.40812649293136855,
+      "logscale": true
+    },
+    {
+      "name": "kin2",
+      "value": 0.2706929392047222,
+      "range_fraction": 0.5540596159644701,
+      "logscale": true
+    },
+    {
+      "name": "kout",
+      "value": 12.018009977148637,
+      "range_fraction": 0.759979070027663,
+      "logscale": true
+    },
+    {
+      "name": "kout2",
+      "value": 0.11187803143640859,
+      "range_fraction": 0.5060931020106278,
+      "logscale": true
+    },
+    {
+      "name": "kout_frag",
+      "value": 2.00759645621772e-05,
+      "range_fraction": 0.03783455254998924,
+      "logscale": true
+    },
+    {
+      "name": "kon_unspec",
+      "value": 145.07372836906927,
+      "range_fraction": 0.8951985965604243,
+      "logscale": true
+    },
+    {
+      "name": "koff_unspec",
+      "value": 21.01222298603775,
+      "range_fraction": 0.7903090001222512,
+      "logscale": true
+    },
+    {
+      "name": "offset",
+      "value": 0.0003824114419144867,
+      "range_fraction": 0.15825308780757769,
+      "logscale": true
+    },
+    {
+      "name": "km",
+      "value": 2192.147090784751,
+      "range_fraction": 0.0681739382994137,
+      "logscale": true
+    },
+    {
+      "name": "scale",
+      "value": 0.6871577182581907,
+      "range_fraction": 0.652397464731323,
+      "logscale": false
+    },
+    {
+      "name": "fragments",
+      "value": 0.2505620567981466,
+      "range_fraction": 0.2505620567981466,
+      "logscale": false
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png",
+    "fit_exp3.png",
+    "fit_exp4.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.5049541518120625,
+    "final_loss": 0.4930703154747848,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.4941528825237478,
+      0.5395443209524166,
+      0.5306821661128265,
+      0.40790189231014823
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/de_fitting.log",
+      "rows": 1,
+      "first": 0.50495,
+      "final": 0.50495,
+      "best": 0.50495,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.50495
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b/session/outputs/run_20261007_223708_752746/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.49543,
+      "final": 0.49307,
+      "best": 0.49307,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.49543
+        ],
+        [
+          5,
+          0.49307
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.4930703154747848,
+  "experiment_losses": [
+    0.4941528825237478,
+    0.5395443209524166,
+    0.5306821661128265,
+    0.40790189231014823
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Refinement stopped at its iteration budget."
+}

@@ -1,0 +1,345 @@
+{
+  "case": "ARC_fitting",
+  "model_metadata": {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ],
+    "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+    "size_bytes": 17741872154,
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 337.34975393116474,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ],
+    "gguf_parameter_count": 27320697856,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "607827ca9750fd0dd741c618345f72ae16ecb08d",
+    "warmup_seconds": 8.721811532974243,
+    "warmup_thinking": false,
+    "warmup_response": {
+      "model": "qwen3.8:27b",
+      "created_at": "2026-10-07T21:35:24.441093429Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 8720941539,
+      "load_duration": 7771746360,
+      "prompt_eval_count": 16,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 719769000,
+      "eval_count": 2,
+      "eval_duration": 227649000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen3.8:27b",
+          "model": "qwen3.8:27b",
+          "size": 17536059964,
+          "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen35",
+            "families": [
+              "qwen35"
+            ],
+            "parameter_size": "27.3B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-17T21:22:41.296100549Z",
+          "size_vram": 17536059964,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 19667 MiB"
+  },
+  "input_audit": {
+    "name": "ARC_fitting",
+    "source": "sessions/ARC_fitting",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "NMC_SOC80_M2_normalized_converted_units.csv"
+    ],
+    "prompt_sha256": "713ee0a75655220e58d148d7c59c0976b2f091bfeb4d62481abe605f4048c257",
+    "original_prompt_sha256": "713ee0a75655220e58d148d7c59c0976b2f091bfeb4d62481abe605f4048c257",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "NMC_SOC80_M2_normalized_converted_units.csv": "c6fab67500cfbd3a86f263a26f3766666760dd574a6fd6711e593df88eaeda64",
+      "user_info.txt": "713ee0a75655220e58d148d7c59c0976b2f091bfeb4d62481abe605f4048c257"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  "status": "pass",
+  "started_utc": "2026-10-07T21:35:24Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-07T21:35:24Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 100656,
+      "exit_code": 0,
+      "seconds": 64.431,
+      "finished_utc": "2026-10-07T21:36:28Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-07T21:36:29Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 100692,
+      "exit_code": 0,
+      "seconds": 52.9,
+      "finished_utc": "2026-10-07T21:37:21Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-07T21:37:21Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 100695,
+      "exit_code": 0,
+      "seconds": 48.824,
+      "finished_utc": "2026-10-07T21:38:10Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-07T21:38:10Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session"
+      ],
+      "pid": 101236,
+      "exit_code": 0,
+      "seconds": 29.22,
+      "finished_utc": "2026-10-07T21:38:39Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-07T21:38:40Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session",
+        "run_20261007_213811_407473",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 101960,
+      "exit_code": 0,
+      "seconds": 75.017,
+      "finished_utc": "2026-10-07T21:39:55Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "pre_run_configuration": {},
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "auto_state_tolerances": true,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "auto_max_steps": true,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 900,
+      "solver_validation_min_successful": 10,
+      "solver_validation_seed": 7,
+      "solver_accuracy_check": true,
+      "solver_accuracy_workers": 4,
+      "auto_integrator": true,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20261007_213811_407473",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 10000.265083579621,
+    "final_loss": 10000.26491426101,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        4.0000005052947185e-11,
+        3.540258860836423e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        4.0000005052947185e-11,
+        3.540258860836423e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      10000.26491426101
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-07T21:39:55Z",
+  "total_wall_seconds": 270.797,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 209.05828514508903,
+  "prompt_tokens": 33180,
+  "generated_tokens": 14212,
+  "token_counts_incomplete": false
+}

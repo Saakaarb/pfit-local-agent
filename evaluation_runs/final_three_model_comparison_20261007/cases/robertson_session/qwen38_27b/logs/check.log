@@ -1,0 +1,12 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/robertson_session/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/robertson_session/qwen38_27b/session
+warning: Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals.
+warning: Population size is 4 with only 1 DE iteration and 5 gradient iterations for a 3-parameter stiff problem with parameter ranges spanning up to 10 orders of magnitude (k2: 5e3–5e10, k3: 1–1e8). This is extremely unlikely to converge to meaningful parameter estimates.
+warning: y3 spans 13.4 orders of magnitude (min≈1.6e-14, max≈0.383). With max-abs normalization the early-time y3 residuals are ~1e-14/0.383 ≈ 4e-14, contributing negligibly to the loss. The fit will be dominated by late-time y3 and the y1/y2 columns.
+warning: The Robertson problem is highly stiff; with wide parameter ranges and a small population, many ODE integrations during DE/gradient steps may hit max_steps (10000) or solver recovery limits, degrading the effective search.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g., 20–50) and population num_iters (e.g., 5–10) to give the DE algorithm a realistic chance of exploring the 3-parameter space with ranges up to 10^7 wide.
+recommendation: Increase gradient num_iters beyond 5 (e.g., 50–200) so the Adam refinement can actually reduce the loss after the population phase.
+recommendation: The loss implementation correctly matches the user's stated specification: per-column max-abs normalization with a 1e-12 stabilizer, sqrt of the mean of three column MSEs. No correction needed.
+recommendation: Column mapping is consistent: dataset[:,0]=y1, dataset[:,1]=y2, dataset[:,2]=y3 align with integrated-variable order and the YAML observes declarations. Writeout shape (7 cols) is consistent.
+recommendation: Kvaerno5 with rtol=1e-7, atol=1e-9, initial_timestep=1e-6 is appropriate for the Robertson stiffness; no change recommended.

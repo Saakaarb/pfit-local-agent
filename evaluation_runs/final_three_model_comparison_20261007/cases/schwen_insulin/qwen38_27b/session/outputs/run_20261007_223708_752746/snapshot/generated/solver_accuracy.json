@@ -1,0 +1,1778 @@
+{
+  "code": "accuracy_passed",
+  "integrator": "Kvaerno5",
+  "max_steps": 10000,
+  "sample_count": 128,
+  "probe_samples": [
+    67,
+    123,
+    68,
+    45
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 67,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.00028842061981373366
+        }
+      ],
+      "loss": 0.9790575915922766,
+      "reference_loss": 0.9790575333114303,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 274,
+        "num_rejected_steps": 172,
+        "num_steps": 446
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 361,
+        "num_rejected_steps": 171,
+        "num_steps": 532
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 67,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.00028842061981373366
+        }
+      ],
+      "loss": 1.4159221588003703,
+      "reference_loss": 1.4159220889703348,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 274,
+        "num_rejected_steps": 172,
+        "num_steps": 446
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 361,
+        "num_rejected_steps": 171,
+        "num_steps": 532
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 67,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 3.0443944601441476e-05
+        }
+      ],
+      "loss": 0.18845585579053353,
+      "reference_loss": 0.18845585326557834,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1533,
+        "num_rejected_steps": 1497,
+        "num_steps": 3030
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 2477,
+        "num_rejected_steps": 2349,
+        "num_steps": 4826
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 67,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 3.044083003431301e-05
+        }
+      ],
+      "loss": 0.15205756452666064,
+      "reference_loss": 0.15205756243026675,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1533,
+        "num_rejected_steps": 1497,
+        "num_steps": 3030
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 2477,
+        "num_rejected_steps": 2349,
+        "num_steps": 4826
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 67,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0018632946764102487
+        }
+      ],
+      "loss": 0.9790580811080783,
+      "reference_loss": 0.9790575915922766,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 148,
+        "num_rejected_steps": 79,
+        "num_steps": 227
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 274,
+        "num_rejected_steps": 172,
+        "num_steps": 446
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 67,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0018632946764102487
+        }
+      ],
+      "loss": 1.4159227473913865,
+      "reference_loss": 1.4159221588003703,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 148,
+        "num_rejected_steps": 79,
+        "num_steps": 227
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 274,
+        "num_rejected_steps": 172,
+        "num_steps": 446
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 67,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 5.613037925211317e-05
+        }
+      ],
+      "loss": 0.1884558506891156,
+      "reference_loss": 0.18845585579053353,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 914,
+        "num_rejected_steps": 903,
+        "num_steps": 1817
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1533,
+        "num_rejected_steps": 1497,
+        "num_steps": 3030
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 67,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 5.61283036748005e-05
+        }
+      ],
+      "loss": 0.1520575600324356,
+      "reference_loss": 0.15205756452666064,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 914,
+        "num_rejected_steps": 903,
+        "num_steps": 1817
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1533,
+        "num_rejected_steps": 1497,
+        "num_steps": 3030
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 123,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 3.464899868384911e-05
+        }
+      ],
+      "loss": 123.70469448868064,
+      "reference_loss": 123.70469424596143,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 213,
+        "num_rejected_steps": 74,
+        "num_steps": 287
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 336,
+        "num_rejected_steps": 122,
+        "num_steps": 458
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 123,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 3.464899868384911e-05
+        }
+      ],
+      "loss": 167.22205025642302,
+      "reference_loss": 167.2220499299811,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 213,
+        "num_rejected_steps": 74,
+        "num_steps": 287
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 336,
+        "num_rejected_steps": 122,
+        "num_steps": 458
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 123,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 5.229110912745082e-05
+        }
+      ],
+      "loss": 7.107799806900109,
+      "reference_loss": 7.107799759262587,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1376,
+        "num_rejected_steps": 1318,
+        "num_steps": 2694
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 2353,
+        "num_rejected_steps": 2262,
+        "num_steps": 4615
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 123,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 5.229110912745082e-05
+        }
+      ],
+      "loss": 5.480326013939633,
+      "reference_loss": 5.4803259775377064,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1376,
+        "num_rejected_steps": 1318,
+        "num_steps": 2694
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 2353,
+        "num_rejected_steps": 2262,
+        "num_steps": 4615
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 123,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0002349522033231296
+        }
+      ],
+      "loss": 123.70469673896861,
+      "reference_loss": 123.70469448868064,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 136,
+        "num_rejected_steps": 44,
+        "num_steps": 180
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 213,
+        "num_rejected_steps": 74,
+        "num_steps": 287
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 123,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0002349522033231296
+        }
+      ],
+      "loss": 167.22205327735173,
+      "reference_loss": 167.22205025642302,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 136,
+        "num_rejected_steps": 44,
+        "num_steps": 180
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 213,
+        "num_rejected_steps": 74,
+        "num_steps": 287
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 123,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0004446836794788755
+        }
+      ],
+      "loss": 7.107800215046063,
+      "reference_loss": 7.107799806900109,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 795,
+        "num_rejected_steps": 756,
+        "num_steps": 1551
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1376,
+        "num_rejected_steps": 1318,
+        "num_steps": 2694
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 123,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0004446836794788755
+        }
+      ],
+      "loss": 5.480326326070087,
+      "reference_loss": 5.480326013939633,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 795,
+        "num_rejected_steps": 756,
+        "num_steps": 1551
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1376,
+        "num_rejected_steps": 1318,
+        "num_steps": 2694
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 68,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0006633638180725775
+        }
+      ],
+      "loss": 14.328908591707323,
+      "reference_loss": 14.328912774993142,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 54,
+        "num_rejected_steps": 0,
+        "num_steps": 54
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 79,
+        "num_rejected_steps": 0,
+        "num_steps": 79
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 68,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0006633638180725775
+        }
+      ],
+      "loss": 19.73536106973072,
+      "reference_loss": 19.735366749028465,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 54,
+        "num_rejected_steps": 0,
+        "num_steps": 54
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 79,
+        "num_rejected_steps": 0,
+        "num_steps": 79
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 68,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0005305718024867473
+        }
+      ],
+      "loss": 3.1198259276368567,
+      "reference_loss": 3.1198265852750104,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 87,
+        "num_rejected_steps": 0,
+        "num_steps": 87
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 68,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0005305718024867473
+        }
+      ],
+      "loss": 2.454620768794025,
+      "reference_loss": 2.4546212743749938,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 87,
+        "num_rejected_steps": 0,
+        "num_steps": 87
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 68,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0031765093158605453
+        }
+      ],
+      "loss": 14.32888370246959,
+      "reference_loss": 14.328908591707323,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 37,
+        "num_rejected_steps": 0,
+        "num_steps": 37
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 54,
+        "num_rejected_steps": 0,
+        "num_steps": 54
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 68,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0031765093158605453
+        }
+      ],
+      "loss": 19.735327415787662,
+      "reference_loss": 19.73536106973072,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 37,
+        "num_rejected_steps": 0,
+        "num_steps": 37
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 54,
+        "num_rejected_steps": 0,
+        "num_steps": 54
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 68,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0031701289070462054
+        }
+      ],
+      "loss": 3.119819328779224,
+      "reference_loss": 3.1198259276368567,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 40,
+        "num_rejected_steps": 0,
+        "num_steps": 40
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 68,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0031701289070462054
+        }
+      ],
+      "loss": 2.4546156919518647,
+      "reference_loss": 2.454620768794025,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 40,
+        "num_rejected_steps": 0,
+        "num_steps": 40
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 45,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.001023886877016778
+        }
+      ],
+      "loss": 1.975248543961488,
+      "reference_loss": 1.9752486674836578,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 185,
+        "num_rejected_steps": 104,
+        "num_steps": 289
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 306,
+        "num_rejected_steps": 186,
+        "num_steps": 492
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 45,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.001023886877016778
+        }
+      ],
+      "loss": 2.516296376013912,
+      "reference_loss": 2.516296475618965,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 185,
+        "num_rejected_steps": 104,
+        "num_steps": 289
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 306,
+        "num_rejected_steps": 186,
+        "num_steps": 492
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 45,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 2.320878258854936e-05
+        }
+      ],
+      "loss": 0.44998876935943644,
+      "reference_loss": 0.4499887667799948,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 811,
+        "num_rejected_steps": 770,
+        "num_steps": 1581
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1547,
+        "num_rejected_steps": 1481,
+        "num_steps": 3028
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 45,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 2.320878258854936e-05
+        }
+      ],
+      "loss": 0.34883171820283776,
+      "reference_loss": 0.34883171609802294,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 811,
+        "num_rejected_steps": 770,
+        "num_steps": 1581
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 1547,
+        "num_rejected_steps": 1481,
+        "num_steps": 3028
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 45,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0033953510782378624
+        }
+      ],
+      "loss": 1.975247682164714,
+      "reference_loss": 1.975248543961488,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 111,
+        "num_rejected_steps": 55,
+        "num_steps": 166
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 185,
+        "num_rejected_steps": 104,
+        "num_steps": 289
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 45,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0033953510782378624
+        }
+      ],
+      "loss": 2.516295263178439,
+      "reference_loss": 2.516296376013912,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 111,
+        "num_rejected_steps": 55,
+        "num_steps": 166
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 185,
+        "num_rejected_steps": 104,
+        "num_steps": 289
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 45,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0034293542856699034
+        }
+      ],
+      "loss": 0.4499890183465506,
+      "reference_loss": 0.44998876935943644,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 506,
+        "num_rejected_steps": 479,
+        "num_steps": 985
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 811,
+        "num_rejected_steps": 770,
+        "num_steps": 1581
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 45,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.0000000000000002e-06,
+        5.88503656504712e-07,
+        9.186048612429337e-06,
+        8.836330683173449e-09,
+        1.1505046576525832e-07,
+        2.314374546541455e-10,
+        4.360333502645992e-10,
+        7.091734267909392e-08,
+        4.329827063877956e-07,
+        3.0487912180578246e-08,
+        1.74590398937095e-09
+      ],
+      "observables": [
+        {
+          "name": "Insulin_signal",
+          "max_normalized_difference": 0.0034293542856699034
+        }
+      ],
+      "loss": 0.34883191342763875,
+      "reference_loss": 0.34883171820283776,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 506,
+        "num_rejected_steps": 479,
+        "num_steps": 985
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 811,
+        "num_rejected_steps": 770,
+        "num_steps": 1581
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "result": "Predictions and losses agree with ten-times tighter tolerances on validated probes; see unresolved_probes for exclusions",
+  "validated_seeds": [
+    {
+      "sample": 67,
+      "normalized_parameters": [
+        0.536281821840755,
+        -0.13339503476890513,
+        0.32127446020631356,
+        0.8582380203756235,
+        0.08641633971350537,
+        0.3866935442696784,
+        0.23735127456317429,
+        0.27058968072929157,
+        0.30786100971860564,
+        0.007148818758127229,
+        -0.4188617947531855,
+        -0.021177661970182893,
+        0.251603864218904,
+        -0.2942446828948496,
+        0.04093188209490517
+      ],
+      "experiment_losses": [
+        0.9790577073193151,
+        1.4159223172372717,
+        0.18845585208096466,
+        0.15205756139759632
+      ]
+    },
+    {
+      "sample": 45,
+      "normalized_parameters": [
+        0.5097918164771171,
+        -0.8623523776141492,
+        -0.8587308708231228,
+        -0.9705567825103926,
+        -0.24213245569903574,
+        0.04790300273760639,
+        0.5810605702284461,
+        -0.044843784511202744,
+        0.9436902416199595,
+        0.9620242136976731,
+        0.7982400242044214,
+        -0.8287159085187934,
+        -0.40569086347085537,
+        0.43498299827384757,
+        0.5448339670573412
+      ],
+      "experiment_losses": [
+        1.9752486517507757,
+        2.5162964554412595,
+        0.4499888051637796,
+        0.34883174613219115
+      ]
+    },
+    {
+      "sample": 68,
+      "normalized_parameters": [
+        -0.33700502480782846,
+        -0.2550408113670124,
+        0.948425131655759,
+        -0.6640061000763439,
+        -0.8711750474070065,
+        -0.9640597905370614,
+        -0.7743474216762956,
+        0.9039775137054831,
+        -0.9248291244905256,
+        -0.10555875972687401,
+        0.12015298010232578,
+        -0.12896317268247237,
+        -0.8641520561570175,
+        0.855287220157672,
+        -0.49936998088912643
+      ],
+      "experiment_losses": [
+        14.328908763225218,
+        19.735361304434512,
+        3.1198258543284085,
+        2.4546207138752125
+      ]
+    },
+    {
+      "sample": 123,
+      "normalized_parameters": [
+        0.9849303021421087,
+        -0.36864711557283325,
+        0.5328020404075502,
+        0.4312148163693139,
+        0.5934577397071636,
+        0.2927196832892407,
+        0.08922913764508178,
+        -0.8374741442844028,
+        0.21436276935236265,
+        -0.659516677718305,
+        -0.8542379258884873,
+        0.405380130382879,
+        0.9075457335047961,
+        0.713631894016973,
+        -0.24238960455670622
+      ],
+      "experiment_losses": [
+        123.7046944873285,
+        167.22205025360387,
+        7.107799770029498,
+        5.48032598563866
+      ]
+    }
+  ],
+  "seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=1ccd0faf8c454423 user_input.yaml=19c5f54a7ceb44c5",
+    "data_hashes": {
+      "dataset_1.csv": "2e0c2cecd856a41543e34601021c9d246061c99847a732a030f208f5982394c4",
+      "dataset_2.csv": "f347e4730b29680cf4b8011fa4efe28b94852958244b9777d285fa15f37d8f95",
+      "dataset_3.csv": "706a2ddbe980e8d705d8dd5c725e301308639a887fa4803e4e979e5e3c8c8bd4",
+      "dataset_4.csv": "d98ac76844fbc609ffbeea44094aec016e7d05e9726d695e75a5f58d9f31ec6d"
+    },
+    "runtime_config_hash": "b5c5e79a22b23fe63965bf75df3cb9ca55b9c238d25b3806925513f58d6b7a41"
+  },
+  "source_seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=1ccd0faf8c454423 user_input.yaml=19c5f54a7ceb44c5",
+    "data_hashes": {
+      "insulin_10_r1.csv": "2e0c2cecd856a41543e34601021c9d246061c99847a732a030f208f5982394c4",
+      "insulin_10_r2.csv": "f347e4730b29680cf4b8011fa4efe28b94852958244b9777d285fa15f37d8f95",
+      "insulin_100_r1.csv": "706a2ddbe980e8d705d8dd5c725e301308639a887fa4803e4e979e5e3c8c8bd4",
+      "insulin_100_r2.csv": "d98ac76844fbc609ffbeea44094aec016e7d05e9726d695e75a5f58d9f31ec6d"
+    }
+  }
+}

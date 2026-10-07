@@ -1,0 +1,44 @@
+{
+  "verdict": "The optimizer exhausted its 5-iteration budget with a normalized gradient infinity norm of 0.5007 (far from stationarity), the loss moved only ~0.0009 from seed, and all four parameters sit at 85\u201398 % of their upper bounds. Three negative Hessian modes were reported but are likely unreliable after so few iterations. The very low time correlations (0.04 for X, 0.03 for Z) indicate the model's oscillatory dynamics are poorly matched to the data, independent of the incomplete optimisation.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to confirm the autodiff gradient is consistent with finite differences before any further optimisation. If the check passes, increase gradient_opt.num_iters from 5 to at least 50\u2013100 and perform a gradient-only restart from this run (same model, same bounds).",
+      "reason": "The normalized gradient infinity norm is 0.5007 (STATIONARITY) and the optimizer terminated on 'iteration_budget' after exactly 5 of 5 allowed iterations (BUDGET). The loss changed only from 12.80598 to 12.80513, so the Adam optimizer had essentially no room to move. A gradient-only restart is appropriate because the model equations and bounds are unchanged and the gradient evidence simply shows the search was truncated."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS"
+      ],
+      "action": "Review whether the upper bounds on eps1 (4.0), eps2 (0.04), q (0.08), and f (100.0) adequately bracket the physically meaningful Oregonator parameter space. If the literature or prior knowledge supports wider ranges, widen the bounds and re-run a full fit (population + gradient).",
+      "reason": "All four fitted parameters sit at 85.2 %, 92.0 %, 98.4 %, and 92.8 % of their respective ranges (PARAMETERS). When every parameter is pushed toward the upper boundary, the most common explanation is that the true optimum lies outside the box. This is a scientific/model-judgement question, not a numerical correction: the user must decide whether the bounds reflect a physical constraint or an arbitrary choice."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. Specifically check whether the oscillation period and amplitude of X and Z match the data, and verify that the initial conditions (X=0.778, Y=0.267, Z=0.209) and the time grid in dataset_1.csv are consistent with the Oregonator's expected dynamics.",
+      "reason": "Time correlations are 0.041 (X) and 0.026 (Z) while lag-1 correlations are 0.901 and 0.975 (RESIDUAL). This pattern\u2014high level agreement but near-zero temporal correlation\u2014means the model captures the mean but not the oscillatory phase or frequency. The time-region RMSEs are relatively flat (X: 0.185/0.232/0.169; Z: 0.082/0.101/0.080), so the mismatch is not concentrated in one time window. This points to a dynamics mismatch (period, amplitude, or initial condition) rather than a local numerical artefact."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "STATIONARITY"
+      ],
+      "action": "After the extended gradient run, re-evaluate the Hessian / sloppiness. If 3 or more negative eigenvalues persist at a stationary point, investigate whether the loss surface is genuinely non-convex (saddle) or whether the Hessian estimate is corrupted by the small step sizes (rtol 1e-7, atol ~1e-9). A discriminating test is to recompute the Hessian with a 10\u00d7 larger finite-difference step and compare eigenvalue signs.",
+      "reason": "SLOPPINESS reports 0 weak modes and 3 negative modes, but this was computed after only 5 Adam iterations with a gradient norm of 0.5007 (STATIONARITY). At that distance from a stationary point the Hessian is not a reliable curvature measure. The negative modes may reflect the non-convexity of the RMSE loss in a non-stationary region rather than a true saddle. Re-evaluation at a converged point is needed before drawing conclusions."
+    }
+  ],
+  "limitations": [
+    "The 3 negative Hessian modes cannot be interpreted as proof of a saddle point or model identifiability failure because the optimizer was far from stationarity (gradient norm 0.5007) and only 5 iterations were completed.",
+    "The low time correlations (0.04, 0.03) indicate poor dynamic agreement but cannot distinguish between (a) parameters outside the current bounds, (b) an incorrect initial condition, (c) a missing or mis-specified term in the Oregonator equations, or (d) noise/uncertainty in the data. Resolving this requires the user's scientific judgement and possibly new data.",
+    "The parameter values near the upper bounds suggest the bounds may be too restrictive, but the evidence cannot establish what the correct physical ranges are; that requires domain knowledge of the Oregonator system.",
+    "No gradient-check or finite-difference stability evidence is available in this snapshot; the 3 negative Hessian modes could be a numerical artefact of the small step sizes (rtol 1e-7, atol ~1e-9) rather than a true curvature feature.",
+    "The loss magnitude (~12.8) is a user-defined RMSE and should not be interpreted as a convergence criterion in absolute terms; only the gradient norm and Hessian structure are relevant for optimisation diagnostics."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

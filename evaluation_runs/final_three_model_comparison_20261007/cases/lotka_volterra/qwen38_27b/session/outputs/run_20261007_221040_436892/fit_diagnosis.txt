@@ -1,0 +1,61 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_221040_436892
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.0283E-01, best loss 3.0283E-01, final loss 3.0283E-01
+- NODE: 2 iterations, first loss 3.0257E-01, best loss 3.0250E-01, final loss 3.0250E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: lynx_hare.csv; loss=0.3025040664720138; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- no weak curvature directions at the specified relative floor
+- weak modes: 0; negative modes: 0
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_221040_436892/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.360874; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.360874; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, H: RMSE=21.9294, bias=5.24728, time correlation=0.1686852438967076, lag-1=0.7065489237148495.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, L: RMSE=19.0399, bias=-6.21138, time correlation=0.46807816620157267, lag-1=0.7290011762577874.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_221040_436892/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_221040_436892/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Gradient refinement exhausted its 5-iteration budget with a normalized gradient infinity norm of 0.361 (stationarity not established) and the loss still decreasing (0.30257 → 0.30250 over the last two iterations). The DE seeding phase was a single iteration with population 4, providing minimal exploration. Residuals show poor temporal correlation (H: 0.17, L: 0.47) and moderate bias, but the dominant issue is that the optimizer was cut short before reaching a stationary point. Sloppiness is clean (0 weak, 0 negative modes), so the local geometry is well-conditioned and a gradient-only continuation is appropriate.
+1. Run diagnose --probe-gradients to verify the autodiff gradient against finite differences before spending additional iterations. [STATIONARITY, BUDGET] The normalized gradient infinity norm is 0.3609 and the gradient-to-loss ratio is 1.193, indicating the optimizer is far from stationarity. Before increasing the iteration budget, confirm the gradient is numerically correct so that additional iterations are not wasted on a faulty derivative. The BUDGET evidence confirms the refinement stopped at its 5-iteration limit rather than converging.
+2. If gradient checks pass, increase gradient_opt.num_iters from 5 to at least 50 and run a gradient-only restart from this run's parameter values (alpha=0.134, beta=0.0117, delta=0.00601, gamma=0.152). [STATIONARITY, BUDGET, OPTIMIZER_TRACES] The NODE trace shows the loss was still decreasing at iteration 5 (0.30257 → 0.30250), the termination reason is 'iteration_budget', and the normalized gradient norm of 0.361 is well above a typical convergence threshold. The model, bounds, and loss are unchanged, so a gradient-only continuation is the appropriate next step rather than a full re-fit.
+3. Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown to assess whether the Lotka-Volterra dynamics qualitatively match the data, paying attention to the H channel's low time correlation (0.169) and the L channel's early-region RMSE of 27.68. [RESIDUAL] The H channel time correlation of 0.169 and L channel of 0.468 suggest the fitted trajectory shape does not track the data well. The H bias is +5.25 (overprediction) while L bias is −6.21 (underprediction), and the L early region (t=0–6.67) has RMSE 27.68 versus 4.10 in the mid region. This pattern may indicate initial-condition sensitivity or a structural mismatch in the Lotka-Volterra form, but it could also improve once the optimizer actually converges. Visual inspection of the named plot is needed before attributing the residuals to model inadequacy.
+4. After the gradient-only restart converges, re-examine whether alpha (range_fraction 0.098) and gamma (range_fraction 0.141) are being pushed toward their lower bounds (0.1). If they remain at or near the boundary, evaluate whether the bounds are physically justified for the Lotka-Volterra system or whether the data are inconsistent with the assumed parameter range. [PARAMETERS, RESIDUAL] alpha sits at 9.8 % of its log-scale range and gamma at 14.1 %, both near the lower bound of 0.1. If the converged solution pins these parameters to the boundary, the residuals (H RMSE 21.9, L RMSE 19.0) may reflect a genuine model-data mismatch rather than an optimization artifact. This is a scientific judgement call that requires the user's domain knowledge; it is not a numerical correction.
+Limitation: The DE seeding phase ran only 1 iteration with a population of 4, so the initial point for gradient refinement may not be in the basin of the global minimum. A gradient-only restart refines locally and cannot escape a poor basin; a full re-fit with a larger population or more DE iterations would be needed to test global identifiability.
+Limitation: Sloppiness shows 0 weak and 0 negative modes at the current point, but this is a local Hessian assessment. It does not rule out flat directions elsewhere in parameter space or non-identifiability that would only appear after further optimization.
+Limitation: The poor time correlations (H: 0.169, L: 0.468) and moderate biases could stem from (a) the optimizer not having converged, (b) initial-condition sensitivity of the Lotka-Volterra system, (c) a structural mismatch between the model and the generating process, or (d) noise or sampling issues in dataset_1.csv. The current evidence cannot distinguish among these causes without additional data or a converged fit.
+Limitation: No gradient-check or finite-difference comparison results are present in the snapshot. The gradient norm of 0.361 is reported as computed by autodiff; its correctness relative to finite differences is unverified in this run.
+Limitation: The loss magnitude (≈0.30) is a user-defined normalized RMSE; its absolute value does not indicate whether the fit is scientifically adequate. Judgement on model adequacy requires domain context not available in the snapshot.

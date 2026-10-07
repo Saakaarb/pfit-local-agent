@@ -1,0 +1,353 @@
+{
+  "case": "decay_multiexp",
+  "model_metadata": {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ],
+    "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+    "size_bytes": 17741872154,
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": false,
+    "preparation_seconds": 337.34975393116474,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ],
+    "gguf_parameter_count": 27320697856,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "607827ca9750fd0dd741c618345f72ae16ecb08d",
+    "warmup_seconds": 8.721811532974243,
+    "warmup_thinking": false,
+    "warmup_response": {
+      "model": "qwen3.8:27b",
+      "created_at": "2026-10-07T21:35:24.441093429Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 8720941539,
+      "load_duration": 7771746360,
+      "prompt_eval_count": 16,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 719769000,
+      "eval_count": 2,
+      "eval_duration": 227649000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen3.8:27b",
+          "model": "qwen3.8:27b",
+          "size": 17536059964,
+          "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen35",
+            "families": [
+              "qwen35"
+            ],
+            "parameter_size": "27.3B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-17T21:22:41.296100549Z",
+          "size_vram": 17536059964,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 19667 MiB"
+  },
+  "input_audit": {
+    "name": "decay_multiexp",
+    "source": "tests/fixtures/decay_multiexp",
+    "adaptations": [
+      {
+        "file": "decay_run_A.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "b0e023fe7c60f8b9c94cfacbcca88e54d33993c5f816ce30cc1da945c7209a78"
+      },
+      {
+        "file": "decay_run_B.csv",
+        "change": "Add declared CSV header; numerical rows unchanged",
+        "original_sha256": "ca7e3808d39da4883919f40213435fce60c893d822c975ffb64b575d732943ba"
+      }
+    ],
+    "status": "ready",
+    "expected_experiments": 2,
+    "expected_data_files": [
+      "decay_run_A.csv",
+      "decay_run_B.csv"
+    ],
+    "prompt_sha256": "bfbaf418e7b20a52020d3688ae993b981f50c45fe1064236564ed6c853b9caaa",
+    "original_prompt_sha256": "9efac67c8e89c882a9e408abe4aea737fe9d66b2d17df7e232fb8587195d3896",
+    "prompt_audit": "Expanded loss-only notes into scientific equations, bounds, initial conditions, observations, inputs and experiment definitions. No Python or YAML supplied.",
+    "input_hashes": {
+      "decay_run_A.csv": "ef22b242864d8d0c8bf1cf5ec7114769e5dba3c6ef5fe181392c88bf59383e91",
+      "decay_run_B.csv": "31fc7b58a98513031efbc8785370cf325d9006d166bfa534497478ff92165f54",
+      "user_info.txt": "bfbaf418e7b20a52020d3688ae993b981f50c45fe1064236564ed6c853b9caaa"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  "status": "pass",
+  "started_utc": "2026-10-07T21:59:04Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-07T21:59:04Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 111542,
+      "exit_code": 0,
+      "seconds": 51.959,
+      "finished_utc": "2026-10-07T21:59:56Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-07T21:59:56Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 111561,
+      "exit_code": 0,
+      "seconds": 114.309,
+      "finished_utc": "2026-10-07T22:01:51Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-07T22:01:51Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 111598,
+      "exit_code": 0,
+      "seconds": 18.064,
+      "finished_utc": "2026-10-07T22:02:09Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-07T22:02:09Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session"
+      ],
+      "pid": 112111,
+      "exit_code": 0,
+      "seconds": 20.553,
+      "finished_utc": "2026-10-07T22:02:29Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-07T22:02:29Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session",
+        "run_20261007_220209_746556",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 112848,
+      "exit_code": 0,
+      "seconds": 45.777,
+      "finished_utc": "2026-10-07T22:03:15Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "pre_run_configuration": {},
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "auto_state_tolerances": true,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "auto_max_steps": true,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 900,
+      "solver_validation_min_successful": 10,
+      "solver_validation_seed": 7,
+      "solver_accuracy_check": true,
+      "solver_accuracy_workers": 4,
+      "auto_integrator": true,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20261007_220209_746556",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.1574077470086261,
+    "final_loss": 0.1567998875516053,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        5.744299183928793e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        5.744299183928793e-10
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.15702409673095488,
+      0.15657567837225572
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "output_count": 2,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-07T22:03:15Z",
+  "total_wall_seconds": 250.902,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 214.4615189395845,
+  "prompt_tokens": 24796,
+  "generated_tokens": 14809,
+  "token_counts_incomplete": false
+}

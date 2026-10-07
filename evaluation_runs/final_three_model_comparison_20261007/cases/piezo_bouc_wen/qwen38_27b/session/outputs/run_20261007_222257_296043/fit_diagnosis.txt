@@ -1,0 +1,65 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_222257_296043
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.5294E-01, best loss 1.5294E-01, final loss 1.5294E-01
+- NODE: 2 iterations, first loss 1.5280E-01, best loss 1.5277E-01, final loss 1.5277E-01
+
+Generation workflow:
+- events: 7 passed, 3 failed, 3 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: correct_units_piezo_electric_actuator.csv; loss=0.15276721417084183; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 1; negative modes: 2
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_222257_296043/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- gamma=0.000976146 is at 0.98% of its linear search interval.
+- [BOUND] gamma=0.000976146 is at 0.98% of its linear search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.232267; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 1 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, xp: RMSE=7.49745e-07, bias=-2.26468e-08, time correlation=0.38430716357000444, lag-1=0.9312792605812021.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_222257_296043/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_222257_296043/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+No numerical failures or gradient-reliability issues detected. The run is budget-limited (5/5 Adam iterations) with a normalized gradient norm of 0.232, so stationarity is not established. The Hessian shows 2 negative modes and 1 weak mode, indicating the current point is not a local minimum and the loss surface is locally non-convex. gamma sits at 0.98 % of its [0, 0.1] interval, pressing against the lower bound. The fitted displacement has a 15 % relative RMSE (loss ≈ 0.153) and a moderate time correlation of 0.384, suggesting the Bouc-Wen hysteresis shape is not yet well matched.
+1. Verify whether gamma → 0 (purely softening Bouc-Wen) is physically justified for this piezoelectric actuator. If the bound is correct, proceed; if a non-zero hardening term is expected, revise the bound and run a full fit (DE + gradient) rather than a gradient-only restart. [BOUND] gamma = 0.000976 is at 0.98 % of the [0, 0.1] linear interval (range_fraction 0.0098). In the Bouc-Wen equation, gamma multiplies the hardening term γ·ẋ·|h|; driving it to the boundary means the optimizer is suppressing hardening. If the physics requires a hardening contribution, the bound or the model form may be the limiting factor, and a bound change invalidates the current gradient trajectory.
+2. Inspect the Hessian eigenvectors associated with the 2 negative modes and 1 weak mode (e.g., via the saved curvature file) to identify which parameter combinations are involved. Do not launch a gradient-only restart until the negative-mode geometry is understood, because Adam from a saddle point may oscillate or diverge. [WEAK_MODES, STATIONARITY] The sloppiness report shows 2 negative modes and 1 weak mode, meaning the Hessian is indefinite at the current point. The normalized gradient infinity norm is 0.232 (not near zero), and the gradient-to-loss ratio is 1.52, so the optimizer is still far from a stationary point. A blind gradient restart from a saddle region risks moving along a negative-curvature direction and increasing the loss.
+3. Run diagnose --probe-gradients to confirm that finite-difference and autodiff gradients agree within tolerance at the current point. If they agree, increase gradient_opt.num_iters (e.g., to 50–100) and perform a gradient-only restart from this run, keeping all bounds and the model unchanged. [BUDGET, STATIONARITY] The optimizer terminated on iteration_budget after 5 Adam iterations (loss 0.1528 → 0.15277), with no refinement error. The gradient norm of 0.232 indicates meaningful descent direction remains. A budget-limited run with a still-significant gradient is the canonical case for a gradient-only restart, provided the Hessian geometry (previous step) does not indicate a saddle.
+4. Open the saved plot fit_exp1.png and compare the fitted xp trajectory against the measured xp over the full 0.10–0.50 s window. Pay attention to phase alignment, peak amplitude, and the shape of the hysteresis loop (if h is also plotted). Check whether the moderate time correlation (0.384) is driven by a phase lag, an amplitude mismatch, or a waveform-shape error. [RESIDUAL] RMSE = 7.50e-7 with bias ≈ −2.3e-8 indicates no systematic offset, but time correlation is only 0.384 while lag-1 correlation is 0.931. This pattern is consistent with a phase or shape mismatch in the oscillatory response rather than a scale error. The three time-region RMSEs (7.48e-7, 6.09e-7, 8.65e-7) are similar, so the mismatch is not confined to one segment. Visual inspection of the named plot is the fastest way to distinguish these causes before spending more optimizer iterations.
+5. If the Hessian inspection reveals that the weak/negative modes involve a specific parameter pair (e.g., gamma–beta or gamma–alpha), consider whether an independently known parameter can be fixed to reduce the effective dimensionality, or whether an additional excitation frequency or amplitude experiment would excite the weak direction. Do not fix a parameter without independent physical justification. [WEAK_MODES, RESIDUAL] One weak mode and two negative modes in a 6-parameter problem indicate that at least one linear combination of parameters is poorly constrained by the single sinusoidal excitation (16π rad/s, amplitude 24·de). The Bouc-Wen parameters alpha, beta, gamma are known to be strongly correlated; a single-frequency test may not excite all three independently. New data or a justified fix is a scientific modelling decision, not a numerical correction.
+Limitation: The 2 negative Hessian modes indicate the current point is not a local minimum, but the evidence does not identify whether this is a true saddle, a numerical artefact of the finite-difference Hessian, or a consequence of the very small gradient step (5 Adam iterations). A gradient-only restart may or may not escape the region.
+Limitation: The single experiment uses one sinusoidal excitation frequency (16π rad/s) and one amplitude. The weak and negative Hessian modes may reflect genuine under-excitation of the Bouc-Wen parameter space rather than a model-form error; additional experiments are needed to distinguish these causes.
+Limitation: The time correlation of 0.384 is moderate but the absolute RMSE is small (7.5e-7). Without knowing the physical noise floor of the xp measurement, it is not possible to determine whether the residual is dominated by model mismatch or by measurement noise.
+Limitation: The Hessian eigenvectors are not provided in the snapshot; the specific parameter combinations involved in the negative and weak modes cannot be identified from the evidence alone.
+Limitation: The DE stage ran only 1 iteration with population size 4, so the initial point for gradient refinement is a single DE sample, not a well-explored basin. The global landscape is unknown.

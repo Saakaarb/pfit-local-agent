@@ -1,0 +1,52 @@
+{
+  "verdict": "k1 is pinned at its lower bound (0.001, 0.03 % of the log10 interval) while the normalized gradient (0.167) is far from stationarity and the Hessian shows one negative mode. The optimizer exhausted its 5-iteration budget with only a 0.00014 loss reduction (0.34359 \u2192 0.34345). The fit is moderate (y1/y3 RMSE \u2248 0.155, degrading over time) and the dominant issue is the bound constraint, not insufficient iterations.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Determine whether k1 = 0.001 is physically justified for the Robertson mechanism. If the data or literature indicate the true rate constant lies below 0.001, revise the lower bound and run a full fit (DE + gradient). Do not widen the bound automatically; confirm with domain knowledge first.",
+      "reason": "k1 sits at 0.03 % of its log10 search interval (range_fraction 0.00025), meaning the optimizer is actively pushing it below the allowed minimum. No gradient refinement can recover a parameter that is constrained away from its optimum."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to verify that the reported gradient (\u2016g\u2016\u221e = 0.1665) is numerically reliable (finite-difference vs. autodiff agreement) before spending further iterations.",
+      "reason": "The optimizer stopped at its 5-iteration budget (termination: iteration_budget) with a non-negligible gradient. A gradient-only restart is only worthwhile if the gradient is correct; the negative Hessian mode (sloppiness: 1 negative) adds uncertainty about whether the gradient points toward a true minimum or a saddle."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "If gradient checks pass and the k1 bound is confirmed appropriate, increase gradient_opt.num_iters (e.g. to 50\u2013100) and perform a gradient-only restart from the current parameter vector (k1=0.001002, k2=542971, k3=8631.5).",
+      "reason": "Only 5 Adam iterations were evaluated (loss 0.34348 \u2192 0.34345, last material improvement at iteration 4), and the normalized gradient of 0.167 indicates the optimizer has not converged. With valid bounds and a correct gradient, more iterations should reduce the loss."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. y1/y3 RMSE grows from 0.073 (t < 33) to 0.362 (t > 67), and y3 time-correlation is \u22120.925 (mirror of y1's +0.925). Check whether the initial-condition transient (y1 starts at 1.0) is driving the early-time mismatch and whether the late-time drift indicates a structural model limitation rather than a parameter issue.",
+      "reason": "The symmetric y1/y3 residuals (RMSE 0.1554 vs 0.1554, opposite biases \u00b10.0899) are consistent with the conservation y1+y2+y3\u22481, but the progressive RMSE increase across time regions suggests the fitted kinetics do not capture the slow relaxation correctly. This pattern would not be fixed by more iterations if the bound or model structure is the cause."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "STATIONARITY"
+      ],
+      "action": "Investigate the single negative Hessian mode: recompute the Hessian at the current point with a tighter finite-difference step or via autodiff, and check whether the negative curvature is along the k1 direction (bound-constrained) or a genuine saddle in the (k2, k3) subspace.",
+      "reason": "A negative mode at a non-stationary point (\u2016g\u2016\u221e = 0.167) can indicate a saddle or an ill-conditioned parameterization. If it is along k1, it is an artefact of the bound; if it is in the interior, it signals that the current point is not on a convex valley and a simple gradient restart may diverge."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot establish whether the true k1 lies below 0.001 or whether the bound is simply tight; resolving this requires domain knowledge or additional data spanning a wider k1 range.",
+    "A single negative Hessian mode at a non-stationary point does not prove the loss is non-convex globally; it may be a local saddle or a numerical artefact of finite-difference Hessian estimation.",
+    "The moderate residuals (RMSE \u2248 0.155 for y1/y3) cannot be decomposed into parameter error vs. model-structure error vs. data noise without independent noise-level estimates or a different model form.",
+    "The y2 channel (RMSE \u2248 1.5 \u00d7 10\u207b\u2075) is essentially at machine-precision level for this problem; it provides no additional identifiability information and its low time-correlation (0.294) is expected for a near-zero intermediate.",
+    "The 5-iteration gradient trace (loss 0.34348 \u2192 0.34345) is too short to assess convergence rate or asymptotic behaviour; no claim about the optimizer's ultimate capability can be made from this run alone."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

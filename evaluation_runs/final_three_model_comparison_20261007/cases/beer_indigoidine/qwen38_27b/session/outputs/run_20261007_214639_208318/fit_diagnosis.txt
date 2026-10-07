@@ -1,0 +1,56 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_214639_208318
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 6.7379E-01, best loss 6.7379E-01, final loss 6.7379E-01
+- NODE: 2 iterations, first loss 6.7340E-01, best loss 6.7331E-01, final loss 6.7331E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: culture.csv; loss=0.6733063019948791; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Bacnorm: RMSE=0.548477, bias=-0.48003, time correlation=-0.8590762667705629, lag-1=0.999980809055493.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, IndconcNormRange: RMSE=0.506049, bias=-0.413563, time correlation=-0.44665591900773116, lag-1=0.9999595002779168.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_214639_208318/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_214639_208318/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The model is anti-correlated with the data on both channels (time correlation −0.859 for Bacnorm, −0.447 for IndconcNormRange), indicating a fundamental trajectory-direction mismatch rather than a convergence or tolerance problem. The fitted Bacmax (0.00418) is below the initial Bac (0.0138), making the logistic growth term negative and driving Bac downward, while the negative bias (−0.480, −0.414) and worsening late-time RMSE (0.646, 0.740) suggest the data trend is opposite. Spending more iterations on this parameterisation will not resolve the sign-level mismatch.
+1. Open fit_exp1.png and visually confirm whether the model trajectory is decreasing while the data is increasing (or vice-versa) on both Bacnorm and IndconcNormRange channels, paying particular attention to the 1188–3565 time window where RMSE rises to 0.646 and 0.740. [RESIDUAL] Time correlations of −0.859 (Bacnorm) and −0.447 (IndconcNormRange) with lag-1 ≈ 1.0 indicate the model is smooth but moving in the opposite direction to the data. The time-region RMSEs (0.196→0.646→0.668 for Bacnorm; 0.151→0.740→0.445 for IndconcNormRange) show the mismatch worsens after t≈1188. A visual check is the fastest way to confirm the sign-level error before any parameter or equation change.
+2. Check whether the initial condition Bac = 0.0138 is consistent with the fitted Bacmax = 0.00418. Because Bac_init / Bacmax ≈ 3.3, the logistic factor (1 − Bac/Bacmax) is negative, so dBac/dt < 0 for all t. If the data shows Bac increasing, either the initial condition, the Bacmax bound, or the growth equation sign is inconsistent with the biology. [RESIDUAL, PARAMETERS] The parameter snapshot shows Bacmax = 0.00418 (range_fraction 0.26) while the initial condition is Bac = 0.0138. The model equation dBacdt = beta·Bac·(tanh-switch)·(1 − Bac/Bacmax) therefore yields a negative derivative, predicting decay. The negative time correlation (−0.859) and negative bias (−0.480) are consistent with the model going down while the data goes up. This is a model/initial-condition inconsistency, not an optimisation failure.
+3. Do not restart the gradient optimiser or increase the iteration budget until the trajectory-direction mismatch is resolved. A gradient-only restart on the current equations and bounds will refine parameters around a trajectory that is anti-correlated with the data and will not fix the sign error. [RESIDUAL, BUDGET] The loss moved only from 0.67379 to 0.67331 over 5 gradient iterations (budget exhausted), and the DE phase ran a single iteration. The dominant error is the −0.859 / −0.447 time correlation, which no amount of local parameter refinement within the current bounds will correct if the initial condition sits above Bacmax.
+4. Verify the tanh switch timing: tau = 0.164 with width 0.01 means the growth gate is essentially fully open by t ≈ 0.2, while the data spans 0–3565. If the experiment has a measurable lag or induction period, the switch location and width need to be revisited (this is a model-structure change requiring re-checking and re-fitting, not a parameter tweak). [RESIDUAL] The fixed parameter tau = 0.164 and the 0.01 width in tanh((t−tau)/0.01) place the transition at the very start of the 3565-unit time window. The early time region (0–1188) has the lowest RMSE (0.196, 0.151), but the later regions degrade sharply, which could reflect a missing or mistimed induction phase in the model.
+5. After correcting the trajectory-direction issue, re-run the fit and then request a sloppiness / Hessian analysis (currently skipped) to assess whether the five parameters (Bacmax, beta, ksyn, kdim, kdegi) are identifiable given the two observed channels. [LIMITATIONS, BUDGET] Sloppiness status is 'skipped' and no verified final-point gradient is available. With five parameters and only two observables, and kdegi already near its lower bound (range_fraction 0.025, value 1.79e-5), identifiability is a real concern that should be quantified before interpreting any fitted values.
+Limitation: No verified final-point gradient is available; the flat loss trace (0.67379 → 0.67331) does not establish convergence to a local minimum.
+Limitation: Sloppiness analysis was skipped, so parameter identifiability and the presence of flat or weak directions are unknown.
+Limitation: The DE phase used only 1 iteration with a population of 4; the global search was extremely limited, so the starting point for the gradient phase may be far from the best region.
+Limitation: The negative time correlations indicate a sign-level model-data mismatch, but without inspecting the plot or the raw data one cannot determine whether the error is in the initial condition, the growth equation, the switch timing, or the data normalisation.
+Limitation: kdegi (1.79e-5) sits at range_fraction 0.025, very close to its lower bound of 1e-5; this may reflect a boundary effect rather than a true estimate, but no Hessian or confidence interval is available to confirm this.

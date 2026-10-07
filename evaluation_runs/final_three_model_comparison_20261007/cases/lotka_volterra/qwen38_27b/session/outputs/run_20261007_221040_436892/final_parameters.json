@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "name": "alpha",
+      "value": 0.13399332306779846,
+      "logscale": true
+    },
+    {
+      "name": "beta",
+      "value": 0.011664637360622558,
+      "logscale": true
+    },
+    {
+      "name": "delta",
+      "value": 0.006010640440000981,
+      "logscale": true
+    },
+    {
+      "name": "gamma",
+      "value": 0.15248263122439132,
+      "logscale": true
+    }
+  ]
+}

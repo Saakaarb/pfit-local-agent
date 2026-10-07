@@ -1,0 +1,4 @@
+The user explicitly states: 'x1(0) = 2.0' and 'x2(0) = 0.1'. The frozen experiment record confirms initial_conditions {x1: 2.0, x2: 0.1}. Both integrated states are fully resolved.
+Van der Pol oscillator with single trainable parameter mu. Two states, no forcing, no intermediate rates.
+Both measured columns (x1, x2) directly correspond to integrated states. No derived observables, no uncertainty columns, no forcing columns.
+User explicitly defines loss as sqrt(mean of squared residuals normalized by max(abs(measured))) for both x1 and x2. Maps to max_abs_normalized_rmse on each column. No penalties requested.

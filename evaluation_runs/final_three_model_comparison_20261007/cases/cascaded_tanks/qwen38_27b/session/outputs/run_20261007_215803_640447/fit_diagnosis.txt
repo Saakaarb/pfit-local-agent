@@ -1,0 +1,64 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/cascaded_tanks/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/cascaded_tanks/qwen38_27b/session/outputs/run_20261007_215803_640447
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 5.3481E-01, best loss 5.3481E-01, final loss 5.3481E-01
+- NODE: 2 iterations, first loss 5.3439E-01, best loss 5.3432E-01, final loss 5.3432E-01
+
+Generation workflow:
+- events: 5 passed, 1 failed, 1 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: estimation.csv; loss=0.5343239686704104; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 2
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/cascaded_tanks/qwen38_27b/session/outputs/run_20261007_215803_640447/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- Estimated Hessian has substantial asymmetry before symmetrization.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.540791; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.540791; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, level_lower: RMSE=5.34324, bias=-4.85337, time correlation=0.2735312473339329, lag-1=0.9964451701032414.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/cascaded_tanks/qwen38_27b/session/outputs/run_20261007_215803_640447/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/cascaded_tanks/qwen38_27b/session/outputs/run_20261007_215803_640447/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The optimizer exhausted its 5-iteration Adam budget with a normalized gradient norm of 0.541 (far from stationarity), the loss moved only from 0.5348 to 0.5343, and the residual shows a large systematic under-prediction (bias −4.85) with poor time correlation (0.274). Two Hessian modes are negative, but at a non-stationary point this is expected and does not by itself indicate a gradient error. The dominant issue is insufficient optimization iterations combined with possible boundary pressure on k3 (range fraction 0.77) and k4 (range fraction 0.85).
+1. Run 'diagnose --probe-gradients' to verify finite-difference and autodiff agreement before spending further iterations. If a mismatch appears, compare at a tighter tolerance (e.g. 1e-8) and a smaller step size to discriminate a true gradient bug from finite-difference noise. [STATIONARITY, SLOPPINESS] The normalized gradient norm is 0.541 (STATIONARITY) and the Hessian has 2 negative modes (SLOPPINESS). At a non-stationary point negative modes are expected, but confirming gradient correctness is a prerequisite for any further optimization. Without a passing gradient check, additional iterations may chase an incorrect direction.
+2. If gradient checks pass, increase gradient_opt.num_iters from 5 to at least 50–100 and perform a gradient-only restart from the current parameter values (k1=0.0121, k2=0.0091, k3=1.178, k4=2.421). Keep the same model, bounds, and loss. [BUDGET, STATIONARITY] The optimizer terminated on iteration_budget after only 5 Adam steps (BUDGET), the loss changed by only 0.0005 (0.5348→0.5343), and the gradient norm is 0.541 (STATIONARITY). Five iterations is far too few for Adam to converge, especially with a learning-rate schedule that decays over 2000 transition steps. A gradient-only restart is appropriate because the model, bounds, and loss remain unchanged.
+3. Inspect the named plot 'fit_exp1.png' and the time-region residual breakdown (RMSE 6.78 / 3.48 / 5.26 across three equal time windows). Check whether the systematic negative bias (−4.85) is concentrated in the early window (t < 1364) or spread uniformly, and verify the pump_voltage forcing trace against the initial conditions x1=5.0, x2=5.205. [RESIDUAL] The overall bias is −4.85 with time correlation only 0.274 (RESIDUAL), yet lag-1 correlation is 0.996, indicating the model tracks local dynamics but is offset in level. The non-uniform time-region RMSEs (6.78 vs 3.48 vs 5.26) suggest the mismatch is not a simple constant offset. Visual inspection of the trajectory and forcing is needed before attributing the bias to parameter values versus model structure or initial-condition error.
+4. After a longer gradient run, re-examine whether k3 (range fraction 0.768) and k4 (range fraction 0.846) are still pressing toward the upper bound of 10.0. If they remain near the boundary and the residual bias persists, consider whether the log-scale bounds [0.001, 10] are physically justified for this cascaded-tank system. Widening bounds is a scientific/model decision, not a numerical fix. [PARAMETERS, RESIDUAL] k3 and k4 sit at 77 % and 85 % of their log-scale range (PARAMETERS) while the model under-predicts the lower-tank level by ~4.85 units (RESIDUAL). If the true drain/transfer coefficients exceed 10, the optimizer is constrained. However, this requires domain judgement about the physical system and cannot be resolved by the optimizer alone.
+5. After convergence (or a clear plateau), re-evaluate the Hessian. If the 2 negative modes persist at a stationary point (gradient norm < 0.01), the current point is a saddle or local maximum and the parameterization or model structure needs review. If the modes become positive, the earlier negatives were an artefact of the non-stationary point. [SLOPPINESS, STATIONARITY] SLOPPINESS reports 2 negative modes, but STATIONARITY shows the gradient norm is 0.541, so the point is not a critical point. Negative Hessian eigenvalues at a non-stationary point carry no definitive diagnostic meaning. Re-evaluation at a true stationary point is required to distinguish a genuine non-convexity from a transient of the optimization path.
+Limitation: The 2 negative Hessian modes cannot be interpreted as evidence of a non-convex loss or a saddle point because the optimizer has not reached stationarity (gradient norm 0.541).
+Limitation: The large negative bias (−4.85) and poor time correlation (0.274) could arise from insufficient optimization, inappropriate parameter bounds, incorrect initial conditions, model-structure mismatch (e.g., missing dynamics in the cascaded-tank equations), or data/forcing issues. The current evidence cannot distinguish among these causes.
+Limitation: No gradient-check (finite-difference vs autodiff) result is present in the snapshot; the reliability of the reported gradient is unverified.
+Limitation: The DE population phase ran only 1 iteration with population size 4, so the global search was minimal. The quality of the starting point for the gradient phase is therefore uncertain.
+Limitation: The loss is a single-experiment RMSE normalized by max|data|; no noise level, identifiability analysis, or multi-experiment validation is available to assess parameter uniqueness or overfitting.
+Limitation: The plot 'fit_exp1.png' is referenced by filename only; no visual inspection was performed.

@@ -1,0 +1,51 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_222257_296043
+Readiness warning: 1 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.
+Launching driver script
+ERROR:2026-10-07 22:23:00,279:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 197, in _version_check
+    version = get_version()
+              ^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:81: operation cusparseGetProperty(MAJOR_VERSION, &major) failed: The cuSPARSE library was not found.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 262, in _check_cuda_versions
+    _version_check("cuSPARSE", cuda_versions.cusparse_get_version,
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 201, in _version_check
+    raise RuntimeError(err_msg) from e
+RuntimeError: Unable to load cuSPARSE. Is it installed?
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 128, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_222257_296043
+Using 3 accuracy-validated seed points
+Accuracy warning: 1 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06], atol: [1.8498373287898295e-10, 7.618349822204889e-09, 1.8495557017505335e-10]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 1.5294E-01
+Time for iteration: 0.0113
+-------
+Final best position (scaled): [-0.36672104 -0.84165464 -0.9799773   0.65666441  0.62150822  0.66020511]
+Final best cost: 1.5294E-01
+Done with DE search
+Best Position from DE: [3.16639478e-01 7.91726818e-03 1.00113494e-03 2.82833220e+01
+ 1.38920620e+07 1.40014755e-07]
+Best cost from DE: 0.15294470614113212
+NODE effective tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [1.8498373287898295e-11, 7.618349822204889e-10, 1.8495557017505334e-11]
+Trainable_params: [-0.36672104 -0.84165464 -0.9799773   0.65666441  0.62150822  0.66020511]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.15294541138729623 0.15294541138729623
+Iteration:,loss value, best loss: 4 0.15280263813249936 0.15280263813249936
+Iteration time: 2.707179546356201
+Final best position: [3.16889439e-01 7.89228192e-03 9.76146073e-04 2.82858212e+01
+ 1.38934704e+07 1.40000568e-07]
+Final loss: 0.15276732295555062
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_222257_296043

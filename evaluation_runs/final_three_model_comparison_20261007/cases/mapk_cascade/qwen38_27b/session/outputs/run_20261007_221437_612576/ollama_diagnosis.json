@@ -1,0 +1,52 @@
+{
+  "verdict": "Run completed without numerical failures, but the gradient refinement stopped at its 5-iteration budget with a normalized gradient infinity norm of 1.957 (stationarity not established). Parameter h_4 sits at 0.91 % of its log10 search interval, and the single Mpp channel shows a large negative bias (\u22123.09) with a negative time correlation (\u22120.44) despite a high lag-1 correlation (0.992). Seven of eleven Hessian modes are negative, indicating a non-convex or poorly conditioned loss landscape at this point. The dominant issue is an under-iterated optimizer, not a numerical defect.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients on this run to confirm the autodiff gradient is consistent with finite differences before any further optimisation.",
+      "reason": "The normalized gradient infinity norm is 1.9573 and the optimizer terminated on its 5-iteration budget (BUDGET). A gradient check is the prerequisite for trusting a gradient-only restart; if finite differences are unstable at this scale, a discriminating step-size comparison is needed before interpreting the gradient magnitude."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "If the gradient check passes, perform a gradient-only restart from this run with gradient_opt.num_iters increased to at least 50\u2013100, keeping all equations, bounds, and the user-defined loss unchanged.",
+      "reason": "The loss improved from 0.27908 to 0.27834 over the 5 evaluated iterations (NODE_fitting.log tail), showing the optimizer was still making progress when it hit the budget. The gradient-to-loss ratio of 7.03 confirms the gradient is not negligible. A gradient-only restart is appropriate because the model structure and bounds have not been questioned yet."
+    },
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Review whether h_4 = 0.01087 (0.91 % of the [0.01, 100] log10 interval) is physically justified for the MAPK cascade dephosphorylation step. If the lower bound is too restrictive, revise it and run a full fit (DE + gradient); do not widen the bound automatically.",
+      "reason": "h_4 is the only parameter flagged as near-bound (BOUND, priority 2). A parameter pinned near its lower bound can distort the loss landscape and contribute to the 7 negative Hessian modes. However, changing a bound is a model-setting change that invalidates the current gradient and requires a full re-fit."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png to examine the Mpp trajectory against the data, paying attention to the middle third (t \u2248 33\u201367, RMSE = 4.33) where the error peaks. Check input timing, initial conditions (M = 500, MAPKK = 50, MKP3 = 100), and whether the negative time correlation (\u22120.44) reflects a phase shift or a genuine model-structure mismatch.",
+      "reason": "The bias of \u22123.09 and negative time correlation of \u22120.44 (RESIDUAL) indicate the model systematically underpredicts Mpp and is anti-correlated in time, even though lag-1 correlation is 0.992. This pattern can arise from non-convergence, a bound constraint, or a structural limitation. The plot must be inspected before attributing the residual to model mismatch; do not alter the user-defined loss to reduce its magnitude."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "BOUND"
+      ],
+      "action": "After the gradient-only restart converges (or is shown to be stuck), re-evaluate the Hessian. If 7 or more negative modes persist, assess whether the 16-parameter model is over-parameterised for a single Mpp channel and consider fixing or reducing parameters that are weakly identifiable, in consultation with the model's biological rationale.",
+      "reason": "Seven negative Hessian modes (SLOPPINESS) at a point where the gradient is still large (1.957) suggest the loss surface is far from a local minimum or is ill-conditioned. Combined with h_4 near its bound and k3 at 2.1 % of its range, multiple parameters may be poorly identified from a single observable. This is a scientific identifiability question, not a numerical bug, and requires domain judgement."
+    }
+  ],
+  "limitations": [
+    "A single Mpp channel provides limited information to identify 16 parameters; the 7 negative Hessian modes may reflect genuine over-parameterisation rather than a numerical defect, and this cannot be resolved without additional observables or prior information.",
+    "The negative time correlation (\u22120.44) and large bias (\u22123.09) could be consequences of the optimizer not converging (5 iterations only) rather than a structural model flaw; the residual interpretation is provisional until a converged solution is obtained.",
+    "The DE phase ran only 1 iteration with population size 4, so the initial point for gradient refinement may be far from a good basin; the quality of the starting point cannot be assessed from this run alone.",
+    "No noise level or measurement uncertainty was supplied, so the RMSE and bias values cannot be interpreted as statistical significance or goodness-of-fit in a formal sense.",
+    "The 7 negative Hessian modes were computed at a non-stationary point (gradient norm 1.957); their meaning at a true local minimum is unknown and may differ substantially."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

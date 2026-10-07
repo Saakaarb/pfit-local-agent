@@ -1,0 +1,67 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen38_27b/session/outputs/run_20261007_224949_217639
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.4359E-01, best loss 3.4359E-01, final loss 3.4359E-01
+- NODE: 2 iterations, first loss 3.4348E-01, best loss 3.4345E-01, final loss 3.4345E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: robertson_data.csv; loss=0.3434528285041241; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen38_27b/session/outputs/run_20261007_224949_217639/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- k1=0.00100231 is at 0.03% of its log10 search interval.
+- [BOUND] k1=0.00100231 is at 0.03% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.166545; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, y1: RMSE=0.155381, bias=0.0898773, time correlation=0.9245972748547722, lag-1=0.9833479120708323.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y2: RMSE=1.47894e-05, bias=-4.83664e-06, time correlation=0.294140321375973, lag-1=0.8128546111893444.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y3: RMSE=0.155383, bias=-0.0898726, time correlation=-0.9245856994780133, lag-1=0.9833512372907833.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen38_27b/session/outputs/run_20261007_224949_217639/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/test_session/qwen38_27b/session/outputs/run_20261007_224949_217639/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+k1 is pinned at its lower bound (0.001, at 0.025 % of the log10 interval) while the normalized gradient norm is 0.167 and the Hessian shows one negative mode; the optimizer exhausted a 5-iteration budget with only ~0.04 % loss reduction, so the run has not converged and the boundary constraint is the dominant issue.
+1. Assess whether k1 = 0.001 is a physically justified lower bound. If the true rate constant can be smaller, widen the bound and run a full fit (DE + gradient). If the bound is correct, treat k1 as effectively fixed and re-examine identifiability of k2 and k3 with only two free parameters. [BOUND] k1 = 0.00100231 sits at range_fraction 0.00025 (0.025 %) of the log10 interval [0.001, 10]. The optimizer is pushing k1 toward its minimum, so the loss surface in the feasible region is still descending. Any conclusion about k2, k3, or the residuals is conditional on this constraint being correct.
+2. Run diagnose --probe-gradients to verify the autodiff gradient against finite differences at the current point, paying special attention to the k1 direction (where the parameter is at the bound) and to the negative Hessian mode. [STATIONARITY, SLOPPINESS] The normalized gradient infinity norm is 0.1665 (not small) and the Hessian has one negative mode, which can arise from a saddle, a boundary effect, or a gradient error. Confirming gradient correctness before spending more iterations prevents chasing a spurious direction.
+3. If gradient checks pass and the k1 bound is confirmed appropriate, increase gradient_opt.num_iters from 5 to at least 50–100 and run a gradient-only restart from this run's parameters. [BUDGET, STATIONARITY] The optimizer terminated on 'iteration_budget' after exactly 5 Adam iterations, reducing loss only from 0.34359 to 0.34345 (≈0.04 %). With a gradient norm of 0.167 the iterate is far from stationary, so the budget is the binding constraint, not the loss landscape.
+4. Inspect the trajectory plot fit_exp1.png and the time-region residuals. In particular, check whether the growing y1/y3 RMSE (0.073 → 0.271 → 0.362 over the three time bins) reflects a genuine model-structure mismatch (e.g., missing reaction pathway) or is an artefact of k1 being clamped at its bound. [RESIDUAL] y1 and y3 show near-identical RMSE (0.1554) with opposite biases (+0.0899 / −0.0899) and opposite time correlations (+0.925 / −0.925), consistent with the conservation law y1+y2+y3=1. y2 is essentially zero (RMSE 1.48e-5). The systematic, time-growing bias in y1/y3 could be driven by the k1 bound rather than by model structure, so the bound question must be resolved before attributing the residual to model mismatch.
+5. After resolving the k1 bound question, recompute the Hessian / sloppiness. If a negative mode persists with k1 interior, investigate whether the quadratic terms (k2·y2², k3·y2·y3) create a non-convex loss region and consider reparameterising (e.g., log-scale is already used) or adding a regularisation term only if scientifically justified. [SLOPPINESS, BOUND] One negative Hessian mode at a boundary point may be a boundary artefact. If it persists in the interior, it signals a saddle or ill-conditioned direction that will cause Adam to oscillate, explaining the minimal loss change over 5 iterations.
+Limitation: The negative Hessian mode and the boundary-pinned k1 cannot be disentangled from this single snapshot; a full Hessian evaluation at an interior point is needed to determine whether the non-convexity is structural or a boundary artefact.
+Limitation: y2 has RMSE ≈ 1.5e-5 and time correlation 0.294, which is consistent with y2 being near zero throughout; the low correlation may be a numerical artefact of correlating a near-zero signal rather than a model failure.
+Limitation: With only 17 data points and 3 parameters (one at its bound), identifiability of k2 and k3 cannot be assessed from this run alone; the sloppiness analysis with one negative mode is inconclusive.
+Limitation: The DE phase ran only 1 iteration (population_size 4, num_iters 1), so the seed is a single random draw; the quality of the starting point for the gradient phase is not representative of a well-explored landscape.
+Limitation: No noise level or measurement uncertainty was supplied, so the residuals cannot be interpreted as statistical significance; the RMSE values are descriptive only.

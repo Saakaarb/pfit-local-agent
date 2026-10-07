@@ -1,0 +1,44 @@
+{
+  "verdict": "Numerically clean run that stopped at a 5-iteration Adam budget with a normalized gradient norm of 0.605, far from stationarity. The loss moved only 0.00077 (0.19009\u21920.18932). Residuals show systematic under-prediction (bias \u22120.926) and near-zero temporal correlation (0.042), but these are likely consequences of severe under-optimization rather than confirmed model mismatch. Parameters ka (0.196, range-fraction 0.146) and ke (0.464, range-fraction 0.833) sit near their respective bounds, which may reflect an unconverged iterate rather than a true boundary optimum.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Increase gradient_opt.num_iters from 5 to at least 500 (or 2000 for safety) and run a gradient-only restart from this run. Keep the same model, bounds, and loss unchanged.",
+      "reason": "The optimizer terminated on 'iteration_budget' after exactly 5 Adam steps (BUDGET), and the normalized gradient infinity norm is 0.605 (STATIONARITY), indicating the iterate is far from a stationary point. Sloppiness shows 0 weak and 0 negative modes, so the local Hessian is well-conditioned and a longer gradient run should be productive. The loss change of only 0.00077 across 5 steps is consistent with an optimizer that has barely begun to descend."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the plot fit_exp1.png to visually compare the model trajectory against the 11 C_plasma data points, paying attention to the shape (peak timing, decay rate) and the magnitude offset.",
+      "reason": "The computed time correlation is 0.042 and lag-1 correlation is 0.362 (RESIDUAL), meaning the model captures almost no temporal structure. The bias of \u22120.926 indicates systematic under-prediction. However, with only 5 gradient steps these residuals may simply reflect an unconverged parameter set (ka=0.196, ke=0.464, Vd=14.19). Visual inspection before further optimization helps distinguish a shape mismatch (model-structure issue) from a magnitude offset (parameter/bounds issue)."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "STATIONARITY"
+      ],
+      "action": "After the extended gradient run, re-evaluate the residuals and parameter positions. If ka remains near its lower bound (0.1) or ke near its upper bound (1.0) with a still-elevated gradient norm, investigate whether the bounds are too restrictive for theophylline pharmacokinetics or whether the 1-compartment oral model is structurally inadequate for this dataset.",
+      "reason": "ka at range-fraction 0.146 (value 0.196, min 0.1) and ke at range-fraction 0.833 (value 0.464, max 1.0) are close to their bounds (RESIDUAL context). If a converged solution still pins parameters at bounds, the true optimum may lie outside the current search space, or the model's single-compartment structure may not capture the observed multi-phase elimination. This is a scientific model question requiring domain judgement, not a numerical fix."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Verify that the initial condition A_gut = 320.0 is consistent with the dose units implied by dataset_1.csv (e.g., mg vs \u00b5g), and that the time axis in the data matches the model's time units. Check for any timing offsets or missing early-time points.",
+      "reason": "The bias of \u22120.926 (RESIDUAL) is a large systematic under-prediction. If the dose (A_gut=320) is in different units than the concentration data, or if the first data point occurs before the absorption peak, the model will systematically under-predict. This is a data/model-consistency check, not a loss modification."
+    }
+  ],
+  "limitations": [
+    "With only 5 gradient iterations the current parameter values and residuals cannot be used to judge model adequacy; the low time correlation (0.042) and negative bias (\u22120.926) may be entirely an artifact of under-optimization.",
+    "Sloppiness (0 weak, 0 negative modes) is evaluated at the current unconverged iterate and does not guarantee identifiability at the true optimum.",
+    "The evidence cannot distinguish whether the near-bound parameter positions (ka\u22480.196, ke\u22480.464) reflect a genuine boundary optimum, an unconverged iterate, or an inappropriately narrow search range.",
+    "No noise level or measurement-error model is specified in the snapshot; the loss uses a simple normalized MSE, so residual magnitudes cannot be interpreted as statistical significance without an assumed noise model.",
+    "The DE population phase ran only 1 iteration with population size 4; the global search component was minimal, so the starting point for the gradient phase may not be representative of the global landscape."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

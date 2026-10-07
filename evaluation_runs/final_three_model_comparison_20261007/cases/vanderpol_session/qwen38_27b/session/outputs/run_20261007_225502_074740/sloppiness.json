@@ -1,0 +1,54 @@
+{
+  "status": "ok",
+  "method": "finite-difference",
+  "fallback_reason": "TypeError: can't apply forward-mode autodiff (jvp) to a custom_vjp function.",
+  "parameter_names": [
+    "mu"
+  ],
+  "coordinates": [
+    "log10(mu)"
+  ],
+  "point": [
+    0.4130307206626913
+  ],
+  "normalized_point": [
+    0.3652122882650766
+  ],
+  "loss": 1.1619587891068428,
+  "gradient": [
+    -0.11696472132638625
+  ],
+  "normalized_gradient_inf_norm": 0.2924118033159656,
+  "hessian": [
+    [
+      54.4140903300612
+    ]
+  ],
+  "eigenvalues": [
+    54.4140903300612
+  ],
+  "relative_eigenvalues": [
+    1.0
+  ],
+  "eigenvectors": [
+    [
+      1.0
+    ]
+  ],
+  "relative_floor": 1e-06,
+  "positive_spectrum_decades": 0.0,
+  "weak_modes": 0,
+  "negative_modes": 0,
+  "parameters_at_bounds": [],
+  "verdict": "no weak curvature directions at the specified relative floor",
+  "warnings": [
+    "The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.",
+    "Local curvature only: not proof of structural/global identifiability or convergence."
+  ],
+  "stationary_at_tolerance": false,
+  "finite_difference_relative_change": 0.00012183355669874327,
+  "finite_difference_stencils": [
+    "central"
+  ],
+  "hessian_relative_asymmetry": 0.0
+}

@@ -1,0 +1,290 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/boehm_stat5/qwen38_27b/session/outputs/run_20261007_215105_076092",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/boehm_stat5/qwen38_27b/session/outputs/run_20261007_215105_076092/snapshot",
+  "findings": [
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 0.155051; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "WEAK_MODES",
+      "priority": 4,
+      "evidence": "Saved curvature has 1 weak parameter combinations.",
+      "next_step": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, pSTAT5B: RMSE=6.56028, bias=-2.67515, time correlation=-0.148439676603892, lag-1=0.19920204672315503.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 3.879008783095849,
+          "mae": 2.9443249662802393,
+          "bias": 0.35101457940967984,
+          "max_abs": 8.878377106008344,
+          "time_correlation": 0.27887060598607716,
+          "lag1_correlation": -0.10334088523363974,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 80.0,
+              "count": 10,
+              "rmse": 4.42128310841137
+            },
+            {
+              "start": 80.0,
+              "end": 160.0,
+              "count": 3,
+              "rmse": 1.4518380817810184
+            },
+            {
+              "start": 160.0,
+              "end": 240.0,
+              "count": 3,
+              "rmse": 3.603072833706896
+            }
+          ],
+          "name": "pSTAT5A",
+          "observes": "pSTAT5A"
+        },
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 6.560283385285072,
+          "mae": 5.19624985671684,
+          "bias": -2.6751509269084055,
+          "max_abs": 15.595111444709573,
+          "time_correlation": -0.148439676603892,
+          "lag1_correlation": 0.19920204672315503,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 80.0,
+              "count": 10,
+              "rmse": 7.637297732785512
+            },
+            {
+              "start": 80.0,
+              "end": 160.0,
+              "count": 3,
+              "rmse": 4.0618590713236005
+            },
+            {
+              "start": 160.0,
+              "end": 240.0,
+              "count": 3,
+              "rmse": 4.313460543692247
+            }
+          ],
+          "name": "pSTAT5B",
+          "observes": "pSTAT5B"
+        },
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 3.1443445494278977,
+          "mae": 2.336855979057219,
+          "bias": -0.5559114228434866,
+          "max_abs": 7.4604036391432444,
+          "time_correlation": -0.07858218414933733,
+          "lag1_correlation": 0.2087625146220719,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 80.0,
+              "count": 10,
+              "rmse": 3.8941605814568554
+            },
+            {
+              "start": 80.0,
+              "end": 160.0,
+              "count": 3,
+              "rmse": 0.8029389666967596
+            },
+            {
+              "start": 160.0,
+              "end": 240.0,
+              "count": 3,
+              "rmse": 1.2398175986580664
+            }
+          ],
+          "name": "rSTAT5A",
+          "observes": "rSTAT5A"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k_deg",
+      "value": 0.026938000035539842,
+      "range_fraction": 0.4997503962486141,
+      "logscale": true
+    },
+    {
+      "name": "k_exp_hetero",
+      "value": 9.977019064267664e-06,
+      "range_fraction": 0.49975020051920716,
+      "logscale": true
+    },
+    {
+      "name": "k_exp_homo",
+      "value": 0.00618418901674292,
+      "range_fraction": 0.5002493977701106,
+      "logscale": true
+    },
+    {
+      "name": "k_imp_hetero",
+      "value": 0.0163623427787455,
+      "range_fraction": 0.4997504096287135,
+      "logscale": true
+    },
+    {
+      "name": "k_imp_homo",
+      "value": 97908.91231922936,
+      "range_fraction": 0.500231915562701,
+      "logscale": true
+    },
+    {
+      "name": "k_phos",
+      "value": 15836.371585528319,
+      "range_fraction": 0.5002496491389634,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.06360929836327442,
+    "final_loss": 0.06342307297568067,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.06342307297568066
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/boehm_stat5/qwen38_27b/session/outputs/run_20261007_215105_076092/de_fitting.log",
+      "rows": 1,
+      "first": 0.063609,
+      "final": 0.063609,
+      "best": 0.063609,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.063609
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/boehm_stat5/qwen38_27b/session/outputs/run_20261007_215105_076092/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.063459,
+      "final": 0.063423,
+      "best": 0.063423,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.063459
+        ],
+        [
+          5,
+          0.063423
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.06342307297568066,
+  "experiment_losses": [
+    0.06342307297568066
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 1,
+    "negative_modes": 0
+  },
+  "normalized_gradient_inf_norm": 0.155051167465687,
+  "gradient_to_loss_ratio": 2.4447123135320297,
+  "verdict": "Normalized gradient infinity norm is 0.155051; stationarity is not established."
+}

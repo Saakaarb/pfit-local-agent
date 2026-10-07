@@ -1,0 +1,68 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_220209_746556
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.5741E-01, best loss 1.5741E-01, final loss 1.5741E-01
+- NODE: 2 iterations, first loss 1.5692E-01, best loss 1.5680E-01, final loss 1.5680E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 2
+Aggregation: equal_experiment_mean
+- Experiment 1: decay_run_A.csv; loss=0.15702409673095488; output=result_solution_exp1.csv
+- Experiment 2: decay_run_B.csv; loss=0.15657567837225572; output=result_solution_exp2.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- no weak curvature directions at the specified relative floor
+- weak modes: 0; negative modes: 0
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_220209_746556/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 1.13397; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 1.13397; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, A: RMSE=0.0431528, bias=-0.0242245, time correlation=0.7201207024326541, lag-1=0.7788631357673109.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, B: RMSE=0.128987, bias=0.12537, time correlation=0.29432540479619823, lag-1=0.7273219251273944.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, A: RMSE=0.0863056, bias=-0.0484489, time correlation=0.7201208850155326, lag-1=0.77886379476989.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, B: RMSE=0.326451, bias=0.316525, time correlation=0.30485821829413373, lag-1=0.8307587839012721.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_220209_746556/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_220209_746556/fit_exp2.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_220209_746556/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The two-compartment series-decay fit (k1=1.354, k2=0.187) is not stationary: the normalized gradient infinity norm is 1.134 and the Adam optimizer exhausted its 5-iteration budget while still reducing loss (0.15692→0.1568). Channel A is reasonably captured (RMSE 0.04–0.09, time correlation ≈0.72), but channel B is poorly fit in both experiments (RMSE 0.13–0.33, positive bias up to +0.32, time correlation ≈0.30). Sloppiness shows no weak or negative modes, so local identifiability is not the issue. The dominant actionable problem is the unmet iteration budget; the B-channel mismatch may reflect residual optimisation error or a structural model limitation that can only be assessed after convergence.
+1. Run `diagnose --probe-gradients` on this run to confirm the autodiff gradient is finite and consistent before spending additional iterations. [STATIONARITY, BUDGET] The normalized gradient infinity norm is 1.134 (STATIONARITY) and the optimizer terminated on iteration_budget after 5/5 Adam steps (BUDGET). Verifying gradient correctness first prevents wasting a longer run on a faulty gradient signal.
+2. If gradient checks pass, increase gradient_opt.num_iters to at least 50–100 and perform a gradient-only restart from this run (same model, same bounds, same initial parameters k1=1.354, k2=0.187). [STATIONARITY, BUDGET, OPTIMIZER_TRACES] The NODE trace shows loss still decreasing at the final iteration (0.15692 at iter 4 → 0.1568 at iter 5), and the gradient-to-loss ratio of 7.23 indicates the optimizer was still making meaningful progress when the budget of 5 was exhausted. A gradient-only restart is appropriate because the model, bounds, and parameterisation remain valid.
+3. Inspect the trajectory plots fit_exp1.png and fit_exp2.png, paying particular attention to channel B in both experiments, and compare the fitted B trajectory against the measured B data in the early (0–3.33) and mid (3.33–6.67) time regions. [RESIDUAL] Channel B shows a large positive bias (+0.125 in Exp 1, +0.317 in Exp 2) and low time correlation (0.29–0.30) across all three time regions, while channel A fits well (RMSE 0.04–0.09, time correlation 0.72). This pattern—systematic overprediction of B with poor temporal tracking—could be residual optimisation error or a structural mismatch, but visual inspection is needed to distinguish the two before any model change is considered.
+4. After the extended gradient run converges (or the gradient norm drops below ~0.01), re-examine the B-channel residuals. If the bias and low time correlation persist, consult the domain context to determine whether the two-compartment series model (A→B→out) is structurally adequate for the observed B dynamics, or whether additional compartments, a different kinetic form, or additional data are required. [RESIDUAL, SLOPPINESS] SLOPPINESS reports 0 weak and 0 negative modes, so the current two-parameter model is locally identifiable; the B-channel mismatch (RMSE up to 0.326, bias +0.317) is therefore more likely a structural limitation than an identifiability problem. However, this conclusion requires convergence first and domain judgement—no new data or noise levels are available in this run to confirm it.
+Limitation: The evidence cannot distinguish whether the B-channel mismatch (bias up to +0.317, time correlation ≈0.30) is due to the optimizer not yet converging or to a structural inadequacy of the two-compartment model; convergence must be established first.
+Limitation: No noise levels, measurement uncertainties, or replicate data are available in this run, so statistical significance of the residual bias cannot be assessed.
+Limitation: The DE seeding phase ran only 1 iteration (population_size=4), so the initial point is essentially a single random draw; a different seed could in principle land in a different basin, though sloppiness (0 weak modes) suggests the local landscape is well-behaved.
+Limitation: The plots fit_exp1.png and fit_exp2.png are referenced by filename only; no visual inspection was performed. The residual statistics are computed numerically and do not capture shape or phase errors that a visual check might reveal.
+Limitation: The model uses a single k1 for A→B transfer and a single k2 for B→out; if the true system has parallel pathways, time-dependent rates, or a third compartment, the current parameterisation cannot represent it regardless of optimisation quality.

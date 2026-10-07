@@ -1,0 +1,54 @@
+{
+  "verdict": "The optimizer exhausted its 5-iteration Adam budget with a normalized gradient norm of 0.541 (far from stationarity), the loss moved only from 0.5348 to 0.5343, and the residual shows a large systematic under-prediction (bias \u22124.85) with poor time correlation (0.274). Two Hessian modes are negative, but at a non-stationary point this is expected and does not by itself indicate a gradient error. The dominant issue is insufficient optimization iterations combined with possible boundary pressure on k3 (range fraction 0.77) and k4 (range fraction 0.85).",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "SLOPPINESS"
+      ],
+      "action": "Run 'diagnose --probe-gradients' to verify finite-difference and autodiff agreement before spending further iterations. If a mismatch appears, compare at a tighter tolerance (e.g. 1e-8) and a smaller step size to discriminate a true gradient bug from finite-difference noise.",
+      "reason": "The normalized gradient norm is 0.541 (STATIONARITY) and the Hessian has 2 negative modes (SLOPPINESS). At a non-stationary point negative modes are expected, but confirming gradient correctness is a prerequisite for any further optimization. Without a passing gradient check, additional iterations may chase an incorrect direction."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY"
+      ],
+      "action": "If gradient checks pass, increase gradient_opt.num_iters from 5 to at least 50\u2013100 and perform a gradient-only restart from the current parameter values (k1=0.0121, k2=0.0091, k3=1.178, k4=2.421). Keep the same model, bounds, and loss.",
+      "reason": "The optimizer terminated on iteration_budget after only 5 Adam steps (BUDGET), the loss changed by only 0.0005 (0.5348\u21920.5343), and the gradient norm is 0.541 (STATIONARITY). Five iterations is far too few for Adam to converge, especially with a learning-rate schedule that decays over 2000 transition steps. A gradient-only restart is appropriate because the model, bounds, and loss remain unchanged."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the named plot 'fit_exp1.png' and the time-region residual breakdown (RMSE 6.78 / 3.48 / 5.26 across three equal time windows). Check whether the systematic negative bias (\u22124.85) is concentrated in the early window (t < 1364) or spread uniformly, and verify the pump_voltage forcing trace against the initial conditions x1=5.0, x2=5.205.",
+      "reason": "The overall bias is \u22124.85 with time correlation only 0.274 (RESIDUAL), yet lag-1 correlation is 0.996, indicating the model tracks local dynamics but is offset in level. The non-uniform time-region RMSEs (6.78 vs 3.48 vs 5.26) suggest the mismatch is not a simple constant offset. Visual inspection of the trajectory and forcing is needed before attributing the bias to parameter values versus model structure or initial-condition error."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "RESIDUAL"
+      ],
+      "action": "After a longer gradient run, re-examine whether k3 (range fraction 0.768) and k4 (range fraction 0.846) are still pressing toward the upper bound of 10.0. If they remain near the boundary and the residual bias persists, consider whether the log-scale bounds [0.001, 10] are physically justified for this cascaded-tank system. Widening bounds is a scientific/model decision, not a numerical fix.",
+      "reason": "k3 and k4 sit at 77 % and 85 % of their log-scale range (PARAMETERS) while the model under-predicts the lower-tank level by ~4.85 units (RESIDUAL). If the true drain/transfer coefficients exceed 10, the optimizer is constrained. However, this requires domain judgement about the physical system and cannot be resolved by the optimizer alone."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "STATIONARITY"
+      ],
+      "action": "After convergence (or a clear plateau), re-evaluate the Hessian. If the 2 negative modes persist at a stationary point (gradient norm < 0.01), the current point is a saddle or local maximum and the parameterization or model structure needs review. If the modes become positive, the earlier negatives were an artefact of the non-stationary point.",
+      "reason": "SLOPPINESS reports 2 negative modes, but STATIONARITY shows the gradient norm is 0.541, so the point is not a critical point. Negative Hessian eigenvalues at a non-stationary point carry no definitive diagnostic meaning. Re-evaluation at a true stationary point is required to distinguish a genuine non-convexity from a transient of the optimization path."
+    }
+  ],
+  "limitations": [
+    "The 2 negative Hessian modes cannot be interpreted as evidence of a non-convex loss or a saddle point because the optimizer has not reached stationarity (gradient norm 0.541).",
+    "The large negative bias (\u22124.85) and poor time correlation (0.274) could arise from insufficient optimization, inappropriate parameter bounds, incorrect initial conditions, model-structure mismatch (e.g., missing dynamics in the cascaded-tank equations), or data/forcing issues. The current evidence cannot distinguish among these causes.",
+    "No gradient-check (finite-difference vs autodiff) result is present in the snapshot; the reliability of the reported gradient is unverified.",
+    "The DE population phase ran only 1 iteration with population size 4, so the global search was minimal. The quality of the starting point for the gradient phase is therefore uncertain.",
+    "The loss is a single-experiment RMSE normalized by max|data|; no noise level, identifiability analysis, or multi-experiment validation is available to assess parameter uniqueness or overfitting.",
+    "The plot 'fit_exp1.png' is referenced by filename only; no visual inspection was performed."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

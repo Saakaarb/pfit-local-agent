@@ -1,0 +1,20 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Dataset has very few rows; fitted parameters may be weakly constrained.
+- Population search budget is extremely small: population_size=4 with 10 trainable parameters and num_iters=1 (one DE generation). Differential evolution with 4 individuals in 10 dimensions provides almost no exploration; the gradient phase (num_iters=5) will start from a near-random point and have very few steps to converge.
+- Each experiment contains only 2 data points (t=0 and t=2), giving 8×2×3 = 48 total residuals for 10 free parameters. Parameters will be weakly constrained and the loss landscape may be nearly flat in many directions.
+- alpha_cer is bounded to [-0.999, -0.001] (strictly negative) with logscale=False. The ODE term (1 + H * alpha_cer) can approach 0 when H=1 and alpha_cer≈-1, making dSphingadt ≈ k00·ε. This is numerically fine but means the Sphinga production rate is highly sensitive to alpha_cer near -1, which may create a sharp loss feature that the small search budget is unlikely to resolve.
+
+Recommendations:
+- Large trainable parameter count detected; consider increasing population search budget.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Increase population_size to at least 2× the number of parameters (≥20) and num_iters to ≥20 to give DE a meaningful chance of locating a good basin before the 5-step gradient polish. With 10 parameters and 48 data points, a larger search is the main lever for finding a non-trivial fit.
+- The loss is a per-column max-absolute-value-normalized RMSE (sqrt of mean squared normalized residual, averaged over 3 columns). This is well-scaled and appropriate given that no column triggers the automatic log-loss rule (all within-column log10 ranges < 1). No change needed.
+- The ODE system uses dHdt=0, so H is a constant switch (1.0 for wt, 0.0 for mutant). All 10 rate/alpha parameters are shared across both regimes. Verify that the intended biology allows a single parameter set to explain both wt and mutant trajectories; if not, consider splitting parameters per regime or adding a mutant-specific multiplier.
+- Writeout shape is [n_time, 12] with columns: time, 3 measured, 5 integrated states, 3 observables. This is consistent with the model and dataset. No action needed.
+
+Semantic review:
+No critical errors: the ODE, observables, loss, and writeout are all JAX-translatable with static shapes and standard numpy operations. The loss is a valid normalized RMSE consistent with the (absent) user loss specification and the automatic log-loss rule (not triggered). The primary risk is the extremely small search budget (4 individuals, 1 generation, 5 gradient steps) combined with only 48 data points for 10 parameters, which will likely yield a poorly constrained fit. Recommend increasing population and iteration counts before running.

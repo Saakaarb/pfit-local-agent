@@ -1,0 +1,56 @@
+{
+  "verdict": "The optimizer exhausted its 5-iteration budget with all 14 parameters still at the log-scale midpoint (range_fraction \u2248 0.500), the loss moved only 0.05% (0.084382 \u2192 0.084337), and the normalized gradient norm of 0.0175 indicates stationarity is far from established. Six negative Hessian modes at this near-initial point suggest a saddle or ill-conditioned landscape, but the primary issue is insufficient optimization, not model failure. Residuals (RMSE 0.036\u20130.132, all negative bias) reflect an essentially un-fitted parameter set and cannot yet be attributed to model mismatch.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run `diagnose --probe-gradients` to verify that the autodiff gradient is finite and consistent before spending more iterations. Confirm no NaN/Inf in any of the 14 parameter gradients and that the finite-difference check passes at the current point.",
+      "reason": "The normalized gradient infinity norm is 0.0175443 (STATIONARITY) and the run terminated at the 5-iteration budget (BUDGET). With 6 negative Hessian modes (SLOPPINESS) and a complex ratio structure in the ODE (e.g. k_1*l2/(k1*l_2)), a gradient error would silently misdirect Adam. Verifying gradient correctness is the cheapest discriminating test before committing to a longer run."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "If gradient checks pass, increase gradient_opt.num_iters from 5 to at least 50\u2013100 and perform a gradient-only restart from this run (same model, same bounds, same initial parameters). Monitor the loss trace for material improvement beyond the current 0.084337.",
+      "reason": "The NODE trace (OPTIMIZER_TRACES) shows only 5 iterations with loss moving from 0.084346 to 0.084337 (\u0394 \u2248 9e-6). All 14 parameters sit at range_fraction 0.4997\u20130.5003 (PARAMETERS), meaning the optimizer has not displaced them from the log-scale midpoint. The termination reason is 'iteration_budget' (BUDGET), not convergence. Five Adam steps is insufficient to traverse a 14-dimensional landscape, especially one with 6 negative-curvature directions."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "SLOPPINESS"
+      ],
+      "action": "Inspect the trajectory plots fit_exp1.png through fit_exp9.png, paying particular attention to (a) the consistently elevated early-time-region RMSE (e.g. exp3: 0.221 in t\u2208[0,0.327] vs 0.027 in t\u2208[0.653,0.98]) and (b) the near-zero time correlation in exp7 (0.058) despite a lag-1 correlation of 0.748. Check whether the initial conditions (IP3, Ca) and the first few time steps are driving the bias.",
+      "reason": "Every experiment shows a negative bias (model underpredicts open_probability), and the first time region has the highest RMSE in 8 of 9 experiments (RESIDUAL). Exp7's time correlation of 0.058 with lag-1 of 0.748 suggests the model tracks local step-to-step changes but misses the overall temporal trend, possibly due to initial-condition sensitivity or a structural gap in the ODE. With 6 negative Hessian modes (SLOPPINESS), the current parameter point may be a saddle, making residual interpretation premature until the optimizer has moved."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "PARAMETERS"
+      ],
+      "action": "After a longer gradient run, re-evaluate the Hessian. If 6 or more negative modes persist at a point where the gradient norm is < 1e-4, investigate whether the ODE's ratio structure (e.g. k_1*l2/(k1*l_2), k_2*l4/(k2*l_4), k_4*l6/(k4*l_6)) creates near-redundant parameter pairs. Consult the model author to confirm whether the underscore and non-underscore parameters are intended as independent or as a single rate constant written in two notations.",
+      "reason": "All 14 parameters are at the log-scale midpoint (range_fraction \u2248 0.500, PARAMETERS) and the Hessian has 6 negative modes (SLOPPINESS). The ODE contains terms like (k_1*l2)/(k1*l_2) which equal 1 when the paired parameters are equal, creating flat or saddle directions. If the pairs are truly redundant, the effective dimensionality is 7, not 14, and the optimizer is searching a degenerate manifold. This is a model-structure question requiring domain judgement, not a numerical fix."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "EXPERIMENTS"
+      ],
+      "action": "Compare the per-experiment RMSE against the initial-condition sweep: exp1\u2013exp6 vary Ca at fixed IP3=10, exp7\u2013exp8 vary IP3 at fixed Ca=0.4, and exp9 repeats IP3=10, Ca=0.4. Note that exp9 (RMSE 0.129) is far worse than exp3 (RMSE 0.132) despite identical initial conditions, suggesting the datasets themselves differ in temporal structure. Verify that dataset_3.csv and dataset_9.csv are not duplicates or near-duplicates and that the time grids are consistent.",
+      "reason": "Experiments 3 and 9 share the same initial conditions (IP3=10, Ca=0.4) yet have different RMSE (0.132 vs 0.129) and different time-correlation profiles (0.641 vs 0.636), implying the underlying data or time grids differ (EXPERIMENTS). The 15 data points per experiment are sparse relative to 14 parameters, so data quality and temporal coverage directly limit identifiability. Confirming data integrity before further optimization avoids chasing noise."
+    }
+  ],
+  "limitations": [
+    "The 6 negative Hessian modes cannot be attributed to a saddle point, structural non-identifiability, or numerical Hessian error without a longer optimization run and a parameter-perturbation identifiability test.",
+    "With 15 data points per experiment and 14 parameters, the problem is underdetermined in the classical sense; the evidence cannot establish whether the current residuals reflect model mismatch, insufficient optimization, or data noise.",
+    "The ODE's ratio structure (e.g. k_1*l2/(k1*l_2)) may render parameter pairs redundant, but confirming this requires the model author's intent and is not resolvable from the run snapshot alone.",
+    "The near-zero time correlation in exp7 (0.058) could stem from initial-condition transients, a missing dynamical mode, or a data artifact; the evidence cannot distinguish these causes.",
+    "No noise level or measurement uncertainty is specified in the snapshot, so the RMSE values cannot be interpreted as statistically significant misfit.",
+    "The DE phase ran only 1 iteration with population size 4; the global landscape is essentially unexplored, and the current point may be far from any meaningful basin."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": "Refinement exhausted its 5-iteration budget with only ~0.001 loss reduction (0.52155\u21920.52051) and no verified final-point gradient. The most serious scientific concern is the negative time correlation for pS6_tot in both experiments (\u22120.77 and \u22120.54), indicating the model's pS6 trajectory moves opposite to the data. Several parameters sit near their lower bounds (scaling_pS6_tot at range_fraction 0.046, reaction_5_k1 at 0.023, reaction_4_k1 at 0.030), suggesting the optimizer is pressing against constraints. This is a model-mismatch and identifiability problem, not a simple convergence shortfall.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png and fit_exp2.png, focusing on the pS6_tot channel. The time correlation is \u22120.775 (Exp 1) and \u22120.538 (Exp 2), meaning the fitted pS6 trajectory is anti-correlated with the data. Determine whether the model produces the wrong sign of change, wrong timing, or wrong magnitude for pS6 before spending further iterations.",
+      "reason": "A negative time correlation is qualitatively different from a large positive residual: it indicates the model's pS6 dynamics are directionally wrong. No amount of additional gradient iterations will fix a structural mismatch. The RMSE of 0.523 (Exp 1) and 0.410 (Exp 2) with max_abs residuals of 1.000 and 0.752 confirm large pointwise errors concentrated in the 1200\u20133600 s window."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "LIMITATIONS"
+      ],
+      "action": "Run diagnose --probe-gradients to obtain a verified final-point gradient before deciding whether a gradient-only restart is worthwhile. The optimizer log shows only 0.52071\u21920.52051 over 5 Adam iterations, and the limitations explicitly state no verified gradient is available.",
+      "reason": "The flat optimizer trace (last_material_improvement at iteration 5 of 5) and the absence of a verified gradient mean we cannot distinguish a true local minimum from a stalled or ill-conditioned optimizer. A restart without gradient evidence risks repeating the same stagnation."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "RESIDUAL"
+      ],
+      "action": "Review whether the lower bound of 1e-8 is too restrictive for scaling_pS6_tot (current value 5.46e-08, range_fraction 0.046), reaction_5_k1 (2.32e-08, range_fraction 0.023), and reaction_4_k1 (3.00e-08, range_fraction 0.030). If the pS6 pathway requires even smaller rate constants or scaling, the current bounds may be preventing the optimizer from reaching a physically meaningful solution. Any bound change requires a full refit (DE + gradient), not a gradient-only restart.",
+      "reason": "Three parameters are within the bottom 5 % of their log-scale range while the pS6 channel shows the worst fit (negative correlation, RMSE > 0.4). The optimizer may be pushing these parameters toward the boundary because the true values lie below 1e-8, or because the model structure forces a compensatory small value. Either way, the bound is a suspect."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "Check the initial conditions and input timing (L=1.0 for Exp 1, L=10.0 for Exp 2) against the data. The pAkt_tot channel shows a large negative bias (\u22120.294 Exp 1, \u22120.322 Exp 2) with only moderate time correlation (~0.48\u20130.50), and the early time window (0\u20131200 s) carries most of the RMSE (0.443 and 0.557 respectively). Verify that the EGF stimulus onset, Akt initial concentration (0.0269), and S6 initial concentration (188.06) are consistent with the experimental protocol.",
+      "reason": "The bias-dominated residuals in pAkt_tot (bias \u2248 \u2212MAE, indicating systematic under-prediction) and the concentration of RMSE in the 0\u20131200 s window suggest the model's early-phase kinetics are off. With only 8 data points per channel, a single mis-timed stimulus or incorrect initial condition can dominate the loss and mislead the optimizer."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "PARAMETERS"
+      ],
+      "action": "Run a sloppiness / Hessian analysis (currently skipped) to identify weak or unidentifiable parameter directions. With 16 trainable parameters and only 16 data points total (8 per experiment \u00d7 2 experiments), the problem is at best weakly determined. Several parameters (reaction_2_k1, reaction_2_k2, reaction_6_k1) sit at range_fractions 0.76\u20130.88, suggesting the optimizer may be trading off along a flat valley rather than converging to a unique point.",
+      "reason": "Sloppiness was skipped, so no weak-mode or negative-mode information is available. The near-boundary parameters and the minimal loss improvement (0.001 over the full run) are consistent with a flat loss landscape where many parameter combinations give similar loss. Without identifiability information, further gradient iterations may not improve the fit."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer log (0.52071\u21920.52051 over 5 iterations) does not establish convergence or rule out a stalled optimizer.",
+    "Sloppiness analysis was skipped, so parameter identifiability, weak modes, and the curvature of the loss landscape are unknown.",
+    "Only 8 data points per channel per experiment are available; the residuals and correlations are sensitive to individual point placement and cannot distinguish model-structure error from sparse-sampling artefact.",
+    "The negative pS6 time correlation could arise from model-structure mismatch, incorrect initial conditions, out-of-bounds true parameter values, or a combination; the evidence does not isolate a single cause.",
+    "The DE phase (population_size=4, num_iters=1) provided no improvement (0.52155\u21920.52155), so the starting point for gradient refinement may be far from the global minimum; the evidence cannot establish whether the current basin is the best available.",
+    "No noise levels, measurement error bars, or replicate data are supplied, so the residuals cannot be interpreted as statistical significance or goodness-of-fit in a formal sense."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

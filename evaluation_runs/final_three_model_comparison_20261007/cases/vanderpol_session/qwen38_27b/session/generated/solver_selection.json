@@ -1,0 +1,49 @@
+{
+  "method": "dataset_time_scales",
+  "integrator": "Tsit5",
+  "reason": "Resolved observed time scales have less than 100-fold separation",
+  "time_scale_ratio": 24.20004224171631,
+  "ratio_threshold": 100.0,
+  "columns": [
+    {
+      "experiment": 1,
+      "column": "x1",
+      "finite_points": 596,
+      "status": "resolved",
+      "amplitude": 4.017549496101426,
+      "fast_time_scale": 2.4743949554783082,
+      "slow_time_scale": 59.88046244526481
+    },
+    {
+      "experiment": 1,
+      "column": "x2",
+      "finite_points": 596,
+      "status": "resolved",
+      "amplitude": 1.5087587374336913,
+      "fast_time_scale": 7.591420765674115,
+      "slow_time_scale": 11.186398603754514
+    }
+  ],
+  "scope": "Observed dynamics only; hidden modes and other parameter values may be stiff",
+  "max_steps_estimate": {
+    "selected_max_steps": 2000,
+    "configured_max_steps": 10000,
+    "cap": 50000,
+    "steps_per_time_scale": 10,
+    "headroom_factor": 3,
+    "rounding_multiple": 1000,
+    "minimum_steps": 1000,
+    "experiments": [
+      {
+        "experiment": 1,
+        "duration": 100.0,
+        "fastest_time_scale": 2.4743949554783082,
+        "raw_estimated_steps": 1212.4176026781831,
+        "proposed_max_steps": 2000,
+        "capped": false,
+        "method": "time_scale_estimate"
+      }
+    ],
+    "scope": "Initial budget estimate only; sampled integration and accuracy checks remain required"
+  }
+}

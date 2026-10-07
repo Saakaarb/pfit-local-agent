@@ -1,0 +1,52 @@
+{
+  "verdict": "k1 is pinned at its lower bound (0.001, at 0.025 % of the log10 interval) while the normalized gradient norm is 0.167 and the Hessian shows one negative mode; the optimizer exhausted a 5-iteration budget with only ~0.04 % loss reduction, so the run has not converged and the boundary constraint is the dominant issue.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Assess whether k1 = 0.001 is a physically justified lower bound. If the true rate constant can be smaller, widen the bound and run a full fit (DE + gradient). If the bound is correct, treat k1 as effectively fixed and re-examine identifiability of k2 and k3 with only two free parameters.",
+      "reason": "k1 = 0.00100231 sits at range_fraction 0.00025 (0.025 %) of the log10 interval [0.001, 10]. The optimizer is pushing k1 toward its minimum, so the loss surface in the feasible region is still descending. Any conclusion about k2, k3, or the residuals is conditional on this constraint being correct."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "SLOPPINESS"
+      ],
+      "action": "Run diagnose --probe-gradients to verify the autodiff gradient against finite differences at the current point, paying special attention to the k1 direction (where the parameter is at the bound) and to the negative Hessian mode.",
+      "reason": "The normalized gradient infinity norm is 0.1665 (not small) and the Hessian has one negative mode, which can arise from a saddle, a boundary effect, or a gradient error. Confirming gradient correctness before spending more iterations prevents chasing a spurious direction."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY"
+      ],
+      "action": "If gradient checks pass and the k1 bound is confirmed appropriate, increase gradient_opt.num_iters from 5 to at least 50\u2013100 and run a gradient-only restart from this run's parameters.",
+      "reason": "The optimizer terminated on 'iteration_budget' after exactly 5 Adam iterations, reducing loss only from 0.34359 to 0.34345 (\u22480.04 %). With a gradient norm of 0.167 the iterate is far from stationary, so the budget is the binding constraint, not the loss landscape."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residuals. In particular, check whether the growing y1/y3 RMSE (0.073 \u2192 0.271 \u2192 0.362 over the three time bins) reflects a genuine model-structure mismatch (e.g., missing reaction pathway) or is an artefact of k1 being clamped at its bound.",
+      "reason": "y1 and y3 show near-identical RMSE (0.1554) with opposite biases (+0.0899 / \u22120.0899) and opposite time correlations (+0.925 / \u22120.925), consistent with the conservation law y1+y2+y3=1. y2 is essentially zero (RMSE 1.48e-5). The systematic, time-growing bias in y1/y3 could be driven by the k1 bound rather than by model structure, so the bound question must be resolved before attributing the residual to model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "BOUND"
+      ],
+      "action": "After resolving the k1 bound question, recompute the Hessian / sloppiness. If a negative mode persists with k1 interior, investigate whether the quadratic terms (k2\u00b7y2\u00b2, k3\u00b7y2\u00b7y3) create a non-convex loss region and consider reparameterising (e.g., log-scale is already used) or adding a regularisation term only if scientifically justified.",
+      "reason": "One negative Hessian mode at a boundary point may be a boundary artefact. If it persists in the interior, it signals a saddle or ill-conditioned direction that will cause Adam to oscillate, explaining the minimal loss change over 5 iterations."
+    }
+  ],
+  "limitations": [
+    "The negative Hessian mode and the boundary-pinned k1 cannot be disentangled from this single snapshot; a full Hessian evaluation at an interior point is needed to determine whether the non-convexity is structural or a boundary artefact.",
+    "y2 has RMSE \u2248 1.5e-5 and time correlation 0.294, which is consistent with y2 being near zero throughout; the low correlation may be a numerical artefact of correlating a near-zero signal rather than a model failure.",
+    "With only 17 data points and 3 parameters (one at its bound), identifiability of k2 and k3 cannot be assessed from this run alone; the sloppiness analysis with one negative mode is inconclusive.",
+    "The DE phase ran only 1 iteration (population_size 4, num_iters 1), so the seed is a single random draw; the quality of the starting point for the gradient phase is not representative of a well-explored landscape.",
+    "No noise level or measurement uncertainty was supplied, so the residuals cannot be interpreted as statistical significance; the RMSE values are descriptive only."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

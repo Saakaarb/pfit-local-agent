@@ -1,0 +1,60 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/vanderpol_session/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261007_225502_074740
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.1622E+00, best loss 1.1622E+00, final loss 1.1622E+00
+- NODE: 2 iterations, first loss 1.1620E+00, best loss 1.1620E+00, final loss 1.1620E+00
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: vanderpol_data.csv; loss=1.1619587891068428; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- no weak curvature directions at the specified relative floor
+- weak modes: 0; negative modes: 0
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261007_225502_074740/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.292412; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.292412; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, x1: RMSE=2.26581, bias=0.0439769, time correlation=-0.08413692996838648, lag-1=0.9891445455237027.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, x2: RMSE=0.905332, bias=-0.0127221, time correlation=-0.02841187132407525, lag-1=0.9916304431650624.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261007_225502_074740/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261007_225502_074740/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Single-parameter Van der Pol fit (mu≈2.59) terminated at the 5-iteration gradient budget with a normalized gradient norm of 0.292, so stationarity is not established. Residuals show near-zero time correlation (x1: −0.084, x2: −0.028) despite high lag-1 correlation (~0.99), indicating a phase or amplitude mismatch that additional iterations alone may not resolve.
+1. Run a gradient-only restart from this run with gradient_opt.num_iters increased to at least 50, keeping the same model, bounds, and loss. Before restarting, run diagnose --probe-gradients to confirm the gradient direction is finite and consistent. [STATIONARITY, BUDGET] The normalized gradient infinity norm is 0.292 (STATIONARITY), well above a convergence threshold, and the optimizer terminated purely on the 5-iteration budget (BUDGET). The loss moved only 0.00019 over 5 Adam steps (1.16215→1.16196), consistent with a flat but not stationary landscape. With a single well-conditioned parameter (sloppiness: 0 weak, 0 negative modes), a longer gradient run is the lowest-risk way to test whether the current mu is a true local minimum.
+2. Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. Specifically check whether the model oscillation is phase-shifted relative to the data, whether the amplitude envelope is wrong, or whether the waveform shape (cubic nonlinearity) is mismatched. Verify that the initial conditions (x1=2.0, x2=0.1) match the first data point in dataset_1.csv. [RESIDUAL] x1 time correlation is −0.084 and x2 time correlation is −0.028 (RESIDUAL), meaning the model trajectory is essentially uncorrelated with the data in phase, yet lag-1 correlations are 0.989 and 0.992, meaning local slope dynamics are captured. This pattern is characteristic of a phase offset or amplitude scaling error rather than a fundamental model-form failure. Time-region RMSEs are uniform (x1: 2.22/2.28/2.30; x2: 0.86/0.96/0.88), ruling out a transient-startup artifact. Confirming the initial-condition alignment and visual phase relationship is essential before spending more iterations.
+3. If the plot reveals a consistent phase shift or amplitude mismatch that a single mu cannot correct, assess whether the data is consistent with the Van der Pol form at all. Consider whether a second parameter (e.g., a damping or forcing term) is needed, or whether the data was generated with different initial conditions or a slightly different nonlinearity. This is a scientific model question requiring judgement or new data, not a numerical fix. [RESIDUAL, PARAMETERS] With only one free parameter (mu, PARAMETERS) the model has no degree of freedom to adjust both amplitude and frequency independently. The x1 RMSE of 2.266 with max_abs residual of 4.015 (RESIDUAL) is large relative to the data scale, and the near-zero time correlation persists across all three time regions. If a gradient-only restart does not reduce these residuals, the limitation is structural (model form or data provenance), not numerical.
+Limitation: A single parameter and a single experiment provide no information about parameter identifiability or trade-offs; the positive Hessian (sloppiness: 0 weak modes) is trivially satisfied for one well-scaled parameter.
+Limitation: No noise level or measurement uncertainty is specified in the data, so it is impossible to determine whether the residual magnitude (x1 RMSE 2.27, x2 RMSE 0.91) is statistically significant or within expected noise.
+Limitation: The near-zero time correlation could arise from a phase offset due to initial-condition mismatch rather than model-form error; without knowing the true generating process, the cause cannot be disambiguated from this run alone.
+Limitation: The DE phase ran only 1 iteration with population size 4, so the seed point may not be representative of the global landscape; a flat loss over 5 gradient steps does not exclude a distant better minimum.
+Limitation: The plot fit_exp1.png is referenced by filename only; no visual inspection was performed, so the nature of the trajectory mismatch (phase, amplitude, waveform) remains unconfirmed.

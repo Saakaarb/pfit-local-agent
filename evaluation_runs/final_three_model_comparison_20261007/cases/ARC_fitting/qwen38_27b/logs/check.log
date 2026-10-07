@@ -1,0 +1,13 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session
+warning: Population size 4 with 1 DE iteration for 8 trainable parameters is extremely small; the search will barely sample the 8-dimensional space and convergence is unlikely.
+warning: Gradient optimizer is set to only 5 iterations (adam), which is very few for a loss with 3 data terms plus 3 sigmoid penalties; the fit will likely be far from a local minimum.
+warning: In user_defined_system and _observables, the term (1 - c2) ** m2 with non-integer m2 (range 1–5) will produce NaN if c2 exceeds 1.0 during optimization. The terminal penalty S(0.98 - c2(t_f)) pushes c2 toward 0.98 from below but does not prevent overshoot above 1.0, which would make the ODE RHS and observable NaN and break the gradient.
+warning: Parameter A1 and A2 span 17 orders of magnitude (1e8 to 1e25). Even with logscale, the effective search space is very wide and the DE population of 4 will struggle to bracket the optimum.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g., 20–40) and num_iters (e.g., 50–200) to give the DE algorithm a meaningful chance to explore 8 parameters; the current 4×1 budget is insufficient.
+recommendation: Increase gradient_opt.num_iters from 5 to at least 50–200 so the adam optimizer can converge the loss landscape, especially with the steep sigmoid penalties (slope 1000).
+recommendation: Add a soft bound or clip on c2 in the ODE RHS (e.g., c2_eff = np.clip(c2, 0.0, 0.999)) before computing (1 - c2) ** m2 to prevent NaN from negative base with non-integer exponent, or restrict m2 to integer values.
+recommendation: The loss construction is consistent with the user's stated specification: T residual normalized by measured T range, dTdt compared in log10 space with eps = min positive measured dTdt and normalized by the log-range of measured values, and three smooth sigmoid terminal penalties. No mismatch detected.
+recommendation: The observable mapping is consistent: YAML declares dTdt, _observables returns key 'dTdt', dataset[:, 1] is the measured dTdt, and solution[:, 2] is the integrated T used in the T-residual term. Writeout shape (7 columns) covers time, both measured columns, all three states, and the derived observable.

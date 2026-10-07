@@ -1,0 +1,54 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_215446_479757
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 2.0210E-01, best loss 2.0210E-01, final loss 2.0210E-01
+- NODE: 2 iterations, first loss 2.0002E-01, best loss 1.9951E-01, final loss 1.9951E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: calcium.csv; loss=0.19950530203979863; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Ca: RMSE=1653.94, bias=1653.36, time correlation=-0.2518340338211956, lag-1=0.9921350579054106.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_215446_479757/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_215446_479757/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The run stopped at a 5-iteration gradient budget with only ~1.3 % relative loss reduction (0.2021 → 0.1995). The reported Ca residual (RMSE ≈ 1654, bias ≈ 1653, time-correlation −0.25) indicates a large systematic offset and anti-correlated temporal pattern. Most critically, the loss function computes the observable `offset + scale·Z` but then minimises `(Z − data)²`, so the optimiser is fitting the raw state Z rather than the reported observable; offset and scale receive zero gradient and their fitted values (1328.6, 782.5) are artefacts of the single DE seed. No verified final-point gradient is available, and sloppiness was skipped, so convergence and identifiability are both unestablished.
+1. Verify and correct the loss function so it compares the observable `offset + scale·Z` (i.e. `observables['Ca']`) to the data column, not the raw state `solution[:, 0]`. After the fix, re-run the full fit (DE + gradient) because the objective, gradients, and all 19 parameter values will change. [LOSS, RESIDUAL, PARAMETERS] The source code computes `observables = _observables(...)` but the loss line reads `np.square((solution[:, 0] - dataset[:, 0]) / …)`, using Z directly. The reported residual (RMSE 1653.94, bias 1653.36) is evaluated on the observable, yet the optimiser minimises a different quantity. offset (1328.6) and scale (782.5) sit at range-fractions 0.765 and 0.737 with no gradient signal, confirming they are not being optimised. This is a numerical correction to the objective, not a model change.
+2. Inspect the named plot `fit_exp1.png` to visually confirm whether the model trajectory is anti-correlated with the data (time-correlation −0.252) and whether the large positive bias (1653.36) is a constant offset or a growing drift across the three time regions (RMSE 1670 / 1647 / 1647). [RESIDUAL] A negative time-correlation of −0.252 with lag-1 residual autocorrelation of 0.992 indicates the residuals are systematic, not stochastic. The near-uniform RMSE across time regions (1669.9, 1647.5, 1647.4) suggests a constant offset rather than a dynamic mismatch, which is consistent with the loss fitting Z instead of offset + scale·Z. Visual inspection of the named plot will disambiguate before further optimisation.
+3. After correcting the loss, run `diagnose --probe-gradients` to obtain a verified final-point gradient. Only if the gradient is finite and consistent should a gradient-only restart with a larger iteration budget (e.g. 50–200 Adam steps) be considered. [BUDGET, OPTIMIZER, LIMITATIONS] The current run used only 5 Adam iterations (loss 0.20002 → 0.19951, Δ ≈ 0.0005) and the limitation explicitly states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' Without a verified gradient, a restart is not justified.
+4. If the corrected loss still yields a large bias and negative time-correlation, check the initial conditions (Z₀ = 0.0879, Y₀ = 0.9993, A₀ ≈ 1.0), the input timing in `dataset_1.csv`, and whether the Borghans model structure can produce the observed Ca transient. This is a scientific model-mismatch question requiring domain judgement, not an optimiser tweak. [RESIDUAL, PARAMETERS] With 19 free parameters spanning 8 orders of magnitude (all in [0.001, 100000] log-scale), Ka at range-fraction 0.951 and Ky at 0.930 are near their upper bounds, while Vm2 (0.110) and Vm3 (0.092) are near the lower bound. This pattern, combined with the anti-correlated residual, may indicate the model's qualitative dynamics do not match the data, which no amount of iteration will fix.
+5. Once a corrected loss and a converged (or near-converged) parameter set are available, run the sloppiness / Hessian analysis to identify weak or flat directions among the 19 parameters before interpreting any individual parameter value. [SLOPPINESS, PARAMETERS] Sloppiness was skipped in this run. With 19 log-scale parameters and only 111 data points, identifiability is a real concern. Ka (0.951) and Ky (0.930) near their bounds, and Vm2/Vm3 near the lower bound, are early warnings of flat or correlated directions that a Hessian analysis would quantify.
+Limitation: No verified final-point gradient exists; the 5-iteration Adam trace (0.20002 → 0.19951) cannot distinguish slow convergence from a flat or ill-conditioned landscape.
+Limitation: Sloppiness was skipped, so identifiability, parameter correlations, and the meaning of near-bound values (Ka 0.951, Ky 0.930, Vm2 0.110, Vm3 0.092) are unquantified.
+Limitation: The loss-function inconsistency (fitting Z vs. the observable offset + scale·Z) means the current parameter values, loss, and residual interpretation are all provisional; no scientific conclusion about the Borghans model's adequacy can be drawn until the objective is corrected and the fit re-run.
+Limitation: A single experiment with 111 Ca samples provides limited information for 19 parameters; the negative time-correlation (−0.252) and high residual autocorrelation (lag-1 = 0.992) could reflect model structural mismatch, incorrect initial conditions, input-timing errors, or the loss bug—these causes are not yet separable.
+Limitation: The DE phase ran only 1 iteration with population size 4; the seed is effectively a single random draw, so the starting point for the gradient phase is not representative of the global landscape.

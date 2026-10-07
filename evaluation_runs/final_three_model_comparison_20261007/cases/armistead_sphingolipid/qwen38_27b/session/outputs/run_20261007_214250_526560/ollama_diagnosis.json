@@ -1,0 +1,53 @@
+{
+  "verdict": "Three parameters are pinned at or within 0.02 % of their search bounds (k0, k_d at 99.98 % of the log10 upper limit; alpha_hai1a at 0.02 % of the linear lower limit), the gradient refinement exhausted its 5-iteration budget with only a 0.0001 loss reduction, and the Cer_obs channel dominates the loss with RMSE 0.43\u20130.73 across all eight experiments. The run is best described as a bound-constrained, budget-limited fit whose large Cer residuals may reflect a structural limitation rather than mere under-optimisation.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Before any further optimisation, verify the physical justification for k0 and k_d being at 996.55 (99.98 % of the [0.001, 1000] log10 interval) and alpha_hai1a at 0.500125 (0.02 % of the [0.5, 0.999] linear interval). If the bounds are correct, the parameters are effectively fixed and the fit is under-determined in those directions; if the bounds are too narrow, widen them with a scientifically motivated rationale and re-run a full fit (population + gradient).",
+      "reason": "k0=996.553 and k_d=996.553 sit at range_fraction 0.99975 within [0.001, 1000], and alpha_hai1a=0.500125 sits at range_fraction 0.00025 within [0.5, 0.999]. In the model, k0*Sphinga feeds Cer while k_d*Cer removes it; with Sphinga\u22480.0007, k0*Sphinga\u22480.7 while k_d*Cer\u2248985, so the Cer balance is dominated by the k_d term. The optimizer is pushing both rate constants to the ceiling, which may indicate the model cannot reproduce the observed Cer levels (0.82\u20130.99) without unphysically large turnover, or that the true values lie outside the current bounds."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "Run a gradient probe (diagnose --probe-gradients) at the current parameter point to obtain a verified gradient magnitude and direction. If the gradient is small and points into the bound, the parameters are truly at a constrained optimum and further iterations will not help. If the gradient is large, increase the gradient iteration budget (e.g., 50\u2013100) and re-run the refinement phase only.",
+      "reason": "The NODE trace shows loss moving only from 0.35056 to 0.35054 over 5 iterations (\u0394\u22482\u00d710\u207b\u2075), and the DE phase produced a single row at 0.35064. The termination reason is 'iteration_budget' with no refinement error. Without a verified gradient, it is impossible to distinguish a genuine local minimum from a budget-limited stall, especially with three parameters at bounds."
+    },
+    {
+      "evidence_ids": [
+        "EXPERIMENTS",
+        "LOSS"
+      ],
+      "action": "Inspect the named fit plots (fit_exp1.png through fit_exp8.png) focusing on the Cer_obs channel in the later time region (t > 1.33). Quantify whether the systematic negative bias (\u22120.28 to \u22120.48) and the growing max_abs error (0.61 \u2192 1.02 across experiments 1\u20136) indicate a structural mismatch in the Cer ODE (dCerdt = k0\u00b7Sphinga \u2212 k1\u00b7Cer + k2\u00b7Sphingo \u2212 k_d\u00b7Cer) rather than a parameter-tuning issue.",
+      "reason": "Cer_obs RMSE ranges from 0.434 (exp 1) to 0.729 (exp 6), with max_abs reaching 1.02 in exp 6, while Sphinga_obs and Sphingo_obs RMSE are all below 1.1\u00d710\u207b\u2074. The later-time-region Cer RMSE (0.61\u20131.02) is an order of magnitude larger than the early-time-region values (0.036\u20130.144), suggesting the model's Cer dynamics diverge from data as the system evolves. This pattern is consistent with the k0/k_d bound-pinning: the model may be unable to sustain the observed Cer levels over time."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "BOUND"
+      ],
+      "action": "If the bound check confirms the current bounds are physically valid, run a sloppiness / Hessian analysis at the final point to identify weak or flat directions. This will clarify whether k0 and k_d are individually identifiable or only their ratio (k0/k_d) is constrained by the data, and whether alpha_hai1a is effectively unidentifiable given its position at the bound.",
+      "reason": "Sloppiness was skipped in this run. With k0 and k_d both at 996.55 and alpha_hai1a at 0.5001, the parameter space near the solution may be highly correlated or flat. A Hessian or finite-difference sensitivity analysis would distinguish a genuine constrained optimum from a case where the data simply cannot resolve these parameters within the current bounds."
+    },
+    {
+      "evidence_ids": [
+        "EXPERIMENTS",
+        "BOUND"
+      ],
+      "action": "Evaluate whether the model structure can physically sustain Cer at the observed levels (0.82\u20130.99) given that k_d\u00b7Cer \u2248 985\u2013996 while the only Cer source term k0\u00b7Sphinga \u2248 0.7. If not, this is a scientific model question: either an additional Cer source/sink term is needed, or the k_d bound should be revisited with domain knowledge. This is a model-structure decision, not a numerical correction.",
+      "reason": "In the ODE dCerdt = k0\u00b7Sphinga \u2212 k1\u00b7Cer + k2\u00b7Sphingo \u2212 k_d\u00b7Cer, with k0\u2248k_d\u2248996.55, Sphinga\u22480.0007, Cer\u22480.99, Sphingo\u22480.0004: the source k0\u00b7Sphinga\u22480.7, the loss k_d\u00b7Cer\u2248986, and k1\u00b7Cer and k2\u00b7Sphingo are smaller. The net dCerdt is strongly negative, yet the data show Cer remaining near 0.8\u20131.0. The optimizer compensates by pushing k0 and k_d to the bound ceiling, but the structural imbalance remains. Resolving this requires either new terms in the Cer equation or revised bounds grounded in the underlying biochemistry."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer log (loss 0.35064 \u2192 0.35054) does not establish convergence or a local minimum.",
+    "Sloppiness analysis was skipped, so identifiability and parameter correlations (especially between k0 and k_d, which are nearly equal at 996.55) cannot be assessed from this run.",
+    "Each experiment has only 2 data points per channel (one in the early region, one in the late region), so the time-resolved residual pattern is based on a single point per region and cannot distinguish systematic model error from point-specific noise.",
+    "The evidence cannot determine whether the large Cer_obs residuals stem from the model structure, the parameter bounds, insufficient data density, or a combination of these; resolving the cause requires domain judgement and potentially additional experimental data.",
+    "No noise levels or measurement uncertainties are specified in the snapshot, so the absolute magnitude of the Cer_obs RMSE (0.43\u20130.73) cannot be judged against expected experimental variability."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

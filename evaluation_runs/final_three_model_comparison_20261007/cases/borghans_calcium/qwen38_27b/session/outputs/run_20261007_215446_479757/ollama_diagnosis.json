@@ -1,0 +1,55 @@
+{
+  "verdict": "The run stopped at a 5-iteration gradient budget with only ~1.3 % relative loss reduction (0.2021 \u2192 0.1995). The reported Ca residual (RMSE \u2248 1654, bias \u2248 1653, time-correlation \u22120.25) indicates a large systematic offset and anti-correlated temporal pattern. Most critically, the loss function computes the observable `offset + scale\u00b7Z` but then minimises `(Z \u2212 data)\u00b2`, so the optimiser is fitting the raw state Z rather than the reported observable; offset and scale receive zero gradient and their fitted values (1328.6, 782.5) are artefacts of the single DE seed. No verified final-point gradient is available, and sloppiness was skipped, so convergence and identifiability are both unestablished.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "LOSS",
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "Verify and correct the loss function so it compares the observable `offset + scale\u00b7Z` (i.e. `observables['Ca']`) to the data column, not the raw state `solution[:, 0]`. After the fix, re-run the full fit (DE + gradient) because the objective, gradients, and all 19 parameter values will change.",
+      "reason": "The source code computes `observables = _observables(...)` but the loss line reads `np.square((solution[:, 0] - dataset[:, 0]) / \u2026)`, using Z directly. The reported residual (RMSE 1653.94, bias 1653.36) is evaluated on the observable, yet the optimiser minimises a different quantity. offset (1328.6) and scale (782.5) sit at range-fractions 0.765 and 0.737 with no gradient signal, confirming they are not being optimised. This is a numerical correction to the objective, not a model change."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the named plot `fit_exp1.png` to visually confirm whether the model trajectory is anti-correlated with the data (time-correlation \u22120.252) and whether the large positive bias (1653.36) is a constant offset or a growing drift across the three time regions (RMSE 1670 / 1647 / 1647).",
+      "reason": "A negative time-correlation of \u22120.252 with lag-1 residual autocorrelation of 0.992 indicates the residuals are systematic, not stochastic. The near-uniform RMSE across time regions (1669.9, 1647.5, 1647.4) suggests a constant offset rather than a dynamic mismatch, which is consistent with the loss fitting Z instead of offset + scale\u00b7Z. Visual inspection of the named plot will disambiguate before further optimisation."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER",
+        "LIMITATIONS"
+      ],
+      "action": "After correcting the loss, run `diagnose --probe-gradients` to obtain a verified final-point gradient. Only if the gradient is finite and consistent should a gradient-only restart with a larger iteration budget (e.g. 50\u2013200 Adam steps) be considered.",
+      "reason": "The current run used only 5 Adam iterations (loss 0.20002 \u2192 0.19951, \u0394 \u2248 0.0005) and the limitation explicitly states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' Without a verified gradient, a restart is not justified."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "If the corrected loss still yields a large bias and negative time-correlation, check the initial conditions (Z\u2080 = 0.0879, Y\u2080 = 0.9993, A\u2080 \u2248 1.0), the input timing in `dataset_1.csv`, and whether the Borghans model structure can produce the observed Ca transient. This is a scientific model-mismatch question requiring domain judgement, not an optimiser tweak.",
+      "reason": "With 19 free parameters spanning 8 orders of magnitude (all in [0.001, 100000] log-scale), Ka at range-fraction 0.951 and Ky at 0.930 are near their upper bounds, while Vm2 (0.110) and Vm3 (0.092) are near the lower bound. This pattern, combined with the anti-correlated residual, may indicate the model's qualitative dynamics do not match the data, which no amount of iteration will fix."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "PARAMETERS"
+      ],
+      "action": "Once a corrected loss and a converged (or near-converged) parameter set are available, run the sloppiness / Hessian analysis to identify weak or flat directions among the 19 parameters before interpreting any individual parameter value.",
+      "reason": "Sloppiness was skipped in this run. With 19 log-scale parameters and only 111 data points, identifiability is a real concern. Ka (0.951) and Ky (0.930) near their bounds, and Vm2/Vm3 near the lower bound, are early warnings of flat or correlated directions that a Hessian analysis would quantify."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient exists; the 5-iteration Adam trace (0.20002 \u2192 0.19951) cannot distinguish slow convergence from a flat or ill-conditioned landscape.",
+    "Sloppiness was skipped, so identifiability, parameter correlations, and the meaning of near-bound values (Ka 0.951, Ky 0.930, Vm2 0.110, Vm3 0.092) are unquantified.",
+    "The loss-function inconsistency (fitting Z vs. the observable offset + scale\u00b7Z) means the current parameter values, loss, and residual interpretation are all provisional; no scientific conclusion about the Borghans model's adequacy can be drawn until the objective is corrected and the fit re-run.",
+    "A single experiment with 111 Ca samples provides limited information for 19 parameters; the negative time-correlation (\u22120.252) and high residual autocorrelation (lag-1 = 0.992) could reflect model structural mismatch, incorrect initial conditions, input-timing errors, or the loss bug\u2014these causes are not yet separable.",
+    "The DE phase ran only 1 iteration with population size 4; the seed is effectively a single random draw, so the starting point for the gradient phase is not representative of the global landscape."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

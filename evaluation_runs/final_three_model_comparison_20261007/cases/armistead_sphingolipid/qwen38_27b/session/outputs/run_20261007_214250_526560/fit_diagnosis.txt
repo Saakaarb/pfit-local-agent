@@ -1,0 +1,79 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- result_solution_exp3.csv: present
+- result_solution_exp4.csv: present
+- result_solution_exp5.csv: present
+- result_solution_exp6.csv: present
+- result_solution_exp7.csv: present
+- result_solution_exp8.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.5064E-01, best loss 3.5064E-01, final loss 3.5064E-01
+- NODE: 2 iterations, first loss 3.5056E-01, best loss 3.5054E-01, final loss 3.5054E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 8
+Aggregation: equal_experiment_mean
+- Experiment 1: wt_r1.csv; loss=0.2748346923380502; output=result_solution_exp1.csv
+- Experiment 2: wt_r2.csv; loss=0.319928027204209; output=result_solution_exp2.csv
+- Experiment 3: wt_r3.csv; loss=0.3123553324169219; output=result_solution_exp3.csv
+- Experiment 4: wt_r4.csv; loss=0.25189907146666013; output=result_solution_exp4.csv
+- Experiment 5: mutant_r1.csv; loss=0.4100718899522234; output=result_solution_exp5.csv
+- Experiment 6: mutant_r2.csv; loss=0.41656758969919333; output=result_solution_exp6.csv
+- Experiment 7: mutant_r3.csv; loss=0.41489808107981924; output=result_solution_exp7.csv
+- Experiment 8: mutant_r4.csv; loss=0.40379396016520547; output=result_solution_exp8.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- k0=996.553 is at 99.98% of its log10 search interval.
+- [BOUND] k0=996.553 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k_d=996.553 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] alpha_hai1a=0.500125 is at 0.02% of its linear search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp2.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp3.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp4.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp5.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp6.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp7.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/fit_exp8.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_214250_526560/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Three parameters are pinned at or within 0.02 % of their search bounds (k0, k_d at 99.98 % of the log10 upper limit; alpha_hai1a at 0.02 % of the linear lower limit), the gradient refinement exhausted its 5-iteration budget with only a 0.0001 loss reduction, and the Cer_obs channel dominates the loss with RMSE 0.43–0.73 across all eight experiments. The run is best described as a bound-constrained, budget-limited fit whose large Cer residuals may reflect a structural limitation rather than mere under-optimisation.
+1. Before any further optimisation, verify the physical justification for k0 and k_d being at 996.55 (99.98 % of the [0.001, 1000] log10 interval) and alpha_hai1a at 0.500125 (0.02 % of the [0.5, 0.999] linear interval). If the bounds are correct, the parameters are effectively fixed and the fit is under-determined in those directions; if the bounds are too narrow, widen them with a scientifically motivated rationale and re-run a full fit (population + gradient). [BOUND] k0=996.553 and k_d=996.553 sit at range_fraction 0.99975 within [0.001, 1000], and alpha_hai1a=0.500125 sits at range_fraction 0.00025 within [0.5, 0.999]. In the model, k0*Sphinga feeds Cer while k_d*Cer removes it; with Sphinga≈0.0007, k0*Sphinga≈0.7 while k_d*Cer≈985, so the Cer balance is dominated by the k_d term. The optimizer is pushing both rate constants to the ceiling, which may indicate the model cannot reproduce the observed Cer levels (0.82–0.99) without unphysically large turnover, or that the true values lie outside the current bounds.
+2. Run a gradient probe (diagnose --probe-gradients) at the current parameter point to obtain a verified gradient magnitude and direction. If the gradient is small and points into the bound, the parameters are truly at a constrained optimum and further iterations will not help. If the gradient is large, increase the gradient iteration budget (e.g., 50–100) and re-run the refinement phase only. [BUDGET, OPTIMIZER_TRACES] The NODE trace shows loss moving only from 0.35056 to 0.35054 over 5 iterations (Δ≈2×10⁻⁵), and the DE phase produced a single row at 0.35064. The termination reason is 'iteration_budget' with no refinement error. Without a verified gradient, it is impossible to distinguish a genuine local minimum from a budget-limited stall, especially with three parameters at bounds.
+3. Inspect the named fit plots (fit_exp1.png through fit_exp8.png) focusing on the Cer_obs channel in the later time region (t > 1.33). Quantify whether the systematic negative bias (−0.28 to −0.48) and the growing max_abs error (0.61 → 1.02 across experiments 1–6) indicate a structural mismatch in the Cer ODE (dCerdt = k0·Sphinga − k1·Cer + k2·Sphingo − k_d·Cer) rather than a parameter-tuning issue. [EXPERIMENTS, LOSS] Cer_obs RMSE ranges from 0.434 (exp 1) to 0.729 (exp 6), with max_abs reaching 1.02 in exp 6, while Sphinga_obs and Sphingo_obs RMSE are all below 1.1×10⁻⁴. The later-time-region Cer RMSE (0.61–1.02) is an order of magnitude larger than the early-time-region values (0.036–0.144), suggesting the model's Cer dynamics diverge from data as the system evolves. This pattern is consistent with the k0/k_d bound-pinning: the model may be unable to sustain the observed Cer levels over time.
+4. If the bound check confirms the current bounds are physically valid, run a sloppiness / Hessian analysis at the final point to identify weak or flat directions. This will clarify whether k0 and k_d are individually identifiable or only their ratio (k0/k_d) is constrained by the data, and whether alpha_hai1a is effectively unidentifiable given its position at the bound. [SLOPPINESS, BOUND] Sloppiness was skipped in this run. With k0 and k_d both at 996.55 and alpha_hai1a at 0.5001, the parameter space near the solution may be highly correlated or flat. A Hessian or finite-difference sensitivity analysis would distinguish a genuine constrained optimum from a case where the data simply cannot resolve these parameters within the current bounds.
+5. Evaluate whether the model structure can physically sustain Cer at the observed levels (0.82–0.99) given that k_d·Cer ≈ 985–996 while the only Cer source term k0·Sphinga ≈ 0.7. If not, this is a scientific model question: either an additional Cer source/sink term is needed, or the k_d bound should be revisited with domain knowledge. This is a model-structure decision, not a numerical correction. [EXPERIMENTS, BOUND] In the ODE dCerdt = k0·Sphinga − k1·Cer + k2·Sphingo − k_d·Cer, with k0≈k_d≈996.55, Sphinga≈0.0007, Cer≈0.99, Sphingo≈0.0004: the source k0·Sphinga≈0.7, the loss k_d·Cer≈986, and k1·Cer and k2·Sphingo are smaller. The net dCerdt is strongly negative, yet the data show Cer remaining near 0.8–1.0. The optimizer compensates by pushing k0 and k_d to the bound ceiling, but the structural imbalance remains. Resolving this requires either new terms in the Cer equation or revised bounds grounded in the underlying biochemistry.
+Limitation: No verified final-point gradient is available; the flat optimizer log (loss 0.35064 → 0.35054) does not establish convergence or a local minimum.
+Limitation: Sloppiness analysis was skipped, so identifiability and parameter correlations (especially between k0 and k_d, which are nearly equal at 996.55) cannot be assessed from this run.
+Limitation: Each experiment has only 2 data points per channel (one in the early region, one in the late region), so the time-resolved residual pattern is based on a single point per region and cannot distinguish systematic model error from point-specific noise.
+Limitation: The evidence cannot determine whether the large Cer_obs residuals stem from the model structure, the parameter bounds, insufficient data density, or a combination of these; resolving the cause requires domain judgement and potentially additional experimental data.
+Limitation: No noise levels or measurement uncertainties are specified in the snapshot, so the absolute magnitude of the Cer_obs RMSE (0.43–0.73) cannot be judged against expected experimental variability.

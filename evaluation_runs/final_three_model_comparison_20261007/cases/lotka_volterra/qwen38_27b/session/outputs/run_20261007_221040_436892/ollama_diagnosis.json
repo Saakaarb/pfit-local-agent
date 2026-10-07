@@ -1,0 +1,46 @@
+{
+  "verdict": "Gradient refinement exhausted its 5-iteration budget with a normalized gradient infinity norm of 0.361 (stationarity not established) and the loss still decreasing (0.30257 \u2192 0.30250 over the last two iterations). The DE seeding phase was a single iteration with population 4, providing minimal exploration. Residuals show poor temporal correlation (H: 0.17, L: 0.47) and moderate bias, but the dominant issue is that the optimizer was cut short before reaching a stationary point. Sloppiness is clean (0 weak, 0 negative modes), so the local geometry is well-conditioned and a gradient-only continuation is appropriate.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to verify the autodiff gradient against finite differences before spending additional iterations.",
+      "reason": "The normalized gradient infinity norm is 0.3609 and the gradient-to-loss ratio is 1.193, indicating the optimizer is far from stationarity. Before increasing the iteration budget, confirm the gradient is numerically correct so that additional iterations are not wasted on a faulty derivative. The BUDGET evidence confirms the refinement stopped at its 5-iteration limit rather than converging."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "If gradient checks pass, increase gradient_opt.num_iters from 5 to at least 50 and run a gradient-only restart from this run's parameter values (alpha=0.134, beta=0.0117, delta=0.00601, gamma=0.152).",
+      "reason": "The NODE trace shows the loss was still decreasing at iteration 5 (0.30257 \u2192 0.30250), the termination reason is 'iteration_budget', and the normalized gradient norm of 0.361 is well above a typical convergence threshold. The model, bounds, and loss are unchanged, so a gradient-only continuation is the appropriate next step rather than a full re-fit."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown to assess whether the Lotka-Volterra dynamics qualitatively match the data, paying attention to the H channel's low time correlation (0.169) and the L channel's early-region RMSE of 27.68.",
+      "reason": "The H channel time correlation of 0.169 and L channel of 0.468 suggest the fitted trajectory shape does not track the data well. The H bias is +5.25 (overprediction) while L bias is \u22126.21 (underprediction), and the L early region (t=0\u20136.67) has RMSE 27.68 versus 4.10 in the mid region. This pattern may indicate initial-condition sensitivity or a structural mismatch in the Lotka-Volterra form, but it could also improve once the optimizer actually converges. Visual inspection of the named plot is needed before attributing the residuals to model inadequacy."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "RESIDUAL"
+      ],
+      "action": "After the gradient-only restart converges, re-examine whether alpha (range_fraction 0.098) and gamma (range_fraction 0.141) are being pushed toward their lower bounds (0.1). If they remain at or near the boundary, evaluate whether the bounds are physically justified for the Lotka-Volterra system or whether the data are inconsistent with the assumed parameter range.",
+      "reason": "alpha sits at 9.8 % of its log-scale range and gamma at 14.1 %, both near the lower bound of 0.1. If the converged solution pins these parameters to the boundary, the residuals (H RMSE 21.9, L RMSE 19.0) may reflect a genuine model-data mismatch rather than an optimization artifact. This is a scientific judgement call that requires the user's domain knowledge; it is not a numerical correction."
+    }
+  ],
+  "limitations": [
+    "The DE seeding phase ran only 1 iteration with a population of 4, so the initial point for gradient refinement may not be in the basin of the global minimum. A gradient-only restart refines locally and cannot escape a poor basin; a full re-fit with a larger population or more DE iterations would be needed to test global identifiability.",
+    "Sloppiness shows 0 weak and 0 negative modes at the current point, but this is a local Hessian assessment. It does not rule out flat directions elsewhere in parameter space or non-identifiability that would only appear after further optimization.",
+    "The poor time correlations (H: 0.169, L: 0.468) and moderate biases could stem from (a) the optimizer not having converged, (b) initial-condition sensitivity of the Lotka-Volterra system, (c) a structural mismatch between the model and the generating process, or (d) noise or sampling issues in dataset_1.csv. The current evidence cannot distinguish among these causes without additional data or a converged fit.",
+    "No gradient-check or finite-difference comparison results are present in the snapshot. The gradient norm of 0.361 is reported as computed by autodiff; its correctness relative to finite differences is unverified in this run.",
+    "The loss magnitude (\u22480.30) is a user-defined normalized RMSE; its absolute value does not indicate whether the fit is scientifically adequate. Judgement on model adequacy requires domain context not available in the snapshot."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,296 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_221437_612576",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_221437_612576/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "h_4=0.0108715 is at 0.91% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 1.9573; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, Mpp: RMSE=3.37453, bias=-3.08533, time correlation=-0.44134513196016034, lag-1=0.992126295928004.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 101,
+          "missing": 0,
+          "rmse": 3.374533541365186,
+          "mae": 3.0853452028605446,
+          "bias": -3.0853312779649213,
+          "max_abs": 4.643980032645944,
+          "time_correlation": -0.44134513196016034,
+          "lag1_correlation": 0.992126295928004,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 33.333333333333336,
+              "count": 34,
+              "rmse": 2.1407270353998746
+            },
+            {
+              "start": 33.333333333333336,
+              "end": 66.66666666666667,
+              "count": 33,
+              "rmse": 4.328301107374064
+            },
+            {
+              "start": 66.66666666666667,
+              "end": 100.0,
+              "count": 34,
+              "rmse": 3.3258994224799596
+            }
+          ],
+          "name": "Mpp",
+          "observes": "Mpp"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 0.00502427037652536,
+      "range_fraction": 0.23369100083974492,
+      "logscale": true
+    },
+    {
+      "name": "k_1",
+      "value": 0.0847277417013483,
+      "range_fraction": 0.2320064077633126,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 0.044582567440404154,
+      "range_fraction": 0.549721691735027,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 0.001154303152326914,
+      "range_fraction": 0.020773293896803047,
+      "logscale": true
+    },
+    {
+      "name": "k_3",
+      "value": 0.036373642197106114,
+      "range_fraction": 0.1401966975960134,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 8.995533616715809,
+      "range_fraction": 0.3180089769582021,
+      "logscale": true
+    },
+    {
+      "name": "h1",
+      "value": 0.1616131187906785,
+      "range_fraction": 0.7361588704365221,
+      "logscale": true
+    },
+    {
+      "name": "h_1",
+      "value": 0.46892990049653416,
+      "range_fraction": 0.4177769814128204,
+      "logscale": true
+    },
+    {
+      "name": "h2",
+      "value": 0.4127504693654852,
+      "range_fraction": 0.8718958585998998,
+      "logscale": true
+    },
+    {
+      "name": "h3",
+      "value": 0.6593593848812903,
+      "range_fraction": 0.45478054800645973,
+      "logscale": true
+    },
+    {
+      "name": "h_3",
+      "value": 0.006481914095006592,
+      "range_fraction": 0.45292581775427665,
+      "logscale": true
+    },
+    {
+      "name": "h4",
+      "value": 0.0011735079587498237,
+      "range_fraction": 0.26737150983418767,
+      "logscale": true
+    },
+    {
+      "name": "h_4",
+      "value": 0.01087153601264805,
+      "range_fraction": 0.009072727205791331,
+      "logscale": true
+    },
+    {
+      "name": "h5",
+      "value": 0.2952772712648311,
+      "range_fraction": 0.4900766729254183,
+      "logscale": true
+    },
+    {
+      "name": "h6",
+      "value": 0.003276491176805401,
+      "range_fraction": 0.17180300093040002,
+      "logscale": true
+    },
+    {
+      "name": "h_6",
+      "value": 0.00030038538690695983,
+      "range_fraction": 0.15922626712265286,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.2820319422262671,
+    "final_loss": 0.27834128597896446,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        4.816469092250404e-09,
+        9.924860345649472e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.472846131101115e-08,
+        1.2923929304853907e-10,
+        1.979476000307663e-09,
+        9.690386096420058e-10,
+        6.016334328895332e-11,
+        9.494542569739411e-08
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        4.816469092250404e-09,
+        9.924860345649472e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.472846131101115e-08,
+        1.2923929304853907e-10,
+        1.979476000307663e-09,
+        9.690386096420058e-10,
+        6.016334328895332e-11,
+        9.494542569739411e-08
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.2783412859789645
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_221437_612576/de_fitting.log",
+      "rows": 1,
+      "first": 0.28203,
+      "final": 0.28203,
+      "best": 0.28203,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.28203
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_221437_612576/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.27908,
+      "final": 0.27834,
+      "best": 0.27834,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.27908
+        ],
+        [
+          5,
+          0.27834
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.278341285978968,
+  "experiment_losses": [
+    0.278341285978968
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 0,
+    "negative_modes": 7
+  },
+  "normalized_gradient_inf_norm": 1.957298592170119,
+  "gradient_to_loss_ratio": 7.032009589544025,
+  "verdict": "h_4=0.0108715 is at 0.91% of its log10 search interval."
+}

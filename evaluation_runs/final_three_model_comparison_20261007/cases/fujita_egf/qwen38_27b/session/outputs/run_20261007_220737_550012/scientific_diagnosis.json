@@ -1,0 +1,484 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/fujita_egf/qwen38_27b/session/outputs/run_20261007_220737_550012",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/fujita_egf/qwen38_27b/session/outputs/run_20261007_220737_550012/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, pEGFR_tot: RMSE=0.0793212, bias=-0.0520446, time correlation=0.7816553213090183, lag-1=None.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, pAkt_tot: RMSE=0.387221, bias=-0.293659, time correlation=0.478293991694942, lag-1=None.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, pS6_tot: RMSE=0.522574, bias=-0.359874, time correlation=-0.774595817362926, lag-1=None.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, pEGFR_tot: RMSE=0.426542, bias=0.0685598, time correlation=0.8373252793487713, lag-1=None.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, pAkt_tot: RMSE=0.482986, bias=-0.322383, time correlation=0.4984235323981319, lag-1=None.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 2, pS6_tot: RMSE=0.410278, bias=-0.292121, time correlation=-0.5384088930005951, lag-1=None.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 8,
+          "missing": 0,
+          "rmse": 0.0793212453253284,
+          "mae": 0.0672218336948612,
+          "bias": -0.052044633807529654,
+          "max_abs": 0.11361763287303822,
+          "time_correlation": 0.7816553213090183,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1200.0,
+              "count": 6,
+              "rmse": 0.08816876446719382
+            },
+            {
+              "start": 1200.0,
+              "end": 2400.0,
+              "count": 1,
+              "rmse": 0.0026334712715685715
+            },
+            {
+              "start": 2400.0,
+              "end": 3600.0,
+              "count": 1,
+              "rmse": 0.060708799549326245
+            }
+          ],
+          "name": "pEGFR_tot",
+          "observes": "pEGFR_tot"
+        },
+        {
+          "status": "ok",
+          "count": 8,
+          "missing": 0,
+          "rmse": 0.38722124897431764,
+          "mae": 0.29365947755115895,
+          "bias": -0.29365947755115895,
+          "max_abs": 0.8230605578486038,
+          "time_correlation": 0.478293991694942,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1200.0,
+              "count": 6,
+              "rmse": 0.4432889392780776
+            },
+            {
+              "start": 1200.0,
+              "end": 2400.0,
+              "count": 1,
+              "rmse": 0.12940466102385748
+            },
+            {
+              "start": 2400.0,
+              "end": 3600.0,
+              "count": 1,
+              "rmse": 0.06120699997096085
+            }
+          ],
+          "name": "pAkt_tot",
+          "observes": "pAkt_tot"
+        },
+        {
+          "status": "ok",
+          "count": 8,
+          "missing": 0,
+          "rmse": 0.5225742172176606,
+          "mae": 0.35987357460508634,
+          "bias": -0.35987357460508634,
+          "max_abs": 1.00014908339555,
+          "time_correlation": -0.774595817362926,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1200.0,
+              "count": 6,
+              "rmse": 0.32152038129479893
+            },
+            {
+              "start": 1200.0,
+              "end": 2400.0,
+              "count": 1,
+              "rmse": 1.00014908339555
+            },
+            {
+              "start": 2400.0,
+              "end": 3600.0,
+              "count": 1,
+              "rmse": 0.751079341654748
+            }
+          ],
+          "name": "pS6_tot",
+          "observes": "pS6_tot"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 8,
+          "missing": 0,
+          "rmse": 0.42654200172964885,
+          "mae": 0.3269790408699905,
+          "bias": 0.06855984505356133,
+          "max_abs": 0.7749473767765567,
+          "time_correlation": 0.8373252793487713,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1200.0,
+              "count": 6,
+              "rmse": 0.33328738833612204
+            },
+            {
+              "start": 1200.0,
+              "end": 2400.0,
+              "count": 1,
+              "rmse": 0.4341408732196746
+            },
+            {
+              "start": 2400.0,
+              "end": 3600.0,
+              "count": 1,
+              "rmse": 0.7749473767765567
+            }
+          ],
+          "name": "pEGFR_tot",
+          "observes": "pEGFR_tot"
+        },
+        {
+          "status": "ok",
+          "count": 8,
+          "missing": 0,
+          "rmse": 0.4829859832089861,
+          "mae": 0.3223827578021303,
+          "bias": -0.3223827578021303,
+          "max_abs": 0.9611490542919033,
+          "time_correlation": 0.4984235323981319,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1200.0,
+              "count": 6,
+              "rmse": 0.5569288283987442
+            },
+            {
+              "start": 1200.0,
+              "end": 2400.0,
+              "count": 1,
+              "rmse": 0.06211243919078374
+            },
+            {
+              "start": 2400.0,
+              "end": 3600.0,
+              "count": 1,
+              "rmse": 0.0364335737883544
+            }
+          ],
+          "name": "pAkt_tot",
+          "observes": "pAkt_tot"
+        },
+        {
+          "status": "ok",
+          "count": 8,
+          "missing": 0,
+          "rmse": 0.41027801205215614,
+          "mae": 0.29212069401003365,
+          "bias": -0.29212069401003365,
+          "max_abs": 0.751891451625626,
+          "time_correlation": -0.5384088930005951,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1200.0,
+              "count": 6,
+              "rmse": 0.32687075791513814
+            },
+            {
+              "start": 1200.0,
+              "end": 2400.0,
+              "count": 1,
+              "rmse": 0.751891451625626
+            },
+            {
+              "start": 2400.0,
+              "end": 3600.0,
+              "count": 1,
+              "rmse": 0.374455161641499
+            }
+          ],
+          "name": "pS6_tot",
+          "observes": "pS6_tot"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "EGFR_turnover",
+      "value": 0.5933168115360248,
+      "range_fraction": 0.48583041588598724,
+      "logscale": true
+    },
+    {
+      "name": "reaction_1_k1",
+      "value": 1.6148833471829349e-07,
+      "range_fraction": 0.07550882225475603,
+      "logscale": true
+    },
+    {
+      "name": "reaction_1_k2",
+      "value": 13415.118067902808,
+      "range_fraction": 0.7579746562060883,
+      "logscale": true
+    },
+    {
+      "name": "reaction_2_k1",
+      "value": 15127.560732655811,
+      "range_fraction": 0.7612355565731941,
+      "logscale": true
+    },
+    {
+      "name": "reaction_2_k2",
+      "value": 1430196.3677840682,
+      "range_fraction": 0.8847122294215555,
+      "logscale": true
+    },
+    {
+      "name": "reaction_3_k1",
+      "value": 5.917378599201146e-06,
+      "range_fraction": 0.17325808479482735,
+      "logscale": true
+    },
+    {
+      "name": "reaction_4_k1",
+      "value": 2.996498704402834e-08,
+      "range_fraction": 0.029788380891030697,
+      "logscale": true
+    },
+    {
+      "name": "reaction_5_k1",
+      "value": 2.3226427837110694e-08,
+      "range_fraction": 0.022873901349913794,
+      "logscale": true
+    },
+    {
+      "name": "reaction_5_k2",
+      "value": 183.2465082201307,
+      "range_fraction": 0.6414397317418009,
+      "logscale": true
+    },
+    {
+      "name": "reaction_6_k1",
+      "value": 69991.43292491733,
+      "range_fraction": 0.8028153053034525,
+      "logscale": true
+    },
+    {
+      "name": "reaction_7_k1",
+      "value": 0.0032588824217505592,
+      "range_fraction": 0.34456679323124084,
+      "logscale": true
+    },
+    {
+      "name": "reaction_8_k1",
+      "value": 5.498932453909424,
+      "range_fraction": 0.5462673990663766,
+      "logscale": true
+    },
+    {
+      "name": "reaction_9_k1",
+      "value": 5.59737048439087,
+      "range_fraction": 0.5467490033361461,
+      "logscale": true
+    },
+    {
+      "name": "scaling_pEGFR_tot",
+      "value": 3.783129959955393,
+      "range_fraction": 0.5361157037905183,
+      "logscale": true
+    },
+    {
+      "name": "scaling_pAkt_tot",
+      "value": 3469.192908613462,
+      "range_fraction": 0.7212642781235421,
+      "logscale": true
+    },
+    {
+      "name": "scaling_pS6_tot",
+      "value": 5.463960732612012e-08,
+      "range_fraction": 0.04609422309856187,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.5215470095552546,
+    "final_loss": 0.5205146383861067,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.5343455267694877,
+      0.5066837500027258
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/fujita_egf/qwen38_27b/session/outputs/run_20261007_220737_550012/de_fitting.log",
+      "rows": 1,
+      "first": 0.52155,
+      "final": 0.52155,
+      "best": 0.52155,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.52155
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/fujita_egf/qwen38_27b/session/outputs/run_20261007_220737_550012/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.52071,
+      "final": 0.52051,
+      "best": 0.52051,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.52071
+        ],
+        [
+          5,
+          0.52051
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.5205146383861068,
+  "experiment_losses": [
+    0.5343455267694877,
+    0.5066837500027258
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Refinement stopped at its iteration budget."
+}

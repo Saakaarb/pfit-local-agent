@@ -1,0 +1,37 @@
+{
+  "verdict": "Single-parameter Van der Pol fit (mu\u22482.59) terminated at the 5-iteration gradient budget with a normalized gradient norm of 0.292, so stationarity is not established. Residuals show near-zero time correlation (x1: \u22120.084, x2: \u22120.028) despite high lag-1 correlation (~0.99), indicating a phase or amplitude mismatch that additional iterations alone may not resolve.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run a gradient-only restart from this run with gradient_opt.num_iters increased to at least 50, keeping the same model, bounds, and loss. Before restarting, run diagnose --probe-gradients to confirm the gradient direction is finite and consistent.",
+      "reason": "The normalized gradient infinity norm is 0.292 (STATIONARITY), well above a convergence threshold, and the optimizer terminated purely on the 5-iteration budget (BUDGET). The loss moved only 0.00019 over 5 Adam steps (1.16215\u21921.16196), consistent with a flat but not stationary landscape. With a single well-conditioned parameter (sloppiness: 0 weak, 0 negative modes), a longer gradient run is the lowest-risk way to test whether the current mu is a true local minimum."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. Specifically check whether the model oscillation is phase-shifted relative to the data, whether the amplitude envelope is wrong, or whether the waveform shape (cubic nonlinearity) is mismatched. Verify that the initial conditions (x1=2.0, x2=0.1) match the first data point in dataset_1.csv.",
+      "reason": "x1 time correlation is \u22120.084 and x2 time correlation is \u22120.028 (RESIDUAL), meaning the model trajectory is essentially uncorrelated with the data in phase, yet lag-1 correlations are 0.989 and 0.992, meaning local slope dynamics are captured. This pattern is characteristic of a phase offset or amplitude scaling error rather than a fundamental model-form failure. Time-region RMSEs are uniform (x1: 2.22/2.28/2.30; x2: 0.86/0.96/0.88), ruling out a transient-startup artifact. Confirming the initial-condition alignment and visual phase relationship is essential before spending more iterations."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "If the plot reveals a consistent phase shift or amplitude mismatch that a single mu cannot correct, assess whether the data is consistent with the Van der Pol form at all. Consider whether a second parameter (e.g., a damping or forcing term) is needed, or whether the data was generated with different initial conditions or a slightly different nonlinearity. This is a scientific model question requiring judgement or new data, not a numerical fix.",
+      "reason": "With only one free parameter (mu, PARAMETERS) the model has no degree of freedom to adjust both amplitude and frequency independently. The x1 RMSE of 2.266 with max_abs residual of 4.015 (RESIDUAL) is large relative to the data scale, and the near-zero time correlation persists across all three time regions. If a gradient-only restart does not reduce these residuals, the limitation is structural (model form or data provenance), not numerical."
+    }
+  ],
+  "limitations": [
+    "A single parameter and a single experiment provide no information about parameter identifiability or trade-offs; the positive Hessian (sloppiness: 0 weak modes) is trivially satisfied for one well-scaled parameter.",
+    "No noise level or measurement uncertainty is specified in the data, so it is impossible to determine whether the residual magnitude (x1 RMSE 2.27, x2 RMSE 0.91) is statistically significant or within expected noise.",
+    "The near-zero time correlation could arise from a phase offset due to initial-condition mismatch rather than model-form error; without knowing the true generating process, the cause cannot be disambiguated from this run alone.",
+    "The DE phase ran only 1 iteration with population size 4, so the seed point may not be representative of the global landscape; a flat loss over 5 gradient steps does not exclude a distant better minimum.",
+    "The plot fit_exp1.png is referenced by filename only; no visual inspection was performed, so the nature of the trajectory mismatch (phase, amplitude, waveform) remains unconfirmed."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,79 @@
+{
+  "parameters": [
+    {
+      "name": "ka1",
+      "value": 0.004466637767376285,
+      "logscale": true
+    },
+    {
+      "name": "ka2fold",
+      "value": 0.00011780106473947784,
+      "logscale": true
+    },
+    {
+      "name": "kd1",
+      "value": 624.7408800002553,
+      "logscale": true
+    },
+    {
+      "name": "kd2fold",
+      "value": 0.0002696223435998794,
+      "logscale": true
+    },
+    {
+      "name": "kin",
+      "value": 0.018408226248899998,
+      "logscale": true
+    },
+    {
+      "name": "kin2",
+      "value": 0.2706929392047222,
+      "logscale": true
+    },
+    {
+      "name": "kout",
+      "value": 12.018009977148637,
+      "logscale": true
+    },
+    {
+      "name": "kout2",
+      "value": 0.11187803143640859,
+      "logscale": true
+    },
+    {
+      "name": "kout_frag",
+      "value": 2.00759645621772e-05,
+      "logscale": true
+    },
+    {
+      "name": "kon_unspec",
+      "value": 145.07372836906927,
+      "logscale": true
+    },
+    {
+      "name": "koff_unspec",
+      "value": 21.01222298603775,
+      "logscale": true
+    },
+    {
+      "name": "offset",
+      "value": 0.0003824114419144867,
+      "logscale": true
+    },
+    {
+      "name": "km",
+      "value": 2192.147090784751,
+      "logscale": true
+    },
+    {
+      "name": "scale",
+      "value": 0.6871577182581907,
+      "logscale": false
+    },
+    {
+      "name": "fragments",
+      "value": 0.2505620567981466,
+      "logscale": false
+    }
+  ]
+}

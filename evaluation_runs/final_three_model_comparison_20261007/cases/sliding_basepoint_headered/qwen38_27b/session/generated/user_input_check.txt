@@ -1,0 +1,17 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Population size is 4 and DE num_iters is 1; gradient num_iters is 5. These extremely small search budgets will almost certainly prevent convergence to a meaningful optimum, though they will not break translation or compilation.
+- In _compute_loss_problem the displacement residual uses `solution[:, 0]` directly rather than `observables['displacement']`. The values are identical here (both are x1), but if the observable definition ever changes the loss will silently diverge from the intended mapping.
+
+Recommendations:
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Increase population_size (e.g. 20-50) and DE num_iters (e.g. 5-10) and gradient num_iters (e.g. 20-50) to give the optimizer a realistic chance of converging within the 5-parameter search space spanning up to 6 orders of magnitude (c2: 1e4–1e7).
+- The loss normalizes each column by max(|measured|) (≈402 for contact_force, ≈0.48 for displacement), so the displacement residual is amplified ~840× relative to contact_force. If the user intends equal weighting of both columns this is correct per the stated loss; if they want comparable influence, consider normalizing by a shared scale or reporting per-column RMSE in the writeout for diagnostics.
+- Solver settings (Kvaerno5, rtol 1e-7, atol 1e-9, dt0 1e-6, max_steps 10000) are appropriate for the stiff tanh-based contact model; no change needed.
+- All five wide-range parameters correctly use logscale; Dc (0.1–1.0, 1 decade) correctly uses linear scale. No adjustment needed.
+
+Semantic review:
+Session is ready for JAX translation. The loss expression matches the user's stated specification (per-column max-abs normalization, sqrt of pooled mean squared residual). Observable keys, dataset column mapping, integrated-variable indices, and writeout shape (11 columns) are all internally consistent. No JAX-incompatible constructs detected. The only practical risk is the extremely small optimizer budget (pop=4, 1 DE iter, 5 gradient iters), which will produce a valid but likely poor fit.

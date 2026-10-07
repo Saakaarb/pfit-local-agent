@@ -1,0 +1,46 @@
+{
+  "verdict": "The two-compartment series-decay fit (k1=1.354, k2=0.187) is not stationary: the normalized gradient infinity norm is 1.134 and the Adam optimizer exhausted its 5-iteration budget while still reducing loss (0.15692\u21920.1568). Channel A is reasonably captured (RMSE 0.04\u20130.09, time correlation \u22480.72), but channel B is poorly fit in both experiments (RMSE 0.13\u20130.33, positive bias up to +0.32, time correlation \u22480.30). Sloppiness shows no weak or negative modes, so local identifiability is not the issue. The dominant actionable problem is the unmet iteration budget; the B-channel mismatch may reflect residual optimisation error or a structural model limitation that can only be assessed after convergence.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run `diagnose --probe-gradients` on this run to confirm the autodiff gradient is finite and consistent before spending additional iterations.",
+      "reason": "The normalized gradient infinity norm is 1.134 (STATIONARITY) and the optimizer terminated on iteration_budget after 5/5 Adam steps (BUDGET). Verifying gradient correctness first prevents wasting a longer run on a faulty gradient signal."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "If gradient checks pass, increase gradient_opt.num_iters to at least 50\u2013100 and perform a gradient-only restart from this run (same model, same bounds, same initial parameters k1=1.354, k2=0.187).",
+      "reason": "The NODE trace shows loss still decreasing at the final iteration (0.15692 at iter 4 \u2192 0.1568 at iter 5), and the gradient-to-loss ratio of 7.23 indicates the optimizer was still making meaningful progress when the budget of 5 was exhausted. A gradient-only restart is appropriate because the model, bounds, and parameterisation remain valid."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plots fit_exp1.png and fit_exp2.png, paying particular attention to channel B in both experiments, and compare the fitted B trajectory against the measured B data in the early (0\u20133.33) and mid (3.33\u20136.67) time regions.",
+      "reason": "Channel B shows a large positive bias (+0.125 in Exp 1, +0.317 in Exp 2) and low time correlation (0.29\u20130.30) across all three time regions, while channel A fits well (RMSE 0.04\u20130.09, time correlation 0.72). This pattern\u2014systematic overprediction of B with poor temporal tracking\u2014could be residual optimisation error or a structural mismatch, but visual inspection is needed to distinguish the two before any model change is considered."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "SLOPPINESS"
+      ],
+      "action": "After the extended gradient run converges (or the gradient norm drops below ~0.01), re-examine the B-channel residuals. If the bias and low time correlation persist, consult the domain context to determine whether the two-compartment series model (A\u2192B\u2192out) is structurally adequate for the observed B dynamics, or whether additional compartments, a different kinetic form, or additional data are required.",
+      "reason": "SLOPPINESS reports 0 weak and 0 negative modes, so the current two-parameter model is locally identifiable; the B-channel mismatch (RMSE up to 0.326, bias +0.317) is therefore more likely a structural limitation than an identifiability problem. However, this conclusion requires convergence first and domain judgement\u2014no new data or noise levels are available in this run to confirm it."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot distinguish whether the B-channel mismatch (bias up to +0.317, time correlation \u22480.30) is due to the optimizer not yet converging or to a structural inadequacy of the two-compartment model; convergence must be established first.",
+    "No noise levels, measurement uncertainties, or replicate data are available in this run, so statistical significance of the residual bias cannot be assessed.",
+    "The DE seeding phase ran only 1 iteration (population_size=4), so the initial point is essentially a single random draw; a different seed could in principle land in a different basin, though sloppiness (0 weak modes) suggests the local landscape is well-behaved.",
+    "The plots fit_exp1.png and fit_exp2.png are referenced by filename only; no visual inspection was performed. The residual statistics are computed numerically and do not capture shape or phase errors that a visual check might reveal.",
+    "The model uses a single k1 for A\u2192B transfer and a single k2 for B\u2192out; if the true system has parallel pathways, time-dependent rates, or a third compartment, the current parameterisation cannot represent it regardless of optimisation quality."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

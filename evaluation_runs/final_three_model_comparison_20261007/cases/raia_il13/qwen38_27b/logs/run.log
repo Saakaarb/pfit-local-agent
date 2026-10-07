@@ -1,0 +1,57 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/outputs/run_20261007_222754_033793
+Launching driver script
+ERROR:2026-10-07 22:27:57,096:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 197, in _version_check
+    version = get_version()
+              ^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:81: operation cusparseGetProperty(MAJOR_VERSION, &major) failed: The cuSPARSE library was not found.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 262, in _check_cuda_versions
+    _version_check("cuSPARSE", cuda_versions.cusparse_get_version,
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 201, in _version_check
+    raise RuntimeError(err_msg) from e
+RuntimeError: Unable to load cuSPARSE. Is it installed?
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 128, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/outputs/run_20261007_222754_033793
+Using 4 accuracy-validated seed points
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06], atol: [6.862058688469764e-08, 2.3505849360111304e-06, 4.9438702549397906e-08, 1.2341935229094939e-09, 4.5793033984474363e-10, 2.8e-08, 6.198897845570433e-10, 1.65e-06, 1.7484634048659064e-07, 1.7640889545446046e-07, 3.4000000000000007e-09, 3.39999992730345e-09, 7.49550866228158e-09, 3.497405808049632e-07, 2e-07]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 1.6059E-01
+Time for iteration: 0.1449
+-------
+Final best position (scaled): [-0.97169136 -0.00312076 -0.63183023  0.95329086 -0.11659756 -0.38879217
+  0.71623734 -0.43206051 -0.8782575   0.76513127 -0.3940948  -0.03779943
+ -0.60591399  0.58083796 -0.97407122]
+Final best cost: 1.6059E-01
+Done with DE search
+Best Position from DE: [1.29788008e-05 9.71665905e-02 2.96947085e-04 6.50374390e+02
+ 3.41672282e-02 2.78503937e-03 7.32739084e+01 1.86963981e-03
+ 3.06880990e-05 1.14954264e+02 2.65228880e-03 7.05996042e-02
+ 3.77002344e-04 2.10548355e+01 1.26974091e-05]
+Best cost from DE: 0.16058998675459873
+NODE effective tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [6.862058688469763e-09, 2.3505849360111303e-07, 4.9438702549397906e-09, 1.234193522909494e-10, 4.579303398447436e-11, 2.8e-09, 6.198897845570434e-11, 1.65e-07, 1.7484634048659065e-08, 1.7640889545446046e-08, 3.4000000000000007e-10, 3.39999992730345e-10, 7.495508662281581e-10, 3.497405808049632e-08, 2e-08]
+Trainable_params: [-0.97169136 -0.00312076 -0.63183023  0.95329086 -0.11659756 -0.38879217
+  0.71623734 -0.43206051 -0.8782575   0.76513127 -0.3940948  -0.03779943
+ -0.60591399  0.58083796 -0.97407122]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.1605899867575281 0.1605899867575281
+Iteration:,loss value, best loss: 4 0.158955967499468 0.158955967499468
+Iteration time: 5.915780782699585
+Final best position: [1.30385208e-05 9.67213226e-02 2.98313859e-04 6.47393464e+02
+ 3.43244445e-02 2.79785134e-03 7.29380402e+01 1.86963981e-03
+ 3.05481732e-05 1.15483405e+02 2.64013208e-03 7.02807027e-02
+ 3.78736661e-04 2.11503727e+01 1.26857984e-05]
+Final loss: 0.1585774290008962
+Skipping post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/outputs/run_20261007_222754_033793

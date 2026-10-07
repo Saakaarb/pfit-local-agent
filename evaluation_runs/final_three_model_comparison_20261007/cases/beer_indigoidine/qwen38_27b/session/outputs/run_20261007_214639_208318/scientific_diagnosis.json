@@ -1,0 +1,229 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_214639_208318",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_214639_208318/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, Bacnorm: RMSE=0.548477, bias=-0.48003, time correlation=-0.8590762667705629, lag-1=0.999980809055493.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, IndconcNormRange: RMSE=0.506049, bias=-0.413563, time correlation=-0.44665591900773116, lag-1=0.9999595002779168.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 714,
+          "missing": 0,
+          "rmse": 0.5484765743158646,
+          "mae": 0.4800446436109698,
+          "bias": -0.4800298741964171,
+          "max_abs": 0.7047000815511677,
+          "time_correlation": -0.8590762667705629,
+          "lag1_correlation": 0.999980809055493,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1188.3333333333333,
+              "count": 238,
+              "rmse": 0.19649365432721
+            },
+            {
+              "start": 1188.3333333333333,
+              "end": 2376.6666666666665,
+              "count": 238,
+              "rmse": 0.6460641865147746
+            },
+            {
+              "start": 2376.6666666666665,
+              "end": 3565.0,
+              "count": 238,
+              "rmse": 0.6681848310399899
+            }
+          ],
+          "name": "Bacnorm",
+          "observes": "Bacnorm"
+        },
+        {
+          "status": "ok",
+          "count": 714,
+          "missing": 0,
+          "rmse": 0.5060490951803661,
+          "mae": 0.4142051507260118,
+          "bias": -0.4135626659781592,
+          "max_abs": 0.827651553658195,
+          "time_correlation": -0.44665591900773116,
+          "lag1_correlation": 0.9999595002779168,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1188.3333333333333,
+              "count": 238,
+              "rmse": 0.15147386552498782
+            },
+            {
+              "start": 1188.3333333333333,
+              "end": 2376.6666666666665,
+              "count": 238,
+              "rmse": 0.7396626901210772
+            },
+            {
+              "start": 2376.6666666666665,
+              "end": 3565.0,
+              "count": 238,
+              "rmse": 0.4452098753446186
+            }
+          ],
+          "name": "IndconcNormRange",
+          "observes": "IndconcNormRange"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Bacmax",
+      "value": 0.004175240611667566,
+      "range_fraction": 0.2620681508156981,
+      "logscale": true
+    },
+    {
+      "name": "beta",
+      "value": 0.10384807783983732,
+      "range_fraction": 0.40163984624380167,
+      "logscale": true
+    },
+    {
+      "name": "ksyn",
+      "value": 0.001342955472037816,
+      "range_fraction": 0.21280616131386637,
+      "logscale": true
+    },
+    {
+      "name": "kdim",
+      "value": 0.14812725411459562,
+      "range_fraction": 0.41706349722458713,
+      "logscale": true
+    },
+    {
+      "name": "kdegi",
+      "value": 1.7903868240243893e-05,
+      "range_fraction": 0.025294687309705577,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.673794103129917,
+    "final_loss": 0.6733063019948792,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3816608995338001e-11,
+        1e-08,
+        3.231170698600771e-11,
+        1.6284831729386748e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3816608995338001e-11,
+        1e-08,
+        3.231170698600771e-11,
+        1.6284831729386748e-10
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.6733063019948791
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_214639_208318/de_fitting.log",
+      "rows": 1,
+      "first": 0.67379,
+      "final": 0.67379,
+      "best": 0.67379,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.67379
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_214639_208318/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.6734,
+      "final": 0.67331,
+      "best": 0.67331,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.6734
+        ],
+        [
+          5,
+          0.67331
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.6733063019948791,
+  "experiment_losses": [
+    0.6733063019948791
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Refinement stopped at its iteration budget."
+}

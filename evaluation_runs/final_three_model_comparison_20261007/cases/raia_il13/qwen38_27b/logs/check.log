@@ -1,0 +1,13 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/raia_il13/qwen38_27b/session
+warning: Population size is 4 with only 1 iteration for 15 trainable parameters spanning 8 orders of magnitude each; the DE search will almost certainly fail to explore the parameter space meaningfully.
+warning: Gradient optimizer is configured for only 5 iterations; with 15 parameters and a non-trivial ODE system, convergence to a local minimum is unlikely.
+warning: SOCS3mRNA (y[9]) and CD274mRNA (y[13]) have production terms proportional to pSTAT5 but no degradation or removal terms; their values grow monotonically over the 120-unit time horizon, which may cause the ODE to become stiff or produce very large intermediate values that stress the solver.
+warning: DecoyR (y[10]) only decreases (dDecoyRdt < 0) with no recycling back; it will approach zero, making the IL13_DecoyR channel saturate. This is a modeling choice but may interact with the wide parameter ranges to create near-singular dynamics.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g., 20-50) and num_iters (e.g., 5-10) to give the DE algorithm a realistic chance of locating a basin for 15 log-scaled parameters; the current 4×1 budget is below the minimum typically needed even for 3-parameter problems.
+recommendation: Increase gradient num_iters from 5 to at least 50-100 so the Adam optimizer can traverse the loss landscape after the population phase; 5 steps is insufficient for a 15-dimensional problem with an ODE-evaluated loss.
+recommendation: The loss normalizes by np.max(np.abs(dataset[:, 0])) + 1e-12, which is a valid max-absolute normalization of the measured pSTAT5 column (range ~1.6–84 for exp 1, ~1.7–128 for exp 2). The automatic log-loss rule does not apply (within-column log10 range < 3 for both experiments), so the linear residual form is appropriate.
+recommendation: Consider adding degradation or saturation terms for SOCS3mRNA and CD274mRNA in the model equations to prevent unbounded growth over the 120-unit simulation window; unbounded state growth can degrade solver accuracy and destabilize the gradient computation.
+recommendation: The writeout array has 17 columns (time + 1 measured + 15 states), consistent with the 15 integrated variables and 1 data column; no shape mismatch detected.

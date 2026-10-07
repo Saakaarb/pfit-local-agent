@@ -1,0 +1,49 @@
+{
+  "method": "dataset_time_scales",
+  "integrator": "Kvaerno5",
+  "reason": "Observed time-scale separation is at least 100-fold",
+  "time_scale_ratio": 13977931.293599272,
+  "ratio_threshold": 100.0,
+  "columns": [
+    {
+      "experiment": 1,
+      "column": "T",
+      "finite_points": 142,
+      "status": "resolved",
+      "amplitude": 305.7349999999999,
+      "fast_time_scale": 258.07681485483516,
+      "slow_time_scale": 340700.090212763
+    },
+    {
+      "experiment": 1,
+      "column": "dTdt",
+      "finite_points": 142,
+      "status": "resolved",
+      "amplitude": 194.35238333333334,
+      "fast_time_scale": 8874.819470366614,
+      "slow_time_scale": 3607379986.511826
+    }
+  ],
+  "scope": "Observed dynamics only; hidden modes and other parameter values may be stiff",
+  "max_steps_estimate": {
+    "selected_max_steps": 7000,
+    "configured_max_steps": 10000,
+    "cap": 50000,
+    "steps_per_time_scale": 10,
+    "headroom_factor": 3,
+    "rounding_multiple": 1000,
+    "minimum_steps": 1000,
+    "experiments": [
+      {
+        "experiment": 1,
+        "duration": 55939.86000000001,
+        "fastest_time_scale": 258.07681485483516,
+        "raw_estimated_steps": 6502.698822224552,
+        "proposed_max_steps": 7000,
+        "capped": false,
+        "method": "time_scale_estimate"
+      }
+    ],
+    "scope": "Initial budget estimate only; sampled integration and accuracy checks remain required"
+  }
+}

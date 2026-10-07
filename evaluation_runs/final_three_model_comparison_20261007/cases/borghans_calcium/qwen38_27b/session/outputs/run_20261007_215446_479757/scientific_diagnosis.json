@@ -1,0 +1,270 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_215446_479757",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_215446_479757/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, Ca: RMSE=1653.94, bias=1653.36, time correlation=-0.2518340338211956, lag-1=0.9921350579054106.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 111,
+          "missing": 0,
+          "rmse": 1653.9396249980762,
+          "mae": 1653.3559847367242,
+          "bias": 1653.3559847367242,
+          "max_abs": 2083.1717332879184,
+          "time_correlation": -0.2518340338211956,
+          "lag1_correlation": 0.9921350579054106,
+          "time_regions": [
+            {
+              "start": 0.029484867,
+              "end": 3.0142706756666664,
+              "count": 32,
+              "rmse": 1669.8969977720806
+            },
+            {
+              "start": 3.0142706756666664,
+              "end": 5.999056484333333,
+              "count": 36,
+              "rmse": 1647.4589439204656
+            },
+            {
+              "start": 5.999056484333333,
+              "end": 8.983842293,
+              "count": 43,
+              "rmse": 1647.4092485044528
+            }
+          ],
+          "name": "Ca",
+          "observes": "Ca"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "K2",
+      "value": 10.569325754318642,
+      "range_fraction": 0.5030059104224327,
+      "logscale": true
+    },
+    {
+      "name": "K_par",
+      "value": 8.711322058539048,
+      "range_fraction": 0.49251050874389213,
+      "logscale": true
+    },
+    {
+      "name": "Ka",
+      "value": 40449.816015501565,
+      "range_fraction": 0.9508645688225409,
+      "logscale": true
+    },
+    {
+      "name": "Kd",
+      "value": 0.055550513050062686,
+      "range_fraction": 0.21808600929075894,
+      "logscale": true
+    },
+    {
+      "name": "Kf",
+      "value": 125.92541111567131,
+      "range_fraction": 0.6375141721746671,
+      "logscale": true
+    },
+    {
+      "name": "Kp",
+      "value": 4.881287566295108,
+      "range_fraction": 0.46106679919452576,
+      "logscale": true
+    },
+    {
+      "name": "Ky",
+      "value": 27784.408435895613,
+      "range_fraction": 0.9304751443197626,
+      "logscale": true
+    },
+    {
+      "name": "Kz",
+      "value": 0.10779181956924247,
+      "range_fraction": 0.25407322538145155,
+      "logscale": true
+    },
+    {
+      "name": "Vd",
+      "value": 2.860721939485008,
+      "range_fraction": 0.4320594558355838,
+      "logscale": true
+    },
+    {
+      "name": "Vm2",
+      "value": 0.007621317198877727,
+      "range_fraction": 0.11025375466494314,
+      "logscale": true
+    },
+    {
+      "name": "Vm3",
+      "value": 0.0054245483594868174,
+      "range_fraction": 0.09179544815728669,
+      "logscale": true
+    },
+    {
+      "name": "Vp",
+      "value": 0.045378423618060645,
+      "range_fraction": 0.20710617562974082,
+      "logscale": true
+    },
+    {
+      "name": "beta_par",
+      "value": 36.863317179502204,
+      "range_fraction": 0.5708243016287385,
+      "logscale": true
+    },
+    {
+      "name": "epsilon_par",
+      "value": 6.0421192919342515,
+      "range_fraction": 0.4726486619335543,
+      "logscale": true
+    },
+    {
+      "name": "n_par",
+      "value": 0.32227317898605623,
+      "range_fraction": 0.3135280203861215,
+      "logscale": true
+    },
+    {
+      "name": "v0",
+      "value": 0.9602792682339297,
+      "range_fraction": 0.37279969410589225,
+      "logscale": true
+    },
+    {
+      "name": "v1",
+      "value": 0.07037667356902415,
+      "range_fraction": 0.2309285919471682,
+      "logscale": true
+    },
+    {
+      "name": "offset",
+      "value": 1328.6319996774373,
+      "range_fraction": 0.7654255885094258,
+      "logscale": true
+    },
+    {
+      "name": "scale",
+      "value": 782.5473511975671,
+      "range_fraction": 0.7366888282200643,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.20210241161500786,
+    "final_loss": 0.19950530203979863,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.1150071404931246e-06,
+        4.1226773005409576e-09,
+        1.298467285584272e-09
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.1150071404931246e-06,
+        4.1226773005409576e-09,
+        1.298467285584272e-09
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.19950530203979863
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_215446_479757/de_fitting.log",
+      "rows": 1,
+      "first": 0.2021,
+      "final": 0.2021,
+      "best": 0.2021,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.2021
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_215446_479757/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.20002,
+      "final": 0.19951,
+      "best": 0.19951,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.20002
+        ],
+        [
+          5,
+          0.19951
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.19950530203979863,
+  "experiment_losses": [
+    0.19950530203979863
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Refinement stopped at its iteration budget."
+}

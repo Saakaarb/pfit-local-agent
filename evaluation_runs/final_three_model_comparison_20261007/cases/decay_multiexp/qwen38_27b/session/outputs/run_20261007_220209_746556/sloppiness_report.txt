@@ -1,0 +1,19 @@
+Post-fit sloppiness
+Status: ok
+Method: finite-difference
+Coordinates: log10(k1), log10(k2)
+Verdict: no weak curvature directions at the specified relative floor
+Weak modes: 0
+Negative modes: 0
+Normalized gradient infinity norm: 1.13397
+Eigenvectors are columns in descending eigenvalue order.
+Eigenvalues (largest to smallest):
+  mode 1: 9.74726466e-01
+  mode 2: 6.63679220e-02
+Positive spectrum span: 1.16692 decades
+STIFFEST direction: k1(-0.77), k2(-0.64)
+SLOPPIEST direction: k2(-0.77), k1(+0.64)
+Eigenvectors describe parameter combinations, not individual parameter identifiability.
+AD fallback: TypeError: can't apply forward-mode autodiff (jvp) to a custom_vjp function.
+Warning: The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+Warning: Local curvature only: not proof of structural/global identifiability or convergence.

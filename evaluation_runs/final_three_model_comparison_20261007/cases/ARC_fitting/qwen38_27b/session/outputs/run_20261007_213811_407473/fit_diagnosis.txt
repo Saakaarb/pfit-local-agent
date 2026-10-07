@@ -1,0 +1,71 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_213811_407473
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.0000E+04, best loss 1.0000E+04, final loss 1.0000E+04
+- NODE: 2 iterations, first loss 1.0000E+04, best loss 1.0000E+04, final loss 1.0000E+04
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: NMC_SOC80_M2_normalized_converted_units.csv; loss=10000.26491426101; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 2; negative modes: 2
+- full report: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_213811_407473/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- Estimated Hessian has substantial asymmetry before symmetrization.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Parameters are at/near bounds; unconstrained Hessian modes do not describe the feasible region fully.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- h2=10 is at 0.00% of its log10 search interval.
+- [BOUND] h2=10 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.0753166; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 2 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, T: RMSE=63.2512, bias=15.8638, time correlation=-0.43300790013556695, lag-1=0.9894977955861358.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, dTdt: RMSE=29.4085, bias=-5.60796, time correlation=-0.0993908784032045, lag-1=0.707169676487769.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_213811_407473/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_213811_407473/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The loss (≈10000.265) is dominated by three sigmoid endpoint-penalty terms of O(10000) while the trajectory data-fitting terms are O(1); the optimizer (5 gradient iterations, 1 DE iteration) barely moved the loss (Δ≈0.00017). h2 is pinned at its lower bound (10.0, 0 % of its log₁₀ interval), the Hessian has 2 negative modes (saddle-point region), and the T trajectory shows a negative time correlation (−0.433), indicating a qualitative model–data mismatch in this parameter region rather than a simple convergence shortfall.
+1. Review the relative weighting of the three sigmoid endpoint penalties (each up to 10000) versus the two data-fitting terms (normalised to O(1)). Decide whether the penalty magnitudes are intentional or whether the data terms should carry more weight so that trajectory shape is actually optimised. This is a scientific modelling decision, not a numerical fix. [LOSS, OPTIMIZER, OPTIMIZER_TRACES] Seed loss 10000.2650836 and final loss 10000.2649143 differ by only ~1.7×10⁻⁴ over 5 Adam iterations. The DE trace shows a single iteration at 10000.0. The gradient-to-loss ratio is 7.53×10⁻⁶, confirming the gradient is dominated by the penalty terms. The data-fitting contributions (T normalised MSE and log-dTdt MSE) are negligible in the total, so the optimiser is essentially solving the endpoint constraints while the trajectory fit is a rounding error.
+2. Inspect the eigenvectors of the two weak and two negative Hessian modes to identify which parameter combinations are ill-conditioned. Determine whether h2 (pinned at 10.0, the lower bound) is part of a weak/negative mode. If the second reaction pathway is not physically required, consider fixing or removing it; if it is required, verify that the lower bound of 10.0 is physically justified before widening it. Any bound or model change requires a full re-fit. [BOUND, WEAK_MODES, SLOPPINESS] h2=10.0 sits at 0.00 % of its log₁₀ search interval [10, 1000], meaning the optimiser is pushing it below the allowed range. Sloppiness reports 2 weak modes and 2 negative modes, so the curvature is not positive-definite and the current point is not a local minimum. The negative modes mean a gradient-only restart would not converge to a minimum; the landscape is a saddle or ridge in the h2 / Ea2 / A2 subspace.
+3. Open the saved plot fit_exp1.png and inspect the T trajectory and dTdt trajectory against the data. The T channel shows a negative time correlation (−0.433) and a positive bias (+15.86), meaning the model temperature trends opposite to the measurement. The dTdt channel shows near-zero time correlation (−0.099) and its RMSE is concentrated in the last time region (31.22 vs 0.005 and 0.001 in earlier regions). Check initial conditions (c1=1.0, c2=0.04, T=354.0), input timing, and whether the two-reaction model structure can produce the observed thermal profile. [RESIDUAL] A negative time correlation for T (−0.433) is a qualitative mismatch: the model is moving in the wrong direction over time. The dTdt residuals are essentially zero in the first two time regions (RMSE 0.0045 and 0.0006) but jump to 31.22 in the final region (126 points), suggesting the model captures early kinetics but fails in the late stage. This pattern is more consistent with a model-structure or parameter-region issue than with insufficient iterations.
+4. Before increasing gradient_opt.num_iters, run diagnose --probe-gradients to verify that the autodiff gradients are finite and consistent with finite differences at the current point. Only if gradients pass and the loss-structure issue above is resolved should a longer gradient run be attempted. A gradient-only restart from the current saddle-point region (2 negative Hessian modes) is not expected to converge to a minimum. [BUDGET, STATIONARITY, OPTIMIZER] The refinement stopped at its 5-iteration budget (termination: 'iteration_budget'). The normalised gradient inf-norm is 0.0753, so the point is not stationary, but the Hessian has 2 negative modes, meaning the point is a saddle. Increasing iterations without addressing the loss weighting or the saddle geometry will not produce a meaningful improvement.
+5. Check whether the initial conditions (c1=1.0, c2=0.04, T=354.0) and the endpoint penalty targets (c1→0.02, c2→0.98, |ΔT|<50) are mutually consistent with the two-reaction model over the observed time span. If the model cannot simultaneously satisfy the endpoint constraints and reproduce the T trajectory, the penalty terms will dominate the loss regardless of iteration count, and the data fit will remain poor. [RESIDUAL, PARAMETERS] The loss structure forces the optimiser to drive c1 to ≤0.02 and c2 to ≥0.98 while keeping final T within 50 of the measurement. With h2 at its lower bound and the T time correlation negative, the model may be unable to satisfy all three endpoint constraints while also matching the trajectory. The dTdt bias of −5.61 and the late-region RMSE of 31.22 suggest the thermal dynamics are not well captured in the current parameter region.
+Limitation: The Hessian has 2 negative modes, so the current point is not a local minimum; no convergence or identifiability conclusion can be drawn from this run.
+Limitation: The negative time correlation for T (−0.433) and the late-region dTdt RMSE spike (31.22) could arise from model-structure mismatch, inappropriate initial conditions, inconsistent endpoint penalties, or a bad parameter region; the evidence does not isolate a single cause.
+Limitation: The loss is dominated by O(10000) penalty terms; the data-fitting terms are O(1) and their individual contributions cannot be assessed independently from the total loss value.
+Limitation: Only 5 gradient iterations and 1 DE iteration were evaluated; the optimiser has not explored the parameter space, so the current parameter values (e.g., h2 at bound) may reflect the starting point rather than a true optimum.
+Limitation: The two weak and two negative Hessian modes indicate parameter correlations, but without inspecting the eigenvectors it is not possible to determine which specific parameters are non-identifiable or which combinations are degenerate.
+Limitation: No gradient-check or finite-difference comparison was performed in this run; the reliability of the autodiff gradients at this point is unverified.
