@@ -2299,6 +2299,7 @@ population_opt:
 gradient_opt:
   gradient_optimizer: adam
   num_iters: 1000
+  auto_state_tolerances: true
   stepsize_rtol: {rtol}
   stepsize_atol: {atol}
   initial_timestep: 1e-6

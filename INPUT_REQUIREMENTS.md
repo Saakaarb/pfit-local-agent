@@ -826,26 +826,55 @@ that gradient refinement completed successfully.
 
 ### Refinement-first tolerance selection
 
-Numerical readiness selects `max_steps` using the configured **gradient-stage
-(refinement) tolerances**. After coverage and source/JAX fidelity pass, the
-validator makes one additional comparison with both tolerances multiplied by
-10, keeping that same step ceiling. It reuses the strict losses and evaluates
-every successful sampled parameter vector across all experiments. At least two
-successful vectors are required.
+Numerical readiness first selects `max_steps` using the configured gradient-stage
+(refinement) tolerances. After coverage and source/JAX fidelity pass, it tests
+state-scaled absolute tolerances, then a 10x DE relaxation, with the same fixed
+step ceiling throughout. Each comparison evaluates every successful sampled
+parameter vector across all experiments; at least two successful vectors are
+required. No additional parameter search or step-budget escalation is performed
+for tolerance selection.
 
-Automatic DE relaxation requires each experiment loss to remain within
-`1e-8 + 0.01 * abs(reference_loss)`. Mean-loss candidate ordering must also be
-preserved, ignoring reference gaps within that same scale-dependent threshold.
-A failed solve, invalid loss, or failed comparison retains the refinement
-tolerances; there is no further tolerance/step-budget escalation for this check.
-This is an empirical stability check, not proof of accuracy everywhere in the
-search bounds. Refinement tolerances themselves remain user-configured.
+For each successful trajectory, the scale of each state is the larger of its
+95th-percentile absolute value at saved observation times and its absolute
+initial value. Across parameter candidates, the median scale is taken separately
+for each experiment; the largest of these experiment scales becomes `S_i`.
+This gives experiments equal weight regardless of their number of observations
+and avoids letting one extreme parameter sample determine the scale. Values
+between saved times, including narrow unsampled peaks, are not measured.
 
-The decision and paired losses are recorded in
-`generated/tolerance_calibration.json`. Accepted settings are written to
-`population_opt.stepsize_rtol` and `population_opt.stepsize_atol`, with the source
-stamp refreshed after validation. Explicit population tolerances are preserved;
-remove them to request automatic selection again. Set
-`population_opt.auto_tolerances: false` to disable this optional pass. Legacy
-scripts without solver statistics skip it. The additional comparison counts
-against the recovery deadline when validation is running inside bounded recovery.
+The proposed refinement tolerance is `atol_i = rtol_i * 0.01 * S_i`; refinement
+`rtol` is unchanged. This puts the crossover between absolute and relative error
+control at 1% of each characteristic state scale. The proposal may tighten or
+loosen individual states' tolerances. A zero scale or a nonpositive/nonfinite
+computed tolerance retains the configured absolute tolerance for that state.
+Missing trajectory-scale information skips state scaling. Set
+`gradient_opt.auto_state_tolerances: false` to preserve explicitly chosen
+refinement tolerances exactly; otherwise this selection is enabled by default,
+including for existing YAML that does not specify the flag.
+
+A proposal is accepted only if every paired solve succeeds with valid loss and
+each experiment loss stays within `1e-8 + 0.01 * abs(reference_loss)`. Meaningful
+ordering of mean candidate losses must also remain unchanged, ignoring reference
+gaps within that scale-dependent threshold. A failed state-scaling check retains
+all configured refinement tolerances. The DE proposal then multiplies the
+selected refinement `rtol` and `atol` by 10. Both comparisons use the original
+configured-tolerance losses as reference, so their error allowances do not
+accumulate. A failed DE check retains the selected refinement settings for DE.
+
+Selected tolerances are frozen across particles, experiments and fitting
+iterations. This is a sampled loss-stability check, not a guarantee of global
+trajectory or gradient accuracy. Small-magnitude states may still be important
+to the dynamics. Existing numerical failures must pass baseline coverage before
+state scaling is attempted; this policy does not rescue a model for which no
+sufficiently broad set of successful reference integrations is available.
+
+The decisions, state scales, fallback state indices and paired losses are saved
+in `generated/tolerance_calibration.json`. Per-trajectory scales are also saved
+in the solver-coverage diagnostics. Accepted refinement `stepsize_atol` and DE
+`stepsize_rtol`/`stepsize_atol` are written to their respective YAML sections,
+with the source stamp refreshed after validation. Explicit population tolerances
+are preserved independently of state scaling; remove them to request automatic
+DE selection again. Set `population_opt.auto_tolerances: false` to disable only
+the DE comparison. Disable both options to keep all configured tolerances.
+Legacy scripts without solver statistics skip both checks. Additional tolerance
+checks count against the recovery deadline when run inside bounded recovery.

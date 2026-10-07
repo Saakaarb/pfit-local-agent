@@ -118,7 +118,8 @@ def smoke_test_generated_script(script_path: Path, session_dir: Path) -> None:
     if points is not None:
         from local_agent.agent.tolerance_calibration import calibrate_tolerances
         raw = yaml.safe_load((Path(session_dir) / "inputs/user_input.yaml").read_text())
-        calibrate_tolerances(module, reader, script_path, records, raw.get('population_opt') or {})
+        calibrate_tolerances(module, reader, script_path, records, raw.get('population_opt') or {},
+                             raw.get('gradient_opt') or {})
 
 
 def validate_generated_script_contract(script_path: Path):
@@ -224,6 +225,8 @@ def _validate_raw_settings(raw):
     if type(population.get('auto_tolerances', True)) is not bool:
         raise ValidationError('population_opt.auto_tolerances must be a YAML boolean')
     gradient = raw.get('gradient_opt') or {}
+    if type(gradient.get('auto_state_tolerances', True)) is not bool:
+        raise ValidationError('gradient_opt.auto_state_tolerances must be a YAML boolean')
     cap = gradient.get('solver_recovery_max_steps', gradient.get('max_steps', 10000))
     if type(cap) is not int or cap < gradient.get('max_steps', 10000):
         raise ValidationError('solver_recovery_max_steps must be an integer >= max_steps')

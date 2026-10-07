@@ -506,7 +506,7 @@ class LocalWorkflow:
         from local_agent.agent.tolerance_calibration import apply_calibrated_tolerances
         if apply_calibrated_tolerances(session_dir, script_path):
             self._generation_source_stamp = build_stamp(session_dir)
-            events.append(WorkflowEvent("tolerance_calibration", "passed", "Selected 10x looser DE tolerances at the validated step ceiling"))
+            events.append(WorkflowEvent("tolerance_calibration", "passed", "Applied validated state-scale and/or DE tolerances at the fixed step ceiling"))
         write_stamp(session_dir)
         events.append(WorkflowEvent("smoke_test_generated_script", "passed", str(script_path)))
         return True

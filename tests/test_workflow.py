@@ -132,7 +132,10 @@ def test_generate_script_workflow_writes_valid_script(tmp_path):
     original = yaml.safe_load(Path("tests/vanderpol_session/inputs/user_input.yaml").read_text())
     report = json.loads((session / "generated/tolerance_calibration.json").read_text())
     assert report["status"] == "accepted"
-    assert config["gradient_opt"] == original["gradient_opt"]
+    expected_gradient = original["gradient_opt"].copy()
+    if "gradient_stepsize_atol" in report:
+        expected_gradient["stepsize_atol"] = report["gradient_stepsize_atol"]
+    assert config["gradient_opt"] == expected_gradient
     assert config["population_opt"]["stepsize_rtol"] == report["stepsize_rtol"]
     assert config["population_opt"]["stepsize_atol"] == report["stepsize_atol"]
     assert "def _integrate_system" in (session / "generated" / "generated_script.py").read_text()

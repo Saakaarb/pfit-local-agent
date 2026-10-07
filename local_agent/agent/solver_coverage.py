@@ -46,6 +46,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
         complete = True
         failures = []
         losses = []
+        state_scales = []
         for record in records:
             constants = experiment_constants(record, reader)
             constants.update(min_limits=lo, max_limits=hi, is_logscale=logs)
@@ -66,6 +67,10 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
                             requested_rows=len(record['t_eval']),
                             finite_rows=int(np.all(np.isfinite(ys), axis=1).sum()))
                 if code == 'successful':
+                    scale = np.percentile(np.abs(ys), 95, axis=0)
+                    if 'init_cond' in constants:
+                        scale = np.maximum(scale, np.abs(constants['init_cond']))
+                    item['state_scale'] = scale.tolist()
                     loss = np.asarray(module._compute_loss_problem(constants, point))
                     if loss.shape != ():
                         raise ValidationError('_compute_loss_problem must return a scalar')
@@ -81,9 +86,11 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
                 complete = False
                 failures.append(item['code'])
             losses.append(item.get("loss"))
+            state_scales.append(item.get("state_scale"))
             diagnostics.append(item)
         candidates.append(dict(sample=index, successful=complete, failures=failures,
-                               experiment_losses=losses, normalized_parameters=point.tolist()))
+                               experiment_losses=losses, experiment_state_scales=state_scales,
+                               normalized_parameters=point.tolist()))
         if complete:
             successful.append(point)
     required = math.ceil(count * target)

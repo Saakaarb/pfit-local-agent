@@ -20,11 +20,11 @@ def test_nested_samples_reproducible_and_cover_bounds():
         np.testing.assert_array_equal(np.sort(((small[1:, axis]+1)*31/2).astype(int)), np.arange(31))
 
 
-def check(tmp_path, monkeypatch, success, target=.25, experiments=1, loss=1.):
+def check(tmp_path, monkeypatch, success, target=.25, experiments=1, loss=1., initial_state=0.):
     from diffrax import RESULTS
     records = [dict(index=i+1, filename=f'{i}.csv', t_eval=np.array([0.,1.])) for i in range(experiments)]
     monkeypatch.setattr('lib.utils.experiments.experiment_constants',
-                        lambda record, reader: dict(index=record['index'], init_time=0.))
+                        lambda record, reader: dict(index=record['index'], init_time=0., init_cond=np.array([initial_state])))
     reader = SimpleNamespace(n_search_axes=2, trainable_parameter_names=['a','b'],
         min_axis_values=[1.,0.], max_axis_values=[100.,10.], axis_logscale=[True,False],
         integrator='test', max_steps=10000, error_loss=1e10)
@@ -49,6 +49,7 @@ def test_fraction_suffices_and_all_samples_are_measured(tmp_path, monkeypatch):
     report = json.loads((tmp_path/'solver_coverage.json').read_text())[-1]
     assert report['successful_samples'] == 8
     assert report['success_fraction'] == .25
+    assert report['candidates'][1]['experiment_state_scales'] == [[1.0]]
     detail = json.loads((tmp_path/'solver_diagnostics.json').read_text())[0]
     assert detail['physical_parameters'] == {'a':10., 'b':5.}
 
@@ -74,3 +75,9 @@ def test_finite_integration_with_invalid_loss_does_not_count(tmp_path, monkeypat
 def test_bad_policy_rejected(field,value):
     with pytest.raises(ValueError):
         _validate_raw_settings({'gradient_opt':{field:value}})
+
+
+def test_scale_includes_initial_state_even_when_saved_trajectory_has_decayed(tmp_path, monkeypatch):
+    check(tmp_path, monkeypatch, lambda i,e: True, initial_state=1000.)
+    report = json.loads((tmp_path/'solver_coverage.json').read_text())[-1]
+    assert report['candidates'][0]['experiment_state_scales'] == [[1000.]]
