@@ -320,6 +320,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--models', nargs='*')
+    parser.add_argument('--first-case', default='theophylline', help='Case to run first; remaining cases run alphabetically')
     parser.add_argument('--report-models', nargs='+', help='Include existing baseline results without rerunning them')
     parser.add_argument('--rotate-models', action='store_true')
     parser.add_argument('--restore-current-model', action='store_true')
@@ -328,6 +329,8 @@ def main():
     lock = (root / '.runner.lock').open('a')
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     inventory = json.loads((root / 'input_audit.json').read_text())
+    if args.first_case not in {c['name'] for c in inventory}:
+        parser.error('Unknown first case')
     models = json.loads((REPO / 'benchmarks/model_comparison/models.json').read_text())
     selected = [m for m in models if not args.models or m['key'] in args.models]
     if not selected or (args.models and set(args.models) - {m['key'] for m in models}):
@@ -389,8 +392,8 @@ def main():
             continue
         batch['status'] = 'running'
         save(manifest_path, manifest)
-        # A simple case first, then a fixed alphabetical order for every model.
-        for case in sorted(outstanding, key=lambda c: (c['name'] != 'theophylline', c['name'])):
+        # User-selected first case, then a fixed alphabetical order for every model.
+        for case in sorted(outstanding, key=lambda c: (c['name'] != args.first_case, c['name'])):
             run_case(root, case, model, metadata, env)
             report(root, displayed, inventory)
         batch.update(status='completed', finished_utc=utc())
