@@ -1,6 +1,5 @@
 """Deterministic, nested parameter coverage for numerical readiness checks."""
 import json
-import math
 import time
 from pathlib import Path
 
@@ -8,8 +7,7 @@ import numpy as np
 
 DEFAULT_SAMPLES = 32
 DEFAULT_MAX_SAMPLES = 128
-DEFAULT_SUCCESS_FRACTION = 0.25
-DEFAULT_PATIENCE = 2
+DEFAULT_MIN_SUCCESSFUL = 10
 
 
 def parameter_samples(count, dimensions, seed=7):
@@ -38,7 +36,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
     from local_agent.agent.validators import SolverValidationError, ValidationError
 
     count = settings.get('solver_validation_samples', DEFAULT_SAMPLES)
-    target = float(settings.get('solver_validation_success_fraction', DEFAULT_SUCCESS_FRACTION))
+    required = settings.get('solver_validation_min_successful', DEFAULT_MIN_SUCCESSFUL)
     seed = settings.get('solver_validation_seed', 7)
     points = parameter_samples(count, reader.n_search_axes, seed)
     lo, hi, logs = parameter_axes(reader)
@@ -100,7 +98,6 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
         sample_seconds.append(time.monotonic() - sample_started)
         if complete:
             successful.append(point)
-    required = math.ceil(count * target)
     failure_counts = {}
     for item in diagnostics:
         if item['code'] != 'successful':
@@ -112,7 +109,7 @@ def assess_solver_coverage(module, reader, session, script, records, settings):
                    timing_note='First sample may include JIT compilation; timings include integrations and loss evaluations, not a solver speed benchmark',
                    sampling='midpoint plus nested Latin-hypercube blocks in normalized linear/log coordinates',
                    successful_samples=len(successful), success_fraction=len(successful)/count,
-                   required_success_fraction=target, required_successful_samples=required,
+                   required_successful_samples=required,
                    max_steps=reader.max_steps, failure_counts=failure_counts, candidates=candidates,
                    result=f'{len(successful)}/{count} parameter samples complete all experiments with valid loss; require {required}/{count}.')
     folder = Path(script).parent

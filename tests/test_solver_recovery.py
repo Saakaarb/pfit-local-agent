@@ -51,7 +51,7 @@ def oregonator(tmp_path, cap=None, timeout=120, multi=False):
         population_opt=dict(algorithm='DE', population_size=4, num_iters=1, processors=1),
         gradient_opt=dict(max_steps=10000, integrator='Kvaerno5', stepsize_rtol=1e-7,
             stepsize_atol=1e-9, initial_timestep=1e-6, num_iters=5, solver_recovery_timeout_seconds=timeout,
-            solver_validation_samples=1, solver_validation_max_samples=1, solver_validation_success_fraction=1.0))
+            solver_validation_samples=1, solver_validation_max_samples=1, solver_validation_min_successful=1))
     if cap is not None:
         config['gradient_opt']['solver_recovery_max_steps'] = cap
     (session / 'inputs/user_input.yaml').write_text(yaml.safe_dump(config, sort_keys=False))
@@ -155,7 +155,7 @@ def test_invalid_recovery_policy_rejected(tmp_path, field, value):
         parse_input_yaml(path)
 
 
-def test_flat_coverage_stops_after_two_increases_and_restores_inputs(tmp_path, monkeypatch):
+def test_flat_coverage_reaches_cap_and_restores_inputs(tmp_path, monkeypatch):
     session, config, llm = oregonator(tmp_path, cap=50000)
     config['gradient_opt'].update(solver_validation_samples=32, solver_validation_max_samples=128,
                                  solver_validation_success_fraction=.25)
@@ -172,16 +172,16 @@ def test_flat_coverage_stops_after_two_increases_and_restores_inputs(tmp_path, m
     monkeypatch.setattr('local_agent.agent.solver_recovery.smoke_with_deadline',lambda script,session,timeout:flat(script,session))
     result=LocalWorkflow(llm,PromptRenderer()).generate_script(session)
     assert not result.success
-    assert seen==[(10000,32),(20000,64),(40000,128)]
+    assert seen==[(10000,32),(20000,64),(40000,128),(50000,128)]
     history=json.loads((session/'generated/solver_recovery.json').read_text())
-    assert history['status']=='coverage_stagnated'
+    assert history['status']=='exhausted'
     assert 'inadequate search coverage' in history['diagnosis']
     assert path.read_bytes()==original
     assert verify_stamp(session)[0] is False
     assert len(llm.requests)==2
 
 
-def test_coverage_improvement_resets_stagnation_counter(tmp_path, monkeypatch):
+def test_recovery_uses_limits_not_fraction_stagnation(tmp_path, monkeypatch):
     session, config, llm = oregonator(tmp_path, cap=50000)
     config['gradient_opt'].update(solver_validation_samples=32, solver_validation_max_samples=128,
                                  solver_validation_success_fraction=.25)

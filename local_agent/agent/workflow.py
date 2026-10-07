@@ -380,12 +380,9 @@ class LocalWorkflow:
         history = {'initial_max_steps': initial, 'max_steps_limit': cap, 'timeout_seconds': timeout,
                    'initial_failure': self._solver_failure, 'attempts': [], 'status': 'running'}
         report = script_path.parent / 'solver_recovery.json'
-        from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MAX_SAMPLES, DEFAULT_PATIENCE
+        from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MAX_SAMPLES
         samples = gradient.get('solver_validation_samples', DEFAULT_SAMPLES)
         max_samples = gradient.get('solver_validation_max_samples', DEFAULT_MAX_SAMPLES)
-        patience = gradient.get('solver_recovery_stagnation_patience', DEFAULT_PATIENCE)
-        best_fraction = self._solver_failure.get('success_fraction', 0.)
-        stagnant = 0
         budget = initial
         recovered = False
         try:
@@ -434,23 +431,16 @@ class LocalWorkflow:
                     previous = self._solver_failure.get('candidates', [])[:previous_count]
                     if previous:
                         attempt['previous_samples_success_fraction'] = sum(p['successful'] for p in previous) / len(previous)
-                    stagnant = stagnant + 1 if fraction <= best_fraction else 0
-                    best_fraction = max(best_fraction, fraction)
-                    attempt['consecutive_no_improvement'] = stagnant
-                    if stagnant >= patience:
-                        history['status'] = 'coverage_stagnated'
-                        break
                 if self._solver_failure is None:
                     # Integration completed; a different acceptance gate owns the failure.
                     history.update(status='numerical_recovery_completed_validation_failed', accepted_max_steps=budget)
                     recovered = True
                     return False
             self._repair_blocked = True
-            if history['status'] != 'coverage_stagnated':
-                history['status'] = 'exhausted'
+            history['status'] = 'exhausted'
             diagnosis = ''
             if self._solver_failure and self._solver_failure.get('code') == 'coverage_below_target':
-                diagnosis = (' Completion coverage remains below the requested fraction. '
+                diagnosis = (' Fewer than the required number of parameter samples completed. '
                     'Possible causes include inadequate search coverage of a narrow feasible region, '
                     'unsuitable parameter bounds, or model/solver issues; this is not proof of an incorrect model. '
                     'Review the sampled points and failure categories before expanding the search or revising the model.')

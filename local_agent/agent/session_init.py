@@ -2306,9 +2306,8 @@ gradient_opt:
   solver_recovery_timeout_seconds: 120
   solver_validation_samples: 32
   solver_validation_max_samples: 128
-  solver_validation_success_fraction: 0.25
+  solver_validation_min_successful: 10
   solver_validation_seed: 7
-  solver_recovery_stagnation_patience: 2
   solver_accuracy_check: true
   solver_accuracy_workers: 4
   auto_integrator: true

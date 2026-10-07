@@ -255,19 +255,18 @@ def _validate_raw_settings(raw):
     timeout = gradient.get('solver_recovery_timeout_seconds', 120)
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not np.isfinite(timeout) or timeout <= 0:
         raise ValidationError('solver_recovery_timeout_seconds must be positive and finite')
-    from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MAX_SAMPLES, DEFAULT_SUCCESS_FRACTION, DEFAULT_PATIENCE
+    from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MAX_SAMPLES, DEFAULT_MIN_SUCCESSFUL
     for name, default, minimum in (("solver_validation_samples", DEFAULT_SAMPLES, 1),
                                   ("solver_validation_max_samples", DEFAULT_MAX_SAMPLES, 1),
                                   ("solver_validation_seed", 7, 0),
-                                  ("solver_recovery_stagnation_patience", DEFAULT_PATIENCE, 1)):
+                                  ("solver_validation_min_successful", DEFAULT_MIN_SUCCESSFUL, 1)):
         value = gradient.get(name, default)
         if type(value) is not int or value < minimum:
             raise ValidationError(f"{name} must be an integer >= {minimum}")
     if gradient.get('solver_validation_max_samples', DEFAULT_MAX_SAMPLES) < gradient.get('solver_validation_samples', DEFAULT_SAMPLES):
         raise ValidationError('solver_validation_max_samples must be >= solver_validation_samples')
-    fraction = gradient.get('solver_validation_success_fraction', DEFAULT_SUCCESS_FRACTION)
-    if isinstance(fraction, bool) or not isinstance(fraction, (int, float)) or not np.isfinite(fraction) or not 0 < fraction <= 1:
-        raise ValidationError('solver_validation_success_fraction must be finite and in (0, 1]')
+    if gradient.get('solver_validation_min_successful', DEFAULT_MIN_SUCCESSFUL) > gradient.get('solver_validation_max_samples', DEFAULT_MAX_SAMPLES):
+        raise ValidationError('solver_validation_max_samples must be >= solver_validation_min_successful')
     for section, fields in (("population_opt", ("population_size", "num_particles", "num_iters", "processors", "random_seed")), ("gradient_opt", ("num_iters", "max_steps"))):
         for name in fields:
             value = (raw.get(section) or {}).get(name)
