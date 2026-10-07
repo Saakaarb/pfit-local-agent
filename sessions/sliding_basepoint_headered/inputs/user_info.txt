@@ -31,6 +31,16 @@ ODE system:
 - dk/dt = Dk * abs(m1 * v1 * dv1/dt)
 - dc1/dt = Dc * abs(m1 * v1 * dv1/dt)
 
+Sticking and sliding behavior:
+The zero-acceleration branch in dv2/dt is an exact part of the physical model.
+When BOTH abs(-k * (x2 - x1)) < c2 AND abs(v2) < vf hold, dv2/dt must be exactly
+zero. Otherwise, including equality at either threshold, use the stated sliding
+expression. vf is the sticking velocity threshold, not a smoothing width.
+Please keep this as a piecewise condition. Do not replace the switch or sign(v2)
+with tanh, a sigmoid, a smoothed sign, or any other regularization, even to make
+it easier to differentiate. Use sign(0) = 0. If the exact model causes numerical
+difficulties, report them rather than changing this friction law.
+
 Derived observables:
 - contact_force = abs(k * (x2 - x1) - c1 * abs(v1) * sign(v1)) / 1000
 - displacement = x1
