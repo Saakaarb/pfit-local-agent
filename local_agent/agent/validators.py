@@ -243,6 +243,8 @@ def _validate_raw_settings(raw):
         value = gradient.get(name, default)
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not np.isfinite(value) or value <= 0:
             raise ValidationError(f'{name} must be positive and finite')
+    if type(gradient.get('auto_max_steps', False)) is not bool:
+        raise ValidationError('gradient_opt.auto_max_steps must be a YAML boolean')
     if type(gradient.get('auto_integrator', False)) is not bool:
         raise ValidationError('gradient_opt.auto_integrator must be a YAML boolean')
     if type(gradient.get('auto_state_tolerances', True)) is not bool:

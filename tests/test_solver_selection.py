@@ -46,3 +46,33 @@ def test_forcing_uncertainty_and_auxiliary_are_excluded():
         a = select(r)
         assert a['integrator'] == 'Tsit5'
         assert len(a['columns']) == 1
+
+
+def test_step_budget_rounding_cap_and_initial_time():
+    from local_agent.agent.solver_selection import estimate_max_steps
+    records = [record([10., 100.], [0., 1.])]
+    columns = [dict(experiment=1, status='resolved', fast_time_scale=2.)]
+    a = estimate_max_steps(records, columns, 10000, 50000)
+    assert a['selected_max_steps'] == 2000  # 30*90/2 = 1350, rounded up
+    assert estimate_max_steps(records, columns, 10000, 50000, -100)['selected_max_steps'] == 3000
+    columns[0]['fast_time_scale'] = .001
+    a = estimate_max_steps(records, columns, 10000, 50000)
+    assert a['selected_max_steps'] == 50000
+    assert a['experiments'][0]['capped']
+
+
+def test_step_budget_uses_largest_experiment_and_uncertain_fallback():
+    from local_agent.agent.solver_selection import estimate_max_steps
+    records = [record([0., 10.], [0., 1.]), record([0., 100.], [0., 1.], index=2)]
+    columns = [dict(experiment=i, status='resolved', fast_time_scale=1.) for i in (1, 2)]
+    assert estimate_max_steps(records, columns, 10000, 50000)['selected_max_steps'] == 3000
+    columns[1]['status'] = 'underresolved'
+    assert estimate_max_steps(records, columns, 10000, 50000)['selected_max_steps'] == 10000
+    assert estimate_max_steps(records, [], 10000, 50000)['selected_max_steps'] == 10000
+
+
+def test_auto_max_steps_requires_boolean():
+    import pytest
+    from local_agent.agent.validators import _validate_raw_settings
+    with pytest.raises(ValueError, match='auto_max_steps'):
+        _validate_raw_settings({'gradient_opt': {'auto_max_steps': 'true'}})

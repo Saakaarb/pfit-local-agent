@@ -914,6 +914,27 @@ and forward-accuracy validation still run, using the selected solver throughout.
 A validation failure blocks readiness; it does not select another integrator.
 Numerical failures do not invoke LLM repair.
 
+### Initial max-step estimate from measured time scales
+
+Fresh configurations enable `gradient_opt.auto_max_steps: true`; absent/false
+preserves the configured starting budget. Before translation, reuse the dataset
+time-scale analysis. For each experiment with resolved time scales, take its
+smallest fast time tau and duration T (last measurement minus initial_time, or
+minus first measurement when initial_time is absent). Estimate `30*T/tau`:
+ten steps per observed time scale and a factor of three for headroom. Round up
+to the next 1,000, with a minimum of 1,000 and the configured recovery ceiling
+(default 50,000). Select the largest experiment budget for all particles.
+Insufficient, unresolved or entirely flat measurements retain the configured
+initial budget (default 10,000) for that experiment. Flat columns are ignored
+when other informative columns exist. This estimate can lower the initial budget.
+
+The multipliers are heuristic, not guarantees or prescribed internal time steps.
+The estimated budget and any clipping are recorded under `max_steps_estimate`
+in `generated/solver_selection.json`. Existing sampled completion checks,
+step/sample increases, stagnation detection, recovery deadline and tolerance
+validation remain unchanged. Explicit solver selection and automatic budget
+estimation can be enabled independently. No fitting proceeds solely on this estimate.
+
 ### Parallel forward-accuracy acceptance
 
 Fresh configurations enable `gradient_opt.solver_accuracy_check: true`.

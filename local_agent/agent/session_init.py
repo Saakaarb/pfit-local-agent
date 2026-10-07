@@ -2301,6 +2301,7 @@ gradient_opt:
   stepsize_atol: {atol}
   initial_timestep: 1e-6
   max_steps: 10000
+  auto_max_steps: true
   solver_recovery_max_steps: 50000
   solver_recovery_timeout_seconds: 120
   solver_validation_samples: 32

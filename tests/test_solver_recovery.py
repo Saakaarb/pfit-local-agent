@@ -257,3 +257,25 @@ def test_validation_failure_never_switches_dataset_selected_solver(tmp_path, mon
     report = json.loads((session/'generated/solver_selection.json').read_text())
     assert report['method'] == 'dataset_time_scales'
     assert len(llm.requests) == 2
+
+
+def test_dataset_budget_applied_before_generation_without_changing_explicit_solver(tmp_path, monkeypatch):
+    session, config, llm = oregonator(tmp_path, cap=50000)
+    config['gradient_opt'].update(integrator='Tsit5', auto_integrator=False, auto_max_steps=True)
+    path = session/'inputs/user_input.yaml'
+    path.write_text(yaml.safe_dump(config))
+    times = np.linspace(0, 30, 300)
+    np.savetxt(session/'inputs/long.csv', np.column_stack((times, times, times*2,
+        np.full(300, .02), np.full(300, .02))), delimiter=',',
+        header='time,X,Z,X_sd,Z_sd', comments='')
+    seen = []
+    def check(script, session):
+        reader = parse_input_yaml(path)
+        seen.append((reader.integrator, reader.max_steps))
+    monkeypatch.setattr('local_agent.agent.workflow.smoke_test_generated_script', check)
+    result = LocalWorkflow(llm, PromptRenderer()).generate_script(session)
+    assert result.success, result.events
+    assert seen == [('Tsit5', 1000)]
+    assert verify_stamp(session)[0] is True
+    report = json.loads((session/'generated/solver_selection.json').read_text())
+    assert report['max_steps_estimate']['selected_max_steps'] == 1000
