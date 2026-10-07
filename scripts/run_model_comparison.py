@@ -202,7 +202,7 @@ def run_case(root, case, model, metadata, env):
             if label in ('new', 'jax'):
                 command += ['--max-repair-attempts', '5']
             # There is no existing YAML/code to preserve or leak into new.
-            timeout = {'new': 1800, 'check': 900, 'jax': 1800, 'run': 1800, 'diagnose': 900}[label]
+            timeout = {'new': 1800, 'check': 900, 'jax': 3600, 'run': 1800, 'diagnose': 900}[label]
             print(f'{model["key"]}/{case["name"]}: {label}', flush=True)
             outcome = stage(directory, label, command, timeout, env)
             entry['stages'][label] = outcome

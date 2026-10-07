@@ -575,6 +575,7 @@ def test_init_session_defers_solver_selection_to_dataset_analysis(tmp_path):
     user_input = session.joinpath("inputs", "user_input.yaml").read_text()
     assert "integrator: Kvaerno5" in user_input
     assert "auto_integrator: true" in user_input
+    assert "solver_recovery_timeout_seconds: 900" in user_input
 
 
 def test_init_session_repairs_only_invalid_loss_body(tmp_path):

@@ -744,7 +744,7 @@ New `pfit new` configurations include:
 gradient_opt:
   max_steps: 10000
   solver_recovery_max_steps: 50000
-  solver_recovery_timeout_seconds: 120
+  solver_recovery_timeout_seconds: 900
   solver_validation_min_successful: 10
   solver_validation_seed: 7
 ```
@@ -792,7 +792,7 @@ fraction remains diagnostic only. A small feasible region is not rejected merely
 for occupying a small percentage of the search space. Ten successful points do
 not guarantee coverage of all useful solutions or an adequate fit.
 
-The recovery timeout bounds the entire additional-recovery phase, including
+The recovery timeout defaults to 900 seconds (15 minutes) and bounds the entire additional-recovery phase, including
 subprocess startup, compilation and fidelity checks. It does not time-limit
 the initial ordinary validation attempt. Larger/multi-experiment validation
 sets may need a larger timeout; a timeout does not establish stagnation.

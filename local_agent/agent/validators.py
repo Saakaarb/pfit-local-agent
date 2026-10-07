@@ -256,7 +256,7 @@ def _validate_raw_settings(raw):
     cap = gradient.get('solver_recovery_max_steps', gradient.get('max_steps', 10000))
     if type(cap) is not int or cap < gradient.get('max_steps', 10000):
         raise ValidationError('solver_recovery_max_steps must be an integer >= max_steps')
-    timeout = gradient.get('solver_recovery_timeout_seconds', 120)
+    timeout = gradient.get('solver_recovery_timeout_seconds', 900)
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not np.isfinite(timeout) or timeout <= 0:
         raise ValidationError('solver_recovery_timeout_seconds must be positive and finite')
     from local_agent.agent.solver_coverage import DEFAULT_SAMPLES, DEFAULT_MIN_SUCCESSFUL

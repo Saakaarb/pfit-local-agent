@@ -375,7 +375,7 @@ class LocalWorkflow:
         initial = int(gradient.get('max_steps', 10000))
         cap = int(gradient.get('solver_recovery_max_steps', initial))
         started = time.monotonic()
-        timeout = float(gradient.get('solver_recovery_timeout_seconds', 120))
+        timeout = float(gradient.get('solver_recovery_timeout_seconds', 900))
         deadline = started + timeout
         history = {'initial_max_steps': initial, 'max_steps_limit': cap, 'timeout_seconds': timeout,
                    'initial_failure': self._solver_failure, 'attempts': [], 'status': 'running'}
