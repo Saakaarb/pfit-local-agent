@@ -4,6 +4,7 @@ import os
 os.environ['OPENBLAS_NUM_THREADS']='1'
 os.environ['MPLCONFIGDIR']='/workspace/.cache/matplotlib'
 import json
+import argparse
 import numpy as np
 import yaml
 import matplotlib
@@ -11,19 +12,25 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
-ROOT=Path(__file__).resolve().parents[1]/'evaluation_runs/qwen38_cpu_fits_20261005'
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]/'evaluation_runs/qwen38_cpu_fits_20261005')
+ROOT=parser.parse_args().root.resolve()
 OUT=ROOT/'plots';OUT.mkdir(exist_ok=True)
 MAPPING={'ARC_fitting':[5,6],'armistead_sphingolipid':[9,10,11],
  'beer_indigoidine':[7,8],'boehm_stat5':[12,13,14],'cascaded_tanks':[4],
+ 'oregonator':[3,5],'sliding_basepoint_headered':[9,10],
  'decay_multiexp':[3,4],'lotka_volterra':[3,4],'piezo_bouc_wen':[2],
  'robertson_session':[4,5,6],'test_session':[4,5,6],'theophylline':[4],'vanderpol_session':[3,4]}
 entries=[];page=2
 for name,cols in MAPPING.items():
- status=json.loads((ROOT/'cases'/name/'status.json').read_text())
+ status_path=ROOT/'cases'/name/'status.json'
+ if not status_path.exists():continue
+ status=json.loads(status_path.read_text())
  if status['status']!='completed':continue
  run=Path(status['run_dir']);config=yaml.safe_load((run/'snapshot/inputs/run_config.yaml').read_text())
  entries.append(dict(case=name,first_page=page,experiments=len(config['experiments']),
                      pdf=f'{name}.pdf',run_dir=str(run.relative_to(ROOT)),
+                     fit_summary=status.get('fit_summary'),channels=[],
                      refinement=status.get('assessment'),prediction_columns_zero_based=cols))
  page+=len(config['experiments'])
 with PdfPages(OUT/'all_completed_fits.pdf') as combined:
@@ -54,6 +61,14 @@ with PdfPages(OUT/'all_completed_fits.pdf') as combined:
      else:
       ax.plot(t,y,'o',ms=3,label='Measured');ax.plot(t,yp,label='Fit')
       residual=yp-y;ylabel='Residual (observable units)';rmse=np.sqrt(np.mean(residual**2));metric=f'RMSE = {rmse:.4g}'
+     raw_residual=yp-y
+     scale=max(float(np.max(np.abs(y))),1e-12)
+     sst=float(np.sum((y-y.mean())**2))
+     e['channels'].append(dict(experiment=ei+1,observable=col['name'],n=len(y),
+          rmse=float(np.sqrt(np.mean(raw_residual**2))),
+          normalized_rmse_percent=float(100*np.sqrt(np.mean(raw_residual**2))/scale),
+          r_squared=float(1-np.sum(raw_residual**2)/sst) if sst>0 else None,
+          bias=float(np.mean(raw_residual))))
      ar.plot(t,residual,'.-',ms=2,lw=.8);ar.axhline(0,color='black',lw=.6)
      ax.set_title(f"{col['name']}\n{metric}");ax.set_ylabel(col['name']);ar.set_ylabel(ylabel);ax.legend()
      for a in (ax,ar):
