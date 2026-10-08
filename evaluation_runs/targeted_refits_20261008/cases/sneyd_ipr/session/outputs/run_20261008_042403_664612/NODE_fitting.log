@@ -1,0 +1,8 @@
+Total number of NODE iterations: 3000
+--------------------------------------------------
+
+100, 2.6780E-02, 0.3352
+200, 2.6090E-02, 0.0948
+300, 2.5619E-02, 0.0979
+400, 2.5290E-02, 0.0972
+Warning: Iteration 499: solver failure/error-loss sentinel; refinement did not complete.

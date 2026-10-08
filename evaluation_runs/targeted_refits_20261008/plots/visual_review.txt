@@ -1,0 +1,11 @@
+Visual review of completed targeted reruns
+
+Lotka-Volterra: substantial improvement over the previous slow-hump solution. Both repeated oscillations now appear with broadly correct timing. Troughs are too low and peak amplitudes still differ. Final loss 0.06131 versus 0.28737 previously. Adam completed but added negligible improvement.
+
+Sneyd: all nine experiments plotted. Broad rise/decay shapes captured; peaks underpredicted in experiments1,3,8,9, middle portions overpredicted in2,4,7, late tails generally too low. Final loss0.02506 versus0.03032 previously. Adam improved the new DE start but stopped at iteration499 with a solver-failure loss; this is the best retained valid point, not merely the DE point.
+
+ARC: rerun is worse than the original. Temperature jumps too early and remains biased high; heating-rate trajectory is too low across much of the time span. Final loss0.12779 versus original0.01101. Adam failed before a valid gradient iteration with nonfinite linear-solver output. Retain the original result for the better fit.
+
+Oregonator was still running when these plots were generated; no new final plot included.
+
+Figures use saved trajectories at measurement times, not dense reintegration. Per-channel residual metrics are descriptive and need not equal the scientific objective. Original fits are preserved in qwen38_full_fits_20261008/plots.

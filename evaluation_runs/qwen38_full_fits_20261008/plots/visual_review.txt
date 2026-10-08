@@ -75,3 +75,9 @@ Adam loss reduction: 4.70613e-07%.
 vanderpol_session: Excellent
 Oscillation timing and amplitude match. Small residual spikes at fast transitions; channel NRMSE below 0.4%.
 Adam loss reduction: 2.4427e-10%.
+
+Newly completed cases reviewed:
+
+Fujita EGF: poor-to-mixed fit. Experiment1 misses early Akt response and late S6 plateau; experiment2 misses the large transient EGFR peak and Akt peak. Broad S6 rise is reproduced but amplitudes differ. Adam improved0.27283 to0.25826 before a linear-solver exception after56 evaluated iterations. Best valid point retained.
+
+Borghans calcium: declared Ca observable is nearly flat near zero and does not fit the oscillatory measurements. Auditing user_model.py shows the saved loss compares raw Z (solution[:,0]) with data rather than the declared transformed Ca observable. Thus reported loss0.15165 does not assess the plotted Ca prediction. This is a model/loss inconsistency, not a plotting-column error. No equations or loss were altered during plotting.

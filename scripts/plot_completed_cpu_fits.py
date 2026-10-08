@@ -16,7 +16,7 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]/'evaluation_runs/qwen38_cpu_fits_20261005')
 ROOT=parser.parse_args().root.resolve()
 OUT=ROOT/'plots';OUT.mkdir(exist_ok=True)
-MAPPING={'ARC_fitting':[5,6],'armistead_sphingolipid':[9,10,11],
+MAPPING={'fujita_egf':[14,15,16],'borghans_calcium':[5],'ARC_fitting':[5,6],'armistead_sphingolipid':[9,10,11],
  'beer_indigoidine':[7,8],'boehm_stat5':[12,13,14],'cascaded_tanks':[4],
  'mapk_cascade':[4],'raia_il13':[10],'schwen_insulin':[13],'sneyd_ipr':[10],
  'oregonator':[3,5],'sliding_basepoint_headered':[9,10],
@@ -38,7 +38,7 @@ with PdfPages(OUT/'all_completed_fits.pdf') as combined:
  cover=plt.figure(figsize=(11.7,8.3));cover.text(.08,.91,'Completed Qwen3.8 CPU fits',fontsize=22)
  cover.text(.08,.83,'Measured points and saved fitted trajectories; residual = prediction − measurement.\nLines connect saved measurement times; no additional dense integration.\nCompletion does not imply convergence or parameter identifiability.',fontsize=11)
  for i,e in enumerate(entries):
-  note=' — refinement failed; DE fit retained' if e['refinement']=='refinement_degraded' else ''
+  note=' — refinement incomplete; best valid fit retained' if e['refinement']=='refinement_degraded' else ''
   cover.text(.08,.71-.033*i,f"Page {e['first_page']:2}: {e['case']} ({e['experiments']} experiment(s)){note}",fontsize=10)
  combined.savefig(cover);plt.close(cover)
  for e in entries:
@@ -75,8 +75,11 @@ with PdfPages(OUT/'all_completed_fits.pdf') as combined:
      for a in (ax,ar):
       a.set_xlabel('Time (input units)');a.grid(alpha=.2)
       if name in ('robertson_session','test_session'):a.set_xscale('log')
-    note=' | DE result retained; Adam failed' if e['refinement']=='refinement_degraded' else ''
-    fig.suptitle(f'{name} — experiment {ei+1}' + ('\nDE result retained; Adam failed' if note else ''),fontsize=11)
+    note=' | Best valid fit retained; refinement incomplete' if e['refinement']=='refinement_degraded' else ''
+    subtitle = '\nBest valid fit retained; refinement incomplete' if note else ''
+    if name == 'borghans_calcium':
+     subtitle += '\nDeclared Ca observable shown; saved objective fitted raw Z instead'
+    fig.suptitle(f'{name} — experiment {ei+1}' + subtitle,fontsize=11)
     fig.tight_layout(rect=(0,0,1,.91));combined.savefig(fig);case_pdf.savefig(fig)
     fig.savefig(OUT/f'{name}{suffix}.png',dpi=130);plt.close(fig)
 (OUT/'index.json').write_text(json.dumps(entries,indent=2)+'\n')

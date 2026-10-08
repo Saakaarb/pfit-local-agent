@@ -1,0 +1,117 @@
+{
+  "case": "lotka_volterra",
+  "session": "/workspace/pfit-local-agent/evaluation_runs/targeted_refits_20261008/cases/lotka_volterra/session",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/lotka_volterra/session",
+  "status": "completed",
+  "parameters": 4,
+  "population": {
+    "population_size": 128,
+    "num_iters": 100,
+    "processors": 8,
+    "algorithm": "DE",
+    "random_seed": 17,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      6.301678707844694e-07,
+      1.0161096548344538e-06
+    ]
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 3000,
+    "auto_state_tolerances": true,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      6.301678707844695e-08,
+      1.0161096548344538e-07
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 10000,
+    "auto_max_steps": true,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 900,
+    "solver_validation_min_successful": 10,
+    "solver_validation_seed": 7,
+    "solver_accuracy_check": true,
+    "solver_accuracy_workers": 4,
+    "auto_integrator": true,
+    "integrator": "Kvaerno5",
+    "init_value_lr": 0.0001,
+    "end_value_lr": 1e-06,
+    "transition_steps_lr": 2999,
+    "decay_rate_lr": 0.01
+  },
+  "requires_validation": false,
+  "original_result": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/lotka_volterra/session/outputs/run_20261008_023237_367254",
+  "started_at": "2026-10-08T04:24:02.186556+00:00",
+  "cpu_affinity": [
+    3,
+    7,
+    20,
+    23,
+    67,
+    71,
+    84,
+    87
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "3,7,20,23,67,71,84,87",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/targeted_refits_20261008/cases/lotka_volterra/session",
+    "--no-sloppiness"
+  ],
+  "pid": 18857,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.06131169921048201,
+    "final_loss": 0.06131169907269147,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.061311699072691475
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/targeted_refits_20261008/cases/lotka_volterra/session/outputs/run_20261008_042402_837167",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T04:35:43.373185+00:00",
+  "elapsed_seconds": 701.1866616669577
+}

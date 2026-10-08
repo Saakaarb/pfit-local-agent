@@ -1,0 +1,307 @@
+[
+  {
+    "case": "ARC_fitting",
+    "first_page": 2,
+    "experiments": 1,
+    "pdf": "ARC_fitting.pdf",
+    "run_dir": "cases/ARC_fitting/session/outputs/run_20261008_042554_353433",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.12778595889142988,
+      "final_loss": 0.12778595889142988,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          4.0000005052947185e-11,
+          3.540258860836423e-07
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          4.0000005052947185e-11,
+          3.540258860836423e-07
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.12778595889142988
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 0,
+      "refinement_error": "XlaRuntimeError: INTERNAL: CpuCallback error calling callback: Traceback (most recent call last):\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 782, in _wrapped_callback\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 222, in _callback\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 96, in pure_callback_impl\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 71, in __call__\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/equinox/_errors.py\", line 88, in raises\n_EquinoxRuntimeError: A linear solver returned non-finite (NaN or inf) output. This usually means that an\noperator was not well-posed, and that its solver does not support this.\n\nIf you are trying solve a linear least-squares problem then you should pass\n`solver=AutoLinearSolver(well_posed=False)`. By default `lineax.linear_solve`\nassumes that the operator is square and nonsingular.\n\nIf you *were* expecting this solver to work with this operator, then it may be because:\n\n(a) the operator is singular, and your code has a bug; or\n\n(b) the operator was nearly singular (i.e. it had a high condition number:\n    `jnp.linalg.cond(operator.as_matrix())` is large), and the solver suffered from\n    numerical instability issues; or\n\n(c) the operator is declared to exhibit a certain property (e.g. positive definiteness)\n    that is does not actually satisfy.\n\n\n--------------------\nAn error occurred during the runtime of your JAX program! Unfortunately you do not appear to be using `equinox.filter_jit` (perhaps you are using `jax.jit` instead?) and so further information about the error cannot be displayed. (Probably you are seeing a very large but uninformative error message right now.) Please wrap your program with `equinox.filter_jit`.\n--------------------\n",
+      "termination": "exception",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "T",
+        "n": 142,
+        "rmse": 58.72648926801087,
+        "normalized_rmse_percent": 8.828541853219292,
+        "r_squared": 0.11673492045655154,
+        "bias": 38.1266300664534
+      },
+      {
+        "experiment": 1,
+        "observable": "dTdt",
+        "n": 142,
+        "rmse": 29.469245612434314,
+        "normalized_rmse_percent": 14.126685600303306,
+        "r_squared": -0.042029187235254506,
+        "bias": -5.262329936112966
+      }
+    ],
+    "refinement": "refinement_degraded",
+    "prediction_columns_zero_based": [
+      5,
+      6
+    ]
+  },
+  {
+    "case": "sneyd_ipr",
+    "first_page": 3,
+    "experiments": 9,
+    "pdf": "sneyd_ipr.pdf",
+    "run_dir": "cases/sneyd_ipr/session/outputs/run_20261008_042403_664612",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.027878853748804944,
+      "final_loss": 0.02505909149215776,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          5.5989994987782054e-11,
+          1e-09,
+          6.390680456042781e-13,
+          6.908084862128594e-14,
+          4.752753182713575e-13,
+          9.875560064942657e-14,
+          1e-08,
+          1e-08
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          5.5989994987782054e-11,
+          1e-09,
+          6.390680456042781e-13,
+          6.908084862128594e-14,
+          4.752753182713575e-13,
+          9.875560064942657e-14,
+          1e-08,
+          1e-08
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.012376222659531914,
+        0.027481677937858395,
+        0.021861257770545758,
+        0.03266970686122469,
+        0.019780821018599074,
+        0.01644016986739718,
+        0.035914525685560895,
+        0.020355809657787976,
+        0.03865163197091399
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 499,
+      "refinement_error": null,
+      "termination": "invalid_loss_or_gradient",
+      "termination_detail": "Iteration 499: solver failure/error-loss sentinel"
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.012376222659531916,
+        "normalized_rmse_percent": 10.952409433214086,
+        "r_squared": 0.8261002641708546,
+        "bias": -0.002997643895692853
+      },
+      {
+        "experiment": 2,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.027481677937858384,
+        "normalized_rmse_percent": 15.794067780378382,
+        "r_squared": 0.6661107595924101,
+        "bias": 0.018368155502414347
+      },
+      {
+        "experiment": 3,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.02186125777054576,
+        "normalized_rmse_percent": 6.685399929830507,
+        "r_squared": 0.9501836501619584,
+        "bias": -0.013934162074922141
+      },
+      {
+        "experiment": 4,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.03266970686122469,
+        "normalized_rmse_percent": 12.912927613132288,
+        "r_squared": 0.8174651356103791,
+        "bias": 0.01963649013843725
+      },
+      {
+        "experiment": 5,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.01978082101859908,
+        "normalized_rmse_percent": 8.311269335545832,
+        "r_squared": 0.9117968620938991,
+        "bias": -0.001999570644708245
+      },
+      {
+        "experiment": 6,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.016440169867397155,
+        "normalized_rmse_percent": 8.886578306701164,
+        "r_squared": 0.9268087937484095,
+        "bias": -0.014600330767982235
+      },
+      {
+        "experiment": 7,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.035914525685560895,
+        "normalized_rmse_percent": 35.210319299569505,
+        "r_squared": -0.754043128833243,
+        "bias": -0.006746606630502828
+      },
+      {
+        "experiment": 8,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.02035580965778798,
+        "normalized_rmse_percent": 7.739851580907976,
+        "r_squared": 0.9095835309793165,
+        "bias": -0.012742753465013197
+      },
+      {
+        "experiment": 9,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.038651631970913994,
+        "normalized_rmse_percent": 11.469326994336496,
+        "r_squared": 0.8215139750342644,
+        "bias": -0.016467495408255477
+      }
+    ],
+    "refinement": "refinement_degraded",
+    "prediction_columns_zero_based": [
+      10
+    ]
+  },
+  {
+    "case": "lotka_volterra",
+    "first_page": 12,
+    "experiments": 1,
+    "pdf": "lotka_volterra.pdf",
+    "run_dir": "cases/lotka_volterra/session/outputs/run_20261008_042402_837167",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.06131169921048201,
+      "final_loss": 0.06131169907269147,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          6.301678707844695e-08,
+          1.0161096548344538e-07
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          6.301678707844695e-08,
+          1.0161096548344538e-07
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.061311699072691475
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "H",
+        "n": 21,
+        "rmse": 4.892535169504713,
+        "normalized_rmse_percent": 6.321104870161127,
+        "r_squared": 0.9451896783528291,
+        "bias": -2.8490040548587943
+      },
+      {
+        "experiment": 1,
+        "observable": "L",
+        "n": 21,
+        "rmse": 3.5254849328343285,
+        "normalized_rmse_percent": 5.935159819586412,
+        "r_squared": 0.9529580187167437,
+        "bias": -0.9595296009191088
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      3,
+      4
+    ]
+  }
+]

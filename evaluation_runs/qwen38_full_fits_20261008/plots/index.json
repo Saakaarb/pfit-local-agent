@@ -1,7 +1,209 @@
 [
   {
-    "case": "ARC_fitting",
+    "case": "fujita_egf",
     "first_page": 2,
+    "experiments": 2,
+    "pdf": "fujita_egf.pdf",
+    "run_dir": "cases/fujita_egf/session/outputs/run_20261008_031027_469078",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.2728339310300965,
+      "final_loss": 0.2582598014364032,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.2505113452034546,
+        0.26600825766935193
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 56,
+      "refinement_error": "XlaRuntimeError: INTERNAL: CpuCallback error calling callback: Traceback (most recent call last):\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 782, in _wrapped_callback\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 222, in _callback\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 96, in pure_callback_impl\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py\", line 71, in __call__\n  File \"/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/equinox/_errors.py\", line 88, in raises\n_EquinoxRuntimeError: A linear solver returned non-finite (NaN or inf) output. This usually means that an\noperator was not well-posed, and that its solver does not support this.\n\nIf you are trying solve a linear least-squares problem then you should pass\n`solver=AutoLinearSolver(well_posed=False)`. By default `lineax.linear_solve`\nassumes that the operator is square and nonsingular.\n\nIf you *were* expecting this solver to work with this operator, then it may be because:\n\n(a) the operator is singular, and your code has a bug; or\n\n(b) the operator was nearly singular (i.e. it had a high condition number:\n    `jnp.linalg.cond(operator.as_matrix())` is large), and the solver suffered from\n    numerical instability issues; or\n\n(c) the operator is declared to exhibit a certain property (e.g. positive definiteness)\n    that is does not actually satisfy.\n\n\n--------------------\nAn error occurred during the runtime of your JAX program! Unfortunately you do not appear to be using `equinox.filter_jit` (perhaps you are using `jax.jit` instead?) and so further information about the error cannot be displayed. (Probably you are seeing a very large but uninformative error message right now.) Please wrap your program with `equinox.filter_jit`.\n--------------------\n",
+      "termination": "exception",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "pEGFR_tot",
+        "n": 8,
+        "rmse": 0.042524502747942214,
+        "normalized_rmse_percent": 32.26607548096588,
+        "r_squared": 0.24975912791045785,
+        "bias": -0.017800172443834382
+      },
+      {
+        "experiment": 1,
+        "observable": "pAkt_tot",
+        "n": 8,
+        "rmse": 0.14796897481035487,
+        "normalized_rmse_percent": 17.977839410658245,
+        "r_squared": 0.6562921774057151,
+        "bias": -0.025999417920211883
+      },
+      {
+        "experiment": 1,
+        "observable": "pS6_tot",
+        "n": 8,
+        "rmse": 0.22771259504125232,
+        "normalized_rmse_percent": 22.767865193472765,
+        "r_squared": 0.6388431834453874,
+        "bias": -0.004296103254565101
+      },
+      {
+        "experiment": 2,
+        "observable": "pEGFR_tot",
+        "n": 8,
+        "rmse": 0.3273398718474327,
+        "normalized_rmse_percent": 35.990412842302035,
+        "r_squared": -0.2978864223941651,
+        "bias": -0.16815546400285633
+      },
+      {
+        "experiment": 2,
+        "observable": "pAkt_tot",
+        "n": 8,
+        "rmse": 0.1794912785598772,
+        "normalized_rmse_percent": 18.67414877586452,
+        "r_squared": 0.7508413651699537,
+        "bias": -0.05481938884991285
+      },
+      {
+        "experiment": 2,
+        "observable": "pS6_tot",
+        "n": 8,
+        "rmse": 0.16452136584834753,
+        "normalized_rmse_percent": 21.88099964331877,
+        "r_squared": 0.673862839947355,
+        "bias": 0.06345678115905241
+      }
+    ],
+    "refinement": "refinement_degraded",
+    "prediction_columns_zero_based": [
+      14,
+      15,
+      16
+    ]
+  },
+  {
+    "case": "borghans_calcium",
+    "first_page": 4,
+    "experiments": 1,
+    "pdf": "borghans_calcium.pdf",
+    "run_dir": "cases/borghans_calcium/session/outputs/run_20261008_043516_890281",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.15262944599422196,
+      "final_loss": 0.15165041276234473,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.1150071404931246e-06,
+          4.1226773005409576e-09,
+          1.298467285584272e-09
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.1150071404931246e-06,
+          4.1226773005409576e-09,
+          1.298467285584272e-09
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.15165041276234473
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "Ca",
+        "n": 111,
+        "rmse": 0.5338615891787569,
+        "normalized_rmse_percent": 53.38615891787569,
+        "r_squared": -10.335011201336613,
+        "bias": -0.5097745072905984
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      5
+    ]
+  },
+  {
+    "case": "ARC_fitting",
+    "first_page": 5,
     "experiments": 1,
     "pdf": "ARC_fitting.pdf",
     "run_dir": "cases/ARC_fitting/session/outputs/run_20261008_024347_785457",
@@ -74,7 +276,7 @@
   },
   {
     "case": "armistead_sphingolipid",
-    "first_page": 3,
+    "first_page": 6,
     "experiments": 8,
     "pdf": "armistead_sphingolipid.pdf",
     "run_dir": "cases/armistead_sphingolipid/session/outputs/run_20261008_025044_045501",
@@ -361,7 +563,7 @@
   },
   {
     "case": "beer_indigoidine",
-    "first_page": 11,
+    "first_page": 14,
     "experiments": 1,
     "pdf": "beer_indigoidine.pdf",
     "run_dir": "cases/beer_indigoidine/session/outputs/run_20261008_023527_103615",
@@ -438,7 +640,7 @@
   },
   {
     "case": "boehm_stat5",
-    "first_page": 12,
+    "first_page": 15,
     "experiments": 1,
     "pdf": "boehm_stat5.pdf",
     "run_dir": "cases/boehm_stat5/session/outputs/run_20261008_023604_117718",
@@ -541,7 +743,7 @@
   },
   {
     "case": "cascaded_tanks",
-    "first_page": 13,
+    "first_page": 16,
     "experiments": 1,
     "pdf": "cascaded_tanks.pdf",
     "run_dir": "cases/cascaded_tanks/session/outputs/run_20261008_023023_315171",
@@ -600,7 +802,7 @@
   },
   {
     "case": "mapk_cascade",
-    "first_page": 14,
+    "first_page": 17,
     "experiments": 1,
     "pdf": "mapk_cascade.pdf",
     "run_dir": "cases/mapk_cascade/session/outputs/run_20261008_032857_289083",
@@ -695,7 +897,7 @@
   },
   {
     "case": "raia_il13",
-    "first_page": 15,
+    "first_page": 18,
     "experiments": 2,
     "pdf": "raia_il13.pdf",
     "run_dir": "cases/raia_il13/session/outputs/run_20261008_025443_856100",
@@ -816,7 +1018,7 @@
   },
   {
     "case": "schwen_insulin",
-    "first_page": 17,
+    "first_page": 20,
     "experiments": 4,
     "pdf": "schwen_insulin.pdf",
     "run_dir": "cases/schwen_insulin/session/outputs/run_20261008_030822_191538",
@@ -941,7 +1143,7 @@
   },
   {
     "case": "sneyd_ipr",
-    "first_page": 21,
+    "first_page": 24,
     "experiments": 9,
     "pdf": "sneyd_ipr.pdf",
     "run_dir": "cases/sneyd_ipr/session/outputs/run_20261008_030516_396988",
@@ -1104,7 +1306,7 @@
   },
   {
     "case": "oregonator",
-    "first_page": 30,
+    "first_page": 33,
     "experiments": 1,
     "pdf": "oregonator.pdf",
     "run_dir": "cases/oregonator/session/outputs/run_20261008_023406_647734",
@@ -1179,7 +1381,7 @@
   },
   {
     "case": "sliding_basepoint_headered",
-    "first_page": 31,
+    "first_page": 34,
     "experiments": 1,
     "pdf": "sliding_basepoint_headered.pdf",
     "run_dir": "cases/sliding_basepoint_headered/session/outputs/run_20261008_024033_602206",
@@ -1264,7 +1466,7 @@
   },
   {
     "case": "decay_multiexp",
-    "first_page": 32,
+    "first_page": 35,
     "experiments": 2,
     "pdf": "decay_multiexp.pdf",
     "run_dir": "cases/decay_multiexp/session/outputs/run_20261008_021141_351477",
@@ -1352,7 +1554,7 @@
   },
   {
     "case": "lotka_volterra",
-    "first_page": 34,
+    "first_page": 37,
     "experiments": 1,
     "pdf": "lotka_volterra.pdf",
     "run_dir": "cases/lotka_volterra/session/outputs/run_20261008_023237_367254",
@@ -1421,7 +1623,7 @@
   },
   {
     "case": "piezo_bouc_wen",
-    "first_page": 35,
+    "first_page": 38,
     "experiments": 1,
     "pdf": "piezo_bouc_wen.pdf",
     "run_dir": "cases/piezo_bouc_wen/session/outputs/run_20261008_024201_148369",
@@ -1484,7 +1686,7 @@
   },
   {
     "case": "robertson_session",
-    "first_page": 36,
+    "first_page": 39,
     "experiments": 1,
     "pdf": "robertson_session.pdf",
     "run_dir": "cases/robertson_session/session/outputs/run_20261008_021427_550506",
@@ -1567,7 +1769,7 @@
   },
   {
     "case": "test_session",
-    "first_page": 37,
+    "first_page": 40,
     "experiments": 1,
     "pdf": "test_session.pdf",
     "run_dir": "cases/test_session/session/outputs/run_20261008_021308_250429",
@@ -1650,7 +1852,7 @@
   },
   {
     "case": "theophylline",
-    "first_page": 38,
+    "first_page": 41,
     "experiments": 1,
     "pdf": "theophylline.pdf",
     "run_dir": "cases/theophylline/session/outputs/run_20261008_023142_755120",
@@ -1709,7 +1911,7 @@
   },
   {
     "case": "vanderpol_session",
-    "first_page": 39,
+    "first_page": 42,
     "experiments": 1,
     "pdf": "vanderpol_session.pdf",
     "run_dir": "cases/vanderpol_session/session/outputs/run_20261008_021140_776500",
