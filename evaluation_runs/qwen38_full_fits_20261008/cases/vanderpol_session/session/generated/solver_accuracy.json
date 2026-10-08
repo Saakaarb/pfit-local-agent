@@ -1,0 +1,319 @@
+{
+  "code": "accuracy_passed",
+  "integrator": "Tsit5",
+  "max_steps": 2000,
+  "sample_count": 32,
+  "probe_samples": [
+    17,
+    16,
+    15,
+    12
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 17,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        1.1001484366006488e-08
+      ],
+      "observables": [],
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1830,
+          "num_rejected_steps": 170,
+          "num_steps": 2000
+        },
+        "sample": 17,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          2.0000000000000003e-10,
+          1.1001484366006488e-09
+        ]
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 16,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        1.1001484366006488e-08
+      ],
+      "observables": [],
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1871,
+          "num_rejected_steps": 129,
+          "num_steps": 2000
+        },
+        "sample": 16,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          2.0000000000000003e-10,
+          1.1001484366006488e-09
+        ]
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 15,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        1.1001484366006488e-08
+      ],
+      "observables": [
+        {
+          "name": "x1",
+          "max_normalized_difference": 0.13340839325203077
+        },
+        {
+          "name": "x2",
+          "max_normalized_difference": 0.035019215179917
+        }
+      ],
+      "loss": 1137.9260429133951,
+      "reference_loss": 1137.9261913901546,
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 690,
+        "num_rejected_steps": 158,
+        "num_steps": 848
+      },
+      "reference_stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1099,
+        "num_rejected_steps": 201,
+        "num_steps": 1300
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 15,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        2e-08,
+        1.1001484366006487e-07
+      ],
+      "observables": [
+        {
+          "name": "x1",
+          "max_normalized_difference": 2.112378226364452
+        }
+      ],
+      "loss": 1137.9250044203889,
+      "reference_loss": 1137.9260429133951,
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 430,
+        "num_rejected_steps": 105,
+        "num_steps": 535
+      },
+      "reference_stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 690,
+        "num_rejected_steps": 158,
+        "num_steps": 848
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 12,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        1.1001484366006488e-08
+      ],
+      "observables": [
+        {
+          "name": "x1",
+          "max_normalized_difference": 0.07731391446650376
+        },
+        {
+          "name": "x2",
+          "max_normalized_difference": 0.027288746696489268
+        }
+      ],
+      "loss": 13.937095598662106,
+      "reference_loss": 13.937095580700692,
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 673,
+        "num_rejected_steps": 188,
+        "num_steps": 861
+      },
+      "reference_stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1071,
+        "num_rejected_steps": 226,
+        "num_steps": 1297
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 12,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        2e-08,
+        1.1001484366006487e-07
+      ],
+      "observables": [
+        {
+          "name": "x1",
+          "max_normalized_difference": 1.4378025112043218
+        }
+      ],
+      "loss": 13.937100387332928,
+      "reference_loss": 13.937095598662106,
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 414,
+        "num_rejected_steps": 118,
+        "num_steps": 532
+      },
+      "reference_stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 673,
+        "num_rejected_steps": 188,
+        "num_steps": 861
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "unresolved_probes": [
+    {
+      "sample": 17,
+      "reason": "Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1830,
+          "num_rejected_steps": 170,
+          "num_steps": 2000
+        },
+        "sample": 17,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          2.0000000000000003e-10,
+          1.1001484366006488e-09
+        ]
+      }
+    },
+    {
+      "sample": 16,
+      "reason": "Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 1871,
+          "num_rejected_steps": 129,
+          "num_steps": 2000
+        },
+        "sample": 16,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          2.0000000000000003e-10,
+          1.1001484366006488e-09
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    "2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified."
+  ],
+  "population_relaxation_rejected": {
+    "code": "accuracy_failed",
+    "reason": "population: x1 disagrees with tighter reference"
+  },
+  "result": "Refinement tolerances validated; DE retains those validated tolerances",
+  "validated_seeds": [
+    {
+      "sample": 12,
+      "normalized_parameters": [
+        -0.21339341006546386
+      ],
+      "experiment_losses": [
+        13.937095591900258
+      ]
+    },
+    {
+      "sample": 15,
+      "normalized_parameters": [
+        -0.9761589477030834
+      ],
+      "experiment_losses": [
+        1137.9260445440925
+      ]
+    }
+  ],
+  "seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=fd9733e9db71b43c user_input.yaml=bf65715b2579fa64",
+    "data_hashes": {
+      "vanderpol_data.csv": "30c2acd23cd873064deebfe9e5bdb982e6b8cb01b6e4bf3276678b2f36df4990"
+    }
+  },
+  "budget_source_seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=fd9733e9db71b43c user_input.yaml=09b0e83105684854",
+    "data_hashes": {
+      "vanderpol_data.csv": "30c2acd23cd873064deebfe9e5bdb982e6b8cb01b6e4bf3276678b2f36df4990"
+    }
+  },
+  "budget_change_note": "Only whitelisted optimizer budgets/LR/processors changed; model, data, bounds and solver settings verified unchanged."
+}

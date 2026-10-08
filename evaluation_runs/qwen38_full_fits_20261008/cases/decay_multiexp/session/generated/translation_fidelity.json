@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "points": [
+    {
+      "experiment": 1,
+      "parameter_offset": 0.0,
+      "normalized_parameters": [
+        0.0,
+        0.0
+      ],
+      "components": [
+        "RHS for A at row 0",
+        "RHS for B at row 0",
+        "RHS for A at row 10",
+        "RHS for B at row 10",
+        "RHS for A at row 20",
+        "RHS for B at row 20",
+        "loss",
+        "writeout"
+      ]
+    },
+    {
+      "experiment": 1,
+      "parameter_offset": null,
+      "normalized_parameters": [
+        -0.057255509401739846,
+        -0.23393051444196755
+      ],
+      "components": [
+        "RHS for A at row 0",
+        "RHS for B at row 0",
+        "RHS for A at row 10",
+        "RHS for B at row 10",
+        "RHS for A at row 20",
+        "RHS for B at row 20",
+        "loss",
+        "writeout"
+      ]
+    },
+    {
+      "experiment": 2,
+      "parameter_offset": 0.0,
+      "normalized_parameters": [
+        0.0,
+        0.0
+      ],
+      "components": [
+        "RHS for A at row 0",
+        "RHS for B at row 0",
+        "RHS for A at row 10",
+        "RHS for B at row 10",
+        "RHS for A at row 20",
+        "RHS for B at row 20",
+        "loss",
+        "writeout"
+      ]
+    },
+    {
+      "experiment": 2,
+      "parameter_offset": null,
+      "normalized_parameters": [
+        -0.057255509401739846,
+        -0.23393051444196755
+      ],
+      "components": [
+        "RHS for A at row 0",
+        "RHS for B at row 0",
+        "RHS for A at row 10",
+        "RHS for B at row 10",
+        "RHS for A at row 20",
+        "RHS for B at row 20",
+        "loss",
+        "writeout"
+      ]
+    }
+  ],
+  "limitations": [],
+  "rtol": 1e-06,
+  "atol": 1e-08,
+  "scope": "Source Python versus JAX at sampled parameters/states; not paper-equation verification"
+}

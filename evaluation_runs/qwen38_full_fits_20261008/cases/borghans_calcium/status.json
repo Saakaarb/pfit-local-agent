@@ -1,0 +1,80 @@
+{
+  "case": "borghans_calcium",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/borghans_calcium/qwen38_27b",
+  "source_status": "pass",
+  "status": "queued",
+  "readiness_errors": [],
+  "readiness_warnings": [],
+  "parameters": 19,
+  "validated_seed_count": 4,
+  "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/borghans_calcium/session",
+  "original_yaml_sha256": "54ad48f5f4dc79b85cefad8ca5b85f60407dc196a61d901adeb1c33e45393e51",
+  "fit_yaml_sha256": "4df7c70c0e04522053eb514698654cfb1b2853db5ed1386faa7244225d6e7884",
+  "generated_source_sha256": "5c222244b743a9ca15f16925169d214ce10a13f51e867445126998b86f4d13f5",
+  "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+  "original_population": {
+    "population_size": 4,
+    "num_iters": 1,
+    "processors": 1,
+    "algorithm": "DE",
+    "random_seed": 7,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      1.1150071404931245e-05,
+      4.1226773005409576e-08,
+      1.298467285584272e-08
+    ]
+  },
+  "population": {
+    "population_size": 160,
+    "num_iters": 100,
+    "processors": 16,
+    "algorithm": "DE",
+    "random_seed": 7,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      1.1150071404931245e-05,
+      4.1226773005409576e-08,
+      1.298467285584272e-08
+    ]
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 3000,
+    "auto_state_tolerances": true,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      1.1150071404931246e-06,
+      4.1226773005409576e-09,
+      1.298467285584272e-09
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 1000,
+    "auto_max_steps": true,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 900,
+    "solver_validation_min_successful": 10,
+    "solver_validation_seed": 7,
+    "solver_accuracy_check": true,
+    "solver_accuracy_workers": 4,
+    "auto_integrator": true,
+    "integrator": "Tsit5",
+    "init_value_lr": 0.0001,
+    "end_value_lr": 1e-06,
+    "transition_steps_lr": 2999,
+    "decay_rate_lr": 0.01,
+    "initial_time": 0.0
+  }
+}

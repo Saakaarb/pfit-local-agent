@@ -1,0 +1,58 @@
+{
+  "method": "dataset_time_scales",
+  "integrator": "Kvaerno5",
+  "reason": "Observed time-scale separation is at least 100-fold",
+  "time_scale_ratio": 16061.492391840666,
+  "ratio_threshold": 100.0,
+  "columns": [
+    {
+      "experiment": 1,
+      "column": "y1",
+      "finite_points": 17,
+      "status": "resolved",
+      "amplitude": 0.27921217679977417,
+      "fast_time_scale": 6.987953935036237,
+      "slow_time_scale": 38.39851574067991
+    },
+    {
+      "experiment": 1,
+      "column": "y2",
+      "finite_points": 17,
+      "status": "underresolved",
+      "amplitude": 3.178553242833004e-05,
+      "fast_time_scale": 0.004124882470498975,
+      "slow_time_scale": 66.25176841715621
+    },
+    {
+      "experiment": 1,
+      "column": "y3",
+      "finite_points": 17,
+      "status": "resolved",
+      "amplitude": 0.27920714825646975,
+      "fast_time_scale": 7.034345116904411,
+      "slow_time_scale": 38.39491178540015
+    }
+  ],
+  "scope": "Observed dynamics only; hidden modes and other parameter values may be stiff",
+  "max_steps_estimate": {
+    "selected_max_steps": 10000,
+    "configured_max_steps": 10000,
+    "cap": 50000,
+    "steps_per_time_scale": 10,
+    "headroom_factor": 3,
+    "rounding_multiple": 1000,
+    "minimum_steps": 1000,
+    "experiments": [
+      {
+        "experiment": 1,
+        "duration": 99.999999,
+        "fastest_time_scale": 6.987953935036237,
+        "raw_estimated_steps": null,
+        "proposed_max_steps": 10000,
+        "capped": false,
+        "method": "configured_budget_fallback"
+      }
+    ],
+    "scope": "Initial budget estimate only; sampled integration and accuracy checks remain required"
+  }
+}

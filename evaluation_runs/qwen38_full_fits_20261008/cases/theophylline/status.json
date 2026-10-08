@@ -1,0 +1,73 @@
+{
+  "case": "theophylline",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/theophylline/qwen38_27b",
+  "source_status": "pass",
+  "status": "queued",
+  "readiness_errors": [],
+  "readiness_warnings": [],
+  "parameters": 3,
+  "validated_seed_count": 4,
+  "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/theophylline/session",
+  "original_yaml_sha256": "5cff0da1b6f045bf28dc291fcdec3f9b3111ee2a41959b7344048aa96b6f917f",
+  "fit_yaml_sha256": "0c04007fda516d49cfb4de9b48c2f4e08a7155ec48dcdaa353a91aa7b94ee1d1",
+  "generated_source_sha256": "79dbc9bc16fad6eb23d21ac8040b1661e90f5dad9497068770b6b6926c2ac8b9",
+  "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+  "original_population": {
+    "population_size": 4,
+    "num_iters": 1,
+    "processors": 1,
+    "algorithm": "DE",
+    "random_seed": 7,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      3.2e-06,
+      2.4660421524772635e-06
+    ]
+  },
+  "population": {
+    "population_size": 64,
+    "num_iters": 100,
+    "processors": 16,
+    "algorithm": "DE",
+    "random_seed": 7,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      3.2e-06,
+      2.4660421524772635e-06
+    ]
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 3000,
+    "auto_state_tolerances": true,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      3.2e-07,
+      2.4660421524772637e-07
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 10000,
+    "auto_max_steps": true,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 900,
+    "solver_validation_min_successful": 10,
+    "solver_validation_seed": 7,
+    "solver_accuracy_check": true,
+    "solver_accuracy_workers": 4,
+    "auto_integrator": true,
+    "integrator": "Kvaerno5",
+    "init_value_lr": 0.0001,
+    "end_value_lr": 1e-06,
+    "transition_steps_lr": 2999,
+    "decay_rate_lr": 0.01
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "case": "armistead_sphingolipid",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/armistead_sphingolipid/qwen38_27b",
+  "source_status": "pass",
+  "status": "queued",
+  "readiness_errors": [],
+  "readiness_warnings": [
+    "Dataset has very few rows; fitted parameters may be weakly constrained."
+  ],
+  "parameters": 10,
+  "validated_seed_count": 4,
+  "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/armistead_sphingolipid/session",
+  "original_yaml_sha256": "2e76daf87c486f5d90e71a0479e70436876573cc2f0c93b82e798bf502ea4432",
+  "fit_yaml_sha256": "b0272622d9ebaec38fdd8c37b346cc36d02020a29cd0ca50cb688a53db1f8b40",
+  "generated_source_sha256": "e2e285b259dc2464139e411f6ffe6c97962643b9f3cb75f860be40f2b34bd1a6",
+  "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+  "original_population": {
+    "population_size": 4,
+    "num_iters": 1,
+    "processors": 1,
+    "algorithm": "DE",
+    "random_seed": 7,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06,
+      1e-06,
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      2.400145887402358e-09,
+      9.880000000000001e-09,
+      7.663524083125085e-10,
+      2.07e-08,
+      1e-08
+    ]
+  },
+  "population": {
+    "population_size": 80,
+    "num_iters": 100,
+    "processors": 16,
+    "algorithm": "DE",
+    "random_seed": 7,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06,
+      1e-06,
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      2.400145887402358e-09,
+      9.880000000000001e-09,
+      7.663524083125085e-10,
+      2.07e-08,
+      1e-08
+    ]
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 3000,
+    "auto_state_tolerances": true,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7",
+      "1e-7",
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      2.400145887402358e-10,
+      9.880000000000001e-10,
+      7.663524083125084e-11,
+      2.07e-09,
+      1e-09
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 10000,
+    "auto_max_steps": true,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 900,
+    "solver_validation_min_successful": 10,
+    "solver_validation_seed": 7,
+    "solver_accuracy_check": true,
+    "solver_accuracy_workers": 4,
+    "auto_integrator": true,
+    "integrator": "Kvaerno5",
+    "init_value_lr": 0.0001,
+    "end_value_lr": 1e-06,
+    "transition_steps_lr": 2999,
+    "decay_rate_lr": 0.01
+  }
+}

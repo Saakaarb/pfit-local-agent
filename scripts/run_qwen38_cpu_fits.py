@@ -19,8 +19,9 @@ import time
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
-ROOT = REPO / 'evaluation_runs/qwen38_cpu_fits_20261005'
-SOURCE = REPO / 'evaluation_runs/qwen38_comparison_20261005/cases'
+ROOT = REPO / 'evaluation_runs/qwen38_full_fits_20261008'
+SOURCE = REPO / 'evaluation_runs/final_three_model_comparison_20261007/cases'
+SLIDING_SOURCE = REPO / 'evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b'
 
 
 def save(path, data):
@@ -53,20 +54,54 @@ def cpu_slots():
     return [sorted(g) for g in groups]
 
 
+OPTIMIZER_KEYS = {
+    'population_opt': {'algorithm', 'population_size', 'num_iters', 'processors', 'random_seed'},
+    'gradient_opt': {'gradient_optimizer', 'num_iters', 'init_value_lr', 'end_value_lr',
+                     'transition_steps_lr', 'decay_rate_lr'},
+}
+
+
+def check_optimizer_only_change(original, updated):
+    restored = copy.deepcopy(updated)
+    for section, keys in OPTIMIZER_KEYS.items():
+        for key in keys:
+            restored[section].pop(key, None)
+            if key in original[section]:
+                restored[section][key] = original[section][key]
+    if restored != original:
+        raise ValueError('Full-fit preparation must not change scientific or solver settings')
+
+
+def full_fit_config(original, dimensions, processors):
+    config = copy.deepcopy(original)
+    population = max(64, min(160, math.ceil(8 * dimensions / 16) * 16))
+    config['population_opt'].update(algorithm='DE', population_size=population,
+                                   num_iters=100, processors=processors, random_seed=7)
+    config['gradient_opt'].update(gradient_optimizer='adam', num_iters=3000,
+                                 init_value_lr=1e-4, end_value_lr=1e-6,
+                                 transition_steps_lr=2999, decay_rate_lr=0.01)
+    check_optimizer_only_change(original, config)
+    return config
+
+
 def prepare():
     import yaml
     from lib.utils.source_stamp import verify_stamp, write_stamp, STAMP_PREFIX
     from local_agent.agent.readiness import check_ready
+    from lib.utils.yamlread import YAMLReader
+    from lib.utils.run_artifacts import load_accuracy_seeds, accuracy_seed_context
     ROOT.mkdir(exist_ok=False)
     slots = cpu_slots()
     entries = []
     for metadata in sorted(SOURCE.glob('*/qwen38_27b/metadata.json')):
-        old = json.loads(metadata.read_text())
         name = metadata.parts[-3]
+        if name == 'sliding_basepoint_headered':
+            metadata = SLIDING_SOURCE / 'metadata.json'
+        old = json.loads(metadata.read_text())
         entry = {'case': name, 'source': str(metadata.parent),
                  'source_status': old['status']}
         entries.append(entry)
-        if old['status'] not in ('pass', 'degraded'):
+        if old['status'] != 'pass':
             entry.update(status='blocked', reason=f"Prior workflow: {old['status']}, stage {old.get('failed_stage')}")
             continue
         source = metadata.parent / 'session'
@@ -81,32 +116,30 @@ def prepare():
                             ignore=shutil.ignore_patterns('__pycache__', 'agent_logs'))
         config_path = session / 'inputs/user_input.yaml'
         original = yaml.safe_load(config_path.read_text())
-        config = copy.deepcopy(original)
-        dimensions = len(config['model']['trainable_parameters'])
-        population = max(64, min(160, math.ceil(8 * dimensions / 16) * 16))
-        config['population_opt'].update(algorithm='DE', population_size=population,
-                                        num_iters=500, processors=min(map(len, slots)), random_seed=7)
-        config['gradient_opt'].update(gradient_optimizer='adam', num_iters=1000)
-        # Only runtime optimizer controls change. All equations, data, solver
-        # settings, tolerances, parameter order/bounds and loss stay identical.
-        allowed = {'population_opt': {'algorithm', 'population_size', 'num_iters', 'processors', 'random_seed'},
-                   'gradient_opt': {'gradient_optimizer', 'num_iters'}}
-        restored = copy.deepcopy(config)
-        for section, keys in allowed.items():
-            for key in keys:
-                restored[section].pop(key, None)
-                if key in original[section]:
-                    restored[section][key] = original[section][key]
-        assert restored == original
+        original_reader = YAMLReader.from_file(source / 'inputs/user_input.yaml')
+        source_seeds = load_accuracy_seeds(source, original_reader)
+        if not source_seeds:
+            raise ValueError(f'{name}: accuracy-validated seeds missing')
+        # Verify the copied data/model before rebinding optimizer-only YAML edits.
+        if load_accuracy_seeds(session, YAMLReader.from_file(config_path)) != source_seeds:
+            raise ValueError(f'{name}: copied accuracy seeds differ')
+        dimensions = original_reader.n_search_axes
+        config = full_fit_config(original, dimensions, min(map(len, slots)))
         config_path.write_text(yaml.safe_dump(config, sort_keys=False))
         script = session / 'generated/generated_script.py'
         before = [x for x in script.read_text().splitlines() if not x.startswith(STAMP_PREFIX)]
         write_stamp(session)
         assert before == [x for x in script.read_text().splitlines() if not x.startswith(STAMP_PREFIX)]
+        accuracy_path = session / 'generated/solver_accuracy.json'
+        accuracy = json.loads(accuracy_path.read_text())
+        accuracy['budget_source_seed_context'] = accuracy['seed_context']
+        accuracy['seed_context'] = accuracy_seed_context(session, YAMLReader.from_file(config_path))
+        accuracy['budget_change_note'] = 'Only whitelisted optimizer budgets/LR/processors changed; model, data, bounds and solver settings verified unchanged.'
+        save(accuracy_path, accuracy)
         report = check_ready(session)
         entry.update(status='queued' if report.passed else 'blocked',
                      readiness_errors=report.critical_errors, readiness_warnings=report.warnings,
-                     parameters=dimensions, session=str(session),
+                     parameters=dimensions, validated_seed_count=len(source_seeds), session=str(session),
                      original_yaml_sha256=sha(source / 'inputs/user_input.yaml'),
                      fit_yaml_sha256=sha(config_path),
                      generated_source_sha256=sha(source / 'generated/generated_script.py'),
@@ -133,7 +166,7 @@ def worker(entries, cpus):
             continue  # Never overwrite or silently repeat an earlier attempt.
         session = Path(entry['session'])
         env = os.environ.copy()
-        env.update(JAX_PLATFORMS='cpu', OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
+        env.update(JAX_PLATFORMS='cpu', JAX_ENABLE_X64='true', OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
                    MKL_NUM_THREADS='1', NUMEXPR_NUM_THREADS='1', PYTHONUNBUFFERED='1',
                    MPLCONFIGDIR='/workspace/.cache/matplotlib', XDG_CACHE_HOME='/workspace/.cache',
                    XLA_FLAGS=f'--xla_force_host_platform_device_count={len(cpus)} --xla_cpu_multi_thread_eigen=false')
@@ -173,11 +206,16 @@ def run():
         if not set(sum(plan['cpu_slots'], [])).issubset(os.sched_getaffinity(0)):
             raise RuntimeError('CPU allocation changed; revise the plan before running')
         (ROOT / 'runner.pid').write_text(str(os.getpid()) + '\n')
+        plan.update(run_status='running', started_at=now(),
+                    run_framework_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip())
+        save(ROOT / 'plan.json', plan)
         entries = sorted((e for e in plan['cases'] if e['status'] == 'queued'), key=lambda e: e['parameters'])
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
             futures = [executor.submit(worker, entries[i::2], cpus) for i, cpus in enumerate(plan['cpu_slots'])]
             for future in futures:
                 future.result()
+        plan.update(run_status='completed', finished_at=now())
+        save(ROOT / 'plan.json', plan)
         print(f'{now()} Queue complete', flush=True)
 
 

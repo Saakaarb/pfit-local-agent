@@ -1,0 +1,59 @@
+{
+  "case": "vanderpol_session",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/vanderpol_session/qwen38_27b",
+  "source_status": "pass",
+  "status": "queued",
+  "readiness_errors": [],
+  "readiness_warnings": [
+    "2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified."
+  ],
+  "parameters": 1,
+  "validated_seed_count": 2,
+  "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/vanderpol_session/session",
+  "original_yaml_sha256": "09b0e831056848547119dac03c93b3cc0e75ddaadfa3e1b52cb15c30e87c4947",
+  "fit_yaml_sha256": "bf65715b2579fa64887673090ad34c16235f541e480db4e562f62b6572a63809",
+  "generated_source_sha256": "d49900bd0e1827f4449f7d2c199e7bdaa45ac98332ba6d91fa971b9446cfb6bb",
+  "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+  "original_population": {
+    "population_size": 4,
+    "num_iters": 1,
+    "processors": 1,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "population": {
+    "population_size": 64,
+    "num_iters": 100,
+    "processors": 16,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 3000,
+    "auto_state_tolerances": true,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      2e-09,
+      1.1001484366006488e-08
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 2000,
+    "auto_max_steps": true,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 900,
+    "solver_validation_min_successful": 10,
+    "solver_validation_seed": 7,
+    "solver_accuracy_check": true,
+    "solver_accuracy_workers": 4,
+    "auto_integrator": true,
+    "integrator": "Tsit5",
+    "init_value_lr": 0.0001,
+    "end_value_lr": 1e-06,
+    "transition_steps_lr": 2999,
+    "decay_rate_lr": 0.01
+  }
+}

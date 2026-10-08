@@ -1,0 +1,67 @@
+{
+  "case": "sliding_basepoint_headered",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b",
+  "source_status": "pass",
+  "status": "queued",
+  "readiness_errors": [],
+  "readiness_warnings": [
+    "2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified."
+  ],
+  "parameters": 5,
+  "validated_seed_count": 2,
+  "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/sliding_basepoint_headered/session",
+  "original_yaml_sha256": "5e37c9b79800ca0e8c3d82135f0f370a14eb80cc56fa4cc13afff9ae26be8909",
+  "fit_yaml_sha256": "9a486c18b8c5ae48c74fc4400acd28066e88d9e96db7cc127070a26742c4704f",
+  "generated_source_sha256": "2cc232f3da732decd05330f9b06f8ca67fd683a02f60fd364ad3f03d2c67af96",
+  "stamp_note": "Verified original stamp; restamped isolated copy after whitelisted optimizer-only changes; executable code unchanged.",
+  "original_population": {
+    "population_size": 4,
+    "num_iters": 1,
+    "processors": 1,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "population": {
+    "population_size": 64,
+    "num_iters": 100,
+    "processors": 16,
+    "algorithm": "DE",
+    "random_seed": 7
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 3000,
+    "auto_state_tolerances": true,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7",
+      "1e-7",
+      "1e-7",
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      "1e-9",
+      "1e-9",
+      "1e-9",
+      "1e-9",
+      "1e-9",
+      "1e-9"
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 1000,
+    "auto_max_steps": true,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 900,
+    "solver_validation_min_successful": 10,
+    "solver_validation_seed": 7,
+    "solver_accuracy_check": true,
+    "solver_accuracy_workers": 4,
+    "auto_integrator": true,
+    "integrator": "Tsit5",
+    "init_value_lr": 0.0001,
+    "end_value_lr": 1e-06,
+    "transition_steps_lr": 2999,
+    "decay_rate_lr": 0.01
+  }
+}
