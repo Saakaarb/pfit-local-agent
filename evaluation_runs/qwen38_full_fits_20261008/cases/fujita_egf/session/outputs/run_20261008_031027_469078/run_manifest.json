@@ -1,0 +1,106 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 16,
+    "detected_cpus": 16,
+    "configured_host_devices": 16,
+    "configuration_source": "XLA_FLAGS override",
+    "jax_cpu_devices": 16
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.11",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.8.0-142-generic",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "22a4935c5de6b4ed7db343d9266117a18763d64ddc98a703a0c6d1130533808c",
+      "generated_script": "72be8100ca618a615519c4449b41e03454d69f3aa7a23283a44ce45cec5ec502",
+      "user_model": "b4d3d3c049ee0529db9aa57e51dcf9bcca8cac2a7110638084228fc42db5a416"
+    },
+    "git": {
+      "commit": "dcec37b10d5292b3a2c5276531704090f41205d5",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 128,
+      "population_iterations": 100,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 3000
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "egf_1.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "a83933f71d538cb63e29bd1f4e3093e70f5af1b2fc67aa5d8954a125296aca0e",
+      "initial_conditions": {
+        "EGFR": 37536153.8059105,
+        "EGF_EGFR": 0.0,
+        "pEGFR": 0.0,
+        "pEGFR_Akt": 0.0,
+        "Akt": 0.026930923029049,
+        "pAkt": 0.0,
+        "pAkt_S6": 0.0,
+        "S6": 188.063148677911,
+        "pS6": 0.0,
+        "L": 1.0
+      },
+      "output_file": "result_solution_exp1.csv"
+    },
+    {
+      "index": 2,
+      "data_file": "egf_10.csv",
+      "snapshot_data_file": "dataset_2.csv",
+      "sha256": "baefab2fbdbce7e86deb193a8c437fe5c2416863f7bf4fdf31a926a58b907535",
+      "initial_conditions": {
+        "EGFR": 37536153.8059105,
+        "EGF_EGFR": 0.0,
+        "pEGFR": 0.0,
+        "pEGFR_Akt": 0.0,
+        "Akt": 0.026930923029049,
+        "pAkt": 0.0,
+        "pAkt_S6": 0.0,
+        "S6": 188.063148677911,
+        "pS6": 0.0,
+        "L": 10.0
+      },
+      "output_file": "result_solution_exp2.csv"
+    }
+  ]
+}

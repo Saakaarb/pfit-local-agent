@@ -1837,5 +1837,9 @@
         "decay_rate_lr": 0.01
       }
     }
-  ]
+  ],
+  "run_status": "completed",
+  "started_at": "2026-10-08T02:11:39.922323+00:00",
+  "run_framework_commit": "ad7591cf9a784d2dc256284b2d5c427a845f654b",
+  "finished_at": "2026-10-08T04:35:54.863156+00:00"
 }

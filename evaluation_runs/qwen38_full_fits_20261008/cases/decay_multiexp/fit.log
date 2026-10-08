@@ -1,0 +1,494 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/decay_multiexp/session/outputs/run_20261008_021141_351477
+Readiness warning: Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+Readiness warning: Measured column spans orders of magnitude: Experiment 2 (decay_run_B.csv): A uses dataset[:, 0], positive min=9.07999e-05, max=2, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.
+Launching driver script
+ERROR:2026-10-08 02:11:47,181:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 281, in _check_cuda_versions
+    local_device_count = cuda_versions.cuda_device_count()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:113: operation cuInit(0) failed: Unknown CUDA error 303; cuGetErrorName failed. This probably means that JAX was unable to load the CUDA libraries.
+CPU resources:  {'requested_processors': 16, 'detected_cpus': 16, 'configured_host_devices': 16, 'configuration_source': 'XLA_FLAGS override', 'jax_cpu_devices': 16}
+Available devices:  [CpuDevice(id=0), CpuDevice(id=1), CpuDevice(id=2), CpuDevice(id=3), CpuDevice(id=4), CpuDevice(id=5), CpuDevice(id=6), CpuDevice(id=7), CpuDevice(id=8), CpuDevice(id=9), CpuDevice(id=10), CpuDevice(id=11), CpuDevice(id=12), CpuDevice(id=13), CpuDevice(id=14), CpuDevice(id=15)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/decay_multiexp/session/outputs/run_20261008_021141_351477
+Using 4 accuracy-validated seed points
+DE tolerances  — rtol: [1e-06, 1e-06], atol: [2e-08, 5.7442991839287925e-09]
+Writing de log file
+DE population size: 64, max iterations: 100
+Iteration: 1
+Best Cost: 1.0195E-01
+Time for iteration: 0.1494
+-------
+Iteration: 2
+Best Cost: 7.2993E-02
+Time for iteration: 0.1607
+-------
+Iteration: 3
+Best Cost: 3.4546E-02
+Time for iteration: 0.1402
+-------
+Iteration: 4
+Best Cost: 3.4546E-02
+Time for iteration: 0.1551
+-------
+Iteration: 5
+Best Cost: 2.5847E-02
+Time for iteration: 0.1377
+-------
+Iteration: 6
+Best Cost: 2.5535E-02
+Time for iteration: 0.1410
+-------
+Iteration: 7
+Best Cost: 8.7840E-04
+Time for iteration: 0.1208
+-------
+Iteration: 8
+Best Cost: 8.7840E-04
+Time for iteration: 0.1219
+-------
+Iteration: 9
+Best Cost: 8.7840E-04
+Time for iteration: 0.1166
+-------
+Iteration: 10
+Best Cost: 8.7840E-04
+Time for iteration: 0.1185
+-------
+Iteration: 11
+Best Cost: 8.7840E-04
+Time for iteration: 0.1214
+-------
+Iteration: 12
+Best Cost: 8.7840E-04
+Time for iteration: 0.1190
+-------
+Iteration: 13
+Best Cost: 8.7840E-04
+Time for iteration: 0.1175
+-------
+Iteration: 14
+Best Cost: 5.9815E-04
+Time for iteration: 0.1130
+-------
+Iteration: 15
+Best Cost: 5.9815E-04
+Time for iteration: 0.1116
+-------
+Iteration: 16
+Best Cost: 4.2067E-04
+Time for iteration: 0.1100
+-------
+Iteration: 17
+Best Cost: 6.6280E-05
+Time for iteration: 0.1107
+-------
+Iteration: 18
+Best Cost: 6.6280E-05
+Time for iteration: 0.1046
+-------
+Iteration: 19
+Best Cost: 6.6280E-05
+Time for iteration: 0.1092
+-------
+Iteration: 20
+Best Cost: 6.6280E-05
+Time for iteration: 0.1086
+-------
+Iteration: 21
+Best Cost: 6.6280E-05
+Time for iteration: 0.1213
+-------
+Iteration: 22
+Best Cost: 2.2251E-05
+Time for iteration: 0.1103
+-------
+Iteration: 23
+Best Cost: 2.2251E-05
+Time for iteration: 0.1177
+-------
+Iteration: 24
+Best Cost: 2.2251E-05
+Time for iteration: 0.1096
+-------
+Iteration: 25
+Best Cost: 2.2251E-05
+Time for iteration: 0.1105
+-------
+Iteration: 26
+Best Cost: 2.2251E-05
+Time for iteration: 0.1057
+-------
+Iteration: 27
+Best Cost: 1.6614E-05
+Time for iteration: 0.1094
+-------
+Iteration: 28
+Best Cost: 1.0780E-05
+Time for iteration: 0.1084
+-------
+Iteration: 29
+Best Cost: 1.0780E-05
+Time for iteration: 0.1090
+-------
+Iteration: 30
+Best Cost: 1.0780E-05
+Time for iteration: 0.1072
+-------
+Iteration: 31
+Best Cost: 1.0780E-05
+Time for iteration: 0.1074
+-------
+Iteration: 32
+Best Cost: 7.2223E-06
+Time for iteration: 0.1118
+-------
+Iteration: 33
+Best Cost: 7.2223E-06
+Time for iteration: 0.1124
+-------
+Iteration: 34
+Best Cost: 2.1816E-06
+Time for iteration: 0.1148
+-------
+Iteration: 35
+Best Cost: 2.1816E-06
+Time for iteration: 0.1089
+-------
+Iteration: 36
+Best Cost: 2.1816E-06
+Time for iteration: 0.1053
+-------
+Iteration: 37
+Best Cost: 1.9774E-06
+Time for iteration: 0.1135
+-------
+Iteration: 38
+Best Cost: 1.9592E-06
+Time for iteration: 0.1144
+-------
+Iteration: 39
+Best Cost: 1.9022E-06
+Time for iteration: 0.1104
+-------
+Iteration: 40
+Best Cost: 1.9022E-06
+Time for iteration: 0.1094
+-------
+Iteration: 41
+Best Cost: 1.9004E-06
+Time for iteration: 0.1119
+-------
+Iteration: 42
+Best Cost: 1.8821E-06
+Time for iteration: 0.1141
+-------
+Iteration: 43
+Best Cost: 1.8754E-06
+Time for iteration: 0.1142
+-------
+Iteration: 44
+Best Cost: 1.8686E-06
+Time for iteration: 0.1087
+-------
+Iteration: 45
+Best Cost: 1.8681E-06
+Time for iteration: 0.1086
+-------
+Iteration: 46
+Best Cost: 1.8680E-06
+Time for iteration: 0.1086
+-------
+Iteration: 47
+Best Cost: 1.8680E-06
+Time for iteration: 0.1048
+-------
+Iteration: 48
+Best Cost: 1.8680E-06
+Time for iteration: 0.1057
+-------
+Iteration: 49
+Best Cost: 1.8680E-06
+Time for iteration: 0.1085
+-------
+Iteration: 50
+Best Cost: 1.8680E-06
+Time for iteration: 0.1082
+-------
+Iteration: 51
+Best Cost: 1.8679E-06
+Time for iteration: 0.1087
+-------
+Iteration: 52
+Best Cost: 1.8679E-06
+Time for iteration: 0.1073
+-------
+Iteration: 53
+Best Cost: 1.8679E-06
+Time for iteration: 0.1090
+-------
+Iteration: 54
+Best Cost: 1.8679E-06
+Time for iteration: 0.1105
+-------
+Iteration: 55
+Best Cost: 1.8679E-06
+Time for iteration: 0.1078
+-------
+Iteration: 56
+Best Cost: 1.8679E-06
+Time for iteration: 0.1070
+-------
+Iteration: 57
+Best Cost: 1.8679E-06
+Time for iteration: 0.1076
+-------
+Iteration: 58
+Best Cost: 1.8679E-06
+Time for iteration: 0.1123
+-------
+Iteration: 59
+Best Cost: 1.8679E-06
+Time for iteration: 0.1083
+-------
+Iteration: 60
+Best Cost: 1.8679E-06
+Time for iteration: 0.1127
+-------
+Iteration: 61
+Best Cost: 1.8679E-06
+Time for iteration: 0.1081
+-------
+Iteration: 62
+Best Cost: 1.8679E-06
+Time for iteration: 0.1144
+-------
+Iteration: 63
+Best Cost: 1.8679E-06
+Time for iteration: 0.1087
+-------
+Iteration: 64
+Best Cost: 1.8679E-06
+Time for iteration: 0.1143
+-------
+Iteration: 65
+Best Cost: 1.8679E-06
+Time for iteration: 0.1083
+-------
+Iteration: 66
+Best Cost: 1.8679E-06
+Time for iteration: 0.1138
+-------
+Iteration: 67
+Best Cost: 1.8679E-06
+Time for iteration: 0.1146
+-------
+Iteration: 68
+Best Cost: 1.8679E-06
+Time for iteration: 0.1146
+-------
+Iteration: 69
+Best Cost: 1.8679E-06
+Time for iteration: 0.1152
+-------
+Iteration: 70
+Best Cost: 1.8679E-06
+Time for iteration: 0.1146
+-------
+Iteration: 71
+Best Cost: 1.8679E-06
+Time for iteration: 0.1151
+-------
+Iteration: 72
+Best Cost: 1.8679E-06
+Time for iteration: 0.1145
+-------
+Iteration: 73
+Best Cost: 1.8679E-06
+Time for iteration: 0.1151
+-------
+Iteration: 74
+Best Cost: 1.8679E-06
+Time for iteration: 0.1156
+-------
+Iteration: 75
+Best Cost: 1.8679E-06
+Time for iteration: 0.1145
+-------
+Iteration: 76
+Best Cost: 1.8679E-06
+Time for iteration: 0.1091
+-------
+Iteration: 77
+Best Cost: 1.8679E-06
+Time for iteration: 0.1096
+-------
+Iteration: 78
+Best Cost: 1.8679E-06
+Time for iteration: 0.1077
+-------
+Iteration: 79
+Best Cost: 1.8679E-06
+Time for iteration: 0.1074
+-------
+Iteration: 80
+Best Cost: 1.8679E-06
+Time for iteration: 0.1104
+-------
+Iteration: 81
+Best Cost: 1.8679E-06
+Time for iteration: 0.1084
+-------
+Iteration: 82
+Best Cost: 1.8679E-06
+Time for iteration: 0.1069
+-------
+Iteration: 83
+Best Cost: 1.8679E-06
+Time for iteration: 0.1083
+-------
+Iteration: 84
+Best Cost: 1.8679E-06
+Time for iteration: 0.1105
+-------
+Iteration: 85
+Best Cost: 1.8679E-06
+Time for iteration: 0.1098
+-------
+Iteration: 86
+Best Cost: 1.8679E-06
+Time for iteration: 0.1104
+-------
+Iteration: 87
+Best Cost: 1.8679E-06
+Time for iteration: 0.1151
+-------
+Iteration: 88
+Best Cost: 1.8679E-06
+Time for iteration: 0.1136
+-------
+Iteration: 89
+Best Cost: 1.8679E-06
+Time for iteration: 0.1115
+-------
+Iteration: 90
+Best Cost: 1.8679E-06
+Time for iteration: 0.1100
+-------
+Iteration: 91
+Best Cost: 1.8679E-06
+Time for iteration: 0.1090
+-------
+Iteration: 92
+Best Cost: 1.8679E-06
+Time for iteration: 0.1064
+-------
+Iteration: 93
+Best Cost: 1.8679E-06
+Time for iteration: 0.1111
+-------
+Iteration: 94
+Best Cost: 1.8679E-06
+Time for iteration: 0.1101
+-------
+Iteration: 95
+Best Cost: 1.8679E-06
+Time for iteration: 0.1106
+-------
+Iteration: 96
+Best Cost: 1.8679E-06
+Time for iteration: 0.1138
+-------
+Iteration: 97
+Best Cost: 1.8679E-06
+Time for iteration: 0.1145
+-------
+Iteration: 98
+Best Cost: 1.8679E-06
+Time for iteration: 0.1136
+-------
+Iteration: 99
+Best Cost: 1.8679E-06
+Time for iteration: 0.1141
+-------
+Iteration: 100
+Best Cost: 1.8679E-06
+Time for iteration: 0.1130
+-------
+Final best position (scaled): [ 0.3333293 -0.0152516]
+Final best cost: 1.8679E-06
+Done with DE search
+Best Position from DE: [0.99998608 0.30000093]
+Best cost from DE: 1.8679409815984168e-06
+NODE effective tolerances — rtol: [1e-07, 1e-07], atol: [2e-09, 5.744299183928793e-10]
+Trainable_params: [ 0.3333293 -0.0152516]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 2.088457639165382e-06 2.088457639165382e-06
+Iteration:,loss value, best loss: 100 6.271254150921423e-06 2.088457639165382e-06
+Iteration time: 8.37101936340332
+Iteration:,loss value, best loss: 200 5.3592480575475615e-06 2.088457639165382e-06
+Iteration time: 1.8635237216949463
+Iteration:,loss value, best loss: 300 4.5632303468261895e-06 2.088457639165382e-06
+Iteration time: 1.8493452072143555
+Iteration:,loss value, best loss: 400 3.898876501827072e-06 2.088457639165382e-06
+Iteration time: 1.9275906085968018
+Iteration:,loss value, best loss: 500 3.337113342590633e-06 2.088457639165382e-06
+Iteration time: 1.840245246887207
+Iteration:,loss value, best loss: 600 2.8590559845761e-06 2.088457639165382e-06
+Iteration time: 1.6833980083465576
+Iteration:,loss value, best loss: 700 2.4510911752807253e-06 2.088457639165382e-06
+Iteration time: 1.9057471752166748
+Iteration:,loss value, best loss: 800 2.1024722633802395e-06 1.9030969043624037e-06
+Iteration time: 1.6057522296905518
+Iteration:,loss value, best loss: 900 1.8043791500050301e-06 1.633742701403156e-06
+Iteration time: 1.6329402923583984
+Iteration:,loss value, best loss: 1000 1.549440584961177e-06 1.4028596801927978e-06
+Iteration time: 1.6204369068145752
+Iteration:,loss value, best loss: 1100 1.3314352443498373e-06 1.2054179614489734e-06
+Iteration time: 1.584397792816162
+Iteration:,loss value, best loss: 1200 1.1450849066376891e-06 1.0366294480928166e-06
+Iteration time: 1.5867013931274414
+Iteration:,loss value, best loss: 1300 9.859006361972347e-07 8.924196016190485e-07
+Iteration time: 1.5864953994750977
+Iteration:,loss value, best loss: 1400 8.500536794321967e-07 7.693061165402994e-07
+Iteration time: 1.5792908668518066
+Iteration:,loss value, best loss: 1500 7.342702611323084e-07 6.643064465050645e-07
+Iteration time: 1.581179141998291
+Iteration:,loss value, best loss: 1600 6.357451239984899e-07 5.748550194878509e-07
+Iteration time: 1.5729570388793945
+Iteration:,loss value, best loss: 1700 5.52048484256305e-07 4.987184981036297e-07
+Iteration time: 1.6534385681152344
+Iteration:,loss value, best loss: 1800 4.809943833420923e-07 4.3388182575555023e-07
+Iteration time: 1.7193272113800049
+Iteration:,loss value, best loss: 1900 4.2012714806746895e-07 3.7804288659648436e-07
+Iteration time: 1.6569428443908691
+Iteration:,loss value, best loss: 2000 3.3257368413721885e-07 3.2435341124608674e-07
+Iteration time: 1.6509127616882324
+Iteration:,loss value, best loss: 2100 3.2432883871974635e-07 3.2432874086705583e-07
+Iteration time: 1.6759226322174072
+Iteration:,loss value, best loss: 2200 3.2432912946146007e-07 3.2432874086705583e-07
+Iteration time: 1.6932742595672607
+Iteration:,loss value, best loss: 2300 3.2432891230308085e-07 3.243287199853473e-07
+Iteration time: 1.6606223583221436
+Iteration:,loss value, best loss: 2400 3.243290054212237e-07 3.243287199853473e-07
+Iteration time: 1.6969554424285889
+Iteration:,loss value, best loss: 2500 3.2432914806462636e-07 3.2432868898272995e-07
+Iteration time: 1.701375961303711
+Iteration:,loss value, best loss: 2600 3.243288193421998e-07 3.2432868898272995e-07
+Iteration time: 1.6870100498199463
+Iteration:,loss value, best loss: 2700 3.2432900532926355e-07 3.2432868898272995e-07
+Iteration time: 1.6987178325653076
+Iteration:,loss value, best loss: 2800 3.2432912947606487e-07 3.2432868898272995e-07
+Iteration time: 1.7031443119049072
+Iteration:,loss value, best loss: 2900 3.243289929609867e-07 3.2432868898272995e-07
+Iteration time: 1.930649995803833
+Iteration:,loss value, best loss: 2999 3.243291232570431e-07 3.2432868898272995e-07
+Iteration time: 1.6973845958709717
+Final best position: [0.99999826 0.30000014]
+Final loss: 3.2432868898272995e-07
+Skipping post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/decay_multiexp/session/outputs/run_20261008_021141_351477

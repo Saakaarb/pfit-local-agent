@@ -1,0 +1,506 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/fujita_egf/session/outputs/run_20261008_031027_469078
+Readiness warning: 1 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.
+Launching driver script
+ERROR:2026-10-08 03:10:31,454:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 281, in _check_cuda_versions
+    local_device_count = cuda_versions.cuda_device_count()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:113: operation cuInit(0) failed: Unknown CUDA error 303; cuGetErrorName failed. This probably means that JAX was unable to load the CUDA libraries.
+CPU resources:  {'requested_processors': 16, 'detected_cpus': 16, 'configured_host_devices': 16, 'configuration_source': 'XLA_FLAGS override', 'jax_cpu_devices': 16}
+Available devices:  [CpuDevice(id=0), CpuDevice(id=1), CpuDevice(id=2), CpuDevice(id=3), CpuDevice(id=4), CpuDevice(id=5), CpuDevice(id=6), CpuDevice(id=7), CpuDevice(id=8), CpuDevice(id=9), CpuDevice(id=10), CpuDevice(id=11), CpuDevice(id=12), CpuDevice(id=13), CpuDevice(id=14), CpuDevice(id=15)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/fujita_egf/session/outputs/run_20261008_031027_469078
+Using 3 accuracy-validated seed points
+Accuracy warning: 1 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.
+DE tolerances  — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Writing de log file
+DE population size: 128, max iterations: 100
+Iteration: 1
+Best Cost: 4.5079E-01
+Time for iteration: 69.6836
+-------
+Iteration: 2
+Best Cost: 4.5079E-01
+Time for iteration: 61.9180
+-------
+Iteration: 3
+Best Cost: 4.4599E-01
+Time for iteration: 50.9173
+-------
+Iteration: 4
+Best Cost: 4.4599E-01
+Time for iteration: 59.3659
+-------
+Iteration: 5
+Best Cost: 4.4599E-01
+Time for iteration: 68.0842
+-------
+Iteration: 6
+Best Cost: 4.4599E-01
+Time for iteration: 57.8625
+-------
+Iteration: 7
+Best Cost: 4.3254E-01
+Time for iteration: 51.8003
+-------
+Iteration: 8
+Best Cost: 4.3254E-01
+Time for iteration: 64.9999
+-------
+Iteration: 9
+Best Cost: 4.3254E-01
+Time for iteration: 78.5056
+-------
+Iteration: 10
+Best Cost: 4.3254E-01
+Time for iteration: 68.7490
+-------
+Iteration: 11
+Best Cost: 4.3254E-01
+Time for iteration: 75.7025
+-------
+Iteration: 12
+Best Cost: 4.3254E-01
+Time for iteration: 73.3635
+-------
+Iteration: 13
+Best Cost: 4.3254E-01
+Time for iteration: 72.5336
+-------
+Iteration: 14
+Best Cost: 4.3254E-01
+Time for iteration: 68.4902
+-------
+Iteration: 15
+Best Cost: 4.3254E-01
+Time for iteration: 72.7531
+-------
+Iteration: 16
+Best Cost: 4.3254E-01
+Time for iteration: 71.4676
+-------
+Iteration: 17
+Best Cost: 4.1120E-01
+Time for iteration: 73.8691
+-------
+Iteration: 18
+Best Cost: 4.1120E-01
+Time for iteration: 59.7294
+-------
+Iteration: 19
+Best Cost: 4.1120E-01
+Time for iteration: 58.2446
+-------
+Iteration: 20
+Best Cost: 4.1120E-01
+Time for iteration: 62.5542
+-------
+Iteration: 21
+Best Cost: 3.5771E-01
+Time for iteration: 72.2491
+-------
+Iteration: 22
+Best Cost: 3.5771E-01
+Time for iteration: 71.1351
+-------
+Iteration: 23
+Best Cost: 3.5771E-01
+Time for iteration: 74.7170
+-------
+Iteration: 24
+Best Cost: 3.5771E-01
+Time for iteration: 72.5035
+-------
+Iteration: 25
+Best Cost: 3.5771E-01
+Time for iteration: 78.3321
+-------
+Iteration: 26
+Best Cost: 3.5771E-01
+Time for iteration: 71.8618
+-------
+Iteration: 27
+Best Cost: 3.5771E-01
+Time for iteration: 78.2005
+-------
+Iteration: 28
+Best Cost: 3.5771E-01
+Time for iteration: 71.9048
+-------
+Iteration: 29
+Best Cost: 3.5771E-01
+Time for iteration: 69.6446
+-------
+Iteration: 30
+Best Cost: 3.5771E-01
+Time for iteration: 70.1323
+-------
+Iteration: 31
+Best Cost: 3.5771E-01
+Time for iteration: 77.9926
+-------
+Iteration: 32
+Best Cost: 3.5771E-01
+Time for iteration: 72.9868
+-------
+Iteration: 33
+Best Cost: 3.5771E-01
+Time for iteration: 74.3993
+-------
+Iteration: 34
+Best Cost: 3.5771E-01
+Time for iteration: 78.5875
+-------
+Iteration: 35
+Best Cost: 3.5771E-01
+Time for iteration: 75.0968
+-------
+Iteration: 36
+Best Cost: 3.5771E-01
+Time for iteration: 65.4654
+-------
+Iteration: 37
+Best Cost: 3.5771E-01
+Time for iteration: 78.9083
+-------
+Iteration: 38
+Best Cost: 3.5771E-01
+Time for iteration: 70.2762
+-------
+Iteration: 39
+Best Cost: 3.5771E-01
+Time for iteration: 71.9915
+-------
+Iteration: 40
+Best Cost: 3.5771E-01
+Time for iteration: 73.8107
+-------
+Iteration: 41
+Best Cost: 3.5709E-01
+Time for iteration: 77.5106
+-------
+Iteration: 42
+Best Cost: 3.5709E-01
+Time for iteration: 66.2971
+-------
+Iteration: 43
+Best Cost: 3.5709E-01
+Time for iteration: 60.5130
+-------
+Iteration: 44
+Best Cost: 3.5709E-01
+Time for iteration: 69.3323
+-------
+Iteration: 45
+Best Cost: 3.5709E-01
+Time for iteration: 45.9100
+-------
+Iteration: 46
+Best Cost: 3.5709E-01
+Time for iteration: 42.3099
+-------
+Iteration: 47
+Best Cost: 3.5670E-01
+Time for iteration: 39.2509
+-------
+Iteration: 48
+Best Cost: 3.5670E-01
+Time for iteration: 38.7135
+-------
+Iteration: 49
+Best Cost: 3.5670E-01
+Time for iteration: 32.5271
+-------
+Iteration: 50
+Best Cost: 3.5309E-01
+Time for iteration: 24.5228
+-------
+Iteration: 51
+Best Cost: 3.5309E-01
+Time for iteration: 56.8733
+-------
+Iteration: 52
+Best Cost: 3.5309E-01
+Time for iteration: 42.5855
+-------
+Iteration: 53
+Best Cost: 3.5309E-01
+Time for iteration: 34.8719
+-------
+Iteration: 54
+Best Cost: 3.5309E-01
+Time for iteration: 43.2928
+-------
+Iteration: 55
+Best Cost: 3.5309E-01
+Time for iteration: 45.9087
+-------
+Iteration: 56
+Best Cost: 3.5309E-01
+Time for iteration: 50.1097
+-------
+Iteration: 57
+Best Cost: 3.5309E-01
+Time for iteration: 53.4894
+-------
+Iteration: 58
+Best Cost: 3.5309E-01
+Time for iteration: 50.0387
+-------
+Iteration: 59
+Best Cost: 3.5309E-01
+Time for iteration: 30.9134
+-------
+Iteration: 60
+Best Cost: 3.5309E-01
+Time for iteration: 43.4052
+-------
+Iteration: 61
+Best Cost: 3.5309E-01
+Time for iteration: 40.4858
+-------
+Iteration: 62
+Best Cost: 3.4657E-01
+Time for iteration: 34.3262
+-------
+Iteration: 63
+Best Cost: 3.4657E-01
+Time for iteration: 19.2732
+-------
+Iteration: 64
+Best Cost: 3.4657E-01
+Time for iteration: 44.3563
+-------
+Iteration: 65
+Best Cost: 3.4657E-01
+Time for iteration: 31.6607
+-------
+Iteration: 66
+Best Cost: 3.4657E-01
+Time for iteration: 59.1223
+-------
+Iteration: 67
+Best Cost: 3.4657E-01
+Time for iteration: 42.9503
+-------
+Iteration: 68
+Best Cost: 3.4657E-01
+Time for iteration: 34.8855
+-------
+Iteration: 69
+Best Cost: 3.4657E-01
+Time for iteration: 33.4282
+-------
+Iteration: 70
+Best Cost: 3.4657E-01
+Time for iteration: 32.7335
+-------
+Iteration: 71
+Best Cost: 3.4657E-01
+Time for iteration: 34.7789
+-------
+Iteration: 72
+Best Cost: 3.4657E-01
+Time for iteration: 32.4590
+-------
+Iteration: 73
+Best Cost: 3.3804E-01
+Time for iteration: 42.2559
+-------
+Iteration: 74
+Best Cost: 3.3068E-01
+Time for iteration: 49.1612
+-------
+Iteration: 75
+Best Cost: 3.2877E-01
+Time for iteration: 22.6309
+-------
+Iteration: 76
+Best Cost: 3.2877E-01
+Time for iteration: 22.8002
+-------
+Iteration: 77
+Best Cost: 3.2877E-01
+Time for iteration: 24.2294
+-------
+Iteration: 78
+Best Cost: 3.2877E-01
+Time for iteration: 16.8576
+-------
+Iteration: 79
+Best Cost: 3.2877E-01
+Time for iteration: 15.1811
+-------
+Iteration: 80
+Best Cost: 3.2877E-01
+Time for iteration: 17.1842
+-------
+Iteration: 81
+Best Cost: 3.2877E-01
+Time for iteration: 15.9454
+-------
+Iteration: 82
+Best Cost: 3.2877E-01
+Time for iteration: 22.4323
+-------
+Iteration: 83
+Best Cost: 3.2877E-01
+Time for iteration: 20.4453
+-------
+Iteration: 84
+Best Cost: 3.2877E-01
+Time for iteration: 22.7790
+-------
+Iteration: 85
+Best Cost: 3.2877E-01
+Time for iteration: 18.5590
+-------
+Iteration: 86
+Best Cost: 3.2877E-01
+Time for iteration: 21.3643
+-------
+Iteration: 87
+Best Cost: 3.2877E-01
+Time for iteration: 29.2134
+-------
+Iteration: 88
+Best Cost: 3.2877E-01
+Time for iteration: 17.3159
+-------
+Iteration: 89
+Best Cost: 3.2877E-01
+Time for iteration: 17.5050
+-------
+Iteration: 90
+Best Cost: 3.2362E-01
+Time for iteration: 21.9469
+-------
+Iteration: 91
+Best Cost: 3.2362E-01
+Time for iteration: 39.5234
+-------
+Iteration: 92
+Best Cost: 3.2362E-01
+Time for iteration: 34.1606
+-------
+Iteration: 93
+Best Cost: 3.2362E-01
+Time for iteration: 37.6094
+-------
+Iteration: 94
+Best Cost: 3.2362E-01
+Time for iteration: 39.6360
+-------
+Iteration: 95
+Best Cost: 3.2362E-01
+Time for iteration: 42.9099
+-------
+Iteration: 96
+Best Cost: 2.7283E-01
+Time for iteration: 38.2493
+-------
+Iteration: 97
+Best Cost: 2.7283E-01
+Time for iteration: 30.6704
+-------
+Iteration: 98
+Best Cost: 2.7283E-01
+Time for iteration: 25.8177
+-------
+Iteration: 99
+Best Cost: 2.7283E-01
+Time for iteration: 38.1729
+-------
+Iteration: 100
+Best Cost: 2.7283E-01
+Time for iteration: 36.7743
+-------
+Final best position (scaled): [-0.46136949  0.2513828  -0.36734094  1.         -0.86827766 -0.55878737
+  0.97597587  0.64660144 -0.56118454  0.84691656  0.19439332 -0.93347172
+  0.30137267  0.0493159   0.83157656 -0.31695486]
+Final best cost: 2.7283E-01
+Done with DE search
+Best Position from DE: [2.03724875e-04 1.02579923e+02 1.15152260e-03 1.00000000e+08
+ 1.13182358e-07 3.38610989e-05 6.42402064e+07 1.48871491e+05
+ 3.23984093e-05 5.96118370e+06 3.59043053e+01 3.40585554e-08
+ 2.57621069e+02 2.48043123e+00 4.49378726e+06 2.91313837e-03]
+Best cost from DE: 0.2728339310296558
+NODE effective tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Trainable_params: [-0.46136949  0.2513828  -0.36734094  1.         -0.86827766 -0.55878737
+  0.97597587  0.64660144 -0.56118454  0.84691656  0.19439332 -0.93347172
+  0.30137267  0.0493159   0.83157656 -0.31695486]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.2728339310300965 0.2728339310300965
+ERROR:2026-10-08 04:35:12,403:jax._src.callback:95: jax.pure_callback failed
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 93, in pure_callback_impl
+    return tree_util.tree_map(np.asarray, callback(*args))
+                                          ^^^^^^^^^^^^^^^
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 71, in __call__
+    return tree_util.tree_leaves(self.callback_func(*args, **kwargs))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/equinox/_errors.py", line 88, in raises
+    raise _EquinoxRuntimeError(
+equinox._errors._EquinoxRuntimeError: A linear solver returned non-finite (NaN or inf) output. This usually means that an
+operator was not well-posed, and that its solver does not support this.
+
+If you are trying solve a linear least-squares problem then you should pass
+`solver=AutoLinearSolver(well_posed=False)`. By default `lineax.linear_solve`
+assumes that the operator is square and nonsingular.
+
+If you *were* expecting this solver to work with this operator, then it may be because:
+
+(a) the operator is singular, and your code has a bug; or
+
+(b) the operator was nearly singular (i.e. it had a high condition number:
+    `jnp.linalg.cond(operator.as_matrix())` is large), and the solver suffered from
+    numerical instability issues; or
+
+(c) the operator is declared to exhibit a certain property (e.g. positive definiteness)
+    that is does not actually satisfy.
+
+
+--------------------
+An error occurred during the runtime of your JAX program! Unfortunately you do not appear to be using `equinox.filter_jit` (perhaps you are using `jax.jit` instead?) and so further information about the error cannot be displayed. (Probably you are seeing a very large but uninformative error message right now.) Please wrap your program with `equinox.filter_jit`.
+--------------------
+
+Gradient refinement failed: XlaRuntimeError: INTERNAL: CpuCallback error calling callback: Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 782, in _wrapped_callback
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 222, in _callback
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 96, in pure_callback_impl
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/callback.py", line 71, in __call__
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/equinox/_errors.py", line 88, in raises
+_EquinoxRuntimeError: A linear solver returned non-finite (NaN or inf) output. This usually means that an
+operator was not well-posed, and that its solver does not support this.
+
+If you are trying solve a linear least-squares problem then you should pass
+`solver=AutoLinearSolver(well_posed=False)`. By default `lineax.linear_solve`
+assumes that the operator is square and nonsingular.
+
+If you *were* expecting this solver to work with this operator, then it may be because:
+
+(a) the operator is singular, and your code has a bug; or
+
+(b) the operator was nearly singular (i.e. it had a high condition number:
+    `jnp.linalg.cond(operator.as_matrix())` is large), and the solver suffered from
+    numerical instability issues; or
+
+(c) the operator is declared to exhibit a certain property (e.g. positive definiteness)
+    that is does not actually satisfy.
+
+
+--------------------
+An error occurred during the runtime of your JAX program! Unfortunately you do not appear to be using `equinox.filter_jit` (perhaps you are using `jax.jit` instead?) and so further information about the error cannot be displayed. (Probably you are seeing a very large but uninformative error message right now.) Please wrap your program with `equinox.filter_jit`.
+--------------------
+; preserving best evaluated point
+Final best position: [2.24569533e-04 1.01652837e+02 1.15152258e-03 1.00000000e+08
+ 1.09277348e-07 3.50345496e-05 5.82773752e+07 1.33689696e+05
+ 3.23986942e-05 5.43333674e+06 3.46837819e+01 3.07245853e-08
+ 2.54975643e+02 2.73082610e+00 4.92703126e+06 2.98878482e-03]
+Final loss: 0.2582598014364032
+Skipping post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/fujita_egf/session/outputs/run_20261008_031027_469078
