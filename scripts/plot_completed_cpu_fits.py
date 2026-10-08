@@ -39,6 +39,8 @@ with PdfPages(OUT/'all_completed_fits.pdf') as combined:
  cover.text(.08,.83,'Measured points and saved fitted trajectories; residual = prediction − measurement.\nLines connect saved measurement times; no additional dense integration.\nCompletion does not imply convergence or parameter identifiability.',fontsize=11)
  for i,e in enumerate(entries):
   note=' — refinement incomplete; best valid fit retained' if e['refinement']=='refinement_degraded' else ''
+  if (e['fit_summary'] or {}).get('termination') == 'stopped':
+   note=' — stopped by user; best valid fit retained'
   cover.text(.08,.71-.033*i,f"Page {e['first_page']:2}: {e['case']} ({e['experiments']} experiment(s)){note}",fontsize=10)
  combined.savefig(cover);plt.close(cover)
  for e in entries:
@@ -77,6 +79,8 @@ with PdfPages(OUT/'all_completed_fits.pdf') as combined:
       if name in ('robertson_session','test_session'):a.set_xscale('log')
     note=' | Best valid fit retained; refinement incomplete' if e['refinement']=='refinement_degraded' else ''
     subtitle = '\nBest valid fit retained; refinement incomplete' if note else ''
+    if (e['fit_summary'] or {}).get('termination') == 'stopped':
+     subtitle = '\nStopped by user; best valid fit retained'
     if name == 'borghans_calcium':
      subtitle += '\nDeclared Ca observable shown; saved objective fitted raw Z instead'
     fig.suptitle(f'{name} — experiment {ei+1}' + subtitle,fontsize=11)

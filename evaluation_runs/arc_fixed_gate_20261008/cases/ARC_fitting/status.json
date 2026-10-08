@@ -2,7 +2,7 @@
   "case": "ARC_fitting",
   "session": "/workspace/pfit-local-agent/evaluation_runs/arc_fixed_gate_20261008/cases/ARC_fitting/session",
   "source": "/workspace/pfit-local-agent/evaluation_runs/arc_extended_de_20261008/cases/ARC_fitting/session",
-  "status": "running",
+  "status": "completed",
   "parameters": 8,
   "population": {
     "population_size": 128,
@@ -81,5 +81,51 @@
     "/workspace/pfit-local-agent/evaluation_runs/arc_fixed_gate_20261008/cases/ARC_fitting/session",
     "--no-sloppiness"
   ],
-  "pid": 3044
+  "pid": 3044,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.010618502090620466,
+    "final_loss": 0.010618502076707257,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        4.000000000000004e-11,
+        3.5400301423577834e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        4.000000000000004e-11,
+        3.5400301423577834e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.010618502076707257
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 1321,
+    "refinement_error": null,
+    "termination": "stopped",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/arc_fixed_gate_20261008/cases/ARC_fitting/session/outputs/run_20261008_191950_785781",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T20:12:09.061029+00:00",
+  "elapsed_seconds": 3138.9074000269175
 }

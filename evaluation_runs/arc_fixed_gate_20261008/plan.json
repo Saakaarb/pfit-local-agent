@@ -75,5 +75,6 @@
       126
     ]
   ],
-  "change": "Only fixed temperature gate on reaction2 and its heat contribution. T_gate470K,deltaT_gate5K. Same DE128x300 seed29, Adam3000, original parameterization/bounds/objective. Fresh deterministic validation required."
+  "change": "Only fixed temperature gate on reaction2 and its heat contribution. T_gate470K,deltaT_gate5K. Same DE128x300 seed29, Adam3000, original parameterization/bounds/objective. Fresh deterministic validation required.",
+  "finished_at": "2026-10-08T20:12:09.074830+00:00"
 }
