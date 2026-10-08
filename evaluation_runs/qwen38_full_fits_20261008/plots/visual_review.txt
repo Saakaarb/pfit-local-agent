@@ -1,0 +1,57 @@
+VISUAL REVIEW OF COMPLETED FULL FITS
+
+13 completed cases, 21 experiment plots individually inspected. Running fits untouched.
+
+Output-column mappings audited against saved writeout code. Times and measured columns verified. Lines join saved observation times; no dense reintegration. NRMSE=100*RMSE/max(abs(measured channel)); descriptive, not an acceptance test. Residual=prediction-measurement. Plots alone cannot distinguish model inadequacy from optimization failure.
+
+armistead_sphingolipid: Mixed; sparse observations
+All eight experiments inspected. Sphinga decline captured well. Cer and Sphingo errors vary across replicates, notably experiment 1 Sphingo and experiment 6 Cer. Only two time points per experiment: connecting lines do not validate intervening dynamics, and R-squared is unstable for nearly constant channels.
+Adam loss reduction: 2.76289%.
+
+beer_indigoidine: Good overall
+Product concentration matches closely. Biomass rises too early and misses the small late decline. Residuals are structured.
+Adam loss reduction: 0.000645612%.
+
+boehm_stat5: Good overall
+Broad rise and decay captured. Early pSTAT5B peak underestimated; initial/peak mismatch in rSTAT5A and late overprediction in pSTAT5A.
+Adam loss reduction: 2.90107e-07%.
+
+cascaded_tanks: Reasonable
+Tracks broad changes but misses sharp transitions and the late high plateau. Structured residuals.
+Adam loss reduction: 0.010569%.
+
+oregonator: Poor; refinement degraded
+Misses sharp X spikes and underestimates later Z peaks, with phase/baseline errors. Adam stopped on invalid loss or gradient; DE parameters retained. Stored objective is sigma-weighted, unlike the max-data-normalized channel metrics.
+Adam loss reduction: 0%.
+
+sliding_basepoint_headered: Good displacement; moderate force mismatch
+Displacement shape matches with small negative bias. First force peak underestimated, with shoulder and late-tail errors.
+Adam loss reduction: 0%.
+
+decay_multiexp: Excellent
+Both experiments overlap the data; residuals about 1e-7 to 1e-6.
+Adam loss reduction: 84.4704%.
+
+lotka_volterra: Poor
+One broad slow excursion misses the repeated observed peaks. NRMSE about 26.5% and 30.8%; predator R-squared negative.
+Adam loss reduction: 2.89175e-11%.
+
+piezo_bouc_wen: Needs improvement
+Periodic response present but initial displacement, phase and waveform differ. Peaks lead data; periodic residuals. NRMSE about 13.8%.
+Adam loss reduction: 0.000951736%.
+
+robertson_session: Excellent
+All states match across the logarithmic time range; channel NRMSE below 0.1%.
+Adam loss reduction: 2.94957e-08%.
+
+test_session: Excellent; duplicate Robertson
+Same fit as robertson_session; not independent evidence.
+Adam loss reduction: 2.94957e-08%.
+
+theophylline: Reasonable to good
+Captures the overall rise and decline, but misses early peak timing and underpredicts the late tail. NRMSE about 8.1%. Sparse observation times limit peak-shape assessment.
+Adam loss reduction: 4.70613e-07%.
+
+vanderpol_session: Excellent
+Oscillation timing and amplitude match. Small residual spikes at fast transitions; channel NRMSE below 0.4%.
+Adam loss reduction: 2.4427e-10%.

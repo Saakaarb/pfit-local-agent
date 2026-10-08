@@ -1,0 +1,54 @@
+{
+  "parameters": [
+    {
+      "name": "k00",
+      "value": 0.010053921829550205,
+      "logscale": true
+    },
+    {
+      "name": "k0",
+      "value": 42.369888221737455,
+      "logscale": true
+    },
+    {
+      "name": "k_d",
+      "value": 0.6709328545395873,
+      "logscale": true
+    },
+    {
+      "name": "k1",
+      "value": 0.001095619547316762,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 1000.0,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 0.34920023754630347,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 0.6293616154987427,
+      "logscale": true
+    },
+    {
+      "name": "k5",
+      "value": 0.11734690225177609,
+      "logscale": true
+    },
+    {
+      "name": "alpha_hai1a",
+      "value": 0.5,
+      "logscale": false
+    },
+    {
+      "name": "alpha_cer",
+      "value": -0.355903938564301,
+      "logscale": false
+    }
+  ]
+}

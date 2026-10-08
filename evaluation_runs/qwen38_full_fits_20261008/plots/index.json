@@ -1,0 +1,1202 @@
+[
+  {
+    "case": "armistead_sphingolipid",
+    "first_page": 2,
+    "experiments": 8,
+    "pdf": "armistead_sphingolipid.pdf",
+    "run_dir": "cases/armistead_sphingolipid/session/outputs/run_20261008_025044_045501",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.08635063555282503,
+      "final_loss": 0.08396486330310776,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          2.400145887402358e-10,
+          9.880000000000001e-10,
+          7.663524083125084e-11,
+          2.07e-09,
+          1e-09
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          2.400145887402358e-10,
+          9.880000000000001e-10,
+          7.663524083125084e-11,
+          2.07e-09,
+          1e-09
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.13893780012554896,
+        0.0958515968608527,
+        0.052521032162994766,
+        0.08091470437052702,
+        0.06926575841405094,
+        0.09242357923671919,
+        0.06886481905127047,
+        0.07293961620289796
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 5.4961966873605537e-05,
+        "normalized_rmse_percent": 6.819102589777363,
+        "r_squared": 0.9694958494213357,
+        "bias": -4.889154747321211e-05
+      },
+      {
+        "experiment": 1,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.09386982595559004,
+        "normalized_rmse_percent": 9.140070626816843,
+        "r_squared": 0.7951207432672341,
+        "bias": 0.043937700307716654
+      },
+      {
+        "experiment": 1,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 8.142531584203384e-05,
+        "normalized_rmse_percent": 21.191279347214927,
+        "r_squared": -9.884036154273083,
+        "bias": -5.194434110299855e-05
+      },
+      {
+        "experiment": 2,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 8.080862427822412e-05,
+        "normalized_rmse_percent": 13.075829171233678,
+        "r_squared": 0.8833334567430577,
+        "bias": 6.100210930255439e-05
+      },
+      {
+        "experiment": 2,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.08866918363840098,
+        "normalized_rmse_percent": 10.004548132692314,
+        "r_squared": 0.35316151847029,
+        "bias": 0.08752737618161116
+      },
+      {
+        "experiment": 2,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 8.367277333833278e-06,
+        "normalized_rmse_percent": 2.1348459769798462,
+        "r_squared": 0.9890988464355153,
+        "bias": -4.184181726871533e-06
+      },
+      {
+        "experiment": 3,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 4.180645578278217e-05,
+        "normalized_rmse_percent": 6.193549004856617,
+        "r_squared": 0.9758342674471994,
+        "bias": 3.635110645443434e-05
+      },
+      {
+        "experiment": 3,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.03524961080014242,
+        "normalized_rmse_percent": 3.727056008439175,
+        "r_squared": 0.9085615204951414,
+        "bias": 0.03436164168121614
+      },
+      {
+        "experiment": 3,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 2.0516889386264107e-05,
+        "normalized_rmse_percent": 5.522931205102621,
+        "r_squared": 0.9405236816596249,
+        "bias": 2.0256573134730475e-05
+      },
+      {
+        "experiment": 4,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 7.092735598853828e-05,
+        "normalized_rmse_percent": 8.566105795717185,
+        "r_squared": 0.9517935786657757,
+        "bias": -6.253770661976711e-05
+      },
+      {
+        "experiment": 4,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.10181311142751429,
+        "normalized_rmse_percent": 9.304211884562598,
+        "r_squared": 0.7973075925684281,
+        "bias": -0.004558022305093334
+      },
+      {
+        "experiment": 4,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 2.6029497823658457e-05,
+        "normalized_rmse_percent": 6.03896965975643,
+        "r_squared": 0.9343840572072585,
+        "bias": -2.1795412204538532e-05
+      },
+      {
+        "experiment": 5,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 1.683141709715232e-05,
+        "normalized_rmse_percent": 2.057630451974611,
+        "r_squared": 0.996567572891869,
+        "bias": -1.4565664813569084e-05
+      },
+      {
+        "experiment": 5,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.05195920134546428,
+        "normalized_rmse_percent": 5.819860488780654,
+        "r_squared": -46.95732617372598,
+        "bias": -0.04524604263660509
+      },
+      {
+        "experiment": 5,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 4.290148058816735e-05,
+        "normalized_rmse_percent": 10.287261053963718,
+        "r_squared": 0.1627544171239621,
+        "bias": -4.125149286635812e-05
+      },
+      {
+        "experiment": 6,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 2.409251318078732e-05,
+        "normalized_rmse_percent": 3.165901863441172,
+        "r_squared": 0.9914627142753535,
+        "bias": 1.5893385485724957e-05
+      },
+      {
+        "experiment": 6,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.15361640652967407,
+        "normalized_rmse_percent": 15.051921506243712,
+        "r_squared": 0.19661237082894734,
+        "bias": -0.009148700636540497
+      },
+      {
+        "experiment": 6,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 1.6245338747984627e-05,
+        "normalized_rmse_percent": 4.436244409744747,
+        "r_squared": 0.5697266905750188,
+        "bias": -1.2532482407253624e-05
+      },
+      {
+        "experiment": 7,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 2.057711921153852e-05,
+        "normalized_rmse_percent": 2.6863079910624696,
+        "r_squared": 0.9939961011510217,
+        "bias": 1.5707856582104445e-05
+      },
+      {
+        "experiment": 7,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.08080811165597183,
+        "normalized_rmse_percent": 8.359504388157957,
+        "r_squared": -1.1979667627714217,
+        "bias": -0.07211336257545004
+      },
+      {
+        "experiment": 7,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 2.6573176005013824e-05,
+        "normalized_rmse_percent": 8.073000388048488,
+        "r_squared": -0.15479402289571786,
+        "bias": 2.4464270133285886e-05
+      },
+      {
+        "experiment": 8,
+        "observable": "Sphinga_obs",
+        "n": 2,
+        "rmse": 2.8427882292689152e-05,
+        "normalized_rmse_percent": 3.404536801519659,
+        "r_squared": 0.9910726686585691,
+        "bias": -1.7982019369891086e-05
+      },
+      {
+        "experiment": 8,
+        "observable": "Cer_obs",
+        "n": 2,
+        "rmse": 0.03339864322856542,
+        "normalized_rmse_percent": 3.893448046487373,
+        "r_squared": -3.788978381826425,
+        "bias": -0.002512591482555504
+      },
+      {
+        "experiment": 8,
+        "observable": "Sphingo_obs",
+        "n": 2,
+        "rmse": 3.9377555555717016e-05,
+        "normalized_rmse_percent": 11.52630993148949,
+        "r_squared": 0.36506844018577056,
+        "bias": 3.668331425259987e-05
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      9,
+      10,
+      11
+    ]
+  },
+  {
+    "case": "beer_indigoidine",
+    "first_page": 10,
+    "experiments": 1,
+    "pdf": "beer_indigoidine.pdf",
+    "run_dir": "cases/beer_indigoidine/session/outputs/run_20261008_023527_103615",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.02747691831834858,
+      "final_loss": 0.027476740923978928,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.3816608995338001e-11,
+          1e-08,
+          3.231170698600771e-11,
+          1.6284831729386748e-10
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.3816608995338001e-11,
+          1e-08,
+          3.231170698600771e-11,
+          1.6284831729386748e-10
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.027476740923978928
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "Bacnorm",
+        "n": 714,
+        "rmse": 0.02662071899228858,
+        "normalized_rmse_percent": 3.755345709762002,
+        "r_squared": 0.9899304301009798,
+        "bias": 0.007016857828787331
+      },
+      {
+        "experiment": 1,
+        "observable": "IndconcNormRange",
+        "n": 714,
+        "rmse": 0.009103377495383891,
+        "normalized_rmse_percent": 0.9984009396446233,
+        "r_squared": 0.9991854648497166,
+        "bias": 0.00031532835679494035
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      7,
+      8
+    ]
+  },
+  {
+    "case": "boehm_stat5",
+    "first_page": 11,
+    "experiments": 1,
+    "pdf": "boehm_stat5.pdf",
+    "run_dir": "cases/boehm_stat5/session/outputs/run_20261008_023604_117718",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.06228579302875288,
+      "final_loss": 0.06228579284805766,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.062285792848057665
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "pSTAT5A",
+        "n": 16,
+        "rmse": 4.409487182987093,
+        "normalized_rmse_percent": 4.63588122859891,
+        "r_squared": 0.9764241013837885,
+        "bias": 1.0324679686779272
+      },
+      {
+        "experiment": 1,
+        "observable": "pSTAT5B",
+        "n": 16,
+        "rmse": 6.192552243720556,
+        "normalized_rmse_percent": 7.554220636433426,
+        "r_squared": 0.9388894843706747,
+        "bias": -1.5737279121954764
+      },
+      {
+        "experiment": 1,
+        "observable": "rSTAT5A",
+        "n": 16,
+        "rmse": 3.057853049674267,
+        "normalized_rmse_percent": 6.150443523173396,
+        "r_squared": 0.8602988735336209,
+        "bias": -0.14810520731290489
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "case": "cascaded_tanks",
+    "first_page": 12,
+    "experiments": 1,
+    "pdf": "cascaded_tanks.pdf",
+    "run_dir": "cases/cascaded_tanks/session/outputs/run_20261008_023023_315171",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.06062324320139947,
+      "final_loss": 0.060616835911904615,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.9040130140508473e-06,
+          2.612344963567039e-06
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.9040130140508473e-06,
+          2.612344963567039e-06
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.060616835911904615
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "level_lower",
+        "n": 1024,
+        "rmse": 0.6061683591191068,
+        "normalized_rmse_percent": 6.061683591191068,
+        "r_squared": 0.9216179931714141,
+        "bias": 0.048170745916929575
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4
+    ]
+  },
+  {
+    "case": "oregonator",
+    "first_page": 13,
+    "experiments": 1,
+    "pdf": "oregonator.pdf",
+    "run_dir": "cases/oregonator/session/outputs/run_20261008_023406_647734",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 10.935005433629897,
+      "final_loss": 10.935005433629897,
+      "refinement_tolerance_fallback": true,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          7.78383715217e-10,
+          2.888319159259775e-10,
+          7.132158722879396e-10
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "atol": [
+          7.78383715217e-09,
+          2.888319159259775e-09,
+          7.132158722879396e-09
+        ]
+      },
+      "warnings": [
+        "The global-search winner could not be evaluated successfully at requested gradient-refinement tolerances (integration failure or invalid loss). Keeping the same winning parameters and using population-search integration tolerances for gradient refinement: rtol=[1e-06, 1e-06, 1e-06], atol=[7.78383715217e-09, 2.888319159259775e-09, 7.132158722879396e-09]. The tighter refinement accuracy was not achieved; this is not an Adam convergence failure."
+      ],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        10.935005433629897
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 1,
+      "refinement_error": null,
+      "termination": "invalid_loss_or_gradient",
+      "termination_detail": "Iteration 1: solver failure/error-loss sentinel"
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "X",
+        "n": 300,
+        "rmse": 0.17849262334934504,
+        "normalized_rmse_percent": 20.800518633302044,
+        "r_squared": 0.22673493456977634,
+        "bias": 0.02537350673476887
+      },
+      {
+        "experiment": 1,
+        "observable": "Z",
+        "n": 300,
+        "rmse": 0.07178508235164166,
+        "normalized_rmse_percent": 22.24006261143013,
+        "r_squared": 0.41264969415960584,
+        "bias": 0.021770527205682733
+      }
+    ],
+    "refinement": "refinement_degraded",
+    "prediction_columns_zero_based": [
+      3,
+      5
+    ]
+  },
+  {
+    "case": "sliding_basepoint_headered",
+    "first_page": 14,
+    "experiments": 1,
+    "pdf": "sliding_basepoint_headered.pdf",
+    "run_dir": "cases/sliding_basepoint_headered/session/outputs/run_20261008_024033_602206",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.05899057745617462,
+      "final_loss": 0.05899057745617462,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09,
+          1e-09
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.05899057745617462
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "contact_force",
+        "n": 71,
+        "rmse": 32.213481670408726,
+        "normalized_rmse_percent": 8.006621231137482,
+        "r_squared": 0.9360620906466423,
+        "bias": 8.642015747809273
+      },
+      {
+        "experiment": 1,
+        "observable": "displacement",
+        "n": 71,
+        "rmse": 0.01127496284610562,
+        "normalized_rmse_percent": 2.3434549352143375,
+        "r_squared": 0.9926153923154729,
+        "bias": -0.009870057314484464
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      9,
+      10
+    ]
+  },
+  {
+    "case": "decay_multiexp",
+    "first_page": 15,
+    "experiments": 2,
+    "pdf": "decay_multiexp.pdf",
+    "run_dir": "cases/decay_multiexp/session/outputs/run_20261008_021141_351477",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 2.088457639165382e-06,
+      "final_loss": 3.2432868898272995e-07,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          2e-09,
+          5.744299183928793e-10
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          2e-09,
+          5.744299183928793e-10
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        3.2402410503878207e-07,
+        3.246332729266778e-07
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "A",
+        "n": 21,
+        "rmse": 2.1374518942367885e-07,
+        "normalized_rmse_percent": 2.1374518942367884e-05,
+        "r_squared": 0.9999999999992472,
+        "bias": 7.792894595142016e-08
+      },
+      {
+        "experiment": 1,
+        "observable": "B",
+        "n": 21,
+        "rmse": 2.400148962030992e-07,
+        "normalized_rmse_percent": 4.05334720066329e-05,
+        "r_squared": 0.9999999999983342,
+        "bias": -1.819890732160775e-08
+      },
+      {
+        "experiment": 2,
+        "observable": "A",
+        "n": 21,
+        "rmse": 4.0101909286259073e-07,
+        "normalized_rmse_percent": 2.0050954643129537e-05,
+        "r_squared": 0.9999999999993375,
+        "bias": 3.1439985091894235e-08
+      },
+      {
+        "experiment": 2,
+        "observable": "B",
+        "n": 21,
+        "rmse": 6.207786540474759e-07,
+        "normalized_rmse_percent": 4.1300053943349395e-05,
+        "r_squared": 0.9999999999981105,
+        "bias": 8.894334398223429e-08
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      3,
+      4
+    ]
+  },
+  {
+    "case": "lotka_volterra",
+    "first_page": 17,
+    "experiments": 1,
+    "pdf": "lotka_volterra.pdf",
+    "run_dir": "cases/lotka_volterra/session/outputs/run_20261008_023237_367254",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.2873696537636344,
+      "final_loss": 0.2873696537635513,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          6.301678707844695e-08,
+          1.0161096548344538e-07
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          6.301678707844695e-08,
+          1.0161096548344538e-07
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.2873696537635513
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "H",
+        "n": 21,
+        "rmse": 20.543247075431537,
+        "normalized_rmse_percent": 26.541662888154438,
+        "r_squared": 0.03365408038198647,
+        "bias": -1.6320324472554337
+      },
+      {
+        "experiment": 1,
+        "observable": "L",
+        "n": 21,
+        "rmse": 18.280985624105817,
+        "normalized_rmse_percent": 30.776070074252218,
+        "r_squared": -0.26487349789743564,
+        "bias": -5.564856483021934
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      3,
+      4
+    ]
+  },
+  {
+    "case": "piezo_bouc_wen",
+    "first_page": 18,
+    "experiments": 1,
+    "pdf": "piezo_bouc_wen.pdf",
+    "run_dir": "cases/piezo_bouc_wen/session/outputs/run_20261008_024201_148369",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.1378616071292682,
+      "final_loss": 0.13786029505019426,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.8498373287898295e-11,
+          7.618349822204889e-10,
+          1.8495557017505334e-11
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.8498373287898295e-11,
+          7.618349822204889e-10,
+          1.8495557017505334e-11
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.1378610718325131
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "xp",
+        "n": 79,
+        "rmse": 6.765891917578062e-07,
+        "normalized_rmse_percent": 13.786109992293962,
+        "r_squared": 0.6500527794173236,
+        "bias": -1.2246618268591773e-07
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      2
+    ]
+  },
+  {
+    "case": "robertson_session",
+    "first_page": 19,
+    "experiments": 1,
+    "pdf": "robertson_session.pdf",
+    "run_dir": "cases/robertson_session/session/outputs/run_20261008_021427_550506",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.0004730461240659916,
+      "final_loss": 0.00047304612392646346,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          7.662421449291785e-14,
+          6.902549443557083e-10
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          7.662421449291785e-14,
+          6.902549443557083e-10
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.00047304612392646346
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "y1",
+        "n": 17,
+        "rmse": 5.022371548169709e-05,
+        "normalized_rmse_percent": 0.00502237154816971,
+        "r_squared": 0.999999852377956,
+        "bias": -3.287509693616908e-05
+      },
+      {
+        "experiment": 1,
+        "observable": "y2",
+        "n": 17,
+        "rmse": 2.9395708399492118e-08,
+        "normalized_rmse_percent": 0.08072202185694662,
+        "r_squared": 0.999995394199699,
+        "bias": -1.1604246010513737e-08
+      },
+      {
+        "experiment": 1,
+        "observable": "y3",
+        "n": 17,
+        "rmse": 5.018539248825476e-05,
+        "normalized_rmse_percent": 0.013111460257448564,
+        "r_squared": 0.9999998526182866,
+        "bias": 3.2797125379639415e-05
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "case": "test_session",
+    "first_page": 20,
+    "experiments": 1,
+    "pdf": "test_session.pdf",
+    "run_dir": "cases/test_session/session/outputs/run_20261008_021308_250429",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.0004730461240659916,
+      "final_loss": 0.00047304612392646346,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          7.662421449291785e-14,
+          6.902549443557083e-10
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          7.662421449291785e-14,
+          6.902549443557083e-10
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.00047304612392646346
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "y1",
+        "n": 17,
+        "rmse": 5.022371548169709e-05,
+        "normalized_rmse_percent": 0.00502237154816971,
+        "r_squared": 0.999999852377956,
+        "bias": -3.287509693616908e-05
+      },
+      {
+        "experiment": 1,
+        "observable": "y2",
+        "n": 17,
+        "rmse": 2.9395708399492118e-08,
+        "normalized_rmse_percent": 0.08072202185694662,
+        "r_squared": 0.999995394199699,
+        "bias": -1.1604246010513737e-08
+      },
+      {
+        "experiment": 1,
+        "observable": "y3",
+        "n": 17,
+        "rmse": 5.018539248825476e-05,
+        "normalized_rmse_percent": 0.013111460257448564,
+        "r_squared": 0.9999998526182866,
+        "bias": 3.2797125379639415e-05
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "case": "theophylline",
+    "first_page": 21,
+    "experiments": 1,
+    "pdf": "theophylline.pdf",
+    "run_dir": "cases/theophylline/session/outputs/run_20261008_023142_755120",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.08068423121932115,
+      "final_loss": 0.08068423083961042,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          3.2e-07,
+          2.4660421524772637e-07
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          3.2e-07,
+          2.4660421524772637e-07
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.08068423083961042
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "C_plasma",
+        "n": 11,
+        "rmse": 0.5196064466071718,
+        "normalized_rmse_percent": 8.068423083962294,
+        "r_squared": 0.937529292655354,
+        "bias": -0.05703541409466724
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4
+    ]
+  },
+  {
+    "case": "vanderpol_session",
+    "first_page": 22,
+    "experiments": 1,
+    "pdf": "vanderpol_session.pdf",
+    "run_dir": "cases/vanderpol_session/session/outputs/run_20261008_021140_776500",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.002203465267245922,
+      "final_loss": 0.0022034652672405395,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          2e-09,
+          1.1001484366006488e-08
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          2e-09,
+          1.1001484366006488e-08
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.0022034652672410686
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "x1",
+        "n": 596,
+        "rmse": 0.006146929424578929,
+        "normalized_rmse_percent": 0.3051805172454281,
+        "r_squared": 0.9999870006800942,
+        "bias": 8.439696072974211e-05
+      },
+      {
+        "experiment": 1,
+        "observable": "x2",
+        "n": 596,
+        "rmse": 0.0004762134575074305,
+        "normalized_rmse_percent": 0.06300821829468756,
+        "r_squared": 0.9999989609669929,
+        "bias": -5.5381632521153785e-05
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      3,
+      4
+    ]
+  }
+]

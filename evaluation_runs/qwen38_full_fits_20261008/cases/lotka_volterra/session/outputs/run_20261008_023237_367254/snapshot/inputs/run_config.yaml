@@ -1,0 +1,79 @@
+experiments:
+- data_file: dataset_1.csv
+  initial_conditions:
+    H: 30.0
+    L: 4.0
+  columns:
+  - name: time
+  - name: H
+    observes: H
+  - name: L
+    observes: L
+model:
+  trainable_parameters:
+  - name: alpha
+    min_val: 0.1
+    max_val: 2.0
+    logscale: true
+  - name: beta
+    min_val: 0.001
+    max_val: 0.5
+    logscale: true
+  - name: delta
+    min_val: 0.001
+    max_val: 0.5
+    logscale: true
+  - name: gamma
+    min_val: 0.1
+    max_val: 2.0
+    logscale: true
+  fixed_parameters: []
+  integrated_variables:
+  - name: H
+    init_val: 30.0
+  - name: L
+    init_val: 4.0
+  observables: []
+population_opt:
+  population_size: 64
+  num_iters: 100
+  processors: 16
+  algorithm: DE
+  random_seed: 7
+  stepsize_rtol:
+  - 1.0e-06
+  - 1.0e-06
+  stepsize_atol:
+  - 6.301678707844694e-07
+  - 1.0161096548344538e-06
+gradient_opt:
+  gradient_optimizer: adam
+  num_iters: 3000
+  auto_state_tolerances: true
+  stepsize_rtol:
+  - 1e-7
+  - 1e-7
+  stepsize_atol:
+  - 6.301678707844695e-08
+  - 1.0161096548344538e-07
+  initial_timestep: 1e-6
+  max_steps: 10000
+  auto_max_steps: true
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 900
+  solver_validation_min_successful: 10
+  solver_validation_seed: 7
+  solver_accuracy_check: true
+  solver_accuracy_workers: 4
+  auto_integrator: true
+  integrator: Kvaerno5
+  init_value_lr: 0.0001
+  end_value_lr: 1.0e-06
+  transition_steps_lr: 2999
+  decay_rate_lr: 0.01
+output:
+  write_results: true
+paths:
+  user_input_dir: inputs
+  generated_dir: generated
+  output_dir: outputs

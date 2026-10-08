@@ -2,7 +2,7 @@
   "case": "lotka_volterra",
   "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/lotka_volterra/qwen38_27b",
   "source_status": "pass",
-  "status": "queued",
+  "status": "completed",
   "readiness_errors": [],
   "readiness_warnings": [],
   "parameters": 4,
@@ -69,5 +69,78 @@
     "end_value_lr": 1e-06,
     "transition_steps_lr": 2999,
     "decay_rate_lr": 0.01
-  }
+  },
+  "started_at": "2026-10-08T02:32:36.610675+00:00",
+  "cpu_affinity": [
+    3,
+    7,
+    20,
+    23,
+    27,
+    31,
+    46,
+    55,
+    67,
+    71,
+    84,
+    87,
+    91,
+    95,
+    110,
+    119
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "3,7,20,23,27,31,46,55,67,71,84,87,91,95,110,119",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/lotka_volterra/session",
+    "--no-sloppiness"
+  ],
+  "pid": 7643,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.2873696537636344,
+    "final_loss": 0.2873696537635513,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.2873696537635513
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/lotka_volterra/session/outputs/run_20261008_023237_367254",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T02:35:26.244075+00:00",
+  "elapsed_seconds": 169.6334195289528
 }

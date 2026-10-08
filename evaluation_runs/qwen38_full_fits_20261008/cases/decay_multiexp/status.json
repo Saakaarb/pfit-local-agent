@@ -2,7 +2,7 @@
   "case": "decay_multiexp",
   "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/decay_multiexp/qwen38_27b",
   "source_status": "pass",
-  "status": "queued",
+  "status": "completed",
   "readiness_errors": [],
   "readiness_warnings": [
     "Measured column spans orders of magnitude: Experiment 1 (decay_run_A.csv): A uses dataset[:, 0], positive min=4.53999e-05, max=1, log10 range=4.34. Preserving the explicit user loss; data range alone does not require log residuals.",
@@ -72,5 +72,79 @@
     "end_value_lr": 1e-06,
     "transition_steps_lr": 2999,
     "decay_rate_lr": 0.01
-  }
+  },
+  "started_at": "2026-10-08T02:11:39.956478+00:00",
+  "cpu_affinity": [
+    5,
+    18,
+    21,
+    26,
+    29,
+    44,
+    47,
+    62,
+    69,
+    82,
+    85,
+    90,
+    93,
+    108,
+    111,
+    126
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "5,18,21,26,29,44,47,62,69,82,85,90,93,108,111,126",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/decay_multiexp/session",
+    "--no-sloppiness"
+  ],
+  "pid": 3714,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 2.088457639165382e-06,
+    "final_loss": 3.2432868898272995e-07,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        5.744299183928793e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        5.744299183928793e-10
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      3.2402410503878207e-07,
+      3.246332729266778e-07
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/decay_multiexp/session/outputs/run_20261008_021141_351477",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T02:13:07.571929+00:00",
+  "elapsed_seconds": 87.61547275201883
 }

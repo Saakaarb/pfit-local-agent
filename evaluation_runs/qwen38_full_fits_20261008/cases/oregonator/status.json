@@ -2,7 +2,7 @@
   "case": "oregonator",
   "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/oregonator/qwen38_27b",
   "source_status": "pass",
-  "status": "queued",
+  "status": "completed",
   "readiness_errors": [],
   "readiness_warnings": [
     "2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified."
@@ -77,5 +77,84 @@
     "end_value_lr": 1e-06,
     "transition_steps_lr": 2999,
     "decay_rate_lr": 0.01
-  }
+  },
+  "started_at": "2026-10-08T02:34:05.853087+00:00",
+  "cpu_affinity": [
+    5,
+    18,
+    21,
+    26,
+    29,
+    44,
+    47,
+    62,
+    69,
+    82,
+    85,
+    90,
+    93,
+    108,
+    111,
+    126
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "5,18,21,26,29,44,47,62,69,82,85,90,93,108,111,126",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/oregonator/session",
+    "--no-sloppiness"
+  ],
+  "pid": 8324,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 10.935005433629897,
+    "final_loss": 10.935005433629897,
+    "refinement_tolerance_fallback": true,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        7.78383715217e-10,
+        2.888319159259775e-10,
+        7.132158722879396e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        7.78383715217e-09,
+        2.888319159259775e-09,
+        7.132158722879396e-09
+      ]
+    },
+    "warnings": [
+      "The global-search winner could not be evaluated successfully at requested gradient-refinement tolerances (integration failure or invalid loss). Keeping the same winning parameters and using population-search integration tolerances for gradient refinement: rtol=[1e-06, 1e-06, 1e-06], atol=[7.78383715217e-09, 2.888319159259775e-09, 7.132158722879396e-09]. The tighter refinement accuracy was not achieved; this is not an Adam convergence failure."
+    ],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      10.935005433629897
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 1,
+    "refinement_error": null,
+    "termination": "invalid_loss_or_gradient",
+    "termination_detail": "Iteration 1: solver failure/error-loss sentinel"
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/oregonator/session/outputs/run_20261008_023406_647734",
+  "assessment": "refinement_degraded",
+  "finished_at": "2026-10-08T02:40:32.847183+00:00",
+  "elapsed_seconds": 386.9941235999577
 }

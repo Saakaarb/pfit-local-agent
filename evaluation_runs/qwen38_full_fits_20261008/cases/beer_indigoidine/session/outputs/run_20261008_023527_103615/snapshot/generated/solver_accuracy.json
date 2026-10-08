@@ -1,0 +1,423 @@
+{
+  "code": "accuracy_passed",
+  "integrator": "Tsit5",
+  "max_steps": 1000,
+  "sample_count": 80,
+  "probe_samples": [
+    62,
+    15,
+    14,
+    33
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 62,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3816608995338001e-11,
+        1e-08,
+        3.231170698600771e-11,
+        1.6284831729386748e-10
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 0.00032714650527744066
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 0.00011263426390210257
+        }
+      ],
+      "loss": 0.673794103129917,
+      "reference_loss": 0.6737941031651139,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 153,
+        "num_rejected_steps": 32,
+        "num_steps": 185
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 176,
+        "num_rejected_steps": 27,
+        "num_steps": 203
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 62,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3816608995338e-10,
+        1e-07,
+        3.231170698600771e-10,
+        1.628483172938675e-09
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 0.0031995201559322397
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 0.0005464731385858425
+        }
+      ],
+      "loss": 0.6737941020339969,
+      "reference_loss": 0.673794103129917,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 138,
+        "num_rejected_steps": 34,
+        "num_steps": 172
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 153,
+        "num_rejected_steps": 32,
+        "num_steps": 185
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 15,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3816608995338001e-11,
+        1e-08,
+        3.231170698600771e-11,
+        1.6284831729386748e-10
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 7.053607576324369e-06
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 0.00019254395843939202
+        }
+      ],
+      "loss": 0.7169131794803887,
+      "reference_loss": 0.7169131794849003,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 696,
+        "num_rejected_steps": 3,
+        "num_steps": 699
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 870,
+        "num_rejected_steps": 2,
+        "num_steps": 872
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 15,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3816608995338e-10,
+        1e-07,
+        3.231170698600771e-10,
+        1.628483172938675e-09
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 3.406506519253571e-05
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 0.003199988121606847
+        }
+      ],
+      "loss": 0.7169131794757125,
+      "reference_loss": 0.7169131794803887,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 586,
+        "num_rejected_steps": 80,
+        "num_steps": 666
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 696,
+        "num_rejected_steps": 3,
+        "num_steps": 699
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 14,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3816608995338001e-11,
+        1e-08,
+        3.231170698600771e-11,
+        1.6284831729386748e-10
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 0.00045030388777189754
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 0.000656930144083306
+        }
+      ],
+      "loss": 0.703656774551565,
+      "reference_loss": 0.7036567692174343,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 149,
+        "num_rejected_steps": 2,
+        "num_steps": 151
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 210,
+        "num_rejected_steps": 4,
+        "num_steps": 214
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 14,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3816608995338e-10,
+        1e-07,
+        3.231170698600771e-10,
+        1.628483172938675e-09
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 0.00026098067666529
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 0.0024953715498942817
+        }
+      ],
+      "loss": 0.7036567776560594,
+      "reference_loss": 0.703656774551565,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 114,
+        "num_rejected_steps": 1,
+        "num_steps": 115
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 149,
+        "num_rejected_steps": 2,
+        "num_steps": 151
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 33,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3816608995338001e-11,
+        1e-08,
+        3.231170698600771e-11,
+        1.6284831729386748e-10
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 0.0024289387317983496
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 8.973151690617358e-05
+        }
+      ],
+      "loss": 1.958546444592043,
+      "reference_loss": 1.9585464477152859,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 91,
+        "num_rejected_steps": 12,
+        "num_steps": 103
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 137,
+        "num_rejected_steps": 5,
+        "num_steps": 142
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 33,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3816608995338e-10,
+        1e-07,
+        3.231170698600771e-10,
+        1.628483172938675e-09
+      ],
+      "observables": [
+        {
+          "name": "Bacnorm",
+          "max_normalized_difference": 0.010016350805144706
+        },
+        {
+          "name": "IndconcNormRange",
+          "max_normalized_difference": 0.008835591775025962
+        }
+      ],
+      "loss": 1.9585464090642437,
+      "reference_loss": 1.958546444592043,
+      "stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 64,
+        "num_rejected_steps": 4,
+        "num_steps": 68
+      },
+      "reference_stats": {
+        "max_steps": 1000,
+        "num_accepted_steps": 91,
+        "num_rejected_steps": 12,
+        "num_steps": 103
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "result": "Predictions and losses agree with ten-times tighter tolerances on validated probes; see unresolved_probes for exclusions",
+  "validated_seeds": [
+    {
+      "sample": 62,
+      "normalized_parameters": [
+        -0.4763637294505737,
+        -0.19622026997139874,
+        -0.5748877108332163,
+        -0.16637296433237725,
+        -0.9489106290188617
+      ],
+      "experiment_losses": [
+        0.6737941026888401
+      ]
+    },
+    {
+      "sample": 14,
+      "normalized_parameters": [
+        0.49681333703141894,
+        -0.9586082770824206,
+        -0.5308693793671752,
+        -0.4501094094854724,
+        -0.23271304785865876
+      ],
+      "experiment_losses": [
+        0.7036567761853187
+      ]
+    },
+    {
+      "sample": 15,
+      "normalized_parameters": [
+        -0.9761589477030834,
+        -0.6406648855178187,
+        0.48077674133596937,
+        0.60746035065166,
+        -0.0863540434227742
+      ],
+      "experiment_losses": [
+        0.7169131794741506
+      ]
+    },
+    {
+      "sample": 33,
+      "normalized_parameters": [
+        -0.954542201453841,
+        -0.8132580261345916,
+        0.3150330537434236,
+        -0.8167428817681988,
+        -0.6595387948862957
+      ],
+      "experiment_losses": [
+        1.958546441326389
+      ]
+    }
+  ],
+  "seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=033ac6579e6370e0 user_input.yaml=359ca55e9edabd6a",
+    "data_hashes": {
+      "dataset_1.csv": "2e3985ae2c40c15da266c788a7377c74a8f818e402999bc8d125251487679d71"
+    },
+    "runtime_config_hash": "b259da6d60f2a89ad5b1336d8fbe236a0931ba3ea23ea71c55b2724f7dc4dcb0"
+  },
+  "budget_source_seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=033ac6579e6370e0 user_input.yaml=952af518cea3d707",
+    "data_hashes": {
+      "culture.csv": "2e3985ae2c40c15da266c788a7377c74a8f818e402999bc8d125251487679d71"
+    }
+  },
+  "budget_change_note": "Only whitelisted optimizer budgets/LR/processors changed; model, data, bounds and solver settings verified unchanged.",
+  "source_seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=033ac6579e6370e0 user_input.yaml=359ca55e9edabd6a",
+    "data_hashes": {
+      "culture.csv": "2e3985ae2c40c15da266c788a7377c74a8f818e402999bc8d125251487679d71"
+    }
+  }
+}

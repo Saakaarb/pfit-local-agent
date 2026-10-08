@@ -1,0 +1,79 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 16,
+    "detected_cpus": 16,
+    "configured_host_devices": 16,
+    "configuration_source": "XLA_FLAGS override",
+    "jax_cpu_devices": 16
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.11",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.8.0-142-generic",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "9a220c967ba1dfdfab5d6b9505a9b6d4bb7dcdbd3add30393393cd4d36629782",
+      "generated_script": "7ca3499904b397127d743563acba953d95ec0c7e7bac40d06ef4833dd46decf1",
+      "user_model": "fd9733e9db71b43c5577a5a22aa45181205dd025ecbbed3a37ca6aa71cc2a57a"
+    },
+    "git": {
+      "commit": "ad7591cf9a784d2dc256284b2d5c427a845f654b",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 64,
+      "population_iterations": 100,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 3000
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "vanderpol_data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "30c2acd23cd873064deebfe9e5bdb982e6b8cb01b6e4bf3276678b2f36df4990",
+      "initial_conditions": {
+        "x1": 2.0,
+        "x2": 0.1
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

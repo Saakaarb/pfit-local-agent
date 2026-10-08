@@ -1,0 +1,37 @@
+{
+  "mode": "full",
+  "seed_loss": 0.06062324320139947,
+  "final_loss": 0.060616835911904615,
+  "refinement_tolerance_fallback": false,
+  "requested_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      1.9040130140508473e-06,
+      2.612344963567039e-06
+    ]
+  },
+  "effective_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      1.9040130140508473e-06,
+      2.612344963567039e-06
+    ]
+  },
+  "warnings": [],
+  "aggregation": "equal_experiment_mean",
+  "experiment_losses": [
+    0.060616835911904615
+  ],
+  "gradient_optimizer": "adam",
+  "gradient_iteration_budget": 3000,
+  "gradient_iterations_evaluated": 3000,
+  "refinement_error": null,
+  "termination": "iteration_budget",
+  "termination_detail": null
+}

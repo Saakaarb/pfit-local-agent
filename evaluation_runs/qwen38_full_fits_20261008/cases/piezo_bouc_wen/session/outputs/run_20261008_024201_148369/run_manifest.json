@@ -1,0 +1,80 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 16,
+    "detected_cpus": 16,
+    "configured_host_devices": 16,
+    "configuration_source": "XLA_FLAGS override",
+    "jax_cpu_devices": 16
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.11",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.8.0-142-generic",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "d46e0d0221bc0e515b415c5d151aaa73c86fc4f7ebbc904ace0dead67d7625df",
+      "generated_script": "59fb281683d5cca0d94d3e460ef636162f99522a3b1b3eb13d0501d1716cdc5d",
+      "user_model": "c98487c84b2c6cd83635f5e668f3bd26539b87278830c778d006e31882d51ad2"
+    },
+    "git": {
+      "commit": "ad7591cf9a784d2dc256284b2d5c427a845f654b",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 64,
+      "population_iterations": 100,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 3000
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "correct_units_piezo_electric_actuator.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "36a73cf196f28d87cc283e0cd9c1a5059c3166195c0a1ab79ed05ff096f35592",
+      "initial_conditions": {
+        "xp": 0.0,
+        "vp": 0.0,
+        "h": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

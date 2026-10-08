@@ -1,0 +1,81 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 16,
+    "detected_cpus": 16,
+    "configured_host_devices": 16,
+    "configuration_source": "XLA_FLAGS override",
+    "jax_cpu_devices": 16
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.11",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.8.0-142-generic",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "b259da6d60f2a89ad5b1336d8fbe236a0931ba3ea23ea71c55b2724f7dc4dcb0",
+      "generated_script": "118304675cac5f16625c1b6c30eb3e2e777c8aaf2028b9d17e6132b18d0dd82f",
+      "user_model": "033ac6579e6370e00052f5c68f91d2e81451771fcf04f9c968f9be27ce951afe"
+    },
+    "git": {
+      "commit": "ad7591cf9a784d2dc256284b2d5c427a845f654b",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 64,
+      "population_iterations": 100,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 3000
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "culture.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "2e3985ae2c40c15da266c788a7377c74a8f818e402999bc8d125251487679d71",
+      "initial_conditions": {
+        "Bac": 0.013816608995338,
+        "Glu": 10.0,
+        "cGlu": 0.0,
+        "Ind": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

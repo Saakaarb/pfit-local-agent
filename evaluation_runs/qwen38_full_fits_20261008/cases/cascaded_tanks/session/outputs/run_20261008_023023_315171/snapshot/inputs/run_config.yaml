@@ -1,0 +1,75 @@
+experiments:
+- data_file: dataset_1.csv
+  initial_conditions:
+    x1: 5.0
+    x2: 5.205
+  columns:
+  - name: time
+  - name: level_lower
+    observes: level_lower
+  - name: pump_voltage
+    role: forcing
+    interpolation: linear
+model:
+  trainable_parameters:
+  - name: k1
+    min_val: 0.001
+    max_val: 10.0
+    logscale: true
+  - name: k2
+    min_val: 0.001
+    max_val: 10.0
+    logscale: true
+  - name: k3
+    min_val: 0.001
+    max_val: 10.0
+    logscale: true
+  - name: k4
+    min_val: 0.001
+    max_val: 10.0
+    logscale: true
+  fixed_parameters: []
+  integrated_variables:
+  - name: x1
+    init_val: 5.0
+  - name: x2
+    init_val: 5.205
+  observables:
+  - name: level_lower
+population_opt:
+  population_size: 64
+  num_iters: 100
+  processors: 16
+  algorithm: DE
+  random_seed: 7
+gradient_opt:
+  gradient_optimizer: adam
+  num_iters: 3000
+  auto_state_tolerances: true
+  stepsize_rtol:
+  - 1e-7
+  - 1e-7
+  stepsize_atol:
+  - 1.9040130140508473e-06
+  - 2.612344963567039e-06
+  initial_timestep: 1e-6
+  max_steps: 2000
+  auto_max_steps: true
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 900
+  solver_validation_min_successful: 10
+  solver_validation_seed: 7
+  solver_accuracy_check: true
+  solver_accuracy_workers: 4
+  auto_integrator: true
+  integrator: Tsit5
+  init_value_lr: 0.0001
+  end_value_lr: 1.0e-06
+  transition_steps_lr: 2999
+  decay_rate_lr: 0.01
+output:
+  write_results: true
+paths:
+  user_input_dir: inputs
+  generated_dir: generated
+  output_dir: outputs
