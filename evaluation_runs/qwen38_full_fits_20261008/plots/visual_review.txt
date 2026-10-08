@@ -1,8 +1,12 @@
 VISUAL REVIEW OF COMPLETED FULL FITS
 
-13 completed cases, 21 experiment plots individually inspected. Running fits untouched.
+18 completed cases; 38 experiment plots inspected. Includes Oregonator's retained DE result after invalid-gradient termination. Running fits untouched.
 
 Output-column mappings audited against saved writeout code. Times and measured columns verified. Lines join saved observation times; no dense reintegration. NRMSE=100*RMSE/max(abs(measured channel)); descriptive, not an acceptance test. Residual=prediction-measurement. Plots alone cannot distinguish model inadequacy from optimization failure.
+
+ARC_fitting: Substantial improvement; remaining systematic mismatch
+Thermal-runaway timing and broad shape captured. Temperature is systematically high over the earlier interval (overall RMSE 20.68 in input temperature units). Heating rate has a large initial mismatch and some late-peak error; log RMSE about 0.451 decades. The reported objective mixes normalized temperature/log-heating-rate errors and endpoint penalties; its 94.8% reduction is not a claim of uniformly small trajectory error.
+Adam loss reduction: 94.8221%.
 
 armistead_sphingolipid: Mixed; sparse observations
 All eight experiments inspected. Sphinga decline captured well. Cer and Sphingo errors vary across replicates, notably experiment 1 Sphingo and experiment 6 Cer. Only two time points per experiment: connecting lines do not validate intervening dynamics, and R-squared is unstable for nearly constant channels.
@@ -19,6 +23,22 @@ Adam loss reduction: 2.90107e-07%.
 cascaded_tanks: Reasonable
 Tracks broad changes but misses sharp transitions and the late high plateau. Structured residuals.
 Adam loss reduction: 0.010569%.
+
+mapk_cascade: Excellent agreement
+Activation trajectory follows measured values closely; small residuals fluctuate around zero. Normalized RMSE about 0.84%.
+Adam loss reduction: 3.7379%.
+
+raia_il13: Reasonable overall; peak mismatch
+Both stimulation conditions capture the rise and broad plateau/decline. Several central peak observations exceed predictions, particularly at the higher dose; late residuals also remain.
+Adam loss reduction: 0.434564%.
+
+schwen_insulin: Poor dynamic agreement
+All four predicted insulin signals are nearly flat. They capture approximate signal levels but miss the time variation and peaks in measured signals. Completion and the scalar loss alone therefore overstate the quality of the dynamic fit.
+Adam loss reduction: 0.0968824%.
+
+sneyd_ipr: Mixed across nine experiments
+All nine plots inspected. Rise-and-decay behavior broadly captured, but peaks are underestimated in experiments 3, 8 and 9; experiments 1 and 2 have excessive post-peak tails. Experiment 7 decays too quickly later. Several other conditions are closer, but systematic errors remain.
+Adam loss reduction: 0.0923684%.
 
 oregonator: Poor; refinement degraded
 Misses sharp X spikes and underestimates later Z peaks, with phase/baseline errors. Adam stopped on invalid loss or gradient; DE parameters retained. Stored objective is sigma-weighted, unlike the max-data-normalized channel metrics.

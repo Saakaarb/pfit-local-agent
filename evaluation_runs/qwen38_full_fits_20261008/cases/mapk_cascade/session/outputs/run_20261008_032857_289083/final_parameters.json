@@ -1,0 +1,84 @@
+{
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 0.014033017605601905,
+      "logscale": true
+    },
+    {
+      "name": "k_1",
+      "value": 0.016979958716214834,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 0.0037939347237004447,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 0.9934759788783126,
+      "logscale": true
+    },
+    {
+      "name": "k_3",
+      "value": 0.010615559523526769,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 1.505281272747465,
+      "logscale": true
+    },
+    {
+      "name": "h1",
+      "value": 0.0031058891076019635,
+      "logscale": true
+    },
+    {
+      "name": "h_1",
+      "value": 1.0719725431758997,
+      "logscale": true
+    },
+    {
+      "name": "h2",
+      "value": 0.9379209635609712,
+      "logscale": true
+    },
+    {
+      "name": "h3",
+      "value": 0.01,
+      "logscale": true
+    },
+    {
+      "name": "h_3",
+      "value": 0.0001,
+      "logscale": true
+    },
+    {
+      "name": "h4",
+      "value": 0.0021314733450946755,
+      "logscale": true
+    },
+    {
+      "name": "h_4",
+      "value": 0.11524071608167498,
+      "logscale": true
+    },
+    {
+      "name": "h5",
+      "value": 0.01,
+      "logscale": true
+    },
+    {
+      "name": "h6",
+      "value": 0.05197605708545693,
+      "logscale": true
+    },
+    {
+      "name": "h_6",
+      "value": 0.0018244081620458748,
+      "logscale": true
+    }
+  ]
+}

@@ -1,7 +1,80 @@
 [
   {
-    "case": "armistead_sphingolipid",
+    "case": "ARC_fitting",
     "first_page": 2,
+    "experiments": 1,
+    "pdf": "ARC_fitting.pdf",
+    "run_dir": "cases/ARC_fitting/session/outputs/run_20261008_024347_785457",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.21258161300388503,
+      "final_loss": 0.011007220417120584,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          4.0000005052947185e-11,
+          3.540258860836423e-07
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1e-09,
+          4.0000005052947185e-11,
+          3.540258860836423e-07
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.011007220417120584
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "T",
+        "n": 142,
+        "rmse": 20.68071418965855,
+        "normalized_rmse_percent": 3.108998223010084,
+        "r_squared": 0.8904647136601263,
+        "bias": -1.2436843521298833
+      },
+      {
+        "experiment": 1,
+        "observable": "dTdt",
+        "n": 142,
+        "rmse": 33.693631166975976,
+        "normalized_rmse_percent": 16.151731214578987,
+        "r_squared": -0.3621893541036849,
+        "bias": -1.071583066119151
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      5,
+      6
+    ]
+  },
+  {
+    "case": "armistead_sphingolipid",
+    "first_page": 3,
     "experiments": 8,
     "pdf": "armistead_sphingolipid.pdf",
     "run_dir": "cases/armistead_sphingolipid/session/outputs/run_20261008_025044_045501",
@@ -288,7 +361,7 @@
   },
   {
     "case": "beer_indigoidine",
-    "first_page": 10,
+    "first_page": 11,
     "experiments": 1,
     "pdf": "beer_indigoidine.pdf",
     "run_dir": "cases/beer_indigoidine/session/outputs/run_20261008_023527_103615",
@@ -365,7 +438,7 @@
   },
   {
     "case": "boehm_stat5",
-    "first_page": 11,
+    "first_page": 12,
     "experiments": 1,
     "pdf": "boehm_stat5.pdf",
     "run_dir": "cases/boehm_stat5/session/outputs/run_20261008_023604_117718",
@@ -468,7 +541,7 @@
   },
   {
     "case": "cascaded_tanks",
-    "first_page": 12,
+    "first_page": 13,
     "experiments": 1,
     "pdf": "cascaded_tanks.pdf",
     "run_dir": "cases/cascaded_tanks/session/outputs/run_20261008_023023_315171",
@@ -526,8 +599,512 @@
     ]
   },
   {
+    "case": "mapk_cascade",
+    "first_page": 14,
+    "experiments": 1,
+    "pdf": "mapk_cascade.pdf",
+    "run_dir": "cases/mapk_cascade/session/outputs/run_20261008_032857_289083",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.008695727027280538,
+      "final_loss": 0.00837068977091918,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          5.000000000000001e-07,
+          4.816469092250404e-09,
+          9.924860345649472e-09,
+          5.0000000000000004e-08,
+          1.0000000000000001e-07,
+          4.472846131101115e-08,
+          1.2923929304853907e-10,
+          1.979476000307663e-09,
+          9.690386096420058e-10,
+          6.016334328895332e-11,
+          9.494542569739411e-08
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          5.000000000000001e-07,
+          4.816469092250404e-09,
+          9.924860345649472e-09,
+          5.0000000000000004e-08,
+          1.0000000000000001e-07,
+          4.472846131101115e-08,
+          1.2923929304853907e-10,
+          1.979476000307663e-09,
+          9.690386096420058e-10,
+          6.016334328895332e-11,
+          9.494542569739411e-08
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.00837068977091918
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "Mpp",
+        "n": 101,
+        "rmse": 0.10148395088777323,
+        "normalized_rmse_percent": 0.8370689770919871,
+        "r_squared": 0.9992593312902582,
+        "bias": -0.004573337188117445
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      4
+    ]
+  },
+  {
+    "case": "raia_il13",
+    "first_page": 15,
+    "experiments": 2,
+    "pdf": "raia_il13.pdf",
+    "run_dir": "cases/raia_il13/session/outputs/run_20261008_025443_856100",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.10437753822944743,
+      "final_loss": 0.10392395151890711,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          6.862058688469763e-09,
+          2.3505849360111303e-07,
+          4.9438702549397906e-09,
+          1.234193522909494e-10,
+          4.579303398447436e-11,
+          2.8e-09,
+          6.198897845570434e-11,
+          1.65e-07,
+          1.7484634048659065e-08,
+          1.7640889545446046e-08,
+          3.4000000000000007e-10,
+          3.39999992730345e-10,
+          7.495508662281581e-10,
+          3.497405808049632e-08,
+          2e-08
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          6.862058688469763e-09,
+          2.3505849360111303e-07,
+          4.9438702549397906e-09,
+          1.234193522909494e-10,
+          4.579303398447436e-11,
+          2.8e-09,
+          6.198897845570434e-11,
+          1.65e-07,
+          1.7484634048659065e-08,
+          1.7640889545446046e-08,
+          3.4000000000000007e-10,
+          3.39999992730345e-10,
+          7.495508662281581e-10,
+          3.497405808049632e-08,
+          2e-08
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.08678328741748087,
+        0.12106461562033287
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "pSTAT5",
+        "n": 16,
+        "rmse": 7.297290041353893,
+        "normalized_rmse_percent": 8.67832874174819,
+        "r_squared": 0.9141383742959452,
+        "bias": 0.2628220406892632
+      },
+      {
+        "experiment": 2,
+        "observable": "pSTAT5",
+        "n": 17,
+        "rmse": 15.525000316461124,
+        "normalized_rmse_percent": 12.10646156203338,
+        "r_squared": 0.8402898284053882,
+        "bias": -1.8375759801771503
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      10
+    ]
+  },
+  {
+    "case": "schwen_insulin",
+    "first_page": 17,
+    "experiments": 4,
+    "pdf": "schwen_insulin.pdf",
+    "run_dir": "cases/schwen_insulin/session/outputs/run_20261008_030822_191538",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.07762523114490136,
+      "final_loss": 0.0775500259349434,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.0000000000000001e-07,
+          5.88503656504712e-08,
+          9.186048612429337e-07,
+          8.836330683173449e-10,
+          1.1505046576525831e-08,
+          2.3143745465414552e-11,
+          4.360333502645992e-11,
+          7.091734267909392e-09,
+          4.3298270638779556e-08,
+          3.048791218057825e-09,
+          1.74590398937095e-10
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          1.0000000000000001e-07,
+          5.88503656504712e-08,
+          9.186048612429337e-07,
+          8.836330683173449e-10,
+          1.1505046576525831e-08,
+          2.3143745465414552e-11,
+          4.360333502645992e-11,
+          7.091734267909392e-09,
+          4.3298270638779556e-08,
+          3.048791218057825e-09,
+          1.74590398937095e-10
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.08595109608419958,
+        0.09670895160834331,
+        0.06543913931975943,
+        0.06210091672747125
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "Insulin_signal",
+        "n": 16,
+        "rmse": 0.243936683359455,
+        "normalized_rmse_percent": 13.271543884417014,
+        "r_squared": -0.027116843115840394,
+        "bias": -0.040872934090767754
+      },
+      {
+        "experiment": 2,
+        "observable": "Insulin_signal",
+        "n": 16,
+        "rmse": 0.21765143102708864,
+        "normalized_rmse_percent": 12.665360337873901,
+        "r_squared": -0.0008824461986831622,
+        "bias": 0.011165128409232256
+      },
+      {
+        "experiment": 3,
+        "observable": "Insulin_signal",
+        "n": 16,
+        "rmse": 4.194148785628343,
+        "normalized_rmse_percent": 16.685910555824446,
+        "r_squared": -0.014796233663516345,
+        "bias": -0.5083182661216771
+      },
+      {
+        "experiment": 4,
+        "observable": "Insulin_signal",
+        "n": 16,
+        "rmse": 4.518258956538179,
+        "normalized_rmse_percent": 17.410673227438203,
+        "r_squared": -0.0014749900056501009,
+        "bias": -0.17951395362171496
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      13
+    ]
+  },
+  {
+    "case": "sneyd_ipr",
+    "first_page": 21,
+    "experiments": 9,
+    "pdf": "sneyd_ipr.pdf",
+    "run_dir": "cases/sneyd_ipr/session/outputs/run_20261008_030516_396988",
+    "fit_summary": {
+      "mode": "full",
+      "seed_loss": 0.030345925245186568,
+      "final_loss": 0.030317895185713845,
+      "refinement_tolerance_fallback": false,
+      "requested_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          5.5989994987782054e-11,
+          1e-09,
+          6.390680456042781e-13,
+          6.908084862128594e-14,
+          4.752753182713575e-13,
+          9.875560064942657e-14,
+          1e-08,
+          1e-08
+        ]
+      },
+      "effective_refinement_tolerances": {
+        "rtol": [
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07,
+          1e-07
+        ],
+        "atol": [
+          5.5989994987782054e-11,
+          1e-09,
+          6.390680456042781e-13,
+          6.908084862128594e-14,
+          4.752753182713575e-13,
+          9.875560064942657e-14,
+          1e-08,
+          1e-08
+        ]
+      },
+      "warnings": [],
+      "aggregation": "equal_experiment_mean",
+      "experiment_losses": [
+        0.016174416926623997,
+        0.0173991992807907,
+        0.053060472300114916,
+        0.014808171033696903,
+        0.020470971257219996,
+        0.02193100333802516,
+        0.030986300682642198,
+        0.038668830587263586,
+        0.05936169126504716
+      ],
+      "gradient_optimizer": "adam",
+      "gradient_iteration_budget": 3000,
+      "gradient_iterations_evaluated": 3000,
+      "refinement_error": null,
+      "termination": "iteration_budget",
+      "termination_detail": null
+    },
+    "channels": [
+      {
+        "experiment": 1,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.016174416926623986,
+        "normalized_rmse_percent": 14.313643297897332,
+        "r_squared": 0.7029839203947996,
+        "bias": 0.01292627146622128
+      },
+      {
+        "experiment": 2,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.017399199280790707,
+        "normalized_rmse_percent": 9.999539816546385,
+        "r_squared": 0.8661635349690527,
+        "bias": 0.013235508474475575
+      },
+      {
+        "experiment": 3,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.05306047230011492,
+        "normalized_rmse_percent": 16.22644412847551,
+        "r_squared": 0.7065299168513431,
+        "bias": -0.037521716348244444
+      },
+      {
+        "experiment": 4,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.014808171033696908,
+        "normalized_rmse_percent": 5.853032029129213,
+        "r_squared": 0.9624976747617269,
+        "bias": 0.0074855015388912574
+      },
+      {
+        "experiment": 5,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.020470971257219993,
+        "normalized_rmse_percent": 8.601248427403359,
+        "r_squared": 0.9055347004416924,
+        "bias": 0.008483361774740794
+      },
+      {
+        "experiment": 6,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.021931003338025164,
+        "normalized_rmse_percent": 11.854596398932522,
+        "r_squared": 0.8697543265567834,
+        "bias": 0.007924568417681818
+      },
+      {
+        "experiment": 7,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.030986300682642198,
+        "normalized_rmse_percent": 30.378726159453134,
+        "r_squared": -0.3056881391360864,
+        "bias": -0.019716196975142077
+      },
+      {
+        "experiment": 8,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.0386688305872636,
+        "normalized_rmse_percent": 14.70297740960593,
+        "r_squared": 0.673718194214906,
+        "bias": -0.031634056908533735
+      },
+      {
+        "experiment": 9,
+        "observable": "open_probability",
+        "n": 15,
+        "rmse": 0.05936169126504719,
+        "normalized_rmse_percent": 17.61474518250658,
+        "r_squared": 0.5790009867297596,
+        "bias": -0.04005504968157778
+      }
+    ],
+    "refinement": "budget_completed_not_a_convergence_claim",
+    "prediction_columns_zero_based": [
+      10
+    ]
+  },
+  {
     "case": "oregonator",
-    "first_page": 13,
+    "first_page": 30,
     "experiments": 1,
     "pdf": "oregonator.pdf",
     "run_dir": "cases/oregonator/session/outputs/run_20261008_023406_647734",
@@ -602,7 +1179,7 @@
   },
   {
     "case": "sliding_basepoint_headered",
-    "first_page": 14,
+    "first_page": 31,
     "experiments": 1,
     "pdf": "sliding_basepoint_headered.pdf",
     "run_dir": "cases/sliding_basepoint_headered/session/outputs/run_20261008_024033_602206",
@@ -687,7 +1264,7 @@
   },
   {
     "case": "decay_multiexp",
-    "first_page": 15,
+    "first_page": 32,
     "experiments": 2,
     "pdf": "decay_multiexp.pdf",
     "run_dir": "cases/decay_multiexp/session/outputs/run_20261008_021141_351477",
@@ -775,7 +1352,7 @@
   },
   {
     "case": "lotka_volterra",
-    "first_page": 17,
+    "first_page": 34,
     "experiments": 1,
     "pdf": "lotka_volterra.pdf",
     "run_dir": "cases/lotka_volterra/session/outputs/run_20261008_023237_367254",
@@ -844,7 +1421,7 @@
   },
   {
     "case": "piezo_bouc_wen",
-    "first_page": 18,
+    "first_page": 35,
     "experiments": 1,
     "pdf": "piezo_bouc_wen.pdf",
     "run_dir": "cases/piezo_bouc_wen/session/outputs/run_20261008_024201_148369",
@@ -907,7 +1484,7 @@
   },
   {
     "case": "robertson_session",
-    "first_page": 19,
+    "first_page": 36,
     "experiments": 1,
     "pdf": "robertson_session.pdf",
     "run_dir": "cases/robertson_session/session/outputs/run_20261008_021427_550506",
@@ -990,7 +1567,7 @@
   },
   {
     "case": "test_session",
-    "first_page": 20,
+    "first_page": 37,
     "experiments": 1,
     "pdf": "test_session.pdf",
     "run_dir": "cases/test_session/session/outputs/run_20261008_021308_250429",
@@ -1073,7 +1650,7 @@
   },
   {
     "case": "theophylline",
-    "first_page": 21,
+    "first_page": 38,
     "experiments": 1,
     "pdf": "theophylline.pdf",
     "run_dir": "cases/theophylline/session/outputs/run_20261008_023142_755120",
@@ -1132,7 +1709,7 @@
   },
   {
     "case": "vanderpol_session",
-    "first_page": 22,
+    "first_page": 39,
     "experiments": 1,
     "pdf": "vanderpol_session.pdf",
     "run_dir": "cases/vanderpol_session/session/outputs/run_20261008_021140_776500",

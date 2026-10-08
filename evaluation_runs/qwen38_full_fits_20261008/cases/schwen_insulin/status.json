@@ -2,7 +2,7 @@
   "case": "schwen_insulin",
   "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/schwen_insulin/qwen38_27b",
   "source_status": "pass",
-  "status": "queued",
+  "status": "completed",
   "readiness_errors": [],
   "readiness_warnings": [],
   "parameters": 15,
@@ -124,5 +124,117 @@
     "transition_steps_lr": 2999,
     "decay_rate_lr": 0.01,
     "initial_time": 0.0
-  }
+  },
+  "started_at": "2026-10-08T03:08:21.404070+00:00",
+  "cpu_affinity": [
+    3,
+    7,
+    20,
+    23,
+    27,
+    31,
+    46,
+    55,
+    67,
+    71,
+    84,
+    87,
+    91,
+    95,
+    110,
+    119
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "3,7,20,23,27,31,46,55,67,71,84,87,91,95,110,119",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/schwen_insulin/session",
+    "--no-sloppiness"
+  ],
+  "pid": 14760,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.07762523114490136,
+    "final_loss": 0.0775500259349434,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.0000000000000001e-07,
+        5.88503656504712e-08,
+        9.186048612429337e-07,
+        8.836330683173449e-10,
+        1.1505046576525831e-08,
+        2.3143745465414552e-11,
+        4.360333502645992e-11,
+        7.091734267909392e-09,
+        4.3298270638779556e-08,
+        3.048791218057825e-09,
+        1.74590398937095e-10
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.08595109608419958,
+      0.09670895160834331,
+      0.06543913931975943,
+      0.06210091672747125
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/schwen_insulin/session/outputs/run_20261008_030822_191538",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T03:28:56.498191+00:00",
+  "elapsed_seconds": 1235.094138858025
 }

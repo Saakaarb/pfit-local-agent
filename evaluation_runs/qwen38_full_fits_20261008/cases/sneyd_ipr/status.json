@@ -2,7 +2,7 @@
   "case": "sneyd_ipr",
   "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/sneyd_ipr/qwen38_27b",
   "source_status": "pass",
-  "status": "queued",
+  "status": "completed",
   "readiness_errors": [],
   "readiness_warnings": [],
   "parameters": 14,
@@ -105,5 +105,110 @@
     "end_value_lr": 1e-06,
     "transition_steps_lr": 2999,
     "decay_rate_lr": 0.01
-  }
+  },
+  "started_at": "2026-10-08T03:05:15.729594+00:00",
+  "cpu_affinity": [
+    3,
+    7,
+    20,
+    23,
+    27,
+    31,
+    46,
+    55,
+    67,
+    71,
+    84,
+    87,
+    91,
+    95,
+    110,
+    119
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "3,7,20,23,27,31,46,55,67,71,84,87,91,95,110,119",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/sneyd_ipr/session",
+    "--no-sloppiness"
+  ],
+  "pid": 14405,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.030345925245186568,
+    "final_loss": 0.030317895185713845,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.5989994987782054e-11,
+        1e-09,
+        6.390680456042781e-13,
+        6.908084862128594e-14,
+        4.752753182713575e-13,
+        9.875560064942657e-14,
+        1e-08,
+        1e-08
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.5989994987782054e-11,
+        1e-09,
+        6.390680456042781e-13,
+        6.908084862128594e-14,
+        4.752753182713575e-13,
+        9.875560064942657e-14,
+        1e-08,
+        1e-08
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.016174416926623997,
+      0.0173991992807907,
+      0.053060472300114916,
+      0.014808171033696903,
+      0.020470971257219996,
+      0.02193100333802516,
+      0.030986300682642198,
+      0.038668830587263586,
+      0.05936169126504716
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/sneyd_ipr/session/outputs/run_20261008_030516_396988",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T03:08:21.390577+00:00",
+  "elapsed_seconds": 185.661002445966
 }

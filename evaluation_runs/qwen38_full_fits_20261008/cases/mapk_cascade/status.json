@@ -2,7 +2,7 @@
   "case": "mapk_cascade",
   "source": "/workspace/pfit-local-agent/evaluation_runs/final_three_model_comparison_20261007/cases/mapk_cascade/qwen38_27b",
   "source_status": "pass",
-  "status": "queued",
+  "status": "completed",
   "readiness_errors": [],
   "readiness_warnings": [
     "2 accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified."
@@ -125,5 +125,114 @@
     "end_value_lr": 1e-06,
     "transition_steps_lr": 2999,
     "decay_rate_lr": 0.01
-  }
+  },
+  "started_at": "2026-10-08T03:28:56.512595+00:00",
+  "cpu_affinity": [
+    3,
+    7,
+    20,
+    23,
+    27,
+    31,
+    46,
+    55,
+    67,
+    71,
+    84,
+    87,
+    91,
+    95,
+    110,
+    119
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "3,7,20,23,27,31,46,55,67,71,84,87,91,95,110,119",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/mapk_cascade/session",
+    "--no-sloppiness"
+  ],
+  "pid": 15526,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.008695727027280538,
+    "final_loss": 0.00837068977091918,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        4.816469092250404e-09,
+        9.924860345649472e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.472846131101115e-08,
+        1.2923929304853907e-10,
+        1.979476000307663e-09,
+        9.690386096420058e-10,
+        6.016334328895332e-11,
+        9.494542569739411e-08
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        4.816469092250404e-09,
+        9.924860345649472e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.472846131101115e-08,
+        1.2923929304853907e-10,
+        1.979476000307663e-09,
+        9.690386096420058e-10,
+        6.016334328895332e-11,
+        9.494542569739411e-08
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.00837068977091918
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/mapk_cascade/session/outputs/run_20261008_032857_289083",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T03:30:15.379650+00:00",
+  "elapsed_seconds": 78.86707486200612
 }

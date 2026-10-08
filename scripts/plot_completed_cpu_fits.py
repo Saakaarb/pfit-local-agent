@@ -18,6 +18,7 @@ ROOT=parser.parse_args().root.resolve()
 OUT=ROOT/'plots';OUT.mkdir(exist_ok=True)
 MAPPING={'ARC_fitting':[5,6],'armistead_sphingolipid':[9,10,11],
  'beer_indigoidine':[7,8],'boehm_stat5':[12,13,14],'cascaded_tanks':[4],
+ 'mapk_cascade':[4],'raia_il13':[10],'schwen_insulin':[13],'sneyd_ipr':[10],
  'oregonator':[3,5],'sliding_basepoint_headered':[9,10],
  'decay_multiexp':[3,4],'lotka_volterra':[3,4],'piezo_bouc_wen':[2],
  'robertson_session':[4,5,6],'test_session':[4,5,6],'theophylline':[4],'vanderpol_session':[3,4]}
@@ -38,7 +39,7 @@ with PdfPages(OUT/'all_completed_fits.pdf') as combined:
  cover.text(.08,.83,'Measured points and saved fitted trajectories; residual = prediction − measurement.\nLines connect saved measurement times; no additional dense integration.\nCompletion does not imply convergence or parameter identifiability.',fontsize=11)
  for i,e in enumerate(entries):
   note=' — refinement failed; DE fit retained' if e['refinement']=='refinement_degraded' else ''
-  cover.text(.08,.71-.043*i,f"Page {e['first_page']:2}: {e['case']} ({e['experiments']} experiment(s)){note}",fontsize=11)
+  cover.text(.08,.71-.033*i,f"Page {e['first_page']:2}: {e['case']} ({e['experiments']} experiment(s)){note}",fontsize=10)
  combined.savefig(cover);plt.close(cover)
  for e in entries:
   name=e['case'];run=ROOT/e['run_dir'];config=yaml.safe_load((run/'snapshot/inputs/run_config.yaml').read_text());cols=MAPPING[name]
@@ -75,8 +76,7 @@ with PdfPages(OUT/'all_completed_fits.pdf') as combined:
       a.set_xlabel('Time (input units)');a.grid(alpha=.2)
       if name in ('robertson_session','test_session'):a.set_xscale('log')
     note=' | DE result retained; Adam failed' if e['refinement']=='refinement_degraded' else ''
-    initial=', '.join(f'{k}={v:g}' for k,v in exp['initial_conditions'].items())
-    fig.suptitle(f'{name} — experiment {ei+1}{note}\nInitial conditions: {initial}',fontsize=11)
+    fig.suptitle(f'{name} — experiment {ei+1}' + ('\nDE result retained; Adam failed' if note else ''),fontsize=11)
     fig.tight_layout(rect=(0,0,1,.91));combined.savefig(fig);case_pdf.savefig(fig)
     fig.savefig(OUT/f'{name}{suffix}.png',dpi=130);plt.close(fig)
 (OUT/'index.json').write_text(json.dumps(entries,indent=2)+'\n')

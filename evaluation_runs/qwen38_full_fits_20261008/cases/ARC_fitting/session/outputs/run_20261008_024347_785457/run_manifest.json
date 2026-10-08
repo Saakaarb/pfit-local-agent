@@ -1,0 +1,80 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 16,
+    "detected_cpus": 16,
+    "configured_host_devices": 16,
+    "configuration_source": "XLA_FLAGS override",
+    "jax_cpu_devices": 16
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.11",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.8.0-142-generic",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "980c9c1b81115ca69932e0dd467cd7a72452b25171d134ce513c5f2163aae0cb",
+      "generated_script": "60979e79c4253e510e2d3c69c79c289764fff8f2473efe1621ff60bb7ae712b8",
+      "user_model": "69478ea356da5050aeee3fb558dc4abdb83562edfea5f5910feff07f8120d0b1"
+    },
+    "git": {
+      "commit": "ad7591cf9a784d2dc256284b2d5c427a845f654b",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 64,
+      "population_iterations": 100,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 3000
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "NMC_SOC80_M2_normalized_converted_units.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "c6fab67500cfbd3a86f263a26f3766666760dd574a6fd6711e593df88eaeda64",
+      "initial_conditions": {
+        "c1": 1.0,
+        "c2": 0.04,
+        "T": 354.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}
