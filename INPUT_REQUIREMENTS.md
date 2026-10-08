@@ -997,8 +997,15 @@ accuracy gate may proceed when at least one selected probe passes every
 experiment and its loss/prediction checks, even if other probes are numerically
 inconclusive. Inconclusive probes remain explicitly listed in the report; they
 are never labelled accurate. Demonstrated prediction/loss mismatches and
-interface errors still block readiness. If all probes are inconclusive, the
-existing bounded step recovery applies.
+interface errors still block readiness. If any refinement/reference probe is
+inconclusive because it hits the step ceiling, budget recovery runs before
+excluding that probe, even when other probes passed. It doubles the common
+`max_steps` up to `solver_recovery_max_steps` (normally 50,000), with the same
+sample count and all validation gates rerun. At the configured cap, remaining
+step-limited probes may be excluded with explicit warnings if fully validated
+seeds remain. Other numerical failures do not trigger step increases. Recovery
+timeouts still block readiness; they never bless incomplete validation. If all
+probes remain inconclusive, readiness fails.
 
 Validated normalized points are saved in `solver_accuracy.json`, ordered by
 ordinary loss, and bound to the final model/configuration and CSV content hashes.

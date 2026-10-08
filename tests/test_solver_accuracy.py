@@ -26,7 +26,7 @@ def test_measurement_uncertainty_controls_allowance():
     assert prediction_error([float('nan')],[1.],[float('nan')],None,1e-3,1e-6,.01) is None
 
 
-def run_check(tmp_path, monkeypatch, factor=1., fail_reference=False, derived=False, workers=2, barrier=None, calibration=None, population=None):
+def run_check(tmp_path, monkeypatch, factor=1., fail_reference=False, derived=False, workers=2, barrier=None, calibration=None, population=None, cap=None):
     from diffrax import RESULTS
     points=candidates()[:4]
     (tmp_path/'solver_coverage.json').write_text(json.dumps([dict(sample_count=32,candidates=points)]))
@@ -48,7 +48,7 @@ def run_check(tmp_path, monkeypatch, factor=1., fail_reference=False, derived=Fa
     module=SimpleNamespace(_integrate_system_with_stats=integrate,_compute_loss_value=lambda c,p,t,y:1.)
     if derived and derived!='missing':module._observables=lambda y,p,f:dict(z=y[:,0]*1000)
     result=assess_solver_accuracy(module,reader,tmp_path,tmp_path/'generated.py',records,
-        dict(solver_accuracy_workers=workers),population or {},calibration or {})
+        dict(solver_accuracy_workers=workers, **({} if cap is None else {"solver_recovery_max_steps": cap})),population or {},calibration or {})
     return result,threads,calls
 
 
@@ -132,3 +132,20 @@ def test_complete_accuracy_pass_persists_all_probes(tmp_path, monkeypatch):
     report, _, _ = run_check(tmp_path, monkeypatch)
     assert len(report['validated_seeds']) == 4
     assert report.get('unresolved_probes', []) == []
+
+
+def test_partial_step_failure_requests_recovery_before_seed_fallback(tmp_path, monkeypatch):
+    with pytest.raises(SolverValidationError) as exc:
+        run_check(tmp_path, monkeypatch, fail_reference=lambda p: p[0] != 0, cap=50000)
+    assert exc.value.diagnostics['code'] == 'accuracy_inconclusive'
+    assert exc.value.diagnostics['failure_cause'] == 'step_limit'
+    report = json.loads((tmp_path/'solver_accuracy.json').read_text())
+    assert len(report['unresolved_probes']) == 3
+    assert not report.get('validated_seeds')
+
+
+def test_partial_step_failure_at_cap_retains_warned_validated_seeds(tmp_path, monkeypatch):
+    report, _, _ = run_check(tmp_path, monkeypatch, fail_reference=lambda p: p[0] != 0, cap=10000)
+    assert report['code'] == 'accuracy_passed'
+    assert [s['sample'] for s in report['validated_seeds']] == [0]
+    assert any('cap reached' in warning for warning in report['warnings'])

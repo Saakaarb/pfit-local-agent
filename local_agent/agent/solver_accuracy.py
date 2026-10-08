@@ -170,7 +170,18 @@ def assess_solver_accuracy(module, reader, session, script, records, gradient, p
         report['unresolved_probes'] = [dict(sample=probe['sample'], reason=result[3],
             failure=result[0][-1].get('failure') if result[0] else None)
             for probe,result in zip(probes,results) if probe['sample'] in excluded]
+        # A few validated starts must not bypass recoverable step exhaustion.
+        # At the configured cap, retain the existing warned seed-only fallback.
+        step_failure = next((probe['failure'] for probe in report['unresolved_probes']
+                             if (probe['failure'] or {}).get('code') == 'step_limit'), None)
+        cap = gradient.get('solver_recovery_max_steps', reader.max_steps)
+        if step_failure is not None and reader.max_steps < cap:
+            return finish('accuracy_inconclusive',
+                'Accuracy probes reached the step ceiling; increase the budget before excluding them',
+                step_failure)
         report['warnings'] = [f'{len(excluded)} accuracy probes unresolved; fit is seeded only from validated points. Accuracy away from those points is unverified.']
+        if step_failure is not None:
+            report['warnings'].append('Step-budget recovery cap reached; unresolved step-limited probes remain excluded.')
     for name,_,_ in profiles:
         failed=next((r for r in accepted_results if r[2]!='accuracy_passed' and r[0][-1]['profile']==name),None)
         if failed:
