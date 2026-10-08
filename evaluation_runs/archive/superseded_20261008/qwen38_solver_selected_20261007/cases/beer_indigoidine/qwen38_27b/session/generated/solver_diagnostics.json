@@ -1,0 +1,3366 @@
+[
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.0,
+      "beta": 1.0,
+      "ksyn": 1.0,
+      "kdim": 1.0,
+      "kdegi": 1.0
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1181,
+      "num_rejected_steps": 5,
+      "num_steps": 1186
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      1.0,
+      10.0,
+      0.005702860661554706,
+      3.2906189836610915e-05
+    ],
+    "loss": 0.7374034518721404
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736,
+      0.4494090345200725,
+      0.9279110141872207
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.5172761477287363,
+      "beta": 0.0676624046031501,
+      "ksyn": 0.0004144831075565424,
+      "kdim": 176.62215224670868,
+      "kdegi": 43606.885643121364
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7842,
+      "num_rejected_steps": 2158,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155,
+      -0.12076768678290917,
+      -0.47114306001085515
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.017377259750933256,
+      "beta": 0.0014096182976548002,
+      "ksyn": 3888.896946911955,
+      "kdim": 0.24897833943840564,
+      "kdegi": 0.004408437621022553
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7860,
+      "num_rejected_steps": 2140,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 97
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116,
+      0.6538855602515945,
+      -0.9629908916452565
+    ],
+    "physical_parameters": {
+      "Bacmax": 128.31693011371212,
+      "beta": 0.17218888027528145,
+      "ksyn": 11.541591426083757,
+      "kdim": 1859.6353847691437,
+      "kdegi": 1.5312480257641203e-05
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7938,
+      "num_rejected_steps": 2062,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 15
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914,
+      -0.020394232483245678,
+      -0.31362903445018697
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0002860327413846849,
+      "beta": 2173.305347835452,
+      "ksyn": 0.011714151410371498,
+      "kdim": 0.7907311315870249,
+      "kdegi": 0.0270305465904603
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7845,
+      "num_rejected_steps": 2155,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 3
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425,
+      0.2943138979455724,
+      -0.638107467258542
+    ],
+    "physical_parameters": {
+      "Bacmax": 1640.2315806906383,
+      "beta": 45673.12214909171,
+      "ksyn": 48.501802361824595,
+      "kdim": 29.618938483024245,
+      "kdegi": 0.000644855879230877
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7835,
+      "num_rejected_steps": 2165,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811,
+      0.8330010853869663,
+      -0.2195970530562552
+    ],
+    "physical_parameters": {
+      "Bacmax": 44740.34015678891,
+      "beta": 8.644648737014928e-05,
+      "ksyn": 0.08790378490762034,
+      "kdim": 14621.954459064998,
+      "kdegi": 0.07980217620460789
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7851,
+      "num_rejected_steps": 2149,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 319
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143,
+      0.9202600057057075,
+      -0.11863280896677741
+    ],
+    "physical_parameters": {
+      "Bacmax": 17188.35344969806,
+      "beta": 2.2134549783404727,
+      "ksyn": 3.5311002510347196,
+      "kdim": 39930.06604529769,
+      "kdegi": 0.2551737260057615
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 8005,
+      "num_rejected_steps": 1995,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 2
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031,
+      -0.36675988462633724,
+      0.4601261112696464
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.2287666903994125,
+      "beta": 139.21843880569728,
+      "ksyn": 1.3095971641993634e-05,
+      "kdim": 0.014662248536739496,
+      "kdegi": 199.8161359639928
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7840,
+      "num_rejected_steps": 2160,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 28
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006,
+      0.530967048322714,
+      0.40799261219367833
+    ],
+    "physical_parameters": {
+      "Bacmax": 9.262609737366132,
+      "beta": 0.004392685997270834,
+      "ksyn": 15.378188151762716,
+      "kdim": 451.68455620472093,
+      "kdegi": 109.63849388673228
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 9997,
+      "num_rejected_steps": 3,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 63
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051,
+      0.10407773887259508,
+      0.14861372252453742
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.00011157976919245593,
+      "beta": 0.01594227223081025,
+      "ksyn": 339.6155452347196,
+      "kdim": 3.3142761710983413,
+      "kdegi": 5.534375379147341
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 5775,
+      "num_rejected_steps": 3,
+      "num_steps": 5778
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      0.001692695051593979,
+      1.7180726259145555e-06
+    ],
+    "loss": 0.7148987176002756
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517,
+      -0.2959125895786422,
+      -0.9143762446495061
+    ],
+    "physical_parameters": {
+      "Bacmax": 3.0737991920857968,
+      "beta": 0.00013993030160691194,
+      "ksyn": 1.3949419945271209,
+      "kdim": 0.03314645229071507,
+      "kdegi": 2.679901160362962e-05
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 120,
+      "num_rejected_steps": 7,
+      "num_steps": 127
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.022132249360759203,
+      10.0,
+      0.539190351865128,
+      9.782065733677669
+    ],
+    "loss": 6.901359280355841
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115,
+      -0.4966428014195301,
+      -0.6953517849724804
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.08571028706656951,
+      "beta": 15.391289232461073,
+      "ksyn": 0.00014213072567788011,
+      "kdim": 0.0032868962272450423,
+      "kdegi": 0.000333611547816409
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7844,
+      "num_rejected_steps": 2156,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 357
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103,
+      -0.6853102344097075,
+      0.8624047346820876
+    ],
+    "physical_parameters": {
+      "Bacmax": 22.50445117497446,
+      "beta": 506.4475587174158,
+      "ksyn": 5.686704571377523e-05,
+      "kdim": 0.0003744974181560021,
+      "kdegi": 20512.73990809443
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7841,
+      "num_rejected_steps": 2159,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752,
+      -0.4501094094854724,
+      -0.23271304785865876
+    ],
+    "physical_parameters": {
+      "Bacmax": 304.836302449776,
+      "beta": 1.6104921585391615e-05,
+      "ksyn": 0.002216425321809362,
+      "kdim": 0.005616334329142969,
+      "kdegi": 0.0686174794161039
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 128,
+      "num_rejected_steps": 2,
+      "num_steps": 130
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.014591059942353731,
+      10.0,
+      0.2291076808538903,
+      0.004296308456111957
+    ],
+    "loss": 0.7036567761853187
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937,
+      0.60746035065166,
+      -0.0863540434227742
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.3158465965018794e-05,
+      "beta": 0.0006261459450431267,
+      "ksyn": 253.44498766368565,
+      "kdim": 1089.6869585423372,
+      "kdegi": 0.3700239056651441
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 663,
+      "num_rejected_steps": 74,
+      "num_steps": 737
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      5.328255893326989e-06,
+      8.645082654764697e-08
+    ],
+    "loss": 0.7169131794741506
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459,
+      -0.09376437174491048,
+      0.03398079677976029
+    ],
+    "physical_parameters": {
+      "Bacmax": 2445.126702080502,
+      "beta": 0.002395784159305772,
+      "ksyn": 14984.35771263992,
+      "kdim": 0.3397646105093183,
+      "kdegi": 1.4787814152761034
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7858,
+      "num_rejected_steps": 2142,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 23
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867,
+      -0.6754652365205418,
+      0.009729512478853453
+    ],
+    "physical_parameters": {
+      "Bacmax": 1022.5694555136466,
+      "beta": 80.67886287501713,
+      "ksyn": 0.034838770741211895,
+      "kdim": 0.0004194438368283861,
+      "kdegi": 1.1185298084574178
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7858,
+      "num_rejected_steps": 2142,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 68
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082,
+      -0.6115989952673453,
+      -0.5345370146616927
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.00427042713932945,
+      "beta": 0.8240702999490681,
+      "ksyn": 7515.797227753601,
+      "kdim": 0.0008749938965839414,
+      "kdegi": 0.002124784681552682
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7861,
+      "num_rejected_steps": 2139,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 171
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883,
+      -0.7901439562611319,
+      0.5202393370494884
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.002209972514784053,
+      "beta": 0.00020072391763242947,
+      "ksyn": 0.48333376835045583,
+      "kdim": 0.00011201604085205494,
+      "kdegi": 399.20565549008415
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7842,
+      "num_rejected_steps": 2158,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 14
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519,
+      0.37087546923928927,
+      0.996439001923022
+    ],
+    "physical_parameters": {
+      "Bacmax": 4.04165053699621e-05,
+      "beta": 5.841470612432962,
+      "ksyn": 92603.19593866685,
+      "kdim": 71.51174015105377,
+      "kdegi": 95983.15243010348
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 9993,
+      "num_rejected_steps": 7,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648,
+      0.1733873118939333,
+      0.18576255640339134
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.0072988213151672,
+      "beta": 67344.18011417116,
+      "ksyn": 0.27111327302575505,
+      "kdim": 7.3609956226341815,
+      "kdegi": 8.488144846773539
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7827,
+      "num_rejected_steps": 2173,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657,
+      0.9720681173151868,
+      0.5646951322828584
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0016171791893665965,
+      "beta": 0.025261722929494277,
+      "ksyn": 0.00586074110014381,
+      "kdim": 72500.43070064561,
+      "kdegi": 666.0021963808218
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7844,
+      "num_rejected_steps": 2156,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 9
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026,
+      0.22832166716342228,
+      -0.3899025774218149
+    ],
+    "physical_parameters": {
+      "Bacmax": 2.331582027603494,
+      "beta": 2.669957162455334e-05,
+      "ksyn": 0.0011833487140672117,
+      "kdim": 13.85505760609626,
+      "kdegi": 0.011232776374151897
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 127,
+      "num_rejected_steps": 23,
+      "num_steps": 150
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.01511564748367718,
+      10.0,
+      0.003490318941046165,
+      0.015014680648873041
+    ],
+    "loss": 0.6989707880319804
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135,
+      -0.1877169117525902,
+      -0.764048779788985
+    ],
+    "physical_parameters": {
+      "Bacmax": 49.07879079091675,
+      "beta": 8954.478472955445,
+      "ksyn": 2.7834070880095796,
+      "kdim": 0.1151901758401754,
+      "kdegi": 0.00015127114739912025
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7835,
+      "num_rejected_steps": 2165,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091,
+      0.752645880841756,
+      -0.8644452278803446
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0004389529146788156,
+      "beta": 10974.533975634951,
+      "ksyn": 30734.615922236142,
+      "kdim": 5797.348446740838,
+      "kdegi": 4.761829712829258e-05
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7870,
+      "num_rejected_steps": 2130,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256,
+      -0.8917500833182381,
+      0.2503603073226157
+    ],
+    "physical_parameters": {
+      "Bacmax": 71118.38369245428,
+      "beta": 3214.8190972427215,
+      "ksyn": 117.99345765716309,
+      "kdim": 3.477359433704749e-05,
+      "kdegi": 17.85671374346538
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7820,
+      "num_rejected_steps": 2180,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509,
+      0.6787790551254123,
+      -0.6042760523329985
+    ],
+    "physical_parameters": {
+      "Bacmax": 7472.654705209753,
+      "beta": 0.07599030007453872,
+      "ksyn": 2.2118052663066362e-05,
+      "kdim": 2476.824732077077,
+      "kdegi": 0.0009519622752690841
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1452,
+      "num_rejected_steps": 91,
+      "num_steps": 1543
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      7472.654705209753,
+      10.0,
+      0.0002377281320665122,
+      8.276683293360614
+    ],
+    "loss": 7252.940301662772
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751,
+      0.05229485142278678,
+      0.7201578207493067
+    ],
+    "physical_parameters": {
+      "Bacmax": 8.437980329202685e-05,
+      "beta": 0.3595602269463859,
+      "ksyn": 759.7035380827793,
+      "kdim": 1.8258885159863647,
+      "kdegi": 3988.311802883637
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 9989,
+      "num_rejected_steps": 11,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 2
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751,
+      -0.9394618524603475,
+      0.6664872601460119
+    ],
+    "physical_parameters": {
+      "Bacmax": 77.75536092451178,
+      "beta": 13.135146309038985,
+      "ksyn": 0.051996309785035943,
+      "kdim": 2.0076626413350047e-05,
+      "kdegi": 2149.9893108534
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7842,
+      "num_rejected_steps": 2158,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 3
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064,
+      -0.8362324916208229,
+      0.3146357278328247
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.01247924780589959,
+      "beta": 46.109857906141656,
+      "ksyn": 0.00039543657625284507,
+      "kdim": 6.58927361800223e-05,
+      "kdegi": 37.42645035352407
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7843,
+      "num_rejected_steps": 2157,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 120
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747,
+      -0.23796210304859666,
+      0.7659176743725431
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.036940309498691884,
+      "beta": 758.7016826118639,
+      "ksyn": 1397.9242153493879,
+      "kdim": 0.06459359925218885,
+      "kdegi": 6754.424815705362
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7941,
+      "num_rejected_steps": 2059,
+      "num_steps": 10000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.0,
+      "beta": 1.0,
+      "ksyn": 1.0,
+      "kdim": 1.0,
+      "kdegi": 1.0
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 1181,
+      "num_rejected_steps": 5,
+      "num_steps": 1186
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      1.0,
+      10.0,
+      0.005702860661554706,
+      3.2906189836610915e-05
+    ],
+    "loss": 0.7374034518721404
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736,
+      0.4494090345200725,
+      0.9279110141872207
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.5172761477287363,
+      "beta": 0.0676624046031501,
+      "ksyn": 0.0004144831075565424,
+      "kdim": 176.62215224670868,
+      "kdegi": 43606.885643121364
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155,
+      -0.12076768678290917,
+      -0.47114306001085515
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.017377259750933256,
+      "beta": 0.0014096182976548002,
+      "ksyn": 3888.896946911955,
+      "kdim": 0.24897833943840564,
+      "kdegi": 0.004408437621022553
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15703,
+      "num_rejected_steps": 4297,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 186
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116,
+      0.6538855602515945,
+      -0.9629908916452565
+    ],
+    "physical_parameters": {
+      "Bacmax": 128.31693011371212,
+      "beta": 0.17218888027528145,
+      "ksyn": 11.541591426083757,
+      "kdim": 1859.6353847691437,
+      "kdegi": 1.5312480257641203e-05
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15781,
+      "num_rejected_steps": 4219,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 18
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914,
+      -0.020394232483245678,
+      -0.31362903445018697
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0002860327413846849,
+      "beta": 2173.305347835452,
+      "ksyn": 0.011714151410371498,
+      "kdim": 0.7907311315870249,
+      "kdegi": 0.0270305465904603
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15693,
+      "num_rejected_steps": 4307,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 6
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425,
+      0.2943138979455724,
+      -0.638107467258542
+    ],
+    "physical_parameters": {
+      "Bacmax": 1640.2315806906383,
+      "beta": 45673.12214909171,
+      "ksyn": 48.501802361824595,
+      "kdim": 29.618938483024245,
+      "kdegi": 0.000644855879230877
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15679,
+      "num_rejected_steps": 4321,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811,
+      0.8330010853869663,
+      -0.2195970530562552
+    ],
+    "physical_parameters": {
+      "Bacmax": 44740.34015678891,
+      "beta": 8.644648737014928e-05,
+      "ksyn": 0.08790378490762034,
+      "kdim": 14621.954459064998,
+      "kdegi": 0.07980217620460789
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 10953,
+      "num_rejected_steps": 2992,
+      "num_steps": 13945
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.018515900043030244,
+      10.0,
+      0.0008211764955849349,
+      0.12251305277375292
+    ],
+    "loss": 0.6985286742377124
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143,
+      0.9202600057057075,
+      -0.11863280896677741
+    ],
+    "physical_parameters": {
+      "Bacmax": 17188.35344969806,
+      "beta": 2.2134549783404727,
+      "ksyn": 3.5311002510347196,
+      "kdim": 39930.06604529769,
+      "kdegi": 0.2551737260057615
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15847,
+      "num_rejected_steps": 4153,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 2
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031,
+      -0.36675988462633724,
+      0.4601261112696464
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.2287666903994125,
+      "beta": 139.21843880569728,
+      "ksyn": 1.3095971641993634e-05,
+      "kdim": 0.014662248536739496,
+      "kdegi": 199.8161359639928
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15683,
+      "num_rejected_steps": 4317,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 56
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006,
+      0.530967048322714,
+      0.40799261219367833
+    ],
+    "physical_parameters": {
+      "Bacmax": 9.262609737366132,
+      "beta": 0.004392685997270834,
+      "ksyn": 15.378188151762716,
+      "kdim": 451.68455620472093,
+      "kdegi": 109.63849388673228
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 18362,
+      "num_rejected_steps": 1638,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 117
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051,
+      0.10407773887259508,
+      0.14861372252453742
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.00011157976919245593,
+      "beta": 0.01594227223081025,
+      "ksyn": 339.6155452347196,
+      "kdim": 3.3142761710983413,
+      "kdegi": 5.534375379147341
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 5775,
+      "num_rejected_steps": 3,
+      "num_steps": 5778
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      0.001692695051593979,
+      1.7180726259145555e-06
+    ],
+    "loss": 0.7148987176002756
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517,
+      -0.2959125895786422,
+      -0.9143762446495061
+    ],
+    "physical_parameters": {
+      "Bacmax": 3.0737991920857968,
+      "beta": 0.00013993030160691194,
+      "ksyn": 1.3949419945271209,
+      "kdim": 0.03314645229071507,
+      "kdegi": 2.679901160362962e-05
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 120,
+      "num_rejected_steps": 7,
+      "num_steps": 127
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.022132249360759203,
+      10.0,
+      0.539190351865128,
+      9.782065733677669
+    ],
+    "loss": 6.901359280355841
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115,
+      -0.4966428014195301,
+      -0.6953517849724804
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.08571028706656951,
+      "beta": 15.391289232461073,
+      "ksyn": 0.00014213072567788011,
+      "kdim": 0.0032868962272450423,
+      "kdegi": 0.000333611547816409
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15652,
+      "num_rejected_steps": 4303,
+      "num_steps": 19955
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.08571031124854261,
+      10.0,
+      0.1841121500523177,
+      0.1554615764241012
+    ],
+    "loss": 0.6274424812138159
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103,
+      -0.6853102344097075,
+      0.8624047346820876
+    ],
+    "physical_parameters": {
+      "Bacmax": 22.50445117497446,
+      "beta": 506.4475587174158,
+      "ksyn": 5.686704571377523e-05,
+      "kdim": 0.0003744974181560021,
+      "kdegi": 20512.73990809443
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15684,
+      "num_rejected_steps": 4316,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752,
+      -0.4501094094854724,
+      -0.23271304785865876
+    ],
+    "physical_parameters": {
+      "Bacmax": 304.836302449776,
+      "beta": 1.6104921585391615e-05,
+      "ksyn": 0.002216425321809362,
+      "kdim": 0.005616334329142969,
+      "kdegi": 0.0686174794161039
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 128,
+      "num_rejected_steps": 2,
+      "num_steps": 130
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.014591059942353731,
+      10.0,
+      0.2291076808538903,
+      0.004296308456111957
+    ],
+    "loss": 0.7036567761853187
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937,
+      0.60746035065166,
+      -0.0863540434227742
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.3158465965018794e-05,
+      "beta": 0.0006261459450431267,
+      "ksyn": 253.44498766368565,
+      "kdim": 1089.6869585423372,
+      "kdegi": 0.3700239056651441
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 663,
+      "num_rejected_steps": 74,
+      "num_steps": 737
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      5.328255893326989e-06,
+      8.645082654764697e-08
+    ],
+    "loss": 0.7169131794741506
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459,
+      -0.09376437174491048,
+      0.03398079677976029
+    ],
+    "physical_parameters": {
+      "Bacmax": 2445.126702080502,
+      "beta": 0.002395784159305772,
+      "ksyn": 14984.35771263992,
+      "kdim": 0.3397646105093183,
+      "kdegi": 1.4787814152761034
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15701,
+      "num_rejected_steps": 4299,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 42
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867,
+      -0.6754652365205418,
+      0.009729512478853453
+    ],
+    "physical_parameters": {
+      "Bacmax": 1022.5694555136466,
+      "beta": 80.67886287501713,
+      "ksyn": 0.034838770741211895,
+      "kdim": 0.0004194438368283861,
+      "kdegi": 1.1185298084574178
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15701,
+      "num_rejected_steps": 4299,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 136
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082,
+      -0.6115989952673453,
+      -0.5345370146616927
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.00427042713932945,
+      "beta": 0.8240702999490681,
+      "ksyn": 7515.797227753601,
+      "kdim": 0.0008749938965839414,
+      "kdegi": 0.002124784681552682
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15704,
+      "num_rejected_steps": 4296,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 343
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883,
+      -0.7901439562611319,
+      0.5202393370494884
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.002209972514784053,
+      "beta": 0.00020072391763242947,
+      "ksyn": 0.48333376835045583,
+      "kdim": 0.00011201604085205494,
+      "kdegi": 399.20565549008415
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 28
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519,
+      0.37087546923928927,
+      0.996439001923022
+    ],
+    "physical_parameters": {
+      "Bacmax": 4.04165053699621e-05,
+      "beta": 5.841470612432962,
+      "ksyn": 92603.19593866685,
+      "kdim": 71.51174015105377,
+      "kdegi": 95983.15243010348
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 19993,
+      "num_rejected_steps": 7,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648,
+      0.1733873118939333,
+      0.18576255640339134
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.0072988213151672,
+      "beta": 67344.18011417116,
+      "ksyn": 0.27111327302575505,
+      "kdim": 7.3609956226341815,
+      "kdegi": 8.488144846773539
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15670,
+      "num_rejected_steps": 4330,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657,
+      0.9720681173151868,
+      0.5646951322828584
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0016171791893665965,
+      "beta": 0.025261722929494277,
+      "ksyn": 0.00586074110014381,
+      "kdim": 72500.43070064561,
+      "kdegi": 666.0021963808218
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15687,
+      "num_rejected_steps": 4313,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 17
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026,
+      0.22832166716342228,
+      -0.3899025774218149
+    ],
+    "physical_parameters": {
+      "Bacmax": 2.331582027603494,
+      "beta": 2.669957162455334e-05,
+      "ksyn": 0.0011833487140672117,
+      "kdim": 13.85505760609626,
+      "kdegi": 0.011232776374151897
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 127,
+      "num_rejected_steps": 23,
+      "num_steps": 150
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.01511564748367718,
+      10.0,
+      0.003490318941046165,
+      0.015014680648873041
+    ],
+    "loss": 0.6989707880319804
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135,
+      -0.1877169117525902,
+      -0.764048779788985
+    ],
+    "physical_parameters": {
+      "Bacmax": 49.07879079091675,
+      "beta": 8954.478472955445,
+      "ksyn": 2.7834070880095796,
+      "kdim": 0.1151901758401754,
+      "kdegi": 0.00015127114739912025
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15678,
+      "num_rejected_steps": 4322,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 2
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091,
+      0.752645880841756,
+      -0.8644452278803446
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0004389529146788156,
+      "beta": 10974.533975634951,
+      "ksyn": 30734.615922236142,
+      "kdim": 5797.348446740838,
+      "kdegi": 4.761829712829258e-05
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15718,
+      "num_rejected_steps": 4282,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 2
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256,
+      -0.8917500833182381,
+      0.2503603073226157
+    ],
+    "physical_parameters": {
+      "Bacmax": 71118.38369245428,
+      "beta": 3214.8190972427215,
+      "ksyn": 117.99345765716309,
+      "kdim": 3.477359433704749e-05,
+      "kdegi": 17.85671374346538
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15663,
+      "num_rejected_steps": 4337,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509,
+      0.6787790551254123,
+      -0.6042760523329985
+    ],
+    "physical_parameters": {
+      "Bacmax": 7472.654705209753,
+      "beta": 0.07599030007453872,
+      "ksyn": 2.2118052663066362e-05,
+      "kdim": 2476.824732077077,
+      "kdegi": 0.0009519622752690841
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 1452,
+      "num_rejected_steps": 91,
+      "num_steps": 1543
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      7472.654705209753,
+      10.0,
+      0.0002377281320665122,
+      8.276683293360614
+    ],
+    "loss": 7252.940301662772
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751,
+      0.05229485142278678,
+      0.7201578207493067
+    ],
+    "physical_parameters": {
+      "Bacmax": 8.437980329202685e-05,
+      "beta": 0.3595602269463859,
+      "ksyn": 759.7035380827793,
+      "kdim": 1.8258885159863647,
+      "kdegi": 3988.311802883637
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 17991,
+      "num_rejected_steps": 2009,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 4
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751,
+      -0.9394618524603475,
+      0.6664872601460119
+    ],
+    "physical_parameters": {
+      "Bacmax": 77.75536092451178,
+      "beta": 13.135146309038985,
+      "ksyn": 0.051996309785035943,
+      "kdim": 2.0076626413350047e-05,
+      "kdegi": 2149.9893108534
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 6
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064,
+      -0.8362324916208229,
+      0.3146357278328247
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.01247924780589959,
+      "beta": 46.109857906141656,
+      "ksyn": 0.00039543657625284507,
+      "kdim": 6.58927361800223e-05,
+      "kdegi": 37.42645035352407
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15687,
+      "num_rejected_steps": 4313,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 239
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747,
+      -0.23796210304859666,
+      0.7659176743725431
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.036940309498691884,
+      "beta": 758.7016826118639,
+      "ksyn": 1397.9242153493879,
+      "kdim": 0.06459359925218885,
+      "kdegi": 6754.424815705362
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15784,
+      "num_rejected_steps": 4216,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 2
+  },
+  {
+    "sample": 32,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8064495181977207,
+      -0.30676188042802444,
+      0.30718474392117745,
+      0.7223817933030992,
+      0.14703449636741706
+    ],
+    "physical_parameters": {
+      "Bacmax": 9.284369346094784e-05,
+      "beta": 0.029254359757819804,
+      "ksyn": 34.349760996008946,
+      "kdim": 4091.748826339452,
+      "kdegi": 5.434661284421379
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 6874,
+      "num_rejected_steps": 7,
+      "num_steps": 6881
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      0.0015311312207370088,
+      0.0017661779275480315
+    ],
+    "loss": 0.7149037679628465
+  },
+  {
+    "sample": 33,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.954542201453841,
+      -0.8132580261345916,
+      0.3150330537434236,
+      -0.8167428817681988,
+      -0.6595387948862957
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.6876756824489342e-05,
+      "beta": 8.584398486816572e-05,
+      "ksyn": 37.59804546571829,
+      "kdim": 8.246802447763494e-05,
+      "kdegi": 0.0005038555254789776
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 96,
+      "num_rejected_steps": 4,
+      "num_steps": 100
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      8.708313083654769,
+      3.5104280806197354
+    ],
+    "loss": 1.958546441326389
+  },
+  {
+    "sample": 34,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.48602959525407785,
+      -0.05520271968115076,
+      0.39470942590214886,
+      -0.6850246513694604,
+      -0.7892732772608467
+    ],
+    "physical_parameters": {
+      "Bacmax": 269.2452041329961,
+      "beta": 0.5296468596015903,
+      "ksyn": 94.09079315512903,
+      "kdim": 0.00037573075324304943,
+      "kdegi": 0.00011314454327909748
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15672,
+      "num_rejected_steps": 4328,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 5
+  },
+  {
+    "sample": 35,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9891104238563833,
+      0.26105047244605606,
+      -0.837501581345892,
+      0.6533012276910255,
+      0.03633923372030434
+    ],
+    "physical_parameters": {
+      "Bacmax": 88216.96641555545,
+      "beta": 20.195395479554957,
+      "ksyn": 6.493698090954921e-05,
+      "kdim": 1847.1669031644615,
+      "kdegi": 1.5194841302748767
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 6173,
+      "num_rejected_steps": 1611,
+      "num_steps": 7784
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      88216.96641555527,
+      10.0,
+      2.9964900858459652e-06,
+      1.0997813204799473e-08
+    ],
+    "loss": 87934.75051711316
+  },
+  {
+    "sample": 36,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.5203624380977994,
+      0.5359345583643136,
+      0.691649888656455,
+      -0.898057942989998,
+      0.9967436612172382
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0025014268633275077,
+      "beta": 478.26961641415545,
+      "ksyn": 2872.429929761272,
+      "kdim": 3.2337786174682326e-05,
+      "kdegi": 96320.406349215
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 37,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.8356707996766408,
+      0.7153920647681022,
+      0.1397844110253763,
+      0.5969216844542657,
+      0.8055670558574075
+    ],
+    "physical_parameters": {
+      "Bacmax": 15078.356194177302,
+      "beta": 3775.3769836146885,
+      "ksyn": 4.9994479948023125,
+      "kdim": 965.1802404305388,
+      "kdegi": 10661.916556733182
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15717,
+      "num_rejected_steps": 4283,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 38,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.12098674998961856,
+      0.04689951195798958,
+      0.7790664658810962,
+      0.31713506861358787,
+      -0.2889288283934667
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.2483511927159855,
+      "beta": 1.7159220686859347,
+      "ksyn": 7858.367400172385,
+      "kdim": 38.51903009195944,
+      "kdegi": 0.035921615343381924
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15697,
+      "num_rejected_steps": 4303,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 6
+  },
+  {
+    "sample": 39,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.40742351462876836,
+      0.32440982800988216,
+      -0.4449464358206733,
+      -0.5879232254258971,
+      -0.4208186786223792
+    ],
+    "physical_parameters": {
+      "Bacmax": 108.92249307571916,
+      "beta": 41.88409539327958,
+      "ksyn": 0.005960295899873077,
+      "kdim": 0.0011491689230710585,
+      "kdegi": 0.007868765571680748
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15692,
+      "num_rejected_steps": 4308,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 263
+  },
+  {
+    "sample": 40,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6723412441488876,
+      0.932151735097495,
+      0.5475599701036118,
+      -0.236112694673296,
+      0.5552749127719625
+    ],
+    "physical_parameters": {
+      "Bacmax": 2299.885529535458,
+      "beta": 45788.738162620735,
+      "ksyn": 546.7639225357881,
+      "kdim": 0.06598367902034002,
+      "kdegi": 597.5504308328448
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 41,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.42557261228189514,
+      -0.11142532210576739,
+      -0.7606887206523911,
+      -0.42527817629144704,
+      0.28086458368213485
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.007449668344233666,
+      "beta": 0.2772511712278157,
+      "ksyn": 0.00015723759652573222,
+      "kdim": 0.007474964226107182,
+      "kdegi": 25.37014319048844
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15684,
+      "num_rejected_steps": 4316,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 435
+  },
+  {
+    "sample": 42,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.608360173336691,
+      -0.514430563113335,
+      -0.952433139216918,
+      0.5549181802967285,
+      -0.8321536783051152
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0009082368807697904,
+      "beta": 0.0026782257694331333,
+      "ksyn": 1.7291565094150656e-05,
+      "kdim": 595.1013034265454,
+      "kdegi": 6.906080056713943e-05
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 49,
+      "num_rejected_steps": 9,
+      "num_steps": 58
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      2.606277493252118e-05,
+      0.0005900073374847831
+    ],
+    "loss": 0.7141700111979378
+  },
+  {
+    "sample": 43,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.02899249735128928,
+      -0.9957747796703712,
+      -0.5182674514968886,
+      0.07486513173373033,
+      0.3795807139268532
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.7162052715157242,
+      "beta": 1.0498472178031009e-05,
+      "ksyn": 0.002562493323450462,
+      "kdim": 2.367694463776456,
+      "kdegi": 79.05030859002937
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15686,
+      "num_rejected_steps": 4314,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 140
+  },
+  {
+    "sample": 44,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.79677072268112,
+      -0.7829123382651771,
+      -0.1343941660845971,
+      -0.09660682799959552,
+      -0.008340143944609468
+    ],
+    "physical_parameters": {
+      "Bacmax": 9635.042028440828,
+      "beta": 0.00012174140474721078,
+      "ksyn": 0.2128281988163984,
+      "kdim": 0.3288257807829839,
+      "kdegi": 0.9084463415268484
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 1125,
+      "num_rejected_steps": 3,
+      "num_steps": 1128
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.020866810396314134,
+      10.0,
+      0.22916099990496766,
+      0.019068737618898508
+    ],
+    "loss": 0.7026627199314442
+  },
+  {
+    "sample": 45,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.24353667067244866,
+      -0.18546510458467547,
+      -0.26990770682895693,
+      0.7968929301399501,
+      -0.4804396773364421
+    ],
+    "physical_parameters": {
+      "Bacmax": 16.507577822354257,
+      "beta": 0.11821551459954283,
+      "ksyn": 0.04471584744855157,
+      "kdim": 9648.60773986823,
+      "kdegi": 0.003960970549098311
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 2310,
+      "num_rejected_steps": 273,
+      "num_steps": 2583
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      16.50757782235425,
+      10.0,
+      9.734054459928361e-07,
+      4.857023460786107
+    ],
+    "loss": 15.885963363200434
+  },
+  {
+    "sample": 46,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.3671411551541144,
+      0.5821131691498189,
+      0.9209801912071001,
+      0.9817072116265371,
+      0.21840793483046683
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.014598029072534349,
+      "beta": 813.8902497532885,
+      "ksyn": 40262.52022957281,
+      "kdim": 81009.51985965221,
+      "kdegi": 12.360603462458931
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15729,
+      "num_rejected_steps": 4271,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 14
+  },
+  {
+    "sample": 47,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.6759831116958439,
+      0.7695144171359394,
+      0.08135278142201341,
+      0.4095911878700811,
+      -0.23762368239003395
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0004169504448435184,
+      "beta": 7039.990704066246,
+      "ksyn": 2.551313970175384,
+      "kdim": 111.67499439600113,
+      "kdegi": 0.06484576051480397
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15694,
+      "num_rejected_steps": 4306,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 2
+  },
+  {
+    "sample": 48,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.36247106071175894,
+      0.8574842774461611,
+      -0.3645224548188286,
+      -0.44955964081710065,
+      0.08876516392038813
+    ],
+    "physical_parameters": {
+      "Bacmax": 64.91653093257817,
+      "beta": 19383.01747175162,
+      "ksyn": 0.015044845281972023,
+      "kdim": 0.005651995350518567,
+      "kdegi": 2.778598645067912
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15677,
+      "num_rejected_steps": 4323,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 49,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6027826014389672,
+      -0.909061407302975,
+      0.48478281119723676,
+      -0.9708864891122503,
+      0.9267530573310492
+    ],
+    "physical_parameters": {
+      "Bacmax": 1032.5545557599241,
+      "beta": 2.8490033734868397e-05,
+      "ksyn": 265.40802850179637,
+      "kdim": 1.3981943873267846e-05,
+      "kdegi": 43029.39963469704
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 50,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.2950607994881236,
+      -0.6839516023504427,
+      -0.1146351690144587,
+      -0.2737259103912856,
+      -0.6982762970078938
+    ],
+    "physical_parameters": {
+      "Bacmax": 29.874730585167107,
+      "beta": 0.0003804012963237883,
+      "ksyn": 0.2671924332147436,
+      "kdim": 0.04279277478130126,
+      "kdegi": 0.0003225659451949295
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 130,
+      "num_rejected_steps": 3,
+      "num_steps": 133
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.050045151943135,
+      10.0,
+      0.6742154644724614,
+      7.919388423714927
+    ],
+    "loss": 4.239473767465974
+  },
+  {
+    "sample": 51,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.749798197814457,
+      -0.5627898962856877,
+      0.9949659907199981,
+      0.48868229004493347,
+      -0.15789549918322598
+    ],
+    "physical_parameters": {
+      "Bacmax": 5610.363352897937,
+      "beta": 0.0015347955049089441,
+      "ksyn": 94369.13050942204,
+      "kdim": 277.5948790783174,
+      "kdegi": 0.16237624877257334
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15703,
+      "num_rejected_steps": 4297,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 9
+  },
+  {
+    "sample": 52,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.5586987474181802,
+      0.18054370666927078,
+      -0.6502098226652424,
+      0.2923807272508101,
+      -0.8895055811763428
+    ],
+    "physical_parameters": {
+      "Bacmax": 621.5752840246058,
+      "beta": 7.993160496326515,
+      "ksyn": 0.0005609845320436251,
+      "kdim": 28.967007798365827,
+      "kdegi": 3.568388196303562e-05
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 582,
+      "num_rejected_steps": 106,
+      "num_steps": 688
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      621.5752840246058,
+      10.0,
+      0.0002169553628311698,
+      9.93093150394169
+    ],
+    "loss": 619.1454200446423
+  },
+  {
+    "sample": 53,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.1973109333224009,
+      0.11977024593583763,
+      0.02058963205448916,
+      -0.7723857270807888,
+      -0.5338708208920893
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.10314432388392031,
+      "beta": 3.9705551229426255,
+      "ksyn": 1.2675005611366892,
+      "kdim": 0.00013742677803396135,
+      "kdegi": 0.002141144095265314
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 4069,
+      "num_rejected_steps": 1111,
+      "num_steps": 5180
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.10314435331262362,
+      10.0,
+      8.007387362187297,
+      2.2466141203393315
+    ],
+    "loss": 0.949367924066513
+  },
+  {
+    "sample": 54,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.7014302619341761,
+      -0.7345890293703976,
+      -0.003959802709228022,
+      0.2128830452335697,
+      -0.35166522873879946
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0003110632393413171,
+      "beta": 0.00021235126532920894,
+      "ksyn": 0.9554346478069654,
+      "kdim": 11.598857855476675,
+      "kdegi": 0.01744511578724356
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 303,
+      "num_rejected_steps": 5,
+      "num_steps": 308
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      0.03231170698600771,
+      1.1709158877913013
+    ],
+    "loss": 0.8081820031979559
+  },
+  {
+    "sample": 55,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.16281129904959768,
+      -0.4753681090796895,
+      -0.9278043580038847,
+      0.8473952161308351,
+      0.7216180610362783
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.15344173649552492,
+      "beta": 0.004199131300675256,
+      "ksyn": 2.296033445477784e-05,
+      "kdim": 17257.428417919706,
+      "kdegi": 4055.928637806248
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 3
+  },
+  {
+    "sample": 56,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.2724231805868865,
+      -0.42330128119291544,
+      -0.7178458538940471,
+      -0.725244833501479,
+      -0.11241620205253178
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.04343942791328092,
+      "beta": 0.007647044087526142,
+      "ksyn": 0.0002574961443887715,
+      "kdim": 0.0002364698808228002,
+      "kdegi": 0.27410628255023045
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 294,
+      "num_rejected_steps": 76,
+      "num_steps": 370
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.04343942791275358,
+      10.0,
+      0.3262350641926937,
+      9.16473527224336e-05
+    ],
+    "loss": 0.6863663847093334
+  },
+  {
+    "sample": 57,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8634721473470888,
+      0.19530664888610416,
+      0.5682221295760148,
+      -0.01598173404392822,
+      0.5822850953050043
+    ],
+    "physical_parameters": {
+      "Bacmax": 4.815476449694107e-05,
+      "beta": 9.473997034044144,
+      "ksyn": 693.6024968874912,
+      "kdim": 0.8319387049177306,
+      "kdegi": 815.5028375767646
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 18894,
+      "num_rejected_steps": 1106,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 17
+  },
+  {
+    "sample": 58,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8900315959199496,
+      0.3770639952916084,
+      0.24783923181778578,
+      -0.5387231152428593,
+      0.8566580482077111
+    ],
+    "physical_parameters": {
+      "Bacmax": 3.546843452650786e-05,
+      "beta": 76.79270689319074,
+      "ksyn": 17.345872870788515,
+      "kdim": 0.002024810684261503,
+      "kdegi": 19199.514245499275
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15686,
+      "num_rejected_steps": 4314,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 59,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9223556665323993,
+      0.6564585279991504,
+      0.6609610038632268,
+      0.029163822144965268,
+      0.3606571238459175
+    ],
+    "physical_parameters": {
+      "Bacmax": 40905.18231532685,
+      "beta": 1915.5462398806617,
+      "ksyn": 2017.4604020790964,
+      "kdim": 1.3990044977156888,
+      "kdegi": 63.57489026585573
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15659,
+      "num_rejected_steps": 4341,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  },
+  {
+    "sample": 60,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.1700809508521699,
+      0.44519585350414936,
+      -0.1997708376374966,
+      -0.3277839318751343,
+      0.4410442584559533
+    ],
+    "physical_parameters": {
+      "Bacmax": 7.086058840468108,
+      "beta": 168.25937349925894,
+      "ksyn": 0.1002641812652184,
+      "kdim": 0.022965734545230054,
+      "kdegi": 160.40625234127026
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 19969,
+      "num_rejected_steps": 31,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 87
+  },
+  {
+    "sample": 61,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.09029993902667366,
+      -0.36398097678949204,
+      -0.41987984883451857,
+      0.9064784874045428,
+      0.6708016337532967
+    ],
+    "physical_parameters": {
+      "Bacmax": 2.8281321257507335,
+      "beta": 0.015138927740331369,
+      "ksyn": 0.007954277824724016,
+      "kdim": 34071.59282446571,
+      "kdegi": 2259.478268980556
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15685,
+      "num_rejected_steps": 4315,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 5
+  },
+  {
+    "sample": 62,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.4763637294505737,
+      -0.19622026997139874,
+      -0.5748877108332163,
+      -0.16637296433237725,
+      -0.9489106290188617
+    ],
+    "physical_parameters": {
+      "Bacmax": 0.0041512735538177074,
+      "beta": 0.10444764447877927,
+      "ksyn": 0.0013352464925621855,
+      "kdim": 0.14727708452000274,
+      "kdegi": 1.8007227645297915e-05
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 145,
+      "num_rejected_steps": 32,
+      "num_steps": 177
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 714,
+    "state_scale": [
+      0.013816608995338,
+      10.0,
+      0.019320580287015242,
+      0.16284831729386748
+    ],
+    "loss": 0.6737941026888401
+  },
+  {
+    "sample": 63,
+    "experiment": 1,
+    "filename": "culture.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.026235683273121424,
+      0.9677651730396206,
+      0.8564276228493186,
+      0.1766761836793389,
+      -0.5971754016719834
+    ],
+    "physical_parameters": {
+      "Bacmax": 1.3526281342201696,
+      "beta": 68996.3100628318,
+      "ksyn": 19148.64793128647,
+      "kdim": 7.645060355637107,
+      "kdegi": 0.0010330539238849192
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15692,
+      "num_rejected_steps": 4308,
+      "num_steps": 20000
+    },
+    "time_start": 0.0,
+    "time_end": 3565.0,
+    "requested_rows": 714,
+    "finite_rows": 1
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "verdict": "Limited fit with 5 of 10 parameters pinned at search bounds; Cer_obs residuals are large (RMSE 0.43\u20131.02) while Sphinga and Sphingo are well-fitted (RMSE < 0.002). The optimizer exhausted its 5-iteration budget with negligible loss change (0.93996 \u2192 0.93989), and no verified final-point gradient exists. The bound-pinning pattern (k_d, k3, k5 near 1000; k00 and alpha_cer at lower bounds) combined with the persistent negative Cer bias suggests the current parameter space or model structure cannot adequately represent the Cer dynamics in the data.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "LIMITATIONS",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to obtain a verified final-point gradient before any further optimisation. Compare the autodiff gradient against a finite-difference check with at least two step sizes (e.g. 1e-5 and 1e-7) to rule out numerical gradient errors that could be driving parameters to bounds.",
+      "reason": "The limitations note states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' With 5 parameters at bounds and only 0.00007 total loss reduction over 5 Adam iterations, an incorrect or unreliable gradient is a plausible contributor. A discriminating step-size comparison is needed before attributing the bound-pinning to the model rather than to a numerical defect."
+    },
+    {
+      "evidence_ids": [
+        "EXPERIMENTS"
+      ],
+      "action": "Inspect the named residual plots fit_exp1.png through fit_exp8.png, focusing on the Cer_obs channel. Determine whether the negative bias (model underpredicts Cer) is uniform in time or concentrated in specific time regions, and whether the H=0 experiments (exp 5\u20138, losses 1.31\u20131.44) show a different temporal pattern from the H=1 experiments (exp 1\u20134, losses 0.42\u20130.55).",
+      "reason": "Cer_obs RMSE ranges from 0.434 (exp 1) to 0.729 (exp 6) with consistently negative bias (\u22120.28 to \u22120.47), while Sphinga and Sphingo RMSE are < 0.002. The H=0 experiments are ~3\u00d7 worse in loss. Understanding the temporal shape of the Cer mismatch (e.g. whether the model decays Cer too fast early or too slow late) is essential before deciding whether the issue is a rate-constant bound, a missing reaction pathway, or an initial-condition mismatch."
+    },
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Assess with domain knowledge whether k_d \u2248 997, k3 \u2248 997, k5 \u2248 1000 (all at the 1000 upper bound), k00 = 0.001 (lower bound), and alpha_cer = \u22120.999 (lower bound) are physically plausible for the sphingolipid system. If any bound is unjustified, revise it and run a full fit (population + gradient), not a gradient-only restart.",
+      "reason": "Five parameters are at or within 0.02 % of a bound. In the model, k_d and k3 appear as large degradation/flux terms; pushing them to the maximum of the log10 [0.001, 1000] interval while k00 (Sphinga production) is at its minimum suggests the optimizer is compensating for a structural deficiency. Changing bounds alters the search space and invalidates the current gradient trajectory, so a full fit is required."
+    },
+    {
+      "evidence_ids": [
+        "BOUND",
+        "EXPERIMENTS"
+      ],
+      "action": "If the bounds are confirmed physically appropriate, evaluate whether the model structure can represent the observed Cer dynamics. Specifically, examine whether the single degradation term (k1 + k_d)\u00b7Cer in dCer/dt is sufficient, or whether the data require an additional production or sequestration pathway. This is a scientific model change, not a numerical correction, and would require re-deriving the ODE system, re-checking with JAX, and a full refit.",
+      "reason": "The model has dCer/dt = k0\u00b7Sphinga \u2212 (k1+k_d)\u00b7Cer + k2\u00b7Sphingo. With k_d pinned at 997 and k1 \u2248 2.5, the effective Cer half-life is ~0.7 ms, yet the data show Cer persisting at O(0.5\u20131.0) over the observation window. The optimizer cannot reconcile this within the current structure without pushing parameters to their extremes. A structural revision is a scientific judgement call that cannot be resolved by further optimisation alone."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "BOUND"
+      ],
+      "action": "Run a sloppiness / Hessian analysis (or a finite-difference Hessian) at the current parameter point to identify weak or flat directions. This will clarify whether the bound-pinning reflects true identifiability limits or merely a local optimum in a flat valley.",
+      "reason": "Sloppiness was skipped in this run. With 5 parameters at bounds and near-zero loss sensitivity (0.00007 change over 5 iterations), it is impossible to distinguish a genuine optimum from a flat, poorly-identified region without curvature information. Weak modes would indicate that the data do not constrain those parameters, which changes the interpretation of the bound-pinning from 'optimizer stuck' to 'data insufficient'."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient exists; the flat optimizer trace (loss 0.93996 \u2192 0.93989 over 5 iterations) cannot be interpreted as convergence or as a true local minimum.",
+    "Sloppiness analysis was skipped, so parameter identifiability and the presence of flat/weak directions are unknown.",
+    "Each experiment has only 2 time points (one in the early region, one in the late region; the middle region has 0 points), which severely limits the ability to resolve temporal dynamics and may make many rate constants unidentifiable.",
+    "The large Cer_obs residuals (RMSE 0.43\u20131.02) could arise from model-structure inadequacy, inappropriate bounds, poor initial conditions, or data-quality issues; the current evidence cannot distinguish among these causes.",
+    "The H=0 experiments (exp 5\u20138) have different initial conditions (Cer = 0.822, S1P = 2.07) and show ~3\u00d7 higher loss than H=1 experiments; whether this reflects a genuine model limitation for the H=0 regime or a data/IC issue cannot be determined from this run alone.",
+    "No noise levels or measurement uncertainties are specified in the snapshot, so the absolute magnitude of the residuals cannot be judged against expected experimental error."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

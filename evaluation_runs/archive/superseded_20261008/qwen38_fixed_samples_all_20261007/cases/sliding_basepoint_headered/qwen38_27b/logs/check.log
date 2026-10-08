@@ -1,0 +1,11 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sliding_basepoint_headered/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sliding_basepoint_headered/qwen38_27b/session
+warning: Population size is 4 while there are 5 trainable parameters; DE typically requires population > dimension for valid mutation/crossover, which may cause degenerate or failed generations.
+warning: Population num_iters=1 and gradient num_iters=5 are extremely low; the fit will almost certainly not converge to a meaningful optimum.
+warning: The expression np.abs(v1) * np.sign(v1) appears in both _observables and user_defined_system; it is algebraically identical to v1 but introduces a zero-gradient point at v1=0 under JAX autodiff, which could subtly affect gradient-based refinement near the initial condition v1=11.06 transitioning through zero.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 25 (5× the 5 trainable parameters) and num_iters to ≥ 50 for a meaningful DE search; similarly raise gradient num_iters to ≥ 200 for the Adam phase.
+recommendation: The loss correctly implements the user's stated sqrt(mean of all normalized squared residuals) with max-abs normalization per column and a stabilizing 1e-12 epsilon; no change needed.
+recommendation: All parameter ranges spanning ≥ 2 orders of magnitude (c2, Dk, m1, m2) already use logscale=True, which is appropriate; Dc (0.1–1.0) correctly uses linear scale.
+recommendation: The writeout_description produces 11 columns matching the user's request (time, 2 measured, 6 states, 2 simulated observables); no shape mismatch with the 71-row dataset.
+recommendation: The ODE uses smooth tanh-based switching instead of hard sign/step functions, which is JAX-differentiable and avoids discontinuity issues during JIT compilation.

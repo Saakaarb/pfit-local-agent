@@ -1,0 +1,53 @@
+{
+  "verdict": "The model shows a qualitative temporal mismatch (negative time correlation in all four experiments) and a large systematic under-prediction in the high-dose experiments (bias \u2248 \u221216.5, RMSE \u2248 17) versus a smaller over-prediction in the low-dose experiments (bias \u2248 +0.4, RMSE \u2248 0.5). The 5-iteration Adam refinement reduced the log-scale loss by only 0.005 (1.1588 \u2192 1.1538) and stopped at its budget. No verified gradient is available, so convergence cannot be confirmed. The dominant issue is model\u2013data mismatch in dynamics and dose-response, not optimizer exhaustion.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the four trajectory plots (fit_exp1.png, fit_exp2.png, fit_exp3.png, fit_exp4.png) to characterise the temporal shape of the mismatch: is the model response delayed, inverted, or of the wrong amplitude relative to the data?",
+      "reason": "All four experiments show negative time correlation (\u22120.68, \u22120.62, \u22120.31, \u22120.33) and near-zero or negative lag-1 correlation (0.57, 0.62, \u22120.03, \u22120.04). A negative time correlation means the model moves opposite to the data over the observation window, which is a qualitative dynamics problem that no amount of additional gradient iterations will fix. The plots will reveal whether the issue is a phase shift, an inverted response, or a wrong steady-state level."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "Check the initial conditions and input timing for experiments 3 and 4 (Ins = 100.0) against the data. Verify that the model's initial insulin concentration and the timing of any bolus or infusion in the data file are consistent. In particular, confirm whether the data's Insulin_signal at t \u2248 0 is near the model's predicted initial value (offset + scale\u00b7Ins \u2248 1.73 + 0.228\u00b7100 \u2248 24.5) or substantially higher.",
+      "reason": "Experiments 3\u20134 have a bias of \u221216.48 and \u221216.16 (model under-predicts by ~16 units) while experiments 1\u20132 have a bias of +0.41 and +0.46 (model over-predicts by ~0.4 units). The observable is offset + scale\u00b7(Ins + fragments\u00b7InsulinFragments)/(1 + \u2026/km); with scale = 0.228 (range_fraction 0.14, near its 0.1 lower bound) and km = 3.9 \u00d7 10\u2076 (denominator \u2248 1), the model's maximum signal for Ins = 100 is \u2248 24.5. If the data values are ~40, the model structurally cannot reach them with scale \u2264 1.0 unless Ins or InsulinFragments grow substantially. This points to either wrong initial conditions, a missing input, or a model-structure gap for the high-dose regime."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "Run a gradient probe (diagnose --probe-gradients) at the current parameter point to verify whether the optimizer is at a genuine local minimum of the log-scale loss before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The optimizer trace shows only 5 Adam iterations with a total loss reduction of 0.005 (1.1588 \u2192 1.1538), and the last two iterations improved by only 0.001. The limitations note explicitly states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' Without a verified gradient, it is impossible to distinguish a true local minimum from a stalled or ill-conditioned optimisation. If the gradient is large, a restart with more iterations may help; if it is small, the issue is model mismatch, not optimisation."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "Evaluate whether the parameter bounds are adequate for the high-dose experiments. Specifically, test whether scale (currently 0.228, bounded 0.1\u20131.0) and km (currently 3.9 \u00d7 10\u2076, bounded 10\u00b3\u201310\u2078) can jointly produce the observed signal magnitudes for Ins = 100. If the data requires signals well above ~25, the current bounds on scale may be too restrictive, or the model may need an additional dose-dependent term.",
+      "reason": "With the current observable formula and parameter values, the signal for Ins = 100 is capped near offset + scale\u00b7100 \u2248 24.5 (since km is so large the saturation term is negligible). The bias of \u221216.5 in experiments 3\u20134 implies the data is ~41 units, which is unreachable with scale \u2264 1.0 unless InsulinFragments or other state variables contribute substantially. This is a structural/bounds question, not a convergence question, and requires the user's judgement about the intended model form."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Compare the time-region residuals within each experiment. In experiments 1\u20132 the early window (0.25\u201320.17 min, 11 points) has RMSE 0.56\u20130.59 while the later windows are 0.11\u20130.32; in experiments 3\u20134 the early window has RMSE 15.4\u201315.7 and the middle window is 20.5\u201320.7. Determine whether the mismatch is uniform or concentrated in a specific phase (e.g., peak vs. clearance).",
+      "reason": "The time-region breakdown shows the error is not uniform: in experiments 3\u20134 the middle window (20.2\u201340.1 min) has the highest RMSE (20.7, 20.5), suggesting the model's peak or clearance phase is most wrong. In experiments 1\u20132 the early window dominates. This pattern is consistent with a timing or rate-constant mismatch rather than a simple offset error, and guides which model terms (ka1, kd1, kin, kout) are most likely responsible."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat 5-iteration Adam trace (1.1588 \u2192 1.1538) does not establish convergence or rule out a stalled optimiser.",
+    "Sloppiness analysis was skipped, so parameter identifiability and weak/negative curvature modes are unknown. It is possible that several parameters (e.g., ka2fold, kout_frag, km) are strongly correlated and the fit is under-determined.",
+    "The residual metrics (RMSE, bias, correlation) are computed in the linear signal space, while the optimisation loss is in log\u2081\u2080 space normalised by the data range. A negative linear-space time correlation does not necessarily imply the log-space loss is anti-correlated, but it does indicate a qualitative shape mismatch.",
+    "The DE population stage used only 1 iteration with 4 members (seed_loss 1.1588), so the initial parameter point is a very limited exploration of the 15-dimensional log-scale space. The true global optimum may be far from the current point.",
+    "The data files (dataset_1.csv through dataset_4.csv) are not directly accessible; the exact signal magnitudes, sampling density (16 points per experiment), and time span (~60 min) are inferred from the residual statistics. The actual data values cannot be confirmed without inspecting the files.",
+    "The model equations, parameter bounds, and observable definition are user-defined. Whether the two-receptor, two-compartment insulin model with the current observable is the correct scientific representation of the Schwen insulin assay is a domain-judgement question that the numerical evidence alone cannot resolve."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

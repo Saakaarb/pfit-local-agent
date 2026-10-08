@@ -1,0 +1,9 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/oregonator/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/oregonator/qwen38_27b/session
+warning: Population size is 4 with DE for 4 trainable parameters (typically ≥5×dim = 20 is recommended) and only 1 DE iteration, making global exploration extremely limited.
+warning: Gradient optimization is set to only 5 iterations (adam), which is very few for converging a 4-parameter stiff ODE fit.
+warning: Kvaerno5 is an explicit 5th-order Runge-Kutta integrator. With eps1 as low as 0.0004 and eps2 as low as 4e-06 the Oregonator is stiff; max_steps=10000 with initial_timestep=1e-06 may be insufficient to cover the full time range (0–30) in stiff regions. The solver_recovery_max_steps=50000 provides a safety net but solver failures are possible.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 20 (5×4 parameters) and num_iters to 50–100 for meaningful differential-evolution exploration of the 4 log-scaled parameters spanning 4 orders of magnitude each.
+recommendation: Increase gradient num_iters from 5 to at least 50–100 to allow the Adam optimizer to converge the loss landscape, especially given the stiff dynamics and the 1e-4→1e-5 learning-rate schedule over 2000 transition steps.
+recommendation: Monitor solver step counts during the first few gradient evaluations; if Kvaerno5 frequently hits max_steps=10000 before reaching t=30, consider raising max_steps or relying on the solver_recovery path (50000 steps) to ensure full time-range coverage.

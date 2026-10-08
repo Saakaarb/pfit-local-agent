@@ -1,0 +1,39 @@
+I have two EGF step-stimulation experiments and want to fit the EGFR, Akt and S6 signalling cascade to both together. This follows the model of Fujita et al., Science Signaling (2010).
+
+Use seconds for time. The states are EGFR, EGF_EGFR, pEGFR, pEGFR_Akt, Akt, pAkt, pAkt_S6, S6 and pS6. The extracellular ligand level L is held constant during each experiment, so dL/dt = 0. The records end at 3600 seconds, when the step exposure ends; there are no post-exposure observations here.
+
+These are the net reaction rates (products mean multiplication):
+v1 = reaction_1_k1 L EGFR - reaction_1_k2 EGF_EGFR
+v2 = reaction_2_k1 Akt pEGFR - reaction_2_k2 pEGFR_Akt
+v3 = reaction_3_k1 pEGFR_Akt
+v4 = reaction_4_k1 pEGFR
+v5 = reaction_5_k1 S6 pAkt - reaction_5_k2 pAkt_S6
+v6 = reaction_6_k1 pAkt_S6
+v7 = reaction_7_k1 pAkt
+v8 = reaction_8_k1 pS6
+v9 = reaction_9_k1 EGF_EGFR
+v10 = EGFR_turnover EGFR
+v11 = 68190 EGFR_turnover
+
+The balances are
+dEGFR/dt = -v1 - v10 + v11
+dEGF_EGFR/dt = v1 - v9
+dpEGFR/dt = -v2 + v3 - v4 + v9
+dpEGFR_Akt/dt = v2 - v3
+dAkt/dt = -v2 + v7
+dpAkt/dt = v3 - v5 + v6 - v7
+dpAkt_S6/dt = v5 - v6
+dS6/dt = -v5 + v8
+dpS6/dt = v6 - v8.
+
+At time zero in both records, EGFR = 37536153.8059105, Akt = 0.026930923029049 and S6 = 188.063148677911. All the complexes and phosphorylated species start at zero. Keep these initial values fixed at their reference calibration values. The constant 68190 in the receptor production rate is part of the model; it is not the initial EGFR value.
+
+Use egf_1.csv with L initially 1 ng/mL and egf_10.csv with L initially 10 ng/mL. Each file has columns time, pEGFR_tot, pAkt_tot and pS6_tot. Their predictions are:
+pEGFR_tot = scaling_pEGFR_tot (pEGFR + pEGFR_Akt)
+pAkt_tot = scaling_pAkt_tot (pAkt + pAkt_S6)
+pS6_tot = scaling_pS6_tot pS6.
+The rate constants and the three measurement scales are shared between the two doses.
+
+Estimate EGFR_turnover, reaction_1_k1, reaction_1_k2, reaction_2_k1, reaction_2_k2, reaction_3_k1, reaction_4_k1, reaction_5_k1, reaction_5_k2, reaction_6_k1, reaction_7_k1, reaction_8_k1, reaction_9_k1, scaling_pEGFR_tot, scaling_pAkt_tot and scaling_pS6_tot. Each of these 16 parameters has logarithmic bounds 1e-8 to 1e8, as in the reference problem. L is fixed by the experiment.
+
+For each record, normalize each channel's residual by that channel's maximum absolute measured value, and compute the RMSE over the normalized residuals of all channels and times. Minimize the average of the two record losses. Do not fit observation noise or add priors. Use a stiff solver: binding and receptor turnover have very different time scales. This is a reduced two-dose estimation task, not a claim of reproducing the full study.

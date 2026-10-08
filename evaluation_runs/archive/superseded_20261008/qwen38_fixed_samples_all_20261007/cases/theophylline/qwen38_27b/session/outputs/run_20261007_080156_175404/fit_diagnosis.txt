@@ -1,0 +1,64 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/theophylline/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_080156_175404
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.4733E-01, best loss 3.4733E-01, final loss 3.4733E-01
+- NODE: 2 iterations, first loss 3.4685E-01, best loss 3.4672E-01, final loss 3.4672E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: theophylline_sub6.csv; loss=0.3467236456710688; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_080156_175404/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- ke=0.998849 is at 99.98% of its log10 search interval.
+- [BOUND] ke=0.998849 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.539461; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, C_plasma: RMSE=2.2329, bias=-1.90839, time correlation=-0.044753786293796734, lag-1=0.641764095199862.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_080156_175404/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_080156_175404/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The fit is not converged and is likely constrained: ke=0.9988 sits at 99.98 % of its log10 upper bound (1.0), the Hessian has one negative mode, the normalised gradient norm is 0.539, and the model under-predicts C_plasma (bias −1.91, time-correlation ≈ 0). The optimizer exhausted its 5-iteration budget with only a 0.0006 loss reduction, so the current point is a boundary-constrained, non-stationary saddle-like point rather than a local minimum.
+1. Verify whether ke > 1.0 h⁻¹ is physically plausible for theophylline elimination and whether the upper bound of 1.0 is justified by the literature or by the data. If the bound must be widened, re-run a full fit (DE + gradient) with the revised range; do not simply nudge the bound and restart from the current point. [BOUND, SLOPPINESS] ke=0.998849 is at 99.98 % of the [0.01, 1.0] log10 interval (range_fraction 0.99975), and the Hessian reports 1 negative mode. A parameter pinned at a bound with negative curvature in some direction indicates the optimizer is being constrained rather than having found a minimum. The negative bias (−1.908) means the model under-predicts C_plasma, yet ke is already at its maximum—this is internally inconsistent unless the bound or the model structure is the limiting factor.
+2. Run diagnose --probe-gradients (finite-difference vs autodiff comparison) at the current parameter point before any further optimisation. If a mismatch is found, correct the gradient source first; if gradients agree, the negative Hessian mode is a genuine saddle and the point is not a minimum. [STATIONARITY, SLOPPINESS] The normalised gradient ∞-norm is 0.539 (not small) and the Hessian has 1 negative eigenvalue. These two facts together mean the current point is not a stationary minimum. Before spending more iterations, it is essential to confirm that the gradients the optimizer is using are numerically correct; an unreliable gradient would make the negative mode and the boundary pinning artefacts rather than true geometry.
+3. Inspect the named plot fit_exp1.png and the time-region residuals. In particular, check whether the initial condition A_gut=320, A_plasma=0 and the dosing time in dataset_1.csv are consistent with the observed C_plasma profile. The near-zero time correlation (−0.045) and large negative bias (−1.908) suggest a structural or input-timing mismatch rather than a parameter-tuning problem. [RESIDUAL] RMSE=2.233, bias=−1.908, time-correlation=−0.045, lag-1=0.642. The model captures neither the amplitude nor the temporal shape of C_plasma. The early time region (0–7.95 h, 8 points) has RMSE 2.266 and the mid region (7.95–15.9 h, 2 points) has RMSE 2.546, so the mismatch is not confined to one phase. Before attributing this to parameter values, rule out incorrect initial conditions, dosing time, or a missing compartment.
+4. Only if the ke bound is confirmed appropriate AND gradient checks pass AND the residual inspection does not reveal a structural/input issue, perform a gradient-only restart from this run with gradient_opt.num_iters increased (e.g. 50–100) and the same Adam schedule. Do not change the loss function or the model equations. [BUDGET, STATIONARITY] The optimizer stopped at its 5-iteration budget (termination='iteration_budget') with a loss change of only 0.0006 (0.34733→0.34672). The gradient norm of 0.539 indicates room for further descent. However, a gradient-only restart is appropriate only when the existing model, bounds, and gradient source are all validated; the negative Hessian mode and boundary pinning must be resolved first.
+5. If widening the ke bound and additional iterations still leave the bias near −1.9 and the time correlation near zero, evaluate whether a one-compartment model with first-order absorption is adequate for theophylline. This would be a scientific model change (e.g. adding a second compartment or a transit-absorption model) and would require a full re-fit with new equations, not a parameter tweak. [RESIDUAL, BOUND] Theophylline is known to have multi-compartmental kinetics. The current model (single gut → single plasma compartment) may be structurally unable to reproduce the observed C_plasma time course, especially if the data span multiple half-lives. The combination of ke pinned at its bound, a negative Hessian mode, and a near-zero time correlation is consistent with model-form misspecification rather than a parameter-estimation failure.
+Limitation: The negative Hessian mode (1 negative eigenvalue) cannot be distinguished from a numerical artefact without a passing finite-difference gradient check; it may reflect a true saddle or an integration/autodiff inconsistency.
+Limitation: The evidence does not include the raw C_plasma data values or the dosing time, so it is impossible to confirm whether the initial condition A_gut=320 and the time grid in dataset_1.csv are consistent with the observed profile.
+Limitation: A single experiment with 11 data points provides very limited information for identifying three parameters (ka, ke, Vd); identifiability and parameter correlation cannot be assessed from this run alone.
+Limitation: The DE phase used only population_size=4 and 1 iteration, so the initialisation quality is unverified; the gradient phase started from a single DE candidate, and the loss surface may contain basins the search never visited.
+Limitation: No noise model or measurement-error specification is present in the snapshot, so the RMSE and bias cannot be interpreted in terms of statistical significance or goodness-of-fit relative to expected variability.
+Limitation: The plot fit_exp1.png is referenced by filename only; no visual inspection was performed, and the temporal shape of the residuals must be confirmed by the user.

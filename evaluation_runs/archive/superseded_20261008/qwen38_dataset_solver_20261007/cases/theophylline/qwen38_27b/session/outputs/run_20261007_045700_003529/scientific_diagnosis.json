@@ -1,0 +1,160 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_045700_003529",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_045700_003529/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "ke=0.998849 is at 99.98% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 0.539461; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, C_plasma: RMSE=2.2329, bias=-1.90839, time correlation=-0.04475387745838554, lag-1=0.641764118431002.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 11,
+          "missing": 0,
+          "rmse": 2.2329001089996274,
+          "mae": 1.9083926415909354,
+          "bias": -1.9083926415909354,
+          "max_abs": 3.210238600124331,
+          "time_correlation": -0.04475387745838554,
+          "lag1_correlation": 0.641764118431002,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 7.95,
+              "count": 8,
+              "rmse": 2.265809131154852
+            },
+            {
+              "start": 7.95,
+              "end": 15.9,
+              "count": 2,
+              "rmse": 2.5461804759148277
+            },
+            {
+              "start": 15.9,
+              "end": 23.85,
+              "count": 1,
+              "rmse": 0.8983727967935524
+            }
+          ],
+          "name": "C_plasma",
+          "observes": "C_plasma"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ka",
+      "value": 0.24453598990758119,
+      "range_fraction": 0.19417139301409614,
+      "logscale": true
+    },
+    {
+      "name": "ke",
+      "value": 0.9988494565412883,
+      "range_fraction": 0.9997500188276526,
+      "logscale": true
+    },
+    {
+      "name": "Vd",
+      "value": 14.062283381996606,
+      "range_fraction": 0.304027743006096,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.34733442761013705,
+    "final_loss": 0.3467236194098261,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.34672361940982616
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_045700_003529/de_fitting.log",
+      "rows": 1,
+      "first": 0.34733,
+      "final": 0.34733,
+      "best": 0.34733,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.34733
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_045700_003529/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.34685,
+      "final": 0.34672,
+      "best": 0.34672,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.34685
+        ],
+        [
+          5,
+          0.34672
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.34672361940982616,
+  "experiment_losses": [
+    0.34672361940982616
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 0,
+    "negative_modes": 1
+  },
+  "normalized_gradient_inf_norm": 0.5394606113756218,
+  "gradient_to_loss_ratio": 1.5558807683591385,
+  "verdict": "ke=0.998849 is at 99.98% of its log10 search interval."
+}

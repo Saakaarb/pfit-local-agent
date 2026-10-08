@@ -1,0 +1,26 @@
+{
+  "previous_batch": "evaluation_runs/qwen38_comparison_20261005",
+  "framework_commit": "55ff4d2fa0468255d7ca20d3e2b573bb75719e15",
+  "excluded": [
+    "sliding_basepoint"
+  ],
+  "model": "qwen3.8:27b",
+  "think": true,
+  "stages": [
+    "new",
+    "check",
+    "jax",
+    "run",
+    "diagnose"
+  ],
+  "fresh_sessions": true,
+  "input_policy": "Unchanged frozen human-written prompts and data; no prior YAML or generated code copied",
+  "solver_policy": "Production refinement-first sampled max_steps selection and one fixed-ceiling DE tolerance comparison; defaults unchanged",
+  "smoke_budget": {
+    "population_size": 4,
+    "de_iterations": 1,
+    "adam_iterations": 5,
+    "workers": 1
+  },
+  "notes": "Prior initial_time setup retained for Schwen/Borghans. Missing-spec folders remain blocked. No full fits. Hardware and timing captured in manifest/model metadata."
+}

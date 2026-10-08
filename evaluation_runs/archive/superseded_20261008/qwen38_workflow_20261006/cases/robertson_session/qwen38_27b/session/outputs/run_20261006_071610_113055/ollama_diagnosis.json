@@ -1,0 +1,45 @@
+{
+  "verdict": "The Robertson fit stopped at a 5-iteration gradient budget with a non-stationary gradient (\u2016g\u2016\u221e = 0.176) and one negative Hessian mode, so the current point is not a local minimum. The loss moved only 0.37925 \u2192 0.37908, consistent with an under-iterated or saddle-point situation rather than convergence. Residuals are moderate (y1/y3 RMSE \u2248 0.051) and degrade in later time regions, while y2 is well-fit (RMSE \u2248 2.3 \u00d7 10\u207b\u2075). No numerical failure or replay mismatch is reported.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "SLOPPINESS"
+      ],
+      "action": "Run diagnose --probe-gradients to verify the autodiff gradient against finite differences before spending further iterations. The negative Hessian mode (1 negative eigenvalue) combined with \u2016g\u2016\u221e = 0.176 could indicate a genuine saddle point or a gradient/Hessian inconsistency in this stiff system.",
+      "reason": "STATIONARITY reports \u2016g\u2016\u221e = 0.176 (not at a stationary point) and SLOPPINESS reports 1 negative mode. For a stiff Robertson system, a negative Hessian mode can arise from either a true saddle or from finite-difference / solver tolerance issues. A gradient check discriminates between these before committing to a longer run."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY"
+      ],
+      "action": "If the gradient check passes, increase gradient_opt.num_iters from 5 to at least 50\u2013100 and perform a gradient-only restart from this run (same model, same bounds, same initial point). Do not change the user loss or the ODE equations.",
+      "reason": "BUDGET shows the refinement stopped at its 5-iteration budget with termination = 'iteration_budget'. The NODE trace shows only 0.37911 \u2192 0.37908 over 5 Adam steps, and the gradient norm is still 0.176. Five iterations is far too few for a 3-parameter stiff ODE fit; the optimizer has not had a chance to descend."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. For y1 and y3 the RMSE grows from \u2248 0.028 (t < 33) to \u2248 0.110 (t > 67), and the time correlation for y3 is \u22120.877 (opposite sign to y1's +0.877), consistent with the conservation law y1+y2+y3 = 1. Check whether the later-time degradation reflects a genuine model/parameter mismatch or a solver accuracy issue in the stiff tail.",
+      "reason": "RESIDUAL evidence shows y1 RMSE = 0.0507 with bias +0.0308 and y3 RMSE = 0.0507 with bias \u22120.0308, and the per-region RMSE for both channels rises from ~0.028 to ~0.110. y2 is essentially exact (RMSE 2.3 \u00d7 10\u207b\u2075). The symmetric y1/y3 errors and opposite correlations are expected from the conservation constraint, but the growing late-time error warrants visual inspection before attributing it to parameter values."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "STATIONARITY"
+      ],
+      "action": "After a longer gradient run, check whether k2 (currently 5.84 \u00d7 10\u2079, range_fraction 0.867, upper bound 5 \u00d7 10\u00b9\u2070) is being pushed toward its bound. If k2 saturates at the bound, the true optimum may lie outside the user-specified range and the bound should be revisited with the user; do not silently widen it.",
+      "reason": "PARAMETERS shows k2 at range_fraction 0.867, the closest to a bound of the three parameters. In the Robertson problem k2 controls the fast intermediate decay; a value near the upper bound combined with a non-stationary gradient could mean the optimizer is still searching in the k2 direction. This is a scientific-model question (is the bound physically justified?) rather than a numerical correction."
+    }
+  ],
+  "limitations": [
+    "A single negative Hessian mode cannot distinguish a true saddle point from a numerical artefact of the stiff-system Hessian without a gradient/Hessian consistency check; the evidence does not include a gradient-check result.",
+    "The 5-iteration budget means the optimizer trace (loss 0.37925 \u2192 0.37908) is not evidence of a flat landscape or a local optimum; it is simply an under-iterated trajectory.",
+    "The time-region residual degradation (RMSE rising from ~0.028 to ~0.110 for y1/y3) could reflect solver inaccuracy in the stiff tail, a genuine parameter mismatch, or a data-timing issue; the evidence cannot separate these causes without inspecting the plot and the solver diagnostics.",
+    "Sloppiness analysis with only 3 parameters and 1 negative mode does not establish identifiability or the full curvature structure of the loss surface.",
+    "No noise level, measurement uncertainty, or stiffness diagnostic (e.g., Jacobian eigenvalue spread) is provided, so the appropriate solver tolerance and the physical meaning of the residual magnitude cannot be assessed from the evidence alone."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

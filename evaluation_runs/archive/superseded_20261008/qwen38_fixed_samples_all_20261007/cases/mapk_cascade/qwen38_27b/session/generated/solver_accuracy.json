@@ -1,0 +1,283 @@
+{
+  "code": "accuracy_inconclusive",
+  "integrator": "Tsit5",
+  "max_steps": 2000,
+  "sample_count": 128,
+  "probe_samples": [
+    34,
+    23,
+    30,
+    79
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 34,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        5.75897284793095e-09,
+        9.505402613760382e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.423657482333744e-08,
+        5.442111335141714e-11,
+        9.904457285674144e-10,
+        9.95285106344412e-10,
+        1.5098062086833024e-10,
+        9.373450031818196e-08
+      ],
+      "observables": [
+        {
+          "name": "Mpp",
+          "max_normalized_difference": 0.00013746691855641272
+        }
+      ],
+      "loss": 0.10009714270292729,
+      "reference_loss": 0.10009714269919373,
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1225,
+        "num_rejected_steps": 319,
+        "num_steps": 1544
+      },
+      "reference_stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1255,
+        "num_rejected_steps": 312,
+        "num_steps": 1567
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 23,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        5.75897284793095e-09,
+        9.505402613760382e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.423657482333744e-08,
+        5.442111335141714e-11,
+        9.904457285674144e-10,
+        9.95285106344412e-10,
+        1.5098062086833024e-10,
+        9.373450031818196e-08
+      ],
+      "observables": [],
+      "failure": {
+        "code": "step_limit",
+        "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+        "stats": {
+          "max_steps": 2000,
+          "num_accepted_steps": 2000,
+          "num_rejected_steps": 0,
+          "num_steps": 2000
+        },
+        "sample": 23,
+        "experiment": 1,
+        "rtol": [
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08,
+          1e-08
+        ],
+        "atol": [
+          5.000000000000001e-08,
+          5.758972847930951e-10,
+          9.505402613760381e-10,
+          5.000000000000001e-09,
+          1.0000000000000002e-08,
+          4.4236574823337445e-09,
+          5.442111335141714e-12,
+          9.904457285674144e-11,
+          9.952851063444122e-11,
+          1.5098062086833024e-11,
+          9.373450031818196e-09
+        ]
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 30,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        5.75897284793095e-09,
+        9.505402613760382e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.423657482333744e-08,
+        5.442111335141714e-11,
+        9.904457285674144e-10,
+        9.95285106344412e-10,
+        1.5098062086833024e-10,
+        9.373450031818196e-08
+      ],
+      "observables": [
+        {
+          "name": "Mpp",
+          "max_normalized_difference": 7.08113646192054e-05
+        }
+      ],
+      "loss": 0.42993690238079335,
+      "reference_loss": 0.42993690233147475,
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1441,
+        "num_rejected_steps": 379,
+        "num_steps": 1820
+      },
+      "reference_stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1473,
+        "num_rejected_steps": 366,
+        "num_steps": 1839
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 79,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.000000000000001e-07,
+        5.75897284793095e-09,
+        9.505402613760382e-09,
+        5.0000000000000004e-08,
+        1.0000000000000001e-07,
+        4.423657482333744e-08,
+        5.442111335141714e-11,
+        9.904457285674144e-10,
+        9.95285106344412e-10,
+        1.5098062086833024e-10,
+        9.373450031818196e-08
+      ],
+      "observables": [
+        {
+          "name": "Mpp",
+          "max_normalized_difference": 8.864148965474442e-07
+        }
+      ],
+      "loss": 26.516590455894388,
+      "reference_loss": 26.516590455827387,
+      "stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 903,
+        "num_rejected_steps": 0,
+        "num_steps": 903
+      },
+      "reference_stats": {
+        "max_steps": 2000,
+        "num_accepted_steps": 1213,
+        "num_rejected_steps": 2,
+        "num_steps": 1215
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "result": "Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+  "failure_cause": "step_limit",
+  "failure": {
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 2000,
+      "num_accepted_steps": 2000,
+      "num_rejected_steps": 0,
+      "num_steps": 2000
+    },
+    "sample": 23,
+    "experiment": 1,
+    "rtol": [
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08,
+      1e-08
+    ],
+    "atol": [
+      5.000000000000001e-08,
+      5.758972847930951e-10,
+      9.505402613760381e-10,
+      5.000000000000001e-09,
+      1.0000000000000002e-08,
+      4.4236574823337445e-09,
+      5.442111335141714e-12,
+      9.904457285674144e-11,
+      9.952851063444122e-11,
+      1.5098062086833024e-11,
+      9.373450031818196e-09
+    ]
+  }
+}

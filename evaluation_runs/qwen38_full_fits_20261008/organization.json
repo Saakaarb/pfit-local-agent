@@ -1,0 +1,169 @@
+{
+  "action": "Archive superseded evaluations and group retained generated setups and completed full fits. No results deleted.",
+  "retained_roots": [
+    "evaluation_runs/final_three_model_comparison_20261007",
+    "evaluation_runs/qwen38_full_fits_20261008"
+  ],
+  "moves": [
+    {
+      "old": "evaluation_runs/targeted_refits_20261008",
+      "new": "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008"
+    },
+    {
+      "old": "evaluation_runs/arc_extended_de_20261008",
+      "new": "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_extended_de_20261008"
+    },
+    {
+      "old": "evaluation_runs/arc_fixed_gate_20261008",
+      "new": "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_fixed_gate_20261008"
+    },
+    {
+      "old": "evaluation_runs/sliding_revised_prompt_20261007",
+      "new": "evaluation_runs/final_three_model_comparison_20261007/manual_retries/sliding_revised_prompt_20261007"
+    },
+    {
+      "old": "evaluation_runs/final_three_model_comparison_20261007/historical_qwen38_before_final_rerun",
+      "new": "evaluation_runs/archive/superseded_20261008/comparison_history/historical_qwen38_before_final_rerun"
+    },
+    {
+      "old": "evaluation_runs/final_three_model_comparison_20261007/infrastructure_before_resume",
+      "new": "evaluation_runs/archive/superseded_20261008/comparison_history/infrastructure_before_resume"
+    },
+    {
+      "old": "evaluation_runs/full_fit_quality_audit_20261008.csv",
+      "new": "evaluation_runs/qwen38_full_fits_20261008/audit/full_fit_quality_audit_20261008.csv"
+    },
+    {
+      "old": "evaluation_runs/full_fit_quality_audit_20261008.json",
+      "new": "evaluation_runs/qwen38_full_fits_20261008/audit/full_fit_quality_audit_20261008.json"
+    },
+    {
+      "old": "evaluation_runs/active_comparison.json",
+      "new": "evaluation_runs/archive/superseded_20261008/active_comparison.json"
+    },
+    {
+      "old": "evaluation_runs/active_full_fits.json",
+      "new": "evaluation_runs/archive/superseded_20261008/active_full_fits.json"
+    },
+    {
+      "old": "evaluation_runs/active_manual_retry.json",
+      "new": "evaluation_runs/archive/superseded_20261008/active_manual_retry.json"
+    },
+    {
+      "old": "evaluation_runs/dataset_solver_preview_20261007.json",
+      "new": "evaluation_runs/archive/superseded_20261008/dataset_solver_preview_20261007.json"
+    },
+    {
+      "old": "evaluation_runs/dataset_step_budget_preview_20261007.json",
+      "new": "evaluation_runs/archive/superseded_20261008/dataset_step_budget_preview_20261007.json"
+    },
+    {
+      "old": "evaluation_runs/fujita_validated_seeds_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/fujita_validated_seeds_20261007"
+    },
+    {
+      "old": "evaluation_runs/population_tolerance_retries_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/population_tolerance_retries_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_accuracy_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_accuracy_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_accuracy_recovery_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_accuracy_recovery_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_arc_first_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_arc_first_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_beer_fixed_samples_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_beer_fixed_samples_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_beer_ten_success_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_beer_ten_success_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_dataset_budget_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_dataset_budget_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_dataset_solver_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_dataset_solver_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_fixed_samples_all_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_fixed_samples_all_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_long_recovery_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_long_recovery_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_long_recovery_h100_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_long_recovery_h100_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_solver_selected_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_solver_selected_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_state_scaled_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_state_scaled_20261007"
+    },
+    {
+      "old": "evaluation_runs/qwen38_workflow_20261006",
+      "new": "evaluation_runs/archive/superseded_20261008/qwen38_workflow_20261006"
+    },
+    {
+      "old": "evaluation_runs/sliding_manual_sticking_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/sliding_manual_sticking_20261007"
+    },
+    {
+      "old": "evaluation_runs/validated_seed_retries_20261007",
+      "new": "evaluation_runs/archive/superseded_20261008/validated_seed_retries_20261007"
+    }
+  ],
+  "moved_file_count": 5897,
+  "verified_byte_identical_before_metadata_relocation": true,
+  "modified_operational_files": [
+    "evaluation_runs/final_three_model_comparison_20261007/protocol.json",
+    "evaluation_runs/final_three_model_comparison_20261007/manual_retries/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b/active_stage.json",
+    "evaluation_runs/final_three_model_comparison_20261007/manual_retries/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b/metadata.json",
+    "evaluation_runs/qwen38_full_fits_20261008/plan.json",
+    "evaluation_runs/qwen38_full_fits_20261008/audit/full_fit_quality_audit_20261008.csv",
+    "evaluation_runs/qwen38_full_fits_20261008/audit/full_fit_quality_audit_20261008.json",
+    "evaluation_runs/qwen38_full_fits_20261008/cases/sliding_basepoint_headered/status.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_extended_de_20261008/plan.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_extended_de_20261008/prepare.py",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_extended_de_20261008/run.py",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_extended_de_20261008/cases/ARC_fitting/status.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_fixed_gate_20261008/change_record.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_fixed_gate_20261008/plan.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_fixed_gate_20261008/prepare.py",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_fixed_gate_20261008/run.py",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_fixed_gate_20261008/cases/ARC_fitting/status.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/diagnose.py",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/plan.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/run_refits.py",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/cases/ARC_fitting/status.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/cases/lotka_volterra/status.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/cases/oregonator/status.json",
+    "evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/cases/sneyd_ipr/status.json",
+    "scripts/run_qwen38_cpu_fits.py"
+  ],
+  "original_comparison_success": {
+    "qwen38_27b": "19/21",
+    "qwen32b": "15/21",
+    "qwen14b": "13/21"
+  },
+  "manual_retry": "Revised sliding-basepoint setup is retained separately; original comparison outcomes unchanged.",
+  "full_fit_groups": [
+    "cases",
+    "reruns/targeted_refits_20261008/cases",
+    "reruns/arc_extended_de_20261008/cases",
+    "reruns/arc_fixed_gate_20261008/cases"
+  ]
+}

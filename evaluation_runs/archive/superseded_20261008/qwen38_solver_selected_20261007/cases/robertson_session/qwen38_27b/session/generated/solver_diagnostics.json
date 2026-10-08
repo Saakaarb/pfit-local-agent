@@ -1,0 +1,6846 @@
+[
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "k1": 0.1,
+      "k2": 15811388.300841894,
+      "k3": 10000.0
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7840,
+      "num_rejected_steps": 2160,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736
+    ],
+    "physical_parameters": {
+      "k1": 0.07682259642082345,
+      "k2": 2400010.842865607,
+      "k3": 19.679110679898347
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 6888,
+      "num_rejected_steps": 1888,
+      "num_steps": 8776
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00017864749164687147,
+      0.995096379676153
+    ],
+    "loss": 1.6368963365254128
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155
+    ],
+    "physical_parameters": {
+      "k1": 0.01976935577447068,
+      "k2": 159713.29672923536,
+      "k3": 7444939.070614586
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7846,
+      "num_rejected_steps": 2154,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116
+    ],
+    "physical_parameters": {
+      "k1": 0.6971296981783773,
+      "k2": 4615019.874502624,
+      "k3": 70764.02983484838
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7863,
+      "num_rejected_steps": 2137,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914
+    ],
+    "physical_parameters": {
+      "k1": 0.003824426328891835,
+      "k2": 3427318998.776689,
+      "k3": 285.08125797436406
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7592,
+      "num_rejected_steps": 2408,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425
+    ],
+    "physical_parameters": {
+      "k1": 1.9317995821090543,
+      "k2": 28888999048.96511,
+      "k3": 223154.83557915885
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7781,
+      "num_rejected_steps": 2219,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 8
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811
+    ],
+    "physical_parameters": {
+      "k1": 7.249026921969786,
+      "k2": 22630.44792587307,
+      "k3": 1429.5720878362845
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7931,
+      "num_rejected_steps": 2069,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143
+    ],
+    "physical_parameters": {
+      "k1": 4.944173587990281,
+      "k2": 27575251.958725706,
+      "k3": 27436.457634606737
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7842,
+      "num_rejected_steps": 2158,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031
+    ],
+    "physical_parameters": {
+      "k1": 0.055431561870840126,
+      "k2": 500677108.9518814,
+      "k3": 1.2408239879509244
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7792,
+      "num_rejected_steps": 2208,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006
+    ],
+    "physical_parameters": {
+      "k1": 0.2436090098024365,
+      "k2": 353900.4510109847,
+      "k3": 89027.49141362883
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7863,
+      "num_rejected_steps": 2137,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051
+    ],
+    "physical_parameters": {
+      "k1": 0.002624425104774679,
+      "k2": 872479.3543467988,
+      "k3": 1058741.7733801042
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7846,
+      "num_rejected_steps": 2154,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517
+    ],
+    "physical_parameters": {
+      "k1": 0.1567004331142232,
+      "k2": 31703.575439829998,
+      "k3": 13051.033939801211
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7872,
+      "num_rejected_steps": 2128,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115
+    ],
+    "physical_parameters": {
+      "k1": 0.037429427106491754,
+      "k2": 107167353.01930751,
+      "k3": 8.358924040981385
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7815,
+      "num_rejected_steps": 2185,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 12
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103
+    ],
+    "physical_parameters": {
+      "k1": 0.3474620442451325,
+      "k2": 1236357710.7621627,
+      "k3": 4.016877000356443
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7812,
+      "num_rejected_steps": 2188,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752
+    ],
+    "physical_parameters": {
+      "k1": 0.9854320295448892,
+      "k2": 6979.768758046903,
+      "k3": 75.25276859744113
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 2337,
+      "num_rejected_steps": 304,
+      "num_steps": 2641
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.010538134704399297,
+      0.9901431692229411
+    ],
+    "loss": 82.5022164381211
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937
+    ],
+    "physical_parameters": {
+      "k1": 0.0011160460239868374,
+      "k2": 90498.81759935453,
+      "k3": 837735.588319471
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 6524,
+      "num_rejected_steps": 1792,
+      "num_steps": 8316
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      3.990946952849625e-05,
+      0.000347401728871471
+    ],
+    "loss": 0.35386985976974145
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459
+    ],
+    "physical_parameters": {
+      "k1": 2.266316430431919,
+      "k2": 231517.2667942353,
+      "k3": 21903348.122917674
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7858,
+      "num_rejected_steps": 2142,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867
+    ],
+    "physical_parameters": {
+      "k1": 1.599105534699017,
+      "k2": 341744742.7070993,
+      "k3": 681.7894211352371
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7837,
+      "num_rejected_steps": 2163,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082
+    ],
+    "physical_parameters": {
+      "k1": 0.011276868771352781,
+      "k2": 13808451.784746645,
+      "k3": 12611886.208349096
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7847,
+      "num_rejected_steps": 2153,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883
+    ],
+    "physical_parameters": {
+      "k1": 0.008664724307558342,
+      "k2": 40812.14224480091,
+      "k3": 5589.818551916948
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 3699,
+      "num_rejected_steps": 995,
+      "num_steps": 4694
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00035928150989200625,
+      0.02841704390380612
+    ],
+    "loss": 2.406575436927457
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519
+    ],
+    "physical_parameters": {
+      "k1": 0.0017483303781984883,
+      "k2": 54392064.310028456,
+      "k3": 94037436.2292199
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7855,
+      "num_rejected_steps": 2145,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648
+    ],
+    "physical_parameters": {
+      "k1": 0.10029131605585426,
+      "k2": 37912293105.095116,
+      "k3": 3519.821372818495
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7641,
+      "num_rejected_steps": 2359,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 9
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657
+    ],
+    "physical_parameters": {
+      "k1": 0.007647214245094172,
+      "k2": 1204187.4080905311,
+      "k3": 163.81815462038207
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 4932,
+      "num_rejected_steps": 1357,
+      "num_steps": 6289
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      7.956923703626582e-05,
+      0.36090903991237433
+    ],
+    "loss": 0.6098352173807402
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026
+    ],
+    "physical_parameters": {
+      "k1": 0.14030084271038504,
+      "k2": 9943.127531899718,
+      "k3": 45.55019017688175
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1465,
+      "num_rejected_steps": 74,
+      "num_steps": 1539
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0035891984183838853,
+      0.903533043804067
+    ],
+    "loss": 29.217192467329912
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135
+    ],
+    "physical_parameters": {
+      "k1": 0.47463257519270824,
+      "k2": 9234177366.284601,
+      "k3": 22680.95741009967
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7773,
+      "num_rejected_steps": 2227,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 9
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091
+    ],
+    "physical_parameters": {
+      "k1": 0.004539073078099864,
+      "k2": 10647318987.792004,
+      "k3": 38913673.63857992
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7579,
+      "num_rejected_steps": 2421,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256
+    ],
+    "physical_parameters": {
+      "k1": 8.725548787437775,
+      "k2": 4507955102.733808,
+      "k3": 454450.2453601048
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7832,
+      "num_rejected_steps": 2168,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 8
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509
+    ],
+    "physical_parameters": {
+      "k1": 3.5431534861179803,
+      "k2": 2603159.1228983635,
+      "k3": 1.8871112784303417
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1190,
+      "num_rejected_steps": 241,
+      "num_steps": 1431
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0011621391074527734,
+      0.9999999903824894
+    ],
+    "loss": 10.392246544840523
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751
+    ],
+    "physical_parameters": {
+      "k1": 0.0023469044230106785,
+      "k2": 7726986.552793393,
+      "k3": 2016115.0853742992
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7850,
+      "num_rejected_steps": 2150,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751
+    ],
+    "physical_parameters": {
+      "k1": 0.5705479334142302,
+      "k2": 95912330.69427086,
+      "k3": 939.2431102969199
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7838,
+      "num_rejected_steps": 2162,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064
+    ],
+    "physical_parameters": {
+      "k1": 0.017317107921436994,
+      "k2": 231007272.83060643,
+      "k3": 18.95228025403962
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7782,
+      "num_rejected_steps": 2218,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 12
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747
+    ],
+    "physical_parameters": {
+      "k1": 0.026730077129666865,
+      "k2": 1640664334.8164978,
+      "k3": 3283877.154468627
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7761,
+      "num_rejected_steps": 2239,
+      "num_steps": 10000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "k1": 0.1,
+      "k2": 15811388.300841894,
+      "k3": 10000.0
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15678,
+      "num_rejected_steps": 4322,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736
+    ],
+    "physical_parameters": {
+      "k1": 0.07682259642082345,
+      "k2": 2400010.842865607,
+      "k3": 19.679110679898347
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 6888,
+      "num_rejected_steps": 1888,
+      "num_steps": 8776
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00017864749164687147,
+      0.995096379676153
+    ],
+    "loss": 1.6368963365254128
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155
+    ],
+    "physical_parameters": {
+      "k1": 0.01976935577447068,
+      "k2": 159713.29672923536,
+      "k3": 7444939.070614586
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15689,
+      "num_rejected_steps": 4311,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116
+    ],
+    "physical_parameters": {
+      "k1": 0.6971296981783773,
+      "k2": 4615019.874502624,
+      "k3": 70764.02983484838
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15706,
+      "num_rejected_steps": 4294,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914
+    ],
+    "physical_parameters": {
+      "k1": 0.003824426328891835,
+      "k2": 3427318998.776689,
+      "k3": 285.08125797436406
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15165,
+      "num_rejected_steps": 4835,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 12
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425
+    ],
+    "physical_parameters": {
+      "k1": 1.9317995821090543,
+      "k2": 28888999048.96511,
+      "k3": 223154.83557915885
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15557,
+      "num_rejected_steps": 4443,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 8
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811
+    ],
+    "physical_parameters": {
+      "k1": 7.249026921969786,
+      "k2": 22630.44792587307,
+      "k3": 1429.5720878362845
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15774,
+      "num_rejected_steps": 4226,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143
+    ],
+    "physical_parameters": {
+      "k1": 4.944173587990281,
+      "k2": 27575251.958725706,
+      "k3": 27436.457634606737
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15684,
+      "num_rejected_steps": 4316,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031
+    ],
+    "physical_parameters": {
+      "k1": 0.055431561870840126,
+      "k2": 500677108.9518814,
+      "k3": 1.2408239879509244
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15578,
+      "num_rejected_steps": 4422,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006
+    ],
+    "physical_parameters": {
+      "k1": 0.2436090098024365,
+      "k2": 353900.4510109847,
+      "k3": 89027.49141362883
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15706,
+      "num_rejected_steps": 4294,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051
+    ],
+    "physical_parameters": {
+      "k1": 0.002624425104774679,
+      "k2": 872479.3543467988,
+      "k3": 1058741.7733801042
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15690,
+      "num_rejected_steps": 4310,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517
+    ],
+    "physical_parameters": {
+      "k1": 0.1567004331142232,
+      "k2": 31703.575439829998,
+      "k3": 13051.033939801211
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15715,
+      "num_rejected_steps": 4285,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115
+    ],
+    "physical_parameters": {
+      "k1": 0.037429427106491754,
+      "k2": 107167353.01930751,
+      "k3": 8.358924040981385
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15622,
+      "num_rejected_steps": 4378,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103
+    ],
+    "physical_parameters": {
+      "k1": 0.3474620442451325,
+      "k2": 1236357710.7621627,
+      "k3": 4.016877000356443
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15615,
+      "num_rejected_steps": 4385,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752
+    ],
+    "physical_parameters": {
+      "k1": 0.9854320295448892,
+      "k2": 6979.768758046903,
+      "k3": 75.25276859744113
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 2337,
+      "num_rejected_steps": 304,
+      "num_steps": 2641
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.010538134704399297,
+      0.9901431692229411
+    ],
+    "loss": 82.5022164381211
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937
+    ],
+    "physical_parameters": {
+      "k1": 0.0011160460239868374,
+      "k2": 90498.81759935453,
+      "k3": 837735.588319471
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 6524,
+      "num_rejected_steps": 1792,
+      "num_steps": 8316
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      3.990946952849625e-05,
+      0.000347401728871471
+    ],
+    "loss": 0.35386985976974145
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459
+    ],
+    "physical_parameters": {
+      "k1": 2.266316430431919,
+      "k2": 231517.2667942353,
+      "k3": 21903348.122917674
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15701,
+      "num_rejected_steps": 4299,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867
+    ],
+    "physical_parameters": {
+      "k1": 1.599105534699017,
+      "k2": 341744742.7070993,
+      "k3": 681.7894211352371
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15654,
+      "num_rejected_steps": 4346,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082
+    ],
+    "physical_parameters": {
+      "k1": 0.011276868771352781,
+      "k2": 13808451.784746645,
+      "k3": 12611886.208349096
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15691,
+      "num_rejected_steps": 4309,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883
+    ],
+    "physical_parameters": {
+      "k1": 0.008664724307558342,
+      "k2": 40812.14224480091,
+      "k3": 5589.818551916948
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 3699,
+      "num_rejected_steps": 995,
+      "num_steps": 4694
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00035928150989200625,
+      0.02841704390380612
+    ],
+    "loss": 2.406575436927457
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519
+    ],
+    "physical_parameters": {
+      "k1": 0.0017483303781984883,
+      "k2": 54392064.310028456,
+      "k3": 94037436.2292199
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15708,
+      "num_rejected_steps": 4292,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648
+    ],
+    "physical_parameters": {
+      "k1": 0.10029131605585426,
+      "k2": 37912293105.095116,
+      "k3": 3519.821372818495
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15267,
+      "num_rejected_steps": 4733,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657
+    ],
+    "physical_parameters": {
+      "k1": 0.007647214245094172,
+      "k2": 1204187.4080905311,
+      "k3": 163.81815462038207
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 4932,
+      "num_rejected_steps": 1357,
+      "num_steps": 6289
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      7.956923703626582e-05,
+      0.36090903991237433
+    ],
+    "loss": 0.6098352173807402
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026
+    ],
+    "physical_parameters": {
+      "k1": 0.14030084271038504,
+      "k2": 9943.127531899718,
+      "k3": 45.55019017688175
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 1465,
+      "num_rejected_steps": 74,
+      "num_steps": 1539
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0035891984183838853,
+      0.903533043804067
+    ],
+    "loss": 29.217192467329912
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135
+    ],
+    "physical_parameters": {
+      "k1": 0.47463257519270824,
+      "k2": 9234177366.284601,
+      "k3": 22680.95741009967
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15540,
+      "num_rejected_steps": 4460,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091
+    ],
+    "physical_parameters": {
+      "k1": 0.004539073078099864,
+      "k2": 10647318987.792004,
+      "k3": 38913673.63857992
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15197,
+      "num_rejected_steps": 4803,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256
+    ],
+    "physical_parameters": {
+      "k1": 8.725548787437775,
+      "k2": 4507955102.733808,
+      "k3": 454450.2453601048
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15661,
+      "num_rejected_steps": 4339,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 8
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509
+    ],
+    "physical_parameters": {
+      "k1": 3.5431534861179803,
+      "k2": 2603159.1228983635,
+      "k3": 1.8871112784303417
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 1190,
+      "num_rejected_steps": 241,
+      "num_steps": 1431
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0011621391074527734,
+      0.9999999903824894
+    ],
+    "loss": 10.392246544840523
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751
+    ],
+    "physical_parameters": {
+      "k1": 0.0023469044230106785,
+      "k2": 7726986.552793393,
+      "k3": 2016115.0853742992
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15699,
+      "num_rejected_steps": 4301,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751
+    ],
+    "physical_parameters": {
+      "k1": 0.5705479334142302,
+      "k2": 95912330.69427086,
+      "k3": 939.2431102969199
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15660,
+      "num_rejected_steps": 4340,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064
+    ],
+    "physical_parameters": {
+      "k1": 0.017317107921436994,
+      "k2": 231007272.83060643,
+      "k3": 18.95228025403962
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15560,
+      "num_rejected_steps": 4440,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747
+    ],
+    "physical_parameters": {
+      "k1": 0.026730077129666865,
+      "k2": 1640664334.8164978,
+      "k3": 3283877.154468627
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15541,
+      "num_rejected_steps": 4459,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 32,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.5291150021913202,
+      0.5399218728763815,
+      -0.8064495181977207
+    ],
+    "physical_parameters": {
+      "k1": 1.1434837687910635,
+      "k2": 1226581921.6098032,
+      "k3": 5.945685417253373
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15641,
+      "num_rejected_steps": 4359,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 33,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6017563034290567,
+      0.0380833910932874,
+      -0.954542201453841
+    ],
+    "physical_parameters": {
+      "k1": 1.5977639088571038,
+      "k2": 21491259.7474969,
+      "k3": 1.5199566233341855
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 4443,
+      "num_rejected_steps": 15557,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 16
+  },
+  {
+    "sample": 34,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.7272016364937322,
+      -0.11898464514824725,
+      0.7360295952540779
+    ],
+    "physical_parameters": {
+      "k1": 2.847103616436939,
+      "k2": 6060713.3833876625,
+      "k3": 8792621.555252068
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15699,
+      "num_rejected_steps": 4301,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 35,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.05100691271814428,
+      -0.33367553368656566,
+      0.05161042385638326
+    ],
+    "physical_parameters": {
+      "k1": 0.07906534577444894,
+      "k2": 1074250.677944178,
+      "k3": 16085.764100079972
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15704,
+      "num_rejected_steps": 4296,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 36,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.4413665886347733,
+      -0.8980028297075301,
+      -0.5203624380977994
+    ],
+    "physical_parameters": {
+      "k1": 0.7633666407207487,
+      "k2": 11375.22774169675,
+      "k3": 82.89918245772859
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 2593,
+      "num_rejected_steps": 399,
+      "num_steps": 2992
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.007454262971666664,
+      0.9877998268613253
+    ],
+    "loss": 59.44921113384858
+  },
+  {
+    "sample": 37,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.8382198014686235,
+      -0.2610071569373741,
+      0.21067079967664082
+    ],
+    "physical_parameters": {
+      "k1": 4.747222670211343,
+      "k2": 1929500.7648249043,
+      "k3": 69611.85368828707
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15722,
+      "num_rejected_steps": 4278,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 38,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9227518805274042,
+      -0.9497804563043545,
+      -0.12098674998961856
+    ],
+    "physical_parameters": {
+      "k1": 7.006542506091603,
+      "k2": 7494.42654423635,
+      "k3": 3281.3533535630363
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15769,
+      "num_rejected_steps": 4231,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 39,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.3009513617682358,
+      -0.479551987004209,
+      0.6574235146287684
+    ],
+    "physical_parameters": {
+      "k1": 0.3998551772344536,
+      "k2": 331541.61587885994,
+      "k3": 4262791.179930912
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15696,
+      "num_rejected_steps": 4304,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 40,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.14187567193737094,
+      0.2951279583079096,
+      -0.8901587558511124
+    ],
+    "physical_parameters": {
+      "k1": 0.05202938064704054,
+      "k2": 170575973.4519741,
+      "k3": 2.750204425586582
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15618,
+      "num_rejected_steps": 4382,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 41,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.4304246904671736,
+      -0.6332954132767278,
+      -0.42557261228189514
+    ],
+    "physical_parameters": {
+      "k1": 0.013776871861725298,
+      "k2": 96036.44114109346,
+      "k3": 198.47670932520754
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 2298,
+      "num_rejected_steps": 634,
+      "num_steps": 2932
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00037393238248351675,
+      0.3230165786510555
+    ],
+    "loss": 3.2435574730080496
+  },
+  {
+    "sample": 42,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.36958467884569024,
+      0.11830923488692435,
+      -0.608360173336691
+    ],
+    "physical_parameters": {
+      "k1": 0.5484908129712324,
+      "k2": 41025352.98490729,
+      "k3": 36.86033743822628
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 11195,
+      "num_rejected_steps": 3153,
+      "num_steps": 14348
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0001155713760783103,
+      0.9999979689418079
+    ],
+    "loss": 1.1303312435211792
+  },
+  {
+    "sample": 43,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.3248727138751698,
+      -0.17740547956581254,
+      -0.02899249735128928
+    ],
+    "physical_parameters": {
+      "k1": 0.022400338039788675,
+      "k2": 3784868.7676905873,
+      "k3": 7656.495129563532
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15676,
+      "num_rejected_steps": 4324,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 44,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.5076442895844042,
+      0.31416889688039285,
+      0.35927072268112004
+    ],
+    "physical_parameters": {
+      "k1": 0.009654091725682693,
+      "k2": 198866277.0386659,
+      "k3": 273579.0837579644
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15590,
+      "num_rejected_steps": 4410,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 45,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.7172934904390514,
+      -0.20932453478611068,
+      0.49353667067244866
+    ],
+    "physical_parameters": {
+      "k1": 0.0036763175639519963,
+      "k2": 2926402.9948477345,
+      "k3": 942207.7728742192
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15694,
+      "num_rejected_steps": 4306,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 46,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.44277278530620423,
+      0.45091726704648516,
+      -0.3671411551541144
+    ],
+    "physical_parameters": {
+      "k1": 0.01301530738516488,
+      "k2": 598660272.461323,
+      "k3": 339.9659169926869
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15480,
+      "num_rejected_steps": 4520,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 47,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.06541576487211787,
+      0.7227318577666919,
+      -0.6759831116958439
+    ],
+    "physical_parameters": {
+      "k1": 0.13515481728437687,
+      "k2": 5352189805.956259,
+      "k3": 19.772771757844662
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15493,
+      "num_rejected_steps": 4507,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 48,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.1231069478792749,
+      0.4340502831129276,
+      0.6124710607117589
+    ],
+    "physical_parameters": {
+      "k1": 0.05672651510303878,
+      "k2": 522571830.58864474,
+      "k3": 2817631.8176253
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15634,
+      "num_rejected_steps": 4366,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 49,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.6862365266652408,
+      -0.7262925234842146,
+      0.2902826014389672
+    ],
+    "physical_parameters": {
+      "k1": 0.004241573007818843,
+      "k2": 45388.53571487906,
+      "k3": 144920.69420944038
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 7035,
+      "num_rejected_steps": 1926,
+      "num_steps": 8961
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00013880993994205398,
+      0.0021598787775052625
+    ],
+    "loss": 0.730778039571166
+  },
+  {
+    "sample": 50,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.6092019576279715,
+      -0.04670159060098078,
+      0.10756079948812358
+    ],
+    "physical_parameters": {
+      "k1": 0.006047781396553101,
+      "k2": 10852116.246760292,
+      "k3": 26930.42442386184
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15659,
+      "num_rejected_steps": 4341,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 51,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.7969643891744386,
+      -0.5339681218773832,
+      0.999798197814457
+    ],
+    "physical_parameters": {
+      "k1": 0.0025472479514909094,
+      "k2": 213836.37214781638,
+      "k3": 99814305.94348335
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15686,
+      "num_rejected_steps": 4314,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 52,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.3867189583972479,
+      0.9785777445794208,
+      0.18369874741818015
+    ],
+    "physical_parameters": {
+      "k1": 0.5935234968367699,
+      "k2": 42071898529.90612,
+      "k3": 54299.3948668652
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15446,
+      "num_rejected_steps": 4554,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 9
+  },
+  {
+    "sample": 53,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.16044098864908718,
+      0.7563186854909161,
+      0.5526890666775992
+    ],
+    "physical_parameters": {
+      "k1": 0.20935434427952043,
+      "k2": 7015932524.322833,
+      "k3": 1624636.7266876334
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15530,
+      "num_rejected_steps": 4470,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 54,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.9399366150645654,
+      0.14878654771878397,
+      -0.4514302619341761
+    ],
+    "physical_parameters": {
+      "k1": 7.583561797514881,
+      "k2": 52447274.136415675,
+      "k3": 156.41519925896748
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 7821,
+      "num_rejected_steps": 2228,
+      "num_steps": 10049
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0003776884984970823,
+      0.9999999219693171
+    ],
+    "loss": 3.370531643969267
+  },
+  {
+    "sample": 55,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.2243992417396783,
+      0.8833575743024076,
+      0.3996887009504022
+    ],
+    "physical_parameters": {
+      "k1": 0.2810596385945639,
+      "k2": 19530866631.00224,
+      "k3": 396967.364326038
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15450,
+      "num_rejected_steps": 4550,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 56,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.23962430293454895,
+      -0.39609711114910917,
+      0.7900768194131134
+    ],
+    "physical_parameters": {
+      "k1": 0.03317045235288159,
+      "k2": 649576.2164883267,
+      "k3": 14464628.288803212
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15688,
+      "num_rejected_steps": 4312,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 57,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.7923671067854567,
+      -0.760590466733551,
+      -0.23847214734708877
+    ],
+    "physical_parameters": {
+      "k1": 3.843564854708946,
+      "k2": 34427.33224501,
+      "k3": 1112.0169590888763
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15770,
+      "num_rejected_steps": 4230,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 58,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.9361827903472568,
+      -0.851446638661951,
+      -0.7025315959199496
+    ],
+    "physical_parameters": {
+      "k1": 0.0013416351231706346,
+      "k2": 16554.145537281445,
+      "k3": 15.483659646381753
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 279,
+      "num_rejected_steps": 73,
+      "num_steps": 352
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0002805723638476368,
+      0.0945373160713533
+    ],
+    "loss": 2.7570399582896363
+  },
+  {
+    "sample": 59,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.6444106373158247,
+      0.21073274704840106,
+      -0.1401443334676007
+    ],
+    "physical_parameters": {
+      "k1": 1.9445596715784383,
+      "k2": 86404153.34599146,
+      "k3": 2750.569773424505
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15668,
+      "num_rejected_steps": 4332,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 60,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      0.05864633042903833,
+      -0.5912798963157854,
+      -0.2674190491478301
+    ],
+    "physical_parameters": {
+      "k1": 0.13100644472924586,
+      "k2": 134738.08397410295,
+      "k3": 851.7728705043626
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 12995,
+      "num_rejected_steps": 3524,
+      "num_steps": 16519
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0009464637273146669,
+      0.5872664739908924
+    ],
+    "loss": 7.792919637497787
+  },
+  {
+    "sample": 61,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.9663502262576722,
+      0.8259411112273809,
+      -0.8472000609733263
+    ],
+    "physical_parameters": {
+      "k1": 0.0011676146824353213,
+      "k2": 12296001108.159266,
+      "k3": 4.085072382514867
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 14783,
+      "num_rejected_steps": 5217,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 12
+  },
+  {
+    "sample": 62,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.8242757873283281,
+      0.6404630994760483,
+      0.8361362705494264
+    ],
+    "physical_parameters": {
+      "k1": 0.0022462000125899875,
+      "k2": 2757978348.985072,
+      "k3": 22107777.354899183
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15324,
+      "num_rejected_steps": 4676,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 63,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 20000,
+    "normalized_parameters": [
+      -0.2713733698992671,
+      0.5831157677051508,
+      0.9012356832731214
+    ],
+    "physical_parameters": {
+      "k1": 0.028658487114553124,
+      "k2": 1737301486.709146,
+      "k3": 40266393.478203095
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 20000,
+      "num_accepted_steps": 15597,
+      "num_rejected_steps": 4403,
+      "num_steps": 20000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "k1": 0.1,
+      "k2": 15811388.300841894,
+      "k3": 10000.0
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31353,
+      "num_rejected_steps": 8647,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736
+    ],
+    "physical_parameters": {
+      "k1": 0.07682259642082345,
+      "k2": 2400010.842865607,
+      "k3": 19.679110679898347
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 6888,
+      "num_rejected_steps": 1888,
+      "num_steps": 8776
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00017864749164687147,
+      0.995096379676153
+    ],
+    "loss": 1.6368963365254128
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155
+    ],
+    "physical_parameters": {
+      "k1": 0.01976935577447068,
+      "k2": 159713.29672923536,
+      "k3": 7444939.070614586
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31376,
+      "num_rejected_steps": 8624,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116
+    ],
+    "physical_parameters": {
+      "k1": 0.6971296981783773,
+      "k2": 4615019.874502624,
+      "k3": 70764.02983484838
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31393,
+      "num_rejected_steps": 8607,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914
+    ],
+    "physical_parameters": {
+      "k1": 0.003824426328891835,
+      "k2": 3427318998.776689,
+      "k3": 285.08125797436406
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30300,
+      "num_rejected_steps": 9700,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425
+    ],
+    "physical_parameters": {
+      "k1": 1.9317995821090543,
+      "k2": 28888999048.96511,
+      "k3": 223154.83557915885
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31098,
+      "num_rejected_steps": 8902,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 9
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811
+    ],
+    "physical_parameters": {
+      "k1": 7.249026921969786,
+      "k2": 22630.44792587307,
+      "k3": 1429.5720878362845
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31461,
+      "num_rejected_steps": 8539,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143
+    ],
+    "physical_parameters": {
+      "k1": 4.944173587990281,
+      "k2": 27575251.958725706,
+      "k3": 27436.457634606737
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31367,
+      "num_rejected_steps": 8633,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031
+    ],
+    "physical_parameters": {
+      "k1": 0.055431561870840126,
+      "k2": 500677108.9518814,
+      "k3": 1.2408239879509244
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31136,
+      "num_rejected_steps": 8864,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006
+    ],
+    "physical_parameters": {
+      "k1": 0.2436090098024365,
+      "k2": 353900.4510109847,
+      "k3": 89027.49141362883
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31392,
+      "num_rejected_steps": 8608,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051
+    ],
+    "physical_parameters": {
+      "k1": 0.002624425104774679,
+      "k2": 872479.3543467988,
+      "k3": 1058741.7733801042
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 26478,
+      "num_rejected_steps": 7273,
+      "num_steps": 33751
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      3.323221744693719e-05,
+      0.001117021926789574
+    ],
+    "loss": 0.3497566301472062
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517
+    ],
+    "physical_parameters": {
+      "k1": 0.1567004331142232,
+      "k2": 31703.575439829998,
+      "k3": 13051.033939801211
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 29685,
+      "num_rejected_steps": 8126,
+      "num_steps": 37811
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0016713047544877116,
+      0.10034698817331143
+    ],
+    "loss": 10.733714282156473
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115
+    ],
+    "physical_parameters": {
+      "k1": 0.037429427106491754,
+      "k2": 107167353.01930751,
+      "k3": 8.358924040981385
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31213,
+      "num_rejected_steps": 8787,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103
+    ],
+    "physical_parameters": {
+      "k1": 0.3474620442451325,
+      "k2": 1236357710.7621627,
+      "k3": 4.016877000356443
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31202,
+      "num_rejected_steps": 8798,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752
+    ],
+    "physical_parameters": {
+      "k1": 0.9854320295448892,
+      "k2": 6979.768758046903,
+      "k3": 75.25276859744113
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 2337,
+      "num_rejected_steps": 304,
+      "num_steps": 2641
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.010538134704399297,
+      0.9901431692229411
+    ],
+    "loss": 82.5022164381211
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937
+    ],
+    "physical_parameters": {
+      "k1": 0.0011160460239868374,
+      "k2": 90498.81759935453,
+      "k3": 837735.588319471
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 6524,
+      "num_rejected_steps": 1792,
+      "num_steps": 8316
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      3.990946952849625e-05,
+      0.000347401728871471
+    ],
+    "loss": 0.35386985976974145
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459
+    ],
+    "physical_parameters": {
+      "k1": 2.266316430431919,
+      "k2": 231517.2667942353,
+      "k3": 21903348.122917674
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31387,
+      "num_rejected_steps": 8613,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867
+    ],
+    "physical_parameters": {
+      "k1": 1.599105534699017,
+      "k2": 341744742.7070993,
+      "k3": 681.7894211352371
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30966,
+      "num_rejected_steps": 9034,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082
+    ],
+    "physical_parameters": {
+      "k1": 0.011276868771352781,
+      "k2": 13808451.784746645,
+      "k3": 12611886.208349096
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31381,
+      "num_rejected_steps": 8619,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883
+    ],
+    "physical_parameters": {
+      "k1": 0.008664724307558342,
+      "k2": 40812.14224480091,
+      "k3": 5589.818551916948
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 3699,
+      "num_rejected_steps": 995,
+      "num_steps": 4694
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00035928150989200625,
+      0.02841704390380612
+    ],
+    "loss": 2.406575436927457
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519
+    ],
+    "physical_parameters": {
+      "k1": 0.0017483303781984883,
+      "k2": 54392064.310028456,
+      "k3": 94037436.2292199
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31411,
+      "num_rejected_steps": 8589,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648
+    ],
+    "physical_parameters": {
+      "k1": 0.10029131605585426,
+      "k2": 37912293105.095116,
+      "k3": 3519.821372818495
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30511,
+      "num_rejected_steps": 9489,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657
+    ],
+    "physical_parameters": {
+      "k1": 0.007647214245094172,
+      "k2": 1204187.4080905311,
+      "k3": 163.81815462038207
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 4932,
+      "num_rejected_steps": 1357,
+      "num_steps": 6289
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      7.956923703626582e-05,
+      0.36090903991237433
+    ],
+    "loss": 0.6098352173807402
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026
+    ],
+    "physical_parameters": {
+      "k1": 0.14030084271038504,
+      "k2": 9943.127531899718,
+      "k3": 45.55019017688175
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 1465,
+      "num_rejected_steps": 74,
+      "num_steps": 1539
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0035891984183838853,
+      0.903533043804067
+    ],
+    "loss": 29.217192467329912
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135
+    ],
+    "physical_parameters": {
+      "k1": 0.47463257519270824,
+      "k2": 9234177366.284601,
+      "k3": 22680.95741009967
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31062,
+      "num_rejected_steps": 8938,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091
+    ],
+    "physical_parameters": {
+      "k1": 0.004539073078099864,
+      "k2": 10647318987.792004,
+      "k3": 38913673.63857992
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30479,
+      "num_rejected_steps": 9521,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256
+    ],
+    "physical_parameters": {
+      "k1": 8.725548787437775,
+      "k2": 4507955102.733808,
+      "k3": 454450.2453601048
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31319,
+      "num_rejected_steps": 8681,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 9
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509
+    ],
+    "physical_parameters": {
+      "k1": 3.5431534861179803,
+      "k2": 2603159.1228983635,
+      "k3": 1.8871112784303417
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 1190,
+      "num_rejected_steps": 241,
+      "num_steps": 1431
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0011621391074527734,
+      0.9999999903824894
+    ],
+    "loss": 10.392246544840523
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751
+    ],
+    "physical_parameters": {
+      "k1": 0.0023469044230106785,
+      "k2": 7726986.552793393,
+      "k3": 2016115.0853742992
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31395,
+      "num_rejected_steps": 8605,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751
+    ],
+    "physical_parameters": {
+      "k1": 0.5705479334142302,
+      "k2": 95912330.69427086,
+      "k3": 939.2431102969199
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31233,
+      "num_rejected_steps": 8767,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064
+    ],
+    "physical_parameters": {
+      "k1": 0.017317107921436994,
+      "k2": 231007272.83060643,
+      "k3": 18.95228025403962
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31103,
+      "num_rejected_steps": 8897,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747
+    ],
+    "physical_parameters": {
+      "k1": 0.026730077129666865,
+      "k2": 1640664334.8164978,
+      "k3": 3283877.154468627
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31118,
+      "num_rejected_steps": 8882,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 32,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.5291150021913202,
+      0.5399218728763815,
+      -0.8064495181977207
+    ],
+    "physical_parameters": {
+      "k1": 1.1434837687910635,
+      "k2": 1226581921.6098032,
+      "k3": 5.945685417253373
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31225,
+      "num_rejected_steps": 8775,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 33,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6017563034290567,
+      0.0380833910932874,
+      -0.954542201453841
+    ],
+    "physical_parameters": {
+      "k1": 1.5977639088571038,
+      "k2": 21491259.7474969,
+      "k3": 1.5199566233341855
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 4443,
+      "num_rejected_steps": 35557,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 16
+  },
+  {
+    "sample": 34,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.7272016364937322,
+      -0.11898464514824725,
+      0.7360295952540779
+    ],
+    "physical_parameters": {
+      "k1": 2.847103616436939,
+      "k2": 6060713.3833876625,
+      "k3": 8792621.555252068
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31385,
+      "num_rejected_steps": 8615,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 35,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.05100691271814428,
+      -0.33367553368656566,
+      0.05161042385638326
+    ],
+    "physical_parameters": {
+      "k1": 0.07906534577444894,
+      "k2": 1074250.677944178,
+      "k3": 16085.764100079972
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31392,
+      "num_rejected_steps": 8608,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 36,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.4413665886347733,
+      -0.8980028297075301,
+      -0.5203624380977994
+    ],
+    "physical_parameters": {
+      "k1": 0.7633666407207487,
+      "k2": 11375.22774169675,
+      "k3": 82.89918245772859
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 2593,
+      "num_rejected_steps": 399,
+      "num_steps": 2992
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.007454262971666664,
+      0.9877998268613253
+    ],
+    "loss": 59.44921113384858
+  },
+  {
+    "sample": 37,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.8382198014686235,
+      -0.2610071569373741,
+      0.21067079967664082
+    ],
+    "physical_parameters": {
+      "k1": 4.747222670211343,
+      "k2": 1929500.7648249043,
+      "k3": 69611.85368828707
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31409,
+      "num_rejected_steps": 8591,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 38,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.9227518805274042,
+      -0.9497804563043545,
+      -0.12098674998961856
+    ],
+    "physical_parameters": {
+      "k1": 7.006542506091603,
+      "k2": 7494.42654423635,
+      "k3": 3281.3533535630363
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31455,
+      "num_rejected_steps": 8545,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 39,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.3009513617682358,
+      -0.479551987004209,
+      0.6574235146287684
+    ],
+    "physical_parameters": {
+      "k1": 0.3998551772344536,
+      "k2": 331541.61587885994,
+      "k3": 4262791.179930912
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31383,
+      "num_rejected_steps": 8617,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 40,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.14187567193737094,
+      0.2951279583079096,
+      -0.8901587558511124
+    ],
+    "physical_parameters": {
+      "k1": 0.05202938064704054,
+      "k2": 170575973.4519741,
+      "k3": 2.750204425586582
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31207,
+      "num_rejected_steps": 8793,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 41,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.4304246904671736,
+      -0.6332954132767278,
+      -0.42557261228189514
+    ],
+    "physical_parameters": {
+      "k1": 0.013776871861725298,
+      "k2": 96036.44114109346,
+      "k3": 198.47670932520754
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 2298,
+      "num_rejected_steps": 634,
+      "num_steps": 2932
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00037393238248351675,
+      0.3230165786510555
+    ],
+    "loss": 3.2435574730080496
+  },
+  {
+    "sample": 42,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.36958467884569024,
+      0.11830923488692435,
+      -0.608360173336691
+    ],
+    "physical_parameters": {
+      "k1": 0.5484908129712324,
+      "k2": 41025352.98490729,
+      "k3": 36.86033743822628
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 11195,
+      "num_rejected_steps": 3153,
+      "num_steps": 14348
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0001155713760783103,
+      0.9999979689418079
+    ],
+    "loss": 1.1303312435211792
+  },
+  {
+    "sample": 43,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.3248727138751698,
+      -0.17740547956581254,
+      -0.02899249735128928
+    ],
+    "physical_parameters": {
+      "k1": 0.022400338039788675,
+      "k2": 3784868.7676905873,
+      "k3": 7656.495129563532
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31352,
+      "num_rejected_steps": 8648,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 16
+  },
+  {
+    "sample": 44,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.5076442895844042,
+      0.31416889688039285,
+      0.35927072268112004
+    ],
+    "physical_parameters": {
+      "k1": 0.009654091725682693,
+      "k2": 198866277.0386659,
+      "k3": 273579.0837579644
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31208,
+      "num_rejected_steps": 8792,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 45,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.7172934904390514,
+      -0.20932453478611068,
+      0.49353667067244866
+    ],
+    "physical_parameters": {
+      "k1": 0.0036763175639519963,
+      "k2": 2926402.9948477345,
+      "k3": 942207.7728742192
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31384,
+      "num_rejected_steps": 8616,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 46,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.44277278530620423,
+      0.45091726704648516,
+      -0.3671411551541144
+    ],
+    "physical_parameters": {
+      "k1": 0.01301530738516488,
+      "k2": 598660272.461323,
+      "k3": 339.9659169926869
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30941,
+      "num_rejected_steps": 9059,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 47,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.06541576487211787,
+      0.7227318577666919,
+      -0.6759831116958439
+    ],
+    "physical_parameters": {
+      "k1": 0.13515481728437687,
+      "k2": 5352189805.956259,
+      "k3": 19.772771757844662
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30966,
+      "num_rejected_steps": 9034,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 48,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.1231069478792749,
+      0.4340502831129276,
+      0.6124710607117589
+    ],
+    "physical_parameters": {
+      "k1": 0.05672651510303878,
+      "k2": 522571830.58864474,
+      "k3": 2817631.8176253
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31286,
+      "num_rejected_steps": 8714,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 49,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.6862365266652408,
+      -0.7262925234842146,
+      0.2902826014389672
+    ],
+    "physical_parameters": {
+      "k1": 0.004241573007818843,
+      "k2": 45388.53571487906,
+      "k3": 144920.69420944038
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 7035,
+      "num_rejected_steps": 1926,
+      "num_steps": 8961
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00013880993994205398,
+      0.0021598787775052625
+    ],
+    "loss": 0.730778039571166
+  },
+  {
+    "sample": 50,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.6092019576279715,
+      -0.04670159060098078,
+      0.10756079948812358
+    ],
+    "physical_parameters": {
+      "k1": 0.006047781396553101,
+      "k2": 10852116.246760292,
+      "k3": 26930.42442386184
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31329,
+      "num_rejected_steps": 8671,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 16
+  },
+  {
+    "sample": 51,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.7969643891744386,
+      -0.5339681218773832,
+      0.999798197814457
+    ],
+    "physical_parameters": {
+      "k1": 0.0025472479514909094,
+      "k2": 213836.37214781638,
+      "k3": 99814305.94348335
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31372,
+      "num_rejected_steps": 8628,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 52,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.3867189583972479,
+      0.9785777445794208,
+      0.18369874741818015
+    ],
+    "physical_parameters": {
+      "k1": 0.5935234968367699,
+      "k2": 42071898529.90612,
+      "k3": 54299.3948668652
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30872,
+      "num_rejected_steps": 9128,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 9
+  },
+  {
+    "sample": 53,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.16044098864908718,
+      0.7563186854909161,
+      0.5526890666775992
+    ],
+    "physical_parameters": {
+      "k1": 0.20935434427952043,
+      "k2": 7015932524.322833,
+      "k3": 1624636.7266876334
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31085,
+      "num_rejected_steps": 8915,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 54,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.9399366150645654,
+      0.14878654771878397,
+      -0.4514302619341761
+    ],
+    "physical_parameters": {
+      "k1": 7.583561797514881,
+      "k2": 52447274.136415675,
+      "k3": 156.41519925896748
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 7821,
+      "num_rejected_steps": 2228,
+      "num_steps": 10049
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0003776884984970823,
+      0.9999999219693171
+    ],
+    "loss": 3.370531643969267
+  },
+  {
+    "sample": 55,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.2243992417396783,
+      0.8833575743024076,
+      0.3996887009504022
+    ],
+    "physical_parameters": {
+      "k1": 0.2810596385945639,
+      "k2": 19530866631.00224,
+      "k3": 396967.364326038
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30892,
+      "num_rejected_steps": 9108,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 56,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.23962430293454895,
+      -0.39609711114910917,
+      0.7900768194131134
+    ],
+    "physical_parameters": {
+      "k1": 0.03317045235288159,
+      "k2": 649576.2164883267,
+      "k3": 14464628.288803212
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31375,
+      "num_rejected_steps": 8625,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 57,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.7923671067854567,
+      -0.760590466733551,
+      -0.23847214734708877
+    ],
+    "physical_parameters": {
+      "k1": 3.843564854708946,
+      "k2": 34427.33224501,
+      "k3": 1112.0169590888763
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30336,
+      "num_rejected_steps": 8236,
+      "num_steps": 38572
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.009795391654104016,
+      0.976444478656492
+    ],
+    "loss": 72.82900891279506
+  },
+  {
+    "sample": 58,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.9361827903472568,
+      -0.851446638661951,
+      -0.7025315959199496
+    ],
+    "physical_parameters": {
+      "k1": 0.0013416351231706346,
+      "k2": 16554.145537281445,
+      "k3": 15.483659646381753
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 279,
+      "num_rejected_steps": 73,
+      "num_steps": 352
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0002805723638476368,
+      0.0945373160713533
+    ],
+    "loss": 2.7570399582896363
+  },
+  {
+    "sample": 59,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6444106373158247,
+      0.21073274704840106,
+      -0.1401443334676007
+    ],
+    "physical_parameters": {
+      "k1": 1.9445596715784383,
+      "k2": 86404153.34599146,
+      "k3": 2750.569773424505
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31314,
+      "num_rejected_steps": 8686,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 60,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.05864633042903833,
+      -0.5912798963157854,
+      -0.2674190491478301
+    ],
+    "physical_parameters": {
+      "k1": 0.13100644472924586,
+      "k2": 134738.08397410295,
+      "k3": 851.7728705043626
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 12995,
+      "num_rejected_steps": 3524,
+      "num_steps": 16519
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0009464637273146669,
+      0.5872664739908924
+    ],
+    "loss": 7.792919637497787
+  },
+  {
+    "sample": 61,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.9663502262576722,
+      0.8259411112273809,
+      -0.8472000609733263
+    ],
+    "physical_parameters": {
+      "k1": 0.0011676146824353213,
+      "k2": 12296001108.159266,
+      "k3": 4.085072382514867
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 29547,
+      "num_rejected_steps": 10453,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 62,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.8242757873283281,
+      0.6404630994760483,
+      0.8361362705494264
+    ],
+    "physical_parameters": {
+      "k1": 0.0022462000125899875,
+      "k2": 2757978348.985072,
+      "k3": 22107777.354899183
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30727,
+      "num_rejected_steps": 9273,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 12
+  },
+  {
+    "sample": 63,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.2713733698992671,
+      0.5831157677051508,
+      0.9012356832731214
+    ],
+    "physical_parameters": {
+      "k1": 0.028658487114553124,
+      "k2": 1737301486.709146,
+      "k3": 40266393.478203095
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31222,
+      "num_rejected_steps": 8778,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 64,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.2802180023541958,
+      -0.04130963637459495,
+      0.5991787941410398
+    ],
+    "physical_parameters": {
+      "k1": 0.02751465016159225,
+      "k2": 11334080.086187324,
+      "k3": 2492959.2327523553
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31384,
+      "num_rejected_steps": 8616,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 65,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.2344792639995752,
+      -0.8549428635403944,
+      -0.8348958935825546
+    ],
+    "physical_parameters": {
+      "k1": 0.29441404761248596,
+      "k2": 16094.221790772393,
+      "k3": 4.575266813490819
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 555,
+      "num_rejected_steps": 2,
+      "num_steps": 557
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.004180013580884928,
+      0.9996557314587489
+    ],
+    "loss": 33.93087625383238
+  },
+  {
+    "sample": 66,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.9336520732479253,
+      0.918941522616785,
+      0.030053414839982473
+    ],
+    "physical_parameters": {
+      "k1": 0.0013573625212011217,
+      "k2": 26017486236.913094,
+      "k3": 13189.054393747254
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 29355,
+      "num_rejected_steps": 10645,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 67,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.9742595116052539,
+      -0.38880239193458244,
+      -0.43669402210639185
+    ],
+    "physical_parameters": {
+      "k1": 8.882168816412479,
+      "k2": 688908.6416520488,
+      "k3": 179.15292844889981
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 5856,
+      "num_rejected_steps": 1110,
+      "num_steps": 6966
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0035488406457686835,
+      0.9999923727323214
+    ],
+    "loss": 29.837388547729745
+  },
+  {
+    "sample": 68,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.5356101349856994,
+      0.7623775832492605,
+      -0.18175815255371364
+    ],
+    "physical_parameters": {
+      "k1": 0.0084874988809578,
+      "k2": 7367014857.245125,
+      "k3": 1874.8537241505574
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30308,
+      "num_rejected_steps": 9692,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 12
+  },
+  {
+    "sample": 69,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.9213825865198104,
+      0.27325913297803583,
+      -0.6510922550194624
+    ],
+    "physical_parameters": {
+      "k1": 6.962499436609673,
+      "k2": 143013478.39805543,
+      "k3": 24.867434341058306
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 5632,
+      "num_rejected_steps": 34368,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 70,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.9432407350318828,
+      -0.45686155762142966,
+      -0.4851766242139496
+    ],
+    "physical_parameters": {
+      "k1": 7.69983590954814,
+      "k2": 398065.51226484595,
+      "k3": 114.6287359031413
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 3924,
+      "num_rejected_steps": 543,
+      "num_steps": 4467
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.004317082301544403,
+      0.9999925405748855
+    ],
+    "loss": 36.74017013348745
+  },
+  {
+    "sample": 71,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.08343326749429103,
+      0.29583191107248274,
+      -0.9995289756709245
+    ],
+    "physical_parameters": {
+      "k1": 0.14684749245893775,
+      "k2": 171546433.386093,
+      "k3": 1.0043477184165257
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31227,
+      "num_rejected_steps": 8773,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 72,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.14794172257203686,
+      0.711108034062433,
+      -0.3919320868580509
+    ],
+    "physical_parameters": {
+      "k1": 0.05059604321660857,
+      "k2": 4873580270.839106,
+      "k3": 270.56502276692277
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30812,
+      "num_rejected_steps": 9188,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 73,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.6397832124984357,
+      -0.6717607562977286,
+      -0.6824086734402031
+    ],
+    "physical_parameters": {
+      "k1": 0.005253316599039951,
+      "k2": 70438.05531945186,
+      "k3": 18.636540877655733
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 1003,
+      "num_rejected_steps": 270,
+      "num_steps": 1273
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00027233915852927843,
+      0.3164464891972101
+    ],
+    "loss": 2.682993914730536
+  },
+  {
+    "sample": 74,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.5713422771206982,
+      -0.6144364821661886,
+      0.07092625695822141
+    ],
+    "physical_parameters": {
+      "k1": 1.388943418604739,
+      "k2": 111800.13211366559,
+      "k3": 19217.86011334885
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31413,
+      "num_rejected_steps": 8587,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 75,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.766130037109717,
+      0.05708809183966945,
+      0.05601376893001242
+    ],
+    "physical_parameters": {
+      "k1": 3.4061210181918704,
+      "k2": 25048304.01714227,
+      "k3": 16751.552999423744
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31366,
+      "num_rejected_steps": 8634,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 12
+  },
+  {
+    "sample": 76,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.05089167471091094,
+      -0.9255949189333468,
+      -0.2442478993288465
+    ],
+    "physical_parameters": {
+      "k1": 0.12641055830039222,
+      "k2": 9107.261107108796,
+      "k3": 1054.4072967569768
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 6822,
+      "num_rejected_steps": 1820,
+      "num_steps": 8642
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0030496983062710146,
+      0.27284526427673433
+    ],
+    "loss": 21.75102982720024
+  },
+  {
+    "sample": 77,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.7957434975143354,
+      0.12014778439607787,
+      -0.7307147239665949
+    ],
+    "physical_parameters": {
+      "k1": 0.002561609970486086,
+      "k2": 41637749.65856038,
+      "k3": 11.943760993304585
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 17499,
+      "num_rejected_steps": 5007,
+      "num_steps": 22506
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      7.842445685813032e-06,
+      0.2004893334317785
+    ],
+    "loss": 0.3392837821188352
+  },
+  {
+    "sample": 78,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.48763737164703436,
+      0.18078876258433474,
+      -0.26855274156589337
+    ],
+    "physical_parameters": {
+      "k1": 0.010585838321995325,
+      "k2": 67878255.67892592,
+      "k3": 842.9251924014533
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31175,
+      "num_rejected_steps": 8825,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 79,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.805962931211579,
+      0.732727775742841,
+      -0.5494501384613759
+    ],
+    "physical_parameters": {
+      "k1": 4.091908015917127,
+      "k2": 5801191733.3744955,
+      "k3": 63.41608775401895
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31229,
+      "num_rejected_steps": 8771,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 80,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.1914550797141974,
+      -0.10272215813344288,
+      -0.7557235807000645
+    ],
+    "physical_parameters": {
+      "k1": 0.04140853259535139,
+      "k2": 6909433.65209266,
+      "k3": 9.486492707520853
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 13075,
+      "num_rejected_steps": 3619,
+      "num_steps": 16694
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      7.735388808669692e-05,
+      0.9687758845029472
+    ],
+    "loss": 0.6663142688566664
+  },
+  {
+    "sample": 81,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.13060535199025636,
+      0.4385746781328388,
+      0.4425285923183495
+    ],
+    "physical_parameters": {
+      "k1": 0.18247808052632694,
+      "k2": 541977650.3364328,
+      "k3": 588998.7447987178
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31301,
+      "num_rejected_steps": 8699,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 82,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6917596476505634,
+      -0.4253187998786926,
+      -0.34613093046493504
+    ],
+    "physical_parameters": {
+      "k1": 2.418350780626344,
+      "k2": 513279.8374839684,
+      "k3": 412.5497023762065
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 12723,
+      "num_rejected_steps": 3461,
+      "num_steps": 16184
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0021287002204553747,
+      0.9993089926058814
+    ],
+    "loss": 19.123397118978016
+  },
+  {
+    "sample": 83,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.4722872387744388,
+      0.43313542769362723,
+      -0.4408284107105872
+    ],
+    "physical_parameters": {
+      "k1": 0.8801860426364805,
+      "k2": 518733148.20196015,
+      "k3": 172.45919602270413
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30993,
+      "num_rejected_steps": 9007,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 84,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6556123978265098,
+      0.9868606049224486,
+      -0.3228649386613217
+    ],
+    "physical_parameters": {
+      "k1": 2.0475041734146453,
+      "k2": 44976133935.854294,
+      "k3": 511.1404433862307
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31046,
+      "num_rejected_steps": 8954,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 9
+  },
+  {
+    "sample": 85,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.31432527178575254,
+      0.32993205706948125,
+      0.18904522877223773
+    ],
+    "physical_parameters": {
+      "k1": 0.023515242211878454,
+      "k2": 225804297.9852196,
+      "k3": 57040.183645048695
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31209,
+      "num_rejected_steps": 8791,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 86,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.4447083494469095,
+      -0.8229769098264517,
+      -0.5730216084846564
+    ],
+    "physical_parameters": {
+      "k1": 0.7752052386211721,
+      "k2": 20823.36060191155,
+      "k3": 51.040340861503175
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 1835,
+      "num_rejected_steps": 66,
+      "num_steps": 1901
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.005801624483366362,
+      0.9972198920053408
+    ],
+    "loss": 46.74255306412164
+  },
+  {
+    "sample": 87,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.9696903883255571,
+      0.2399272384991955,
+      0.6437608650738753
+    ],
+    "physical_parameters": {
+      "k1": 0.0011497918431464813,
+      "k2": 109323956.09688792,
+      "k3": 3758750.1660598223
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31582,
+      "num_rejected_steps": 8418,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 88,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6627443020976065,
+      0.20573744534522254,
+      0.24288143464478962
+    ],
+    "physical_parameters": {
+      "k1": 2.1158681645334236,
+      "k2": 82994834.4618233,
+      "k3": 93653.87224686382
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31358,
+      "num_rejected_steps": 8642,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 89,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.04667262449412091,
+      0.38814466595343533,
+      0.16293223694771197
+    ],
+    "physical_parameters": {
+      "k1": 0.08065935615192346,
+      "k2": 360974343.4582594,
+      "k3": 44846.54059930288
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31245,
+      "num_rejected_steps": 8755,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 90,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.5157067173681402,
+      -0.9942661347441626,
+      -0.06395762467506705
+    ],
+    "physical_parameters": {
+      "k1": 0.009302219117224361,
+      "k2": 5236.468950394558,
+      "k3": 5548.422207219032
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 1979,
+      "num_rejected_steps": 517,
+      "num_steps": 2496
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.000888925051692233,
+      0.015389740985956154
+    ],
+    "loss": 5.588696572593695
+  },
+  {
+    "sample": 91,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.6223423719605887,
+      -0.5221049364020042,
+      -0.2848063390698724
+    ],
+    "physical_parameters": {
+      "k1": 1.7566479933128345,
+      "k2": 235289.5975692854,
+      "k3": 725.7292773330221
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 21147,
+      "num_rejected_steps": 5798,
+      "num_steps": 26945
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0026767338391684593,
+      0.9918494687874819
+    ],
+    "loss": 22.885708059204788
+  },
+  {
+    "sample": 92,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.3737334731282882,
+      0.540403818032329,
+      -0.12142633936204938
+    ],
+    "physical_parameters": {
+      "k1": 0.01788681658801455,
+      "k2": 1231355253.0276535,
+      "k3": 3268.0947745138737
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30879,
+      "num_rejected_steps": 9121,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 93,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.8338952870489256,
+      -0.3302892211049928,
+      0.3536000580808947
+    ],
+    "physical_parameters": {
+      "k1": 0.0021488664527697233,
+      "k2": 1103971.1660502518,
+      "k3": 259657.11792956863
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 15706,
+      "num_rejected_steps": 4309,
+      "num_steps": 20015
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      2.9453006574819635e-05,
+      0.0026804408321917895
+    ],
+    "loss": 0.34086673429734354
+  },
+  {
+    "sample": 94,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.887500790672946,
+      0.09372058610874423,
+      0.25101388090356136
+    ],
+    "physical_parameters": {
+      "k1": 0.0016787979053002364,
+      "k2": 33650541.38314371,
+      "k3": 100938.19251332206
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30976,
+      "num_rejected_steps": 8697,
+      "num_steps": 39673
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      6.981297105612033e-06,
+      0.0126598607302973
+    ],
+    "loss": 0.4135762393992498
+  },
+  {
+    "sample": 95,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.7479250556717725,
+      -0.30148275181629147,
+      0.9009671003940023
+    ],
+    "physical_parameters": {
+      "k1": 0.003192639545087004,
+      "k2": 1392452.447866106,
+      "k3": 40166908.002000354
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31373,
+      "num_rejected_steps": 8627,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 96,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.8823922055126883,
+      -0.7672693974431479,
+      -0.6901532891666267
+    ],
+    "physical_parameters": {
+      "k1": 5.818143264825694,
+      "k2": 32623.241665899466,
+      "k3": 17.353490538140885
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 913,
+      "num_rejected_steps": 1,
+      "num_steps": 914
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.012861603654567377,
+      0.9999942510544019
+    ],
+    "loss": 99.75827753347323
+  },
+  {
+    "sample": 97,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.3895332329405481,
+      -0.2071366386304233,
+      0.718431539105497
+    ],
+    "physical_parameters": {
+      "k1": 0.6012657501649786,
+      "k2": 2978459.9802878555,
+      "k3": 7476978.92325254
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31381,
+      "num_rejected_steps": 8619,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 98,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.06622321791033658,
+      -0.23183038313984783,
+      -0.9496273431986954
+    ],
+    "physical_parameters": {
+      "k1": 0.07371460864408151,
+      "k2": 2440976.865280973,
+      "k3": 1.5903423612278815
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 6456,
+      "num_rejected_steps": 1766,
+      "num_steps": 8222
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00017354293940217047,
+      0.9980305112878525
+    ],
+    "loss": 1.5927982258390632
+  },
+  {
+    "sample": 99,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.6949700149481941,
+      0.5921218306086191,
+      0.6770620493390243
+    ],
+    "physical_parameters": {
+      "k1": 0.00407436535309867,
+      "k2": 1868084046.0639703,
+      "k3": 5107968.3468526695
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30827,
+      "num_rejected_steps": 9173,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 100,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.5259056396738044,
+      -0.25346647207129624,
+      0.39620017292175347
+    ],
+    "physical_parameters": {
+      "k1": 1.1267077441588191,
+      "k2": 2050394.1405502406,
+      "k3": 384415.3240051552
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31391,
+      "num_rejected_steps": 8609,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 101,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.44496656960845904,
+      0.7930355858032667,
+      0.5490671385879042
+    ],
+    "physical_parameters": {
+      "k1": 0.012884478963831797,
+      "k2": 9431799383.58153,
+      "k3": 1571334.1686978736
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30458,
+      "num_rejected_steps": 9542,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 102,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.3658662742515557,
+      0.9458406606888103,
+      -0.5952367840203872
+    ],
+    "physical_parameters": {
+      "k1": 0.5391784780629979,
+      "k2": 32315606913.97446,
+      "k3": 41.59612397414924
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30903,
+      "num_rejected_steps": 9097,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 103,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.16094708304229854,
+      -0.9411125436140187,
+      0.7377456633977653
+    ],
+    "physical_parameters": {
+      "k1": 0.04765471031806633,
+      "k2": 8036.669368952662,
+      "k3": 8932698.044110432
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31381,
+      "num_rejected_steps": 8619,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 104,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.4275461465855215,
+      -0.14081770815893258,
+      -0.14575856127508935
+    ],
+    "physical_parameters": {
+      "k1": 0.7162956160836578,
+      "k2": 5082858.571249699,
+      "k3": 2611.955387699796
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31366,
+      "num_rejected_steps": 8634,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 105,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.75825990439645,
+      -0.6973268391525576,
+      0.32852741374795413
+    ],
+    "physical_parameters": {
+      "k1": 0.0030442491342957904,
+      "k2": 57322.62464158184,
+      "k3": 206115.0267302117
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 6856,
+      "num_rejected_steps": 1879,
+      "num_steps": 8735
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00010252928221260052,
+      0.0014805769230598006
+    ],
+    "loss": 0.5213887554141321
+  },
+  {
+    "sample": 106,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.009426390711006594,
+      0.8772903569634267,
+      -0.21816678515996235
+    ],
+    "physical_parameters": {
+      "k1": 0.10443661365275408,
+      "k2": 18598856931.75901,
+      "k3": 1340.7038587890027
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30681,
+      "num_rejected_steps": 9319,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 107,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.09898877259058558,
+      -0.7854200719723048,
+      -0.7898710529742273
+    ],
+    "physical_parameters": {
+      "k1": 0.15775297027881247,
+      "k2": 28183.813246620815,
+      "k3": 6.926531093104198
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 795,
+      "num_rejected_steps": 2,
+      "num_steps": 797
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0023345664743788385,
+      0.9978757735968069
+    ],
+    "loss": 20.011098059331513
+  },
+  {
+    "sample": 108,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.5701085944013816,
+      -0.49021983866822105,
+      0.5216850336310792
+    ],
+    "physical_parameters": {
+      "k1": 0.007240737633407782,
+      "k2": 304228.9713378556,
+      "k3": 1221068.7999053944
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31375,
+      "num_rejected_steps": 8625,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 16
+  },
+  {
+    "sample": 109,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.8489324154927707,
+      -0.07829603258476658,
+      -0.8618421518360339
+    ],
+    "physical_parameters": {
+      "k1": 4.987292397319781,
+      "k2": 8412670.715033013,
+      "k3": 3.569697315596792
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 1766,
+      "num_rejected_steps": 423,
+      "num_steps": 2189
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.0007666581848821236,
+      1.0000000011054078
+    ],
+    "loss": 6.765579312401354
+  },
+  {
+    "sample": 110,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.22126700464000093,
+      -0.556311841195017,
+      0.9953587840771474
+    ],
+    "physical_parameters": {
+      "k1": 0.03609657455187712,
+      "k2": 178598.80970637998,
+      "k3": 95815360.13844052
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31375,
+      "num_rejected_steps": 8625,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 111,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.3311450886673788,
+      0.13813258196019418,
+      0.42986019049532187
+    ],
+    "physical_parameters": {
+      "k1": 0.45950493218907346,
+      "k2": 48132014.75868524,
+      "k3": 524132.1042100758
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31383,
+      "num_rejected_steps": 8617,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 112,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.9584551839727554,
+      0.5258765286655247,
+      -0.8957286063007526
+    ],
+    "physical_parameters": {
+      "k1": 0.0012108480091543392,
+      "k2": 1095312022.5320685,
+      "k3": 2.6126761138801995
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30296,
+      "num_rejected_steps": 9704,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  },
+  {
+    "sample": 113,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.185520098645386,
+      -0.005388148503946866,
+      -0.5288281884457091
+    ],
+    "physical_parameters": {
+      "k1": 0.23498503074818292,
+      "k2": 15139498.335898718,
+      "k3": 76.68090789030191
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 11995,
+      "num_rejected_steps": 3339,
+      "num_steps": 15334
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00012443005129980642,
+      0.9998112403196616
+    ],
+    "loss": 1.166394126766793
+  },
+  {
+    "sample": 114,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.19234782099805758,
+      0.4835522504083869,
+      0.28538196952590233
+    ],
+    "physical_parameters": {
+      "k1": 0.24249100977271817,
+      "k2": 778758644.9429531,
+      "k3": 138524.91045734804
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31263,
+      "num_rejected_steps": 8737,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 115,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.10892292694702355,
+      0.6489972094118286,
+      0.8495085071667128
+    ],
+    "physical_parameters": {
+      "k1": 0.0605555769264672,
+      "k2": 2954338385.5823016,
+      "k3": 25005412.8118486
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31206,
+      "num_rejected_steps": 8794,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 116,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.4346389352119926,
+      -0.6419354104460446,
+      0.9157474384066231
+    ],
+    "physical_parameters": {
+      "k1": 0.013512077564165765,
+      "k2": 89576.90806357512,
+      "k3": 46024571.48085025
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31374,
+      "num_rejected_steps": 8626,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 117,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.5614196159088929,
+      0.8241673856306002,
+      -0.9235151336181062
+    ],
+    "physical_parameters": {
+      "k1": 1.3269031705758996,
+      "k2": 12121485715.870918,
+      "k3": 2.022737218235697
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31135,
+      "num_rejected_steps": 8865,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 118,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.8570194980683866,
+      -0.7329409694818608,
+      0.15399989307156514
+    ],
+    "physical_parameters": {
+      "k1": 0.0019317948496542416,
+      "k2": 43020.61466409721,
+      "k3": 41304.70952016526
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 2711,
+      "num_rejected_steps": 735,
+      "num_steps": 3446
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 17,
+    "state_scale": [
+      1.0,
+      0.00013013745128557074,
+      0.002878204025379192
+    ],
+    "loss": 0.7306977353332744
+  },
+  {
+    "sample": 119,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.27511458118125165,
+      0.6625418989737342,
+      0.821200559308737
+    ],
+    "physical_parameters": {
+      "k1": 0.3550006615428239,
+      "k2": 3295085217.076066,
+      "k3": 19266473.844757866
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31287,
+      "num_rejected_steps": 8713,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 10
+  },
+  {
+    "sample": 120,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.2900600755827407,
+      0.009892547652502026,
+      0.8093308019700969
+    ],
+    "physical_parameters": {
+      "k1": 0.3802945934171415,
+      "k2": 17123554.52999916,
+      "k3": 17271227.621521343
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31377,
+      "num_rejected_steps": 8623,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 121,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.3811938554166082,
+      0.36582902410385554,
+      -0.009985556871669687
+    ],
+    "physical_parameters": {
+      "k1": 0.017282727769372497,
+      "k2": 301558509.93208045,
+      "k3": 9121.321686963325
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31098,
+      "num_rejected_steps": 8902,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 122,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.2905361885753407,
+      -0.5696714380770412,
+      0.964171653594373
+    ],
+    "physical_parameters": {
+      "k1": 0.026237812418687865,
+      "k2": 160368.83381287317,
+      "k3": 71893001.29987068
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31374,
+      "num_rejected_steps": 8626,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 14
+  },
+  {
+    "sample": 123,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.8326150459310213,
+      -0.37322787077202335,
+      0.10635166858400069
+    ],
+    "physical_parameters": {
+      "k1": 4.626260585863842,
+      "k2": 781038.525899574,
+      "k3": 26632.177356596276
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31416,
+      "num_rejected_steps": 8584,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 124,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      0.7484550879658447,
+      -0.8833491831233516,
+      0.7501023981848014
+    ],
+    "physical_parameters": {
+      "k1": 3.1398592172909,
+      "k2": 12801.11689478854,
+      "k3": 10009435.670150222
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31400,
+      "num_rejected_steps": 8600,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 125,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.6739533956845236,
+      0.8692946854905692,
+      0.5870927300645523
+    ],
+    "physical_parameters": {
+      "k1": 0.004488417103654019,
+      "k2": 17438189931.313725,
+      "k3": 2230339.2140310993
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 29982,
+      "num_rejected_steps": 10018,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 11
+  },
+  {
+    "sample": 126,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.6120284864502461,
+      0.6076622991640084,
+      0.4764211203505988
+    ],
+    "physical_parameters": {
+      "k1": 0.005969569696759076,
+      "k2": 2117327564.4031873,
+      "k3": 804793.5394744668
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 30698,
+      "num_rejected_steps": 9302,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 13
+  },
+  {
+    "sample": 127,
+    "experiment": 1,
+    "filename": "robertson_data.csv",
+    "solver": "Tsit5",
+    "max_steps": 40000,
+    "normalized_parameters": [
+      -0.009621214725468175,
+      -0.18554831522309678,
+      -0.05804749356992167
+    ],
+    "physical_parameters": {
+      "k1": 0.09566599008472285,
+      "k2": 3544466.7041802406,
+      "k3": 5858.818250266315
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 40000,
+      "num_accepted_steps": 31359,
+      "num_rejected_steps": 8641,
+      "num_steps": 40000
+    },
+    "time_start": 9.999999974752427e-07,
+    "time_end": 100.0,
+    "requested_rows": 17,
+    "finite_rows": 15
+  }
+]

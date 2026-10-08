@@ -1,0 +1,79 @@
+{
+  "method": "dataset_time_scales",
+  "integrator": "Kvaerno5",
+  "reason": "Dataset time scales are inconclusive; conservative fallback",
+  "time_scale_ratio": 2.90421210743686,
+  "ratio_threshold": 100.0,
+  "columns": [
+    {
+      "experiment": 1,
+      "column": "pEGFR_tot",
+      "finite_points": 8,
+      "status": "insufficient_changes"
+    },
+    {
+      "experiment": 1,
+      "column": "pAkt_tot",
+      "finite_points": 8,
+      "status": "insufficient_changes"
+    },
+    {
+      "experiment": 1,
+      "column": "pS6_tot",
+      "finite_points": 8,
+      "status": "resolved",
+      "amplitude": 0.6766220863268962,
+      "fast_time_scale": 608.7130000120222,
+      "slow_time_scale": 1767.8316645891284
+    },
+    {
+      "experiment": 2,
+      "column": "pEGFR_tot",
+      "finite_points": 8,
+      "status": "insufficient_changes"
+    },
+    {
+      "experiment": 2,
+      "column": "pAkt_tot",
+      "finite_points": 8,
+      "status": "insufficient_changes"
+    },
+    {
+      "experiment": 2,
+      "column": "pS6_tot",
+      "finite_points": 8,
+      "status": "insufficient_changes"
+    }
+  ],
+  "scope": "Observed dynamics only; hidden modes and other parameter values may be stiff",
+  "max_steps_estimate": {
+    "selected_max_steps": 10000,
+    "configured_max_steps": 10000,
+    "cap": 50000,
+    "steps_per_time_scale": 10,
+    "headroom_factor": 3,
+    "rounding_multiple": 1000,
+    "minimum_steps": 1000,
+    "experiments": [
+      {
+        "experiment": 1,
+        "duration": 3600.0,
+        "fastest_time_scale": 608.7130000120222,
+        "raw_estimated_steps": null,
+        "proposed_max_steps": 10000,
+        "capped": false,
+        "method": "configured_budget_fallback"
+      },
+      {
+        "experiment": 2,
+        "duration": 3600.0,
+        "fastest_time_scale": null,
+        "raw_estimated_steps": null,
+        "proposed_max_steps": 10000,
+        "capped": false,
+        "method": "configured_budget_fallback"
+      }
+    ],
+    "scope": "Initial budget estimate only; sampled integration and accuracy checks remain required"
+  }
+}

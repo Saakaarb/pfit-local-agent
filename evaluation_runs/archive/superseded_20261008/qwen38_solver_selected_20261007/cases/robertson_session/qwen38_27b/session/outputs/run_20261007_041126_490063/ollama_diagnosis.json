@@ -1,0 +1,54 @@
+{
+  "verdict": "k3 is pinned at 99.98 % of its upper log10 bound (9.954e7 / 1e8), so the reported gradient (\u2016g\u2016\u221e = 0.172) and the single negative Hessian mode are boundary artefacts, not evidence of a true stationary point. The optimizer exhausted its 5-iteration Adam budget with only a 0.0002 loss reduction (0.37128 \u2192 0.37107). Residuals show y1/y3 symmetric mismatch (RMSE \u2248 0.160, opposite bias \u00b10.093) and a poorly correlated y2 transient (time-corr 0.36, RMSE 1.7e-5), but these are downstream of the bound constraint and should not be interpreted until the bound question is resolved.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND",
+        "SLOPPINESS"
+      ],
+      "action": "Determine whether k3 = 1e8 is a physically justified upper bound for the Robertson mechanism. If the true rate constant can exceed 1e8, widen the bound and run a full fit (DE + gradient). If 1e8 is correct, accept that the optimum lies on the boundary and interpret the one-sided gradient accordingly.",
+      "reason": "k3 = 9.95406e7 sits at range_fraction 0.99975 of [1, 1e8]. The single negative Hessian mode (SLOPPINESS: negative_modes = 1) is consistent with a boundary-constrained point where the local curvature is not a true interior Hessian. Until the bound is validated, neither the gradient norm (0.172) nor the loss value can be treated as a converged interior solution."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to verify that the autodiff gradient is finite and consistent with a finite-difference check at the current point, before spending additional iterations.",
+      "reason": "The normalized gradient infinity norm is 0.172383 and the optimizer stopped at its 5-iteration budget (BUDGET). With k3 at the bound, the gradient in that direction is a one-sided projection; a probe check confirms whether the remaining gradient components (k1, k2) are reliable or whether the negative Hessian mode signals a numerical issue in the Jacobian/Hessian path."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "If the bound is confirmed and gradient checks pass, increase gradient_opt.num_iters from 5 to at least 50 and perform a gradient-only restart from the current parameter vector (k1=2.03e-3, k2=2.00e4, k3=9.95e7). Do not re-run the DE population stage.",
+      "reason": "The NODE trace shows only 5 Adam iterations with a total loss drop of 0.0002 (0.37111 \u2192 0.37107), and the DE stage contributed a single iteration (0.37128). The gradient norm of 0.172 indicates the optimizer was still making progress when the budget expired. A gradient-only restart is appropriate because the model equations, bounds (pending confirmation), and initial conditions remain unchanged."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png, focusing on the y2 channel (fast intermediate) and the late-time region (t > 66.7) where y1/y3 RMSE rises to 0.374. Verify that the 17 data points span the stiff transient adequately and that initial conditions (y1=1, y2=0, y3=0) match the experimental setup.",
+      "reason": "y2 has RMSE 1.68e-5 but time correlation only 0.361 and lag-1 correlation 0.565, indicating the fast transient shape is poorly captured even though absolute error is tiny. y1 and y3 show symmetric residuals (RMSE 0.160, bias \u00b10.093, time correlation \u00b10.925) consistent with the conservation law y1+y2+y3=1. The late-time region (t 66.7\u2013100) has the worst RMSE (0.374) with only 2 points, so a single outlier can dominate. This is a data/model-mismatch question, not a solver question."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "LOSS"
+      ],
+      "action": "Before further optimisation, confirm with the user that the loss normalisation (division by max(|data|)+1e-12 per channel) is intended, because y2 data values are O(1e-5) while y1/y3 are O(1), making the y2 channel's relative weight in the loss very large despite its small absolute magnitude.",
+      "reason": "The user-defined loss divides each channel by its own max absolute value. With y2 max \u2248 1e-5 and y1/y3 max \u2248 1, a 1e-5 absolute error in y2 contributes comparably to a 1e-5 error in y1. The resulting loss of 0.371 is dominated by the y1/y3 channels (RMSE 0.160 each), but the optimiser's gradient is sensitive to the y2 normalisation. This is a user-defined loss; do not modify it, but flag the weighting effect so the user can judge whether the current loss reflects the intended scientific priority."
+    }
+  ],
+  "limitations": [
+    "The single negative Hessian mode (SLOPPINESS) cannot be distinguished from a true saddle point versus a boundary artefact without a verified interior point; no conclusion about identifiability or local convexity can be drawn.",
+    "With only 17 data points per channel and 3 free parameters, the residual statistics (RMSE, correlation) have very low degrees of freedom; the late-time region has only 2 points, so its RMSE of 0.374 is not statistically robust.",
+    "The Robertson problem is stiff; the Tsit5 integrator with auto_integrator and the recorded stepsize tolerances (rtol 1e-7, atol ~1e-9) may introduce integration error that is indistinguishable from parameter misfit in the residuals.",
+    "No noise level or measurement uncertainty was supplied, so the residuals cannot be assessed as statistically consistent or inconsistent with the model.",
+    "The DE population stage ran only 1 iteration with population_size 4, so the seed landscape is essentially a single random point; the quality of the starting point for the gradient stage is unassessed."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

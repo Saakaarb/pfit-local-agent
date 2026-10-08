@@ -1,0 +1,54 @@
+{
+  "verdict": "Refinement exhausted its 5-iteration budget with essentially no loss change (10002.748 \u2192 10002.742). The loss is dominated by final-state constraint penalties (~10000 each), not data-fit terms. The T channel shows a large systematic bias (488.58) and negative time correlation (\u22120.229), indicating the model trajectory is fundamentally misaligned with the observed temperature. No verified gradient or sloppiness result is available, so convergence and identifiability cannot be assessed.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "LIMITATIONS"
+      ],
+      "action": "Run diagnose --probe-gradients to obtain a verified final-point gradient before any further optimization. The optimizer trace is flat (10003.0 in both DE and NODE logs) and the sloppiness computation failed, so there is no independent confirmation that the gradient is correct or that the loss landscape is smooth.",
+      "reason": "The limitations state 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The optimizer moved the loss by only 0.007 over 5 Adam iterations (seed 10002.748 \u2192 final 10002.742), and the NODE trace shows last_material_improvement at iteration 4 of 5 with no further change. Without a verified gradient, a gradient-only restart would be blind."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the plot fit_exp1.png to visually compare the simulated T trajectory against the 142 data points, paying attention to the initial region (t \u2248 17192\u201335839, 5 points, RMSE 514.7) versus the main region (t \u2248 54486\u201373132, 126 points, RMSE 486.9). Also check whether the simulated dTdt tracks the measured dTdt in the early window (RMSE < 0.1) versus the main window (RMSE 31.2).",
+      "reason": "The T channel has bias 488.58 (nearly equal to RMSE 494.22) and time correlation \u22120.229, meaning the model is systematically offset and anti-correlated in time. The dTdt channel fits the first 16 points to sub-0.1 RMSE but degrades to RMSE 31.2 over the remaining 126 points. This pattern\u2014excellent early fit, poor late fit\u2014suggests the model captures initial dynamics but diverges, which a trajectory plot will confirm or refute before any parameter or model change is considered."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "LOSS"
+      ],
+      "action": "Assess whether the model structure and parameter bounds can physically produce the required final states (c1 \u2192 0.02, c2 \u2192 0.98, |T_final \u2212 data_T_final| \u2264 50). The loss of ~10003 is almost entirely from the three sigmoid penalty terms (each up to 10000), meaning at least one constraint is grossly violated. This is a scientific feasibility question that requires user judgement: either the initial conditions (c1=1.0, c2=0.04, T=354.0), the parameter ranges, or the model equations need revision. Do not simply increase the iteration budget.",
+      "reason": "The data-fit terms (T normalized MSE and log-dTdt normalized MSE) contribute only a few units to the total loss of 10002.74, while each penalty term can contribute up to 10000. The T bias of 488.58 and the fact that the model's dTdt is near-zero in the early window (RMSE 0.09, 0.0006) but 31.2 in the main window indicate the reaction rates are either too slow or too fast to drive the system to the required final composition within the observed time span. No amount of gradient refinement will fix a structurally infeasible trajectory."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "PARAMETERS"
+      ],
+      "action": "Check the input timing, calibration, and initial-condition consistency: the initial T is 354.0 K while the T data RMSE is 494.2 with a bias of +488.6, implying the data temperatures are roughly 490 K above the model's simulated values. Verify that the dataset T column is in the same units and reference as the model's T state variable, and that the time axis in dataset_1.csv matches the model's time scale.",
+      "reason": "A bias of 488.58 on T with 142 data points and a negative time correlation of \u22120.229 is inconsistent with a small parameter misfit; it is more consistent with a unit mismatch, a wrong initial condition, or a model that generates heat in the wrong direction or magnitude. The dTdt early-time fit (RMSE < 0.1) shows the model can produce the correct rate when c1 is high and c2 is low, but the T trajectory then diverges, pointing to a cumulative integration or scaling issue rather than a local parameter error."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER"
+      ],
+      "action": "If gradient verification passes and the model is confirmed feasible, a gradient-only restart with a larger iteration budget (e.g., 50\u2013200 Adam steps) and a learning-rate schedule is appropriate. If the model is infeasible or the gradient is unreliable, a full re-fit with revised initial conditions, bounds, or model equations is required\u2014do not extend the current run.",
+      "reason": "The current run used only 5 Adam iterations with a decaying LR (1e-4 \u2192 1e-5 over 2000 transition steps, decay 0.9), which is insufficient for a loss landscape dominated by steep sigmoid penalties. However, the optimizer trace shows no material improvement after iteration 4, and the DE population (size 4, 1 iteration) also produced no improvement. Extending iterations without first confirming gradient correctness and model feasibility risks wasting compute on an infeasible or mis-specified problem."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer log (10003.0 throughout) does not establish convergence or rule out a gradient bug.",
+    "The sloppiness computation failed, so parameter identifiability, weak modes, and curvature cannot be assessed.",
+    "The loss is dominated by three sigmoid penalty terms (each up to 10000); the data-fit terms contribute only a few units. The residual statistics (RMSE, bias, correlation) describe the data-fit component but do not capture the penalty-driven behaviour that actually governs the optimizer.",
+    "The negative time correlation for T (\u22120.229) and the large bias (488.58) could arise from a unit mismatch, wrong initial condition, model-structure error, or parameter infeasibility; the evidence cannot distinguish among these without additional information (e.g., the raw data range, a second experiment, or a manual trajectory check).",
+    "The dTdt early-time excellent fit (RMSE < 0.1 over 16 points) versus late-time poor fit (RMSE 31.2 over 126 points) is consistent with multiple causes: parameter values that are locally optimal but globally infeasible, a model structure that lacks a necessary reaction pathway, or a time-scale mismatch. The evidence does not identify which.",
+    "The population optimizer (DE, size 4, 1 iteration) provided only a single seed; no multi-start diversity is available to assess whether the current parameter set is in a local basin or a global one."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

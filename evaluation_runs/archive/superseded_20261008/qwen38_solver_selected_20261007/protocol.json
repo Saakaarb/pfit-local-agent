@@ -1,0 +1,27 @@
+{
+  "previous_batch": "evaluation_runs/qwen38_state_scaled_20261007",
+  "framework_commit": "a4ab5c3ac6f2e160e79742c030fcf3ccb304e5bc",
+  "excluded": [
+    "sliding_basepoint"
+  ],
+  "model": "qwen3.8:27b",
+  "think": true,
+  "stages": [
+    "new",
+    "check",
+    "jax",
+    "run",
+    "diagnose"
+  ],
+  "fresh_sessions": true,
+  "input_policy": "Unchanged frozen human-written prompts and data; no prior YAML or generated code copied",
+  "solver_policy": "Start with Tsit5; bounded fractional coverage/max_steps recovery; matched Kvaerno5 fallback if needed; per-state atol scaling and fixed-ceiling DE relaxation; selected solver and tolerances frozen for fitting",
+  "smoke_budget": {
+    "population_size": 4,
+    "de_iterations": 1,
+    "adam_iterations": 5,
+    "workers": 1
+  },
+  "notes": "Prior initial_time setup retained for Schwen/Borghans. Missing-spec folders remain blocked. No full fits. Hardware and timing captured in manifest/model metadata.",
+  "reason": "User requested full restart including empirical integrator selection"
+}

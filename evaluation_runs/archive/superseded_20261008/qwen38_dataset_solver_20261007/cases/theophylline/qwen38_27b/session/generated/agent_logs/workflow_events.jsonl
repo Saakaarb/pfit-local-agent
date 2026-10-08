@@ -1,0 +1,6 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session"}
+{"step": "solver_selection", "status": "selected", "message": "Kvaerno5: Dataset time scales are inconclusive; conservative fallback"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session/generated/generated_script.py"}
+{"step": "tolerance_calibration", "status": "passed", "message": "Applied validated state-scale and/or DE tolerances at the fixed step ceiling"}
+{"step": "smoke_test_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session/generated/generated_script.py"}

@@ -1,0 +1,63 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/lotka_volterra/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261006_065451_712549
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 4.3062E-01, best loss 4.3062E-01, final loss 4.3062E-01
+- NODE: 2 iterations, first loss 4.3039E-01, best loss 4.3033E-01, final loss 4.3033E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: lynx_hare.csv; loss=0.4303274220024748; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 3
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261006_065451_712549/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.201868; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.201868; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, H: RMSE=33.854, bias=-20.1302, time correlation=0.5101907368474795, lag-1=0.7342570130367205.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, L: RMSE=25.1349, bias=-18.501, time correlation=0.008951099581301046, lag-1=0.6731910550191091.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261006_065451_712549/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261006_065451_712549/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Lotka-Volterra fit terminated at the 5-iteration gradient budget with a normalized gradient infinity norm of 0.202 (stationarity not established), a loss of 0.430, and 3 negative Hessian modes indicating a non-convex region. The L-channel time correlation is near zero (0.009), signalling that the fitted trajectory does not track the observed temporal dynamics of L. No numerical or solver failures were recorded.
+1. Run diagnose --probe-gradients to verify that the reported gradient (inf-norm 0.202, gradient-to-loss ratio 0.469) is numerically reliable before spending additional iterations. [STATIONARITY, BUDGET] The refinement stopped at its 5-iteration budget (BUDGET) and the normalized gradient is 0.202, well above a stationarity threshold (STATIONARITY). Confirming gradient correctness is the prerequisite for any further optimization step.
+2. If gradient checks pass, increase gradient_opt.num_iters (e.g. to 50–100) and perform a gradient-only restart from the current parameter point (alpha=0.265, beta=0.218, delta=0.053, gamma=0.708). Monitor the loss trace for material improvement beyond iteration 5. [STATIONARITY, BUDGET, SLOPPINESS] The Adam trace shows the loss still decreasing at iteration 5 (0.43039 → 0.43033) and the gradient norm of 0.202 indicates a clear descent direction (STATIONARITY, BUDGET). However, 3 negative Hessian modes (SLOPPINESS) mean the surface is non-convex here; Adam's adaptive step may still navigate this, but the user should watch for oscillation or divergence rather than assuming monotone convergence.
+3. Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. Focus on the L channel, whose time correlation is 0.009 and whose RMSE is non-monotonic across time regions (30.4 → 11.7 → 28.9). Check whether the initial conditions (H=30, L=4) and the observed time grid are consistent with the data, and whether the Lotka-Volterra oscillation period is compatible with the 20-unit time span. [RESIDUAL] A time correlation of 0.009 for L (RESIDUAL) means the fitted curve is essentially uncorrelated with the observed L dynamics, while H achieves 0.51. Both channels show negative bias (H: −20.13, L: −18.50), indicating systematic underprediction. This pattern can arise from initial-condition mismatch, a parameter regime that produces the wrong oscillation frequency, or a structural model limitation; it must be diagnosed before further optimization is worthwhile.
+4. Evaluate whether the parameter ranges (alpha ∈ [0.1, 2.0], beta ∈ [0.001, 0.5], delta ∈ [0.001, 0.5], gamma ∈ [0.1, 2.0]) and the initial conditions (H=30, L=4) are physically consistent with the dataset. In particular, beta sits at range_fraction 0.867 (near its upper bound of 0.5), which may constrain the predator-prey interaction. If the data suggest a different regime, a full re-fit with adjusted bounds or initial conditions is needed rather than a gradient-only restart. [RESIDUAL, PARAMETERS] The fitted beta = 0.218 is at 86.7 % of its log-scale range (PARAMETERS), and the negative biases in both channels (RESIDUAL) suggest the model may be structurally underpredicting. If the true dynamics require parameter values outside the current bounds, no amount of gradient refinement within the existing box will resolve the mismatch.
+5. After any additional optimization, re-evaluate the Hessian (sloppiness) at the new point. If negative modes persist, the loss surface may have multiple basins or a saddle structure; consider a small multi-start (e.g. 3–5 random restarts within the existing bounds) to check whether a substantially lower loss is reachable. [SLOPPINESS, STATIONARITY] Three negative modes (SLOPPINESS) at a point where the gradient is still 0.202 (STATIONARITY) are consistent with a saddle or a poorly conditioned valley. A single gradient descent trajectory may converge to a non-optimal point; multi-start sampling is a low-cost diagnostic for landscape multiplicity.
+Limitation: The 3 negative Hessian modes indicate the loss is not locally convex, but the evidence does not establish whether the true global minimum lies within the current parameter bounds or whether the Lotka-Volterra structure is adequate for the observed dynamics.
+Limitation: The L-channel time correlation of 0.009 could stem from initial-condition mismatch, wrong oscillation period, data timing/calibration error, or model-structure inadequacy; the computed residuals alone cannot distinguish these causes.
+Limitation: The DE phase ran only 1 iteration with a population of 4, so the initial point for gradient refinement may be far from the best region; the evidence does not establish how much of the parameter space was explored.
+Limitation: No noise level or measurement uncertainty was supplied, so the RMSE values (H: 33.9, L: 25.1) cannot be interpreted as statistically significant misfit without knowing the data's intrinsic variability.
+Limitation: The negative Hessian modes may reflect finite-difference or solver noise in the Hessian approximation rather than true non-convexity; a higher-accuracy Hessian or a second-order check would be needed to confirm.

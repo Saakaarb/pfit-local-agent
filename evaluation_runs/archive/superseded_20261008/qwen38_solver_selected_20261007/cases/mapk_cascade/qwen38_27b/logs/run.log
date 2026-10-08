@@ -1,0 +1,37 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_034747_933759
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_034747_933759
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06], atol: [5.000000000000001e-06, 7.285090059495362e-08, 7.655977629298428e-07, 5.000000000000001e-07, 1.0000000000000002e-06, 3.579555168317386e-07, 5.402627962238425e-10, 2.6152663390152853e-08, 3.8455812366547245e-09, 2.0222244407448068e-10, 9.657965344915157e-07]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 3.0850E-01
+Time for iteration: 0.2908
+-------
+Final best position (scaled): [-1.         -0.08938579 -0.48599472 -1.         -0.45647858  0.24059792
+ -0.49813288  1.          1.          1.         -0.20500415 -1.
+ -0.28136025 -0.78715024 -0.4919282   1.        ]
+Final best cost: 3.0850E-01
+Done with DE search
+Best Position from DE: [1.00000000e-03 6.62564890e-01 5.90211840e-03 1.00000000e-03
+ 1.22192018e-01 7.25933582e+01 5.65979474e-03 1.00000000e+02
+ 1.00000000e+00 1.00000000e+02 3.89037704e-03 1.00000000e-04
+ 2.73702957e-01 2.08580949e-02 5.78239416e-03 1.00000000e-01]
+Best cost from DE: 0.30850372237210405
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [5.000000000000001e-07, 7.285090059495362e-09, 7.655977629298428e-08, 5.0000000000000004e-08, 1.0000000000000001e-07, 3.579555168317386e-08, 5.402627962238424e-11, 2.6152663390152854e-09, 3.8455812366547243e-10, 2.022224440744807e-11, 9.657965344915156e-08]
+Trainable_params: [-1.         -0.08938579 -0.48599472 -1.         -0.45647858  0.24059792
+ -0.49813288  1.          1.          1.         -0.20500415 -1.
+ -0.28136025 -0.78715024 -0.4919282   1.        ]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.3085037223640265 0.3085037223640265
+Iteration:,loss value, best loss: 4 0.30749853472592814 0.30749853472592814
+Iteration time: 7.10086989402771
+Final best position: [1.00172828e-03 6.61041171e-01 5.91231940e-03 1.00172836e-03
+ 1.21911017e-01 7.27188180e+01 5.65003654e-03 1.00000000e+02
+ 9.98275954e-01 1.00000000e+02 3.88165993e-03 1.00000000e-04
+ 2.74332473e-01 2.08223737e-02 5.77252307e-03 9.98274692e-02]
+Final loss: 0.3072469219516433
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_034747_933759

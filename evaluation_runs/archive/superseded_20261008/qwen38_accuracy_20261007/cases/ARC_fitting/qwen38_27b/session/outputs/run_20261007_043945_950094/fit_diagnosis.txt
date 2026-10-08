@@ -1,0 +1,70 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_accuracy_20261007/cases/ARC_fitting/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_accuracy_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_043945_950094
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 2.0000E+04, best loss 2.0000E+04, final loss 2.0000E+04
+- NODE: 2 iterations, first loss 2.0000E+04, best loss 2.0000E+04, final loss 2.0000E+04
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: NMC_SOC80_M2_normalized_converted_units.csv; loss=20000.323882405683; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 3; negative modes: 3
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_accuracy_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_043945_950094/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- h1=10.0115 is at 0.02% of its log10 search interval.
+- [BOUND] h1=10.0115 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] A1=9.9025e+24 is at 99.97% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.0356174; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 3 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, T: RMSE=98.7772, bias=-76.5983, time correlation=-0.552353274100004, lag-1=0.9963443834941047.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, dTdt: RMSE=29.4085, bias=-5.60802, time correlation=-0.09938252605352173, lag-1=0.7071693967396797.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_accuracy_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_043945_950094/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_accuracy_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_043945_950094/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The loss (20000.32) is dominated by two active endpoint-penalty terms (~10000 each), leaving only ~0.32 for data fitting. Two parameters (h1 at its lower bound 10.0, A1 at its upper bound 1e25) are pinned to the search limits, the T trajectory is anti-correlated with data (time correlation −0.55), and the Hessian has 3 negative modes. The optimizer is effectively stuck: 5 Adam iterations produced a loss change of only 2.1×10⁻⁵. This is a parameter-range / model-structure problem, not a convergence problem.
+1. Verify whether h1 ∈ [10, 1000] and A1 ∈ [1e8, 1e25] are physically justified. h1=10.0115 sits at 0.02 % of its log10 interval and A1=9.90×10²⁴ at 99.97 %. If the true values lie outside these ranges, no amount of additional iterations will recover them. If the bounds must be widened, run a full fit (population + gradient) from scratch; do not simply widen and restart the gradient. [BOUND] Both parameters are within 0.03 % of a search bound (evidence BOUND). The optimizer is pressing against the walls of the parameter box while the loss is still ~20000, indicating the feasible region defined by the current bounds cannot satisfy the endpoint penalties and the data simultaneously.
+2. Inspect fit_exp1.png and the time-region residual table. T shows time correlation −0.55 and RMSE 104.8 in the last region (126 of 142 points, t ≈ 54 486–73 132 s) versus RMSE 5.7–6.5 in the first two regions. dTdt shows the same pattern (RMSE 31.2 in the last region vs <0.002 earlier). Diagnose whether the initial conditions (c1=1.0, c2=0.04, T=354 K), the input timing, or the two-reaction model structure can produce the observed late-time temperature trajectory. Do not alter the user-defined loss to force a better fit. [RESIDUAL] The negative time correlation (−0.55 for T, −0.10 for dTdt) means the model trajectory is qualitatively wrong over most of the record, while lag-1 correlations (0.996, 0.707) show local step-to-step dynamics are captured. The error is concentrated in the last 89 % of the time span (evidence RESIDUAL), pointing to a structural or initial-condition mismatch rather than a parameter-tuning issue.
+3. Before spending more iterations, run diagnose --probe-gradients to confirm the gradient is reliable (finite-difference vs autodiff agreement). The Hessian has 3 negative modes, which means the current point is not a local minimum but likely a saddle point. A gradient-only restart from a saddle will not converge to a minimum. If the gradient is confirmed correct and the bounds are physically valid, the next step is to re-examine the model equations or the penalty-constraint feasibility, not to increase num_iters. [SLOPPINESS, STATIONARITY] Normalized gradient inf-norm is 0.0356 (not zero, so not stationary) but the Hessian has 3 negative modes (evidence SLOPPINESS), indicating a saddle-point geometry. Increasing iterations at a saddle point will not produce convergence (evidence STATIONARITY, BUDGET: only 5 iterations used, loss change 2.1×10⁻⁵).
+4. Inspect the eigenvectors of the 3 weak and 3 negative curvature modes to identify which parameter combinations are poorly determined. This will inform whether additional experiments (e.g., different initial c2, different temperature ranges) or fixing independently known parameters (e.g., Ea1 ≈ Ea2 ≈ 3.1×10⁻¹⁹ J/mol, range fractions 0.69 and 0.60) would improve identifiability. Weak modes are not proof of individual non-identifiability; they indicate correlated parameter directions. [WEAK_MODES] Three weak modes and three negative modes (evidence SLOPPINESS/WEAK_MODES) suggest the loss landscape is flat or curved downward along several parameter combinations. Ea1 and Ea2 have nearly identical values (3.23×10⁻¹⁹ vs 3.03×10⁻¹⁹) and similar range fractions, a classic sign of a weakly identified pair.
+5. If, after the above checks, the bounds and model structure are confirmed valid, increase gradient_opt.num_iters from 5 to at least 200 and run a gradient-only restart. Also consider increasing population_opt.population_size from 4 and num_iters from 1 for a more thorough global search before the gradient phase. The current 5-iteration Adam phase with a 4-member DE population is insufficient to explore an 8-parameter space with two parameters at bounds. [BUDGET, OPTIMIZER] The optimizer terminated at its 5-iteration budget (evidence BUDGET) with a loss change of only 2.1×10⁻⁵ (evidence OPTIMIZER: seed 20000.32390 → final 20000.32388). The DE phase ran only 1 iteration with 4 members. This is far too little exploration for 8 parameters, especially with two pinned to bounds.
+Limitation: The 3 negative Hessian modes indicate the current point is not a local minimum, but the evidence cannot determine whether a valid minimum exists within the current parameter bounds or whether the model structure itself cannot satisfy the endpoint penalties and data simultaneously.
+Limitation: The negative time correlation for T (−0.55) could arise from incorrect initial conditions, wrong reaction kinetics, missing heat-transfer terms, or a mismatch between the observed T channel and the model's T state variable; the evidence cannot distinguish among these causes without additional experiments or model inspection.
+Limitation: The penalty terms (c1→0.02, c2→0.98, |ΔT|≤50) contribute ~20000 of the 20000.32 total loss. Whether these constraints are physically achievable with the given two-reaction model and parameter ranges requires domain judgement and possibly new data; the computed evidence cannot establish feasibility.
+Limitation: The weak-mode analysis identifies correlated parameter directions but cannot prove that any individual parameter is non-identifiable; resolving this requires targeted experiments or fixing independently known parameters.
+Limitation: No finite-difference vs autodiff gradient comparison was performed in this run, so the reliability of the gradient (and hence the Hessian) at this point is unverified.

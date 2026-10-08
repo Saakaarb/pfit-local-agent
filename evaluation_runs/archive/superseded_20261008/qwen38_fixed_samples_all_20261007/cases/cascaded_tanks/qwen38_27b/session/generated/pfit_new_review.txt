@@ -1,0 +1,4 @@
+The user states: 'At t=0, x1=5 and x2=5.205.' This explicitly supplies x1=5.0 and x2=5.205. The frozen experiment record for estimation.csv confirms initial_conditions {x1: 5.0, x2: 5.205}. Both integrated states are fully resolved.
+Two-tank model with gravity outflow (sqrt of level) and pump inflow. pump_voltage is the measured forcing input, linearly interpolated (endpoint hold outside interval is np.interp default). No overflow term per user instruction.
+level_lower maps directly to state x2 as stated by the user. pump_voltage is a frozen forcing input and is excluded from observables.
+User explicitly requests RMSE of x2 vs level_lower divided by max(abs(level_lower)). Maps to max_abs_normalized_rmse. No penalties specified. Voltage is input only.

@@ -1,0 +1,1036 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "k00=0.001 is at 0.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "k_d=996.629 is at 99.98% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "k3=997.124 is at 99.98% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "k5=996.915 is at 99.98% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "alpha_cer=-0.999 is at 0.00% of its linear search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00037815771509089476,
+          "mae": 0.00030182565725658675,
+          "bias": 0.0002278256572565868,
+          "max_abs": 0.0005296513145131735,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 7.399999999999996e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0005296513145131735
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.4338003388130976,
+          "mae": 0.325629377173245,
+          "bias": -0.325629377173245,
+          "max_abs": 0.61224452449823,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.039014229848260085
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.61224452449823
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00023691635300987588,
+          "mae": 0.0001728188769893693,
+          "bias": -0.0001620586130991913,
+          "max_abs": 0.0003348774900885606,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 1.0760263890178005e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0003348774900885606
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00040509834181540406,
+          "mae": 0.0003377193140323533,
+          "bias": 0.0003377193140323533,
+          "max_abs": 0.0005614386280647065,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.00011400000000000006
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0005614386280647065
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.47624698741307536,
+          "mae": 0.38375096079489246,
+          "bias": -0.2820397012993505,
+          "max_abs": 0.665790662094243,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.10171125949554194
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.665790662094243
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00016382173498041442,
+          "mae": 0.0001173602331648573,
+          "bias": -0.00011429845372306428,
+          "max_abs": 0.00023165868688792158,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 3.061779441793013e-06
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.00023165868688792158
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "data_file": "dataset_3.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.000404453640681467,
+          "mae": 0.0003130683111842332,
+          "bias": 0.0003130683111842332,
+          "max_abs": 0.0005691366223684665,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 5.6999999999999976e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0005691366223684665
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.5047925013881724,
+          "mae": 0.3774291791423005,
+          "bias": -0.33520543579974554,
+          "max_abs": 0.712634614942046,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.042223743342554965
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.712634614942046
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00014466394954955556,
+          "mae": 0.0001133721846600793,
+          "bias": -8.985769886146228e-05,
+          "max_abs": 0.00020322988352154157,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 2.3514485798617024e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.00020322988352154157
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "data_file": "dataset_4.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00037694055029733307,
+          "mae": 0.00031017949811003174,
+          "bias": 0.0002141794981100318,
+          "max_abs": 0.0005243589962200635,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 9.599999999999995e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0005243589962200635
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.46012656001445706,
+          "mae": 0.374125099786055,
+          "bias": -0.374125099786055,
+          "max_abs": 0.64198114496856,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.10626905460355007
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.64198114496856
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.0001630765030397923,
+          "mae": 0.00013190968420073127,
+          "bias": -0.00013190968420073127,
+          "max_abs": 0.0002277938907091586,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 3.6025477692303975e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0002277938907091586
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "data_file": "dataset_5.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.0017561284843995693,
+          "mae": 0.001253217108225446,
+          "bias": 0.001230217108225446,
+          "max_abs": 0.002483434216450892,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 2.3000000000000017e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.002483434216450892
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.622703029335195,
+          "mae": 0.4742881566483491,
+          "bias": -0.4742881566483491,
+          "max_abs": 0.8777851296312201,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.0707911836654781
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.8777851296312201
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.0002316368548918072,
+          "mae": 0.0001881486862624279,
+          "bias": -0.0001881486862624279,
+          "max_abs": 0.0003232623584125498,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 5.303501411230599e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0003232623584125498
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "data_file": "dataset_6.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.001758987997277329,
+          "mae": 0.00126067615852474,
+          "bias": 0.00126067615852474,
+          "max_abs": 0.00248735231704948,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 3.400000000000007e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.00248735231704948
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.7288240317995018,
+          "mae": 0.5823858508638016,
+          "bias": -0.4381908146482845,
+          "max_abs": 1.020576665512086,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.144195036215517
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 1.020576665512086
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00022392035885118418,
+          "mae": 0.0001594296758033234,
+          "bias": -0.0001594296758033234,
+          "max_abs": 0.0003166635957483858,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 2.195755858260993e-06
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0003166635957483858
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "data_file": "dataset_7.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.0017622161610333926,
+          "mae": 0.0012604906296211195,
+          "bias": 0.0012604906296211195,
+          "max_abs": 0.002491981259242239,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 2.9000000000000054e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.002491981259242239
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.6839975389383595,
+          "mae": 0.5011554765871941,
+          "bias": -0.5011554765871941,
+          "max_abs": 0.9666614610389461,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.035649492135441996
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.9666614610389461
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00019930943405021328,
+          "mae": 0.00015727183410498393,
+          "bias": -0.0001224329232627839,
+          "max_abs": 0.0002797047573677678,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 3.483891084220004e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0002797047573677678
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "data_file": "dataset_8.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.0017634693756058797,
+          "mae": 0.001266800753669124,
+          "bias": 0.001226800753669124,
+          "max_abs": 0.002493601507338248,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 3.9999999999999996e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.002493601507338248
+            }
+          ],
+          "name": "Sphinga_obs",
+          "observes": "Sphinga_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.5855323395391264,
+          "mae": 0.43155470549429953,
+          "bias": -0.43155470549429953,
+          "max_abs": 0.827292821944928,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 0.03581658904367102
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.827292821944928
+            }
+          ],
+          "name": "Cer_obs",
+          "observes": "Cer_obs"
+        },
+        {
+          "status": "ok",
+          "count": 2,
+          "missing": 0,
+          "rmse": 0.00017240960324940396,
+          "mae": 0.0001325819449878659,
+          "bias": -0.00011021387914346989,
+          "max_abs": 0.0002427958241313358,
+          "time_correlation": null,
+          "lag1_correlation": null,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 0.6666666666666666,
+              "count": 1,
+              "rmse": 2.2368065844396003e-05
+            },
+            {
+              "start": 0.6666666666666666,
+              "end": 1.3333333333333333,
+              "count": 0,
+              "rmse": null
+            },
+            {
+              "start": 1.3333333333333333,
+              "end": 2.0,
+              "count": 1,
+              "rmse": 0.0002427958241313358
+            }
+          ],
+          "name": "Sphingo_obs",
+          "observes": "Sphingo_obs"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k00",
+      "value": 0.001,
+      "range_fraction": 0.0,
+      "logscale": true
+    },
+    {
+      "name": "k0",
+      "value": 0.019281244152858843,
+      "range_fraction": 0.2141891756685358,
+      "logscale": true
+    },
+    {
+      "name": "k_d",
+      "value": 996.629291382265,
+      "range_fraction": 0.9997556078553989,
+      "logscale": true
+    },
+    {
+      "name": "k1",
+      "value": 2.441303631172874,
+      "range_fraction": 0.5646036328485399,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 186.1767891483797,
+      "range_fraction": 0.8783209226801315,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 997.1243349562726,
+      "range_fraction": 0.9997915525669337,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 0.05783820909431246,
+      "range_fraction": 0.2937024728291565,
+      "logscale": true
+    },
+    {
+      "name": "k5",
+      "value": 996.9145699137104,
+      "range_fraction": 0.9997763238769628,
+      "logscale": true
+    },
+    {
+      "name": "alpha_hai1a",
+      "value": 0.574677945862074,
+      "range_fraction": 0.14965520212840477,
+      "logscale": false
+    },
+    {
+      "name": "alpha_cer",
+      "value": -0.999,
+      "range_fraction": 0.0,
+      "logscale": false
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png",
+    "fit_exp3.png",
+    "fit_exp4.png",
+    "fit_exp5.png",
+    "fit_exp6.png",
+    "fit_exp7.png",
+    "fit_exp8.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.9399641956983975,
+    "final_loss": 0.939892396958809,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.509482794363649,
+      0.5456279395644528,
+      0.5149591873301765,
+      0.4192058044404288,
+      1.34213507755454,
+      1.440663263315049,
+      1.4329245680807736,
+      1.314140541021403
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/de_fitting.log",
+      "rows": 1,
+      "first": 0.93996,
+      "final": 0.93996,
+      "best": 0.93996,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.93996
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.93991,
+      "final": 0.93989,
+      "best": 0.93989,
+      "last_material_improvement_iteration": 4,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.93991
+        ],
+        [
+          5,
+          0.93989
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.9398923969588066,
+  "experiment_losses": [
+    0.5094827943636487,
+    0.5456279395644523,
+    0.5149591873301761,
+    0.41920580444042854,
+    1.3421350775545353,
+    1.4406632633150438,
+    1.4329245680807687,
+    1.3141405410213984
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "k00=0.001 is at 0.00% of its log10 search interval."
+}

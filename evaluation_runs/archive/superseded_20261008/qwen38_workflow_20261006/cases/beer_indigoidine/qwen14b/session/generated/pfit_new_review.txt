@@ -1,0 +1,5 @@
+The initial conditions provided are: Bac=0.013816608995338, Glu=10.0, cGlu=0.0, and Ind=0.0. These values are fixed for this fit.
+The equations have been extracted and formatted according to the provided schema. The initial conditions and parameter ranges are preserved as specified.
+The CSV columns 'Bacnorm' and 'IndconcNormRange' are directly mapped to the states 'Bac' and 'Ind' respectively, as per the user's description.
+The user wants to fit a bacterial growth and indigoidine-production model to the provided CSV data. The loss is defined as the square root of the mean squared normalized residual over all times and both channels, with equal weight per data point. The residuals are normalized by the largest absolute measured value for each channel.
+Original user context indicates a stiff model.

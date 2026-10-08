@@ -1,0 +1,45 @@
+{
+  "verdict": "Gradient refinement stopped at its 5-iteration budget with a normalized gradient norm of 0.202 (stationarity not reached), 3 negative Hessian modes indicating the point is not a local minimum, and the L-channel time correlation of 0.009 signalling that the fitted Lotka-Volterra trajectory is essentially uncorrelated with the observed L data. The loss moved only 0.0003 over 5 Adam steps. Before spending more iterations, gradient correctness and model/data consistency must be verified.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "SLOPPINESS"
+      ],
+      "action": "Run diagnose --probe-gradients to compare finite-difference and autodiff gradients at the current parameter point (alpha=0.265, beta=0.218, delta=0.0528, gamma=0.708). If a mismatch exceeds ~1e-6 relative tolerance, fix the gradient source before any further optimisation.",
+      "reason": "The normalized gradient infinity norm is 0.202 (STATIONARITY) and the Hessian has 3 negative modes (SLOPPINESS). Negative modes can arise from a true saddle point or from incorrect gradients; without a gradient check the two causes cannot be distinguished. A gradient-only restart on a saddle or with wrong gradients would waste budget."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. Focus on the L channel, whose time correlation is 0.009 and whose time-region RMSE is non-monotonic (30.4 \u2192 11.7 \u2192 28.9). Verify that the initial conditions (H=30, L=4), the time grid in dataset_1.csv, and the Lotka-Volterra equations produce qualitatively similar oscillation periods and amplitudes to the data before attributing the mismatch to parameter values.",
+      "reason": "A time correlation of 0.009 for L (RESIDUAL) means the model's L trajectory is nearly uncorrelated with the data, which is far more severe than the H channel's 0.51. Both channels show large negative bias (H: \u221220.1, L: \u221218.5), suggesting a systematic offset that may stem from initial conditions, time alignment, or model-form mismatch rather than from the four rate parameters alone."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER"
+      ],
+      "action": "If the gradient check passes and the trajectory plot confirms the model form is appropriate, increase gradient_opt.num_iters from 5 to at least 50\u2013100 and run a gradient-only restart from this run. Monitor the loss trace for material improvement beyond the 0.0003 change seen in the current 5 steps.",
+      "reason": "The optimizer terminated on iteration_budget after only 5 Adam steps (BUDGET, OPTIMIZER), with the loss moving from 0.43039 to 0.43033. The normalized gradient of 0.202 (STATIONARITY) indicates the point is far from stationary, so the budget was the binding constraint, not convergence. A longer gradient phase is warranted only if gradients are verified and the model is consistent with the data."
+    },
+    {
+      "evidence_ids": [
+        "OPTIMIZER",
+        "BUDGET"
+      ],
+      "action": "If the gradient-only restart still stalls or the loss surface remains non-convex (negative Hessian modes persist), consider a full re-fit with a larger DE population (e.g., population_size \u2265 20, num_iters \u2265 5) to explore the parameter space more broadly before gradient refinement. The current DE phase used only 4 individuals for 1 iteration.",
+      "reason": "The DE phase produced a single loss value of 0.43062 (OPTIMIZER_TRACES, de_fitting.log) with population_size=4 and num_iters=1. With 3 negative Hessian modes (SLOPPINESS), the current point may sit in a poor basin. A larger population search is a numerical correction to the optimisation protocol, not a model change, and is appropriate when the existing equations and bounds remain valid."
+    }
+  ],
+  "limitations": [
+    "No finite-difference vs autodiff gradient comparison was performed in this run, so the 3 negative Hessian modes (SLOPPINESS) cannot be attributed to a true saddle point versus a gradient computation error.",
+    "The L-channel time correlation of 0.009 (RESIDUAL) is consistent with model-form mismatch, incorrect initial conditions, time-grid misalignment, or data calibration issues; the evidence cannot distinguish among these causes without inspecting the raw data and the trajectory plot.",
+    "The DE phase was extremely short (4 individuals, 1 iteration), so the starting point for gradient refinement may be far from any good basin; the current parameter values do not represent a well-explored optimum.",
+    "A small or moderate loss value (0.430) does not establish global optimality or parameter identifiability; the Lotka-Volterra system is known to have multiple parameter combinations producing similar oscillatory behaviour.",
+    "No noise level or measurement uncertainty was supplied, so the RMSE values (H: 33.9, L: 25.1) cannot be interpreted as statistically significant or insignificant deviations without a noise model."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

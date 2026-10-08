@@ -1,0 +1,81 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 192,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1014-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 192
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "e4062cba99da43e267bd8210fa48eeda1ec775ad8420aecf18e74f989015af40",
+      "generated_script": "91cef2aba9ba32dfe52d722d4d5de29ccdc134a89e0dcf88493b29238e775f10",
+      "user_model": "9a4fb2dfad62a1a5263a601c8f175936f16b8e4a1bfab6fc29d9da4dc7d23004"
+    },
+    "git": {
+      "commit": "ae507dff73c45c15eb2f88bc5b49ba7d9b67d71c",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "failed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "calcium.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "b46a29074081fd455228b9376d558cdefa6d10ff211af167af01305ebae3a179",
+      "initial_conditions": {
+        "Z": 0.087920524425504,
+        "Y": 0.999348084438687,
+        "A": 0.99999999999996
+      },
+      "output_file": "result_solution.csv"
+    }
+  ],
+  "error": "ValueError: Starting point has invalid loss or fails integration at refinement tolerances"
+}

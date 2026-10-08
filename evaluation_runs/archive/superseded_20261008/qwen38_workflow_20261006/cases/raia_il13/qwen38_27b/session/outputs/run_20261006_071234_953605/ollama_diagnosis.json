@@ -1,0 +1,52 @@
+{
+  "verdict": "The fit is stuck: loss moved only ~5\u00d710\u207b\u2075 over 5 gradient iterations, SOCS3mRNA_production is pinned at 99.2 % of its log\u2081\u2080 upper bound, and both pSTAT5 trajectories show negative time correlation (\u22120.61, \u22120.48) with strong negative bias (\u221247, \u221284), indicating the model's temporal shape is misaligned with the data rather than merely under-fitted.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Before any further optimisation, verify whether SOCS3mRNA_production = 862.3 (99.20 % of the 1e-5\u20131000 log\u2081\u2080 interval) is physically plausible for the IL-13/JAK/STAT5/SOCS3 circuit. If the bound is too restrictive, widen it with a scientifically justified value and re-run a full fit (DE + gradient); if it is correct, the parameter is saturated and the model may need a structural change to the SOCS3 feedback branch.",
+      "reason": "The parameter sits at 862.295 out of a maximum of 1000 (range_fraction 0.9920). In the ODE, SOCS3mRNA_production \u00d7 pSTAT5 drives SOCS3mRNA \u2192 SOCS3 \u2192 JAK2 inhibition, so a saturated high value implies the optimiser is compensating for an inability to match pSTAT5 amplitude within the current parameter space. A bound-constrained optimum is not a true optimum."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Open fit_exp1.png and fit_exp2.png and compare the model pSTAT5 curve against the data point-by-point. Focus on the 40\u201380 min window where RMSE peaks (71.2 and 118.8) and where the negative time correlation (\u22120.61, \u22120.48) is most damaging. Determine whether the model's pSTAT5 peak timing, amplitude, or decay rate is structurally wrong.",
+      "reason": "Both experiments show negative time correlation (\u22120.611 and \u22120.478) with positive lag-1 correlation (0.882, 0.842), meaning the model captures local step-to-step changes but the overall trajectory slope opposes the data. The bias is strongly negative (\u221246.9, \u221283.6), so the model systematically underpredicts pSTAT5. This pattern is more consistent with a structural mismatch (e.g., missing activation step, wrong feedback sign, or incorrect initial conditions) than with a small parameter adjustment."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "LIMITATIONS"
+      ],
+      "action": "Run diagnose --probe-gradients to obtain a verified gradient at the current point. Do not restart the gradient optimiser until the gradient is confirmed finite and consistent with the loss surface. If the gradient is near-zero or unreliable, a gradient-only restart is not justified.",
+      "reason": "The limitations explicitly state 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The loss changed only from 0.67412 to 0.67407 over 5 Adam iterations (\u0394 \u2248 5\u00d710\u207b\u2075), and the DE phase ran only 1 iteration. Without a verified gradient, it is impossible to distinguish a true local minimum from a numerical stagnation or a bound-constrained flat region."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BOUND"
+      ],
+      "action": "Audit the initial conditions and input timing for both experiments. Experiment 1 uses il13_level = 4.0 and Experiment 2 uses il13_level = 20.0; verify that the data timestamps align with the model's t = 0 and that the 2.5\u00d7 dose increase produces the expected ~2\u00d7 pSTAT5 response. If the data were collected with a different stimulation protocol (e.g., pulse vs. sustained), the model's constant il13_level assumption is a structural mismatch.",
+      "reason": "The negative bias in both experiments (\u221246.9 at dose 4, \u221283.6 at dose 20) and the worsening RMSE at the higher dose (53.0 \u2192 92.0) suggest the model's dose-response is not simply a scaling issue. The negative time correlation in both cases points to a temporal misalignment that initial-condition or forcing-timing errors could produce, independent of parameter values."
+    },
+    {
+      "evidence_ids": [
+        "OPTIMIZER_TRACES",
+        "BUDGET"
+      ],
+      "action": "If, after the above checks, the model structure and bounds are confirmed valid, increase the gradient iteration budget (e.g., 50\u2013100 iterations) and the DE population (e.g., 20\u201340 individuals, 5\u201310 iterations) before re-running. A 5-iteration Adam phase with a 1-iteration DE phase is insufficient to explore a 15-dimensional log-scaled space.",
+      "reason": "The DE trace shows only 1 row (loss 0.67412) and the gradient trace shows 5 rows (0.67408 \u2192 0.67407). With 15 parameters all in [1e-5, 1000] log scale, this is a very small search. The near-zero loss change (5\u00d710\u207b\u2075) over 5 steps is consistent with an under-explored landscape rather than a confirmed optimum, especially given the bound saturation of SOCS3mRNA_production."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat loss trace (0.67412 \u2192 0.67407) cannot distinguish a true local minimum from numerical stagnation or a bound-constrained flat region.",
+    "Sloppiness analysis was skipped, so the identifiability of the 15 parameters and the presence of weak or flat directions in the loss landscape are unknown.",
+    "The negative time correlation and strong negative bias in both experiments are consistent with multiple causes\u2014structural model mismatch, incorrect initial conditions, wrong forcing protocol, or bound saturation\u2014and the current evidence cannot uniquely attribute the residual to one of these.",
+    "The plots fit_exp1.png and fit_exp2.png are referenced by filename only; no visual inspection has been performed, so the qualitative shape of the mismatch (peak timing, amplitude, decay) remains unconfirmed.",
+    "The model contains fixed parameters (DecoyR_binding, CD274mRNA_production) and initial conditions (Rec_i = 235.06, STAT5 = 165.0) that were not fitted; their values may dominate the pSTAT5 dynamics and limit the achievable fit quality regardless of the 15 trainable parameters."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

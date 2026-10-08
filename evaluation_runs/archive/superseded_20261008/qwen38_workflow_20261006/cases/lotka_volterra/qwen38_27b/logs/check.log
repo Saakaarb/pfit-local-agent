@@ -1,0 +1,9 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/lotka_volterra/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/lotka_volterra/qwen38_27b/session
+warning: Population size 4 with num_iters 1 (DE) and gradient num_iters 5 are extremely small; the optimizer will almost certainly not converge to a meaningful minimum for a 4-parameter oscillatory system.
+warning: Lotka-Volterra dynamics are oscillatory and can produce large transient excursions or near-zero/negative populations for some parameter combinations within the declared ranges (e.g., beta/delta up to 0.5 with H up to ~77). The solver recovery settings (max_steps 10000, recovery_max_steps 50000) may be insufficient for stiff or divergent trajectories, causing rejected evaluations that degrade the DE population.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g., 20-50) and num_iters (e.g., 50-200) for DE, and gradient num_iters (e.g., 50-200) to allow meaningful convergence on a 4-parameter oscillatory model.
+recommendation: The loss is well-scaled: each column's residuals are normalized by max(abs(measured column)) (H: 77.4, L: 59.4), and the final sqrt-of-mean-of-two-column-MSE matches the user's stated 'sqrt(mean(all normalized squared residuals))' for equal-length columns. No further normalization is needed.
+recommendation: All four parameters span ≥1 order of magnitude and correctly use logscale; no change needed.
+recommendation: The writeout (time, measured H, measured L, simulated H, simulated L) matches the user's request and the 5-column shape is consistent with the runtime mapping.

@@ -1,0 +1,11 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/ARC_fitting/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/ARC_fitting/qwen38_27b/session
+warning: Population size of 4 with 8 trainable parameters and only 1 DE iteration provides extremely limited search coverage; convergence to a meaningful optimum is unlikely.
+warning: Gradient optimizer is set to only 5 iterations (adam), which is very few for an 8-parameter problem with a multi-term loss including sigmoid penalties; the fit may not converge.
+warning: Ea1 and Ea2 ranges span only a factor of 2 (2e-19 to 4e-19) yet use logscale; this is valid but the effective search space is tiny, making the logscale choice nearly irrelevant and suggesting the bounds may be tighter than intended.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 20-50 and num_iters to 5-10 for an 8-parameter DE search; the current 4/1 setting will almost certainly miss the optimum.
+recommendation: Increase gradient_opt.num_iters from 5 to at least 50-200 to allow the adam optimizer to navigate the combined data-loss + sigmoid-penalty landscape.
+recommendation: Verify that Ea1/Ea2 bounds (2e-19 to 4e-19) are intentional; a factor-of-2 range with logscale is unusual and may indicate a unit or magnitude error in the YAML.
+recommendation: The loss correctly implements the user-specified T-range normalization, log10 dTdt comparison with eps_q, and three smooth sigmoid terminal penalties; no structural loss mismatch detected.

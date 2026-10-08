@@ -1,0 +1,101 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- result_solution_exp3.csv: present
+- result_solution_exp4.csv: present
+- result_solution_exp5.csv: present
+- result_solution_exp6.csv: present
+- result_solution_exp7.csv: present
+- result_solution_exp8.csv: present
+- result_solution_exp9.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 8.6998E-02, best loss 8.6998E-02, final loss 8.6998E-02
+- NODE: 2 iterations, first loss 8.6998E-02, best loss 8.6998E-02, final loss 8.6998E-02
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 9
+Aggregation: equal_experiment_mean
+- Experiment 1: ca01.csv; loss=0.036356567494701966; output=result_solution_exp1.csv
+- Experiment 2: ca02.csv; loss=0.057137845018279565; output=result_solution_exp2.csv
+- Experiment 3: ca04.csv; loss=0.13297192686177503; output=result_solution_exp3.csv
+- Experiment 4: ca1.csv; loss=0.09154561704418186; output=result_solution_exp4.csv
+- Experiment 5: ca3.csv; loss=0.08449930966187436; output=result_solution_exp5.csv
+- Experiment 6: ca10.csv; loss=0.08098518383013031; output=result_solution_exp6.csv
+- Experiment 7: ip3.csv; loss=0.06602575255156126; output=result_solution_exp7.csv
+- Experiment 8: ip5.csv; loss=0.10338084929037869; output=result_solution_exp8.csv
+- Experiment 9: ip10.csv; loss=0.13007766910580737; output=result_solution_exp9.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 1; negative modes: 5
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/sloppiness_report.txt
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Saved curvature has 1 weak parameter combinations.
+- [WEAK_MODES] Saved curvature has 1 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, open_probability: RMSE=0.0363566, bias=-0.021, time correlation=0.507962048036462, lag-1=0.26113845957442766.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, open_probability: RMSE=0.0571378, bias=-0.0316667, time correlation=0.5126139351406356, lag-1=0.31692698434403554.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 3, open_probability: RMSE=0.132972, bias=-0.0899333, time correlation=0.6388178157475023, lag-1=0.5610573541768211.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 4, open_probability: RMSE=0.0915456, bias=-0.0503333, time correlation=0.6195001364630472, lag-1=0.5618528586777657.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 5, open_probability: RMSE=0.0844993, bias=-0.052, time correlation=0.7142439725112139, lag-1=0.6406747215902728.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 6, open_probability: RMSE=0.0809852, bias=-0.0535333, time correlation=0.6860943632486061, lag-1=0.6708956477249675.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 7, open_probability: RMSE=0.0660258, bias=-0.0602, time correlation=0.05121154319010538, lag-1=0.7483716253220031.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 8, open_probability: RMSE=0.103381, bias=-0.0781333, time correlation=0.5641387712015562, lag-1=0.6351545417566707.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 9, open_probability: RMSE=0.130078, bias=-0.0924667, time correlation=0.6339893370458892, lag-1=0.6828805624026273.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp2.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp3.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp4.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp5.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp6.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp7.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp8.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/fit_exp9.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261007_075203_625920/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The optimizer reached a numerically stationary point (gradient ‖·‖∞ ≈ 1.95×10⁻¹³) after exhausting its 5-iteration budget, yet the saved Hessian shows 5 negative-curvature modes out of 14 parameters. The fit is mediocre (per-experiment RMSE 0.036–0.133, all with systematic negative bias), and the loss trace is flat across both the DE and gradient phases. The negative Hessian modes combined with a near-zero gradient are the most pressing concern: they are consistent with a saddle point or with unreliable finite-difference curvature, and they must be resolved before interpreting residuals or considering further optimisation.
+1. Run diagnose --probe-gradients to verify the autodiff/finite-difference gradient against a discriminating step-size comparison (e.g. compare gradients at rtol 1e-7 vs 1e-5). Do not restart the optimizer until the gradient is confirmed reliable. [SLOPPINESS, OPTIMIZER] The normalized gradient inf-norm is 1.95×10⁻¹³ and the gradient-to-loss ratio is 2.25×10⁻¹², yet the Hessian has 5 negative modes. If the gradient is correct the point is a saddle, not a minimum; if the gradient is numerically corrupted (e.g. by the 8-decade parameter ranges 0.001–100 000 interacting with the adaptive stepsize_atol values as low as ~6×10⁻¹⁴), the curvature signs are untrustworthy. A step-size comparison discriminates between these two causes without assuming either.
+2. Inspect the eigenvectors of the 5 negative-curvature modes and the 1 weak mode to identify which parameter combinations (e.g. k1 vs k_1, l4 vs l_4, l6 vs l_6) are involved. Do not fix or re-bound parameters based on this alone. [SLOPPINESS, WEAK_MODES] The model contains 14 parameters in 7 apparent pairs (k1/k_1, k2/k_2, k3/k_3, k4/k_4, l2/l_2, l4/l_4, l6/l_6) whose products appear as ratios in the ODEs (e.g. k_2·l4/(k2·l_4)). 5 negative modes out of 14 parameters is a large fraction and may reflect genuine saddle geometry in these ratio combinations rather than individual non-identifiability. The 1 weak mode (WEAK_MODES) is a separate, milder concern. Inspecting eigenvectors before any parameter-space change is essential to avoid conflating a numerical artefact with a scientific identifiability problem.
+3. Visually inspect fit_exp3.png, fit_exp9.png (worst RMSE 0.133 and 0.130, bias ≈ −0.09) and fit_exp7.png (time correlation only 0.051 while lag-1 is 0.748) to characterise the systematic negative bias and the anomalous temporal decorrelation in experiment 7. [RESIDUAL] All 9 experiments show negative bias (−0.021 to −0.092), indicating the model consistently underpredicts open_probability. In 7 of 9 experiments the first time region (t ∈ [0, 0.33]) carries the largest RMSE (e.g. exp 3: 0.222 vs 0.028 in the last region), suggesting an initial-transient mismatch. Experiment 7 (IP3=3.0, Ca=0.4) is anomalous: its time correlation of 0.051 is near zero while lag-1 correlation is 0.748, implying the model tracks local dynamics but not the overall temporal trend—possibly a phase or amplitude mismatch specific to that initial condition. These patterns must be understood before attributing the residual to parameter values.
+4. Before spending further iterations, confirm whether the flat loss (0.086998 unchanged across DE iteration 1 and all 5 gradient iterations) reflects a true stationary point or an optimizer stall. If the gradient probe (step 1) confirms a valid near-zero gradient, a gradient-only restart with the same model and bounds is unlikely to help; instead, address the saddle/curvature issue first. [BUDGET, OPTIMIZER_TRACES] The DE phase ran only 1 iteration (population 4) and the NODE phase ran 5 iterations, both with loss frozen at 0.086998 (OPTIMIZER_TRACES). The termination reason is 'iteration_budget' (BUDGET). A flat best-so-far log does not by itself prove convergence; combined with 5 negative Hessian modes it is more consistent with a saddle or a numerically degenerate landscape. Restarting the gradient optimizer without resolving the curvature issue would likely reproduce the same flat trajectory.
+5. Check whether the initial conditions (IP3 and Ca set per experiment, with O=0, R=1, all other states 0) are physically consistent with the Sneyd IPR model and with the measured open_probability traces. In particular, verify that the initial open_probability (0.9·A+0.1·O)⁴ = 0 at t=0 matches the first data point in each dataset. [PARAMETERS, RESIDUAL] The observable is (0.9·A + 0.1·O)⁴ with A(0)=0 and O(0)=0, so the model predicts open_probability = 0 at t=0 for every experiment. If the measured data do not start at zero, the systematic negative bias (all 9 experiments, bias −0.021 to −0.092) and the elevated first-region RMSE (e.g. exp 3: 0.222) could partly reflect an initial-condition mismatch rather than a rate-constant error. This is a scientific/model-consistency check, not a loss modification.
+Limitation: The 5 negative Hessian modes cannot be attributed to a specific cause (saddle geometry, finite-difference artefact, or parameter-pair degeneracy) without inspecting the eigenvectors and verifying gradient/curvature reliability; the evidence does not distinguish these possibilities.
+Limitation: The near-zero gradient (1.95×10⁻¹³) is local evidence of stationarity; it does not establish a global optimum, nor does it rule out other basins of attraction within the 8-decade parameter ranges.
+Limitation: The systematic negative bias and first-region RMSE elevation could arise from model structural mismatch, initial-condition inconsistency, measurement offset, or genuinely wrong rate constants; the residual statistics alone cannot separate these causes.
+Limitation: Experiment 7's near-zero time correlation (0.051) with high lag-1 correlation (0.748) is unusual but, with only 15 time points, the correlation estimates have wide confidence intervals; the pattern may not be statistically robust.
+Limitation: The DE phase used only 1 iteration with population size 4, so the initial parameter set is a very limited sample of the 14-dimensional log-uniform space; the quality of the starting point for the gradient phase is uncertain.
+Limitation: No noise level or measurement uncertainty was supplied, so the RMSE values cannot be interpreted as statistical goodness-of-fit or used to assess whether the residuals are consistent with measurement error.

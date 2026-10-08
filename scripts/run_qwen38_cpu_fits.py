@@ -21,7 +21,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 ROOT = REPO / 'evaluation_runs/qwen38_full_fits_20261008'
 SOURCE = REPO / 'evaluation_runs/final_three_model_comparison_20261007/cases'
-SLIDING_SOURCE = REPO / 'evaluation_runs/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b'
+SLIDING_SOURCE = REPO / 'evaluation_runs/final_three_model_comparison_20261007/manual_retries/sliding_revised_prompt_20261007/cases/sliding_basepoint_headered/qwen38_27b'
 
 
 def save(path, data):

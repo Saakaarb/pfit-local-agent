@@ -1,0 +1,45 @@
+{
+  "verdict": "Robertson stiff-ODE fit terminated on the 5-iteration Adam budget with a non-stationary gradient (\u2016g\u2016\u221e/loss = 0.176) and a negative Hessian mode; y2 is essentially recovered (RMSE \u2248 2.3 \u00d7 10\u207b\u2075) while y1 and y3 show moderate, time-growing residuals (RMSE \u2248 0.051, bias \u2248 \u00b10.031) consistent with the y1+y2+y3 \u2248 1 conservation structure. No numerical failure or replay mismatch is recorded, but the negative sloppiness mode and unverified gradient correctness mean further gradient refinement is not yet justified.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "SLOPPINESS"
+      ],
+      "action": "Run diagnose --probe-gradients (finite-difference vs autodiff comparison) on the current parameter point before any further optimisation. If the finite-difference and autodiff gradients disagree beyond the configured tolerances, investigate the Jacobian of the Robertson system (especially the k2\u00b7y2\u00b2 and k3\u00b7y2\u00b7y3 terms) before spending more iterations.",
+      "reason": "The normalized gradient infinity norm is 0.176419 (STATIONARITY) and the sloppiness report flags 1 negative Hessian mode (SLOPPINESS). A negative mode can arise from a genuinely non-convex loss surface or from an incorrect/ill-conditioned gradient. Verifying gradient correctness is a prerequisite for trusting any Adam step; without it, increasing num_iters may amplify a systematic error rather than refine the fit."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png, focusing on the y1 and y3 channels in the later time regions (t > 33). Compare the fitted curves against the 17 data points to determine whether the growing RMSE (0.028 \u2192 0.090 \u2192 0.110 for y1) reflects a systematic model-structure mismatch, an initial-condition offset, or a genuine parameter-precision limit.",
+      "reason": "y1 and y3 have nearly identical RMSE (0.05074 vs 0.05074) with opposite biases (+0.0308 vs \u22120.0308) and opposite time correlations (+0.877 vs \u22120.877), which is the expected signature of the y1+y2+y3 \u2248 1 conservation in the Robertson model. y2 is fit to RMSE 2.33 \u00d7 10\u207b\u2075. The residual growth in the last two time regions (only 3 of 17 points) could indicate that the current k1, k2, k3 values are close but not precise enough, or that the 17-point sampling is too sparse to constrain the fast transient. Visual inspection of the named plot is needed before attributing the residual to a specific cause."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY"
+      ],
+      "action": "If the gradient check passes and the plot inspection does not reveal a structural mismatch, increase gradient_opt.num_iters from 5 to at least 50 and perform a gradient-only restart from the current parameter point (k1 \u2248 0.0200, k2 \u2248 5.84 \u00d7 10\u2079, k3 \u2248 1.27 \u00d7 10\u2075). Keep the existing bounds and model equations unchanged.",
+      "reason": "The run terminated on iteration_budget after exactly 5 Adam steps (BUDGET), with the loss moving only from 0.379247 to 0.379078 (\u0394 \u2248 1.7 \u00d7 10\u207b\u2074). The gradient norm of 0.176 (STATIONARITY) indicates the optimizer has not converged. A gradient-only restart is appropriate here because the model, bounds, and initial conditions remain valid; the only change is allowing more Adam iterations to reduce the gradient toward zero."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "PARAMETERS"
+      ],
+      "action": "After the gradient-only restart, re-evaluate the sloppiness spectrum. If the negative Hessian mode persists, consider whether k2 (currently at 86.7 % of its log-range, value \u2248 5.84 \u00d7 10\u2079) is over-parameterised relative to the 17 data points, and whether tightening the k2 upper bound or fixing it to a literature value would improve identifiability. This is a scientific-model judgement, not a numerical correction.",
+      "reason": "The sloppiness report shows 1 negative mode (SLOPPINESS), which in a 3-parameter problem with only 17 observations can indicate that one direction in parameter space is weakly or negatively constrained. k2 sits at range_fraction 0.867 (PARAMETERS), near the upper bound of 5 \u00d7 10\u00b9\u2070, while k1 is at 0.325 and k3 at 0.638. The negative mode does not prove the bound is wrong, but it warrants checking whether the data can actually distinguish k2 from k3 given the y2 channel is already fit to ~10\u207b\u2075 precision."
+    }
+  ],
+  "limitations": [
+    "The 17 data points per channel are sparse; the time-region RMSE in the last two bins is based on only 1 and 2 points respectively, so the apparent residual growth at t > 33 may be sampling artefact rather than systematic model error.",
+    "The negative Hessian mode (SLOPPINESS) cannot be attributed to a specific parameter or to a numerical artefact without a full eigen-decomposition and gradient verification; it may reflect the stiff, multi-scale nature of the Robertson system rather than a true non-convexity.",
+    "No gradient-check (finite-difference vs autodiff) result is present in the evidence; the correctness of the computed gradient is assumed but unverified.",
+    "The Robertson model's conservation law (y1 + y2 + y3 = 1) means the three channels are not independent; the near-perfect y2 fit (RMSE \u2248 2.3 \u00d7 10\u207b\u2075) constrains the y1/y3 residuals, and the residual pattern may reflect the loss normalisation (division by max|data|) rather than a true model deficiency.",
+    "The DE population phase ran only 1 iteration with population_size 4, so the initial parameter spread is minimal; the gradient phase started from a very narrow region and the 5 Adam steps may not have explored the parameter space sufficiently to rule out a nearby better optimum."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

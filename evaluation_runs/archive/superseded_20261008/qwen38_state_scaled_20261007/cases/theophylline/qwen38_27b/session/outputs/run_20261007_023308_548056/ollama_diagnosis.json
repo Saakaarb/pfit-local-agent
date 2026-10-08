@@ -1,0 +1,45 @@
+{
+  "verdict": "ke is pinned at 99.98 % of its upper log10 bound (0.99885 / 1.0), the Hessian has one negative mode, and the normalized gradient norm is 0.539 \u2014 the optimizer is not at a stationary point and the parameter is effectively constrained. The residual shows a strong negative bias (\u22121.91) and near-zero time correlation (\u22120.045), indicating the one-compartment model does not track the plasma-concentration trajectory. The dominant issue is the bound, not the iteration budget.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND",
+        "SLOPPINESS"
+      ],
+      "action": "Determine whether ke = 1.0 (the current upper bound) is pharmacologically justified for theophylline. If the data genuinely require ke > 1.0, widen the bound and run a full fit (DE + gradient). If the bound is correct, the one-compartment structure is likely inadequate and a model-structure review (e.g., two-compartment or saturable absorption) is needed before further optimization.",
+      "reason": "ke sits at 0.99885, which is 99.98 % of the [0.01, 1.0] log10 interval (range_fraction = 0.99975). The Hessian has one negative mode, meaning the loss surface is not locally convex at this point \u2014 a classic signature of a parameter pressed against a bound where the true optimum lies outside the feasible region. No amount of additional gradient iterations will resolve a bound-constrained optimum."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to verify that the autodiff gradients are consistent with finite differences before any further optimization. If gradients pass, a gradient-only restart with a larger num_iters (e.g., 50\u2013100) is appropriate only if the ke bound is confirmed valid.",
+      "reason": "The normalized gradient infinity norm is 0.5395, well above a typical stationarity threshold (~0.01\u20130.05), and the optimizer terminated at its 5-iteration budget (loss 0.34685 \u2192 0.34672, \u0394 \u2248 0.00013). The gradient-to-loss ratio of 1.556 further indicates the optimizer is far from a local minimum. However, a gradient restart is only meaningful if the bound is not the binding constraint."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png to compare the model trajectory against the 11 C_plasma observations. Pay particular attention to the early time region (0\u20137.95 h, RMSE 2.27) and the mid region (7.95\u201315.9 h, RMSE 2.55). Check whether the negative bias (\u22121.91) and near-zero time correlation (\u22120.045) reflect a structural model mismatch (e.g., missing distribution phase) rather than a parameter-estimation failure.",
+      "reason": "A time correlation of \u22120.045 means the model output is essentially uncorrelated with the observed temporal pattern, and the bias of \u22121.91 (\u2248 85 % of the RMSE of 2.23) indicates systematic underprediction. For a one-compartment oral model, this pattern is consistent with the data containing a distribution phase that the model cannot represent, independent of the ke bound."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BOUND"
+      ],
+      "action": "If the ke bound is confirmed and the model structure is retained, verify the initial condition A_gut = 320.0 and the dosing time alignment in dataset_1.csv. A mis-specified dose amount or time offset would produce a uniform negative bias without changing the shape, matching the observed bias \u2248 \u2212MAE (\u22121.908 vs 1.908).",
+      "reason": "The bias (\u22121.90839) is numerically identical to the negative of the MAE (1.90839), meaning every residual is negative \u2014 the model underpredicts at every time point. This is the signature of a scale offset (dose amount, Vd, or time shift) rather than a shape mismatch, and is consistent with ke being unable to increase further to sharpen the elimination tail."
+    }
+  ],
+  "limitations": [
+    "The negative Hessian mode (1 of 3) cannot be attributed to a specific parameter without a full eigenvector decomposition; it may reflect the ke bound, a flat direction in Vd, or a genuine saddle point.",
+    "The DE phase ran only 1 iteration with a population of 4, so the seed point is a single random draw; the gradient phase started from a potentially suboptimal location. The final loss (0.3467) may not represent the best reachable value within the current bounds.",
+    "With only 11 data points and 3 parameters, identifiability of ka, ke, and Vd is limited; the near-zero time correlation may reflect insufficient temporal resolution rather than model inadequacy.",
+    "The evidence does not include a finite-difference gradient check, so the reliability of the autodiff gradients at this point (especially with ke near the bound) is unverified.",
+    "No noise model or weighting is specified beyond the user's normalized MSE; the residual magnitudes cannot be interpreted as statistical significance without a noise assumption."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

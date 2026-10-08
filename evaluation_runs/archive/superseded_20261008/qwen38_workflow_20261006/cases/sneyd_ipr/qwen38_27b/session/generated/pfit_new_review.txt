@@ -1,0 +1,5 @@
+'Initially R=1 and all the other gating states are zero.' covers the gating group {O, R, I1, S, A, I2}: R=1 explicitly, and O=0, I1=0, S=0, A=0, I2=0 via the group default. 'You can carry IP3 and Ca as additional states with zero derivatives and set their initial values to the clamp concentrations for each experiment.' supplies IP3 and Ca per experiment from the frozen conditions (e.g. ca01: IP3=10, Ca=0.1). Since every experiment provides both IP3 and Ca, the first experiment's values serve as the representational default.
+Sneyd-Dufour IP3 receptor model with 6 gating states plus frozen IP3 and Ca states. All 14 rate constants are trainable. Equilibrium constants L1, L3, L5 and 10 fluxes v0–v9 extracted verbatim from user text.
+All nine CSVs share the same single measurement column 'open_probability', which is the derived quantity Po = (0.9*A + 0.1*O)^4 as stated in user_info.txt. No uncertainty or forcing columns present.
+User explicitly requests plain RMSE between simulated Po and measured open_probability per experiment, averaged equally across nine experiments. No penalties specified.
+Original user context indicates a stiff model.

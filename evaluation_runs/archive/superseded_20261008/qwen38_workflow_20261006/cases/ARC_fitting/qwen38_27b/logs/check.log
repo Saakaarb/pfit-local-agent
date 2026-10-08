@@ -1,0 +1,12 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/ARC_fitting/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/ARC_fitting/qwen38_27b/session
+warning: Population size 4 with 8 trainable parameters is below the typical DE minimum (5*L = 40); convergence is unlikely to find a good basin before the gradient phase.
+warning: Gradient optimizer (Adam) is set to only 5 iterations; with 8 parameters and a multi-term loss (data + 3 sigmoid penalties), this is very unlikely to converge.
+warning: In user_defined_system, the term (1 - c2) ** m2 with non-integer m2 (range 1–5) will produce NaN if the solver drives c2 above 1.0; no guard or clipping is present.
+warning: dTdt spans ~6 orders of magnitude (0.00023 to 208.6); although the user's log10 loss handles the residual scale, the ODE right-hand side mixes terms of very different magnitudes (h1*rate1 vs h2*rate2), which can stress the Kvaerno5 integrator at rtol=1e-7.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 40 (5 × 8 parameters) and num_iters to ≥ 3 for the DE phase to give the gradient optimizer a meaningful starting point.
+recommendation: Increase gradient num_iters from 5 to at least 50–100 so Adam can traverse the multi-scale loss landscape (data term + three sigmoid penalties with weight 10000).
+recommendation: Consider clamping c2 to [0, 1] inside user_defined_system (e.g., c2_safe = np.clip(c2, 0.0, 1.0)) before the power terms to prevent NaN from non-integer exponents if the solver overshoots.
+recommendation: The writeout array (7 columns: time, T_obs, dTdt_obs, c1, c2, T, dTdt_sim) is consistent with the dataset and observable definitions; no shape mismatch detected.

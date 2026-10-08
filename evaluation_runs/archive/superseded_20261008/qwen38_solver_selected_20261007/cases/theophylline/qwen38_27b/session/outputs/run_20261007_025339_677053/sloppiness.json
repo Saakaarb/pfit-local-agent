@@ -1,0 +1,95 @@
+{
+  "status": "ok",
+  "method": "finite-difference",
+  "fallback_reason": "TypeError: can't apply forward-mode autodiff (jvp) to a custom_vjp function.",
+  "parameter_names": [
+    "ka",
+    "ke",
+    "Vd"
+  ],
+  "coordinates": [
+    "log10(ka)",
+    "log10(ke)",
+    "log10(Vd)"
+  ],
+  "point": [
+    -0.6116572139711693,
+    -0.0004999623445127721,
+    1.1480558455546306
+  ],
+  "normalized_point": [
+    -0.6116572139711693,
+    0.9995000376554872,
+    -0.3919445139879974
+  ],
+  "loss": 0.34672387910742575,
+  "gradient": [
+    -0.22837427349844325,
+    0.5394604764307334,
+    0.6155632371484702
+  ],
+  "normalized_gradient_inf_norm": 0.5394604764307334,
+  "hessian": [
+    [
+      0.7407966311193115,
+      0.34401019145410827,
+      0.07112564521045629
+    ],
+    [
+      0.34401019145410827,
+      -0.7364096686968136,
+      -1.071367483055116
+    ],
+    [
+      0.07112564521045629,
+      -1.071367483055116,
+      -1.0072818889963078
+    ]
+  ],
+  "eigenvalues": [
+    0.8395656224249108,
+    0.1384760732732859,
+    -1.9809366222720066
+  ],
+  "relative_eigenvalues": [
+    1.0,
+    0.16493776016379344,
+    -2.3594780078661186
+  ],
+  "eigenvectors": [
+    [
+      0.9441616280952616,
+      0.312837653234375,
+      -0.10339933631950685
+    ],
+    [
+      0.2994805166716953,
+      -0.6839931593627281,
+      0.6651802598386757
+    ],
+    [
+      -0.13736899274057446,
+      0.6590037637705893,
+      0.7394888769749265
+    ]
+  ],
+  "relative_floor": 1e-06,
+  "positive_spectrum_decades": 0.7826799074029944,
+  "weak_modes": 0,
+  "negative_modes": 1,
+  "parameters_at_bounds": [],
+  "verdict": "indefinite curvature",
+  "warnings": [
+    "The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.",
+    "Negative curvature detected; do not interpret this point as a local minimum.",
+    "Local curvature only: not proof of structural/global identifiability or convergence."
+  ],
+  "stationary_at_tolerance": false,
+  "finite_difference_relative_change": 6.286192835890067e-08,
+  "finite_difference_stencils": [
+    "central",
+    "central",
+    "central"
+  ],
+  "hessian_relative_asymmetry": 4.817408481193403e-07
+}

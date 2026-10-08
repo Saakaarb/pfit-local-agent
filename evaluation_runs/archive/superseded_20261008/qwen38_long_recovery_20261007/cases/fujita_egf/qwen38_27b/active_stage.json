@@ -1,0 +1,21 @@
+{
+  "stage": "jax",
+  "started_utc": "2026-10-07T09:12:19Z",
+  "command": [
+    "jax",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_long_recovery_20261007/cases/fujita_egf/qwen38_27b/session",
+    "--model",
+    "qwen3.8:27b",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1",
+    "--max-repair-attempts",
+    "5"
+  ],
+  "pid": 228147
+}

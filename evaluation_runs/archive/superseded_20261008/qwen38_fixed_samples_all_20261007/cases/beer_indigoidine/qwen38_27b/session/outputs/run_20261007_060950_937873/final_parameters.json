@@ -1,0 +1,29 @@
+{
+  "parameters": [
+    {
+      "name": "Bacmax",
+      "value": 9.127735016596373e-05,
+      "logscale": true
+    },
+    {
+      "name": "beta",
+      "value": 0.0002947350298134995,
+      "logscale": true
+    },
+    {
+      "name": "ksyn",
+      "value": 0.0001827934242411318,
+      "logscale": true
+    },
+    {
+      "name": "kdim",
+      "value": 2.6561884195101134e-05,
+      "logscale": true
+    },
+    {
+      "name": "kdegi",
+      "value": 0.6205596547807843,
+      "logscale": true
+    }
+  ]
+}

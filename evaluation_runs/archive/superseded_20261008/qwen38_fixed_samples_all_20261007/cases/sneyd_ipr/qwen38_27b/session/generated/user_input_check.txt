@@ -1,0 +1,22 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Experiments 1 (ca01.csv) and 2 (ca02.csv) contain negative open_probability values (min=-0.01 and min=-0.018), but the model observable '(0.9 * A + 0.1 * O) ** 4' is structurally non-negative. The model can never match these data points, capping achievable fit quality for those experiments.
+- Population size is 4 with only 1 DE iteration for 14 trainable parameters spanning 8 orders of magnitude each (0.001–100000). This provides essentially no exploration of the 14-dimensional search space before gradient refinement.
+- Gradient optimizer is configured for only 5 Adam iterations. With 14 parameters and a complex rational ODE system, 5 steps is extremely unlikely to converge to a meaningful minimum.
+- The ODE system contains many parameter ratios such as 'k_2 * l4 / (k2 * l_4)', 'k_1 * l2 / (k1 * l_2)', and 'k_4 * l6 / (k4 * l_6)'. Because k1≠k_1, k2≠k_2, etc., these are distinct ratios, but the resulting 14-parameter space has strong correlations and likely identifiability issues that will slow or prevent convergence.
+- The observable '(0.9*A + 0.1*O)**4' is highly nonlinear: near zero it is nearly flat (low gradient signal) and near one it is steep. Combined with the small gradient budget, this may cause the optimizer to stall in flat regions.
+
+Recommendations:
+- Large trainable parameter count detected; consider increasing population search budget.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Increase population_size to at least 4× the number of parameters (≥56) and num_iters to ≥3 to give DE a meaningful chance of locating a basin before gradient refinement.
+- Increase gradient num_iters from 5 to at least 200–500 to allow Adam to traverse the 14-parameter landscape; the current 5 steps will almost certainly leave the model near its initial random position.
+- Consider whether the 14 parameters can be reduced. Several appear in fixed ratios (e.g., k_2*l4/(k2*l_4) always appears as a unit). If the scientific model truly requires all 14, tighter bounds or reparameterization (e.g., fitting the ratios directly) would improve identifiability.
+- The data range for open_probability is roughly 0–0.34 across all experiments. A plain RMSE loss (as implemented) is well-scaled for this range; no additional normalization is needed.
+- The writeout shape (11 columns: time + data + 8 states + 1 observable) is consistent with the 8 integrated variables and 1 declared observable. No action needed.
+
+Semantic review:
+No critical JAX-translation or compilation errors detected. The code is syntactically valid, uses only JAX-compatible operations, correctly maps solution indices to integrated variables, defines the single declared observable, and computes a standard RMSE loss consistent with the no-explicit-loss contract (automatic log-loss rule does not trigger for any experiment). The primary risks are convergence-related: an extremely small search budget (pop=4, 1 DE iter) and gradient budget (5 Adam steps) for a 14-parameter, 8-order-of-magnitude problem, combined with structural identifiability concerns in the ODE parameterization and a few negative data points the non-negative observable cannot match. The session will compile and run, but is unlikely to produce a meaningful fit without substantially larger budgets or parameter reduction.

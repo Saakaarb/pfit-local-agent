@@ -1,0 +1,44 @@
+{
+  "verdict": "The optimizer exhausted its 5-iteration Adam budget with the loss barely moving (0.31667 \u2192 0.31637, \u0394\u22480.0003), the normalized gradient remains at 0.364 (not stationary), and the Hessian shows one negative mode. The DE phase ran only 1 iteration with population 4, so the combined search was minimal. Residuals in both channels of both experiments show systematic bias (A overpredicted, B underpredicted) with RMSEs of 0.14\u20130.64, indicating the parameters are not yet well-fitted. The negative Hessian mode and flat loss trajectory suggest the optimizer may be near a saddle point or in a poorly conditioned region, but gradient correctness has not been verified.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run diagnose --probe-gradients to verify that the autodiff (or finite-difference) gradients are consistent with the loss before spending further optimization budget. Compare a finite-difference gradient at a perturbed step (e.g., 1e-5 and 1e-7) against the reported gradient to rule out a numerical gradient error that would explain the flat loss and negative Hessian mode.",
+      "reason": "The normalized gradient inf-norm is 0.364 (STATIONARITY) yet the loss moved only 0.0003 over 5 Adam steps (BUDGET, optimizer_traces). A negative Hessian mode (SLOPPINESS) combined with a non-stationary gradient is consistent with either a true saddle point or a gradient/Hessian computation error. Verifying gradient correctness is the cheapest discriminating test before any further optimization."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plots fit_exp1.png and fit_exp2.png to visually confirm the residual structure: channel A shows positive bias (+0.106, +0.212) with RMSE decreasing over time (0.218\u21920.023, 0.436\u21920.045), and channel B shows negative bias (\u22120.220, \u22120.553) with RMSE also decreasing (0.331\u21920.108, 0.859\u21920.258). Check whether the data timing, initial conditions (A=1.0/B=0.0 for exp 1; A=2.0/B=0.5 for exp 2), and the two-exponential decay shape are consistent with the model equations dA/dt=\u2212k1\u00b7A, dB/dt=k1\u00b7A\u2212k2\u00b7B.",
+      "reason": "The systematic sign of the bias (A overpredicted, B underpredicted) in both experiments is consistent with k1 being too small (slow A\u2192B transfer), but the negative time-correlation for A (\u22120.750) and positive for B (+0.600, +0.630) could also indicate a structural mismatch or a data-timing issue. Visual inspection of the named plots is the fastest way to distinguish parameter misfit from model/data inconsistency before changing anything."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER"
+      ],
+      "action": "If gradient checks pass and the model/bounds remain valid, run a full re-fit (not a gradient-only restart) with a larger DE population (e.g., 20\u201340) and more DE iterations (e.g., 5\u201310), followed by a larger Adam budget (e.g., 50\u2013100 iterations). The current search (1 DE iteration, pop=4; 5 Adam steps) is too small to navigate a two-parameter landscape that shows a negative Hessian mode.",
+      "reason": "The DE phase ran only 1 iteration with population 4 (OPTIMIZER: population_size=4, num_iters=1), and the Adam phase used the full 5-iteration budget with a loss change of only 0.0003 (BUDGET: termination=iteration_budget). The parameters k1=0.467 (range_fraction 0.557) and k2=1.250 (range_fraction 0.699) are interior, so the issue is search coverage, not boundary constraint. A gradient-only restart from this point would inherit the same local geometry; a broader population search is more appropriate."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS"
+      ],
+      "action": "After a broader re-fit converges, re-evaluate the Hessian. If a negative mode persists at a stationary point, the loss surface is genuinely non-convex (saddle or local maximum) and the fit should be re-initialised from a different seed or a wider parameter range. If the negative mode disappears, it was a transient artefact of the non-stationary point.",
+      "reason": "SLOPPINESS reports 1 negative mode and 0 weak modes at the current non-stationary point (gradient norm 0.364). A negative Hessian eigenvalue at a non-stationary point is expected in a saddle region and does not by itself indicate a numerical error, but it must be re-checked at a true stationary point to confirm the loss is locally convex."
+    }
+  ],
+  "limitations": [
+    "The negative Hessian mode (SLOPPINESS) cannot be distinguished from a finite-difference artefact without an explicit gradient/Hessian verification step; the current evidence is consistent with both a true saddle point and a numerical issue.",
+    "With only two parameters and a non-convex loss surface, the current point cannot be assessed for global optimality; the flat loss trajectory (\u0394=0.0003 over 5 steps) is local evidence of slow progress, not proof of a global minimum or of parameter identifiability.",
+    "No noise level or measurement uncertainty is specified in the snapshot, so the RMSE values (0.14\u20130.64) cannot be interpreted as statistically significant misfit versus acceptable scatter.",
+    "The residual bias pattern (A overpredicted, B underpredicted) is consistent with k1 being too small, but it is also consistent with a structural model mismatch (e.g., missing compartments, time-varying rates) or a data-timing/calibration error; the evidence cannot distinguish these causes without additional data or model variants.",
+    "The DE phase used a single iteration with population 4 and random_seed 7; the result is seed-dependent and a single run cannot establish whether the landscape is multi-modal."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,64 @@
+Preparing qwen2.5-coder:14b
+qwen14b/theophylline: new
+qwen14b/theophylline: check
+qwen14b/theophylline: jax
+qwen14b/theophylline: run
+qwen14b/theophylline: diagnose
+qwen14b/theophylline: pass (118.242s)
+qwen14b/ARC_fitting: new
+qwen14b/ARC_fitting: check
+qwen14b/ARC_fitting: jax
+qwen14b/ARC_fitting: run
+qwen14b/ARC_fitting: diagnose
+qwen14b/ARC_fitting: pass (201.702s)
+qwen14b/armistead_sphingolipid: new
+qwen14b/armistead_sphingolipid: fail (49.65s)
+qwen14b/beer_indigoidine: new
+qwen14b/beer_indigoidine: check
+qwen14b/beer_indigoidine: jax
+qwen14b/beer_indigoidine: run
+qwen14b/beer_indigoidine: diagnose
+qwen14b/beer_indigoidine: pass (125.6s)
+qwen14b/boehm_stat5: new
+qwen14b/boehm_stat5: check
+qwen14b/boehm_stat5: jax
+qwen14b/boehm_stat5: run
+qwen14b/boehm_stat5: diagnose
+qwen14b/boehm_stat5: pass (203.138s)
+qwen14b/borghans_calcium: new
+qwen14b/borghans_calcium: fail (48.987s)
+qwen14b/cascaded_tanks: new
+qwen14b/cascaded_tanks: fail (55.595s)
+qwen14b/decay_multiexp: new
+qwen14b/decay_multiexp: check
+qwen14b/decay_multiexp: jax
+qwen14b/decay_multiexp: run
+qwen14b/decay_multiexp: diagnose
+qwen14b/decay_multiexp: pass (106.49s)
+qwen14b/fujita_egf: new
+qwen14b/fujita_egf: fail (142.228s)
+qwen14b/lotka_volterra: new
+qwen14b/lotka_volterra: check
+qwen14b/lotka_volterra: jax
+qwen14b/lotka_volterra: run
+qwen14b/lotka_volterra: diagnose
+qwen14b/lotka_volterra: pass (99.687s)
+qwen14b/mapk_cascade: new
+qwen14b/mapk_cascade: check
+qwen14b/mapk_cascade: jax
+qwen14b/mapk_cascade: run
+qwen14b/mapk_cascade: diagnose
+qwen14b/mapk_cascade: pass (198.1s)
+qwen14b/nfkb_signaling: new
+qwen14b/nfkb_signaling: fail (123.398s)
+qwen14b/oregonator: new
+qwen14b/oregonator: check
+qwen14b/oregonator: jax
+qwen14b/oregonator: run
+qwen14b/oregonator: diagnose
+qwen14b/oregonator: pass (156.068s)
+qwen14b/piezo_bouc_wen: new
+qwen14b/piezo_bouc_wen: fail (43.492s)
+qwen14b/raia_il13: new
+qwen14b/raia_il13: fail (89.578s)
+qwen14b/robertson_session: new

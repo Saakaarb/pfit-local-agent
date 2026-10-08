@@ -1,0 +1,11 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/piezo_bouc_wen/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/piezo_bouc_wen/qwen38_27b/session
+warning: Writeout is missing V(t). The user explicitly requested 'time, measured xp, simulated xp, simulated h, V(t), and simulated vp' (6 columns), but writeout_description allocates only 5 columns (time, measured xp, simulated xp, simulated vp, simulated h). V(t) = 24 + 24*sin(16*pi*t) is a known input function of time and is not a state variable, so it must be computed explicitly in the writeout.
+warning: Population size is 4 with only 1 iteration for 6 trainable parameters. This is an extremely small search budget and will likely fail to explore the parameter space meaningfully before the gradient phase.
+warning: Gradient optimizer is set to only 5 iterations. Combined with the minimal population phase, total optimization budget is very low for a 6-parameter nonlinear ODE fit.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Add a 6th column to writeout_array for V(t) = 24 + 24*np.sin(16*np.pi*t), computed from solution_time, to match the user's explicit writeout specification.
+recommendation: Consider increasing population_size (e.g., 20-50) and num_iters (e.g., 5-10) to give the DE search a reasonable chance of locating a good basin before the 5-step Adam refinement, especially with 6 parameters spanning ranges from 1e-7 to 1.5e7.
+recommendation: The loss is well-scaled: residuals are normalized by max(abs(measured xp)) ≈ 4.9e-6, producing O(1) residuals. No further normalization is needed. The 1e-12 epsilon is negligible relative to the data scale and does not distort the normalization.
+recommendation: Parameters alpha, beta, gamma all start at 0 with logscale=False, which is correct since log(0) is undefined. kp and de use logscale=True over their respective ranges, which is appropriate.

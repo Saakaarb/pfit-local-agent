@@ -1,0 +1,18 @@
+{
+  "case": "sliding_basepoint_headered",
+  "manual_intervention": true,
+  "source_session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/sliding_basepoint_headered/qwen38_27b/session",
+  "framework_commit": "81782599f9fe11e4c08f649bcf150a3c420e579d",
+  "change": "Restore exact sticking condition from user prompt; no smoothing",
+  "original_expression": "    dv2dt = (1 - 0.5 * (1 + np.tanh((c2 - np.abs(-k * (x2 - x1))) / c2)) * (0.5 * (1 + np.tanh((vf - np.abs(v2)) / vf)))) * (-k * (x2 - x1) - c2 * np.sign(v2)) / m2",
+  "corrected_expression": "    dv2dt = np.where(np.logical_and(np.abs(-k * (x2 - x1)) < c2, np.abs(v2) < vf), 0.0, (-k * (x2 - x1) - c2 * np.sign(v2)) / m2)",
+  "recovery_timeout_seconds": 900,
+  "stages": [
+    "check",
+    "jax",
+    "run",
+    "diagnose"
+  ],
+  "model": "qwen3.8:27b",
+  "note": "Previously extracted specification retained; manual source correction followed by LLM JAX translation and deterministic validation. Smoke fitting budget unchanged."
+}

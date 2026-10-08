@@ -1,0 +1,90 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 128,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1008-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 128
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "620426fb6692969ebad675674d1227115ce04e5a237c1c5e8e2a245c9817d3a9",
+      "generated_script": "5f810fc37c20ed4b8ede64124af8d2437015021b4d1f350e081f660c4907e86b",
+      "user_model": "d9728f899649358079d66e0488c85c2e8b9755ee23fba0dfa74aba8514e01589"
+    },
+    "git": {
+      "commit": "55ff4d2fa0468255d7ca20d3e2b573bb75719e15",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "decay_run_A.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "ef22b242864d8d0c8bf1cf5ec7114769e5dba3c6ef5fe181392c88bf59383e91",
+      "initial_conditions": {
+        "A": 1.0,
+        "B": 0.0
+      },
+      "output_file": "result_solution_exp1.csv"
+    },
+    {
+      "index": 2,
+      "data_file": "decay_run_B.csv",
+      "snapshot_data_file": "dataset_2.csv",
+      "sha256": "31fc7b58a98513031efbc8785370cf325d9006d166bfa534497478ff92165f54",
+      "initial_conditions": {
+        "A": 2.0,
+        "B": 0.5
+      },
+      "output_file": "result_solution_exp2.csv"
+    }
+  ]
+}

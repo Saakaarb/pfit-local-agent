@@ -1,0 +1,4 @@
+session initialized: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/theophylline/qwen14b/session
+written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/theophylline/qwen14b/session/inputs/user_input.yaml
+written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/theophylline/qwen14b/session/generated/user_model.py
+written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/theophylline/qwen14b/session/generated/pfit_new_review.txt

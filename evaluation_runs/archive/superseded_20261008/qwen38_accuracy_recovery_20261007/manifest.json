@@ -1,0 +1,27 @@
+{
+  "started_utc": "2026-10-07T05:26:07Z",
+  "framework_commit": "63bc9fa739494b5d7df9e7926229bede7003839b",
+  "gpu": "name, memory.total [MiB], driver_version\nNVIDIA H200, 143771 MiB, 580.126.09",
+  "python": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+  "dependencies": "absl-py==2.5.0\nannotated-types==0.8.0\nanyio==4.15.1\ncertifi==2026.7.22\ncontourpy==1.4.0\ncycler==0.12.1\ndiffrax==0.7.2\nequinox==0.13.8\nfonttools==4.66.0\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nidna==3.20\niniconfig==2.3.0\njax==0.6.2\njax-cuda12-pjrt==0.6.2\njax-cuda12-plugin==0.6.2\njaxlib==0.6.2\njaxtyping==0.3.11\nkiwisolver==1.5.1\nlineax==0.1.0\nmatplotlib==3.11.2\nml_dtypes==0.6.0\nnumpy==2.2.6\nnvidia-cublas-cu12==12.9.2.10\nnvidia-cuda-cccl-cu12==12.9.27\nnvidia-cuda-cupti-cu12==12.9.79\nnvidia-cuda-nvcc-cu12==12.9.86\nnvidia-cuda-nvrtc-cu12==12.9.86\nnvidia-cuda-runtime-cu12==12.9.79\nnvidia-cudnn-cu12==9.26.0.51\nnvidia-cufft-cu12==11.4.1.4\nnvidia-cusolver-cu12==11.7.5.82\nnvidia-cusparse-cu12==12.5.10.65\nnvidia-nccl-cu12==2.32.3\nnvidia-nvjitlink-cu12==12.9.86\nnvidia-nvshmem-cu12==3.8.0\nollama==0.6.2\nopt_einsum==3.4.0\noptax==0.2.8\noptimistix==0.1.0\npackaging==26.3\npandas==3.0.6\n-e git+ssh://git@github.com/Saakaarb/pfit-local-agent.git@63bc9fa739494b5d7df9e7926229bede7003839b#egg=pfit_local_agent\npillow==12.3.0\npluggy==1.6.0\npydantic==2.13.5\npydantic_core==2.46.5\nPygments==2.21.0\npyparsing==3.3.3\npytest==9.1.1\npython-dateutil==2.9.0.post0\npython-dotenv==1.2.3\nPyYAML==6.0.3\nscipy==1.14.1\nsix==1.17.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\nwadler_lindig==0.1.7\nzstandard==0.25.0",
+  "options": {
+    "seed": 7,
+    "num_ctx": 32768,
+    "temperature": 0.1,
+    "num_predict": 12000,
+    "top_k": 40,
+    "top_p": 0.9
+  },
+  "model_order": [
+    "qwen38_27b"
+  ],
+  "model_batches": {
+    "qwen38_27b": {
+      "status": "running",
+      "started_utc": "2026-10-07T05:26:11Z"
+    }
+  },
+  "status": "stopped",
+  "pid": 139692,
+  "stop_reason": "Restarting with ARC first"
+}

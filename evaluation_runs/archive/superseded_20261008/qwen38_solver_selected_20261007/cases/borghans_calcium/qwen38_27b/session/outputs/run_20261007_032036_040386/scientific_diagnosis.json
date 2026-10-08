@@ -1,0 +1,280 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_032036_040386",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_032036_040386/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "Kf=0.001 is at 0.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "Kz=100000 is at 100.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "Vd=100000 is at 100.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "Vp=0.001 is at 0.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "offset=100000 is at 100.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "scale=100000 is at 100.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, Ca: RMSE=2.58924e+12, bias=2.57602e+12, time correlation=0.3410989871336247, lag-1=0.9959647267361803.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 111,
+          "missing": 0,
+          "rmse": 2589237607982.8916,
+          "mae": 2576018428199.522,
+          "bias": 2576018428199.522,
+          "max_abs": 2625041555967.044,
+          "time_correlation": 0.3410989871336247,
+          "lag1_correlation": 0.9959647267361803,
+          "time_regions": [
+            {
+              "start": 0.029484867,
+              "end": 3.0142706756666664,
+              "count": 32,
+              "rmse": 2498650989867.195
+            },
+            {
+              "start": 3.0142706756666664,
+              "end": 5.999056484333333,
+              "count": 36,
+              "rmse": 2625041435717.863
+            },
+            {
+              "start": 5.999056484333333,
+              "end": 8.983842293,
+              "count": 43,
+              "rmse": 2625041555950.476
+            }
+          ],
+          "name": "Ca",
+          "observes": "Ca"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "K2",
+      "value": 0.0355814841926118,
+      "range_fraction": 0.19390300745421674,
+      "logscale": true
+    },
+    {
+      "name": "K_par",
+      "value": 4.410178290831844,
+      "range_fraction": 0.4555570183875408,
+      "logscale": true
+    },
+    {
+      "name": "Ka",
+      "value": 44306.71239728175,
+      "range_fraction": 0.9558086907673526,
+      "logscale": true
+    },
+    {
+      "name": "Kd",
+      "value": 0.26953638321405754,
+      "range_fraction": 0.30382717455889974,
+      "logscale": true
+    },
+    {
+      "name": "Kf",
+      "value": 0.001,
+      "range_fraction": 0.0,
+      "logscale": true
+    },
+    {
+      "name": "Kp",
+      "value": 3126.2941939131742,
+      "range_fraction": 0.8118787305068327,
+      "logscale": true
+    },
+    {
+      "name": "Ky",
+      "value": 0.10173455367383713,
+      "range_fraction": 0.25093356051301896,
+      "logscale": true
+    },
+    {
+      "name": "Kz",
+      "value": 100000.0,
+      "range_fraction": 1.0,
+      "logscale": true
+    },
+    {
+      "name": "Vd",
+      "value": 100000.0,
+      "range_fraction": 1.0,
+      "logscale": true
+    },
+    {
+      "name": "Vm2",
+      "value": 0.4447054830391272,
+      "range_fraction": 0.3310090605197038,
+      "logscale": true
+    },
+    {
+      "name": "Vm3",
+      "value": 689.7477864808897,
+      "range_fraction": 0.7298362894284847,
+      "logscale": true
+    },
+    {
+      "name": "Vp",
+      "value": 0.001,
+      "range_fraction": 0.0,
+      "logscale": true
+    },
+    {
+      "name": "beta_par",
+      "value": 21954.877513783067,
+      "range_fraction": 0.9176913773148919,
+      "logscale": true
+    },
+    {
+      "name": "epsilon_par",
+      "value": 567.6956219228007,
+      "range_fraction": 0.7192644431190915,
+      "logscale": true
+    },
+    {
+      "name": "n_par",
+      "value": 7.174825937720756,
+      "range_fraction": 0.4819764211861311,
+      "logscale": true
+    },
+    {
+      "name": "v0",
+      "value": 5.425345047525841,
+      "range_fraction": 0.46680342052177887,
+      "logscale": true
+    },
+    {
+      "name": "v1",
+      "value": 5273.042555497055,
+      "range_fraction": 0.840257659533799,
+      "logscale": true
+    },
+    {
+      "name": "offset",
+      "value": 100000.0,
+      "range_fraction": 1.0,
+      "logscale": true
+    },
+    {
+      "name": "scale",
+      "value": 100000.0,
+      "range_fraction": 1.0,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 26250658.82448829,
+    "final_loss": 25892374.573815655,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      25892374.573815655
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_032036_040386/de_fitting.log",
+      "rows": 1,
+      "first": 26251000.0,
+      "final": 26251000.0,
+      "best": 26251000.0,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          26251000.0
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261007_032036_040386/NODE_fitting.log",
+      "rows": 2,
+      "first": 25964000.0,
+      "final": 25892000.0,
+      "best": 25892000.0,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          25964000.0
+        ],
+        [
+          5,
+          25892000.0
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 25892374.573815655,
+  "experiment_losses": [
+    25892374.573815655
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Kf=0.001 is at 0.00% of its log10 search interval."
+}

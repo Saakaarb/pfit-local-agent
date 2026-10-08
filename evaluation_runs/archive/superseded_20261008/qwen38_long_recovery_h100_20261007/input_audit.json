@@ -1,0 +1,78 @@
+[
+  {
+    "name": "mapk_cascade",
+    "source": "sessions/mapk_cascade",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "mapk_data.csv"
+    ],
+    "prompt_sha256": "9d36b578b0567019c04c2922b516ea47c872d83597d15ae5c84b7c32fd33b390",
+    "original_prompt_sha256": "9d36b578b0567019c04c2922b516ea47c872d83597d15ae5c84b7c32fd33b390",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "mapk_data.csv": "2facb11851dde3191fe92c7500cf9c41701519448a25a82f8c3b10290b8d04f3",
+      "user_info.txt": "9d36b578b0567019c04c2922b516ea47c872d83597d15ae5c84b7c32fd33b390"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  {
+    "name": "oregonator",
+    "source": "sessions/oregonator",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "data.csv"
+    ],
+    "prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "original_prompt_sha256": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "data.csv": "90a248e2bb6973c7e84b20b8bac6f1597a51a18789c9be93079e8a47a4ecabf8",
+      "user_info.txt": "33cb4407f6fcde6ec74c952a78a31da5fb804dfe39f655adce23552754abfcc1"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  {
+    "name": "raia_il13",
+    "status": "ready",
+    "expected_experiments": 2,
+    "expected_data_files": [
+      "il13_20.csv",
+      "il13_4.csv"
+    ],
+    "sloppiness": false,
+    "pre_run_configuration": {},
+    "input_hashes": {
+      "il13_20.csv": "350306ed58bb7f214654ac42f6f778e0a86b1eb98052eb7f54dd997fcbab98ab",
+      "il13_4.csv": "c52c2cff8ba02af6d3d9813081f12267d16d38c1982f0cd6cdb4af2c63988cda",
+      "user_info.txt": "51c43090e402b7410f5f464b8debf727598715c76b50893e8a6c897001e170ed"
+    },
+    "cohort": "external",
+    "source_benchmark": "evaluation_runs/external_comparison_20261004"
+  },
+  {
+    "name": "fujita_egf",
+    "status": "ready",
+    "expected_experiments": 2,
+    "expected_data_files": [
+      "egf_1.csv",
+      "egf_10.csv"
+    ],
+    "sloppiness": false,
+    "pre_run_configuration": {},
+    "input_hashes": {
+      "egf_1.csv": "a83933f71d538cb63e29bd1f4e3093e70f5af1b2fc67aa5d8954a125296aca0e",
+      "egf_10.csv": "baefab2fbdbce7e86deb193a8c437fe5c2416863f7bf4fdf31a926a58b907535",
+      "user_info.txt": "6a634133e8195f745f8c292603407bc071fdd90e883571e6492c81726066b0e7"
+    },
+    "cohort": "external",
+    "source_benchmark": "evaluation_runs/external_comparison_20261004"
+  }
+]

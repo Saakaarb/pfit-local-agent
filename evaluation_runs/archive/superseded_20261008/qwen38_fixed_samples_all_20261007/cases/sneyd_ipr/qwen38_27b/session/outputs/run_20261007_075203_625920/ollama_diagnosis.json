@@ -1,0 +1,54 @@
+{
+  "verdict": "The optimizer reached a numerically stationary point (gradient \u2016\u00b7\u2016\u221e \u2248 1.95\u00d710\u207b\u00b9\u00b3) after exhausting its 5-iteration budget, yet the saved Hessian shows 5 negative-curvature modes out of 14 parameters. The fit is mediocre (per-experiment RMSE 0.036\u20130.133, all with systematic negative bias), and the loss trace is flat across both the DE and gradient phases. The negative Hessian modes combined with a near-zero gradient are the most pressing concern: they are consistent with a saddle point or with unreliable finite-difference curvature, and they must be resolved before interpreting residuals or considering further optimisation.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "OPTIMIZER"
+      ],
+      "action": "Run diagnose --probe-gradients to verify the autodiff/finite-difference gradient against a discriminating step-size comparison (e.g. compare gradients at rtol 1e-7 vs 1e-5). Do not restart the optimizer until the gradient is confirmed reliable.",
+      "reason": "The normalized gradient inf-norm is 1.95\u00d710\u207b\u00b9\u00b3 and the gradient-to-loss ratio is 2.25\u00d710\u207b\u00b9\u00b2, yet the Hessian has 5 negative modes. If the gradient is correct the point is a saddle, not a minimum; if the gradient is numerically corrupted (e.g. by the 8-decade parameter ranges 0.001\u2013100 000 interacting with the adaptive stepsize_atol values as low as ~6\u00d710\u207b\u00b9\u2074), the curvature signs are untrustworthy. A step-size comparison discriminates between these two causes without assuming either."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "WEAK_MODES"
+      ],
+      "action": "Inspect the eigenvectors of the 5 negative-curvature modes and the 1 weak mode to identify which parameter combinations (e.g. k1 vs k_1, l4 vs l_4, l6 vs l_6) are involved. Do not fix or re-bound parameters based on this alone.",
+      "reason": "The model contains 14 parameters in 7 apparent pairs (k1/k_1, k2/k_2, k3/k_3, k4/k_4, l2/l_2, l4/l_4, l6/l_6) whose products appear as ratios in the ODEs (e.g. k_2\u00b7l4/(k2\u00b7l_4)). 5 negative modes out of 14 parameters is a large fraction and may reflect genuine saddle geometry in these ratio combinations rather than individual non-identifiability. The 1 weak mode (WEAK_MODES) is a separate, milder concern. Inspecting eigenvectors before any parameter-space change is essential to avoid conflating a numerical artefact with a scientific identifiability problem."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Visually inspect fit_exp3.png, fit_exp9.png (worst RMSE 0.133 and 0.130, bias \u2248 \u22120.09) and fit_exp7.png (time correlation only 0.051 while lag-1 is 0.748) to characterise the systematic negative bias and the anomalous temporal decorrelation in experiment 7.",
+      "reason": "All 9 experiments show negative bias (\u22120.021 to \u22120.092), indicating the model consistently underpredicts open_probability. In 7 of 9 experiments the first time region (t \u2208 [0, 0.33]) carries the largest RMSE (e.g. exp 3: 0.222 vs 0.028 in the last region), suggesting an initial-transient mismatch. Experiment 7 (IP3=3.0, Ca=0.4) is anomalous: its time correlation of 0.051 is near zero while lag-1 correlation is 0.748, implying the model tracks local dynamics but not the overall temporal trend\u2014possibly a phase or amplitude mismatch specific to that initial condition. These patterns must be understood before attributing the residual to parameter values."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "Before spending further iterations, confirm whether the flat loss (0.086998 unchanged across DE iteration 1 and all 5 gradient iterations) reflects a true stationary point or an optimizer stall. If the gradient probe (step 1) confirms a valid near-zero gradient, a gradient-only restart with the same model and bounds is unlikely to help; instead, address the saddle/curvature issue first.",
+      "reason": "The DE phase ran only 1 iteration (population 4) and the NODE phase ran 5 iterations, both with loss frozen at 0.086998 (OPTIMIZER_TRACES). The termination reason is 'iteration_budget' (BUDGET). A flat best-so-far log does not by itself prove convergence; combined with 5 negative Hessian modes it is more consistent with a saddle or a numerically degenerate landscape. Restarting the gradient optimizer without resolving the curvature issue would likely reproduce the same flat trajectory."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "RESIDUAL"
+      ],
+      "action": "Check whether the initial conditions (IP3 and Ca set per experiment, with O=0, R=1, all other states 0) are physically consistent with the Sneyd IPR model and with the measured open_probability traces. In particular, verify that the initial open_probability (0.9\u00b7A+0.1\u00b7O)\u2074 = 0 at t=0 matches the first data point in each dataset.",
+      "reason": "The observable is (0.9\u00b7A + 0.1\u00b7O)\u2074 with A(0)=0 and O(0)=0, so the model predicts open_probability = 0 at t=0 for every experiment. If the measured data do not start at zero, the systematic negative bias (all 9 experiments, bias \u22120.021 to \u22120.092) and the elevated first-region RMSE (e.g. exp 3: 0.222) could partly reflect an initial-condition mismatch rather than a rate-constant error. This is a scientific/model-consistency check, not a loss modification."
+    }
+  ],
+  "limitations": [
+    "The 5 negative Hessian modes cannot be attributed to a specific cause (saddle geometry, finite-difference artefact, or parameter-pair degeneracy) without inspecting the eigenvectors and verifying gradient/curvature reliability; the evidence does not distinguish these possibilities.",
+    "The near-zero gradient (1.95\u00d710\u207b\u00b9\u00b3) is local evidence of stationarity; it does not establish a global optimum, nor does it rule out other basins of attraction within the 8-decade parameter ranges.",
+    "The systematic negative bias and first-region RMSE elevation could arise from model structural mismatch, initial-condition inconsistency, measurement offset, or genuinely wrong rate constants; the residual statistics alone cannot separate these causes.",
+    "Experiment 7's near-zero time correlation (0.051) with high lag-1 correlation (0.748) is unusual but, with only 15 time points, the correlation estimates have wide confidence intervals; the pattern may not be statistically robust.",
+    "The DE phase used only 1 iteration with population size 4, so the initial parameter set is a very limited sample of the 14-dimensional log-uniform space; the quality of the starting point for the gradient phase is uncertain.",
+    "No noise level or measurement uncertainty was supplied, so the RMSE values cannot be interpreted as statistical goodness-of-fit or used to assess whether the residuals are consistent with measurement error."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

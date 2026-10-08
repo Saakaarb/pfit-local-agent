@@ -1,0 +1,44 @@
+{
+  "verdict": "ke is pinned at 99.98 % of its upper bound (0.9988 of [0.01, 1.0]) while the normalised gradient norm is 0.539 and the Hessian has one negative mode; the run is not at a stationary point and the residual shows a strong systematic underprediction (bias \u22121.91) with near-zero time correlation (\u22120.045). The dominant issue is a bound/parameterisation conflict, not a convergence shortfall.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Review whether ke_max = 1.0 h\u207b\u00b9 is physically justified for theophylline (typical elimination half-life 3\u20139 h \u2192 ke \u2248 0.08\u20130.23 h\u207b\u00b9). If the bound is too tight, widen it and run a full fit (population + gradient); if it is correct, the model structure or initial conditions likely need revision. Do not widen the bound automatically.",
+      "reason": "ke = 0.998849 sits at range_fraction 0.99975, i.e. the optimiser is pressing against the upper limit. A parameter at the boundary with a non-zero gradient (0.539) and a negative Hessian mode indicates the unconstrained optimum lies outside the current box, so no amount of additional gradient iterations at the current bounds will resolve the fit."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect fit_exp1.png to compare the model trajectory against the 11 C_plasma data points. Check whether the negative bias (\u22121.908) and near-zero time correlation (\u22120.045) are driven by the initial condition A_gut = 320, the dosing time, or a structural mismatch of the two-compartment model. Verify data units and timing before attributing the mismatch to parameters.",
+      "reason": "RMSE = 2.233 with bias = \u22121.908 means the model systematically underpredicts plasma concentration; time correlation \u2248 0 means it does not track the temporal shape. The lag-1 correlation of 0.642 shows some short-term tracking but the overall trajectory is offset. This pattern is more consistent with a structural or initial-condition problem than with a parameter-tuning shortfall."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Do not perform a gradient-only restart from the current point. The normalised gradient norm is 0.539 (not small), the Hessian has one negative mode, and ke is at the bound; the point is not a valid local minimum. If the user confirms the bounds are appropriate, first run diagnose --probe-gradients to verify gradient correctness, then decide whether a full re-fit with revised model/initial conditions is needed.",
+      "reason": "A gradient-only restart is appropriate only when the existing model and bounds remain valid and the gradient evidence supports local refinement. Here the negative Hessian mode and the bound-pinned parameter indicate the current point is in a non-convex, boundary-constrained region where additional Adam steps (budget was only 5) would not escape the local geometry."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "BOUND"
+      ],
+      "action": "If the user confirms the ke bound should be widened, re-run the full fitting pipeline (population DE + gradient refinement) with the new bound. If the bound is kept, consider whether the two-compartment gut\u2192plasma model is adequate for theophylline PK; a structural model change (e.g., adding a distribution compartment or a zero-order absorption phase) would require a new model definition and a full fit.",
+      "reason": "The negative Hessian mode (1 negative eigenvalue) combined with ke at the bound suggests the loss surface is non-convex at this point, likely because the model is compensating for a structural deficiency by pushing ke to its limit. A model change is a scientific decision that requires user judgement and new data validation; it cannot be inferred from the fit alone."
+    }
+  ],
+  "limitations": [
+    "The negative Hessian mode cannot be attributed to a specific cause (autodiff error, genuine non-convexity, or boundary artefact) without a finite-difference gradient check at the current point.",
+    "The near-zero time correlation and strong negative bias could stem from incorrect initial conditions (A_gut = 320), data-unit mismatch, dosing-timing error, or model structural inadequacy; the evidence does not discriminate among these.",
+    "The DE population phase ran only 1 iteration with 4 members, so the initialisation for the gradient phase is essentially a single random draw; the final point may not represent the best region of the search space.",
+    "Theophylline pharmacokinetics in vivo often involve non-linear (saturable) metabolism; the linear two-compartment model used here may be structurally insufficient, but this cannot be confirmed from a single dataset without additional experimental evidence.",
+    "No noise level or measurement-error model is specified in the snapshot, so the RMSE and bias values cannot be interpreted as statistical significance."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

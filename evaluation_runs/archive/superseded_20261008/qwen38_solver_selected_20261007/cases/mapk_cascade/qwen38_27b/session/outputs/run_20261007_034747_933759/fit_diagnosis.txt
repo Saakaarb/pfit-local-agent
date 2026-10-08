@@ -1,0 +1,78 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_034747_933759
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.0850E-01, best loss 3.0850E-01, final loss 3.0850E-01
+- NODE: 2 iterations, first loss 3.0750E-01, best loss 3.0725E-01, final loss 3.0725E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: mapk_data.csv; loss=0.3072469219516433; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 3; negative modes: 4
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_034747_933759/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Parameters are at/near bounds; unconstrained Hessian modes do not describe the feasible region fully.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- k1=0.00100173 is at 0.02% of its log10 search interval.
+- [BOUND] k1=0.00100173 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k3=0.00100173 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h_1=100 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h2=0.998276 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h3=100 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h4=0.0001 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h_6=0.0998275 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.997204; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 3 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Mpp: RMSE=3.72498, bias=-3.39419, time correlation=-0.9348194090639439, lag-1=0.995359957512774.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_034747_933759/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/mapk_cascade/qwen38_27b/session/outputs/run_20261007_034747_933759/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The fit is far from converged (normalized gradient ‖g‖∞ ≈ 0.997) and the single observed channel Mpp shows a strongly negative time correlation (−0.935) with a large negative bias (−3.39), indicating the model trajectory is moving opposite to the data. Seven of sixteen parameters are pinned at or within 0.02 % of a search bound, and the Hessian has four negative modes, so the current parameterisation and search space are in serious tension with the data. The optimizer exhausted its 5-iteration gradient budget with only a 0.0013 loss reduction (0.3085 → 0.30725). Before spending further iterations, the model–data mismatch and bound saturation must be understood.
+1. Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown (RMSE 1.78 → 3.96 → 4.77 across thirds of the time axis). Determine whether the model Mpp trajectory is monotonically anti-correlated with the data (negative time correlation −0.935) or whether the mismatch is concentrated in a specific time window. Check the initial conditions (M=500, Mp=0, Mpp=0, MAPKK=50, MKP3=100) and the forcing/timing in dataset_1.csv against the model's expected response. [RESIDUAL] A time correlation of −0.935 means the fitted Mpp moves in the opposite direction to the measured Mpp over the full time span. This is not a small residual; it is a qualitative trajectory mismatch. The bias of −3.39 (RMSE 3.72) and the worsening RMSE in later time regions (4.77 in the last third) suggest the model either lacks the correct activation/deactivation dynamics or the initial conditions and parameter values produce the wrong transient. No amount of additional gradient iterations will fix a structurally wrong trajectory.
+2. Audit the seven parameters at or within 0.02 % of a bound (k1≈0.001 lower, k3≈0.001 lower, h_1=100 upper, h2≈1.0 upper, h3=100 upper, h4=0.0001 lower, h_6≈0.1 upper). For each, ask whether the bound is physically justified by the MAPK cascade mechanism. If the true value is expected to lie outside the current range, revise the bound and run a full fit (DE + gradient). Do not widen bounds automatically; document the physical rationale for any change. [BOUND] Seven of sixteen parameters (44 %) are pinned at a bound. k1 and k3 are both at 0.00100173, essentially the lower bound of 0.001, suggesting the optimizer wants them even smaller. h_1 and h3 are both at 100 (upper bound), h2 at 0.998 (upper bound 1.0), h4 at 0.0001 (lower bound), and h_6 at 0.0998 (upper bound 0.1). This pattern indicates the search space may not contain the physically relevant parameter regime, or the parameterisation creates strong compensatory correlations that push parameters to the edges. A full fit with revised bounds is required if the bounds are changed.
+3. Run a gradient probe (diagnose --probe-gradients) to verify that the autodiff gradients are finite and consistent with finite-difference estimates at the current point. Only if gradients pass should a gradient-only restart with increased gradient_opt.num_iters (e.g. 50–100) be considered. Do not restart blindly: the current loss surface has four negative Hessian modes, so the gradient direction may be unreliable at this point. [STATIONARITY, BUDGET] The normalized gradient infinity norm is 0.997, well above a typical convergence threshold, and the optimizer stopped at its 5-iteration budget (BUDGET). However, the sloppiness report shows 4 negative modes in the saved curvature, meaning the local Hessian is indefinite. In that regime the gradient may point away from a local minimum or along a saddle direction. Verifying gradient correctness before spending more iterations is essential.
+4. Inspect the eigenvectors of the three weak modes and four negative modes in the saved curvature matrix. Identify which parameter combinations are poorly constrained by the single Mpp channel. Before designing new experiments or fixing parameters, determine whether the weak modes correspond to physically meaningful parameter pairs (e.g. k1/k_1, h1/h_1) or to structural redundancies in the 11-equation model. [WEAK_MODES, SLOPPINESS] With 16 trainable parameters and a single observed channel (Mpp), the data can constrain at most a limited number of independent combinations. Three weak modes and four negative modes indicate that the loss surface is flat or concave in several directions. This is expected for an underdetermined problem but must be understood before interpreting any fitted parameter value as physically meaningful. Weak modes are not proof of individual non-identifiability; the eigenvectors reveal which combinations are weak.
+5. Review the optimizer traces: the DE phase ran only 1 iteration (population_size 4, loss 0.3085, no improvement) and the gradient phase ran 5 iterations (loss 0.3075 → 0.30725, Δ=0.00025). The total loss reduction across both phases is 0.0013. Assess whether the DE population size of 4 and 1 iteration is sufficient for a 16-parameter problem, or whether the gradient phase budget of 5 is too small. If the model and bounds are confirmed valid, a full fit with a larger DE population (e.g. 20–40) and more gradient iterations (e.g. 100+) is warranted. [OPTIMIZER_TRACES, BUDGET] The DE phase with population_size 4 and 1 iteration provides very coarse global exploration for 16 parameters. The gradient phase with 5 iterations and an Adam optimizer with LR schedule (1e-4 → 1e-5 over 2000 transition steps) barely moved the loss. The optimizer_traces show the last material improvement was at iteration 5 of 5, meaning the budget was exhausted before convergence. If the model structure and bounds are correct, the current search is simply under-resourced.
+Limitation: The negative time correlation (−0.935) and large bias (−3.39) could arise from (a) a structurally incorrect model, (b) parameters outside the search bounds, (c) inappropriate initial conditions, or (d) a data/units mismatch in dataset_1.csv. The evidence cannot distinguish among these causes without inspecting the trajectory plot and the raw data.
+Limitation: The four negative Hessian modes may reflect genuine saddle geometry, numerical noise in the finite-difference curvature estimate, or the effect of parameters being at bounds where the Hessian is not well-defined. The saved curvature cannot confirm which cause applies.
+Limitation: With a single observed channel (Mpp) and 16 parameters, the problem is severely underdetermined. No amount of additional optimization iterations can make all 16 parameters individually identifiable from this data alone; new experimental channels or independently known parameter values are required for full identifiability.
+Limitation: The loss is a single normalized RMSE over one channel. It does not encode noise levels, measurement uncertainty, or multi-channel trade-offs, so the fitted parameters should not be interpreted as unique physical values without additional data.
+Limitation: The DE phase used random_seed 7 with population_size 4 and 1 iteration; the result is one sample from a very small search. The current parameter values may be a poor global starting point, and a different seed or larger population could yield a substantially different local optimum.

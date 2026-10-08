@@ -1,0 +1,71 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_025912_243639
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 2.0000E+04, best loss 2.0000E+04, final loss 2.0000E+04
+- NODE: 2 iterations, first loss 2.0000E+04, best loss 2.0000E+04, final loss 2.0000E+04
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: NMC_SOC80_M2_normalized_converted_units.csv; loss=20000.323882405683; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 3; negative modes: 3
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_025912_243639/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- h1=10.0115 is at 0.02% of its log10 search interval.
+- [BOUND] h1=10.0115 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] A1=9.9025e+24 is at 99.97% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [STATIONARITY] Normalized gradient infinity norm is 0.0356174; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [WEAK_MODES] Saved curvature has 3 weak parameter combinations.
+  Next: Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, T: RMSE=98.7772, bias=-76.5983, time correlation=-0.552353274100004, lag-1=0.9963443834941047.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, dTdt: RMSE=29.4085, bias=-5.60802, time correlation=-0.09938252605352173, lag-1=0.7071693967396797.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_025912_243639/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_025912_243639/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The run is stuck at a loss of ~20000 dominated by three hard-constraint penalty terms (c1→0.02, c2→0.98, T_final within 50), with the actual data-fit terms contributing negligibly. Two parameters (h1 at its lower bound, A1 at its upper bound) are pinned to the search walls, the Hessian shows 3 negative modes making the curvature unreliable, and the T channel exhibits a negative time correlation (−0.55) concentrated in the final time region. Only 5 gradient iterations were evaluated. The evidence is insufficient to distinguish a genuine model/parameter-range mismatch from a numerical artefact of the penalty-dominated, bound-constrained landscape.
+1. Run diagnose --probe-gradients to verify autodiff correctness before any further optimisation. The Hessian reports 3 negative modes, which means the saved curvature is not a valid local minimum and any gradient-only restart built on it is unreliable until the gradient/Hessian pipeline is confirmed. [STATIONARITY, SLOPPINESS] The normalized gradient infinity norm is 0.0356 (stationarity not established) and the sloppiness report lists 3 negative modes. Negative curvature at a supposed minimum indicates either a saddle point, a numerical error in the Hessian, or a non-smooth loss surface (the sigmoid penalty terms can create near-discontinuities). Gradient checks with a discriminating tolerance (e.g. rtol=1e-8, atol=1e-10) and a step-size comparison (h=1e-6 vs h=1e-8) will distinguish an autodiff bug from a genuinely non-convex landscape.
+2. Assess whether h1 ≥ 10 and A1 ≤ 1e25 are physically justified. h1=10.0115 sits at 0.02 % of its log10 interval (lower bound 10) and A1=9.90e24 sits at 99.97 % (upper bound 1e25). If the true values lie outside these ranges, revise the bounds and run a full fit (population + gradient); do not simply widen them without a physical rationale. [BOUND] Both parameters are pressed against their search walls, which means the optimizer is being blocked from the region it wants to explore. The loss is dominated by the three 10000-weight penalty terms, so the optimizer is trying to satisfy the final-state constraints by pushing h1 down and A1 up. If the bounds are too tight, no amount of additional iterations will help; if they are correct, the model structure or initial conditions may be inconsistent with the required final state (c1→0.02, c2→0.98).
+3. Inspect the named plot fit_exp1.png and the time-region residual breakdown. The T channel has time correlation −0.55 and 93 % of its RMSE (104.84 of 98.78 overall) is in the final region (t = 54485–73132, 126 points). The dTdt channel shows the same pattern (RMSE 31.22 in the final region vs <0.002 earlier). Check initial conditions (c1=1.0, c2=0.04, T=354.0), input timing, and whether the two-reaction model can produce the observed late-time behaviour before spending more iterations. [RESIDUAL] A negative time correlation (−0.55) means the model trajectory is anti-correlated with the data in the dominant time region, which is a strong indicator of model-structure mismatch, wrong initial conditions, or parameters in an unphysical regime. The dTdt channel is nearly perfect in the first two regions (RMSE ≈ 0.001) but degrades to RMSE 31.22 in the third, suggesting the model captures early kinetics but fails as c2 grows and the second reaction dominates. This pattern is not fixable by more gradient steps if the model form or ICs are wrong.
+4. If gradient checks pass and the user confirms the bounds are physically correct, increase gradient_opt.num_iters from 5 to at least 200–500 and run a gradient-only restart from this run. Also consider increasing population_opt.population_size (currently 4) and num_iters (currently 1) for the DE stage, since a 4-member, 1-iteration DE is unlikely to explore an 8-dimensional log-scaled space adequately. [BUDGET, STATIONARITY] The optimizer terminated at its 5-iteration budget with a normalized gradient norm of 0.0356, well above a typical stationarity threshold. The DE stage ran only 1 iteration with 4 members, and the loss trace shows no material improvement after iteration 1. The loss is flat at 20000.32, but this is a best-so-far log, not a convergence certificate. More iterations are necessary but only after the gradient and bound checks above are resolved.
+5. Inspect the eigenvectors of the 3 weak (and 3 negative) curvature modes to identify which parameter combinations are poorly constrained. Do not fix parameters or design new experiments based on weak modes alone; they indicate flat directions in the loss, not proof of individual non-identifiability. [WEAK_MODES, SLOPPINESS] The sloppiness report shows 3 weak modes and 3 negative modes out of 8 parameters. Given that h1 and A1 are at bounds and the loss is penalty-dominated, the weak modes may be artefacts of the constrained, non-convex landscape rather than true structural identifiability issues. Eigenvector inspection will clarify whether, e.g., (h1, A1) or (Ea1, A1) form a flat ridge, which would inform whether additional data or a reparameterisation is needed.
+Limitation: The 3 negative Hessian modes prevent any reliable curvature-based inference (sloppiness, identifiability, confidence intervals) until the gradient/Hessian pipeline is verified.
+Limitation: The loss is dominated by three 10000-weight sigmoid penalty terms; the actual data-fit contribution (T RMSE and log-scaled dTdt) is a small fraction of the total loss of 20000.32, so the optimizer is primarily satisfying final-state constraints rather than fitting the time series.
+Limitation: A negative time correlation (−0.55) for T and the concentration of residuals in the final time region could reflect model-structure mismatch, incorrect initial conditions, or parameters in an unphysical regime; the evidence cannot distinguish among these without additional data or a model-form change.
+Limitation: The DE stage (population 4, 1 iteration) and gradient stage (5 iterations) are far too short to establish convergence or explore the 8-dimensional parameter space; the flat loss trace is a budget-limited best-so-far, not a convergence certificate.
+Limitation: The weak-mode and negative-mode counts are computed at a single point on a non-convex, bound-constrained surface and do not constitute a global identifiability assessment.
+Limitation: No noise levels, measurement uncertainties, or stiffness diagnostics are supplied; the residual magnitudes cannot be interpreted as statistical significance without them.

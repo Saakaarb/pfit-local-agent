@@ -1,0 +1,45 @@
+{
+  "verdict": "The loss function compares the raw state Z (solution[:, 0]) directly to the Ca data, bypassing the defined observable Ca = offset + scale\u00b7Z. This makes offset and scale structurally irrelevant to the fit, explaining the offset pinned at 99.18 % of its range. The residual pattern (bias \u2248 RMSE \u2248 91 333, time-correlation 0.088) indicates the model produces a near-constant output that captures essentially no temporal structure. The 5-iteration gradient budget is a secondary concern; the primary issue is the loss-to-observable disconnect.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BOUND"
+      ],
+      "action": "Verify whether the loss should compare the observable (offset + scale\u00b7Z) to the Ca data rather than Z alone. In the current _compute_loss_problem, solution[:, 0] (Z) is subtracted from dataset[:, 0] (Ca), so offset and scale never enter the loss. If the intent is to fit the observable, replace solution[:, 0] with the observable expression and re-run a full fit (changed loss \u2192 full fitting required).",
+      "reason": "RMSE = 91 333.1 with bias = 91 333.1 (identical to 11 significant figures) and time-correlation = 0.088 show the model output is essentially a constant far from the data. The offset sits at 99.18 % of its log10 range (value 85 960, range 0.001\u2013100 000) precisely because it is unconstrained by the loss. Fixing the loss to use the observable would couple offset and scale to the data and remove the spurious boundary pressure."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png to confirm whether the model Ca trace is flat or shows any transient, and compare its magnitude and timing against the data trace. Check the input timing (t_eval), initial conditions (Z\u2080=0.088, Y\u2080=0.999, A\u2080\u22481.0), and whether the Ca data column is in the same units as the model output.",
+      "reason": "All three time regions show nearly identical RMSE (91 333.03\u201391 333.09), confirming a flat, time-invariant mismatch. Lag-1 correlation of 0.669 is the only non-trivial temporal statistic and may reflect a slow drift in the data rather than model dynamics. Visual inspection of the named plot is the fastest way to distinguish a unit/scale mismatch from a genuine model-structure failure."
+    },
+    {
+      "evidence_ids": [
+        "BOUND",
+        "BUDGET"
+      ],
+      "action": "Do not widen the offset bound or spend additional gradient iterations until the loss-to-observable question is resolved. If the loss is corrected to use the observable, run a full fit (DE + gradient) with the existing bounds; if the loss is confirmed correct as written, remove offset and scale from the trainable set (they are dead parameters) and re-fit.",
+      "reason": "The offset at 99.18 % of range (evidence BOUND) is a symptom of the structural disconnect, not a bound that is too narrow. The gradient phase used all 5 iterations (evidence BUDGET) with only a 0.0023 loss reduction (0.22534 \u2192 0.22303), and no verified final-point gradient is available. Additional iterations on the current loss will not resolve the flat-output problem."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "RESIDUAL"
+      ],
+      "action": "If the loss is confirmed correct and the model still produces a flat trace, diagnose the ODE system: check whether the parameter values (e.g., K_par=8 588, Vd=5 279, v0=3 027) drive Z to a quasi-steady state where dZ/dt \u2248 0 over the entire time window. A targeted single-parameter perturbation of v0 or K_par with a short integration can reveal whether Z is genuinely static or whether the solver is failing to resolve a transient.",
+      "reason": "The bias-equals-RMSE pattern (both 91 333.06) is the mathematical signature of a constant prediction. With 19 trainable parameters all in the 0.001\u2013100 000 log range and only 5 gradient iterations, the optimizer may not have explored regions where Z varies. This is a model-dynamics question, not an optimizer question."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer log (loss 0.22534 \u2192 0.22303 over 5 iterations) does not establish convergence or a local optimum.",
+    "Sloppiness analysis was skipped, so parameter identifiability and weak/negative curvature modes are unknown.",
+    "The DE phase ran only 1 iteration with population size 4, so the initial point for gradient refinement is a single random draw, not a well-explored basin.",
+    "The evidence cannot distinguish whether the flat output is caused by the loss-to-observable disconnect, by the ODE dynamics producing a quasi-steady Z, by incorrect initial conditions, or by a unit mismatch between the model and the data.",
+    "No noise level, measurement uncertainty, or stiffness diagnostic is available in the snapshot; these cannot be inferred from the recorded numbers."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

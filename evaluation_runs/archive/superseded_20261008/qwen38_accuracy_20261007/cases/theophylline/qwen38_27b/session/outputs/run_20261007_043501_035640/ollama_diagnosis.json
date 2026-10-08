@@ -1,0 +1,55 @@
+{
+  "verdict": "ke is pinned at 99.98 % of its upper bound (0.998849 / max 1.0), the Hessian has one negative mode, and the normalized gradient norm is 0.539 \u2014 the optimizer is being constrained by the ke ceiling rather than converging to an interior minimum. The poor residual (RMSE 2.23, bias \u22121.91, time-correlation \u2248 0) is most plausibly a downstream consequence of that constraint, not an independent model-structure failure. No numerical failure or gradient-replay mismatch is reported, so the evidence points to a bound/structure issue before any convergence concern.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND",
+        "SLOPPINESS",
+        "STATIONARITY"
+      ],
+      "action": "Assess whether ke > 1.0 h\u207b\u00b9 is physiologically plausible for theophylline elimination. If the literature or the experimental context supports a higher ke, revise the upper bound and run a full fit (DE + gradient) with the new range. If ke \u2248 1.0 is a genuine ceiling, the one-compartment model may be structurally insufficient and a model-form change (e.g., two-compartment or time-varying ke) should be considered before further parameter tuning.",
+      "reason": "ke = 0.998849 sits at 99.98 % of the log10 interval [0.01, 1.0] (BOUND). The Hessian reports 1 negative mode (SLOPPINESS), meaning the loss still decreases in at least one parameter direction \u2014 consistent with the optimizer pressing against the upper bound. The normalized gradient infinity norm of 0.539 (STATIONARITY) confirms the iterate is not at a stationary point. Together these indicate the bound, not the optimizer, is the binding constraint."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run 'diagnose --probe-gradients' on this run to verify that the autodiff gradient is finite and consistent with a central finite-difference check at the current parameter values. Only after the gradient is confirmed correct should any further optimization be attempted.",
+      "reason": "The gradient norm of 0.539 (STATIONARITY) and the iteration-budget termination after only 5 gradient steps (BUDGET) could reflect either a genuine non-stationary point or a gradient computation error. Probing the gradient first rules out a numerical cause before spending additional iterations or changing bounds."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot 'fit_exp1.png' and the time-region residual breakdown. In particular, check whether the model underpredicts the early absorption peak (region 0\u20137.95 h, RMSE 2.27) and whether the negative bias (\u22121.91) is concentrated in a specific time window. Verify the initial condition A_gut = 320 mg and the dosing time against the dataset before attributing the mismatch to parameter values.",
+      "reason": "The overall time correlation is \u22120.045 (essentially zero) and the bias is \u22121.91 (RESIDUAL), indicating the model neither tracks the temporal shape nor the amplitude of C_plasma. The early region (0\u20137.95 h) carries the largest RMSE (2.27) with 8 of 11 points. Understanding where the mismatch is concentrated will clarify whether the issue is the ke bound, the ka/Vd combination, or a structural limitation (e.g., missing distribution phase)."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY",
+        "BOUND"
+      ],
+      "action": "If the ke bound is confirmed appropriate and the gradient probe passes, increase gradient_opt.num_iters from 5 to at least 50 and perform a gradient-only restart from the current parameter values. Do not widen bounds or change the model in the same step.",
+      "reason": "The optimizer stopped at its 5-iteration budget (BUDGET) with a gradient norm of 0.539 (STATIONARITY), so the iterate is far from stationary. A gradient-only restart is appropriate here because the model equations, bounds, and population settings remain unchanged; the only change is the iteration count. This is a numerical correction, not a scientific model change."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BOUND"
+      ],
+      "action": "If after the above steps the fit still shows a strong negative bias and near-zero time correlation, evaluate whether the single-compartment gut\u2192plasma structure can represent theophylline pharmacokinetics. Consider whether a two-compartment model or a different absorption formulation is needed. This is a scientific model change requiring new data or literature justification, not a parameter re-optimization.",
+      "reason": "A one-compartment model with ke capped at 1.0 h\u207b\u00b9 may be unable to reproduce both the absorption peak and the elimination tail of theophylline plasma concentration. The persistent bias of \u22121.91 and time correlation of \u22120.045 (RESIDUAL) despite the optimizer pressing ke to its bound (BOUND) suggest the model's functional form, not just its parameter values, may be the limiting factor."
+    }
+  ],
+  "limitations": [
+    "The negative Hessian mode (SLOPPINESS) is consistent with a bound constraint but cannot by itself distinguish between 'ke should be higher' and 'the model structure is wrong'; both produce a negative curvature direction at the boundary.",
+    "The near-zero time correlation (\u22120.045) and strong negative bias (\u22121.91) could arise from the ke bound, from an incorrect initial condition (A_gut = 320 mg), from a dosing-time offset in the dataset, or from a structural model deficiency; the evidence does not isolate a single cause.",
+    "No gradient-replay mismatch or numerical failure was reported, but the gradient probe has not yet been run; the 0.539 gradient norm is taken at face value and could in principle be inflated by a finite-difference or autodiff inconsistency.",
+    "The DE phase ran only 1 iteration with a population of 4, so the initial point for the gradient phase may not be well explored; the loss improvement across the full run (0.34733 \u2192 0.34672) is small and does not establish that the current point is near the global optimum.",
+    "The sloppiness analysis reports 1 negative mode but does not identify which parameter direction it corresponds to; it is inferred to involve ke from the bound evidence, but this is not confirmed by the Hessian eigenvector."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

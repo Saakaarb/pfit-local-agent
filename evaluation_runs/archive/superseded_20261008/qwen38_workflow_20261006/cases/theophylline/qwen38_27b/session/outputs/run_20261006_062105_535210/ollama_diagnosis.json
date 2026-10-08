@@ -1,0 +1,43 @@
+{
+  "verdict": "The fit is not converged and is likely structurally strained: ke is pinned at 99.98 % of its upper log10 bound (0.998849 vs max 1.0), the normalised gradient \u2016g\u2016\u221e = 0.539 is far from stationarity, the Hessian has one negative mode, and the C_plasma time-correlation is \u2248 \u22120.045 with a large negative bias (\u22121.908), indicating the one-compartment trajectory shape does not match the data. The 5-iteration gradient budget was exhausted before any of these issues could be resolved.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Determine whether ke = 1.0 is a physically defensible upper bound for theophylline elimination. If the literature or prior knowledge supports ke > 1.0, widen the bound and run a full fit (DE + gradient). If the bound is correct, the model may be structurally inadequate and a model-form review is needed before further optimisation.",
+      "reason": "ke sits at range_fraction 0.99975 (value 0.998849, max 1.0). The optimiser is pressing against the wall; any further gradient descent in that direction is blocked. The negative Hessian mode (SLOPPINESS: 1 negative) is consistent with a boundary-constrained, non-convex region. Until the bound question is settled, additional iterations will not resolve the issue."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the named plot fit_exp1.png and the time-region residuals. The overall time-correlation is \u22120.045 (essentially zero) and the bias is \u22121.908, meaning the model systematically under-predicts C_plasma and does not track its temporal shape. Verify the initial condition A_gut = 320, the dosing time in dataset_1.csv, and whether a single gut\u2192plasma compartment can reproduce the observed peak and tail. Do not alter the user-defined loss to compensate.",
+      "reason": "RMSE = 2.233, bias = \u22121.908, time_correlation = \u22120.045, lag-1 = 0.642. The near-zero time correlation is the most diagnostic number: the fitted curve's shape is uncorrelated with the data's shape. Time-region RMSE is 2.27 (0\u20137.95 h), 2.55 (7.95\u201315.9 h), 0.90 (15.9\u201323.85 h), showing the mismatch is not confined to one phase. This pattern is more consistent with a model-structure or initial-condition problem than with a simple parameter-tuning issue."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "If the ke bound is confirmed appropriate and the model structure is validated, run diagnose --probe-gradients to confirm gradient correctness, then increase gradient_opt.num_iters (e.g. 50\u2013200) and perform a gradient-only restart from this run. Do not restart blindly: the current \u2016g\u2016\u221e = 0.539 and the negative Hessian mode mean the point is not a local minimum, so more iterations are necessary but not sufficient if the boundary or model form is the root cause.",
+      "reason": "The gradient phase used only 5 iterations (budget = 5, termination = 'iteration_budget'). Loss moved from 0.34733 to 0.34672 (\u0394 \u2248 0.0006), a very small change. The normalised gradient of 0.539 is well above typical stationarity thresholds, and the 1 negative Hessian mode confirms the point is not a local minimum. More iterations are warranted only after the boundary and model-structure questions above are resolved."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS",
+        "BOUND"
+      ],
+      "action": "Treat the single negative Hessian mode as a warning that the current parameterisation is at a non-convex, boundary-constrained point. Before interpreting any parameter values (ka = 0.245, Vd = 14.06) as scientifically meaningful, confirm that the negative mode is an artefact of the ke boundary rather than a genuine saddle. If it persists after widening or removing the ke bound, the model may need an additional compartment or a different elimination structure.",
+      "reason": "SLOPPINESS reports 0 weak modes but 1 negative mode. In an unconstrained interior minimum all eigenvalues should be positive. The coincidence of the negative mode with ke at 99.98 % of its range strongly suggests the boundary is creating the non-convexity, but this cannot be confirmed without re-fitting with a revised bound."
+    }
+  ],
+  "limitations": [
+    "The evidence cannot distinguish whether the poor fit (time-correlation \u2248 0, bias \u2248 \u22121.9) is caused by the ke upper bound, an inadequate one-compartment model structure, incorrect initial conditions (A_gut = 320), or a mismatch between the dosing protocol in dataset_1.csv and the model's assumption of a single bolus into the gut compartment.",
+    "The DE population phase ran only 1 iteration with 4 members; the global landscape is essentially unexplored, so the current point may be far from the global optimum. No conclusion about identifiability or parameter uniqueness can be drawn from a single negative Hessian mode at a boundary point.",
+    "The snapshot contains no gradient-check or finite-difference comparison results; gradient correctness is assumed but not verified. If gradients are unreliable, the stationarity and Hessian diagnostics above would be invalid.",
+    "Only one experiment (dataset_1.csv, C_plasma) is present. Without additional channels (e.g., gut concentration, urine output) or a second dosing regimen, ka and ke may be partially confounded, and the evidence cannot establish whether the parameters are individually identifiable."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

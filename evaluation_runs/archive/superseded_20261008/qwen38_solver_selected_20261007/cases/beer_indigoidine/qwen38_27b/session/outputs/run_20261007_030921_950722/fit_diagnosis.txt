@@ -1,0 +1,57 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/beer_indigoidine/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_030921_950722
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 7.1483E-01, best loss 7.1483E-01, final loss 7.1483E-01
+- NODE: 2 iterations, first loss 7.1483E-01, best loss 7.1483E-01, final loss 7.1483E-01
+
+Generation workflow:
+- events: 5 passed, 1 failed, 1 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: culture.csv; loss=0.7148325657481638; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Bacnorm: RMSE=0.551951, bias=-0.483727, time correlation=-0.8591817188811326, lag-1=0.999981240502158.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, IndconcNormRange: RMSE=0.587885, bias=-0.49383, time correlation=-0.5772397152197813, lag-1=0.9999668050209144.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_030921_950722/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/beer_indigoidine/qwen38_27b/session/outputs/run_20261007_030921_950722/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The optimizer exhausted its 5-iteration budget with a nearly flat loss (0.714834 → 0.714833, Δ≈1.4×10⁻⁶) and no verified final-point gradient. Both channels show strongly negative time correlations (Bacnorm −0.859, IndconcNormRange −0.577) with high lag-1 autocorrelation (~0.99998), indicating the model trajectories are smooth but qualitatively anti-correlated with the data. This is a model-behaviour mismatch, not a convergence artefact.
+1. Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. Bacnorm RMSE worsens from 0.199 (t<1188) to 0.672 (t>2377); IndconcNormRange peaks at 0.820 in the middle region. Confirm whether the model curve is monotonically anti-correlated with the data or whether the mismatch is concentrated in a specific time window (e.g., around the tanh switch at tau≈0.164). [RESIDUAL] The negative time correlations (−0.859, −0.577) combined with near-unity lag-1 (0.99998, 0.99997) mean the model is smooth but moving opposite to the data. The time-region RMSE pattern (worsening for Bacnorm, peaking mid-run for IndconcNormRange) localises the mismatch and will distinguish a global model-structure error from a timing/switching error around tau.
+2. Run diagnose --probe-gradients at the final parameter point to obtain a verified gradient. Only if the gradient is small and reliable should a gradient-only restart with a larger iteration budget be considered. If the gradient is large or unreliable, the flat loss is not evidence of a local minimum. [BUDGET, LIMITATIONS] The optimizer log shows loss 0.71483 at both iteration 4 and 5 (NODE_fitting.log), and the limitation explicitly states no verified final-point gradient is available. Without a gradient check, the flat log is consistent with either a true flat region, a stuck Adam state, or a numerical issue in the finite-difference/autodiff path. A gradient-only restart is only justified when the existing model and bounds remain valid and the gradient evidence supports refinement.
+3. Audit the initial conditions (Bac=0.0138, Glu=10, cGlu=0, Ind=0) and the tanh-switch timing (tau=0.164, width 0.01) against the data time axis (0–3565). Verify that the switch actually occurs within the observed window and that the initial Bac value is consistent with the early-time data (RMSE 0.199 in the first third). If the switch is effectively outside the data range or the ICs place the system in a regime that produces the wrong sign of dInd/dt, the negative correlation is structural. [RESIDUAL, PARAMETERS] All five trainable parameters sit at low range fractions (0.04–0.48 of their 1e-5–1e5 log-scale bounds), and the negative time correlation suggests the model's qualitative trajectory is inverted relative to the data. The tanh gate at t=tau=0.164 with width 0.01 is extremely narrow relative to the 3565-unit time axis; if the data's main dynamics occur well after the switch, the gate may be irrelevant, or if it occurs before, the growth phase may be mis-timed. This is a scientific model/IC question, not a parameter-tuning fix.
+4. Before spending further optimisation iterations, check whether the bias (−0.484 for Bacnorm, −0.494 for IndconcNormRange) reflects a systematic offset that a single parameter (e.g., Bacmax or kdim) could correct, or whether the sign of the time correlation indicates the model's functional form (e.g., the quadratic cGlu² terms, the tanh gate) is incompatible with the observed dynamics. If the latter, a model-structure revision is needed, not more iterations. [RESIDUAL] A bias of roughly −0.48 to −0.49 on normalised channels, combined with negative time correlation, means the model is not merely offset but qualitatively wrong in direction. No amount of Adam refinement within the current parameterisation will fix an anti-correlated trajectory. Distinguishing a correctable offset from a structural mismatch requires inspecting the plot and the model equations against the data shape.
+5. If the gradient probe confirms a small, reliable gradient and the model/IC audit finds no structural issue, a gradient-only restart with num_iters increased (e.g., 50–100) and the same Adam settings is a low-cost next step. Do not change the user-defined loss or the parameter bounds without independent justification. [BUDGET, OPTIMIZER] The current budget of 5 Adam iterations is very small, and the DE phase ran only 1 iteration with population_size=4. If the landscape is genuinely flat near the current point, more iterations will not help; but if the gradient is non-zero and the model is qualitatively correct, a larger budget is the minimal intervention. Changing bounds or the loss function would be a scientific model change requiring separate validation.
+Limitation: No verified final-point gradient is available; the flat optimizer log (loss 0.71483 at iterations 4 and 5) does not establish convergence or a local minimum.
+Limitation: Sloppiness analysis was skipped, so parameter identifiability and the presence of weak or negative curvature modes are unknown.
+Limitation: The negative time correlations indicate a qualitative model-data mismatch, but the evidence cannot distinguish whether the cause is the tanh-switch timing, the initial conditions, the quadratic cGlu² kinetics, the parameter bounds, or a combination.
+Limitation: The DE phase used population_size=4 and num_iters=1, which is insufficient to explore the 5-dimensional log-scale parameter space (1e-5 to 1e5 per parameter); the seed point may be far from any meaningful basin.
+Limitation: No noise level or measurement uncertainty is specified in the snapshot, so the RMSE values cannot be interpreted as statistical significance of the mismatch.
+Limitation: The plot fit_exp1.png is referenced by filename only; no visual inspection has been performed, and the trajectory shape must be confirmed by the user.

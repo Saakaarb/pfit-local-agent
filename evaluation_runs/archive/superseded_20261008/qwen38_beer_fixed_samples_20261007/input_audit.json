@@ -1,0 +1,18 @@
+[
+  {
+    "name": "beer_indigoidine",
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "culture.csv"
+    ],
+    "sloppiness": false,
+    "pre_run_configuration": {},
+    "input_hashes": {
+      "culture.csv": "2e3985ae2c40c15da266c788a7377c74a8f818e402999bc8d125251487679d71",
+      "user_info.txt": "027c2ab0103c7a2bed84c66496902243ecf2da3420ce0861d670bf713b27ccad"
+    },
+    "cohort": "external",
+    "source_benchmark": "evaluation_runs/external_comparison_20261004"
+  }
+]

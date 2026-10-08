@@ -1,0 +1,15 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/fujita_egf/qwen38_27b/session"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: coverage_below_target: 0/32 parameter samples complete all experiments with valid loss; require 8/32.; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=20000, samples=64; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: coverage_below_target: 0/64 parameter samples complete all experiments with valid loss; require 16/64.; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=40000, samples=128; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: coverage_below_target: 0/128 parameter samples complete all experiments with valid loss; require 32/128.; steps={}"}
+{"step": "solver_recovery", "status": "failed", "message": "Numerical validation blocked at max_steps=40000; limit=50000, samples=128. No scientific code repair attempted. Completion coverage remains below the requested fraction. Possible causes include inadequate search coverage of a narrow feasible region, unsuitable parameter bounds, or model/solver issues; this is not proof of an incorrect model. Review the sampled points and failure categories before expanding the search or revising the model."}
+{"step": "solver_selection", "status": "attempted", "message": "Kvaerno5 at the same max_steps=40000, samples=128, seed and reference tolerances as Tsit5"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: recovery_timeout: Numerical recovery wall-time limit reached; steps={}"}
+{"step": "solver_selection", "status": "failed", "message": "Implicit fallback did not pass all acceptance gates; no further solver trials"}

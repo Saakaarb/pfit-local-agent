@@ -1,0 +1,319 @@
+{
+  "case": "theophylline",
+  "model_metadata": {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ],
+    "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+    "size_bytes": 17741872154,
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.2191422712057829,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ],
+    "gguf_parameter_count": 27320697856,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "a3d4470db7e234cb69f499d9118c2e606e65f9d1",
+    "warmup_seconds": 1.7590029388666153,
+    "warmup_thinking": false,
+    "warmup_response": {
+      "model": "qwen3.8:27b",
+      "created_at": "2026-10-07T04:54:51.083777609Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 1756906287,
+      "load_duration": 35309574,
+      "prompt_eval_count": 16,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 1187164000,
+      "eval_count": 2,
+      "eval_duration": 170062000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen3.8:27b",
+          "model": "qwen3.8:27b",
+          "size": 17536059964,
+          "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen35",
+            "families": [
+              "qwen35"
+            ],
+            "parameter_size": "27.3B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-17T04:42:07.938909682Z",
+          "size_vram": 17536059964,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H200, 143771 MiB, 19727 MiB"
+  },
+  "input_audit": {
+    "name": "theophylline",
+    "source": "sessions/theophylline",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "theophylline_sub6.csv"
+    ],
+    "prompt_sha256": "5cfb850ea1ccf6966dd51964974a7a46a288d002f6482f1e97adec73c533b9cc",
+    "original_prompt_sha256": "5cfb850ea1ccf6966dd51964974a7a46a288d002f6482f1e97adec73c533b9cc",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "input_hashes": {
+      "theophylline_sub6.csv": "b2ad2bd44a0026ab2828b5691724596683f3a36fffc2a603f7640ae1fc098b51",
+      "user_info.txt": "5cfb850ea1ccf6966dd51964974a7a46a288d002f6482f1e97adec73c533b9cc"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  "status": "pass",
+  "started_utc": "2026-10-07T04:54:51Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-07T04:54:51Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 123316,
+      "exit_code": 0,
+      "seconds": 52.118,
+      "finished_utc": "2026-10-07T04:55:43Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-07T04:55:43Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 123325,
+      "exit_code": 0,
+      "seconds": 35.175,
+      "finished_utc": "2026-10-07T04:56:18Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-07T04:56:18Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 123327,
+      "exit_code": 0,
+      "seconds": 40.035,
+      "finished_utc": "2026-10-07T04:56:58Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-07T04:56:58Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session"
+      ],
+      "pid": 124100,
+      "exit_code": 0,
+      "seconds": 36.018,
+      "finished_utc": "2026-10-07T04:57:35Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-07T04:57:35Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_solver_20261007/cases/theophylline/qwen38_27b/session",
+        "run_20261007_045700_003529",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 125222,
+      "exit_code": 0,
+      "seconds": 57.983,
+      "finished_utc": "2026-10-07T04:58:33Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "pre_run_configuration": {},
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "auto_state_tolerances": true,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 120,
+      "solver_validation_samples": 32,
+      "solver_validation_max_samples": 128,
+      "solver_validation_success_fraction": 0.25,
+      "solver_validation_seed": 7,
+      "solver_recovery_stagnation_patience": 2,
+      "solver_accuracy_check": true,
+      "solver_accuracy_workers": 4,
+      "auto_integrator": true,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20261007_045700_003529",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.34733442761013705,
+    "final_loss": 0.3467236194098261,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.34672361940982616
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-07T04:58:33Z",
+  "total_wall_seconds": 222.131,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 151.1710724271834,
+  "prompt_tokens": 19687,
+  "generated_tokens": 7704,
+  "token_counts_incomplete": false
+}

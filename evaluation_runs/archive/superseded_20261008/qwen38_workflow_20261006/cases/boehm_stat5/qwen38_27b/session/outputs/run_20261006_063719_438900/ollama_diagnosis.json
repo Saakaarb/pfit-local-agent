@@ -1,0 +1,53 @@
+{
+  "verdict": "Under-optimized run: only 5 Adam iterations were evaluated (budget-limited), the normalized gradient infinity norm is 0.378 (far from stationarity), and the Hessian shows 4 negative modes, indicating the current point is not a local minimum. Residuals show systematic positive bias (pSTAT5A bias=17.6, pSTAT5B bias=13.4) and degraded late-time fit (pSTAT5A RMSE=62.1 in t\u2208[160,240] vs 10.3 in t\u2208[0,80]), but these may largely reflect the incomplete optimization rather than structural model mismatch.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "Run a gradient check (diagnose --probe-gradients) to confirm the analytic/autodiff gradient is correct before spending additional iterations.",
+      "reason": "The normalized gradient infinity norm is 0.378 and the Hessian has 4 negative modes, so the point is not stationary. Before increasing the budget, verify that the gradient is numerically consistent to rule out a sign or scaling error that would make extra iterations counterproductive."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY"
+      ],
+      "action": "Increase gradient_opt.num_iters from 5 to at least 200\u2013500 and perform a gradient-only restart from the current parameter vector (k_deg=1.594, k_exp_hetero=7.91e-7, k_exp_homo=9.14e-5, k_imp_hetero=2.70e-3, k_imp_homo=2.74e5, k_phos=2.79e5).",
+      "reason": "The optimizer terminated at its 5-iteration budget with loss moving only from 0.24963 to 0.24954 (\u0394\u22489e-5) and a gradient norm of 0.378 still present. Five Adam steps is far too few for a 6-parameter log-scaled problem; the model, bounds, and loss remain unchanged, so a gradient-only restart is the appropriate next step."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png, focusing on the t\u2208[160,240] region where pSTAT5A RMSE jumps to 62.1 and pSTAT5B RMSE to 41.4, and compare the shape and timing of the fitted vs. measured curves.",
+      "reason": "pSTAT5A shows a large positive bias (17.6) and the late-time RMSE (62.1) is ~6\u00d7 the early-time RMSE (10.3). pSTAT5B time correlation is only 0.667. Visual inspection will reveal whether the mismatch is a uniform offset (suggesting a parameter or initial-condition issue) or a shape/timing error (suggesting structural model or forcing-timing mismatch), which determines whether more iterations or a model revision is needed."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "STATIONARITY"
+      ],
+      "action": "After the extended gradient run, re-examine whether k_deg (range_fraction 0.943, value 1.594 near upper bound 2.7) and k_exp_homo (range_fraction 0.043, value 9.14e-5 near lower bound 6.17e-5) are being pushed against their bounds. If so, widen the bounds and perform a full refit (DE + Adam) rather than a gradient-only restart.",
+      "reason": "Two parameters sit at the extremes of their log-scaled ranges (94 % and 4 %). If the optimizer is still moving them outward after more iterations, the true optimum may lie outside the current box, and a gradient-only restart within the same bounds would be insufficient."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES",
+        "SLOPPINESS"
+      ],
+      "action": "Inspect the eigenvector associated with the single weak mode and the 4 negative Hessian modes before designing new experiments or fixing parameters. Do not treat the weak mode as proof that any individual parameter is unidentifiable.",
+      "reason": "The sloppiness report shows 1 weak mode and 4 negative modes. Negative modes are expected at a non-stationary point (gradient norm 0.378) and will likely resolve after proper convergence. The weak-mode eigenvector will indicate which parameter combinations are poorly constrained by the current single-experiment data, guiding whether additional experiments are needed."
+    }
+  ],
+  "limitations": [
+    "Only one experiment (dataset_1.csv) is available; the 4 negative Hessian modes and 1 weak mode cannot be distinguished between under-optimization, genuine structural identifiability limits, and model misspecification until the optimizer reaches stationarity.",
+    "The systematic positive bias in pSTAT5A (17.6) and pSTAT5B (13.4) could stem from under-optimization, incorrect initial conditions (A=143.9, B=63.7), forcing-timing mismatch in the Epo0\u00b7exp(\u2212k_deg\u00b7t) term, or structural model error; the current evidence cannot isolate the cause.",
+    "The rSTAT5A time correlation is low (0.354) despite a small RMSE (5.07), suggesting the model captures the amplitude but not the temporal dynamics of that channel; however, with only 16 data points and 3 in the late region, the correlation estimate has high variance.",
+    "No gradient-check or finite-difference comparison results are included in the snapshot, so the correctness of the gradient cannot be confirmed or refuted from the supplied evidence alone.",
+    "The DE phase ran only 1 iteration with a population of 4, so the initial point for Adam is a single DE offspring, not a well-explored basin; the final loss (0.24954) may not be near the global minimum of the loss landscape."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

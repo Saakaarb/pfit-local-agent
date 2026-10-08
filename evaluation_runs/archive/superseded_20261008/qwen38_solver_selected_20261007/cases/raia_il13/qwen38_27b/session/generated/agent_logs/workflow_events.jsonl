@@ -1,0 +1,8 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: coverage_below_target: 7/32 parameter samples complete all experiments with valid loss; require 8/32.; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=20000, samples=64; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: recovery_timeout: Numerical recovery wall-time limit reached; steps={}"}
+{"step": "solver_recovery", "status": "failed", "message": "Numerical validation blocked at max_steps=20000; limit=50000, samples=64. No scientific code repair attempted."}

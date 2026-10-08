@@ -1,0 +1,31 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_025912_243639
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_025912_243639
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06], atol: [1e-08, 4.000000718499426e-10, 3.5401050201126996e-06]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 2.0000E+04
+Time for iteration: 0.1103
+-------
+Final best position (scaled): [ 0.37829645 -1.          1.          0.3062698   0.19802364 -0.17787803
+  0.07723054  0.37088547]
+Final best cost: 2.0000E+04
+Done with DE search
+Best Position from DE: [3.22466261e-19 1.00000000e+01 1.00000000e+25 1.26850831e+19
+ 3.02935745e-19 6.63929501e+01 3.15446108e+00 3.74177095e+00]
+Best cost from DE: 20000.323903444732
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 4.000000718499426e-11, 3.5401050201127e-07]
+Trainable_params: [ 0.37829645 -1.          1.          0.3062698   0.19802364 -0.17787803
+  0.07723054  0.37088547]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 20000.323903490153 20000.323903490153
+Iteration:,loss value, best loss: 4 20000.323886646373 20000.323886646373
+Iteration time: 5.657144546508789
+Final best position: [3.22522216e-19 1.00115184e+01 9.90249505e+24 1.28037318e+19
+ 3.02885652e-19 6.64461655e+01 3.15438607e+00 3.74090596e+00]
+Final loss: 20000.323882405683
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_025912_243639

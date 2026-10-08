@@ -1,0 +1,27 @@
+{
+  "previous_batch": "evaluation_runs/qwen38_workflow_20261006",
+  "framework_commit": "d3df0be82599efdabd4f9d0ef372a6ac04dbddf2",
+  "excluded": [
+    "sliding_basepoint"
+  ],
+  "model": "qwen3.8:27b",
+  "think": true,
+  "stages": [
+    "new",
+    "check",
+    "jax",
+    "run",
+    "diagnose"
+  ],
+  "fresh_sessions": true,
+  "input_policy": "Unchanged frozen human-written prompts and data; no prior YAML or generated code copied",
+  "solver_policy": "Baseline fractional coverage/max_steps selection; per-state atol = rtol * 0.01 * robust trajectory scale; paired-loss validation; fixed-ceiling DE relaxation; settings frozen for fitting",
+  "smoke_budget": {
+    "population_size": 4,
+    "de_iterations": 1,
+    "adam_iterations": 5,
+    "workers": 1
+  },
+  "notes": "Prior initial_time setup retained for Schwen/Borghans. Missing-spec folders remain blocked. No full fits. Hardware and timing captured in manifest/model metadata.",
+  "reason": "User stopped 14B/32B comparison and requested fresh Qwen3.8 evaluation with final state-scaled tolerance rule"
+}

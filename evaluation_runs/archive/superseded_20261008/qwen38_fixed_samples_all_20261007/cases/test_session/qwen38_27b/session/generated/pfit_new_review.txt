@@ -1,0 +1,4 @@
+The user_info.txt explicitly states: 'y1(0) = 1.0', 'y2(0) = 0.0', 'y3(0) = 0.0'. The frozen experiment initial_conditions confirm the same values: y1=1.0, y2=0.0, y3=0.0. All three integrated states have individually supplied initial values; no group expansion is needed.
+Robertson kinetics: three states, three rate constants, no intermediate rates needed. All RHS symbols resolve to frozen parameters or states.
+Each CSV column (y1, y2, y3) directly corresponds to an integrated state of the Robertson model. No derived quantities, uncertainty columns, or forcing inputs present.
+User explicitly defines loss as sqrt(mean of all normalized squared residuals) with per-column normalization by max(abs(measured)). Mapped to max_abs_normalized_rmse per column. Kvaerno5 integrator request noted for configuration, not a loss term.

@@ -1,0 +1,74 @@
+{
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 175.9809228184723,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 0.06793030094676854,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 0.010211664032423169,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 40.850357726625035,
+      "logscale": true
+    },
+    {
+      "name": "k_1",
+      "value": 36.892271401816494,
+      "logscale": true
+    },
+    {
+      "name": "k_2",
+      "value": 2.8035602365415593,
+      "logscale": true
+    },
+    {
+      "name": "k_3",
+      "value": 0.0457188670405933,
+      "logscale": true
+    },
+    {
+      "name": "k_4",
+      "value": 1.6436881844611217,
+      "logscale": true
+    },
+    {
+      "name": "l2",
+      "value": 0.5475582042574656,
+      "logscale": true
+    },
+    {
+      "name": "l4",
+      "value": 0.03317995975859186,
+      "logscale": true
+    },
+    {
+      "name": "l6",
+      "value": 0.12320222657961402,
+      "logscale": true
+    },
+    {
+      "name": "l_2",
+      "value": 84.12919816069692,
+      "logscale": true
+    },
+    {
+      "name": "l_4",
+      "value": 0.003988780729006458,
+      "logscale": true
+    },
+    {
+      "name": "l_6",
+      "value": 554.7180957190863,
+      "logscale": true
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "points": [
+    {
+      "experiment": 1,
+      "parameter_offset": 0.0,
+      "normalized_parameters": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "components": [
+        "RHS for Bac at row 0",
+        "RHS for Glu at row 0",
+        "RHS for cGlu at row 0",
+        "RHS for Ind at row 0",
+        "RHS for Bac at row 357",
+        "RHS for Glu at row 357",
+        "RHS for cGlu at row 357",
+        "RHS for Ind at row 357",
+        "RHS for Bac at row 713",
+        "RHS for Glu at row 713",
+        "RHS for cGlu at row 713",
+        "RHS for Ind at row 713",
+        "loss",
+        "writeout"
+      ]
+    },
+    {
+      "experiment": 1,
+      "parameter_offset": null,
+      "normalized_parameters": [
+        0.09753509842209729,
+        -0.7708176459569507,
+        0.028911229768439517,
+        -0.2959125895786422,
+        -0.9143762446495061
+      ],
+      "components": [
+        "RHS for Bac at row 0",
+        "RHS for Glu at row 0",
+        "RHS for cGlu at row 0",
+        "RHS for Ind at row 0",
+        "RHS for Bac at row 357",
+        "RHS for Glu at row 357",
+        "RHS for cGlu at row 357",
+        "RHS for Ind at row 357",
+        "RHS for Bac at row 713",
+        "RHS for Glu at row 713",
+        "RHS for cGlu at row 713",
+        "RHS for Ind at row 713",
+        "loss",
+        "writeout"
+      ]
+    }
+  ],
+  "limitations": [],
+  "rtol": 1e-06,
+  "atol": 1e-08,
+  "scope": "Source Python versus JAX at sampled parameters/states; not paper-equation verification"
+}

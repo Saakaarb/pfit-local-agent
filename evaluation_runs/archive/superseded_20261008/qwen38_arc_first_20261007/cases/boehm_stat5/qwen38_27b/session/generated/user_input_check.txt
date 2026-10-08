@@ -1,0 +1,21 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Population size 4 with 1 DE iteration for 6 parameters spanning up to 7 orders of magnitude (k_exp_hetero: 1e-07 to 0.001) is extremely unlikely to locate a productive region before the gradient stage.
+- Gradient stage has only 5 Adam iterations; for a stiff 8-state ODE system with 6 free parameters this is very few steps to converge.
+- return float(loss) in _compute_loss_problem converts the JAX scalar to a Python float; if the framework JIT-traces this function the call will raise TracerArrayConversionError. The deterministic preflight did not flag it, so the framework may call the loss eagerly, but this is a fragile pattern under JIT.
+- Observable denominators (e.g. pSTAT5B denominator B*(specC17-1) - ApB + 2*BpB*(specC17-1)) can approach zero if B and the phosphorylated pools become small simultaneously during integration, producing large or NaN residuals that would destabilize the loss.
+
+Recommendations:
+- Large trainable parameter count detected; consider increasing population search budget.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Increase population_size to at least 2× the number of parameters (≥12) and num_iters to ≥3 so DE can explore the 6-dimensional log-scaled space before handing off to Adam.
+- Increase gradient num_iters from 5 to at least 50–100; the stiff Kvaerno5 integration with 8 states and tight tolerances (rtol 1e-7, atol 1e-9) makes each step expensive, so a small budget wastes the solver setup.
+- The loss is well-scaled: each column is divided by its own max(|measured|) (≈95, ≈82, ≈50) before squaring, so no column dominates. No further normalization is needed.
+- All six trainable parameters correctly use logscale=True, matching their 1–7 order-of-magnitude ranges; no change needed.
+- The writeout array (15 columns: time + 3 measured + 8 states + 3 observables) is consistent with the integrated-variable order and observable names; no shape mismatch detected.
+
+Semantic review:
+The session is structurally sound: observable names, dataset column mapping, integrated-variable indices, and the column-wise normalized RMSE loss all match the user's stated contract. No critical JAX-translation blockers were identified. The main risks are the very small population/gradient budgets for a 6-parameter stiff system and the float() cast at the end of the loss, which is safe only if the framework calls the loss eagerly. Recommend increasing search and gradient budgets before running.

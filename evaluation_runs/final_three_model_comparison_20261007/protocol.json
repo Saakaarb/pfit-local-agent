@@ -13,7 +13,7 @@
   },
   "eligible_cases": 21,
   "blocked_cases": 2,
-  "unchanged_frozen_inputs": "evaluation_runs/qwen38_fixed_samples_all_20261007/frozen_inputs",
+  "unchanged_frozen_inputs": "evaluation_runs/archive/superseded_20261008/qwen38_fixed_samples_all_20261007/frozen_inputs",
   "manual_model_edits_for_new_batches": false,
   "resume_note": "32B preparation initially blocked by stale network-volume free-space accounting. 14B results preserved. Resume changes only benchmark reporting and model preparation; numerical workflow unchanged.",
   "original_framework_commit": "62470f69802ba6561b80406a0be858cae41d49c4",
@@ -27,5 +27,5 @@
   "final_qwen38_manual_interventions": false,
   "final_qwen38_starting_artifacts": "Frozen text prompts and CSVs only; no existing YAML or generated code.",
   "framework_note": "Numerical workflow unchanged since the 14B/32B batches. Subsequent changes concerned benchmark reporting and reclaimed-storage accounting.",
-  "previous_batch_manifest": "evaluation_runs/final_three_model_comparison_20261007/historical_qwen38_before_final_rerun/manifest.json"
+  "previous_batch_manifest": "evaluation_runs/archive/superseded_20261008/comparison_history/historical_qwen38_before_final_rerun/manifest.json"
 }

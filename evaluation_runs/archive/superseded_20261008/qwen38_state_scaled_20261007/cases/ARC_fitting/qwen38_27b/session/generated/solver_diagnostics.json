@@ -1,0 +1,1406 @@
+[
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "Ea1": 2.8284271247461905e-19,
+      "h1": 100.0,
+      "A1": 3.162277660168379e+16,
+      "A2": 3.162277660168379e+16,
+      "Ea2": 2.8284271247461905e-19,
+      "h2": 100.0,
+      "m2": 3.0,
+      "n2": 3.0
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000000718499425,
+      354.01268906664876
+    ],
+    "loss": 30000.340542832542
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736,
+      0.4494090345200725,
+      0.9279110141872207,
+      -0.9757823214826152,
+      0.8658433512900878,
+      -0.25764670863302386
+    ],
+    "physical_parameters": {
+      "Ea1": 2.7728551332508593e-19,
+      "h1": 58.35384608640816,
+      "A1": 56203274641.78844,
+      "A2": 2.0891844920394777e+20,
+      "Ea2": 3.9013015275987555e-19,
+      "h2": 10.573473435544102,
+      "m2": 4.731686702580175,
+      "n2": 2.4847065827339523
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.040000000000067266,
+      354.00000004100684
+    ],
+    "loss": 30000.340626156794
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155,
+      -0.12076768678290917,
+      -0.47114306001085515,
+      -0.37349151269699776,
+      0.2982826718888758,
+      -0.8388783842439023
+    ],
+    "physical_parameters": {
+      "Ea1": 2.5035896709562313e-19,
+      "h1": 26.90421381030935,
+      "A1": 4.005944601900824e+22,
+      "A2": 2974915690970975.5,
+      "Ea2": 2.4023202207665743e-19,
+      "h2": 42.31637794144166,
+      "m2": 3.5965653437777516,
+      "n2": 1.3222432315121955
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 229,
+      "num_rejected_steps": 222,
+      "num_steps": 451
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.09342073829050503,
+      383.1647859617218
+    ],
+    "loss": 20000.28674967156
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116,
+      0.6538855602515945,
+      -0.9629908916452565,
+      -0.800205954268615,
+      0.16721354278397493,
+      0.8009648969508929
+    ],
+    "physical_parameters": {
+      "Ea1": 3.2734873324708823e-19,
+      "h1": 70.33978238472409,
+      "A1": 2.0223284124770737e+18,
+      "A2": 1.1429500793933867e+22,
+      "Ea2": 2.0258179807664897e-19,
+      "h2": 15.841417711408937,
+      "m2": 3.33442708556795,
+      "n2": 4.601929793901785
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 989,
+      "num_rejected_steps": 1323,
+      "num_steps": 2312
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.9999428981080511,
+      369.2078519026187
+    ],
+    "loss": 20000.31669040824
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914,
+      -0.020394232483245678,
+      -0.31362903445018697,
+      0.9824080501121641,
+      -0.03304054310667526,
+      -0.48125620258743385
+    ],
+    "physical_parameters": {
+      "Ea1": 2.2124449750079396e-19,
+      "h1": 464.96916142382383,
+      "A1": 16474354855130.89,
+      "A2": 2.1215292501611516e+16,
+      "Ea2": 2.5371089658236186e-19,
+      "h2": 960.302479276721,
+      "m2": 2.9339189137866493,
+      "n2": 2.0374875948251323
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 7678,
+      "num_rejected_steps": 2322,
+      "num_steps": 10000
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 37
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425,
+      0.2943138979455724,
+      -0.638107467258542,
+      -0.04667912747966152,
+      -0.15375764612247822,
+      0.9558290848022182
+    ],
+    "physical_parameters": {
+      "Ea1": 3.5344617201899885e-19,
+      "h1": 854.933116365852,
+      "A1": 2.3216053286961496e+19,
+      "A2": 1.0038484032736692e+19,
+      "Ea2": 2.2672543793838053e-19,
+      "h2": 89.80920924588365,
+      "m2": 2.6924847077550433,
+      "n2": 4.911658169604436
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04049378719142399,
+      354.04438890427525
+    ],
+    "loss": 30000.340328625636
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811,
+      0.8330010853869663,
+      -0.2195970530562552,
+      -0.4951118205353463,
+      0.5597940360733482,
+      0.45806288377198245
+    ],
+    "physical_parameters": {
+      "Ea1": 3.9043162827284236e-19,
+      "h1": 15.393928682211195,
+      "A1": 506772310659856.3,
+      "A2": 3.806354434167424e+23,
+      "Ea2": 2.621152828166697e-19,
+      "h2": 31.98071576046317,
+      "m2": 4.119588072146696,
+      "n2": 3.916125767543965
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 520,
+      "num_rejected_steps": 612,
+      "num_steps": 1132
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.9955519525202223,
+      384.5592353879078
+    ],
+    "loss": 20000.297125683468
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143,
+      0.9202600057057075,
+      -0.11863280896677741,
+      0.33381941873775545,
+      -0.8338740042690955,
+      -0.8021678568707562
+    ],
+    "physical_parameters": {
+      "Ea1": 3.7934839336554426e-19,
+      "h1": 117.22335272990415,
+      "A1": 2.7005180297802525e+17,
+      "A2": 2.09995529096394e+24,
+      "Ea2": 2.7144945654351016e-19,
+      "h2": 215.6847397498415,
+      "m2": 1.332251991461809,
+      "n2": 1.3956642862584876
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 2180,
+      "num_rejected_steps": 2946,
+      "num_steps": 5126
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      1.0,
+      678.2807028897556
+    ],
+    "loss": 0.841505696568867
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031,
+      -0.36675988462633724,
+      0.4601261112696464,
+      -0.5889849809789515,
+      -0.2615307718522817,
+      0.17655165009071094
+    ],
+    "physical_parameters": {
+      "Ea1": 2.7055825854028813e-19,
+      "h1": 268.37332806965696,
+      "A1": 158173649.16084284,
+      "A2": 24129092075672.156,
+      "Ea2": 3.317423174158133e-19,
+      "h2": 25.764102543601773,
+      "m2": 2.4769384562954366,
+      "n2": 3.353103300181422
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000000000000006,
+      354.00000000210366
+    ],
+    "loss": 30000.34062615705
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006,
+      0.530967048322714,
+      0.40799261219367833,
+      0.8105943225913617,
+      -0.49997469733368816,
+      -0.9699959061872555
+    ],
+    "physical_parameters": {
+      "Ea1": 3.0244511032808984e-19,
+      "h1": 33.77116416272823,
+      "A1": 3.2941152478003144e+18,
+      "A2": 1.0309080021732393e+21,
+      "Ea2": 3.2580219103704206e-19,
+      "h2": 646.5383977066198,
+      "m2": 2.000050605332624,
+      "n2": 1.060008187625489
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04001908765120752,
+      354.02041949956373
+    ],
+    "loss": 30000.340492014664
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051,
+      0.10407773887259508,
+      0.14861372252453742,
+      0.45282427316518015,
+      -0.9877059839897991,
+      -0.4915576111697273
+    ],
+    "physical_parameters": {
+      "Ea1": 2.1506288145690344e-19,
+      "h1": 43.70287863686249,
+      "A1": 6.348612994650883e+20,
+      "A2": 2.4247154537568832e+17,
+      "Ea2": 2.9779238474335107e-19,
+      "h2": 283.67709649281255,
+      "m2": 1.0245880320204017,
+      "n2": 2.0168847776605454
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 255,
+      "num_rejected_steps": 265,
+      "num_steps": 520
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.040053845775616236,
+      397.71815345014755
+    ],
+    "loss": 20000.29151125079
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517,
+      -0.2959125895786422,
+      -0.9143762446495061,
+      -0.3059703286205031,
+      -0.7474562734477471,
+      0.5974812594617929
+    ],
+    "physical_parameters": {
+      "Ea1": 2.925671011684268e-19,
+      "h1": 16.950493780428666,
+      "A1": 5.568592691059736e+16,
+      "A2": 96547934823166.12,
+      "Ea2": 2.0602392418221956e-19,
+      "h2": 49.43444598797286,
+      "m2": 1.5050874531045058,
+      "n2": 4.194962518923585
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.040003357547795514,
+      354.00068290618583
+    ],
+    "loss": 30000.34062167353
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115,
+      -0.4966428014195301,
+      -0.6953517849724804,
+      -0.6651072126780854,
+      0.6914319255682402,
+      -0.10780771164117797
+    ],
+    "physical_parameters": {
+      "Ea1": 2.6267944186778684e-19,
+      "h1": 172.7646958399154,
+      "A1": 9111073597.91154,
+      "A2": 1899049075287.246,
+      "Ea2": 2.222716743897408e-19,
+      "h2": 21.621846872719452,
+      "m2": 4.382863851136481,
+      "n2": 2.784384576717644
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000019778055671,
+      354.000004667692
+    ],
+    "loss": 30000.34062612642
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103,
+      -0.6853102344097075,
+      0.8624047346820876,
+      -0.015081469250777801,
+      0.40445877356042836,
+      -0.3057374340303669
+    ],
+    "physical_parameters": {
+      "Ea1": 3.1063638917117094e-19,
+      "h1": 347.46166498718395,
+      "A1": 1919831590.9780629,
+      "A2": 47300203315.65819,
+      "Ea2": 3.813729096757749e-19,
+      "h2": 96.58696746156375,
+      "m2": 3.8089175471208567,
+      "n2": 2.388525131939266
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04,
+      354.00000000000875
+    ],
+    "loss": 30000.340626157064
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752,
+      -0.4501094094854724,
+      -0.23271304785865876,
+      0.7765238737018951,
+      0.4882324855015523,
+      0.40049811458385687
+    ],
+    "physical_parameters": {
+      "Ea1": 3.359872923099744e-19,
+      "h1": 10.99997562797637,
+      "A1": 971874697159.8612,
+      "A2": 4721391560300.783,
+      "Ea2": 2.609265004849753e-19,
+      "h2": 597.7559031628508,
+      "m2": 3.9764649710031046,
+      "n2": 3.8009962291677137
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000000000693969,
+      354.0000000041491
+    ],
+    "loss": 30000.340626157034
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937,
+      0.60746035065166,
+      -0.0863540434227742,
+      0.40311816534825295,
+      -0.9049417685317958,
+      -0.04195526821635831
+    ],
+    "physical_parameters": {
+      "Ea1": 2.0165938184721857e-19,
+      "h1": 22.873631197030676,
+      "A1": 3.8601332925055684e+20,
+      "A2": 4.6069445022669105e+21,
+      "Ea2": 2.7450320206507367e-19,
+      "h2": 252.9986276068838,
+      "m2": 1.1901164629364085,
+      "n2": 2.9160894635672836
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 4181,
+      "num_rejected_steps": 5819,
+      "num_steps": 10000
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 1
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459,
+      -0.09376437174491048,
+      0.03398079677976029,
+      0.6707475310167212,
+      -0.675318817635794,
+      0.5278372058539798
+    ],
+    "physical_parameters": {
+      "Ea1": 3.577198402385948e-19,
+      "h1": 29.915036551255618,
+      "A1": 3.968120250863116e+23,
+      "A2": 5046645979224919.0,
+      "Ea2": 2.8619339928701855e-19,
+      "h2": 468.5409254457146,
+      "m2": 1.649362364728412,
+      "n2": 4.05567441170796
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000000002040119,
+      354.0105020112702
+    ],
+    "loss": 30000.340557191914
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867,
+      -0.6754652365205418,
+      0.009729512478853453,
+      0.55649945274414,
+      -0.592657373780832,
+      0.9184311651170065
+    ],
+    "physical_parameters": {
+      "Ea1": 3.4845425736169047e-19,
+      "h1": 240.63120933392668,
+      "A1": 105076790448386.97,
+      "A2": 57351593553.41663,
+      "Ea2": 2.8379806567504185e-19,
+      "h2": 360.1632965515244,
+      "m2": 1.814685252438336,
+      "n2": 4.836862330234013
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000000000000004,
+      354.00000000014904
+    ],
+    "loss": 30000.340626157064
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082,
+      -0.6115989952673453,
+      -0.5345370146616927,
+      0.23769485244299982,
+      0.11691810801129221,
+      0.05171900017756226
+    ],
+    "physical_parameters": {
+      "Ea1": 2.4000211701613103e-19,
+      "h1": 96.20393859217386,
+      "A1": 1.2278847136931449e+23,
+      "A2": 200174402209.97958,
+      "Ea2": 2.3501152242059955e-19,
+      "h2": 172.8601368326197,
+      "m2": 3.2338362160225844,
+      "n2": 3.1034380003551245
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 502,
+      "num_rejected_steps": 611,
+      "num_steps": 1113
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.040016814202679295,
+      450.20684509755023
+    ],
+    "loss": 20000.274347430313
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883,
+      -0.7901439562611319,
+      0.5202393370494884,
+      0.729002385250848,
+      -0.6955001007007371,
+      -0.021442534006532732
+    ],
+    "physical_parameters": {
+      "Ea1": 2.3528978488214536e-19,
+      "h1": 18.218802375293205,
+      "A1": 9187981990831874.0,
+      "A2": 6078219391.848452,
+      "Ea2": 3.38726220408602e-19,
+      "h2": 535.7996002468889,
+      "m2": 1.6089997985985258,
+      "n2": 2.9571149319869345
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 47,
+      "num_rejected_steps": 35,
+      "num_steps": 82
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04,
+      369.8900792944278
+    ],
+    "loss": 30000.276736263535
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519,
+      0.37087546923928927,
+      0.996439001923022,
+      0.5254530079369983,
+      -0.454515001086942,
+      -0.8866758077964008
+    ],
+    "physical_parameters": {
+      "Ea1": 2.0858795857254307e-19,
+      "h1": 142.33261852217797,
+      "A1": 8.775344162236827e+24,
+      "A2": 4.492018006994957e+19,
+      "Ea2": 3.995066453435155e-19,
+      "h2": 335.31502032139343,
+      "m2": 2.0909699978261163,
+      "n2": 1.2266483844071985
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 9627,
+      "num_rejected_steps": 373,
+      "num_steps": 10000
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 1
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648,
+      0.1733873118939333,
+      0.18576255640339134,
+      -0.17929207794774338,
+      -0.41569197661981183,
+      -0.7312363034987961
+    ],
+    "physical_parameters": {
+      "Ea1": 2.8290463874377207e-19,
+      "h1": 923.9745602791968,
+      "A1": 3438399429727923.5,
+      "A2": 9.414389256376923e+17,
+      "Ea2": 3.0165119093270396e-19,
+      "h2": 66.17712900976427,
+      "m2": 2.168616046760376,
+      "n2": 1.5375273930024078
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000052163154943,
+      354.01262199106765
+    ],
+    "loss": 30000.340543269875
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657,
+      0.9720681173151868,
+      0.5646951322828584,
+      -0.6776276667721732,
+      0.9351846231889676,
+      0.28512618396903044
+    ],
+    "physical_parameters": {
+      "Ea1": 2.330881747898266e-19,
+      "h1": 47.91732809685904,
+      "A1": 5075973106311.9375,
+      "A2": 5.78867273414516e+24,
+      "Ea2": 3.439854555965248e-19,
+      "h2": 21.007401371235623,
+      "m2": 4.870369246377935,
+      "n2": 3.570252367938061
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000071409405802,
+      354.02588608364226
+    ],
+    "loss": 30000.340456192018
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026,
+      0.22832166716342228,
+      -0.3899025774218149,
+      -0.10069806718123353,
+      0.47669027785215046,
+      -0.18731336533186316
+    ],
+    "physical_parameters": {
+      "Ea1": 2.9014319047313645e-19,
+      "h1": 12.170288087347108,
+      "A1": 334419554039.7978,
+      "A2": 2.7588886397017677e+18,
+      "Ea2": 2.47092070124104e-19,
+      "h2": 79.30524895843335,
+      "m2": 3.953380555704301,
+      "n2": 2.625373269336274
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04341500787343927,
+      354.2708280533397
+    ],
+    "loss": 30000.33871249206
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135,
+      -0.1877169117525902,
+      -0.764048779788985,
+      -0.23593386665538163,
+      -0.2957210364533288,
+      -0.3981010249760113
+    ],
+    "physical_parameters": {
+      "Ea1": 3.1801380302583153e-19,
+      "h1": 617.174621461667,
+      "A1": 1.802106441548202e+17,
+      "A2": 802428324287627.8,
+      "Ea2": 2.1704220507614264e-19,
+      "h2": 58.08528616978949,
+      "m2": 2.4085579270933426,
+      "n2": 2.2037979500479774
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.041805248362409834,
+      354.10519456300466
+    ],
+    "loss": 30000.339912561827
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091,
+      0.752645880841756,
+      -0.8644452278803446,
+      -0.8208312381256011,
+      0.757843582585396,
+      0.6733318165582163
+    ],
+    "physical_parameters": {
+      "Ea1": 2.2411540112547854e-19,
+      "h1": 642.8019972223974,
+      "A1": 1.3457588468584383e+24,
+      "A2": 7.897506411510968e+22,
+      "Ea2": 2.0962014733337534e-19,
+      "h2": 15.10667068087926,
+      "m2": 4.515687165170792,
+      "n2": 4.346663633116433
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 9380,
+      "num_rejected_steps": 620,
+      "num_steps": 10000
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 1
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256,
+      -0.8917500833182381,
+      0.2503603073226157,
+      -0.9099987603092621,
+      -0.20037998356613107,
+      -0.6028948211653004
+    ],
+    "physical_parameters": {
+      "Ea1": 3.9591704726391043e-19,
+      "h1": 502.84172539203496,
+      "A1": 1.0523458125021762e+20,
+      "A2": 832001849.6675953,
+      "Ea2": 3.0848068358571906e-19,
+      "h2": 12.302722826114962,
+      "m2": 2.599240032867738,
+      "n2": 1.7942103576693993
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000000000000006,
+      354.0000000188042
+    ],
+    "loss": 30000.34062615694
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509,
+      0.6787790551254123,
+      -0.6042760523329985,
+      0.9123373619748267,
+      0.04691480651053892,
+      0.12996557017388688
+    ],
+    "physical_parameters": {
+      "Ea1": 3.6995440875082275e-19,
+      "h1": 59.724377506789324,
+      "A1": 385540236.31398624,
+      "A2": 1.8604669889934432e+22,
+      "Ea2": 2.293994565877115e-19,
+      "h2": 817.2169427822927,
+      "m2": 3.093829613021078,
+      "n2": 3.2599311403477738
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 8367,
+      "num_rejected_steps": 1633,
+      "num_steps": 10000
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 1
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751,
+      0.05229485142278678,
+      0.7201578207493067,
+      0.1731900414481664,
+      0.6209617020759786,
+      0.6833260692397571
+    ],
+    "physical_parameters": {
+      "Ea1": 2.1326154593479764e-19,
+      "h1": 81.4993845568228,
+      "A1": 2.495140774436753e+21,
+      "A2": 8.80047750348606e+16,
+      "Ea2": 3.6302751791981866e-19,
+      "h2": 149.00129447831708,
+      "m2": 4.241923404151957,
+      "n2": 4.366652138479514
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 399,
+      "num_rejected_steps": 466,
+      "num_steps": 865
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04000000001901674,
+      435.4993845596568
+    ],
+    "loss": 20000.275803374458
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751,
+      -0.9394618524603475,
+      0.6664872601460119,
+      0.1457738364697294,
+      -0.030127488731242824,
+      -0.615133696188092
+    ],
+    "physical_parameters": {
+      "Ea1": 3.2244945567930563e-19,
+      "h1": 167.37360985020987,
+      "A1": 207564600694873.16,
+      "A2": 327019954.7342263,
+      "Ea2": 3.5633733038086643e-19,
+      "h2": 139.88586621414538,
+      "m2": 2.9397450225375144,
+      "n2": 1.769732607623816
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04,
+      354.0000000419547
+    ],
+    "loss": 30000.340626156787
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064,
+      -0.8362324916208229,
+      0.3146357278328247,
+      -0.4349876990633298,
+      0.2582797708378326,
+      0.8435726491491373
+    ],
+    "physical_parameters": {
+      "Ea1": 2.4787604264144686e-19,
+      "h1": 215.15862330320044,
+      "A1": 51883662233.817085,
+      "A2": 2466174604.1708055,
+      "Ea2": 3.154295594507278e-19,
+      "h2": 36.72927035321778,
+      "m2": 3.516559541675665,
+      "n2": 4.687145298298274
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 12,
+      "num_rejected_steps": 0,
+      "num_steps": 12
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 142,
+    "state_scale": [
+      1.0,
+      0.04,
+      354.0000574528492
+    ],
+    "loss": 30000.340625779878
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "NMC_SOC80_M2_normalized_converted_units.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747,
+      -0.23796210304859666,
+      0.7659176743725431,
+      0.0787932395893367,
+      0.9434279778107348,
+      0.34217203856774536
+    ],
+    "physical_parameters": {
+      "Ea1": 2.5610759776212054e-19,
+      "h1": 376.716124351854,
+      "A1": 7.035940651823049e+21,
+      "A2": 300138787736706.94,
+      "Ea2": 3.688307235779242e-19,
+      "h2": 119.89283773105127,
+      "m2": 4.88685595562147,
+      "n2": 3.6843440771354907
+    },
+    "code": "step_limit",
+    "result": "diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 8518,
+      "num_rejected_steps": 1482,
+      "num_steps": 10000
+    },
+    "time_start": 17192.4,
+    "time_end": 73132.26000000001,
+    "requested_rows": 142,
+    "finite_rows": 1
+  }
+]

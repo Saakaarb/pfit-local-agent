@@ -1,0 +1,9 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/fujita_egf/qwen38_27b/session"}
+{"step": "solver_selection", "status": "selected", "message": "Kvaerno5: Dataset time scales are inconclusive; conservative fallback"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: accuracy_inconclusive: Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=20000, samples=128; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/fujita_egf/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: recovery_timeout: Numerical recovery wall-time limit reached; steps={}"}
+{"step": "solver_recovery", "status": "failed", "message": "Numerical validation blocked at max_steps=20000; limit=50000, samples=128. No scientific code repair attempted."}

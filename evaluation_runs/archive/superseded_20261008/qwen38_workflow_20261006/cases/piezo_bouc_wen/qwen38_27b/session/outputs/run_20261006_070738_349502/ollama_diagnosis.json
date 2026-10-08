@@ -1,0 +1,53 @@
+{
+  "verdict": "The fit is moderate (normalised RMSE \u2248 0.264, time correlation 0.802) and the gradient is not stationary (\u2016g\u2016\u221e = 3.42). The Adam refinement hit its 5-iteration budget while still improving (0.26473 \u2192 0.26435), and the saved Hessian contains one negative mode, so the current point is not a local minimum. No numerical failures or gradient-check errors are reported, so the evidence points to an under-optimised, non-convex landscape rather than a solver or autodiff defect.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "STATIONARITY"
+      ],
+      "action": "Run diagnose --probe-gradients on this run to confirm that finite-difference and autodiff gradients agree before spending more iterations.",
+      "reason": "The gradient norm is 3.42 and the budget was exhausted at iteration 5 with the loss still decreasing (NODE_fitting.log: 0.26473 \u2192 0.26435). Verifying gradient reliability is the prerequisite for any restart; a negative Hessian mode could also indicate a gradient/curvature inconsistency that a probe would surface."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "If the gradient probe passes, perform a gradient-only restart from this run with gradient_opt.num_iters raised from 5 to at least 50, keeping the same model, bounds, and loss.",
+      "reason": "The optimizer was still making material improvement at its last evaluated iteration (last_material_improvement_iteration = 5 of 5). The normalised gradient of 3.42 and gradient-to-loss ratio of 12.95 indicate the iterate is far from stationarity, so additional Adam steps are warranted before drawing scientific conclusions about the parameters."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES",
+        "SLOPPINESS"
+      ],
+      "action": "Inspect the eigenvector associated with the negative Hessian eigenvalue to identify which parameter combination is affected; do not fix or re-bound parameters until the direction is understood.",
+      "reason": "The sloppiness report records 1 weak mode and 1 negative mode. A negative eigenvalue means the loss curves downward in that direction, so the current point is a saddle or ridge, not a local minimum. Knowing whether the negative direction involves, e.g., the alpha\u2013beta pair (both near their bounds at range-fractions 0.968 and 0.076) versus the kp\u2013de pair (0.879 and 0.173) determines whether the issue is a genuine model-structure limitation or a bound artefact."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Open fit_exp1.png and compare the model trajectory against the measured xp over the three time regions; pay particular attention to the third region (t \u2248 0.367\u20130.500) where RMSE is 1.719e-06, roughly 2.5\u00d7 the second region's 6.94e-07.",
+      "reason": "The overall time correlation is 0.802 while lag-1 correlation is 0.973, a pattern consistent with a small phase or shape offset rather than a pure amplitude error. The elevated residual in the last third of the record could reflect the sinusoidal forcing de\u00b7(24+24 sin 16\u03c0t) interacting with the Bouc-Wen hysteresis state h, or an initial-condition / calibration offset. Visual inspection of the named plot is the fastest way to distinguish these before further optimisation."
+    },
+    {
+      "evidence_ids": [
+        "PARAMETERS",
+        "WEAK_MODES"
+      ],
+      "action": "After the gradient-only restart converges (or stalls), re-evaluate whether alpha (0.968 of [0,1]) and beta (0.076 of [0,0.1]) are genuinely at physical limits or whether the bounds are too tight; only widen bounds if the negative-mode eigenvector points along those parameters and the residual has not improved.",
+      "reason": "Both alpha and beta sit near their respective bounds, and the Hessian has a negative mode. If the negative direction aligns with the alpha\u2013beta subspace, the optimizer may be pushing against a bound that is masking a wider physical range. However, this is a model/bound change, not a numerical correction, and should only be made after the gradient-only restart and eigenvector inspection rule out a simpler explanation."
+    }
+  ],
+  "limitations": [
+    "The negative Hessian mode and the non-stationary gradient together mean the current parameter values (alpha \u2248 0.968, beta \u2248 0.0076, etc.) cannot be interpreted as a local or global optimum; they are an intermediate iterate.",
+    "The time correlation of 0.802 and the elevated third-region RMSE (1.719e-06) could arise from model-structure mismatch (e.g., the single Bouc-Wen element not capturing the full piezoelectric hysteresis), from initial-condition sensitivity, or from measurement noise; the evidence does not distinguish these causes.",
+    "The DE seed phase ran only 1 iteration with a population of 4, so the starting point for the gradient phase is a single sample from a very small search; the true loss landscape may have basins the seed did not explore.",
+    "No gradient-check or replay-mismatch diagnostics are included in the snapshot, so the reliability of the reported gradient (norm 3.42) and Hessian (1 negative mode) is assumed but not independently verified.",
+    "The absolute RMSE of 1.30e-06 is small, but the normalised loss of 0.264 indicates the residual is \u2248 26 % of the peak signal; whether this is acceptable depends on the measurement noise floor, which is not provided in the snapshot."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

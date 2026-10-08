@@ -1,0 +1,129 @@
+{
+  "status": "limited",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/cascaded_tanks/qwen38_27b/session/outputs/run_20261007_032532_062906",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/cascaded_tanks/qwen38_27b/session/outputs/run_20261007_032532_062906/snapshot",
+  "findings": [
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, level_lower: RMSE=18.017, bias=17.9067, time correlation=-0.25778817128394327, lag-1=0.9911786577740241.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 1024,
+          "missing": 0,
+          "rmse": 18.01702934695363,
+          "mae": 17.906686903342354,
+          "bias": 17.906686903342354,
+          "max_abs": 21.08193705999903,
+          "time_correlation": -0.25778817128394327,
+          "lag1_correlation": 0.9911786577740241,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 1364.0,
+              "count": 341,
+              "rmse": 17.746388724346204
+            },
+            {
+              "start": 1364.0,
+              "end": 2728.0,
+              "count": 341,
+              "rmse": 19.53817977098968
+            },
+            {
+              "start": 2728.0,
+              "end": 4092.0,
+              "count": 342,
+              "rmse": 16.652447118932702
+            }
+          ],
+          "name": "level_lower",
+          "observes": "level_lower"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 0.1677795965665166,
+      "range_fraction": 0.5561847864453626,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 0.6258488520402057,
+      "range_fraction": 0.6991173649915463,
+      "logscale": true
+    },
+    {
+      "name": "k3",
+      "value": 0.0031999871284052093,
+      "range_fraction": 0.12628705785545824,
+      "logscale": true
+    },
+    {
+      "name": "k4",
+      "value": 0.001447705012409723,
+      "range_fraction": 0.04017001951674248,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 1.8033228668948114,
+    "final_loss": 1.8017029346951827,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      1.8017029346951827
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 4,
+    "refinement_error": null,
+    "termination": "invalid_loss_or_gradient",
+    "termination_detail": "Iteration 4: non-finite gradient (NaN/Inf) for k1, k4"
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/cascaded_tanks/qwen38_27b/session/outputs/run_20261007_032532_062906/de_fitting.log",
+      "rows": 1,
+      "first": 1.8033,
+      "final": 1.8033,
+      "best": 1.8033,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          1.8033
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 1.8017029346951827,
+  "experiment_losses": [
+    1.8017029346951827
+  ],
+  "sloppiness": {
+    "status": "failed",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Experiment 1, level_lower: RMSE=18.017, bias=17.9067, time correlation=-0.25778817128394327, lag-1=0.9911786577740241."
+}

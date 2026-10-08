@@ -1,0 +1,96 @@
+{
+  "key": "qwen38_27b",
+  "model": "qwen3.8:27b",
+  "label": "Qwen3.8 27B (thinking)",
+  "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+  "nominal_total_parameters_billion": 27.3,
+  "nominal_active_parameters_billion": 27.3,
+  "quantization": "Q4_K_M",
+  "thinking_model": true,
+  "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+  "request_options": {
+    "think": true
+  },
+  "expected_download_bytes": 18000000000,
+  "sources": [
+    "https://ollama.com/library/qwen3.8:27b"
+  ],
+  "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+  "size_bytes": 17741872154,
+  "details": {
+    "parent_model": "qwen3.8:27b-q4_K_M",
+    "format": "gguf",
+    "family": "qwen35",
+    "families": [
+      "qwen35"
+    ],
+    "parameter_size": "27.3B",
+    "quantization_level": "Q4_K_M",
+    "context_length": 262144,
+    "embedding_length": 5120
+  },
+  "installed_at_batch_start": true,
+  "preparation_seconds": 0.27483375929296017,
+  "ollama_version": {
+    "version": "0.34.4"
+  },
+  "capabilities": [
+    "completion",
+    "vision",
+    "tools",
+    "thinking"
+  ],
+  "gguf_parameter_count": 27320697856,
+  "options": {
+    "seed": 7,
+    "num_ctx": 32768,
+    "temperature": 0.1,
+    "num_predict": 12000,
+    "top_k": 40,
+    "top_p": 0.9
+  },
+  "framework_commit": "81782599f9fe11e4c08f649bcf150a3c420e579d",
+  "warmup_seconds": 1.4114255644381046,
+  "warmup_thinking": false,
+  "warmup_response": {
+    "model": "qwen3.8:27b",
+    "created_at": "2026-10-07T09:08:31.672622602Z",
+    "message": {
+      "role": "assistant",
+      "content": "OK"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 1409393904,
+    "load_duration": 32693905,
+    "prompt_eval_count": 16,
+    "prompt_eval_cached_count": 0,
+    "prompt_eval_duration": 371514000,
+    "eval_count": 2,
+    "eval_duration": 165151000
+  },
+  "loaded_model": {
+    "models": [
+      {
+        "name": "qwen3.8:27b",
+        "model": "qwen3.8:27b",
+        "size": 17536059964,
+        "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "27.3B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2319-01-17T08:55:48.527736482Z",
+        "size_vram": 17536059964,
+        "context_length": 32768
+      }
+    ]
+  },
+  "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H200, 143771 MiB, 19727 MiB"
+}

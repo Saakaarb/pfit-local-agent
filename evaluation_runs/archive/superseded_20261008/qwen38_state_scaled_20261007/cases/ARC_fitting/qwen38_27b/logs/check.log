@@ -1,0 +1,13 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/ARC_fitting/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/ARC_fitting/qwen38_27b/session
+warning: Population size 4 with 8 trainable parameters and only 1 DE iteration is extremely small; the search will almost certainly fail to explore the 8-dimensional parameter space meaningfully.
+warning: Gradient optimizer is set to only 5 iterations, which is very few for an 8-parameter problem with a multi-term loss including sigmoid penalties.
+warning: In user_defined_system and _observables, the expressions `c2 ** n2` and `(1 - c2) ** m2` use non-integer exponents (n2, m2 ∈ [1,5]). If c2 transiently leaves [0,1] during optimization, these produce NaN in JAX, making the loss NaN and stalling the optimizer. The initial condition c2=0.04 and the terminal penalty toward 0.98 do not prevent intermediate excursions.
+warning: The dTdt measured column spans ~6 orders of magnitude (log10 range ≈ 5.95). The user's explicit log10 residual handles this correctly, but the T column (range ≈ 311 K) and the log-dTdt residual are on very different absolute scales before normalization; the +1e-12 stabilizing terms are negligible relative to the data scales, so this is acceptable but worth monitoring for conditioning.
+recommendation: Large trainable parameter count detected; consider increasing population search budget.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g., 20–40) and num_iters (e.g., 50–200) to give DE a realistic chance of exploring 8 log-scaled parameters spanning 17+ orders of magnitude (A1, A2: 1e8–1e25).
+recommendation: Increase gradient_opt.num_iters from 5 to at least 50–100 to allow the Adam optimizer to converge through the sigmoid penalty landscape.
+recommendation: Consider clamping c2 to [0, 1-eps] inside user_defined_system (e.g., `c2 = jnp.clip(y[1], 0.0, 1.0)`) before computing `c2 ** n2` and `(1-c2) ** m2` to prevent NaN from non-integer powers during transient optimization steps.
+recommendation: The solver settings (Kvaerno5, rtol=1e-7, atol=1e-9, initial_timestep=1e-6, max_steps=10000) are appropriate for the time span (~17k–73k) and the stiff Arrhenius terms; no change needed.
+recommendation: The writeout array (7 columns: time, T_obs, dTdt_obs, c1, c2, T, dTdt_sim) is consistent with the integrated variables and the single declared observable; no shape mismatch detected.

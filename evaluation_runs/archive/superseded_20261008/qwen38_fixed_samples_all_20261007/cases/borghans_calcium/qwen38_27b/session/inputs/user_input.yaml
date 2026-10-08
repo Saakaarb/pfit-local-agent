@@ -1,0 +1,142 @@
+experiments:
+- data_file: calcium.csv
+  initial_conditions:
+    Z: 0.087920524425504
+    Y: 0.999348084438687
+    A: 0.99999999999996
+  columns:
+  - name: time
+  - name: Ca
+    observes: Ca
+model:
+  trainable_parameters:
+  - name: K2
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: K_par
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Ka
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Kd
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Kf
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Kp
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Ky
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Kz
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Vd
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Vm2
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Vm3
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: Vp
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: beta_par
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: epsilon_par
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: n_par
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: v0
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: v1
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: offset
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: scale
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  fixed_parameters: []
+  integrated_variables:
+  - name: Z
+    init_val: 0.087920524425504
+  - name: Y
+    init_val: 0.999348084438687
+  - name: A
+    init_val: 0.99999999999996
+  observables:
+  - name: Ca
+population_opt:
+  population_size: 4
+  num_iters: 1
+  processors: 1
+  algorithm: DE
+  random_seed: 7
+  stepsize_rtol:
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  stepsize_atol:
+  - 1.1150071404931245e-05
+  - 4.1226773005409576e-08
+  - 1.298467285584272e-08
+gradient_opt:
+  gradient_optimizer: adam
+  num_iters: 5
+  auto_state_tolerances: true
+  stepsize_rtol:
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  stepsize_atol:
+  - 1.1150071404931246e-06
+  - 4.1226773005409576e-09
+  - 1.298467285584272e-09
+  initial_timestep: 1e-6
+  max_steps: 1000
+  auto_max_steps: true
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 120
+  solver_validation_min_successful: 10
+  solver_validation_seed: 7
+  solver_accuracy_check: true
+  solver_accuracy_workers: 4
+  auto_integrator: true
+  integrator: Tsit5
+  init_value_lr: 1e-4
+  end_value_lr: 1e-5
+  transition_steps_lr: 2000
+  decay_rate_lr: 0.9
+  initial_time: 0.0
+output:
+  write_results: true

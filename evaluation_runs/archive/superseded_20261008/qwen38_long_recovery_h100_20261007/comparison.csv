@@ -1,0 +1,5 @@
+case,model,status,failed_stage,total_wall_seconds,llm_wall_seconds,repair_calls,model_size_bytes,total_parameters_billion,active_parameters_billion,quantization,thinking_model,duplicate_of,new_seconds,check_seconds,jax_seconds,run_seconds,diagnose_seconds
+mapk_cascade,qwen38_27b,pass,,385.048,212.5815815627575,0,17741872154,27.3,27.3,Q4_K_M,True,,70.439,73.411,162.141,28.317,50.353
+oregonator,qwen38_27b,pass,,245.199,150.19801722839475,0,17741872154,27.3,27.3,Q4_K_M,True,,56.467,38.303,69.662,27.817,52.826
+raia_il13,qwen38_27b,fail,run,250.392,182.70028560981154,0,17741872154,27.3,27.3,Q4_K_M,True,,111.156,45.014,79.825,14.198,
+fujita_egf,qwen38_27b,fail,jax,596.312,258.7201191186905,0,17741872154,27.3,27.3,Q4_K_M,True,,159.903,62.756,373.413,,

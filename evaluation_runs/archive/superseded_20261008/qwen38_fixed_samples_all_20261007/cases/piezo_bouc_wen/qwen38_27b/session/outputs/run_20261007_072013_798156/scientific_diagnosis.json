@@ -1,0 +1,178 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_072013_798156",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_072013_798156/snapshot",
+  "findings": [
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 3.44385; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "WEAK_MODES",
+      "priority": 4,
+      "evidence": "Saved curvature has 1 weak parameter combinations.",
+      "next_step": "Inspect eigenvectors before designing additional experiments or fixing independently known parameters; weak modes are not proof of individual non-identifiability."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, xp: RMSE=1.29724e-06, bias=9.23725e-09, time correlation=0.8023406888081851, lag-1=0.9734759631845542.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 79,
+          "missing": 0,
+          "rmse": 1.2972360223816066e-06,
+          "mae": 1.0773879496270721e-06,
+          "bias": 9.237253367296293e-09,
+          "max_abs": 4.183589609781171e-06,
+          "time_correlation": 0.8023406888081851,
+          "lag1_correlation": 0.9734759631845542,
+          "time_regions": [
+            {
+              "start": 0.10061349693251534,
+              "end": 0.23374233128834354,
+              "count": 28,
+              "rmse": 1.2547300043444407e-06
+            },
+            {
+              "start": 0.23374233128834354,
+              "end": 0.36687116564417177,
+              "count": 25,
+              "rmse": 6.944052167261404e-07
+            },
+            {
+              "start": 0.36687116564417177,
+              "end": 0.49999999999999994,
+              "count": 26,
+              "rmse": 1.718744965324298e-06
+            }
+          ],
+          "name": "xp",
+          "observes": "xp"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "alpha",
+      "value": 0.9681383592193319,
+      "range_fraction": 0.9681383592193319,
+      "logscale": false
+    },
+    {
+      "name": "beta",
+      "value": 0.007550817443594749,
+      "range_fraction": 0.07550817443594748,
+      "logscale": false
+    },
+    {
+      "name": "gamma",
+      "value": 0.049862524692913544,
+      "range_fraction": 0.4986252469291354,
+      "logscale": false
+    },
+    {
+      "name": "cp",
+      "value": 27.607355162324353,
+      "range_fraction": 0.7607355162324353,
+      "logscale": false
+    },
+    {
+      "name": "kp",
+      "value": 14280564.4219641,
+      "range_fraction": 0.8787794100124142,
+      "logscale": true
+    },
+    {
+      "name": "de",
+      "value": 1.0725590157844396e-07,
+      "range_fraction": 0.17275813695883102,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.26626392459335096,
+    "final_loss": 0.2643232727280474,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.26432338950116085
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_072013_798156/de_fitting.log",
+      "rows": 1,
+      "first": 0.26626,
+      "final": 0.26626,
+      "best": 0.26626,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.26626
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/piezo_bouc_wen/qwen38_27b/session/outputs/run_20261007_072013_798156/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.26471,
+      "final": 0.26432,
+      "best": 0.26432,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.26471
+        ],
+        [
+          5,
+          0.26432
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.26432338950116085,
+  "experiment_losses": [
+    0.26432338950116085
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 1,
+    "negative_modes": 1
+  },
+  "normalized_gradient_inf_norm": 3.443850255763892,
+  "gradient_to_loss_ratio": 13.028927414494916,
+  "verdict": "Normalized gradient infinity norm is 3.44385; stationarity is not established."
+}

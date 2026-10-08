@@ -1,0 +1,52 @@
+experiments:
+  - data_file: "theophylline_sub6.csv"
+    initial_conditions: {"A_gut": 320.0, "A_plasma": 0.0}
+    columns:
+      - {name: time}
+      - {name: C_plasma, observes: C_plasma}
+
+model:
+  trainable_parameters:
+    - {name: ka, min_val: 0.1, max_val: 10.0, logscale: true}
+    - {name: ke, min_val: 0.01, max_val: 1.0, logscale: true}
+    - {name: Vd, min_val: 5.0, max_val: 150.0, logscale: true}
+  fixed_parameters: []
+  integrated_variables:
+    - {name: A_gut, init_val: 320.0}
+    - {name: A_plasma, init_val: 0.0}
+  observables:
+    - {name: C_plasma}
+
+population_opt:
+  population_size: 16
+  num_iters: 5
+  processors: 1
+  algorithm: DE
+
+gradient_opt:
+  gradient_optimizer: adam
+  num_iters: 1000
+  auto_state_tolerances: true
+  stepsize_rtol: [1e-7, 1e-7]
+  stepsize_atol: [1e-9, 1e-9]
+  initial_timestep: 1e-6
+  max_steps: 10000
+  auto_max_steps: true
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 120
+  solver_validation_samples: 32
+  solver_validation_max_samples: 128
+  solver_validation_success_fraction: 0.25
+  solver_validation_seed: 7
+  solver_recovery_stagnation_patience: 2
+  solver_accuracy_check: true
+  solver_accuracy_workers: 4
+  auto_integrator: true
+  integrator: Kvaerno5
+  init_value_lr: 1e-4
+  end_value_lr: 1e-5
+  transition_steps_lr: 2000
+  decay_rate_lr: 0.9
+
+output:
+  write_results: true

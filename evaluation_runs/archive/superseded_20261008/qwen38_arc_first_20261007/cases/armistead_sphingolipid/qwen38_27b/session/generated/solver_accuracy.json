@@ -1,0 +1,3029 @@
+{
+  "code": "accuracy_passed",
+  "integrator": "Kvaerno5",
+  "max_steps": 10000,
+  "sample_count": 32,
+  "probe_samples": [
+    20,
+    31,
+    11,
+    26
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.006098801684594683
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.814846553166669e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 6.370694487873139e-08
+        }
+      ],
+      "loss": 0.3887887288560818,
+      "reference_loss": 0.3887887396150559,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 104,
+        "num_rejected_steps": 0,
+        "num_steps": 104
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.006126078119388962
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.9192950510080285e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 6.370694487873139e-08
+        }
+      ],
+      "loss": 0.3742846608290285,
+      "reference_loss": 0.3742846760784753,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 104,
+        "num_rejected_steps": 0,
+        "num_steps": 104
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.006126078119388962
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.9192950510080285e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 6.370694487873139e-08
+        }
+      ],
+      "loss": 0.35493188914208346,
+      "reference_loss": 0.3549319018178218,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 104,
+        "num_rejected_steps": 0,
+        "num_steps": 104
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.006090739253004358
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.651320539185797e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 6.367068357382139e-08
+        }
+      ],
+      "loss": 0.30568038906179135,
+      "reference_loss": 0.30568040245312744,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 104,
+        "num_rejected_steps": 0,
+        "num_steps": 104
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 5,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.00011685319135800125
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.9026997958697906e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.399710032432171e-08
+        }
+      ],
+      "loss": 0.546178555307909,
+      "reference_loss": 0.5461785791817021,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 90,
+        "num_rejected_steps": 0,
+        "num_steps": 90
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 6,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.00011685556518789774
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.5672514637751366e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.402421656647124e-08
+        }
+      ],
+      "loss": 0.5741379585785091,
+      "reference_loss": 0.5741379850033559,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 90,
+        "num_rejected_steps": 0,
+        "num_steps": 90
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 7,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.00011685556518789774
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.6988438731740337e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.402538847439337e-08
+        }
+      ],
+      "loss": 0.5659359837663712,
+      "reference_loss": 0.565936010443119,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 90,
+        "num_rejected_steps": 0,
+        "num_steps": 90
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 20,
+      "experiment": 8,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.00011685071606360528
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.010357803950142e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.402538847439337e-08
+        }
+      ],
+      "loss": 0.5200763413027584,
+      "reference_loss": 0.5200763658024306,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 90,
+        "num_rejected_steps": 0,
+        "num_steps": 90
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.043715379326815844
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.017655972063378e-06
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.5664103188160335e-07
+        }
+      ],
+      "loss": 0.3887886517369415,
+      "reference_loss": 0.3887887288560818,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 46,
+        "num_rejected_steps": 0,
+        "num_steps": 46
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.04391089189644703
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.092523689148725e-06
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.5664103188160335e-07
+        }
+      ],
+      "loss": 0.37428455152273765,
+      "reference_loss": 0.3742846608290285,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 46,
+        "num_rejected_steps": 0,
+        "num_steps": 46
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.04391089189644703
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 2.092523689148725e-06
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.5664103188160335e-07
+        }
+      ],
+      "loss": 0.3549317982838616,
+      "reference_loss": 0.35493188914208346,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 46,
+        "num_rejected_steps": 0,
+        "num_steps": 46
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0436575892679136
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.900442037883708e-06
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.5638111673856915e-07
+        }
+      ],
+      "loss": 0.3056802930741563,
+      "reference_loss": 0.30568038906179135,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 46,
+        "num_rejected_steps": 0,
+        "num_steps": 46
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 5,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0004448818362417017
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.105109453092119e-06
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 1.6747261104270782e-07
+        }
+      ],
+      "loss": 0.5461784644159748,
+      "reference_loss": 0.546178555307909,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 41,
+        "num_rejected_steps": 0,
+        "num_steps": 41
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 6,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0004448908739067357
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 9.77398305199929e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 1.6757582756927824e-07
+        }
+      ],
+      "loss": 0.5741378579742414,
+      "reference_loss": 0.5741379585785091,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 41,
+        "num_rejected_steps": 0,
+        "num_steps": 41
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 7,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0004448908739067357
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.027497876579367e-06
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 1.6758028837415365e-07
+        }
+      ],
+      "loss": 0.5659358822030691,
+      "reference_loss": 0.5659359837663712,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 41,
+        "num_rejected_steps": 0,
+        "num_steps": 41
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 20,
+      "experiment": 8,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.000444872412334387
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1460967720824483e-06
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 1.6758028837415365e-07
+        }
+      ],
+      "loss": 0.5200762480279849,
+      "reference_loss": 0.5200763413027584,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 41,
+        "num_rejected_steps": 0,
+        "num_steps": 41
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 59,
+        "num_rejected_steps": 0,
+        "num_steps": 59
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.112776194920926e-11
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.772411942331933e-10
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 8.771282542196767e-10
+        }
+      ],
+      "loss": 1.0698883998983615,
+      "reference_loss": 1.0698883998984414,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 163,
+        "num_rejected_steps": 0,
+        "num_steps": 163
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.112776194920926e-11
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.832487067187156e-10
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 8.771282542196767e-10
+        }
+      ],
+      "loss": 1.3576875556355308,
+      "reference_loss": 1.3576875556356391,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 163,
+        "num_rejected_steps": 0,
+        "num_steps": 163
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.112776194920926e-11
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.832487067187156e-10
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 8.771282542196767e-10
+        }
+      ],
+      "loss": 1.2524122643105082,
+      "reference_loss": 1.2524122643106073,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 163,
+        "num_rejected_steps": 0,
+        "num_steps": 163
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.112776194920926e-11
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.673156612474076e-10
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 8.600862028460281e-10
+        }
+      ],
+      "loss": 1.0056077390172082,
+      "reference_loss": 1.0056077390172884,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 163,
+        "num_rejected_steps": 0,
+        "num_steps": 163
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 5,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.641545205457218e-10
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.701271241482797e-09
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 3.976264749011781e-09
+        }
+      ],
+      "loss": 1.2763572422989586,
+      "reference_loss": 1.2763572422999832,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 166,
+        "num_rejected_steps": 0,
+        "num_steps": 166
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 6,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.641545205457218e-10
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.6239618182875282e-09
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.072067938910051e-09
+        }
+      ],
+      "loss": 1.3697570324223762,
+      "reference_loss": 1.3697570324234811,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 166,
+        "num_rejected_steps": 0,
+        "num_steps": 166
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 7,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.641545205457218e-10
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.6557065604996155e-09
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.076309802560793e-09
+        }
+      ],
+      "loss": 1.3623624321033199,
+      "reference_loss": 1.3623624321044188,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 166,
+        "num_rejected_steps": 0,
+        "num_steps": 166
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 31,
+      "experiment": 8,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.641545205457218e-10
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.7237305820809824e-09
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.076309802560793e-09
+        }
+      ],
+      "loss": 1.2493069872107245,
+      "reference_loss": 1.2493069872117337,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 166,
+        "num_rejected_steps": 0,
+        "num_steps": 166
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.2555291361912822e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1413157895086354e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.5728590757964114e-08
+        }
+      ],
+      "loss": 1.0698883998971138,
+      "reference_loss": 1.0698883998983615,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 70,
+        "num_rejected_steps": 0,
+        "num_steps": 70
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.2555291361912822e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1594910814974416e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.5728590757964114e-08
+        }
+      ],
+      "loss": 1.357687555633845,
+      "reference_loss": 1.3576875556355308,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 70,
+        "num_rejected_steps": 0,
+        "num_steps": 70
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.2555291361912822e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1594910814974416e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.5728590757964114e-08
+        }
+      ],
+      "loss": 1.252412264308969,
+      "reference_loss": 1.2524122643105082,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 70,
+        "num_rejected_steps": 0,
+        "num_steps": 70
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.2555291361912822e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1112868115254958e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.5228700390325114e-08
+        }
+      ],
+      "loss": 1.005607739015961,
+      "reference_loss": 1.0056077390172082,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 70,
+        "num_rejected_steps": 0,
+        "num_steps": 70
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 106,
+        "num_rejected_steps": 0,
+        "num_steps": 106
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 5,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.737245793368503e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.3778150790178774e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 7.300604742738328e-08
+        }
+      ],
+      "loss": 1.2763572422885765,
+      "reference_loss": 1.2763572422989586,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 71,
+        "num_rejected_steps": 0,
+        "num_steps": 71
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 6,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.737245793368503e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.224319899030512e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 7.476503800443615e-08
+        }
+      ],
+      "loss": 1.369757032411179,
+      "reference_loss": 1.3697570324223762,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 71,
+        "num_rejected_steps": 0,
+        "num_steps": 71
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 7,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.737245793368503e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.287347984328597e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 7.484292056971106e-08
+        }
+      ],
+      "loss": 1.3623624320921812,
+      "reference_loss": 1.3623624321033199,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 71,
+        "num_rejected_steps": 0,
+        "num_steps": 71
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 31,
+      "experiment": 8,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 8.737245793368503e-09
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.422407321270263e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 7.484292056971106e-08
+        }
+      ],
+      "loss": 1.2493069872004943,
+      "reference_loss": 1.2493069872107245,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 71,
+        "num_rejected_steps": 0,
+        "num_steps": 71
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 108,
+        "num_rejected_steps": 0,
+        "num_steps": 108
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029827e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0003543450337064908
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.9228039202738138e-05
+        }
+      ],
+      "loss": 1970.9817958034328,
+      "reference_loss": 1970.981795936526,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 87,
+        "num_rejected_steps": 0,
+        "num_steps": 87
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029827e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0003545255185607439
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.9228039202738138e-05
+        }
+      ],
+      "loss": 2569.3075663446925,
+      "reference_loss": 2569.307566442934,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 87,
+        "num_rejected_steps": 0,
+        "num_steps": 87
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029827e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0003545255185607439
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.9228039202738138e-05
+        }
+      ],
+      "loss": 2352.852519468514,
+      "reference_loss": 2352.8525195879697,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 87,
+        "num_rejected_steps": 0,
+        "num_steps": 87
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029827e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.00035403433528092626
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 2.9228039202738138e-05
+        }
+      ],
+      "loss": 1918.258663855889,
+      "reference_loss": 1918.2586639646947,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 87,
+        "num_rejected_steps": 0,
+        "num_steps": 87
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 5,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.1361264432851864e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0003573793633766708
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 3.885308327559857e-05
+        }
+      ],
+      "loss": 1949.714345670108,
+      "reference_loss": 1949.714345746415,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 89,
+        "num_rejected_steps": 0,
+        "num_steps": 89
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 6,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.1361264432851864e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0003566821733616503
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 3.885308327559857e-05
+        }
+      ],
+      "loss": 2095.8816067831685,
+      "reference_loss": 2095.8816068752403,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 89,
+        "num_rejected_steps": 0,
+        "num_steps": 89
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 7,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.1361264432851864e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.000356975999392589
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 3.885308327559857e-05
+        }
+      ],
+      "loss": 2082.502280782398,
+      "reference_loss": 2082.502280897153,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 89,
+        "num_rejected_steps": 0,
+        "num_steps": 89
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 11,
+      "experiment": 8,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.1361264432851864e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.00035757065793831357
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 3.885308327559857e-05
+        }
+      ],
+      "loss": 1910.5567144825116,
+      "reference_loss": 1910.5567145986975,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 89,
+        "num_rejected_steps": 0,
+        "num_steps": 89
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029821e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.003275879144910501
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0002702099608244219
+        }
+      ],
+      "loss": 1970.9817945729867,
+      "reference_loss": 1970.9817958034328,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029821e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.003277547706070294
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0002702099608244219
+        }
+      ],
+      "loss": 2569.3075654364447,
+      "reference_loss": 2569.3075663446925,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029821e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.003277547706070294
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0002702099608244219
+        }
+      ],
+      "loss": 2352.852518364143,
+      "reference_loss": 2352.852519468514,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 7.989526612029821e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0032730067746625617
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0002702099608244219
+        }
+      ],
+      "loss": 1918.2586628499769,
+      "reference_loss": 1918.258663855889,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 57,
+        "num_rejected_steps": 0,
+        "num_steps": 57
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 5,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 2.2722528865703727e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0030210581839704145
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0003284391752454368
+        }
+      ],
+      "loss": 1949.7143450250567,
+      "reference_loss": 1949.714345670108,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 39,
+        "num_rejected_steps": 0,
+        "num_steps": 39
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 6,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 2.2722528865703727e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0030151645844365823
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0003284391752454368
+        }
+      ],
+      "loss": 2095.881606004847,
+      "reference_loss": 2095.8816067831685,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 39,
+        "num_rejected_steps": 0,
+        "num_steps": 39
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 7,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 2.2722528865703727e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.003017648402222779
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0003284391752454368
+        }
+      ],
+      "loss": 2082.5022798123277,
+      "reference_loss": 2082.502280782398,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 39,
+        "num_rejected_steps": 0,
+        "num_steps": 39
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 11,
+      "experiment": 8,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 2.2722528865703727e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 0.0030226752661345756
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.0003284391752454368
+        }
+      ],
+      "loss": 1910.556713500348,
+      "reference_loss": 1910.5567144825116,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 39,
+        "num_rejected_steps": 0,
+        "num_steps": 39
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 58,
+        "num_rejected_steps": 0,
+        "num_steps": 58
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.853493314754706e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.429329924216645e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 5.7256729419803884e-05
+        }
+      ],
+      "loss": 608.0208665361105,
+      "reference_loss": 608.0208667572185,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 82,
+        "num_rejected_steps": 0,
+        "num_steps": 82
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 2,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.853493314754706e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.429329924216645e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 5.7256729419803884e-05
+        }
+      ],
+      "loss": 791.9231139386629,
+      "reference_loss": 791.9231141021929,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 82,
+        "num_rejected_steps": 0,
+        "num_steps": 82
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 3,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.853493314754706e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.429329924216645e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 5.7256729419803884e-05
+        }
+      ],
+      "loss": 725.4827343952051,
+      "reference_loss": 725.4827345940315,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 82,
+        "num_rejected_steps": 0,
+        "num_steps": 82
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 4,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.853493314754706e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.429329924216645e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 5.7256729419803884e-05
+        }
+      ],
+      "loss": 591.5690804552381,
+      "reference_loss": 591.5690806362636,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 82,
+        "num_rejected_steps": 0,
+        "num_steps": 82
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 5,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1520855118951356e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.1676642314757594e-05
+        }
+      ],
+      "loss": 3200.146180799102,
+      "reference_loss": 3200.146180867488,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 84,
+        "num_rejected_steps": 0,
+        "num_steps": 84
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 6,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1520855118951356e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.1676642314757594e-05
+        }
+      ],
+      "loss": 3439.926388825534,
+      "reference_loss": 3439.9263889080494,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 84,
+        "num_rejected_steps": 0,
+        "num_steps": 84
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 7,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1520855118951356e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.1676642314757594e-05
+        }
+      ],
+      "loss": 3417.731061054722,
+      "reference_loss": 3417.7310611575645,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 84,
+        "num_rejected_steps": 0,
+        "num_steps": 84
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 8,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.3792026356794712e-10,
+        9.880000000000001e-10,
+        8.791522021219722e-11,
+        2.07e-09,
+        1e-09
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1520855118951356e-08
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 4.1676642314757594e-05
+        }
+      ],
+      "loss": 3135.451755352678,
+      "reference_loss": 3135.4517554567974,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 84,
+        "num_rejected_steps": 0,
+        "num_steps": 84
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.8534933147547064e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1468031160696467e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00012604454111026512
+        }
+      ],
+      "loss": 608.0208660493652,
+      "reference_loss": 608.0208665361105,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 37,
+        "num_rejected_steps": 0,
+        "num_steps": 37
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 2,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.8534933147547064e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1468031160696467e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00012604454111026512
+        }
+      ],
+      "loss": 791.9231135786695,
+      "reference_loss": 791.9231139386629,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 37,
+        "num_rejected_steps": 0,
+        "num_steps": 37
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 3,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.8534933147547064e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1468031160696467e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00012604454111026512
+        }
+      ],
+      "loss": 725.4827339575099,
+      "reference_loss": 725.4827343952051,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 37,
+        "num_rejected_steps": 0,
+        "num_steps": 37
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 4,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 1.8534933147547064e-13
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 3.1468031160696467e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00012604454111026512
+        }
+      ],
+      "loss": 591.5690800567302,
+      "reference_loss": 591.5690804552381,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 37,
+        "num_rejected_steps": 0,
+        "num_steps": 37
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 55,
+        "num_rejected_steps": 0,
+        "num_steps": 55
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 5,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1727852932751081e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00015503821167034757
+        }
+      ],
+      "loss": 3200.146180544704,
+      "reference_loss": 3200.146180799102,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 6,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1727852932751081e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00015503821167034757
+        }
+      ],
+      "loss": 3439.926388518575,
+      "reference_loss": 3439.926388825534,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 7,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1727852932751081e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00015503821167034757
+        }
+      ],
+      "loss": 3417.7310606721467,
+      "reference_loss": 3417.731061054722,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 8,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        1.3792026356794712e-09,
+        9.880000000000001e-09,
+        8.791522021219722e-10,
+        2.07e-08,
+        1e-08
+      ],
+      "observables": [
+        {
+          "name": "Sphinga_obs",
+          "max_normalized_difference": 0.0
+        },
+        {
+          "name": "Cer_obs",
+          "max_normalized_difference": 1.1727852932751081e-07
+        },
+        {
+          "name": "Sphingo_obs",
+          "max_normalized_difference": 0.00015503821167034757
+        }
+      ],
+      "loss": 3135.451754965352,
+      "reference_loss": 3135.451755352678,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 38,
+        "num_rejected_steps": 0,
+        "num_steps": 38
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 56,
+        "num_rejected_steps": 0,
+        "num_steps": 56
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "result": "Predictions and losses agree with ten-times tighter tolerances on all selected probes"
+}

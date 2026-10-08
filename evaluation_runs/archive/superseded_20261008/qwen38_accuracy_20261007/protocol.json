@@ -1,0 +1,27 @@
+{
+  "previous_batch": "evaluation_runs/qwen38_solver_selected_20261007",
+  "framework_commit": "e38a810d9b67fdffc76d16208334e7568137bf61",
+  "excluded": [
+    "sliding_basepoint"
+  ],
+  "model": "qwen3.8:27b",
+  "think": true,
+  "stages": [
+    "new",
+    "check",
+    "jax",
+    "run",
+    "diagnose"
+  ],
+  "fresh_sessions": true,
+  "input_policy": "Unchanged frozen human-written prompts and data; no prior YAML or generated code copied",
+  "solver_policy": "Tsit5 with bounded Kvaerno5 fallback for inadequate coverage, inaccurate or inconclusive forward checks; dynamic max_steps and validated state-scaled tolerances; up to 4 parallel tighter-reference probes; reject automatic DE relaxation if needed",
+  "smoke_budget": {
+    "population_size": 4,
+    "de_iterations": 1,
+    "adam_iterations": 5,
+    "workers": 1
+  },
+  "notes": "Prior initial_time setup retained for Schwen/Borghans. Missing-spec folders remain blocked. No full fits. Hardware and timing captured in manifest/model metadata.",
+  "reason": "User requested full restart with tested parallel forward-accuracy acceptance workflow"
+}

@@ -1,0 +1,53 @@
+{
+  "verdict": "The run is dominated by a loss-function/observable mismatch: the loss compares the raw state Z to the Ca data, while the defined observable is Ca = offset + scale\u00b7Z. Six of nineteen parameters are pinned at their log10 bounds (Kf, Kz, Vd, Vp, offset, scale), the systematic bias (2.576e12) nearly equals the RMSE (2.589e12), and the time correlation is only 0.341. The 5-iteration gradient budget was exhausted with no verified final gradient. No convergence or model adequacy can be assessed until the loss is confirmed to target the intended observable.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "LOSS",
+        "RESIDUAL"
+      ],
+      "action": "Audit _compute_loss_problem: it computes observables['Ca'] = offset + scale\u00b7Z but then minimises mean((solution[:,0] \u2212 dataset[:,0])\u00b2 / max|data|), i.e. it fits the raw state Z to the Ca column. Replace solution[:,0] with observables['Ca'] (or confirm with the user that fitting Z directly was intentional). This is a numerical correction to the objective, not a change to the model equations.",
+      "reason": "The residual analysis reports RMSE = 2.589e12 and bias = 2.576e12 for the Ca channel, and six parameters (offset=100000, scale=100000, Kz=100000, Vd=100000, Kf=0.001, Vp=0.001) are at their log10 bounds. If the loss is fitting Z (\u22480.09) to Ca data while the observable is offset+scale\u00b7Z (\u22481.09e5), the optimizer has no incentive to bring the observable near the data, and it will push offset/scale to their bounds to compensate. The bias\u2248RMSE pattern (2.576e12 vs 2.589e12) is consistent with a constant offset error rather than a dynamic mismatch."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the named plot fit_exp1.png to compare the model Ca trajectory against the data, paying attention to the three time regions (0.03\u20133.01, 3.01\u20136.00, 6.00\u20138.98) where per-region RMSE ranges from 2.499e12 to 2.625e12. Check whether the mismatch is a constant offset, a scale error, or a genuine dynamic failure.",
+      "reason": "The overall time correlation is only 0.341 while lag-1 correlation is 0.996, indicating the data is highly autocorrelated and the model captures very little of the temporal variation. The per-region RMSE values (2.499e12, 2.625e12, 2.625e12) are nearly uniform, suggesting a systematic offset rather than a time-dependent model error. Visual inspection of the named plot will disambiguate these hypotheses."
+    },
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "After confirming the loss targets the correct observable, re-examine whether the six bound-pinned parameters (Kf=0.001 at 0 %, Kz=100000 at 100 %, Vd=100000 at 100 %, Vp=0.001 at 0 %, offset=100000 at 100 %, scale=100000 at 100 %) are physically justified. If the loss correction changes the optimisation landscape, the bounds may no longer be active. Do not widen bounds automatically; any bound revision requires a full refit.",
+      "reason": "Six of nineteen parameters sit exactly at their log10 interval endpoints (range_fraction 0.0 or 1.0). In a well-posed fit this is a strong indicator that the parameter space is either too narrow or the objective is mis-specified. Because the loss-function issue above is the more likely root cause, the bound situation should be re-evaluated only after the loss is corrected."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER_TRACES"
+      ],
+      "action": "Before spending further iterations, run a gradient probe (diagnose --probe-gradients) at the current parameter point to verify that the autodiff gradient is finite and consistent with a finite-difference check at a discriminating step size. The DE trace shows only 1 iteration (loss 26251000 \u2192 26251000, no improvement) and the Adam trace shows 5 iterations (25964000 \u2192 25892000, ~0.3 % improvement).",
+      "reason": "The limitations note states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The DE population (4 members, 1 iteration) produced zero improvement, and the 5-iteration Adam budget was exhausted with only ~72 000 loss reduction out of ~25.9 million. Without a verified gradient, a gradient-only restart is not justified."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL",
+        "BOUND"
+      ],
+      "action": "If the loss is confirmed correct and the bounds are physically justified, the residual magnitude (RMSE \u2248 2.59e12, bias \u2248 2.58e12) and the six bound-pinned parameters together suggest the model structure or the data scaling may be inconsistent. Engage the domain expert to verify: (a) the units and magnitude of the Ca data in dataset_1.csv, (b) whether offset and scale should be trainable or fixed, and (c) whether the Borghans calcium model equations are transcribed correctly. This is a scientific judgement step, not an automated correction.",
+      "reason": "The bias (2.576e12) is 99.5 % of the RMSE (2.589e12), meaning the error is almost entirely a constant offset. The time correlation of 0.341 is low. With offset and scale both at 100000 (upper bound) and Kf, Vp at 0.001 (lower bound), the optimizer appears to be using these parameters as free fudge factors rather than as physically meaningful rate constants. Resolving this requires domain knowledge about the Borghans model and the experimental data."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat DE log (1 iteration, no improvement) and the 5-iteration Adam budget do not establish convergence or the absence of a better optimum.",
+    "The loss function compares solution[:,0] (raw Z) to the Ca data column, while the defined observable is offset + scale\u00b7Z. It is unclear whether this is a transcription bug or an intentional design choice; the diagnosis assumes it is a bug but cannot confirm intent without the user.",
+    "The actual magnitude and units of the Ca data in dataset_1.csv are not provided in the snapshot, so the absolute scale of the residual (2.589e12) cannot be independently sanity-checked against expected calcium concentrations.",
+    "Sloppiness analysis was skipped, so no information about parameter identifiability or weak/negative curvature modes is available.",
+    "The initial conditions (Z=0.0879, Y=0.9993, A\u22481.0) are fixed and were not part of the fit; their correctness relative to the experimental protocol cannot be assessed from the snapshot alone.",
+    "The plot fit_exp1.png is referenced by filename only; no visual inspection was performed."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

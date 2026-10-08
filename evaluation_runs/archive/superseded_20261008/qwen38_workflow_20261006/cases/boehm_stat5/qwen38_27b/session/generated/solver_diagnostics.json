@@ -1,0 +1,1154 @@
+[
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "k_deg": 0.027000000000000003,
+      "k_exp_hetero": 9.999999999999999e-06,
+      "k_exp_homo": 0.0061700000000000045,
+      "k_imp_hetero": 0.0164,
+      "k_imp_homo": 97699.9999999999,
+      "k_phos": 15799.999999999984
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 272,
+      "num_rejected_steps": 276,
+      "num_steps": 548
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.06360929836327442
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736,
+      0.4494090345200725,
+      0.9279110141872207,
+      -0.9757823214826152
+    ],
+    "physical_parameters": {
+      "k_deg": 0.020742101033622333,
+      "k_exp_hetero": 3.405171353076213e-06,
+      "k_exp_homo": 0.0002737082564633342,
+      "k_imp_hetero": 0.12991578358008216,
+      "k_imp_homo": 7009976.984841278,
+      "k_phos": 176.64137797760773
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 126,
+      "num_rejected_steps": 74,
+      "num_steps": 200
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.6315431202237208
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155,
+      -0.12076768678290917,
+      -0.47114306001085515,
+      -0.37349151269699776
+    ],
+    "physical_parameters": {
+      "k_deg": 0.005337726059107084,
+      "k_exp_hetero": 7.238367207508404e-07,
+      "k_exp_homo": 0.1683510145455974,
+      "k_imp_hetero": 0.009403910225602642,
+      "k_imp_homo": 11158.567469339765,
+      "k_phos": 2829.267830491027
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 377,
+      "num_rejected_steps": 340,
+      "num_steps": 717
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.33300389800782115
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116,
+      0.6538855602515945,
+      -0.9629908916452565,
+      -0.800205954268615
+    ],
+    "physical_parameters": {
+      "k_deg": 0.1882250185081619,
+      "k_exp_hetero": 4.947684985930341e-06,
+      "k_exp_homo": 0.016413131253297946,
+      "k_imp_hetero": 0.3331309386819056,
+      "k_imp_homo": 1158.5446617027164,
+      "k_phos": 396.50181386959804
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 118,
+      "num_rejected_steps": 18,
+      "num_steps": 136
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.6450251532201768
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914,
+      -0.020394232483245678,
+      -0.31362903445018697,
+      0.9824080501121641
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0010325951088007955,
+      "k_exp_hetero": 0.00021619632107517414,
+      "k_exp_homo": 0.0010417643640334537,
+      "k_imp_hetero": 0.014929847892159686,
+      "k_imp_homo": 23048.172453992633,
+      "k_phos": 1457045.7456939258
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1537,
+      "num_rejected_steps": 1488,
+      "num_steps": 3025
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.4011381883927968
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425,
+      0.2943138979455724,
+      -0.638107467258542,
+      -0.04667912747966152
+    ],
+    "physical_parameters": {
+      "k_deg": 0.5215858871694447,
+      "k_exp_hetero": 0.0007309106334590274,
+      "k_exp_homo": 0.029146627798391077,
+      "k_imp_hetero": 0.06360212762253506,
+      "k_imp_homo": 5172.251440118102,
+      "k_phos": 12743.796623286056
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 509,
+      "num_rejected_steps": 413,
+      "num_steps": 922
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.5403131833251489
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811,
+      0.8330010853869663,
+      -0.2195970530562552,
+      -0.4951118205353463
+    ],
+    "physical_parameters": {
+      "k_deg": 1.9572372689318425,
+      "k_exp_hetero": 2.3697304027300452e-07,
+      "k_exp_homo": 0.002332857407871959,
+      "k_imp_hetero": 0.7600567474193537,
+      "k_imp_homo": 35538.61164481833,
+      "k_phos": 1615.9705652714292
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 98,
+      "num_rejected_steps": 33,
+      "num_steps": 131
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.6492502721772822
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143,
+      0.9202600057057075,
+      -0.11863280896677741,
+      0.33381941873775545
+    ],
+    "physical_parameters": {
+      "k_deg": 1.3349268687573759,
+      "k_exp_hetero": 1.3741314425239525e-05,
+      "k_exp_homo": 0.01021995969681916,
+      "k_imp_hetero": 1.1359621459096982,
+      "k_imp_homo": 56575.570991461216,
+      "k_phos": 73501.45299831162
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 387,
+      "num_rejected_steps": 310,
+      "num_steps": 697
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.6403473444066219
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031,
+      -0.36675988462633724,
+      0.4601261112696464,
+      -0.5889849809789515
+    ],
+    "physical_parameters": {
+      "k_deg": 0.014966521705126835,
+      "k_exp_hetero": 7.202424321918374e-05,
+      "k_exp_homo": 6.872903630555649e-05,
+      "k_imp_hetero": 0.003029173011387045,
+      "k_imp_homo": 813105.2894348087,
+      "k_phos": 1048.7865882060182
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 137,
+      "num_rejected_steps": 138,
+      "num_steps": 275
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.3548357171287497
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006,
+      0.530967048322714,
+      0.40799261219367833,
+      0.8105943225913617
+    ],
+    "physical_parameters": {
+      "k_deg": 0.06577443264665786,
+      "k_exp_hetero": 1.14049152890594e-06,
+      "k_exp_homo": 0.01840972207252541,
+      "k_imp_hetero": 0.1891376308321895,
+      "k_imp_homo": 639557.7825912815,
+      "k_phos": 660458.8015402878
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1142,
+      "num_rejected_steps": 1307,
+      "num_steps": 2449
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.37550361047618974
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051,
+      0.10407773887259508,
+      0.14861372252453742,
+      0.45282427316518015
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0007085947782891635,
+      "k_exp_hetero": 1.909941601148334e-06,
+      "k_exp_homo": 0.06348632506030714,
+      "k_imp_hetero": 0.026484960270273056,
+      "k_imp_homo": 193696.60501779366,
+      "k_phos": 127146.85821785626
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 630,
+      "num_rejected_steps": 629,
+      "num_steps": 1259
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.39880407481991353
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517,
+      -0.2959125895786422,
+      -0.9143762446495061,
+      -0.3059703286205031
+    ],
+    "physical_parameters": {
+      "k_deg": 0.04230911694084027,
+      "k_exp_hetero": 2.873192394003509e-07,
+      "k_exp_homo": 0.0070486772230745395,
+      "k_imp_hetero": 0.004197770284360382,
+      "k_imp_homo": 1449.245880042266,
+      "k_phos": 3861.1478312177296
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 258,
+      "num_rejected_steps": 187,
+      "num_steps": 445
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.20662169755858142
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115,
+      -0.4966428014195301,
+      -0.6953517849724804,
+      -0.6651072126780854
+    ],
+    "physical_parameters": {
+      "k_deg": 0.010105945318752774,
+      "k_exp_hetero": 2.9847640128658482e-05,
+      "k_exp_homo": 0.0001783858299932247,
+      "k_imp_hetero": 0.0016655521875875094,
+      "k_imp_homo": 3973.6626455251153,
+      "k_phos": 738.6567342559773
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 140,
+      "num_rejected_steps": 132,
+      "num_steps": 272
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.39093050061131557
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103,
+      -0.6853102344097075,
+      0.8624047346820876,
+      -0.015081469250777801
+    ],
+    "physical_parameters": {
+      "k_deg": 0.09381475194618577,
+      "k_exp_hetero": 0.00012072960863566607,
+      "k_exp_homo": 0.00012366005371132162,
+      "k_imp_hetero": 0.0006985916320680439,
+      "k_imp_homo": 5184466.028484902,
+      "k_phos": 14739.886807805438
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 203,
+      "num_rejected_steps": 213,
+      "num_steps": 416
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.25096899720100474
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752,
+      -0.4501094094854724,
+      -0.23271304785865876,
+      0.7765238737018951
+    ],
+    "physical_parameters": {
+      "k_deg": 0.2660666479771201,
+      "k_exp_hetero": 1.2099946381607415e-07,
+      "k_exp_homo": 0.0005352373419763543,
+      "k_imp_hetero": 0.002063597671118501,
+      "k_imp_homo": 33455.57265162154,
+      "k_phos": 564553.1492303367
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1285,
+      "num_rejected_steps": 1286,
+      "num_steps": 2571
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.3608501960089002
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937,
+      0.60746035065166,
+      -0.0863540434227742,
+      0.40311816534825295
+    ],
+    "physical_parameters": {
+      "k_deg": 0.00030133242647644614,
+      "k_exp_hetero": 5.23203004137775e-07,
+      "k_exp_homo": 0.056472712293792915,
+      "k_imp_hetero": 0.26900759968531723,
+      "k_imp_homo": 65642.70617090732,
+      "k_phos": 101133.12280212723
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 608,
+      "num_rejected_steps": 558,
+      "num_steps": 1166
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.48506997646452116
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459,
+      -0.09376437174491048,
+      0.03398079677976029,
+      0.6707475310167212
+    ],
+    "physical_parameters": {
+      "k_deg": 0.6119054362166183,
+      "k_exp_hetero": 8.949094118629596e-07,
+      "k_exp_homo": 0.28876224984518667,
+      "k_imp_hetero": 0.010649153927395415,
+      "k_imp_homo": 114249.98646145522,
+      "k_phos": 346858.3461316918
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 840,
+      "num_rejected_steps": 806,
+      "num_steps": 1646
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.16652055714923394
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867,
+      -0.6754652365205418,
+      0.009729512478853453,
+      0.55649945274414
+    ],
+    "physical_parameters": {
+      "k_deg": 0.43175849436873465,
+      "k_exp_hetero": 5.790337890550804e-05,
+      "k_exp_homo": 0.0016110547257698997,
+      "k_imp_hetero": 0.0007309932639879064,
+      "k_imp_homo": 102177.10384477922,
+      "k_phos": 204953.80828892067
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 642,
+      "num_rejected_steps": 680,
+      "num_steps": 1322
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.2833594729164988
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082,
+      -0.6115989952673453,
+      -0.5345370146616927,
+      0.23769485244299982
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0030447545682652515,
+      "k_exp_hetero": 9.255197800646757e-06,
+      "k_exp_homo": 0.2191165522905608,
+      "k_imp_hetero": 0.0009809477096413776,
+      "k_imp_homo": 8333.367496916188,
+      "k_phos": 47211.39051115123
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 918,
+      "num_rejected_steps": 859,
+      "num_steps": 1777
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.38406598185697516
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883,
+      -0.7901439562611319,
+      0.5202393370494884,
+      0.729002385250848
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0023394755630407526,
+      "k_exp_hetero": 3.319247599899893e-07,
+      "k_exp_homo": 0.004613005999032206,
+      "k_imp_hetero": 0.0004310780756938748,
+      "k_imp_homo": 1072440.5774296825,
+      "k_phos": 453588.3143670665
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 794,
+      "num_rejected_steps": 948,
+      "num_steps": 1742
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.41021032623564013
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519,
+      0.37087546923928927,
+      0.996439001923022,
+      0.5254530079369983
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0004720492021135919,
+      "k_exp_hetero": 2.0258574295379835e-05,
+      "k_exp_homo": 0.598322802178435,
+      "k_imp_hetero": 0.09048879116322492,
+      "k_imp_homo": 9611088.306630097,
+      "k_phos": 177649.13730795545
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 399,
+      "num_rejected_steps": 317,
+      "num_steps": 716
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.626746897213378
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648,
+      0.1733873118939333,
+      0.18576255640339134,
+      -0.17929207794774338
+    ],
+    "physical_parameters": {
+      "k_deg": 0.02707865533508065,
+      "k_exp_hetero": 0.000853728988043136,
+      "k_exp_homo": 0.003660542690089682,
+      "k_imp_hetero": 0.036443365090593684,
+      "k_imp_homo": 229836.85829243655,
+      "k_phos": 6919.471598280475
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 243,
+      "num_rejected_steps": 242,
+      "num_steps": 485
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.26740041955749383
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657,
+      0.9720681173151868,
+      0.5646951322828584,
+      -0.6776276667721732
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0020647478461754266,
+      "k_exp_hetero": 2.296070331942036e-06,
+      "k_exp_homo": 0.0007897073474666338,
+      "k_imp_hetero": 1.4420492157154539,
+      "k_imp_homo": 1316087.693956717,
+      "k_phos": 697.2712415480639
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 271,
+      "num_rejected_steps": 189,
+      "num_steps": 460
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.6486449426330515
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026,
+      0.22832166716342228,
+      -0.3899025774218149,
+      -0.10069806718123353
+    ],
+    "physical_parameters": {
+      "k_deg": 0.03788122753180396,
+      "k_exp_hetero": 1.4811591212902292e-07,
+      "k_exp_homo": 0.0004164187357486087,
+      "k_imp_hetero": 0.04693395821776844,
+      "k_imp_homo": 16221.440162772891,
+      "k_phos": 9937.12956952736
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 286,
+      "num_rejected_steps": 253,
+      "num_steps": 539
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.3110976637525524
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135,
+      -0.1877169117525902,
+      -0.764048779788985,
+      -0.23593386665538163
+    ],
+    "physical_parameters": {
+      "k_deg": 0.12815079530203125,
+      "k_exp_hetero": 0.0003809045133763524,
+      "k_exp_homo": 0.009292142377026639,
+      "k_imp_hetero": 0.006908917782799918,
+      "k_imp_homo": 2895.989641607036,
+      "k_phos": 5330.762741693615
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 247,
+      "num_rejected_steps": 177,
+      "num_steps": 424
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.2751540068151428
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091,
+      0.752645880841756,
+      -0.8644452278803446,
+      -0.8208312381256011
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0012255497310869644,
+      "k_exp_hetero": 0.0004131944076331034,
+      "k_exp_homo": 0.3848896920391262,
+      "k_imp_hetero": 0.5249713585126076,
+      "k_imp_homo": 1823.912954490325,
+      "k_phos": 360.5741685156485
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 272,
+      "num_rejected_steps": 221,
+      "num_steps": 493
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.6195707320503694
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256,
+      -0.8917500833182381,
+      0.2503603073226157,
+      -0.9099987603092621
+    ],
+    "physical_parameters": {
+      "k_deg": 2.3558981726081996,
+      "k_exp_hetero": 0.0002528498007952389,
+      "k_exp_homo": 0.0415937747091909,
+      "k_imp_hetero": 0.00026998751488505155,
+      "k_imp_homo": 309467.59393958276,
+      "k_phos": 239.14404251921204
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 64,
+      "num_rejected_steps": 0,
+      "num_steps": 64
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.6453365647683543
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509,
+      0.6787790551254123,
+      -0.6042760523329985,
+      0.9123373619748267
+    ],
+    "physical_parameters": {
+      "k_deg": 0.9566514412518548,
+      "k_exp_hetero": 3.5670012685734822e-06,
+      "k_exp_homo": 8.475862820234692e-05,
+      "k_imp_hetero": 0.37359577685402007,
+      "k_imp_homo": 6044.250555150115,
+      "k_phos": 1055192.7798812874
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 1584,
+      "num_rejected_steps": 1506,
+      "num_steps": 3090
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.614267122760487
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751,
+      0.05229485142278678,
+      0.7201578207493067,
+      0.1731900414481664
+    ],
+    "physical_parameters": {
+      "k_deg": 0.0006336641942128839,
+      "k_exp_hetero": 6.642149683140887e-06,
+      "k_exp_homo": 0.08760780991076401,
+      "k_imp_hetero": 0.020865728439901195,
+      "k_imp_homo": 2692837.8635467407,
+      "k_phos": 35078.18949481827
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 353,
+      "num_rejected_steps": 309,
+      "num_steps": 662
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.3753527487188079
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751,
+      -0.9394618524603475,
+      0.6664872601460119,
+      0.1457738364697294
+    ],
+    "physical_parameters": {
+      "k_deg": 0.15404794202184216,
+      "k_exp_hetero": 2.8013925274290273e-05,
+      "k_exp_homo": 0.001890924431107241,
+      "k_imp_hetero": 0.00021673055500039004,
+      "k_imp_homo": 2103144.3614178025,
+      "k_phos": 30917.527795041242
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 234,
+      "num_rejected_steps": 253,
+      "num_steps": 487
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.2275612337177081
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064,
+      -0.8362324916208229,
+      0.3146357278328247,
+      -0.4349876990633298
+    ],
+    "physical_parameters": {
+      "k_deg": 0.004675619138787986,
+      "k_exp_hetero": 4.62932331817285e-05,
+      "k_exp_homo": 0.0002686061171609854,
+      "k_imp_hetero": 0.0003486413261067894,
+      "k_imp_homo": 416069.6325998557,
+      "k_phos": 2131.482095074025
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 160,
+      "num_rejected_steps": 152,
+      "num_steps": 312
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.3481016384978314
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "data.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747,
+      -0.23796210304859666,
+      0.7659176743725431,
+      0.0787932395893367
+    ],
+    "physical_parameters": {
+      "k_deg": 0.007217120825010058,
+      "k_exp_hetero": 0.00014191503834668138,
+      "k_exp_homo": 0.11180947679233216,
+      "k_imp_hetero": 0.005481755259353844,
+      "k_imp_homo": 3324527.367888671,
+      "k_phos": 22711.382211942557
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 406,
+      "num_rejected_steps": 381,
+      "num_steps": 787
+    },
+    "time_start": 0.0,
+    "time_end": 240.0,
+    "requested_rows": 16,
+    "finite_rows": 16,
+    "loss": 0.3574583977074597
+  }
+]

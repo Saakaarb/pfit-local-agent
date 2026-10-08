@@ -1,0 +1,318 @@
+{
+  "case": "test_session",
+  "model_metadata": {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ],
+    "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+    "size_bytes": 17741872154,
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.23996137641370296,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ],
+    "gguf_parameter_count": 27320697856,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "55ff4d2fa0468255d7ca20d3e2b573bb75719e15",
+    "warmup_seconds": 99.07829207368195,
+    "warmup_thinking": false,
+    "warmup_response": {
+      "model": "qwen3.8:27b",
+      "created_at": "2026-10-06T06:19:20.876320496Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 99077000065,
+      "load_duration": 65407184081,
+      "prompt_eval_count": 16,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 26812974000,
+      "eval_count": 2,
+      "eval_duration": 6849295000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen3.8:27b",
+          "model": "qwen3.8:27b",
+          "size": 17536059964,
+          "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen35",
+            "families": [
+              "qwen35"
+            ],
+            "parameter_size": "27.3B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-16T06:06:37.731650766Z",
+          "size_vram": 17536059964,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H100 80GB HBM3, 81559 MiB, 19667 MiB"
+  },
+  "input_audit": {
+    "name": "test_session",
+    "source": "sessions/test_session",
+    "adaptations": [],
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "robertson_data.csv"
+    ],
+    "prompt_sha256": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9",
+    "original_prompt_sha256": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9",
+    "prompt_audit": "Existing prose/math specification retained verbatim; no framework schema required.",
+    "duplicate_of": "robertson_session",
+    "input_hashes": {
+      "robertson_data.csv": "df408a5e1dc16948637ea6ee7ae131817d200e0089fdba0ad226da38f4076a9f",
+      "user_info.txt": "20c493a211f5721d41a636912a0bb85f2c4c85c0133783b94588c5dc68fc7eb9"
+    },
+    "cohort": "original",
+    "source_benchmark": "evaluation_runs/model_comparison_20261003",
+    "sloppiness": true
+  },
+  "status": "pass",
+  "started_utc": "2026-10-06T07:32:36Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-06T07:32:37Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/test_session/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 36195,
+      "exit_code": 0,
+      "seconds": 52.046,
+      "finished_utc": "2026-10-06T07:33:29Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "check": {
+      "started_utc": "2026-10-06T07:33:29Z",
+      "command": [
+        "check",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/test_session/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 36212,
+      "exit_code": 0,
+      "seconds": 45.049,
+      "finished_utc": "2026-10-06T07:34:14Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "jax": {
+      "started_utc": "2026-10-06T07:34:14Z",
+      "command": [
+        "jax",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/test_session/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 36229,
+      "exit_code": 0,
+      "seconds": 18.954,
+      "finished_utc": "2026-10-06T07:34:33Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "run": {
+      "started_utc": "2026-10-06T07:34:33Z",
+      "command": [
+        "run",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/test_session/qwen38_27b/session"
+      ],
+      "pid": 36740,
+      "exit_code": 0,
+      "seconds": 18.705,
+      "finished_utc": "2026-10-06T07:34:51Z",
+      "status": "pass",
+      "timed_out": false
+    },
+    "diagnose": {
+      "started_utc": "2026-10-06T07:34:51Z",
+      "command": [
+        "diagnose",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/test_session/qwen38_27b/session",
+        "run_20261006_073433_748713",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1"
+      ],
+      "pid": 37439,
+      "exit_code": 0,
+      "seconds": 48.766,
+      "finished_utc": "2026-10-06T07:35:40Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": true
+  },
+  "pre_run_configuration": {},
+  "smoke_budget_override": {
+    "population": {
+      "population_size": 4,
+      "num_iters": 1,
+      "processors": 1,
+      "algorithm": "DE",
+      "random_seed": 7
+    },
+    "gradient": {
+      "gradient_optimizer": "adam",
+      "num_iters": 5,
+      "stepsize_rtol": [
+        "1e-7",
+        "1e-7",
+        "1e-7"
+      ],
+      "stepsize_atol": [
+        "1e-9",
+        "1e-9",
+        "1e-9"
+      ],
+      "initial_timestep": "1e-6",
+      "max_steps": 10000,
+      "solver_recovery_max_steps": 50000,
+      "solver_recovery_timeout_seconds": 120,
+      "solver_validation_samples": 32,
+      "solver_validation_max_samples": 128,
+      "solver_validation_success_fraction": 0.25,
+      "solver_validation_seed": 7,
+      "solver_recovery_stagnation_patience": 2,
+      "integrator": "Kvaerno5",
+      "init_value_lr": "1e-4",
+      "end_value_lr": "1e-5",
+      "transition_steps_lr": 2000,
+      "decay_rate_lr": 0.9
+    }
+  },
+  "run_id": "run_20261006_073433_748713",
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.3792470441267664,
+    "final_loss": 0.3790781962437233,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.3790781962437233
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "output_count": 1,
+  "diagnosis_status": "ok",
+  "finished_utc": "2026-10-06T07:35:40Z",
+  "total_wall_seconds": 183.656,
+  "repair_calls": 0,
+  "logged_successful_llm_calls": 9,
+  "llm_calls": 10,
+  "llm_wall_seconds": 148.72821426950395,
+  "prompt_tokens": 24668,
+  "generated_tokens": 9477,
+  "token_counts_incomplete": false
+}

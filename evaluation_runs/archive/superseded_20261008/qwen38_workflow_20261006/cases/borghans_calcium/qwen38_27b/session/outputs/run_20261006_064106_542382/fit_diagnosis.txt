@@ -1,0 +1,55 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/borghans_calcium/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261006_064106_542382
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 2.2534E-01, best loss 2.2534E-01, final loss 2.2534E-01
+- NODE: 2 iterations, first loss 2.2349E-01, best loss 2.2303E-01, final loss 2.2303E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: calcium.csv; loss=0.22303129514821163; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- offset=85960 is at 99.18% of its log10 search interval.
+- [BOUND] offset=85960 is at 99.18% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Ca: RMSE=91333.1, bias=91333.1, time correlation=0.08843406046280794, lag-1=0.668548928344917.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261006_064106_542382/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/borghans_calcium/qwen38_27b/session/outputs/run_20261006_064106_542382/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The loss function compares the raw state Z (solution[:, 0]) directly to the Ca data, bypassing the defined observable Ca = offset + scale·Z. This makes offset and scale structurally irrelevant to the fit, explaining the offset pinned at 99.18 % of its range. The residual pattern (bias ≈ RMSE ≈ 91 333, time-correlation 0.088) indicates the model produces a near-constant output that captures essentially no temporal structure. The 5-iteration gradient budget is a secondary concern; the primary issue is the loss-to-observable disconnect.
+1. Verify whether the loss should compare the observable (offset + scale·Z) to the Ca data rather than Z alone. In the current _compute_loss_problem, solution[:, 0] (Z) is subtracted from dataset[:, 0] (Ca), so offset and scale never enter the loss. If the intent is to fit the observable, replace solution[:, 0] with the observable expression and re-run a full fit (changed loss → full fitting required). [RESIDUAL, BOUND] RMSE = 91 333.1 with bias = 91 333.1 (identical to 11 significant figures) and time-correlation = 0.088 show the model output is essentially a constant far from the data. The offset sits at 99.18 % of its log10 range (value 85 960, range 0.001–100 000) precisely because it is unconstrained by the loss. Fixing the loss to use the observable would couple offset and scale to the data and remove the spurious boundary pressure.
+2. Inspect the trajectory plot fit_exp1.png to confirm whether the model Ca trace is flat or shows any transient, and compare its magnitude and timing against the data trace. Check the input timing (t_eval), initial conditions (Z₀=0.088, Y₀=0.999, A₀≈1.0), and whether the Ca data column is in the same units as the model output. [RESIDUAL] All three time regions show nearly identical RMSE (91 333.03–91 333.09), confirming a flat, time-invariant mismatch. Lag-1 correlation of 0.669 is the only non-trivial temporal statistic and may reflect a slow drift in the data rather than model dynamics. Visual inspection of the named plot is the fastest way to distinguish a unit/scale mismatch from a genuine model-structure failure.
+3. Do not widen the offset bound or spend additional gradient iterations until the loss-to-observable question is resolved. If the loss is corrected to use the observable, run a full fit (DE + gradient) with the existing bounds; if the loss is confirmed correct as written, remove offset and scale from the trainable set (they are dead parameters) and re-fit. [BOUND, BUDGET] The offset at 99.18 % of range (evidence BOUND) is a symptom of the structural disconnect, not a bound that is too narrow. The gradient phase used all 5 iterations (evidence BUDGET) with only a 0.0023 loss reduction (0.22534 → 0.22303), and no verified final-point gradient is available. Additional iterations on the current loss will not resolve the flat-output problem.
+4. If the loss is confirmed correct and the model still produces a flat trace, diagnose the ODE system: check whether the parameter values (e.g., K_par=8 588, Vd=5 279, v0=3 027) drive Z to a quasi-steady state where dZ/dt ≈ 0 over the entire time window. A targeted single-parameter perturbation of v0 or K_par with a short integration can reveal whether Z is genuinely static or whether the solver is failing to resolve a transient. [BUDGET, RESIDUAL] The bias-equals-RMSE pattern (both 91 333.06) is the mathematical signature of a constant prediction. With 19 trainable parameters all in the 0.001–100 000 log range and only 5 gradient iterations, the optimizer may not have explored regions where Z varies. This is a model-dynamics question, not an optimizer question.
+Limitation: No verified final-point gradient is available; the flat optimizer log (loss 0.22534 → 0.22303 over 5 iterations) does not establish convergence or a local optimum.
+Limitation: Sloppiness analysis was skipped, so parameter identifiability and weak/negative curvature modes are unknown.
+Limitation: The DE phase ran only 1 iteration with population size 4, so the initial point for gradient refinement is a single random draw, not a well-explored basin.
+Limitation: The evidence cannot distinguish whether the flat output is caused by the loss-to-observable disconnect, by the ODE dynamics producing a quasi-steady Z, by incorrect initial conditions, or by a unit mismatch between the model and the data.
+Limitation: No noise level, measurement uncertainty, or stiffness diagnostic is available in the snapshot; these cannot be inferred from the recorded numbers.

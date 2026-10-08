@@ -1,0 +1,99 @@
+{
+  "parameters": [
+    {
+      "name": "K2",
+      "value": 0.0355814841926118,
+      "logscale": true
+    },
+    {
+      "name": "K_par",
+      "value": 4.410178290831844,
+      "logscale": true
+    },
+    {
+      "name": "Ka",
+      "value": 44306.71239728175,
+      "logscale": true
+    },
+    {
+      "name": "Kd",
+      "value": 0.26953638321405754,
+      "logscale": true
+    },
+    {
+      "name": "Kf",
+      "value": 0.001,
+      "logscale": true
+    },
+    {
+      "name": "Kp",
+      "value": 3126.2941939131742,
+      "logscale": true
+    },
+    {
+      "name": "Ky",
+      "value": 0.10173455367383713,
+      "logscale": true
+    },
+    {
+      "name": "Kz",
+      "value": 100000.0,
+      "logscale": true
+    },
+    {
+      "name": "Vd",
+      "value": 100000.0,
+      "logscale": true
+    },
+    {
+      "name": "Vm2",
+      "value": 0.4447054830391272,
+      "logscale": true
+    },
+    {
+      "name": "Vm3",
+      "value": 689.7477864808897,
+      "logscale": true
+    },
+    {
+      "name": "Vp",
+      "value": 0.001,
+      "logscale": true
+    },
+    {
+      "name": "beta_par",
+      "value": 21954.877513783067,
+      "logscale": true
+    },
+    {
+      "name": "epsilon_par",
+      "value": 567.6956219228007,
+      "logscale": true
+    },
+    {
+      "name": "n_par",
+      "value": 7.174825937720756,
+      "logscale": true
+    },
+    {
+      "name": "v0",
+      "value": 5.425345047525841,
+      "logscale": true
+    },
+    {
+      "name": "v1",
+      "value": 5273.042555497055,
+      "logscale": true
+    },
+    {
+      "name": "offset",
+      "value": 100000.0,
+      "logscale": true
+    },
+    {
+      "name": "scale",
+      "value": 100000.0,
+      "logscale": true
+    }
+  ]
+}

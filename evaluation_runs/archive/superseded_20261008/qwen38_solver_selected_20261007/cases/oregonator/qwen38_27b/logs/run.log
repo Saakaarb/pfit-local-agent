@@ -1,0 +1,27 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/oregonator/qwen38_27b/session/outputs/run_20261007_035502_375775
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/oregonator/qwen38_27b/session/outputs/run_20261007_035502_375775
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06], atol: [7.78383715217e-09, 3.2727315626862186e-09, 6.797071606673347e-09]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 1.5033E+01
+Time for iteration: 0.0759
+-------
+Final best position (scaled): [-0.34991686  0.73396748  0.27674868  0.3062698 ]
+Final best cost: 1.5033E+01
+Done with DE search
+Best Position from DE: [7.98410567e-03 1.17488388e-02 2.86145776e-03 4.09769476e+00]
+Best cost from DE: 15.032682784082303
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [7.78383715217e-10, 3.2727315626862187e-10, 6.797071606673347e-10]
+Trainable_params: [-0.34991686  0.73396748  0.27674868  0.3062698 ]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 15.032682802141059 15.032682802141059
+Iteration:,loss value, best loss: 4 15.031864498286325 15.031864498286325
+Iteration time: 7.8332459926605225
+Final best position: [8.00251026e-03 1.17759248e-02 2.86805377e-03 4.08827035e+00]
+Final loss: 15.031659494415713
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/oregonator/qwen38_27b/session/outputs/run_20261007_035502_375775

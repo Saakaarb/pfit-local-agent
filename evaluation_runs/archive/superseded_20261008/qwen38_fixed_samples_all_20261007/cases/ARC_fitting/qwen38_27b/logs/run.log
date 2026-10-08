@@ -1,0 +1,50 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_061900_296725
+Launching driver script
+ERROR:2026-10-07 06:19:06,466:jax._src.xla_bridge:444: Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 197, in _version_check
+    version = get_version()
+              ^^^^^^^^^^^^^
+RuntimeError: jaxlib/cuda/versions_helpers.cc:81: operation cusparseGetProperty(MAJOR_VERSION, &major) failed: The cuSPARSE library was not found.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax/_src/xla_bridge.py", line 442, in discover_pjrt_plugins
+    plugin_module.initialize()
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 324, in initialize
+    _check_cuda_versions(raise_on_first_error=True)
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 262, in _check_cuda_versions
+    _version_check("cuSPARSE", cuda_versions.cusparse_get_version,
+  File "/workspace/pfit-local-agent/.venv/lib/python3.12/site-packages/jax_plugins/xla_cuda12/__init__.py", line 201, in _version_check
+    raise RuntimeError(err_msg) from e
+RuntimeError: Unable to load cuSPARSE. Is it installed?
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_061900_296725
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06], atol: [1e-08, 4.000000505294719e-10, 3.540258860836423e-06]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 1.0003E+04
+Time for iteration: 3.5805
+-------
+Final best position (scaled): [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313 -0.40379893
+  0.07723054  0.37088547]
+Final best cost: 1.0003E+04
+Done with DE search
+Best Position from DE: [2.50540107e-19 5.41960302e+02 7.11809445e+18 1.26850831e+19
+ 3.15427089e-19 3.94639972e+01 3.15446108e+00 3.74177095e+00]
+Best cost from DE: 10002.748483247406
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07], atol: [1e-09, 4.0000005052947185e-11, 3.540258860836423e-07]
+Trainable_params: [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313 -0.40379893
+  0.07723054  0.37088547]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 10002.748483246389 10002.748483246389
+Iteration:,loss value, best loss: 4 10002.743096563438 10002.743096563438
+Iteration time: 22.503705739974976
+Final best position: [2.50581878e-19 5.41336799e+02 7.05147131e+18 1.25620276e+19
+ 3.15481255e-19 3.94185955e+01 3.15545834e+00 3.74177098e+00]
+Final loss: 10002.741751944795
+Computing post-fit sloppiness
+Sloppiness: skipped or failed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_061900_296725

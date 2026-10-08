@@ -1,0 +1,79 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 192,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1014-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 192
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "1118442a77032f720a6f9454a339f858fa1f58a4fa78af6b6d5763e86e76c5e9",
+      "generated_script": "49371e2ee34ae8b8a12fd04ac356481ea4c5321020bd0f1ea593dd539c4bf38d",
+      "user_model": "1dde6c5f3b551df3413f44a6de5174fe2c89f8c0f309e7edafd7b475f6828094"
+    },
+    "git": {
+      "commit": "a4ab5c3ac6f2e160e79742c030fcf3ccb304e5bc",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "theophylline_sub6.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "b2ad2bd44a0026ab2828b5691724596683f3a36fffc2a603f7640ae1fc098b51",
+      "initial_conditions": {
+        "A_gut": 320.0,
+        "A_plasma": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

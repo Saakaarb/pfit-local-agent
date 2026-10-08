@@ -1,0 +1,85 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 192,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1014-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 192
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "1102bc4285336bc82145678dbca849d5fd7eb9779e85893287200ad4930cb6b8",
+      "generated_script": "0b3d3aab8af4aa5f900fd382f0fa92b8f88ee50578929f0e3240b86aa7262875",
+      "user_model": "af47f5db7c3a60551eae61d5db408a85146588e1cd591d7ee651730d56896da0"
+    },
+    "git": {
+      "commit": "4a3ac0eaaef6fa3eb179e9db90a2cf47b9d0ea1e",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "data.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "bdd9bbf2945201192eef0c745ea74e37c176854670d8500d1623a4a61eb2ef13",
+      "initial_conditions": {
+        "A": 143.8668,
+        "B": 63.7332,
+        "ApB": 0.0,
+        "ApA": 0.0,
+        "BpB": 0.0,
+        "nApA": 0.0,
+        "nApB": 0.0,
+        "nBpB": 0.0
+      },
+      "output_file": "result_solution.csv"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+The user_info.txt explicitly states: 'X(0) = 0.778383715217', 'Y(0) = 0.267086592467', 'Z(0) = 0.208522420421'. These three declarations cover all integrated states (X, Y, Z). The frozen experiment initial_conditions confirm the same values: X=0.778383715217, Y=0.267086592467, Z=0.208522420421. No group defaults or per-experiment overrides are needed beyond these explicit values.
+Oregonator Field-Noyes model in Tyson dimensionless scaling. Three states (X, Y, Z), four trainable parameters (eps1, eps2, q, f). No intermediate rates needed; RHS expressions are direct. No forcing inputs.
+X and Z are directly observed integrated states. X_sd and Z_sd are measurement standard deviations used in the loss and are excluded from observables.
+User explicitly defines sigma-weighted residuals (divide by X_sd / Z_sd) and takes sqrt(mean(squared residuals)), i.e. a sigma-weighted RMSE. Closest supported metric is sigma_weighted_mse; the sqrt wrapper is a minor constant-factor difference that does not change the optimum.
+Applied pooled RMSE from the original user loss specification; the final square root follows averaging across observation channels.
+Original user context indicates a stiff model.

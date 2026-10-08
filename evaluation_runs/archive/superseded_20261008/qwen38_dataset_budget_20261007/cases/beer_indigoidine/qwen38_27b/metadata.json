@@ -1,0 +1,165 @@
+{
+  "case": "beer_indigoidine",
+  "model_metadata": {
+    "key": "qwen38_27b",
+    "model": "qwen3.8:27b",
+    "label": "Qwen3.8 27B (thinking)",
+    "architecture": "dense; hybrid attention; vision-language capable, text-only benchmark",
+    "nominal_total_parameters_billion": 27.3,
+    "nominal_active_parameters_billion": 27.3,
+    "quantization": "Q4_K_M",
+    "thinking_model": true,
+    "thinking_mode": "Explicit think=true; default reasoning effort; shared 12000 generation-token budget includes thinking",
+    "request_options": {
+      "think": true
+    },
+    "expected_download_bytes": 18000000000,
+    "sources": [
+      "https://ollama.com/library/qwen3.8:27b"
+    ],
+    "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+    "size_bytes": 17741872154,
+    "details": {
+      "parent_model": "qwen3.8:27b-q4_K_M",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 262144,
+      "embedding_length": 5120
+    },
+    "installed_at_batch_start": true,
+    "preparation_seconds": 0.25075733102858067,
+    "ollama_version": {
+      "version": "0.34.4"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ],
+    "gguf_parameter_count": 27320697856,
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "framework_commit": "f13a3753fd6371e0f3175fe64b47241a04eace28",
+    "warmup_seconds": 0.7255069650709629,
+    "warmup_thinking": false,
+    "warmup_response": {
+      "model": "qwen3.8:27b",
+      "created_at": "2026-10-07T05:03:25.020269836Z",
+      "message": {
+        "role": "assistant",
+        "content": "OK"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 723377317,
+      "load_duration": 30751969,
+      "prompt_eval_count": 16,
+      "prompt_eval_cached_count": 12,
+      "prompt_eval_duration": 214643000,
+      "eval_count": 2,
+      "eval_duration": 33586000
+    },
+    "loaded_model": {
+      "models": [
+        {
+          "name": "qwen3.8:27b",
+          "model": "qwen3.8:27b",
+          "size": 17536059964,
+          "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen35",
+            "families": [
+              "qwen35"
+            ],
+            "parameter_size": "27.3B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2319-01-17T04:50:41.875318745Z",
+          "size_vram": 17536059964,
+          "context_length": 32768
+        }
+      ]
+    },
+    "gpu_after_load": "name, memory.total [MiB], memory.used [MiB]\nNVIDIA H200, 143771 MiB, 19727 MiB"
+  },
+  "input_audit": {
+    "name": "beer_indigoidine",
+    "status": "ready",
+    "expected_experiments": 1,
+    "expected_data_files": [
+      "culture.csv"
+    ],
+    "sloppiness": false,
+    "pre_run_configuration": {},
+    "input_hashes": {
+      "culture.csv": "2e3985ae2c40c15da266c788a7377c74a8f818e402999bc8d125251487679d71",
+      "user_info.txt": "027c2ab0103c7a2bed84c66496902243ecf2da3420ce0861d670bf713b27ccad"
+    },
+    "cohort": "external",
+    "source_benchmark": "evaluation_runs/external_comparison_20261004"
+  },
+  "status": "interrupted",
+  "started_utc": "2026-10-07T05:17:14Z",
+  "stages": {
+    "new": {
+      "started_utc": "2026-10-07T05:17:14Z",
+      "command": [
+        "new",
+        "/workspace/pfit-local-agent/evaluation_runs/qwen38_dataset_budget_20261007/cases/beer_indigoidine/qwen38_27b/session",
+        "--model",
+        "qwen3.8:27b",
+        "--base-url",
+        "http://127.0.0.1:11434",
+        "--timeout-seconds",
+        "600",
+        "--max-tokens",
+        "12000",
+        "--temperature",
+        "0.1",
+        "--max-repair-attempts",
+        "5"
+      ],
+      "pid": 135010,
+      "exit_code": 0,
+      "seconds": 80.5,
+      "finished_utc": "2026-10-07T05:18:34Z",
+      "status": "pass",
+      "timed_out": false
+    }
+  },
+  "settings": {
+    "options": {
+      "seed": 7,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "num_predict": 12000,
+      "top_k": 40,
+      "top_p": 0.9
+    },
+    "max_repair_attempts": 5,
+    "request_timeout_seconds": 600,
+    "gradient_iterations": 5,
+    "population_size": 4,
+    "population_iterations": 1,
+    "gradient_optimizer": "adam",
+    "numerical_backend": "cpu",
+    "jax_x64": true,
+    "sloppiness": false
+  },
+  "finished_utc": "2026-10-07T05:18:59Z",
+  "interruption_reason": "Stopped at user request"
+}

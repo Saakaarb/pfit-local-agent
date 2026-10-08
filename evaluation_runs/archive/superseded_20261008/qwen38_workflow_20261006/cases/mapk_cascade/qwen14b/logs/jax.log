@@ -1,0 +1,5 @@
+validate_session: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/mapk_cascade/qwen14b/session
+render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/mapk_cascade/qwen14b/session/generated/generated_script.py
+validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/mapk_cascade/qwen14b/session/generated/generated_script.py
+tolerance_calibration: passed: Selected 10x looser DE tolerances at the validated step ceiling
+smoke_test_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/mapk_cascade/qwen14b/session/generated/generated_script.py

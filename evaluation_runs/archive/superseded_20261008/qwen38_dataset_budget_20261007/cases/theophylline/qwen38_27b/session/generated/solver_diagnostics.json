@@ -1,0 +1,1090 @@
+[
+  {
+    "sample": 0,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_parameters": {
+      "ka": 1.0,
+      "ke": 0.1,
+      "Vd": 27.386127875258307
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 82,
+      "num_rejected_steps": 0,
+      "num_steps": 82
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      241.1661424763699
+    ],
+    "loss": 0.3020542201507918
+  },
+  {
+    "sample": 1,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.057255509401739846,
+      -0.23393051444196755,
+      -0.6764986329235736
+    ],
+    "physical_parameters": {
+      "ka": 0.8764850051245797,
+      "ke": 0.05835384608640816,
+      "Vd": 8.667530467956754
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 80,
+      "num_rejected_steps": 0,
+      "num_steps": 80
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      257.5692197742763
+    ],
+    "loss": 2.7122637941122107
+  },
+  {
+    "sample": 2,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.3520037414218462,
+      -0.5701796943007449,
+      0.7179652869591155
+    ],
+    "physical_parameters": {
+      "ka": 0.4446274370129522,
+      "ke": 0.02690421381030935,
+      "Vd": 92.8520559567927
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 59,
+      "num_rejected_steps": 0,
+      "num_steps": 59
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      263.92404386918685
+    ],
+    "loss": 0.38253322588265903
+  },
+  {
+    "sample": 3,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.4216567921789418,
+      -0.15279897962527056,
+      0.21245313923213116
+    ],
+    "physical_parameters": {
+      "ka": 2.640321378503718,
+      "ke": 0.07033978238472409,
+      "Vd": 39.30430809897281
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 88,
+      "num_rejected_steps": 0,
+      "num_steps": 88
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      285.4477808665933
+    ],
+    "loss": 0.23064649554749447
+  },
+  {
+    "sample": 4,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7087168503050729,
+      0.667424149733842,
+      -0.38625783336630914
+    ],
+    "physical_parameters": {
+      "ka": 0.19556140541762923,
+      "ke": 0.46496916142382405,
+      "Vd": 14.198936075208858
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 42,
+      "num_rejected_steps": 0,
+      "num_steps": 42
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      68.5919334561402
+    ],
+    "loss": 0.19008833819940502
+  },
+  {
+    "sample": 5,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6429810338919542,
+      0.9319321400738696,
+      0.337151575519425
+    ],
+    "physical_parameters": {
+      "ka": 4.3952242060093525,
+      "ke": 0.854933116365852,
+      "Vd": 48.588949630989745
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 134,
+      "num_rejected_steps": 0,
+      "num_steps": 134
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      202.52205785934817
+    ],
+    "loss": 0.5353989813142387
+  },
+  {
+    "sample": 6,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9301398563350227,
+      -0.8126505297938111,
+      -0.2111984849872811
+    ],
+    "physical_parameters": {
+      "ka": 8.514121752694042,
+      "ke": 0.015393928682211195,
+      "Vd": 19.122635463818845
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 86,
+      "num_rejected_steps": 0,
+      "num_steps": 86
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      315.1843515972729
+    ],
+    "loss": 1.6679672425786356
+  },
+  {
+    "sample": 7,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.8470468551284522,
+      0.06901413857156635,
+      0.1095820095479143
+    ],
+    "physical_parameters": {
+      "ka": 7.031481769862083,
+      "ke": 0.11722335272990414,
+      "Vd": 32.996174326330525
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 95,
+      "num_rejected_steps": 0,
+      "num_steps": 95
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      291.40369328271754
+    ],
+    "loss": 0.4444654193241098
+  },
+  {
+    "sample": 8,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.1281214421548701,
+      0.42873935185554357,
+      -0.9765724548032031
+    ],
+    "physical_parameters": {
+      "ka": 0.7445237529511072,
+      "ke": 0.26837332806965697,
+      "Vd": 5.203225725693086
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 79,
+      "num_rejected_steps": 0,
+      "num_steps": 79
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      168.3434805464529
+    ],
+    "loss": 2.461637956829821
+  },
+  {
+    "sample": 9,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.1933466732511937,
+      -0.47145396806655915,
+      0.23738103403659006
+    ],
+    "physical_parameters": {
+      "ka": 1.5607979042862548,
+      "ke": 0.03377116416272823,
+      "Vd": 41.006331391946276
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 85,
+      "num_rejected_steps": 0,
+      "num_steps": 85
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      290.16476345401065
+    ],
+    "loss": 0.27516688374118714
+  },
+  {
+    "sample": 10,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.7904829082563012,
+      -0.35948995582293386,
+      0.5061975122008051
+    ],
+    "physical_parameters": {
+      "ka": 0.16200077483687167,
+      "ke": 0.043702878636862494,
+      "Vd": 64.77213074918855
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 28,
+      "num_rejected_steps": 0,
+      "num_steps": 28
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      195.50664941665434
+    ],
+    "loss": 0.4368207472316333
+  },
+  {
+    "sample": 11,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.09753509842209729,
+      -0.7708176459569507,
+      0.028911229768439517
+    ],
+    "physical_parameters": {
+      "ka": 1.2518004358292227,
+      "ke": 0.016950493780428667,
+      "Vd": 28.76625511464616
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 84,
+      "num_rejected_steps": 0,
+      "num_steps": 84
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      299.51948057599674
+    ],
+    "loss": 0.7259894005795974
+  },
+  {
+    "sample": 12,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.21339341006546386,
+      0.2374549998999298,
+      -0.7694624053154115
+    ],
+    "physical_parameters": {
+      "ka": 0.6117959390719405,
+      "ke": 0.1727646958399155,
+      "Vd": 7.400072845454847
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 72,
+      "num_rejected_steps": 0,
+      "num_steps": 72
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      187.8395635671835
+    ],
+    "loss": 1.884485879853581
+  },
+  {
+    "sample": 13,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.27045368521818336,
+      0.5409068963997723,
+      -0.8490278666180103
+    ],
+    "physical_parameters": {
+      "ka": 1.864033380186987,
+      "ke": 0.34746166498718395,
+      "Vd": 6.463564364329325
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 102,
+      "num_rejected_steps": 0,
+      "num_steps": 102
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      202.8810249167875
+    ],
+    "loss": 2.2949799916320157
+  },
+  {
+    "sample": 14,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.49681333703141894,
+      -0.9586082770824206,
+      -0.5308693793671752
+    ],
+    "physical_parameters": {
+      "ka": 3.139159170135992,
+      "ke": 0.010999975627976371,
+      "Vd": 11.103283015067944
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 86,
+      "num_rejected_steps": 0,
+      "num_steps": 86
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      311.1201529831835
+    ],
+    "loss": 3.175169426287329
+  },
+  {
+    "sample": 15,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.9761589477030834,
+      -0.6406648855178187,
+      0.48077674133596937
+    ],
+    "physical_parameters": {
+      "ka": 0.1056430794698279,
+      "ke": 0.022873631197030675,
+      "Vd": 62.031660018091564
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 21,
+      "num_rejected_steps": 0,
+      "num_steps": 21
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      199.87726989863103
+    ],
+    "loss": 0.47969699183504644
+  },
+  {
+    "sample": 16,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6776602736807791,
+      -0.5241104621851664,
+      0.8351276264288459
+    ],
+    "physical_parameters": {
+      "ka": 4.760584449867389,
+      "ke": 0.02991503655125562,
+      "Vd": 113.32429224452457
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 87,
+      "num_rejected_steps": 0,
+      "num_steps": 87
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      306.40658492116603
+    ],
+    "loss": 0.3256510952107393
+  },
+  {
+    "sample": 17,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.6019385632130159,
+      0.3813519536875567,
+      -0.29158743542705867
+    ],
+    "physical_parameters": {
+      "ka": 3.998881762066762,
+      "ke": 0.24063120933392657,
+      "Vd": 16.67921598144035
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 103,
+      "num_rejected_steps": 0,
+      "num_steps": 103
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      258.7026965271994
+    ],
+    "loss": 0.9504084000342545
+  },
+  {
+    "sample": 18,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.47390573670571357,
+      -0.016807147568913217,
+      0.775195010910082
+    ],
+    "physical_parameters": {
+      "ka": 0.33581049375135347,
+      "ke": 0.09620393859217385,
+      "Vd": 102.34323610139243
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 48,
+      "num_rejected_steps": 0,
+      "num_steps": 48
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      189.76534275001617
+    ],
+    "loss": 0.45886832606266226
+  },
+  {
+    "sample": 19,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5311226255120138,
+      -0.7394801750521781,
+      -0.06315057232088883
+    ],
+    "physical_parameters": {
+      "ka": 0.2943590376998529,
+      "ke": 0.018218802375293205,
+      "Vd": 24.59745107299557
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 42,
+      "num_rejected_steps": 0,
+      "num_steps": 42
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      264.85199193291817
+    ],
+    "loss": 0.7544152811548084
+  },
+  {
+    "sample": 20,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8786882481302691,
+      0.1533044392328562,
+      0.9933251950784519
+    ],
+    "physical_parameters": {
+      "ka": 0.1322244447217869,
+      "ke": 0.14233261852217796,
+      "Vd": 148.30695253240228
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 28,
+      "num_rejected_steps": 0,
+      "num_steps": 28
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      111.69533253748946
+    ],
+    "loss": 0.5684432140424363
+  },
+  {
+    "sample": 21,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.0006316651528015527,
+      0.9656600139880063,
+      -0.11336984398612648
+    ],
+    "physical_parameters": {
+      "ka": 1.001455521008568,
+      "ke": 0.9239745602791973,
+      "Vd": 22.583961698730647
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 96,
+      "num_rejected_steps": 0,
+      "num_steps": 96
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      114.09879552419862
+    ],
+    "loss": 0.42221217377410386
+  },
+  {
+    "sample": 22,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.5582483712022019,
+      -0.31950740650233966,
+      -0.44640949265465657
+    ],
+    "physical_parameters": {
+      "ka": 0.2765359695427373,
+      "ke": 0.04791732809685904,
+      "Vd": 12.818291887129407
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 41,
+      "num_rejected_steps": 0,
+      "num_steps": 41
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      219.7578667544542
+    ],
+    "loss": 1.342605615915662
+  },
+  {
+    "sample": 23,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.07353013980274348,
+      -0.9146991413045016,
+      -0.5853774513654026
+    ],
+    "physical_parameters": {
+      "ka": 1.1844865668735338,
+      "ke": 0.012170288087347108,
+      "Vd": 10.120311821958742
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 83,
+      "num_rejected_steps": 0,
+      "num_steps": 83
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      304.11579543658786
+    ],
+    "loss": 3.183757362568753
+  },
+  {
+    "sample": 24,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.3381787707975392,
+      0.7904080593454792,
+      0.08891534576892135
+    ],
+    "physical_parameters": {
+      "ka": 2.1786063783820797,
+      "ke": 0.6171746214616673,
+      "Vd": 31.856642750748886
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 119,
+      "num_rejected_steps": 0,
+      "num_steps": 119
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      184.52889699169313
+    ],
+    "loss": 0.4473770902890783
+  },
+  {
+    "sample": 25,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.6715164125765777,
+      0.8080772174710813,
+      0.8975255580585091
+    ],
+    "physical_parameters": {
+      "ka": 0.2130510051161427,
+      "ke": 0.6428019972223977,
+      "Vd": 126.01077161266548
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 46,
+      "num_rejected_steps": 0,
+      "num_steps": 46
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      59.03805064317825
+    ],
+    "loss": 0.5914244515423246
+  },
+  {
+    "sample": 26,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.9703963755726768,
+      0.7014313079074326,
+      0.414371585559256
+    ],
+    "physical_parameters": {
+      "ka": 9.341064600696098,
+      "ke": 0.5028417253920352,
+      "Vd": 55.40757843120884
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 132,
+      "num_rejected_steps": 0,
+      "num_steps": 132
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      259.6321165867357
+    ],
+    "loss": 0.5037095331130474
+  },
+  {
+    "sample": 27,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.7746949829871195,
+      -0.2238483681042508,
+      -0.9310506224437509
+    ],
+    "physical_parameters": {
+      "ka": 5.952439404242583,
+      "ke": 0.05972437750678932,
+      "Vd": 5.622031827106508
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 89,
+      "num_rejected_steps": 0,
+      "num_steps": 89
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      301.72207859218076
+    ],
+    "loss": 5.66032314935462
+  },
+  {
+    "sample": 28,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.8147522982778787,
+      -0.08884567082548334,
+      0.5761288298000751
+    ],
+    "physical_parameters": {
+      "ka": 0.15319609730703584,
+      "ke": 0.0814993845568228,
+      "Vd": 72.95191583838007
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 28,
+      "num_rejected_steps": 0,
+      "num_steps": 28
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      154.2554244334068
+    ],
+    "loss": 0.46905559189953927
+  },
+  {
+    "sample": 29,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      0.37814606832349407,
+      0.22368698292886235,
+      -0.256805495491751
+    ],
+    "physical_parameters": {
+      "ka": 2.3886145218813146,
+      "ke": 0.1673736098502098,
+      "Vd": 17.695555632364897
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 93,
+      "num_rejected_steps": 0,
+      "num_steps": 93
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      252.04228801908275
+    ],
+    "loss": 0.8273006828916895
+  },
+  {
+    "sample": 30,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.38076231824469586,
+      0.3327587567766783,
+      -0.6805846325431064
+    ],
+    "physical_parameters": {
+      "ka": 0.4161382933765768,
+      "ke": 0.21515862330320043,
+      "Vd": 8.60751163676324
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 57,
+      "num_rejected_steps": 0,
+      "num_steps": 57
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      150.39867640393064
+    ],
+    "loss": 1.1300119787131473
+  },
+  {
+    "sample": 31,
+    "experiment": 1,
+    "filename": "theophylline_sub6.csv",
+    "solver": "Kvaerno5",
+    "max_steps": 10000,
+    "normalized_parameters": [
+      -0.28649989404222553,
+      0.5760142094444827,
+      0.6290967255912747
+    ],
+    "physical_parameters": {
+      "ka": 0.5170113841074185,
+      "ke": 0.3767161243518538,
+      "Vd": 79.82826751254436
+    },
+    "code": "successful",
+    "result": "diffrax._solution.RESULTS<>",
+    "stats": {
+      "max_steps": 10000,
+      "num_accepted_steps": 68,
+      "num_rejected_steps": 0,
+      "num_steps": 68
+    },
+    "time_start": 0.0,
+    "time_end": 23.85,
+    "requested_rows": 11,
+    "finite_rows": 11,
+    "state_scale": [
+      320.0,
+      128.54985085852263
+    ],
+    "loss": 0.49381750943345026
+  }
+]

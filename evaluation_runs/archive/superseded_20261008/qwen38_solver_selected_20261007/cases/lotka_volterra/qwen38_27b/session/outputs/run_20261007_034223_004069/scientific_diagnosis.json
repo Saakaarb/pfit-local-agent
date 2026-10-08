@@ -1,0 +1,199 @@
+{
+  "status": "ok",
+  "run": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_034223_004069",
+  "sources": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_034223_004069/snapshot",
+  "findings": [
+    {
+      "id": "STATIONARITY",
+      "priority": 3,
+      "evidence": "Normalized gradient infinity norm is 0.201868; stationarity is not established.",
+      "next_step": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, H: RMSE=33.854, bias=-20.1302, time correlation=0.510190737871919, lag-1=0.7342570124789007.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, L: RMSE=25.1349, bias=-18.501, time correlation=0.008951099680305585, lag-1=0.6731910539483417.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 33.85401002312024,
+          "mae": 27.85527231942487,
+          "bias": -20.130219222215437,
+          "max_abs": 74.27993546518844,
+          "time_correlation": 0.510190737871919,
+          "lag1_correlation": 0.7342570124789007,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 42.51429516860594
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 13.333333333333334,
+              "count": 7,
+              "rmse": 34.1855671165974
+            },
+            {
+              "start": 13.333333333333334,
+              "end": 20.0,
+              "count": 7,
+              "rmse": 21.497992724201985
+            }
+          ],
+          "name": "H",
+          "observes": "H"
+        },
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 25.13491168768743,
+          "mae": 18.500970308294704,
+          "bias": -18.500970308294704,
+          "max_abs": 57.881071941105525,
+          "time_correlation": 0.008951099680305585,
+          "lag1_correlation": 0.6731910539483417,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 30.352819964374266
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 13.333333333333334,
+              "count": 7,
+              "rmse": 11.671364587075068
+            },
+            {
+              "start": 13.333333333333334,
+              "end": 20.0,
+              "count": 7,
+              "rmse": 28.944376405951324
+            }
+          ],
+          "name": "L",
+          "observes": "L"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "alpha",
+      "value": 0.2649806610819278,
+      "range_fraction": 0.3252916386716239,
+      "logscale": true
+    },
+    {
+      "name": "beta",
+      "value": 0.21841795101101227,
+      "range_fraction": 0.8667337261595744,
+      "logscale": true
+    },
+    {
+      "name": "delta",
+      "value": 0.052756789177998545,
+      "range_fraction": 0.6381243042304539,
+      "logscale": true
+    },
+    {
+      "name": "gamma",
+      "value": 0.7080654666794863,
+      "range_fraction": 0.6533849462355694,
+      "logscale": true
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.4306203166314395,
+    "final_loss": 0.43032742224525095,
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.43032742224525095
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 5,
+    "gradient_iterations_evaluated": 5,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_034223_004069/de_fitting.log",
+      "rows": 1,
+      "first": 0.43062,
+      "final": 0.43062,
+      "best": 0.43062,
+      "last_material_improvement_iteration": 1,
+      "last_iteration": 1,
+      "tail": [
+        [
+          1,
+          0.43062
+        ]
+      ]
+    },
+    {
+      "file": "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/lotka_volterra/qwen38_27b/session/outputs/run_20261007_034223_004069/NODE_fitting.log",
+      "rows": 2,
+      "first": 0.43039,
+      "final": 0.43033,
+      "best": 0.43033,
+      "last_material_improvement_iteration": 5,
+      "last_iteration": 5,
+      "tail": [
+        [
+          4,
+          0.43039
+        ],
+        [
+          5,
+          0.43033
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.43032742224525095,
+  "experiment_losses": [
+    0.43032742224525095
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 0,
+    "negative_modes": 3
+  },
+  "normalized_gradient_inf_norm": 0.20186804976088799,
+  "gradient_to_loss_ratio": 0.46910338343680996,
+  "verdict": "Normalized gradient infinity norm is 0.201868; stationarity is not established."
+}

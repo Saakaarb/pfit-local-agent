@@ -1,0 +1,8 @@
+Preparing qwen3.8:27b
+qwen38_27b/theophylline: new
+qwen38_27b/theophylline: check
+qwen38_27b/theophylline: jax
+qwen38_27b/theophylline: run
+qwen38_27b/theophylline: diagnose
+qwen38_27b/theophylline: pass (222.131s)
+qwen38_27b/ARC_fitting: new

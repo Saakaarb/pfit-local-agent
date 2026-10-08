@@ -1,0 +1,21 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session"}
+{"step": "solver_selection", "status": "selected", "message": "Tsit5: Resolved observed time scales have less than 100-fold separation"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: coverage_below_target: 9/64 parameter samples complete all experiments with valid loss; require 10/64.; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=2000, samples=64; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: accuracy_inconclusive: Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=4000, samples=64; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: accuracy_inconclusive: Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=8000, samples=64; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: accuracy_inconclusive: Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=16000, samples=64; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}
+{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: accuracy_inconclusive: Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>; steps={}"}
+{"step": "solver_recovery", "status": "attempted", "message": "max_steps=32000, samples=64; scientific fragments and tolerances unchanged"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}
+{"step": "tolerance_calibration", "status": "passed", "message": "Applied validated state-scale and/or DE tolerances at the fixed step ceiling"}
+{"step": "smoke_test_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/cascaded_tanks/qwen38_27b/session/generated/generated_script.py"}

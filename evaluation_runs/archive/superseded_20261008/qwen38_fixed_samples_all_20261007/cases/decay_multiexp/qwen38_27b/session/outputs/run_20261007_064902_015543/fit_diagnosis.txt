@@ -1,0 +1,69 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/decay_multiexp/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_064902_015543
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.1667E-01, best loss 3.1667E-01, final loss 3.1667E-01
+- NODE: 2 iterations, first loss 3.1643E-01, best loss 3.1637E-01, final loss 3.1637E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 2
+Aggregation: equal_experiment_mean
+- Experiment 1: decay_run_A.csv; loss=0.31674469526044624; output=result_solution_exp1.csv
+- Experiment 2: decay_run_B.csv; loss=0.31599827546284054; output=result_solution_exp2.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_064902_015543/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.364027; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.364027; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, A: RMSE=0.140259, bias=0.105804, time correlation=-0.7503154339697232, lag-1=0.863195415239812.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, B: RMSE=0.251908, bias=-0.220325, time correlation=0.5996110696632414, lag-1=0.8734981340280501.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, A: RMSE=0.280517, bias=0.211607, time correlation=-0.7503153833855856, lag-1=0.8631953916636823.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 2, B: RMSE=0.637775, bias=-0.553038, time correlation=0.6303752400526503, lag-1=0.8661812968217851.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_064902_015543/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_064902_015543/fit_exp2.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/decay_multiexp/qwen38_27b/session/outputs/run_20261007_064902_015543/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The optimizer exhausted its 5-iteration Adam budget with the loss barely moving (0.31667 → 0.31637, Δ≈0.0003), the normalized gradient remains at 0.364 (not stationary), and the Hessian shows one negative mode. The DE phase ran only 1 iteration with population 4, so the combined search was minimal. Residuals in both channels of both experiments show systematic bias (A overpredicted, B underpredicted) with RMSEs of 0.14–0.64, indicating the parameters are not yet well-fitted. The negative Hessian mode and flat loss trajectory suggest the optimizer may be near a saddle point or in a poorly conditioned region, but gradient correctness has not been verified.
+1. Run diagnose --probe-gradients to verify that the autodiff (or finite-difference) gradients are consistent with the loss before spending further optimization budget. Compare a finite-difference gradient at a perturbed step (e.g., 1e-5 and 1e-7) against the reported gradient to rule out a numerical gradient error that would explain the flat loss and negative Hessian mode. [STATIONARITY, BUDGET] The normalized gradient inf-norm is 0.364 (STATIONARITY) yet the loss moved only 0.0003 over 5 Adam steps (BUDGET, optimizer_traces). A negative Hessian mode (SLOPPINESS) combined with a non-stationary gradient is consistent with either a true saddle point or a gradient/Hessian computation error. Verifying gradient correctness is the cheapest discriminating test before any further optimization.
+2. Inspect the trajectory plots fit_exp1.png and fit_exp2.png to visually confirm the residual structure: channel A shows positive bias (+0.106, +0.212) with RMSE decreasing over time (0.218→0.023, 0.436→0.045), and channel B shows negative bias (−0.220, −0.553) with RMSE also decreasing (0.331→0.108, 0.859→0.258). Check whether the data timing, initial conditions (A=1.0/B=0.0 for exp 1; A=2.0/B=0.5 for exp 2), and the two-exponential decay shape are consistent with the model equations dA/dt=−k1·A, dB/dt=k1·A−k2·B. [RESIDUAL] The systematic sign of the bias (A overpredicted, B underpredicted) in both experiments is consistent with k1 being too small (slow A→B transfer), but the negative time-correlation for A (−0.750) and positive for B (+0.600, +0.630) could also indicate a structural mismatch or a data-timing issue. Visual inspection of the named plots is the fastest way to distinguish parameter misfit from model/data inconsistency before changing anything.
+3. If gradient checks pass and the model/bounds remain valid, run a full re-fit (not a gradient-only restart) with a larger DE population (e.g., 20–40) and more DE iterations (e.g., 5–10), followed by a larger Adam budget (e.g., 50–100 iterations). The current search (1 DE iteration, pop=4; 5 Adam steps) is too small to navigate a two-parameter landscape that shows a negative Hessian mode. [BUDGET, OPTIMIZER] The DE phase ran only 1 iteration with population 4 (OPTIMIZER: population_size=4, num_iters=1), and the Adam phase used the full 5-iteration budget with a loss change of only 0.0003 (BUDGET: termination=iteration_budget). The parameters k1=0.467 (range_fraction 0.557) and k2=1.250 (range_fraction 0.699) are interior, so the issue is search coverage, not boundary constraint. A gradient-only restart from this point would inherit the same local geometry; a broader population search is more appropriate.
+4. After a broader re-fit converges, re-evaluate the Hessian. If a negative mode persists at a stationary point, the loss surface is genuinely non-convex (saddle or local maximum) and the fit should be re-initialised from a different seed or a wider parameter range. If the negative mode disappears, it was a transient artefact of the non-stationary point. [SLOPPINESS] SLOPPINESS reports 1 negative mode and 0 weak modes at the current non-stationary point (gradient norm 0.364). A negative Hessian eigenvalue at a non-stationary point is expected in a saddle region and does not by itself indicate a numerical error, but it must be re-checked at a true stationary point to confirm the loss is locally convex.
+Limitation: The negative Hessian mode (SLOPPINESS) cannot be distinguished from a finite-difference artefact without an explicit gradient/Hessian verification step; the current evidence is consistent with both a true saddle point and a numerical issue.
+Limitation: With only two parameters and a non-convex loss surface, the current point cannot be assessed for global optimality; the flat loss trajectory (Δ=0.0003 over 5 steps) is local evidence of slow progress, not proof of a global minimum or of parameter identifiability.
+Limitation: No noise level or measurement uncertainty is specified in the snapshot, so the RMSE values (0.14–0.64) cannot be interpreted as statistically significant misfit versus acceptable scatter.
+Limitation: The residual bias pattern (A overpredicted, B underpredicted) is consistent with k1 being too small, but it is also consistent with a structural model mismatch (e.g., missing compartments, time-varying rates) or a data-timing/calibration error; the evidence cannot distinguish these causes without additional data or model variants.
+Limitation: The DE phase used a single iteration with population 4 and random_seed 7; the result is seed-dependent and a single run cannot establish whether the landscape is multi-modal.

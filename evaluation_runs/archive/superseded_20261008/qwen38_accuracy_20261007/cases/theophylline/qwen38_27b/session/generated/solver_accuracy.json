@@ -1,0 +1,285 @@
+{
+  "code": "accuracy_passed",
+  "integrator": "Tsit5",
+  "max_steps": 10000,
+  "sample_count": 32,
+  "probe_samples": [
+    4,
+    6,
+    26,
+    2
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 4,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        3.2e-07,
+        2.304619489617076e-07
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 1.462389079154352e-05
+        }
+      ],
+      "loss": 0.19008875780342174,
+      "reference_loss": 0.19008875844228532,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 46,
+        "num_rejected_steps": 0,
+        "num_steps": 46
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 68,
+        "num_rejected_steps": 0,
+        "num_steps": 68
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 4,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        3.2e-06,
+        2.304619489617076e-06
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 0.00024986715225129775
+        }
+      ],
+      "loss": 0.1900887193708374,
+      "reference_loss": 0.19008875780342174,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 32,
+        "num_rejected_steps": 0,
+        "num_steps": 32
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 46,
+        "num_rejected_steps": 0,
+        "num_steps": 46
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 6,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        3.2e-07,
+        2.304619489617076e-07
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 1.8804578158538412e-06
+        }
+      ],
+      "loss": 1.6679673310807563,
+      "reference_loss": 1.667967330748777,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 114,
+        "num_rejected_steps": 14,
+        "num_steps": 128
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 145,
+        "num_rejected_steps": 14,
+        "num_steps": 159
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 6,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        3.2e-06,
+        2.304619489617076e-06
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 1.831785920438814e-05
+        }
+      ],
+      "loss": 1.6679673264257315,
+      "reference_loss": 1.6679673310807563,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 94,
+        "num_rejected_steps": 14,
+        "num_steps": 108
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 114,
+        "num_rejected_steps": 14,
+        "num_steps": 128
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 26,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        3.2e-07,
+        2.304619489617076e-07
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 0.00041985398897321027
+        }
+      ],
+      "loss": 0.5037094279596477,
+      "reference_loss": 0.5037094278590422,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 119,
+        "num_rejected_steps": 9,
+        "num_steps": 128
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 159,
+        "num_rejected_steps": 0,
+        "num_steps": 159
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 26,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        3.2e-06,
+        2.304619489617076e-06
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 0.001549665602155539
+        }
+      ],
+      "loss": 0.5037094251658699,
+      "reference_loss": 0.5037094279596477,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 100,
+        "num_rejected_steps": 16,
+        "num_steps": 116
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 119,
+        "num_rejected_steps": 9,
+        "num_steps": 128
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 2,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        3.2e-07,
+        2.304619489617076e-07
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 3.859634632699044e-06
+        }
+      ],
+      "loss": 0.3825334974780739,
+      "reference_loss": 0.3825334975839361,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 53,
+        "num_rejected_steps": 0,
+        "num_steps": 53
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 79,
+        "num_rejected_steps": 0,
+        "num_steps": 79
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 2,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        3.2e-06,
+        2.304619489617076e-06
+      ],
+      "observables": [
+        {
+          "name": "C_plasma",
+          "max_normalized_difference": 0.00022115500012644422
+        }
+      ],
+      "loss": 0.38253348812082755,
+      "reference_loss": 0.3825334974780739,
+      "stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 37,
+        "num_rejected_steps": 0,
+        "num_steps": 37
+      },
+      "reference_stats": {
+        "max_steps": 10000,
+        "num_accepted_steps": 53,
+        "num_rejected_steps": 0,
+        "num_steps": 53
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "result": "Predictions and losses agree with ten-times tighter tolerances on all selected probes"
+}

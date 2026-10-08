@@ -1,0 +1,33 @@
+Fit the Oregonator Field-Noyes model of the Belousov-Zhabotinsky reaction in Tyson's dimensionless scaling to data.csv.
+
+Dataset columns:
+- time
+- X, observed HBrO2
+- Z, observed oxidized catalyst
+- X_sd, measurement standard deviation for X
+- Z_sd, measurement standard deviation for Z
+
+Integrated states and initial values:
+- X(0) = 0.778383715217
+- Y(0) = 0.267086592467
+- Z(0) = 0.208522420421
+
+Trainable parameters, all log scale:
+- eps1 in [4.0e-04, 4.0e+00]
+- eps2 in [4.0e-06, 4.0e-02]
+- q in [8.0e-06, 8.0e-02]
+- f in [1.0e-02, 1.0e+02]
+
+ODE system:
+- dX/dt = (q * Y - X * Y + X * (1 - X)) / eps1
+- dY/dt = (-q * Y - X * Y + f * Z) / eps2
+- dZ/dt = X - Z
+
+Only X and Z are observed. Y is an unobserved state.
+
+Loss:
+- Compare simulated X and Z to measured X and Z.
+- Use the provided measurement standard deviations: residual_X = (X_sim - X_obs) / X_sd and residual_Z = (Z_sim - Z_obs) / Z_sd.
+- loss = sqrt(mean(residual_X^2 and residual_Z^2)).
+
+This model can be stiff. Use differential evolution for the population stage and Kvaerno5 for gradient integration if the generated configuration supports choosing an integrator.

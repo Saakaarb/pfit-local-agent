@@ -1,0 +1,59 @@
+Fit the Boehm et al. STAT5A/STAT5B phosphorylation, dimerisation, nuclear import, and export model to data.csv.
+
+Dataset columns:
+- time in minutes
+- pSTAT5A in percent, observed derived observable pSTAT5A
+- pSTAT5B in percent, observed derived observable pSTAT5B
+- rSTAT5A in percent, observed derived observable rSTAT5A
+
+Integrated states and initial values:
+- A(0) = 143.8668
+- B(0) = 63.7332
+- ApB(0) = 0.0
+- ApA(0) = 0.0
+- BpB(0) = 0.0
+- nApA(0) = 0.0
+- nApB(0) = 0.0
+- nBpB(0) = 0.0
+
+Trainable parameters, all log scale:
+- k_deg in [2.7e-04, 2.7e+00]
+- k_exp_hetero in [1.0e-07, 1.0e-03]
+- k_exp_homo in [6.17e-05, 6.17e-01]
+- k_imp_hetero in [1.64e-04, 1.64e+00]
+- k_imp_homo in [9.77e+02, 9.77e+06]
+- k_phos in [1.58e+02, 1.58e+06]
+
+Fixed parameters:
+- specC17 = 0.107
+- Epo0 = 1.25e-07
+- cyt = 1.4
+- nuc = 0.45
+
+Define:
+- Epo(t) = Epo0 * exp(-k_deg * t)
+- phos_AA = k_phos * Epo * A * A
+- phos_AB = k_phos * Epo * A * B
+- phos_BB = k_phos * Epo * B * B
+
+ODE system:
+- dA/dt = -2 * phos_AA - phos_AB + (nuc / cyt) * (2 * k_exp_homo * nApA + k_exp_hetero * nApB)
+- dB/dt = -2 * phos_BB - phos_AB + (nuc / cyt) * (2 * k_exp_homo * nBpB + k_exp_hetero * nApB)
+- dApB/dt = phos_AB - k_imp_hetero * ApB
+- dApA/dt = phos_AA - k_imp_homo * ApA
+- dBpB/dt = phos_BB - k_imp_homo * BpB
+- dnApA/dt = (cyt / nuc) * k_imp_homo * ApA - k_exp_homo * nApA
+- dnApB/dt = (cyt / nuc) * k_imp_hetero * ApB - k_exp_hetero * nApB
+- dnBpB/dt = (cyt / nuc) * k_imp_homo * BpB - k_exp_homo * nBpB
+
+Derived observables with s = specC17:
+- pSTAT5A = (100 * ApB + 200 * ApA * s) / (ApB + A * s + 2 * ApA * s)
+- pSTAT5B = -(100 * ApB - 200 * BpB * (s - 1)) / ((B * (s - 1) - ApB) + 2 * BpB * (s - 1))
+- rSTAT5A = (100 * ApB + 100 * A * s + 200 * ApA * s) / (2 * ApB + A * s + 2 * ApA * s - B * (s - 1) - 2 * BpB * (s - 1))
+
+Loss:
+- Compare pSTAT5A, pSTAT5B, and rSTAT5A to the three measured percent columns.
+- Use column-wise normalized squared error, with scale for each measured column equal to max(abs(column)).
+- loss = sqrt(mean(((simulated - measured) / scale)^2)) across all three observable columns.
+
+Use differential evolution for the population stage. This is a stiff biochemical model, so use Kvaerno5 for gradient integration if the generated configuration supports choosing an integrator.

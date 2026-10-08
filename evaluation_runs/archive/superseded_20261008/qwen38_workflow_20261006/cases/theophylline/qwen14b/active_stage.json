@@ -1,0 +1,20 @@
+{
+  "stage": "diagnose",
+  "started_utc": "2026-10-07T01:57:35Z",
+  "command": [
+    "diagnose",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/theophylline/qwen14b/session",
+    "run_20261007_015708_237342",
+    "--model",
+    "qwen2.5-coder:14b",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1"
+  ],
+  "pid": 5846
+}

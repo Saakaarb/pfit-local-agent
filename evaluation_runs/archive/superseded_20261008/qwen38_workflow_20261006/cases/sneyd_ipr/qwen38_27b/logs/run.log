@@ -1,0 +1,37 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261006_072953_590225
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 128, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261006_072953_590225
+DE tolerances  — rtol: [1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06, 1e-06], atol: [1e-08, 1e-08, 1e-08, 1e-08, 1e-08, 1e-08, 1e-08, 1e-08]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 8.5798E-02
+Time for iteration: 0.0234
+-------
+Final best position (scaled): [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313 -0.40379893
+  0.07723054  0.37088547  0.68063203  0.40816905  0.31899829  0.04835205
+  0.43703851 -0.71514043]
+Final best cost: 8.5798E-02
+Done with DE search
+Best Position from DE: [3.98412146e-01 8.62720078e+03 1.27936570e+02 1.67911023e+02
+ 1.81322838e+02 2.42551681e-01 2.03667701e+01 3.04468168e+02
+ 5.27871382e+03 4.29216301e+02 1.88796162e+02 1.56101900e+01
+ 5.59956193e+02 1.37860007e-02]
+Best cost from DE: 0.0857978593406204
+NODE tolerances — rtol: [1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07, 1e-07], atol: [1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09, 1e-09]
+Trainable_params: [-0.34991686  0.73396748  0.27674868  0.3062698   0.31461313 -0.40379893
+  0.07723054  0.37088547  0.68063203  0.40816905  0.31899829  0.04835205
+  0.43703851 -0.71514043]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.08579784115437102 0.08579784115437102
+Iteration:,loss value, best loss: 4 0.08576170786062386 0.08576170786062386
+Iteration time: 37.631791830062866
+Final best position: [3.96580889e-01 8.64518684e+03 1.27348584e+02 1.68686306e+02
+ 1.82160116e+02 2.42036455e-01 2.04608051e+01 3.03068833e+02
+ 5.25461398e+03 4.31198023e+02 1.89656951e+02 1.56818646e+01
+ 5.57382718e+02 1.37234289e-02]
+Final loss: 0.08575256206437723
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sneyd_ipr/qwen38_27b/session/outputs/run_20261006_072953_590225

@@ -1,0 +1,5 @@
+{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sneyd_ipr/qwen38_27b/session"}
+{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sneyd_ipr/qwen38_27b/session/generated/generated_script.py"}
+{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sneyd_ipr/qwen38_27b/session/generated/generated_script.py"}
+{"step": "tolerance_calibration", "status": "passed", "message": "Selected 10x looser DE tolerances at the validated step ceiling"}
+{"step": "smoke_test_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sneyd_ipr/qwen38_27b/session/generated/generated_script.py"}

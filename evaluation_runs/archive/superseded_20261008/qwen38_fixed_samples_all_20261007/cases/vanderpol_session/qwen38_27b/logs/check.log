@@ -1,0 +1,10 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/vanderpol_session/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/vanderpol_session/qwen38_27b/session
+warning: Population size is 4 with only 1 DE iteration; differential evolution with 4 individuals and a single generation provides very limited exploration of the 5-decade mu range [0.001, 100]. Convergence to a good basin is unlikely.
+warning: Gradient optimizer runs only 5 iterations (adam, lr 1e-4→1e-5 over 2000 transition steps). Combined with the tiny population, the final parameter estimate may be far from the optimum.
+warning: At the lower bound mu=0.001 the Van der Pol system has eigenvalue ≈ 1000 (dx2dt = -1000·x1), making it highly stiff over t∈[0,100]. Kvaerno5 (implicit) should handle this, but max_steps=10000 averages only ~100 steps per unit time; solver_recovery_max_steps=50000 and auto_max_steps=true mitigate this, yet some low-mu evaluations may hit step limits or produce inaccurate trajectories, biasing the loss landscape.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size (e.g. ≥ 20) and num_iters (e.g. ≥ 50) to give DE meaningful coverage of the log-scale mu range; the current 4×1 setting is unlikely to locate the correct attractor amplitude.
+recommendation: Increase gradient num_iters (e.g. ≥ 50) so the Adam refinement can converge after DE proposes a candidate; 5 steps is insufficient for a stiff ODE loss surface.
+recommendation: Monitor solver step counts during the first few evaluations at low mu; if Kvaerno5 frequently hits max_steps=10000, consider raising max_steps or tightening initial_timestep to ensure trajectory accuracy before the loss is trusted.
+recommendation: The loss normalizes each column by max(|measured|) + 1e-12 and pools the two column means under a single sqrt — this matches the user's stated 'sqrt(mean(all normalized squared residuals))' exactly because both columns share 596 rows. No change needed.

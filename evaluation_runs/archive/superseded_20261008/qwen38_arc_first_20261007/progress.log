@@ -1,0 +1,24 @@
+Preparing qwen3.8:27b
+qwen38_27b/ARC_fitting: new
+qwen38_27b/ARC_fitting: check
+qwen38_27b/ARC_fitting: jax
+qwen38_27b/ARC_fitting: run
+qwen38_27b/ARC_fitting: diagnose
+qwen38_27b/ARC_fitting: pass (438.047s)
+qwen38_27b/armistead_sphingolipid: new
+qwen38_27b/armistead_sphingolipid: check
+qwen38_27b/armistead_sphingolipid: jax
+qwen38_27b/armistead_sphingolipid: run
+qwen38_27b/armistead_sphingolipid: diagnose
+qwen38_27b/armistead_sphingolipid: pass (357.485s)
+qwen38_27b/beer_indigoidine: new
+qwen38_27b/beer_indigoidine: check
+qwen38_27b/beer_indigoidine: jax
+qwen38_27b/beer_indigoidine: fail (208.456s)
+qwen38_27b/boehm_stat5: new
+qwen38_27b/boehm_stat5: check
+qwen38_27b/boehm_stat5: jax
+qwen38_27b/boehm_stat5: run
+qwen38_27b/boehm_stat5: diagnose
+qwen38_27b/boehm_stat5: pass (438.585s)
+qwen38_27b/borghans_calcium: new

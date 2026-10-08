@@ -1,0 +1,40 @@
+{
+  "verdict": "The model parameters k1 and k3 are at the boundary of their search intervals, and stationarity is not established.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND",
+        "BOUND"
+      ],
+      "action": "Check the physical justification for the bounds of k1 and k3. If they are appropriate, consider running a full fit with revised bounds.",
+      "reason": "k1 and k3 are at 0.02% of their log10 search intervals, which may indicate that the bounds are too restrictive or that the model is not sensitive to these parameters."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "Increase the number of gradient iterations (gradient_opt.num_iters) and perform a gradient-only restart from the current run.",
+      "reason": "The normalized gradient infinity norm is 0.997204, indicating that stationarity is not established. A gradient-only restart with more iterations may help refine the solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot (fit_exp1.png) for Experiment 1, Mpp.",
+      "reason": "The RMSE for Experiment 1, Mpp is 3.72498, with a significant bias and time correlation. Inspecting the residuals and trajectory can help identify issues with input timing, calibration, initial conditions, or model mismatch."
+    },
+    {
+      "evidence_ids": [
+        "WEAK_MODES"
+      ],
+      "action": "Inspect the eigenvectors associated with the weak parameter combinations.",
+      "reason": "There are 3 weak parameter combinations, which may indicate potential issues with parameter identifiability. Inspecting the eigenvectors can help design additional experiments or fix independently known parameters."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the model is globally optimal or identifiable.",
+    "The gradient-only restart assumes that the existing model and bounds remain valid."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

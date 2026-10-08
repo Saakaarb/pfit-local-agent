@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/workspace/pfit-local-agent/evaluation_runs/targeted_refits_20261008/run_refits.py", line 11, in <module>
+    import yaml
+ModuleNotFoundError: No module named 'yaml'
+2026-10-08T04:24:02.195932+00:00 START lotka_volterra CPUs=[3, 7, 20, 23, 67, 71, 84, 87]
+2026-10-08T04:24:02.196083+00:00 START sneyd_ipr CPUs=[27, 31, 46, 55, 91, 95, 110, 119]
+2026-10-08T04:25:53.714437+00:00 COMPLETED sneyd_ipr 111.5s
+2026-10-08T04:25:53.729683+00:00 START ARC_fitting CPUs=[27, 31, 46, 55, 91, 95, 110, 119]
+2026-10-08T04:35:43.385261+00:00 COMPLETED lotka_volterra 701.2s
+2026-10-08T04:36:19.222064+00:00 START oregonator CPUs=[3, 7, 20, 23, 67, 71, 84, 87]
+2026-10-08T04:58:16.306306+00:00 COMPLETED ARC_fitting 1942.5s
+2026-10-08T07:18:57.419337+00:00 COMPLETED oregonator 9758.2s

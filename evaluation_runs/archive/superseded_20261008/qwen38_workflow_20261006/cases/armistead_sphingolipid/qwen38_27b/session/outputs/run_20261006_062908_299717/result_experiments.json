@@ -1,0 +1,42 @@
+[
+  {
+    "index": 1,
+    "data_file": "dataset_1.csv",
+    "output_file": "result_solution_exp1.csv"
+  },
+  {
+    "index": 2,
+    "data_file": "dataset_2.csv",
+    "output_file": "result_solution_exp2.csv"
+  },
+  {
+    "index": 3,
+    "data_file": "dataset_3.csv",
+    "output_file": "result_solution_exp3.csv"
+  },
+  {
+    "index": 4,
+    "data_file": "dataset_4.csv",
+    "output_file": "result_solution_exp4.csv"
+  },
+  {
+    "index": 5,
+    "data_file": "dataset_5.csv",
+    "output_file": "result_solution_exp5.csv"
+  },
+  {
+    "index": 6,
+    "data_file": "dataset_6.csv",
+    "output_file": "result_solution_exp6.csv"
+  },
+  {
+    "index": 7,
+    "data_file": "dataset_7.csv",
+    "output_file": "result_solution_exp7.csv"
+  },
+  {
+    "index": 8,
+    "data_file": "dataset_8.csv",
+    "output_file": "result_solution_exp8.csv"
+  }
+]

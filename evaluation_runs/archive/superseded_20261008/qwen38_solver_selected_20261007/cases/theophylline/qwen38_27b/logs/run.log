@@ -1,0 +1,27 @@
+run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_025339_677053
+Launching driver script
+CPU resources:  {'requested_processors': 1, 'detected_cpus': 192, 'configured_host_devices': 1, 'configuration_source': 'session/host detection', 'jax_cpu_devices': 1}
+Available devices:  [CpuDevice(id=0)]
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_025339_677053
+DE tolerances  — rtol: [1e-06, 1e-06], atol: [3.2e-06, 2.304619489617076e-06]
+Writing de log file
+DE population size: 4, max iterations: 1
+Iteration: 1
+Best Cost: 3.4733E-01
+Time for iteration: 0.0036
+-------
+Final best position (scaled): [-0.61215715  1.         -0.39144455]
+Final best cost: 3.4733E-01
+Done with DE search
+Best Position from DE: [ 0.24425465  1.         14.07424467]
+Best cost from DE: 0.3473346508654652
+NODE tolerances — rtol: [1e-07, 1e-07], atol: [3.2e-07, 2.304619489617076e-07]
+Trainable_params: [-0.61215715  1.         -0.39144455]
+Note: framework currently handles multiple trajectories of the same size and upto the same simulation time. Variable length and final time trajectories will be added in the future
+Iteration:,loss value, best loss: 0 0.34733469439589576 0.34733469439589576
+Iteration:,loss value, best loss: 4 0.34684609137083383 0.34684609137083383
+Iteration time: 5.107297658920288
+Final best position: [ 0.24453599  0.99884946 14.06228338]
+Final loss: 0.34672387910742575
+Computing post-fit sloppiness
+Sloppiness: completed; report directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/theophylline/qwen38_27b/session/outputs/run_20261007_025339_677053

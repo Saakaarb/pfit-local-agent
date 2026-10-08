@@ -1,0 +1,65 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/vanderpol_session/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261006_073731_593979
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 9.9068E-01, best loss 9.9068E-01, final loss 9.9068E-01
+- NODE: 2 iterations, first loss 9.8956E-01, best loss 9.8933E-01, final loss 9.8933E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: vanderpol_data.csv; loss=0.9893334546311816; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261006_073731_593979/sloppiness_report.txt
+- Curvature changes by more than 10% when the finite-difference step is halved.
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 1.88161e+28; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 1.88161e+28; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, x1: RMSE=2.29325, bias=-0.320275, time correlation=-0.4015181076549621, lag-1=0.9955060354167266.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, x2: RMSE=0.614608, bias=-0.0317908, time correlation=0.42323722407291864, lag-1=0.9988823243239975.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261006_073731_593979/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/vanderpol_session/qwen38_27b/session/outputs/run_20261006_073731_593979/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The run is numerically pathological: the normalized gradient infinity norm is 1.88e+28, the Hessian has a negative mode, and the single parameter mu (69.37) sits at 96.8 % of its log-scale range. The optimizer exhausted its 5-iteration budget with only a 0.13 % loss reduction (0.9907 → 0.9893). The x1 channel shows a negative time correlation (−0.40) with the data, indicating the fitted trajectory is anti-correlated in phase. Stationarity is far from established and the loss surface at this point is not a local minimum.
+1. Run a gradient probe (diagnose --probe-gradients) to verify that the 1.88e+28 normalized gradient is numerically correct and not an artefact of the stiff Van der Pol dynamics at mu ≈ 69.4 with the Tsit5 integrator. Compare finite-difference and autodiff gradients at a small perturbation (e.g. 1e-6 in mu) before any further optimisation. [STATIONARITY, SLOPPINESS] A gradient of 1.88e+28 combined with a negative Hessian mode (SLOPPINESS: 1 negative mode) means the point is not a local minimum and the gradient magnitude is orders of magnitude beyond any reasonable step. If the gradient is a numerical artefact (stiff-system integration error, log-scale mapping issue), no amount of additional iterations will help. If it is genuine, the loss landscape is extremely steep here and the optimizer is in a saddle or near-boundary region.
+2. Inspect the trajectory plot fit_exp1.png and the time-region residual breakdown. For x1 the time correlation is −0.40 (anti-correlated) while lag-1 correlation is 0.996, and for x2 the time correlation is +0.42 with lag-1 0.999. Determine whether the mismatch is a phase/period offset, a wrong oscillation regime, or a genuine model-form error before spending more iterations. [RESIDUAL] A negative time correlation for x1 (−0.40) with near-perfect lag-1 correlation (0.996) is the signature of a trajectory that oscillates at roughly the right local frequency but is phase-shifted or in a different oscillation regime relative to the data. The x1 RMSE of 2.29 with max_abs residual 3.95 and bias −0.32 across all three time regions (RMSE 2.44, 2.51, 1.86) shows the error is not confined to one interval. This must be understood before further optimisation, because if the model form or initial conditions are wrong, more iterations will not fix it.
+3. Assess whether the upper bound of 100 (log-scale) on mu is physically justified for the data. mu = 69.37 is at 96.8 % of the log-scale range, and the enormous gradient may be pushing the parameter toward or away from this boundary. If the data are consistent with mu > 100, the bound is silently truncating the feasible region; if mu should be much smaller, the optimizer is in the wrong basin. [PARAMETERS, STATIONARITY] The parameter sits at range_fraction 0.968 on a log scale from 0.001 to 100. The Van der Pol relaxation-oscillator regime changes qualitatively with mu: at mu ≈ 69 the system is extremely stiff (fast-slow time-scale separation ~ mu), which is consistent with the 1.88e+28 gradient and the negative Hessian mode. If the true mu is outside [0.001, 100], no amount of gradient refinement within the current bounds will recover it.
+4. Do not launch a gradient-only restart yet. First complete the gradient probe and trajectory inspection above. If the gradient is verified correct and the model/bounds are confirmed appropriate, then increase gradient_opt.num_iters (e.g. to 50–100) and run a gradient-only restart from this run, monitoring the loss and gradient norm at each step. [BUDGET, OPTIMIZER] The optimizer terminated at its 5-iteration budget (termination: 'iteration_budget') with only a 0.13 % loss reduction (0.99068 → 0.98933). The DE phase contributed only 1 iteration with population size 4 (OPTIMIZER_TRACES: de_fitting.log has 1 row). However, restarting with more iterations is only sensible if the gradient is correct and the parameter is not trapped at a boundary; otherwise additional iterations will either diverge or grind against the bound.
+5. If the gradient probe passes and the trajectory inspection confirms the model form is reasonable, consider a broader population-based search (increase population_opt.population_size to ≥ 20 and population_opt.num_iters to ≥ 5) to explore the mu landscape before committing to gradient refinement. The current DE phase (population 4, 1 iteration) provided almost no global exploration. [OPTIMIZER_TRACES, BUDGET] The DE trace (de_fitting.log) shows only 1 row with loss 0.99068, and the gradient trace (NODE_fitting.log) shows 5 rows from 0.98956 to 0.98933. With a single parameter on a log scale and a potentially multi-modal loss landscape (negative Hessian mode suggests a saddle), a 4-member, 1-iteration DE phase is insufficient to locate a good basin. Broader exploration is a lower-risk next step than blindly increasing gradient iterations from a saddle point.
+Limitation: The 1.88e+28 gradient and negative Hessian mode cannot be attributed to a specific cause (stiff-integrator error, log-scale mapping, genuine loss-landscape steepness, or boundary effect) without a passing gradient probe; multiple explanations are consistent with the evidence.
+Limitation: The negative time correlation for x1 (−0.40) could arise from a phase offset, a wrong oscillation regime, incorrect initial conditions (x1=2.0, x2=0.1), or a model-form mismatch; the residual statistics alone cannot distinguish these.
+Limitation: The loss of 0.989 is close to the value expected from a zero-prediction baseline, but without knowing the exact max(abs(data)) normalisation constants the precise fit quality relative to a trivial predictor cannot be quantified from the snapshot alone.
+Limitation: The sloppiness analysis reports 1 negative mode but does not identify which parameter direction it corresponds to; with a single trainable parameter this implies the Hessian is negative-definite at this point, but the magnitude and eigenvector are not reported.
+Limitation: No noise level, measurement uncertainty, or data-generation process is specified in the snapshot, so it is not possible to assess whether the residuals are statistically consistent with the data-generating model or indicate systematic model error.
+Limitation: The solver settings (Tsit5, initial_timestep 1e-6, max_steps 10000) are recorded but no solver error or stiffness diagnostic is reported; it is unknown whether the integrator resolved the fast time-scale at mu ≈ 69 accurately.

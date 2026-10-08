@@ -1,0 +1,758 @@
+[
+  {
+    "code": "successful",
+    "sample_count": 32,
+    "seed": 7,
+    "integrator": "Tsit5",
+    "elapsed_seconds": 3.399798920378089,
+    "first_sample_seconds": 3.247306792065501,
+    "remaining_samples_seconds": 0.15240981988608837,
+    "timing_note": "First sample may include JIT compilation; timings include integrations and loss evaluations, not a solver speed benchmark",
+    "sampling": "midpoint plus nested Latin-hypercube blocks in normalized linear/log coordinates",
+    "successful_samples": 32,
+    "success_fraction": 1.0,
+    "required_success_fraction": 0.25,
+    "required_successful_samples": 8,
+    "max_steps": 10000,
+    "failure_counts": {},
+    "candidates": [
+      {
+        "sample": 0,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.23312707322914059,
+          0.21019274589262693
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.36592504355527616
+          ],
+          [
+            2.0,
+            0.9376718691312136
+          ]
+        ],
+        "normalized_parameters": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "sample": 1,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.34909803867427847,
+          0.3237956296563407
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.4829257996849718
+          ],
+          [
+            2.0,
+            1.2249645822022928
+          ]
+        ],
+        "normalized_parameters": [
+          -0.057255509401739846,
+          -0.23393051444196755
+        ]
+      },
+      {
+        "sample": 2,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.525302617600859,
+          0.5098580639869635
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.466971507213849
+          ],
+          [
+            2.0,
+            1.2627189413270756
+          ]
+        ],
+        "normalized_parameters": [
+          -0.3520037414218462,
+          -0.5701796943007449
+        ]
+      },
+      {
+        "sample": 3,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.15763432261643484,
+          0.15718095638411472
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.7214902838925902
+          ],
+          [
+            2.0,
+            1.7872768956313785
+          ]
+        ],
+        "normalized_parameters": [
+          0.4216567921789418,
+          -0.15279897962527056
+        ]
+      },
+      {
+        "sample": 4,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6865508139405457,
+          0.6815697683737596
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.008222190566604627
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.7087168503050729,
+          0.667424149733842
+        ]
+      },
+      {
+        "sample": 5,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.41516495840705353,
+          0.4089096778762035
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.03146552270962224
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          0.6429810338919542,
+          0.9319321400738696
+        ]
+      },
+      {
+        "sample": 6,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.7230159552223141,
+          0.7164558916605465
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.9741177241657538
+          ],
+          [
+            2.0,
+            2.441608020256771
+          ]
+        ],
+        "normalized_parameters": [
+          0.9301398563350227,
+          -0.8126505297938111
+        ]
+      },
+      {
+        "sample": 7,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.22308303240214986,
+          0.19731745610074278
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.7153611441809606
+          ],
+          [
+            2.0,
+            1.7654307875805948
+          ]
+        ],
+        "normalized_parameters": [
+          0.8470468551284522,
+          0.06901413857156635
+        ]
+      },
+      {
+        "sample": 8,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4179167342508624,
+          0.41342078104136964
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.10337768968335197
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.1281214421548701,
+          0.42873935185554357
+        ]
+      },
+      {
+        "sample": 9,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.48954965129990646,
+          0.4867922449736503
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.7716327078185812
+          ],
+          [
+            2.0,
+            1.9350869147002467
+          ]
+        ],
+        "normalized_parameters": [
+          0.1933466732511937,
+          -0.47145396806655915
+        ]
+      },
+      {
+        "sample": 10,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6798318589171595,
+          0.6229607813717629
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.11725615980251353
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.7904829082563012,
+          -0.35948995582293386
+        ]
+      },
+      {
+        "sample": 11,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6307368435974627,
+          0.6347325640565382
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.8539162064950844
+          ],
+          [
+            2.0,
+            2.1372240294477294
+          ]
+        ],
+        "normalized_parameters": [
+          0.09753509842209729,
+          -0.7708176459569507
+        ]
+      },
+      {
+        "sample": 12,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.42845171258383613,
+          0.4145708674143046
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.1385511867825048
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.21339341006546386,
+          0.2374549998999298
+        ]
+      },
+      {
+        "sample": 13,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3457138374344986,
+          0.3431418857435708
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.20038671555249638
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          0.27045368521818336,
+          0.5409068963997723
+        ]
+      },
+      {
+        "sample": 14,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.7399612569151957,
+          0.739404481381832
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.9655897719715825
+          ],
+          [
+            2.0,
+            2.4169644514786235
+          ]
+        ],
+        "normalized_parameters": [
+          0.49681333703141894,
+          -0.9586082770824206
+        ]
+      },
+      {
+        "sample": 15,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.717091399855818,
+          0.6527165162089266
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.08329924999175353
+          ],
+          [
+            2.0,
+            0.5265479713791288
+          ]
+        ],
+        "normalized_parameters": [
+          -0.9761589477030834,
+          -0.6406648855178187
+        ]
+      },
+      {
+        "sample": 16,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5531624513427763,
+          0.5493828012236236
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.9267194726835681
+          ],
+          [
+            2.0,
+            2.328199751404691
+          ]
+        ],
+        "normalized_parameters": [
+          0.6776602736807791,
+          -0.5241104621851664
+        ]
+      },
+      {
+        "sample": 17,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3332721407342401,
+          0.3204717343493748
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.4264707933058228
+          ],
+          [
+            2.0,
+            1.0065200438447055
+          ]
+        ],
+        "normalized_parameters": [
+          0.6019385632130159,
+          0.3813519536875567
+        ]
+      },
+      {
+        "sample": 18,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5629854609306026,
+          0.5261124491757861
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.1367049901836537
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.47390573670571357,
+          -0.016807147568913217
+        ]
+      },
+      {
+        "sample": 19,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5926624388804479,
+          0.5653482218898156
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.3366852962087334
+          ],
+          [
+            2.0,
+            1.0692033083453274
+          ]
+        ],
+        "normalized_parameters": [
+          -0.5311226255120138,
+          -0.7394801750521781
+        ]
+      },
+      {
+        "sample": 20,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.711284845012752,
+          0.6837347145347089
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.025509150145498975
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.8786882481302691,
+          0.1533044392328562
+        ]
+      },
+      {
+        "sample": 21,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.43322435092957046,
+          0.429821450368395
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.026947516958973954
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          0.0006316651528015527,
+          0.9656600139880063
+        ]
+      },
+      {
+        "sample": 22,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5981831578019938,
+          0.5517674785280571
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.2161514975531727
+          ],
+          [
+            2.0,
+            0.622310506252252
+          ]
+        ],
+        "normalized_parameters": [
+          -0.5582483712022019,
+          -0.31950740650233966
+        ]
+      },
+      {
+        "sample": 23,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6596656602489452,
+          0.6668762861975223
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.8899874242921011
+          ],
+          [
+            2.0,
+            2.226468771429622
+          ]
+        ],
+        "normalized_parameters": [
+          0.07353013980274348,
+          -0.9146991413045016
+        ]
+      },
+      {
+        "sample": 24,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.3884517588893744,
+          0.38430109134326035
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.09391598237066243
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          0.3381787707975392,
+          0.7904080593454792
+        ]
+      },
+      {
+        "sample": 25,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6788982164153311,
+          0.6751197448819933
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.005791351982093004
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.6715164125765777,
+          0.8080772174710813
+        ]
+      },
+      {
+        "sample": 26,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.4175935961509288,
+          0.40836068073668136
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.046536853337396746
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          0.9703963755726768,
+          0.7014313079074326
+        ]
+      },
+      {
+        "sample": 27,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.2793005472564254,
+          0.2694238078042326
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.8561931042239732
+          ],
+          [
+            2.0,
+            2.177196425824567
+          ]
+        ],
+        "normalized_parameters": [
+          0.7746949829871195,
+          -0.2238483681042508
+        ]
+      },
+      {
+        "sample": 28,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.6911452164108829,
+          0.6444839541791175
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.06437133282151551
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.8147522982778787,
+          -0.08884567082548334
+        ]
+      },
+      {
+        "sample": 29,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.2156512310339394,
+          0.2113208135491148
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.4461401994128213
+          ],
+          [
+            2.0,
+            1.091550726736608
+          ]
+        ],
+        "normalized_parameters": [
+          0.37814606832349407,
+          0.22368698292886235
+        ]
+      },
+      {
+        "sample": 30,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5436258523928231,
+          0.5314353474418907
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.06740870101269451
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.38076231824469586,
+          0.3327587567766783
+        ]
+      },
+      {
+        "sample": 31,
+        "successful": true,
+        "failures": [],
+        "experiment_losses": [
+          0.5181287443480084,
+          0.5137847776622689
+        ],
+        "experiment_state_scales": [
+          [
+            1.0,
+            0.04231964622523016
+          ],
+          [
+            2.0,
+            0.5
+          ]
+        ],
+        "normalized_parameters": [
+          -0.28649989404222553,
+          0.5760142094444827
+        ]
+      }
+    ],
+    "result": "32/32 parameter samples complete all experiments with valid loss; require 8/32."
+  }
+]

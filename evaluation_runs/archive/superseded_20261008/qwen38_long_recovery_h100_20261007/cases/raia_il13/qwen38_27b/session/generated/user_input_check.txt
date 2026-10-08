@@ -1,0 +1,20 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Population size is 4 with 15 trainable parameters (DE algorithm). Differential evolution typically requires population_size >= 5 * n_params for adequate exploration; 4 candidates in a 15-dimensional log-scaled space will almost certainly fail to find a meaningful basin before the gradient phase.
+- population_opt.num_iters is 1, meaning only a single DE generation is evaluated. Combined with population_size 4, the global search phase evaluates only 4 candidate parameter sets before handing off to the gradient optimizer.
+- gradient_opt.num_iters is 5 (Adam steps). With 15 parameters and a stiff 15-ODE system, 5 gradient steps is unlikely to converge to a useful minimum.
+- SOCS3mRNA (dSOCS3mRNAdt = SOCS3mRNA_production * pSTAT5), CD274mRNA (dCD274mRNAdt = CD274mRNA_production * pSTAT5), and IL13_DecoyR (dIL13_DecoyRdt = 2.265 * il13_level * DecoyR * DecoyR_binding) have no degradation or removal terms. Over the 120-unit time span these species grow monotonically, which can increase stiffness and make the Kvaerno5 solver work harder, especially with tight rtol=1e-7.
+
+Recommendations:
+- Large trainable parameter count detected; consider increasing population search budget.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Increase population_opt.population_size to at least 30-50 and num_iters to 5-10 to give DE a meaningful chance in 15 dimensions. The current 4×1 budget is below the minimum for any reliable global search.
+- Increase gradient_opt.num_iters to at least 50-100 so Adam can traverse the loss landscape after the (limited) global phase.
+- The loss is RMSE normalized by max(|dataset[:,0]|) + 1e-12, which is well-scaled given pSTAT5 ranges from ~1.6 to ~128 across both experiments. No log-residual transformation is required (within-column log10 range is 1.72 and 1.87, below the 3-order threshold). The current loss is appropriate.
+- All 15 parameters use logscale over [1e-5, 1000] (8 orders of magnitude), which is correct for the wide ranges. Ensure the solver can handle the resulting stiffness from the 91× dephosphorylation terms and the Michaelis-Menten SOCS3 translation term at extreme parameter values; the Kvaerno5 integrator with rtol=1e-7 should be adequate, but monitor solver step counts during the first few evaluations.
+
+Semantic review:
+No critical errors: the ODE system, loss, observable mapping (solution[:,8] ↔ dataset[:,0] = pSTAT5), writeout shape (17 cols), and all numpy operations are JAX-compatible. The automatic log-loss rule does not apply (both pSTAT5 columns have <3-order range). The primary risk is the extremely small search budget (population 4, 1 iter, 5 gradient steps) for 15 log-scaled parameters, which will likely prevent convergence to a meaningful fit. Model structure is internally consistent; unbounded mRNA/decoy-complex growth is a stiffness concern but not a correctness blocker.

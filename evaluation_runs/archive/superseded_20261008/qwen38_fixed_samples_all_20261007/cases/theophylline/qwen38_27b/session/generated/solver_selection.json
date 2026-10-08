@@ -1,0 +1,40 @@
+{
+  "method": "dataset_time_scales",
+  "integrator": "Kvaerno5",
+  "reason": "Dataset time scales are inconclusive; conservative fallback",
+  "time_scale_ratio": 10.47691889713798,
+  "ratio_threshold": 100.0,
+  "columns": [
+    {
+      "experiment": 1,
+      "column": "C_plasma",
+      "finite_points": 11,
+      "status": "underresolved",
+      "amplitude": 2.45,
+      "fast_time_scale": 0.7785756497887,
+      "slow_time_scale": 8.157073938122712
+    }
+  ],
+  "scope": "Observed dynamics only; hidden modes and other parameter values may be stiff",
+  "max_steps_estimate": {
+    "selected_max_steps": 10000,
+    "configured_max_steps": 10000,
+    "cap": 50000,
+    "steps_per_time_scale": 10,
+    "headroom_factor": 3,
+    "rounding_multiple": 1000,
+    "minimum_steps": 1000,
+    "experiments": [
+      {
+        "experiment": 1,
+        "duration": 23.85,
+        "fastest_time_scale": null,
+        "raw_estimated_steps": null,
+        "proposed_max_steps": 10000,
+        "capped": false,
+        "method": "configured_budget_fallback"
+      }
+    ],
+    "scope": "Initial budget estimate only; sampled integration and accuracy checks remain required"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "verdict": "The fit is not converged (gradient \u2016\u00b7\u2016\u221e \u2248 0.30, stopped at 5-iteration budget) and k3 = 9.977 sits at 99.97 % of its log10 search interval [0.001, 10]. Two negative Hessian modes indicate the current point is not a local minimum. The residual shows a large systematic underprediction (bias \u22125.21) and very low time correlation (0.196), suggesting the parameterisation or model structure may be inadequate for this dataset, independent of optimiser settings.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Verify the physical upper bound of k3 (outflow coefficient of the lower tank). If the true value plausibly exceeds 10, widen the bound and run a full fit (DE + gradient). If 10 is a hard physical limit, the negative bias (\u22125.21) and low time correlation (0.196) point to a structural or identifiability problem rather than a bound issue.",
+      "reason": "k3 = 9.977 is at range_fraction 0.99975 of the log10 interval [0.001, 10]. The optimiser is pressing against the boundary while the model still underpredicts level_lower by ~5.2 units on average, so the bound may be masking the true parameter value or the model may need a different parameterisation."
+    },
+    {
+      "evidence_ids": [
+        "SLOPPINESS"
+      ],
+      "action": "Run a gradient check (diagnose --probe-gradients) to confirm the Hessian and gradient are numerically consistent. With 2 negative eigenmodes the current point is a saddle, not a minimum; a gradient-only restart from here is unlikely to help until the saddle is resolved.",
+      "reason": "Sloppiness reports 0 weak modes but 2 negative modes. A positive-definite Hessian is a necessary condition for a local minimum. Before spending more iterations, confirm the negative modes are not a finite-difference artefact and understand which parameter directions are concave."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY",
+        "BUDGET"
+      ],
+      "action": "If the gradient check passes and the k3 bound is confirmed appropriate, increase gradient_opt.num_iters (e.g. to 50\u2013100) and run a gradient-only restart from this run. Monitor whether the negative Hessian modes persist or resolve as the iterates move.",
+      "reason": "The normalised gradient \u2016\u00b7\u2016\u221e = 0.2999 and gradient-to-loss ratio 0.530 indicate the iterates are far from stationarity. The optimiser terminated at its 5-iteration budget (termination: 'iteration_budget'), so the lack of convergence is a budget limitation, not a flat loss surface. The DE phase contributed only 1 iteration (population_size 4), limiting exploration."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the trajectory plot fit_exp1.png and the time-region residuals. The first third (t = 0\u20131364) has the worst RMSE (6.93) versus 3.82 and 5.77 in later thirds. Check whether the pump_voltage forcing timing, initial conditions (x1 = 5.0, x2 = 5.205), and the sqrt-flow model structure are consistent with the experiment before spending further optimisation budget.",
+      "reason": "RMSE = 5.654 with bias = \u22125.210 and time correlation only 0.196 indicate the model captures the mean level poorly and tracks the temporal dynamics weakly. The lag-1 correlation of 0.996 reflects the smoothness of the data, not model fidelity. The non-uniform time-region RMSE (6.93 \u2192 3.82 \u2192 5.77) suggests the mismatch is not uniform, which could point to initial-condition sensitivity or a structural limitation of the two-tank sqrt-flow model."
+    }
+  ],
+  "limitations": [
+    "Two negative Hessian modes could be a genuine saddle or a finite-difference / solver-tolerance artefact; the evidence does not distinguish these without a passing gradient check.",
+    "The low time correlation (0.196) and large bias (\u22125.21) are consistent with several causes\u2014wrong k3 bound, inadequate model structure (e.g. missing dynamics, wrong flow exponent), poor initial conditions, or unidentifiable parameter combinations\u2014and the current evidence cannot isolate which dominates.",
+    "The DE phase ran only 1 iteration with a population of 4, so the global search was extremely limited; the current point may be far from the global optimum, and no claim about global optimality or identifiability can be made.",
+    "The loss is a single-experiment RMSE on level_lower only; no independent validation data or noise-level estimate is available to assess overfitting or to calibrate the residual magnitude.",
+    "The plot fit_exp1.png is referenced by filename; no visual inspection was performed. The residual statistics above are computed numerically from the snapshot."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

@@ -1,0 +1,21 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Dataset has very few rows; fitted parameters may be weakly constrained.
+- Each experiment has only 2 data rows (time 0 and time 2), giving 48 total data points for 10 trainable parameters. The system is severely underdetermined; fitted parameters will be weakly constrained and may not be identifiable.
+- Population optimizer uses population_size=4 with num_iters=1 (DE). With 10 parameters spanning 6 orders of magnitude (logscale), this budget is extremely small and will likely fail to explore the parameter space meaningfully.
+- Gradient optimizer uses only num_iters=5 (adam). Combined with the tiny population phase, the total optimization budget is very limited for a 10-parameter, 8-experiment problem.
+- _compute_loss_problem computes `observables = _observables(...)` on line 1 but then uses `solution[:, 0]`, `solution[:, 1]`, `solution[:, 2]` directly in the loss. The mapping is currently identity so results are equivalent, but if _observables were ever changed to a non-trivial transformation the loss would silently diverge from the declared observables.
+
+Recommendations:
+- Large trainable parameter count detected; consider increasing population search budget.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Increase population_size (e.g., 20-50) and num_iters (e.g., 5-10) for the DE phase; 10 logscale parameters over 6 orders of magnitude need substantially more exploration than 4 individuals × 1 generation.
+- Increase gradient num_iters (e.g., 50-200) to allow the adam optimizer to converge, especially given the 8-experiment equal-mean objective.
+- With only 2 time points per experiment, consider whether the model structure (5 ODEs, 10 parameters) is identifiable from this data. If the goal is a sanity check rather than a production fit, the current budget may suffice, but convergence to a unique optimum is unlikely.
+- The per-column max-absolute normalization (denominator = max(|data_col|) + 1e-12) is appropriate here: all columns are positive, finite, and span < 1 order of magnitude, so the automatic log-loss rule does not apply and the linear RMSE loss is well-scaled.
+
+Semantic review:
+No critical errors detected. The ODE system, observable mapping, loss construction (per-column max-abs-normalized RMSE), and writeout are internally consistent. The automatic log-loss rule is not triggered (all columns span < 0.7 orders of magnitude). The primary risk is identifiability: 10 parameters are fitted to 48 data points (8 experiments × 2 time points × 3 columns), and the optimization budget (4-individual DE for 1 generation + 5 adam steps) is very small. The session will compile and run, but convergence to a meaningful optimum is unlikely without larger budgets or more data.

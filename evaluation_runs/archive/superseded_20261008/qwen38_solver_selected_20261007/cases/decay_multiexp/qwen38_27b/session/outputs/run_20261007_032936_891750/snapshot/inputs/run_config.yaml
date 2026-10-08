@@ -1,0 +1,81 @@
+experiments:
+- data_file: dataset_1.csv
+  initial_conditions:
+    A: 1.0
+    B: 0.0
+  columns:
+  - name: time
+  - name: A
+    observes: A
+  - name: B
+    observes: B
+- data_file: dataset_2.csv
+  initial_conditions:
+    A: 2.0
+    B: 0.5
+  columns:
+  - name: time
+  - name: A
+    observes: A
+  - name: B
+    observes: B
+model:
+  trainable_parameters:
+  - name: k1
+    min_val: 0.01
+    max_val: 10.0
+    logscale: true
+  - name: k2
+    min_val: 0.01
+    max_val: 10.0
+    logscale: true
+  fixed_parameters: []
+  integrated_variables:
+  - name: A
+    init_val: 1.0
+  - name: B
+    init_val: 0.0
+  observables: []
+population_opt:
+  population_size: 4
+  num_iters: 1
+  processors: 1
+  algorithm: DE
+  random_seed: 7
+  stepsize_rtol:
+  - 1.0e-06
+  - 1.0e-06
+  stepsize_atol:
+  - 2.0e-08
+  - 5.744292388156904e-09
+gradient_opt:
+  gradient_optimizer: adam
+  num_iters: 5
+  auto_state_tolerances: true
+  stepsize_rtol:
+  - 1e-7
+  - 1e-7
+  stepsize_atol:
+  - 2.0e-09
+  - 5.744292388156904e-10
+  initial_timestep: 1e-6
+  max_steps: 10000
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 120
+  solver_validation_samples: 32
+  solver_validation_max_samples: 128
+  solver_validation_success_fraction: 0.25
+  solver_validation_seed: 7
+  solver_recovery_stagnation_patience: 2
+  auto_integrator: true
+  integrator: Tsit5
+  init_value_lr: 1e-4
+  end_value_lr: 1e-5
+  transition_steps_lr: 2000
+  decay_rate_lr: 0.9
+output:
+  write_results: true
+paths:
+  user_input_dir: inputs
+  generated_dir: generated
+  output_dir: outputs

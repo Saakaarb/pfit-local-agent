@@ -1,0 +1,11 @@
+check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sliding_basepoint_headered/qwen38_27b/session/generated/user_input_check.txt
+validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/sliding_basepoint_headered/qwen38_27b/session
+warning: Population size is 4, which is below the number of trainable parameters (5) and far below the typical DE minimum of 5×dimension (25). This will severely limit exploration and may cause premature convergence.
+warning: Only 1 population iteration and 5 gradient iterations are configured. This is an extremely small optimization budget that will likely not converge to a meaningful fit.
+warning: np.sign(v1) and np.sign(v2) in user_defined_system have zero gradient at v=0 under JAX autodiff. If v1 or v2 crosses zero during optimization, the gradient through those terms vanishes, potentially stalling the Adam optimizer.
+recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
+recommendation: Increase population_size to at least 25 (5× the 5 trainable parameters) for effective differential evolution exploration; the current value of 4 is below the parameter count.
+recommendation: The loss correctly implements the user's stated contract: two normalized residual columns (contact_force and displacement) each divided by max(abs(measured)) + 1e-12, combined as sqrt(mean of all squared normalized residuals). The displacement observable is x1 (solution[:, 0]), consistent with _observables and the dataset column mapping.
+recommendation: All five wide-range parameters (c2, Dk, m1, m2) correctly use logscale; Dc (0.1–1.0) correctly uses linear scale. Parameter ranges are well-chosen for log-scale search.
+recommendation: The writeout array (11 columns: time, 2 measured, 6 states, 2 simulated observables) matches the user's stated writeout specification exactly.
+recommendation: Dataset has 71 rows, no NaN or infinity values, and both measured columns span less than 3 orders of magnitude (contact_force: 2.18, displacement: 1.52), so the automatic log-loss rule does not apply and the user's linear normalized loss is appropriate.

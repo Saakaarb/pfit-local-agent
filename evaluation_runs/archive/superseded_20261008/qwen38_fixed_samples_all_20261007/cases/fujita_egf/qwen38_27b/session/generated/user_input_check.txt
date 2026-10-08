@@ -1,0 +1,20 @@
+Number of critical errors: 0
+Critical errors:
+- none
+
+Warnings:
+- Population search budget is extremely small for 16 parameters spanning 16 orders of magnitude (1e-8 to 1e8, logscale): population_size=4 with num_iters=1 DE iteration will almost certainly fail to locate a productive region before the gradient phase begins.
+- Gradient optimizer is configured with only num_iters=5 for a 16-parameter problem; this is very unlikely to converge to a meaningful minimum even from a good starting point.
+- The three scaling parameters (scaling_pEGFR_tot, scaling_pAkt_tot, scaling_pS6_tot) are free over 16 orders of magnitude and are multiplicatively coupled to the observables; combined with the rate constants this creates a strong identifiability/conditioning risk that may degrade convergence regardless of solver settings.
+
+Recommendations:
+- Large trainable parameter count detected; consider increasing population search budget.
+- Review generated/user_model.py and parameter bounds before JAX translation.
+- Increase population_opt.population_size (e.g., 50-200) and population_opt.num_iters (e.g., 50-200) so the DE phase can explore the 16-dimensional log-space before handing off to the gradient optimizer.
+- Increase gradient_opt.num_iters from 5 to at least 200-500; with 16 parameters and a stiff ODE the per-iteration cost is high but 5 steps is insufficient for any meaningful descent.
+- The loss construction is correct: per-channel normalization by max(|measured|) + 1e-12, squared residuals averaged per channel, then sqrt(sum/3) gives the RMSE over all normalized residuals as stated. The framework's equal-mean aggregation across the two experiments matches 'minimize the average of the two record losses.'
+- Solver choice (Kvaerno5, rtol 1e-7, atol 1e-9, initial_timestep 1e-6, max_steps 10000 with auto_max_steps) is appropriate for the stiff multi-timescale system (fast binding vs. slow turnover) the user describes.
+- All ODE balances, observable expressions, dataset column mappings, solution index ordering, and writeout layout are consistent with the user's specification and the runtime contract; no JAX-incompatible constructs (dynamic shapes, Python control flow, non-JAX ops) were detected.
+
+Semantic review:
+The model code is internally consistent and matches the user's stated ODE system, observable definitions, loss (per-channel max-abs normalization, RMSE, equal-mean across two experiments), and writeout layout. No critical JAX-translation or runtime errors are present. The primary risk is the extremely small optimization budget (4-individual DE for 1 iteration, then 5 gradient steps) against a 16-parameter, 16-orders-of-magnitude search space; this will almost certainly prevent convergence to a meaningful fit. Increasing both the population and gradient iteration counts is the key action before running.

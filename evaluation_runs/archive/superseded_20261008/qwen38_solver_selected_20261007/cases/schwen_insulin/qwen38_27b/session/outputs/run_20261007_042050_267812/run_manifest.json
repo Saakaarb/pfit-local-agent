@@ -1,0 +1,148 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": false,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 192,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/workspace/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Linux",
+      "release": "6.17.0-1014-nvidia",
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "cpu_count": 192
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": null
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "fd42ff87a9fc56a465ce3de129757a4bd9344d3c10816f3b524e0d8151b043bf",
+      "generated_script": "7fe86177fb621a09da3aab9eea388ebda5d88f2aa88cdf61e4a0b8a04e70645f",
+      "user_model": "1ccd0faf8c45442328c5a14909e017c6165ce29b022f17406f5a7dc2e6815ddb"
+    },
+    "git": {
+      "commit": "a4ab5c3ac6f2e160e79742c030fcf3ccb304e5bc",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": 7,
+      "population_size": 4,
+      "population_iterations": 1,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 5
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "insulin_10_r1.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "2e0c2cecd856a41543e34601021c9d246061c99847a732a030f208f5982394c4",
+      "initial_conditions": {
+        "Ins": 10.0,
+        "Rec1": 58.8503656504712,
+        "Rec2": 918.6048612429337,
+        "IR1": 0.0,
+        "IR2": 0.0,
+        "IR1in": 0.0,
+        "IR2in": 0.0,
+        "Uptake1": 0.0,
+        "Uptake2": 0.0,
+        "InsulinFragments": 0.0,
+        "BoundUnspec": 0.0
+      },
+      "output_file": "result_solution_exp1.csv"
+    },
+    {
+      "index": 2,
+      "data_file": "insulin_10_r2.csv",
+      "snapshot_data_file": "dataset_2.csv",
+      "sha256": "f347e4730b29680cf4b8011fa4efe28b94852958244b9777d285fa15f37d8f95",
+      "initial_conditions": {
+        "Ins": 10.0,
+        "Rec1": 58.8503656504712,
+        "Rec2": 918.6048612429337,
+        "IR1": 0.0,
+        "IR2": 0.0,
+        "IR1in": 0.0,
+        "IR2in": 0.0,
+        "Uptake1": 0.0,
+        "Uptake2": 0.0,
+        "InsulinFragments": 0.0,
+        "BoundUnspec": 0.0
+      },
+      "output_file": "result_solution_exp2.csv"
+    },
+    {
+      "index": 3,
+      "data_file": "insulin_100_r1.csv",
+      "snapshot_data_file": "dataset_3.csv",
+      "sha256": "706a2ddbe980e8d705d8dd5c725e301308639a887fa4803e4e979e5e3c8c8bd4",
+      "initial_conditions": {
+        "Ins": 100.0,
+        "Rec1": 58.8503656504712,
+        "Rec2": 918.6048612429337,
+        "IR1": 0.0,
+        "IR2": 0.0,
+        "IR1in": 0.0,
+        "IR2in": 0.0,
+        "Uptake1": 0.0,
+        "Uptake2": 0.0,
+        "InsulinFragments": 0.0,
+        "BoundUnspec": 0.0
+      },
+      "output_file": "result_solution_exp3.csv"
+    },
+    {
+      "index": 4,
+      "data_file": "insulin_100_r2.csv",
+      "snapshot_data_file": "dataset_4.csv",
+      "sha256": "d98ac76844fbc609ffbeea44094aec016e7d05e9726d695e75a5f58d9f31ec6d",
+      "initial_conditions": {
+        "Ins": 100.0,
+        "Rec1": 58.8503656504712,
+        "Rec2": 918.6048612429337,
+        "IR1": 0.0,
+        "IR2": 0.0,
+        "IR1in": 0.0,
+        "IR2in": 0.0,
+        "Uptake1": 0.0,
+        "Uptake2": 0.0,
+        "InsulinFragments": 0.0,
+        "BoundUnspec": 0.0
+      },
+      "output_file": "result_solution_exp4.csv"
+    }
+  ]
+}

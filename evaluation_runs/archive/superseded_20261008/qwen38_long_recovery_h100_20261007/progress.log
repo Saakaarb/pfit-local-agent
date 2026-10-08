@@ -1,0 +1,23 @@
+Preparing qwen3.8:27b
+qwen38_27b/fujita_egf: new
+qwen38_27b/fujita_egf: check
+qwen38_27b/fujita_egf: jax
+qwen38_27b/fujita_egf: fail (596.312s)
+qwen38_27b/mapk_cascade: new
+qwen38_27b/mapk_cascade: check
+qwen38_27b/mapk_cascade: jax
+qwen38_27b/mapk_cascade: run
+qwen38_27b/mapk_cascade: diagnose
+qwen38_27b/mapk_cascade: pass (385.048s)
+qwen38_27b/oregonator: new
+qwen38_27b/oregonator: check
+qwen38_27b/oregonator: jax
+qwen38_27b/oregonator: run
+qwen38_27b/oregonator: diagnose
+qwen38_27b/oregonator: pass (245.199s)
+qwen38_27b/raia_il13: new
+qwen38_27b/raia_il13: check
+qwen38_27b/raia_il13: jax
+qwen38_27b/raia_il13: run
+qwen38_27b/raia_il13: fail (250.392s)
+Completed: /workspace/pfit-local-agent/evaluation_runs/qwen38_long_recovery_h100_20261007/comparison.md

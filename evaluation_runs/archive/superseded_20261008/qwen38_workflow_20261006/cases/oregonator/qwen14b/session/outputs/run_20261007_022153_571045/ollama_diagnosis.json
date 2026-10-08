@@ -1,0 +1,32 @@
+{
+  "verdict": "The parameter f is at 99.98% of its log10 search interval, and stationarity is not established.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Check whether the bound for f is physically justified. If revising bounds, run a full fit; do not widen them automatically.",
+      "reason": "The parameter f is at 99.98% of its log10 search interval, which suggests that the current bound may be too restrictive or not physically realistic."
+    },
+    {
+      "evidence_ids": [
+        "STATIONARITY"
+      ],
+      "action": "If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.",
+      "reason": "The normalized gradient infinity norm is 2.40773, indicating that stationarity is not established. A gradient-only restart with more iterations may help refine the solution."
+    },
+    {
+      "evidence_ids": [
+        "RESIDUAL"
+      ],
+      "action": "Inspect the time-region residuals and trajectory plot for Experiment 1, X and Z. Check input timing, calibration, initial conditions, and model mismatch before deciding whether a gradient-only restart is worthwhile.",
+      "reason": "The RMSE values for Experiment 1, X and Z are 0.207572 and 0.107049, respectively. Inspecting the residuals and trajectory plot can provide insights into potential issues with the model or data."
+    }
+  ],
+  "limitations": [
+    "The evidence does not establish whether the current model or bounds are globally optimal or identifiable.",
+    "The evidence does not provide information on the stability or stiffness of the system."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

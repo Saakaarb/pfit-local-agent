@@ -1,0 +1,83 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- result_solution_exp3.csv: present
+- result_solution_exp4.csv: present
+- result_solution_exp5.csv: present
+- result_solution_exp6.csv: present
+- result_solution_exp7.csv: present
+- result_solution_exp8.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 9.3996E-01, best loss 9.3996E-01, final loss 9.3996E-01
+- NODE: 2 iterations, first loss 9.3991E-01, best loss 9.3989E-01, final loss 9.3989E-01
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 8
+Aggregation: equal_experiment_mean
+- Experiment 1: wt_r1.csv; loss=0.509482794363649; output=result_solution_exp1.csv
+- Experiment 2: wt_r2.csv; loss=0.5456279395644528; output=result_solution_exp2.csv
+- Experiment 3: wt_r3.csv; loss=0.5149591873301765; output=result_solution_exp3.csv
+- Experiment 4: wt_r4.csv; loss=0.4192058044404288; output=result_solution_exp4.csv
+- Experiment 5: mutant_r1.csv; loss=1.34213507755454; output=result_solution_exp5.csv
+- Experiment 6: mutant_r2.csv; loss=1.440663263315049; output=result_solution_exp6.csv
+- Experiment 7: mutant_r3.csv; loss=1.4329245680807736; output=result_solution_exp7.csv
+- Experiment 8: mutant_r4.csv; loss=1.314140541021403; output=result_solution_exp8.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- k00=0.001 is at 0.00% of its log10 search interval.
+- [BOUND] k00=0.001 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k_d=996.629 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k3=997.124 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k5=996.915 is at 99.98% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] alpha_cer=-0.999 is at 0.00% of its linear search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp1.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp2.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp3.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp4.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp5.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp6.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp7.png
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/fit_exp8.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/armistead_sphingolipid/qwen38_27b/session/outputs/run_20261007_030432_956383/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+The fit is constrained: five of ten parameters sit at or within 0.02 % of their search bounds, the Cer_obs channel carries RMSE 0.43–0.73 across all eight experiments while Sphinga_obs and Sphingo_obs are well-fit (RMSE < 0.002), and the optimizer exhausted its 5-iteration budget with only a 7 × 10⁻⁵ loss reduction. No verified final-point gradient is available, so it is undetermined whether the optimizer has reached a true stationary point or is simply pinned against the boundary.
+1. Run diagnose --probe-gradients to obtain a verified gradient at the final point before any further optimisation step. [BUDGET, LIMITATIONS] The NODE_fitting.log shows loss moving only from 0.93991 to 0.93989 over 5 iterations and the limitations state 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' Without a gradient probe, it is impossible to distinguish a genuine stationary point from boundary pinning or an under-budgeted run.
+2. Inspect the Cer_obs traces in fit_exp1.png through fit_exp8.png to characterise the temporal shape of the residual (e.g. whether the model under-predicts Cer at late time, over-predicts at early time, or misses a transient peak). [BOUND, EXPERIMENTS] Cer_obs RMSE ranges from 0.434 (exp 1) to 0.729 (exp 6) with max_abs up to 1.02, while Sphinga_obs and Sphingo_obs RMSE are all below 0.002. The large, consistently negative bias (−0.28 to −0.47) in Cer_obs suggests a systematic structural mismatch rather than random noise, and the temporal pattern will inform whether the issue is a missing rate pathway or an inadequate bound.
+3. Assess whether k_d ≈ 997, k3 ≈ 997, k5 ≈ 997 (all at 99.98 % of the [0.001, 1000] log-scale interval), k00 = 0.001 (at 0.00 %), and alpha_cer = −0.999 (at 0.00 %) are physically justified. If the true values lie outside these bounds, revise them and run a full fit (population + gradient); do not widen bounds automatically. [BOUND] Five parameters are at or within 0.02 % of a bound. In the ODE, k_d, k3, and k5 appear as first-order loss/degradation terms; if the data require rate constants > 1000, the current upper bound is artificially truncating the search. Similarly, alpha_cer = −0.999 with H = 1 makes (1 + H·alpha_cer) ≈ 0.001, effectively shutting off the Sphinga production term for experiments 1–4; if the biology requires a less extreme value, the lower bound is too tight.
+4. If the bounds are confirmed as physically valid, evaluate whether the model structure (specifically the Cer balance equation dCer/dt = k0·Sphinga − k1·Cer + k2·Sphingo − k_d·Cer) can reproduce the observed Cer dynamics with rate constants ≤ 1000. This may require adding a missing pathway or revisiting the alpha_cer / alpha_hai1a modulation terms. [BOUND, EXPERIMENTS] The Cer_obs residual (RMSE 0.43–0.73, bias −0.28 to −0.47) is two to three orders of magnitude larger than the other channels. With k_d, k3, k5 all pinned near 1000, the model is using its maximum allowed degradation rates and still cannot match Cer. This pattern is consistent with a structural deficiency (e.g. a missing Cer production or sequestration term) rather than a parameter-value issue, and would require a model change with re-derivation of the Jacobian (check + jax).
+5. If the gradient probe confirms a non-zero gradient and the bounds/model are validated, restart the gradient phase with a larger iteration budget (e.g. 50–200 Adam steps) to allow the optimizer to move away from the boundary. [BUDGET, OPTIMIZER] The optimizer used only 5 iterations (gradient_iterations_evaluated = 5) with a loss change of 7.2 × 10⁻⁵. Adam with an initial LR of 1e-4 and 5 steps may not have enough momentum to traverse the narrow feasible region near the boundary. A gradient-only restart is appropriate here only if the gradient probe shows a meaningful gradient and the existing model/bounds remain valid.
+Limitation: No verified final-point gradient is available; the flat optimizer log (0.93996 → 0.93989) does not establish convergence or rule out boundary pinning.
+Limitation: Sloppiness analysis was skipped, so parameter identifiability and the presence of weak or flat directions in the loss landscape are unknown.
+Limitation: Each experiment has only 2 time points (one in the early region, one in the late region, none in the middle), so the temporal shape of the Cer mismatch cannot be resolved from the residual table alone; plot inspection is required.
+Limitation: The evidence cannot distinguish whether the large Cer_obs residual is caused by (a) bounds that are too restrictive, (b) a missing reaction pathway in the ODE structure, or (c) an inadequate observation model; all three are consistent with the data.
+Limitation: The loss is normalised per channel by max(|data|), so the absolute magnitude of the loss (≈ 0.94) does not directly indicate the physical size of the mismatch; the per-channel RMSE values are the more informative metric.

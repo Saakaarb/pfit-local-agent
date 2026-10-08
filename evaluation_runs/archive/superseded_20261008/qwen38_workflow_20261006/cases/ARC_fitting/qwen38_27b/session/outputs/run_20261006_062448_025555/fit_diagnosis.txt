@@ -1,0 +1,57 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/ARC_fitting/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261006_062448_025555
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.0003E+04, best loss 1.0003E+04, final loss 1.0003E+04
+- NODE: 2 iterations, first loss 1.0003E+04, best loss 1.0003E+04, final loss 1.0003E+04
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: NMC_SOC80_M2_normalized_converted_units.csv; loss=10002.74175179582; output=result_solution.csv
+
+Sloppiness:
+- status: failed
+- ValueError: Invalid loss/gradient or failed integration during sloppiness analysis
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, T: RMSE=494.22, bias=488.581, time correlation=-0.229004143467983, lag-1=0.7442904671480542.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, dTdt: RMSE=29.4085, bias=-5.60663, time correlation=-0.09959175986007256, lag-1=0.7071720609120152.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261006_062448_025555/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261006_062448_025555/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Refinement exhausted its 5-iteration budget with essentially no loss change (10002.748 → 10002.742). The loss is dominated by final-state constraint penalties (~10000 each), not data-fit terms. The T channel shows a large systematic bias (488.58) and negative time correlation (−0.229), indicating the model trajectory is fundamentally misaligned with the observed temperature. No verified gradient or sloppiness result is available, so convergence and identifiability cannot be assessed.
+1. Run diagnose --probe-gradients to obtain a verified final-point gradient before any further optimization. The optimizer trace is flat (10003.0 in both DE and NODE logs) and the sloppiness computation failed, so there is no independent confirmation that the gradient is correct or that the loss landscape is smooth. [BUDGET, LIMITATIONS] The limitations state 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The optimizer moved the loss by only 0.007 over 5 Adam iterations (seed 10002.748 → final 10002.742), and the NODE trace shows last_material_improvement at iteration 4 of 5 with no further change. Without a verified gradient, a gradient-only restart would be blind.
+2. Inspect the plot fit_exp1.png to visually compare the simulated T trajectory against the 142 data points, paying attention to the initial region (t ≈ 17192–35839, 5 points, RMSE 514.7) versus the main region (t ≈ 54486–73132, 126 points, RMSE 486.9). Also check whether the simulated dTdt tracks the measured dTdt in the early window (RMSE < 0.1) versus the main window (RMSE 31.2). [RESIDUAL] The T channel has bias 488.58 (nearly equal to RMSE 494.22) and time correlation −0.229, meaning the model is systematically offset and anti-correlated in time. The dTdt channel fits the first 16 points to sub-0.1 RMSE but degrades to RMSE 31.2 over the remaining 126 points. This pattern—excellent early fit, poor late fit—suggests the model captures initial dynamics but diverges, which a trajectory plot will confirm or refute before any parameter or model change is considered.
+3. Assess whether the model structure and parameter bounds can physically produce the required final states (c1 → 0.02, c2 → 0.98, |T_final − data_T_final| ≤ 50). The loss of ~10003 is almost entirely from the three sigmoid penalty terms (each up to 10000), meaning at least one constraint is grossly violated. This is a scientific feasibility question that requires user judgement: either the initial conditions (c1=1.0, c2=0.04, T=354.0), the parameter ranges, or the model equations need revision. Do not simply increase the iteration budget. [RESIDUAL, LOSS] The data-fit terms (T normalized MSE and log-dTdt normalized MSE) contribute only a few units to the total loss of 10002.74, while each penalty term can contribute up to 10000. The T bias of 488.58 and the fact that the model's dTdt is near-zero in the early window (RMSE 0.09, 0.0006) but 31.2 in the main window indicate the reaction rates are either too slow or too fast to drive the system to the required final composition within the observed time span. No amount of gradient refinement will fix a structurally infeasible trajectory.
+4. Check the input timing, calibration, and initial-condition consistency: the initial T is 354.0 K while the T data RMSE is 494.2 with a bias of +488.6, implying the data temperatures are roughly 490 K above the model's simulated values. Verify that the dataset T column is in the same units and reference as the model's T state variable, and that the time axis in dataset_1.csv matches the model's time scale. [RESIDUAL, PARAMETERS] A bias of 488.58 on T with 142 data points and a negative time correlation of −0.229 is inconsistent with a small parameter misfit; it is more consistent with a unit mismatch, a wrong initial condition, or a model that generates heat in the wrong direction or magnitude. The dTdt early-time fit (RMSE < 0.1) shows the model can produce the correct rate when c1 is high and c2 is low, but the T trajectory then diverges, pointing to a cumulative integration or scaling issue rather than a local parameter error.
+5. If gradient verification passes and the model is confirmed feasible, a gradient-only restart with a larger iteration budget (e.g., 50–200 Adam steps) and a learning-rate schedule is appropriate. If the model is infeasible or the gradient is unreliable, a full re-fit with revised initial conditions, bounds, or model equations is required—do not extend the current run. [BUDGET, OPTIMIZER] The current run used only 5 Adam iterations with a decaying LR (1e-4 → 1e-5 over 2000 transition steps, decay 0.9), which is insufficient for a loss landscape dominated by steep sigmoid penalties. However, the optimizer trace shows no material improvement after iteration 4, and the DE population (size 4, 1 iteration) also produced no improvement. Extending iterations without first confirming gradient correctness and model feasibility risks wasting compute on an infeasible or mis-specified problem.
+Limitation: No verified final-point gradient is available; the flat optimizer log (10003.0 throughout) does not establish convergence or rule out a gradient bug.
+Limitation: The sloppiness computation failed, so parameter identifiability, weak modes, and curvature cannot be assessed.
+Limitation: The loss is dominated by three sigmoid penalty terms (each up to 10000); the data-fit terms contribute only a few units. The residual statistics (RMSE, bias, correlation) describe the data-fit component but do not capture the penalty-driven behaviour that actually governs the optimizer.
+Limitation: The negative time correlation for T (−0.229) and the large bias (488.58) could arise from a unit mismatch, wrong initial condition, model-structure error, or parameter infeasibility; the evidence cannot distinguish among these without additional information (e.g., the raw data range, a second experiment, or a manual trajectory check).
+Limitation: The dTdt early-time excellent fit (RMSE < 0.1 over 16 points) versus late-time poor fit (RMSE 31.2 over 126 points) is consistent with multiple causes: parameter values that are locally optimal but globally infeasible, a model structure that lacks a necessary reaction pathway, or a time-scale mismatch. The evidence does not identify which.
+Limitation: The population optimizer (DE, size 4, 1 iteration) provided only a single seed; no multi-start diversity is available to assess whether the current parameter set is in a local basin or a global one.

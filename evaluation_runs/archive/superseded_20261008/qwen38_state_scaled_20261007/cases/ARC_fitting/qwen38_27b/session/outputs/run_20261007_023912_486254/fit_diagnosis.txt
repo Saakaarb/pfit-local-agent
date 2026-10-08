@@ -1,0 +1,58 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/ARC_fitting/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_023912_486254
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 1.0003E+04, best loss 1.0003E+04, final loss 1.0003E+04
+- NODE: 2 iterations, first loss 1.0003E+04, best loss 1.0003E+04, final loss 1.0003E+04
+
+Generation workflow:
+- events: 4 passed, 0 failed, 0 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: NMC_SOC80_M2_normalized_converted_units.csv; loss=10002.741752143733; output=result_solution.csv
+
+Sloppiness:
+- status: failed
+- ValueError: Invalid loss/gradient or failed integration during sloppiness analysis
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, T: RMSE=494.22, bias=488.581, time correlation=-0.22900414321970522, lag-1=0.7442904666324459.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, dTdt: RMSE=29.4085, bias=-5.60663, time correlation=-0.09959190999052546, lag-1=0.7071720627642442.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_023912_486254/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/ARC_fitting/qwen38_27b/session/outputs/run_20261007_023912_486254/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Refinement exhausted its 5-iteration budget with negligible loss change (10002.748 → 10002.742, Δ≈0.007). The loss is dominated by a penalty term (~10000 of ~10003 total), leaving only ~2.7 for the T and dTdt data-fitting terms. The T channel shows a large positive bias (+488.6) and negative time correlation (−0.229), indicating the model's temperature trajectory is fundamentally misaligned with the data. The dTdt channel is well-fitted in the first two time regions (RMSE 0.09 and 0.0006) but degrades sharply in the final region (RMSE 31.2, 126 of 142 points). No verified gradient is available and sloppiness failed, so neither convergence nor identifiability can be confirmed.
+1. Inspect the trajectory plot fit_exp1.png to determine whether the T mismatch is a level offset (wrong initial condition or heat-transfer calibration) or a shape mismatch (wrong reaction kinetics or model structure). Compare the model T curve against the data T curve across the full time span (17192–73132). [LOSS, RESIDUAL] The T bias of +488.58 with time correlation −0.229 (RESIDUAL) and the loss of 10002.74 dominated by a penalty term (LOSS) indicate the model's T trajectory is far from the data. The dTdt time-region split (RMSE 0.09/0.0006 early vs 31.22 late) suggests the model captures initial kinetics but diverges later, which a visual trajectory comparison can distinguish from a uniform offset.
+2. Quantify how much of the 10002.74 loss comes from each of the three penalty terms versus the two data-fitting terms. If a single penalty (likely the T-endpoint penalty, given the 494 RMSE) accounts for ~10000, the Adam gradient is dominated by that penalty and the data-fitting signal is effectively suppressed. Consider whether the penalty magnitude (10000) is appropriate relative to the data terms, or whether the endpoint constraint is physically inconsistent with the trajectory data. [LOSS, BUDGET] The loss of 10002.74 (LOSS) with data RMSEs of 494.22 (T) and 29.41 (dTdt) (RESIDUAL) implies the data terms contribute only ~2–3 units. The BUDGET evidence confirms the optimizer stopped at 5 iterations with Δloss ≈ 0.007, consistent with a gradient dominated by a near-saturated sigmoid penalty whose derivative is small, leaving the optimizer unable to make meaningful data-fitting progress.
+3. Run a gradient probe (diagnose --probe-gradients) at the current parameter point to verify that the autodiff gradients are finite, correctly scaled, and not dominated by a single penalty term. Compare the gradient magnitudes of the data-fitting terms versus the penalty terms. [BUDGET, LIMITATIONS] The LIMITATIONS evidence explicitly states 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' The optimizer traces show the loss flat at 10003.0 across all logged iterations (BUDGET). Without a verified gradient, it is impossible to determine whether the optimizer is stuck at a true stationary point, a penalty-dominated saddle, or a numerical issue.
+4. Check the initial conditions (c1=1.0, c2=0.04, T=354.0) against the first data point in dataset_1.csv. Verify that the time axis units in the data match the model's time variable, and that the T data is in the same units as the model's T state (Kelvin vs °C vs another scale). A bias of +488.6 on a T that starts at 354 is physically implausible if both are in the same units. [RESIDUAL, PARAMETERS] The T bias of +488.58 (RESIDUAL) is larger than the initial T of 354.0 (PARAMETERS/snapshot). The dTdt early-region RMSE of 0.09 and 0.0006 (RESIDUAL) shows the model's initial rate is well-matched, so the divergence is not in the initial kinetics but in the accumulated T trajectory. A unit mismatch or incorrect initial condition would produce exactly this pattern: correct initial rate, wrong absolute level.
+5. Investigate why the sloppiness computation failed. If it can be repaired, re-run it to identify weak or unidentifiable parameter directions. With 8 trainable parameters (Ea1, h1, A1, A2, Ea2, h2, m2, n2) and a penalty-dominated loss, several parameters may be effectively unidentifiable from the data alone. [SLOPPINESS, PARAMETERS] The SLOPPINESS evidence shows status 'failed' with no weak or negative modes. The PARAMETERS evidence shows all 8 parameters are interior to their bounds (range_fractions 0.30–0.87), so the flat loss is not caused by boundary clipping. Without sloppiness, it is impossible to know whether the 5-iteration stagnation reflects a true optimum, a flat valley, or an unidentifiable subspace.
+6. If the trajectory plot and unit check confirm the model structure is correct, consider a gradient-only restart with a larger iteration budget (e.g., 50–100 Adam steps) and a learning-rate schedule that accounts for the penalty-to-data gradient ratio. Do not change the user-defined loss or penalty magnitudes without first confirming the penalty is physically justified. [RESIDUAL, BUDGET] The BUDGET evidence shows only 5 Adam iterations were evaluated with Δloss ≈ 0.007. The RESIDUAL evidence shows the dTdt fit is good early (RMSE < 0.1) but poor late (RMSE 31.2), suggesting the model has the right structure but needs more optimization to adjust the late-time parameters (m2, n2, h2, A2). A gradient-only restart is appropriate here because the model equations and bounds remain valid; the issue is insufficient optimization, not model mismatch.
+Limitation: No verified final-point gradient is available; the flat optimizer log (loss ≈ 10003.0 across all logged iterations) does not establish convergence or a true stationary point.
+Limitation: Sloppiness computation failed, so parameter identifiability, weak modes, and the curvature of the loss landscape are unknown.
+Limitation: The loss is dominated by penalty terms (~10000 of ~10003), making it impossible to determine from the loss value alone whether the data-fitting terms are at a minimum or merely suppressed by the penalty gradient.
+Limitation: The T bias of +488.58 could arise from a unit mismatch, incorrect initial condition, wrong heat-transfer model, or genuinely wrong reaction kinetics; the evidence cannot distinguish these without inspecting the raw data and the trajectory plot.
+Limitation: The dTdt time-region split (excellent early, poor late) could reflect model structure error, parameter identifiability issues, or simply insufficient optimization; the 5-iteration budget and failed sloppiness prevent a definitive attribution.
+Limitation: The population optimizer (DE, population_size=4, num_iters=1) provided only a single seed point; the quality of the starting point for the gradient refinement is unassessed.

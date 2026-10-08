@@ -1,0 +1,64 @@
+Fit diagnosis
+
+Session: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/robertson_session/qwen38_27b/session
+Run directory: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/robertson_session/qwen38_27b/session/outputs/run_20261007_073117_130177
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 1 iterations, first loss 3.7925E-01, best loss 3.7925E-01, final loss 3.7925E-01
+- NODE: 2 iterations, first loss 3.7911E-01, best loss 3.7908E-01, final loss 3.7908E-01
+
+Generation workflow:
+- events: 5 passed, 1 failed, 1 repair attempts
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: robertson_data.csv; loss=0.3790782176116283; output=result_solution.csv
+
+Sloppiness:
+- status: ok
+- method: finite-difference
+- indefinite curvature
+- weak modes: 0; negative modes: 1
+- full report: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/robertson_session/qwen38_27b/session/outputs/run_20261007_073117_130177/sloppiness_report.txt
+- The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.
+- Negative curvature detected; do not interpret this point as a local minimum.
+- Local curvature only: not proof of structural/global identifiability or convergence.
+
+Scientific diagnosis:
+- Status: ok
+- Normalized gradient infinity norm is 0.176419; stationarity is not established.
+- [STATIONARITY] Normalized gradient infinity norm is 0.176419; stationarity is not established.
+  Next: If gradient checks pass and bounds are appropriate, increase gradient_opt.num_iters and run a gradient-only restart from this run.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, y1: RMSE=0.0507433, bias=0.0308239, time correlation=0.8771713884347078, lag-1=0.9836270970873583.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y2: RMSE=2.33447e-05, bias=-1.93155e-05, time correlation=0.44925606281962743, lag-1=0.8396094406491225.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y3: RMSE=0.0507366, bias=-0.0308047, time correlation=-0.877181972555961, lag-1=0.9836165432796937.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Figure: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/robertson_session/qwen38_27b/session/outputs/run_20261007_073117_130177/fit_exp1.png
+- Detailed evidence: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/robertson_session/qwen38_27b/session/outputs/run_20261007_073117_130177/scientific_diagnosis.json
+
+Ollama interpretation (proposals, not applied changes):
+Robertson stiff-ODE fit terminated on the 5-iteration Adam budget with a non-stationary gradient (‖g‖∞/loss = 0.176) and a negative Hessian mode; y2 is essentially recovered (RMSE ≈ 2.3 × 10⁻⁵) while y1 and y3 show moderate, time-growing residuals (RMSE ≈ 0.051, bias ≈ ±0.031) consistent with the y1+y2+y3 ≈ 1 conservation structure. No numerical failure or replay mismatch is recorded, but the negative sloppiness mode and unverified gradient correctness mean further gradient refinement is not yet justified.
+1. Run diagnose --probe-gradients (finite-difference vs autodiff comparison) on the current parameter point before any further optimisation. If the finite-difference and autodiff gradients disagree beyond the configured tolerances, investigate the Jacobian of the Robertson system (especially the k2·y2² and k3·y2·y3 terms) before spending more iterations. [STATIONARITY, SLOPPINESS] The normalized gradient infinity norm is 0.176419 (STATIONARITY) and the sloppiness report flags 1 negative Hessian mode (SLOPPINESS). A negative mode can arise from a genuinely non-convex loss surface or from an incorrect/ill-conditioned gradient. Verifying gradient correctness is a prerequisite for trusting any Adam step; without it, increasing num_iters may amplify a systematic error rather than refine the fit.
+2. Inspect the trajectory plot fit_exp1.png, focusing on the y1 and y3 channels in the later time regions (t > 33). Compare the fitted curves against the 17 data points to determine whether the growing RMSE (0.028 → 0.090 → 0.110 for y1) reflects a systematic model-structure mismatch, an initial-condition offset, or a genuine parameter-precision limit. [RESIDUAL] y1 and y3 have nearly identical RMSE (0.05074 vs 0.05074) with opposite biases (+0.0308 vs −0.0308) and opposite time correlations (+0.877 vs −0.877), which is the expected signature of the y1+y2+y3 ≈ 1 conservation in the Robertson model. y2 is fit to RMSE 2.33 × 10⁻⁵. The residual growth in the last two time regions (only 3 of 17 points) could indicate that the current k1, k2, k3 values are close but not precise enough, or that the 17-point sampling is too sparse to constrain the fast transient. Visual inspection of the named plot is needed before attributing the residual to a specific cause.
+3. If the gradient check passes and the plot inspection does not reveal a structural mismatch, increase gradient_opt.num_iters from 5 to at least 50 and perform a gradient-only restart from the current parameter point (k1 ≈ 0.0200, k2 ≈ 5.84 × 10⁹, k3 ≈ 1.27 × 10⁵). Keep the existing bounds and model equations unchanged. [BUDGET, STATIONARITY] The run terminated on iteration_budget after exactly 5 Adam steps (BUDGET), with the loss moving only from 0.379247 to 0.379078 (Δ ≈ 1.7 × 10⁻⁴). The gradient norm of 0.176 (STATIONARITY) indicates the optimizer has not converged. A gradient-only restart is appropriate here because the model, bounds, and initial conditions remain valid; the only change is allowing more Adam iterations to reduce the gradient toward zero.
+4. After the gradient-only restart, re-evaluate the sloppiness spectrum. If the negative Hessian mode persists, consider whether k2 (currently at 86.7 % of its log-range, value ≈ 5.84 × 10⁹) is over-parameterised relative to the 17 data points, and whether tightening the k2 upper bound or fixing it to a literature value would improve identifiability. This is a scientific-model judgement, not a numerical correction. [SLOPPINESS, PARAMETERS] The sloppiness report shows 1 negative mode (SLOPPINESS), which in a 3-parameter problem with only 17 observations can indicate that one direction in parameter space is weakly or negatively constrained. k2 sits at range_fraction 0.867 (PARAMETERS), near the upper bound of 5 × 10¹⁰, while k1 is at 0.325 and k3 at 0.638. The negative mode does not prove the bound is wrong, but it warrants checking whether the data can actually distinguish k2 from k3 given the y2 channel is already fit to ~10⁻⁵ precision.
+Limitation: The 17 data points per channel are sparse; the time-region RMSE in the last two bins is based on only 1 and 2 points respectively, so the apparent residual growth at t > 33 may be sampling artefact rather than systematic model error.
+Limitation: The negative Hessian mode (SLOPPINESS) cannot be attributed to a specific parameter or to a numerical artefact without a full eigen-decomposition and gradient verification; it may reflect the stiff, multi-scale nature of the Robertson system rather than a true non-convexity.
+Limitation: No gradient-check (finite-difference vs autodiff) result is present in the evidence; the correctness of the computed gradient is assumed but unverified.
+Limitation: The Robertson model's conservation law (y1 + y2 + y3 = 1) means the three channels are not independent; the near-perfect y2 fit (RMSE ≈ 2.3 × 10⁻⁵) constrains the y1/y3 residuals, and the residual pattern may reflect the loss normalisation (division by max|data|) rather than a true model deficiency.
+Limitation: The DE population phase ran only 1 iteration with population_size 4, so the initial parameter spread is minimal; the gradient phase started from a very narrow region and the 5 Adam steps may not have explored the parameter space sufficiently to rule out a nearby better optimum.

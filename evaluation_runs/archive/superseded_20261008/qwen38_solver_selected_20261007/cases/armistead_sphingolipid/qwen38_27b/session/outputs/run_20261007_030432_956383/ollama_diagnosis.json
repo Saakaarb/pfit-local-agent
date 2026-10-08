@@ -1,0 +1,53 @@
+{
+  "verdict": "The fit is constrained: five of ten parameters sit at or within 0.02 % of their search bounds, the Cer_obs channel carries RMSE 0.43\u20130.73 across all eight experiments while Sphinga_obs and Sphingo_obs are well-fit (RMSE < 0.002), and the optimizer exhausted its 5-iteration budget with only a 7 \u00d7 10\u207b\u2075 loss reduction. No verified final-point gradient is available, so it is undetermined whether the optimizer has reached a true stationary point or is simply pinned against the boundary.",
+  "recommendations": [
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "LIMITATIONS"
+      ],
+      "action": "Run diagnose --probe-gradients to obtain a verified gradient at the final point before any further optimisation step.",
+      "reason": "The NODE_fitting.log shows loss moving only from 0.93991 to 0.93989 over 5 iterations and the limitations state 'No verified final-point gradient is available; a flat optimizer log does not establish convergence.' Without a gradient probe, it is impossible to distinguish a genuine stationary point from boundary pinning or an under-budgeted run."
+    },
+    {
+      "evidence_ids": [
+        "BOUND",
+        "EXPERIMENTS"
+      ],
+      "action": "Inspect the Cer_obs traces in fit_exp1.png through fit_exp8.png to characterise the temporal shape of the residual (e.g. whether the model under-predicts Cer at late time, over-predicts at early time, or misses a transient peak).",
+      "reason": "Cer_obs RMSE ranges from 0.434 (exp 1) to 0.729 (exp 6) with max_abs up to 1.02, while Sphinga_obs and Sphingo_obs RMSE are all below 0.002. The large, consistently negative bias (\u22120.28 to \u22120.47) in Cer_obs suggests a systematic structural mismatch rather than random noise, and the temporal pattern will inform whether the issue is a missing rate pathway or an inadequate bound."
+    },
+    {
+      "evidence_ids": [
+        "BOUND"
+      ],
+      "action": "Assess whether k_d \u2248 997, k3 \u2248 997, k5 \u2248 997 (all at 99.98 % of the [0.001, 1000] log-scale interval), k00 = 0.001 (at 0.00 %), and alpha_cer = \u22120.999 (at 0.00 %) are physically justified. If the true values lie outside these bounds, revise them and run a full fit (population + gradient); do not widen bounds automatically.",
+      "reason": "Five parameters are at or within 0.02 % of a bound. In the ODE, k_d, k3, and k5 appear as first-order loss/degradation terms; if the data require rate constants > 1000, the current upper bound is artificially truncating the search. Similarly, alpha_cer = \u22120.999 with H = 1 makes (1 + H\u00b7alpha_cer) \u2248 0.001, effectively shutting off the Sphinga production term for experiments 1\u20134; if the biology requires a less extreme value, the lower bound is too tight."
+    },
+    {
+      "evidence_ids": [
+        "BOUND",
+        "EXPERIMENTS"
+      ],
+      "action": "If the bounds are confirmed as physically valid, evaluate whether the model structure (specifically the Cer balance equation dCer/dt = k0\u00b7Sphinga \u2212 k1\u00b7Cer + k2\u00b7Sphingo \u2212 k_d\u00b7Cer) can reproduce the observed Cer dynamics with rate constants \u2264 1000. This may require adding a missing pathway or revisiting the alpha_cer / alpha_hai1a modulation terms.",
+      "reason": "The Cer_obs residual (RMSE 0.43\u20130.73, bias \u22120.28 to \u22120.47) is two to three orders of magnitude larger than the other channels. With k_d, k3, k5 all pinned near 1000, the model is using its maximum allowed degradation rates and still cannot match Cer. This pattern is consistent with a structural deficiency (e.g. a missing Cer production or sequestration term) rather than a parameter-value issue, and would require a model change with re-derivation of the Jacobian (check + jax)."
+    },
+    {
+      "evidence_ids": [
+        "BUDGET",
+        "OPTIMIZER"
+      ],
+      "action": "If the gradient probe confirms a non-zero gradient and the bounds/model are validated, restart the gradient phase with a larger iteration budget (e.g. 50\u2013200 Adam steps) to allow the optimizer to move away from the boundary.",
+      "reason": "The optimizer used only 5 iterations (gradient_iterations_evaluated = 5) with a loss change of 7.2 \u00d7 10\u207b\u2075. Adam with an initial LR of 1e-4 and 5 steps may not have enough momentum to traverse the narrow feasible region near the boundary. A gradient-only restart is appropriate here only if the gradient probe shows a meaningful gradient and the existing model/bounds remain valid."
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; the flat optimizer log (0.93996 \u2192 0.93989) does not establish convergence or rule out boundary pinning.",
+    "Sloppiness analysis was skipped, so parameter identifiability and the presence of weak or flat directions in the loss landscape are unknown.",
+    "Each experiment has only 2 time points (one in the early region, one in the late region, none in the middle), so the temporal shape of the Cer mismatch cannot be resolved from the residual table alone; plot inspection is required.",
+    "The evidence cannot distinguish whether the large Cer_obs residual is caused by (a) bounds that are too restrictive, (b) a missing reaction pathway in the ODE structure, or (c) an inadequate observation model; all three are consistent with the data.",
+    "The loss is normalised per channel by max(|data|), so the absolute magnitude of the loss (\u2248 0.94) does not directly indicate the physical size of the mismatch; the per-channel RMSE values are the more informative metric."
+  ],
+  "status": "ok",
+  "interpretation_only": true
+}

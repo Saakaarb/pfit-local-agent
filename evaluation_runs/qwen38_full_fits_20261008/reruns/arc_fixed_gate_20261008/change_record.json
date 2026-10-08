@@ -1,0 +1,32 @@
+{
+  "source": "evaluation_runs/qwen38_full_fits_20261008/reruns/arc_extended_de_20261008/cases/ARC_fitting/session",
+  "model_change": "Fixed logistic gate applied to second-stage reaction progress and heating rate; stable exp(-logaddexp(0,-z)) implementation.",
+  "fixed_temperature_K": 470,
+  "fixed_width_K": 5,
+  "trainable_parameters": 8,
+  "loss_unchanged": true,
+  "numerical_changes": {
+    "population_opt": {},
+    "gradient_opt": {
+      "stepsize_atol": {
+        "before": [
+          1e-09,
+          4.0000005052947185e-11,
+          3.540258860836423e-07
+        ],
+        "after": [
+          1e-09,
+          4.000000000000004e-11,
+          3.5400301423577834e-07
+        ]
+      },
+      "max_steps": {
+        "before": 7000,
+        "after": 14000
+      }
+    }
+  },
+  "validation": "accuracy_passed",
+  "validated_seed_count": 4,
+  "manual_edit_authorized": true
+}

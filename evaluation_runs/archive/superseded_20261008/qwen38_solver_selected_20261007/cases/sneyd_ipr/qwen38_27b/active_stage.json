@@ -1,0 +1,19 @@
+{
+  "stage": "check",
+  "started_utc": "2026-10-07T04:31:53Z",
+  "command": [
+    "check",
+    "/workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/sneyd_ipr/qwen38_27b/session",
+    "--model",
+    "qwen3.8:27b",
+    "--base-url",
+    "http://127.0.0.1:11434",
+    "--timeout-seconds",
+    "600",
+    "--max-tokens",
+    "12000",
+    "--temperature",
+    "0.1"
+  ],
+  "pid": 112657
+}

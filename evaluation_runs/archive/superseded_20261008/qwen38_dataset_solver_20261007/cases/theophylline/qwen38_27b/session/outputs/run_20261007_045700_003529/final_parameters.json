@@ -1,0 +1,19 @@
+{
+  "parameters": [
+    {
+      "name": "ka",
+      "value": 0.24453598990758119,
+      "logscale": true
+    },
+    {
+      "name": "ke",
+      "value": 0.9988494565412883,
+      "logscale": true
+    },
+    {
+      "name": "Vd",
+      "value": 14.062283381996606,
+      "logscale": true
+    }
+  ]
+}
