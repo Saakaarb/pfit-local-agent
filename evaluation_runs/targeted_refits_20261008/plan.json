@@ -264,5 +264,6 @@
       119
     ]
   ],
-  "note": "Fresh seed 17, broader DE populations; 100 generations and 3000 Adam iterations retained. Oregonator ceiling raised to 8000 following exact first-update reproduction. Other ongoing fits retain their CPU allocation."
+  "note": "Fresh seed 17, broader DE populations; 100 generations and 3000 Adam iterations retained. Oregonator ceiling raised to 8000 following exact first-update reproduction. Other ongoing fits retain their CPU allocation.",
+  "finished_at": "2026-10-08T07:18:57.420274+00:00"
 }

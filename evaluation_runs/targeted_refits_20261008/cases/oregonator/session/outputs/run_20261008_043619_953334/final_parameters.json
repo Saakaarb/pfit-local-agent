@@ -1,0 +1,24 @@
+{
+  "parameters": [
+    {
+      "name": "eps1",
+      "value": 0.03838043798507944,
+      "logscale": true
+    },
+    {
+      "name": "eps2",
+      "value": 7.574388576309197e-05,
+      "logscale": true
+    },
+    {
+      "name": "q",
+      "value": 0.000569000861229069,
+      "logscale": true
+    },
+    {
+      "name": "f",
+      "value": 0.9834758553675055,
+      "logscale": true
+    }
+  ]
+}

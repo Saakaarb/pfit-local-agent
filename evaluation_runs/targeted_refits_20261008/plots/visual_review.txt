@@ -6,6 +6,6 @@ Sneyd: all nine experiments plotted. Broad rise/decay shapes captured; peaks und
 
 ARC: rerun is worse than the original. Temperature jumps too early and remains biased high; heating-rate trajectory is too low across much of the time span. Final loss0.12779 versus original0.01101. Adam failed before a valid gradient iteration with nonfinite linear-solver output. Retain the original result for the better fit.
 
-Oregonator was still running when these plots were generated; no new final plot included.
+Oregonator: completed DE100 and Adam3000. Final loss0.979612 versus previous10.935005. New plot closely follows oscillation timing and peak amplitudes in X and Z, with small residuals (RMSE0.0162 and0.006358). Adam improved DE loss0.983726 by about0.42%. Refinement used DE tolerances after the tighter profile failed at the same winning point; max_steps16000. This forward fit is not a parameter-identifiability claim.
 
 Figures use saved trajectories at measurement times, not dense reintegration. Per-channel residual metrics are descriptive and need not equal the scientific objective. Original fits are preserved in qwen38_full_fits_20261008/plots.

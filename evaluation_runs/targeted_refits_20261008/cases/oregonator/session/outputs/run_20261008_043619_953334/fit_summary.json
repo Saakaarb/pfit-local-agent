@@ -1,0 +1,43 @@
+{
+  "mode": "full",
+  "seed_loss": 0.9837260483944608,
+  "final_loss": 0.9796120385353304,
+  "refinement_tolerance_fallback": true,
+  "requested_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      7.78383715217e-10,
+      2.619128766004094e-09,
+      3.757435024445473e-10
+    ]
+  },
+  "effective_refinement_tolerances": {
+    "rtol": [
+      1e-06,
+      1e-06,
+      1e-06
+    ],
+    "atol": [
+      7.78383715217e-09,
+      2.888319159259775e-09,
+      7.132158722879396e-09
+    ]
+  },
+  "warnings": [
+    "The global-search winner could not be evaluated successfully at requested gradient-refinement tolerances (integration failure or invalid loss). Keeping the same winning parameters and using population-search integration tolerances for gradient refinement: rtol=[1e-06, 1e-06, 1e-06], atol=[7.78383715217e-09, 2.888319159259775e-09, 7.132158722879396e-09]. The tighter refinement accuracy was not achieved; this is not an Adam convergence failure."
+  ],
+  "aggregation": "equal_experiment_mean",
+  "experiment_losses": [
+    0.9796120385353304
+  ],
+  "gradient_optimizer": "adam",
+  "gradient_iteration_budget": 3000,
+  "gradient_iterations_evaluated": 3000,
+  "refinement_error": null,
+  "termination": "iteration_budget",
+  "termination_detail": null
+}

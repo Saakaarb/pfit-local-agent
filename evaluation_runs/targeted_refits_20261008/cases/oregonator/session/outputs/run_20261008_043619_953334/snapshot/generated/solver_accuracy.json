@@ -1,0 +1,396 @@
+{
+  "code": "accuracy_passed",
+  "integrator": "Kvaerno5",
+  "max_steps": 16000,
+  "sample_count": 64,
+  "probe_samples": [
+    63,
+    2,
+    43,
+    50
+  ],
+  "workers": 4,
+  "reference_factor": 0.1,
+  "prediction_rtol": 0.001,
+  "prediction_atol_scale": 1e-06,
+  "uncertainty_fraction": 0.01,
+  "comparisons": [
+    {
+      "profile": "refinement",
+      "sample": 63,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        7.78383715217e-10,
+        2.619128766004094e-09,
+        3.757435024445473e-10
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 3.0273206784603793e-05
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.001150317533988163
+        }
+      ],
+      "loss": 12.80597926263089,
+      "reference_loss": 12.80597927678867,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 359,
+        "num_rejected_steps": 332,
+        "num_steps": 691
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 580,
+        "num_rejected_steps": 543,
+        "num_steps": 1123
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 63,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        7.78383715217e-09,
+        2.888319159259775e-09,
+        7.132158722879396e-09
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 0.00011242896140255433
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.008627887272760811
+        }
+      ],
+      "loss": 12.80597878730116,
+      "reference_loss": 12.805979261612958,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 223,
+        "num_rejected_steps": 203,
+        "num_steps": 426
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 359,
+        "num_rejected_steps": 332,
+        "num_steps": 691
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 2,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        7.78383715217e-10,
+        2.619128766004094e-09,
+        3.757435024445473e-10
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 0.005817464454071083
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.0017498547138953238
+        }
+      ],
+      "loss": 49.345443845179645,
+      "reference_loss": 49.34544370691289,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 2389,
+        "num_rejected_steps": 2508,
+        "num_steps": 4897
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 4814,
+        "num_rejected_steps": 4775,
+        "num_steps": 9589
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 2,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        7.78383715217e-09,
+        2.888319159259775e-09,
+        7.132158722879396e-09
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 0.023756388562902252
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.005908908956723109
+        }
+      ],
+      "loss": 49.34544422857842,
+      "reference_loss": 49.34544383656073,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 1660,
+        "num_rejected_steps": 1964,
+        "num_steps": 3624
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 2999,
+        "num_rejected_steps": 3371,
+        "num_steps": 6370
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 43,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        7.78383715217e-10,
+        2.619128766004094e-09,
+        3.757435024445473e-10
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 0.002442927998625859
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.013386015418420393
+        }
+      ],
+      "loss": 96.85118247951755,
+      "reference_loss": 96.85116462451293,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 385,
+        "num_rejected_steps": 333,
+        "num_steps": 718
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 848,
+        "num_rejected_steps": 762,
+        "num_steps": 1610
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 43,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        7.78383715217e-09,
+        2.888319159259775e-09,
+        7.132158722879396e-09
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 0.01142987176576886
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.05028315196280281
+        }
+      ],
+      "loss": 96.85124684452825,
+      "reference_loss": 96.85117625869546,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 189,
+        "num_rejected_steps": 155,
+        "num_steps": 344
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 455,
+        "num_rejected_steps": 407,
+        "num_steps": 862
+      }
+    },
+    {
+      "profile": "refinement",
+      "sample": 50,
+      "experiment": 1,
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        7.78383715217e-10,
+        2.619128766004094e-09,
+        3.757435024445473e-10
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 3.848001165275145e-06
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.005456155881887901
+        }
+      ],
+      "loss": 15.833120167804205,
+      "reference_loss": 15.833120579463605,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 685,
+        "num_rejected_steps": 637,
+        "num_steps": 1322
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 1125,
+        "num_rejected_steps": 1049,
+        "num_steps": 2174
+      }
+    },
+    {
+      "profile": "population",
+      "sample": 50,
+      "experiment": 1,
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        7.78383715217e-09,
+        2.888319159259775e-09,
+        7.132158722879396e-09
+      ],
+      "observables": [
+        {
+          "name": "X",
+          "max_normalized_difference": 2.043832970021034e-05
+        },
+        {
+          "name": "Z",
+          "max_normalized_difference": 0.05349550423951676
+        }
+      ],
+      "loss": 15.833117447679962,
+      "reference_loss": 15.833120218863906,
+      "stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 411,
+        "num_rejected_steps": 380,
+        "num_steps": 791
+      },
+      "reference_stats": {
+        "max_steps": 16000,
+        "num_accepted_steps": 683,
+        "num_rejected_steps": 637,
+        "num_steps": 1320
+      }
+    }
+  ],
+  "scope": "Forward predictions and loss stability on observed rows; not gradient accuracy or a global guarantee",
+  "result": "Predictions and losses agree with ten-times tighter tolerances on validated probes; see unresolved_probes for exclusions",
+  "validated_seeds": [
+    {
+      "sample": 63,
+      "normalized_parameters": [
+        0.7029630994760483,
+        0.8387356832731214,
+        0.9677651730396206,
+        0.8564276228493186
+      ],
+      "experiment_losses": [
+        12.805979261612958
+      ]
+    },
+    {
+      "sample": 50,
+      "normalized_parameters": [
+        -0.5387925234842146,
+        0.7950607994881236,
+        -0.6839516023504427,
+        -0.1146351690144587
+      ],
+      "experiment_losses": [
+        15.833120218863906
+      ]
+    },
+    {
+      "sample": 2,
+      "normalized_parameters": [
+        -0.3520037414218462,
+        -0.5701796943007449,
+        0.7179652869591155,
+        -0.12076768678290917
+      ],
+      "experiment_losses": [
+        49.34544383656073
+      ]
+    },
+    {
+      "sample": 43,
+      "normalized_parameters": [
+        0.9308092348869244,
+        -0.02899249735128928,
+        -0.9957747796703712,
+        -0.5182674514968886
+      ],
+      "experiment_losses": [
+        96.85117625869546
+      ]
+    }
+  ],
+  "seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=1aafd4f04723e9fa user_input.yaml=64c77aab8ad3c206",
+    "data_hashes": {
+      "dataset_1.csv": "90a248e2bb6973c7e84b20b8bac6f1597a51a18789c9be93079e8a47a4ecabf8"
+    },
+    "runtime_config_hash": "3cda8cb06dd76196cecc9c509a359ca367b62ae7b65842850de0c855fde31238"
+  },
+  "source_seed_context": {
+    "source_stamp": "# pfit-sources: user_model.py=1aafd4f04723e9fa user_input.yaml=64c77aab8ad3c206",
+    "data_hashes": {
+      "data.csv": "90a248e2bb6973c7e84b20b8bac6f1597a51a18789c9be93079e8a47a4ecabf8"
+    }
+  }
+}

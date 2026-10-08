@@ -1,0 +1,127 @@
+{
+  "case": "oregonator",
+  "session": "/workspace/pfit-local-agent/evaluation_runs/targeted_refits_20261008/cases/oregonator/session",
+  "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/oregonator/session",
+  "status": "completed",
+  "parameters": 4,
+  "population": {
+    "population_size": 128,
+    "num_iters": 100,
+    "processors": 8,
+    "algorithm": "DE",
+    "random_seed": 17,
+    "stepsize_rtol": [
+      1e-06,
+      1e-06,
+      1e-06
+    ],
+    "stepsize_atol": [
+      7.78383715217e-09,
+      2.888319159259775e-09,
+      7.132158722879396e-09
+    ]
+  },
+  "gradient": {
+    "gradient_optimizer": "adam",
+    "num_iters": 3000,
+    "auto_state_tolerances": true,
+    "stepsize_rtol": [
+      "1e-7",
+      "1e-7",
+      "1e-7"
+    ],
+    "stepsize_atol": [
+      7.78383715217e-10,
+      2.888319159259775e-10,
+      7.132158722879396e-10
+    ],
+    "initial_timestep": "1e-6",
+    "max_steps": 8000,
+    "auto_max_steps": true,
+    "solver_recovery_max_steps": 50000,
+    "solver_recovery_timeout_seconds": 900,
+    "solver_validation_min_successful": 10,
+    "solver_validation_seed": 7,
+    "solver_accuracy_check": true,
+    "solver_accuracy_workers": 4,
+    "auto_integrator": true,
+    "integrator": "Kvaerno5",
+    "init_value_lr": 0.0001,
+    "end_value_lr": 1e-06,
+    "transition_steps_lr": 2999,
+    "decay_rate_lr": 0.01
+  },
+  "requires_validation": true,
+  "original_result": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/cases/oregonator/session/outputs/run_20261008_023406_647734",
+  "started_at": "2026-10-08T04:36:19.212636+00:00",
+  "cpu_affinity": [
+    3,
+    7,
+    20,
+    23,
+    67,
+    71,
+    84,
+    87
+  ],
+  "command": [
+    "taskset",
+    "-c",
+    "3,7,20,23,67,71,84,87",
+    "/workspace/pfit-local-agent/.venv/bin/python",
+    "-m",
+    "local_agent.cli.main",
+    "run",
+    "/workspace/pfit-local-agent/evaluation_runs/targeted_refits_20261008/cases/oregonator/session",
+    "--no-sloppiness"
+  ],
+  "pid": 21300,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.9837260483944608,
+    "final_loss": 0.9796120385353304,
+    "refinement_tolerance_fallback": true,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        7.78383715217e-10,
+        2.619128766004094e-09,
+        3.757435024445473e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-06,
+        1e-06,
+        1e-06
+      ],
+      "atol": [
+        7.78383715217e-09,
+        2.888319159259775e-09,
+        7.132158722879396e-09
+      ]
+    },
+    "warnings": [
+      "The global-search winner could not be evaluated successfully at requested gradient-refinement tolerances (integration failure or invalid loss). Keeping the same winning parameters and using population-search integration tolerances for gradient refinement: rtol=[1e-06, 1e-06, 1e-06], atol=[7.78383715217e-09, 2.888319159259775e-09, 7.132158722879396e-09]. The tighter refinement accuracy was not achieved; this is not an Adam convergence failure."
+    ],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.9796120385353304
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/targeted_refits_20261008/cases/oregonator/session/outputs/run_20261008_043619_953334",
+  "assessment": "budget_completed_not_a_convergence_claim",
+  "finished_at": "2026-10-08T07:18:57.409162+00:00",
+  "elapsed_seconds": 9758.1965884089
+}
