@@ -1,0 +1,247 @@
+{
+  "status": "ok",
+  "run": "docs/paper_running_example/session/outputs/run_20261009_135856_896319",
+  "sources": "docs/paper_running_example/session/outputs/run_20261009_135856_896319/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 49,
+          "missing": 0,
+          "rmse": 0.6970727541715326,
+          "mae": 0.5871448367628808,
+          "bias": 0.09668078467528864,
+          "max_abs": 1.3453983672903576,
+          "time_correlation": -0.12065179384479523,
+          "lag1_correlation": -0.08322822328518427,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 8.0,
+              "count": 16,
+              "rmse": 0.5804704407507885
+            },
+            {
+              "start": 8.0,
+              "end": 16.0,
+              "count": 16,
+              "rmse": 0.8034467355767086
+            },
+            {
+              "start": 16.0,
+              "end": 24.0,
+              "count": 17,
+              "rmse": 0.6898443717883666
+            }
+          ],
+          "name": "signal",
+          "observes": "signal_model"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 49,
+          "missing": 0,
+          "rmse": 0.7645942420231991,
+          "mae": 0.6148508856700557,
+          "bias": -0.09576873551025457,
+          "max_abs": 2.0476647146895317,
+          "time_correlation": 0.1883299130493251,
+          "lag1_correlation": 0.10085923666054109,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 8.0,
+              "count": 16,
+              "rmse": 0.8475506404483436
+            },
+            {
+              "start": 8.0,
+              "end": 16.0,
+              "count": 16,
+              "rmse": 0.8214667231067218
+            },
+            {
+              "start": 16.0,
+              "end": 24.0,
+              "count": 17,
+              "rmse": 0.6114216195776856
+            }
+          ],
+          "name": "signal",
+          "observes": "signal_model"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k_elim",
+      "value": 0.4131587160415712,
+      "range_fraction": 0.53870563970437,
+      "logscale": true
+    },
+    {
+      "name": "k_on",
+      "value": 0.8810163554377275,
+      "range_fraction": 0.7362459927132339,
+      "logscale": true
+    },
+    {
+      "name": "k_off",
+      "value": 0.187037206882237,
+      "range_fraction": 0.5679820020837596,
+      "logscale": true
+    },
+    {
+      "name": "baseline",
+      "value": 92.40459629002454,
+      "range_fraction": 0.42404596290024543,
+      "logscale": false
+    },
+    {
+      "name": "gain",
+      "value": 52.47535968119918,
+      "range_fraction": 0.2586701491517547,
+      "logscale": false
+    }
+  ],
+  "limitations": [],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.005775528233435348,
+    "final_loss": 0.005775327030950038,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.005219267638936577,
+      0.006331386422963499
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 2000,
+    "gradient_iterations_evaluated": 2000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "docs/paper_running_example/session/outputs/run_20261009_135856_896319/de_fitting.log",
+      "rows": 120,
+      "first": 0.080936,
+      "final": 0.0057755,
+      "best": 0.0057755,
+      "last_material_improvement_iteration": 96,
+      "last_iteration": 120,
+      "tail": [
+        [
+          116,
+          0.0057756
+        ],
+        [
+          117,
+          0.0057756
+        ],
+        [
+          118,
+          0.0057756
+        ],
+        [
+          119,
+          0.0057756
+        ],
+        [
+          120,
+          0.0057755
+        ]
+      ]
+    },
+    {
+      "file": "docs/paper_running_example/session/outputs/run_20261009_135856_896319/NODE_fitting.log",
+      "rows": 21,
+      "first": 0.0057754,
+      "final": 0.0057753,
+      "best": 0.0057753,
+      "last_material_improvement_iteration": 100,
+      "last_iteration": 2000,
+      "tail": [
+        [
+          1700,
+          0.0057753
+        ],
+        [
+          1800,
+          0.0057753
+        ],
+        [
+          1900,
+          0.0057753
+        ],
+        [
+          1999,
+          0.0057753
+        ],
+        [
+          2000,
+          0.0057753
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.005775327030950038,
+  "experiment_losses": [
+    0.005219267638936577,
+    0.006331386422963499
+  ],
+  "sloppiness": {
+    "status": "ok",
+    "weak_modes": 0,
+    "negative_modes": 0
+  },
+  "normalized_gradient_inf_norm": 5.633826251094133e-06,
+  "gradient_to_loss_ratio": 0.0009754990879135328,
+  "stationarity": "Small local gradient; this does not establish a global optimum or scientific fit quality.",
+  "verdict": "Refinement stopped at its iteration budget."
+}

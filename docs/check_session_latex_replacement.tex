@@ -1,0 +1,89 @@
+\subsection{Checking the session}
+
+After reviewing the files produced by \texttt{pfit new}, check the session with:
+
+\begin{verbatim}
+pfit check sessions/<session-name>
+\end{verbatim}
+
+This command reads the generated YAML, source model, and every declared CSV
+file. The framework first performs deterministic checks by parsing these files
+and comparing their declarations. It verifies that the data dimensions and
+headers match the configured columns, parameter values and bounds are valid,
+initial conditions are complete, model names are consistent, and the source
+model uses the expected interfaces and column indices. Because the time column
+is passed separately to generated model code, these checks also help catch
+incorrect uses of dataset indexing: \texttt{dataset[:, 0]} refers to the first
+non-time CSV column, not to time.
+
+The stated loss is compared with the generated implementation. For example, if
+\texttt{user\_info.txt} requests an RMSE, logarithmic residuals, uncertainty
+weighting, finite-value masking, a particular normalization, or a specific
+experiment aggregation, the generated loss must contain the corresponding
+operation. These checks detect explicit contradictions, although they do not
+prove equivalence for arbitrary mathematical expressions.
+
+An explicit user-supplied loss is treated as authoritative. If the data scale
+suggests that another transformation might be numerically useful, the check
+reports that issue as a warning rather than rewriting the objective. When no
+explicit loss is supplied, the framework may require log or log10 residuals for
+strictly positive measured columns spanning several orders of magnitude before
+normalization. The same scale analysis is reported so the user can review the
+choice.
+
+The deterministic checks also look for several common fragilities: non-smooth
+or branch-like dynamics that may be difficult to differentiate, uncertainty
+columns that are declared but not used consistently in the loss, measured
+columns with large dynamic range, and loss implementations that appear to
+violate the explicit loss contract stated in \texttt{user\_info.txt}.
+
+For the running example, the framework verifies that both CSV files use the
+same ordered columns; that \texttt{dose\_rate} is declared as a finite forcing
+input; that \texttt{signal} maps to the derived observable
+\texttt{signal\_model}; and that the two experiments retain their specified
+initial conditions. It also checks that the generated loss uses finite signal
+measurements, applies the stated per-experiment normalization, calculates an
+RMSE for each experiment, and preserves the equal-experiment aggregation.
+
+The report is written to:
+
+\begin{verbatim}
+sessions/<session-name>/generated/user_input_check.txt
+\end{verbatim}
+
+Critical errors must be corrected before continuing. Warnings identify
+limitations or potentially fragile assumptions, while recommendations identify
+choices that the user may wish to reconsider. The check command is report-only:
+it does not modify the data, model, loss, configuration, or generated JAX code.
+
+By default, the configured local model may also review the session description,
+generated source, and deterministic evidence for semantic inconsistencies.
+Because model-generated criticism is not proof of an error, unsupported findings
+are retained as warnings rather than allowed to veto an otherwise valid session.
+In the report, model-proposed critical findings are recorded as unverified
+semantic findings. To omit this semantic review and run only deterministic
+checks, use:
+
+\begin{verbatim}
+pfit check sessions/<session-name> --deterministic-only
+\end{verbatim}
+
+After JAX translation, the command
+
+\begin{verbatim}
+pfit check sessions/<session-name> --ready
+\end{verbatim}
+
+additionally verifies that the generated JAX script has the required interface
+and was produced from the current YAML and source model. Source hashes recorded
+during translation are used to detect later edits. If solver-accuracy validation
+artifacts are present, the readiness check also verifies that their saved seed
+information is still usable. The readiness check does not regenerate the JAX
+translation or repeat the full numerical validation performed by
+\texttt{pfit jax}. The same readiness checks are repeated automatically before
+fitting.
+
+A passing check confirms that the session satisfies the implemented structural,
+numerical, and consistency rules for that stage. It does not establish
+scientific correctness, parameter identifiability, optimizer convergence, or
+global optimality.

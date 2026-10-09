@@ -1,0 +1,90 @@
+{
+  "mode": "full",
+  "source_run": null,
+  "seed_source": null,
+  "legacy_seed_order_assumed": false,
+  "sloppiness_enabled": true,
+  "sloppiness_method": "auto",
+  "cpu_resources": {
+    "requested_processors": 1,
+    "detected_cpus": 10,
+    "configured_host_devices": 1,
+    "configuration_source": "session/host detection",
+    "jax_cpu_devices": 1
+  },
+  "runtime_provenance": {
+    "python": {
+      "version": "3.12.8",
+      "executable": "/Users/saakaarbhatnagar/Desktop/param_fitting_dir/local_agent_setup/pfit-local-agent/.venv/bin/python"
+    },
+    "platform": {
+      "system": "Darwin",
+      "release": "27.0.0",
+      "machine": "arm64",
+      "processor": "arm",
+      "cpu_count": 10
+    },
+    "packages": {
+      "pfit-local-agent": "0.1.0",
+      "jax": "0.6.2",
+      "jaxlib": "0.6.2",
+      "numpy": "2.2.6",
+      "diffrax": "0.7.2",
+      "optax": "0.2.8",
+      "pyswarms": "1.3.0"
+    },
+    "artifact_sha256": {
+      "requirements_lock": "2c0658924d672c73fd9d012bcfce6c7b51cc72f56c83bf290f497303becda78b",
+      "run_config": "0d19518348afd28a138b3fa8e6c4393b2038598305359d884084f9edd5972951",
+      "generated_script": "8425b7a3e647d3aa2a0db57028d880f97dcd446df93b6e3147103fe321666eb1",
+      "user_model": "10701b7ef77f85b307dd541cc7cb98b746db947b3b5b95acd377b401d15e4b7f"
+    },
+    "git": {
+      "commit": "76c95403e5c08fd5c13706522ec0bd8f2e03a0a6",
+      "branch": "main",
+      "dirty": true
+    },
+    "optimizer": {
+      "population_algorithm": "DE",
+      "population_random_seed": null,
+      "population_size": 48,
+      "population_iterations": 120,
+      "gradient_optimizer": "adam",
+      "gradient_iterations": 2000
+    },
+    "llm_configuration_at_run": {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:32b",
+      "base_url": "http://127.0.0.1:11434",
+      "temperature": 0.1,
+      "max_tokens": 12000,
+      "note": "configuration observed at run time; CLI overrides used during generation may differ"
+    }
+  },
+  "status": "completed",
+  "aggregation": "equal_experiment_mean",
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "pulse.csv",
+      "snapshot_data_file": "dataset_1.csv",
+      "sha256": "c875c97375c8e463e2336137f201687ee286f21f82cc991c5a9d44025dd6df36",
+      "initial_conditions": {
+        "D": 0.0,
+        "R": 0.0
+      },
+      "output_file": "result_solution_exp1.csv"
+    },
+    {
+      "index": 2,
+      "data_file": "washout.csv",
+      "snapshot_data_file": "dataset_2.csv",
+      "sha256": "3c5f0329899a3b9500d3ff1e39ddad9e376260093f166550fa4c616012efbceb",
+      "initial_conditions": {
+        "D": 0.0,
+        "R": 0.3
+      },
+      "output_file": "result_solution_exp2.csv"
+    }
+  ]
+}

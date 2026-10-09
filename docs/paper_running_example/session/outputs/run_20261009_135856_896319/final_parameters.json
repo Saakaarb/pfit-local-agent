@@ -1,0 +1,29 @@
+{
+  "parameters": [
+    {
+      "name": "k_elim",
+      "value": 0.4131587160415712,
+      "logscale": true
+    },
+    {
+      "name": "k_on",
+      "value": 0.8810163554377275,
+      "logscale": true
+    },
+    {
+      "name": "k_off",
+      "value": 0.187037206882237,
+      "logscale": true
+    },
+    {
+      "name": "baseline",
+      "value": 92.40459629002454,
+      "logscale": false
+    },
+    {
+      "name": "gain",
+      "value": 52.47535968119918,
+      "logscale": false
+    }
+  ]
+}

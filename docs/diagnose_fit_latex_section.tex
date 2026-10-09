@@ -1,0 +1,199 @@
+% Required in the paper preamble for the shaded report excerpts:
+% \usepackage{graphicx}
+% \usepackage{subcaption}
+% \usepackage[most]{tcolorbox}
+
+\subsection{Diagnosing a completed fit}
+
+After parameter estimation has finished, examine the result with:
+
+\begin{verbatim}
+pfit diagnose sessions/<session-name> <run-id>
+\end{verbatim}
+
+The run identifier is the name of a directory under
+\texttt{sessions/<session-name>/outputs/}. If it is omitted, the most recent
+completed run is selected.
+
+Diagnosis is based on the saved run snapshot: the YAML configuration, data
+files, generated JAX script, generated source model, fitted parameters, and
+runtime provenance copied when the fit was run. It does not depend on the
+current working files in the session. A previous result can therefore still be
+diagnosed after the working YAML, data, or generated code have been changed.
+
+For each dataset, the command recreates the fitted trajectory and compares it
+with the measurements. In the running example, separate plots are produced for
+the pulse and washout experiments. These show the measured signal together with
+the fitted \texttt{signal\_model}. Residual values are still written to CSV
+files and summarized in the diagnosis report, but they are not drawn as a
+separate subplot in \texttt{fit\_expN.png}.
+
+The diagnosis reports residual summaries, including root-mean-square error,
+mean absolute error, bias, largest absolute residual, and simple time-pattern
+evidence. Missing measurements are excluded from residual statistics, but
+nonfinite model predictions are treated as simulation failures rather than
+missing data. The report also checks whether fitted parameters are close to
+their bounds, whether optimizer logs suggest that improvement was still
+occurring, and whether the run used a full fit or a gradient-only restart.
+
+If post-fit sloppiness analysis was performed during \texttt{pfit run}, the
+diagnosis includes its status and summary. The diagnosis command does not
+normally repeat the sloppiness calculation.
+
+The main files produced are:
+
+\begin{verbatim}
+fit_diagnosis.txt
+scientific_diagnosis.json
+fit_expN.png
+residual_expN_channelM.csv
+\end{verbatim}
+
+Here, \texttt{N} identifies the experiment and \texttt{M} identifies the
+measured output channel. The text report is the most convenient place to begin,
+while the plots and residual CSV files allow the user to inspect individual
+datasets and output channels.
+
+For the running pulse/washout example, representative diagnostic plots are shown
+in Figure~\ref{fig:pfit-drug-response-diagnosis}. These figures were generated
+from synthetic data created from the same model, with small added measurement
+noise, followed by the ordinary \texttt{pfit run} and \texttt{pfit diagnose}
+workflow.
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/fit_exp1.png}
+    \caption{Pulse experiment.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/fit_exp2.png}
+    \caption{Washout experiment.}
+  \end{subfigure}
+
+  \vspace{0.6em}
+  \begin{subfigure}[t]{0.42\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/sloppiness_spectrum.png}
+    \caption{Post-fit sloppiness spectrum.}
+  \end{subfigure}
+  \caption{Example diagnostic outputs for the pulse/washout running example.}
+  \label{fig:pfit-drug-response-diagnosis}
+\end{figure}
+
+A representative excerpt from \texttt{fit\_diagnosis.txt} for this example is:
+
+\begin{tcblisting}{
+  listing only,
+  breakable,
+  colback=gray!6,
+  colframe=gray!35,
+  boxrule=0.4pt,
+  arc=1mm,
+  left=2mm,
+  right=2mm,
+  top=1mm,
+  bottom=1mm
+}
+Fit diagnosis
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 120 iterations, first loss 8.0936E-02,
+      best loss 5.7755E-03, final loss 5.7755E-03
+- NODE: 21 iterations, first loss 5.7754E-03,
+        best loss 5.7753E-03, final loss 5.7753E-03
+
+Experiments: 2
+Aggregation: equal_experiment_mean
+- Experiment 1: pulse.csv; loss=0.005219267638936577;
+  output=result_solution_exp1.csv
+- Experiment 2: washout.csv; loss=0.006331386422963499;
+  output=result_solution_exp2.csv
+
+Scientific diagnosis:
+- Status: ok
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient and trajectory plots before
+  deciding whether a gradient-only restart is worthwhile.
+- Figure: fit_exp1.png
+- Figure: fit_exp2.png
+- Detailed evidence: scientific_diagnosis.json
+\end{tcblisting}
+
+When sloppiness analysis is enabled, a representative
+\texttt{sloppiness\_report.txt} excerpt is:
+
+\begin{tcblisting}{
+  listing only,
+  breakable,
+  colback=gray!6,
+  colframe=gray!35,
+  boxrule=0.4pt,
+  arc=1mm,
+  left=2mm,
+  right=2mm,
+  top=1mm,
+  bottom=1mm
+}
+Post-fit sloppiness
+Status: ok
+Method: finite-difference
+Coordinates: log10(k_elim), log10(k_on), log10(k_off), baseline, gain
+Verdict: no weak curvature directions at the specified relative floor
+Weak modes: 0
+Negative modes: 0
+Normalized gradient infinity norm: 5.63383e-06
+Eigenvalues (largest to smallest):
+  mode 1: 1.68783850e+01
+  mode 2: 1.26587665e+00
+  mode 3: 8.25273064e-02
+  mode 4: 1.03427087e-03
+  mode 5: 2.01732936e-04
+Positive spectrum span: 4.92255 decades
+STIFFEST direction: k_off(-0.64), k_elim(-0.63),
+                   k_on(+0.43), baseline(+0.02)
+SLOPPIEST direction: gain(+1.00), baseline(-0.08),
+                    k_on(-0.02), k_elim(+0.01)
+Warning: Local curvature only: not proof of structural/global
+identifiability or convergence.
+\end{tcblisting}
+
+By default, the framework may ask the configured local language model to
+summarize the computed evidence and suggest next steps. This interpretation is
+advisory: the model receives the numerical diagnosis, but it does not modify the
+session or the run. To produce only the deterministic report without contacting
+the local model, use:
+
+\begin{verbatim}
+pfit diagnose sessions/<session-name> <run-id> --deterministic-only
+\end{verbatim}
+
+When a closer examination of local convergence is needed, the optional
+\texttt{--probe-gradients} flag compares automatic derivatives with bounded
+finite-difference estimates for a small selection of parameter axes:
+
+\begin{verbatim}
+pfit diagnose sessions/<session-name> <run-id> --probe-gradients
+\end{verbatim}
+
+This check can be computationally expensive and is not required for routine
+diagnosis.
+
+The diagnosis should be treated as evidence for scientific review, not as a
+pass--fail judgment. A low loss does not prove that the fitted parameters are
+identifiable, that the global optimum has been found, or that the model is
+scientifically appropriate. The user should inspect the trajectories, residuals,
+parameter locations, optimizer history, and sloppiness summary before deciding
+whether the fit answers the intended scientific question.

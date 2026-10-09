@@ -1,0 +1,169 @@
+% Required in the paper preamble for the boxed user input example:
+% \usepackage[most]{tcolorbox}
+
+\subsection{Starting a new session}
+
+After preparing the input statement and data files, the session directory should
+contain the user-supplied files:
+
+\begin{verbatim}
+sessions/<session-name>/
+  inputs/
+    user_info.txt
+    <data-file>.csv
+    ...
+\end{verbatim}
+
+The file \texttt{user\_info.txt} is the reviewed scientific description of the
+problem, and the CSV files are the experimental records referenced by that
+description. The generated YAML and Python files are not starting inputs. They
+are created by the workflow.
+
+Create the session with:
+
+\begin{verbatim}
+pfit new sessions/<session-name>
+\end{verbatim}
+
+The configured local model extracts the problem in bounded stages using the
+input statement and CSV headers. The stages identify the selected experiments,
+trainable and fixed parameters, integrated states and initial conditions,
+equations, derived observables, measured and forcing columns, and the loss
+definition. If a required item is missing or contradictory, the command reports
+targeted \texttt{missing\_inputs} and stops. It does not conduct an interactive
+question-and-answer session or silently invent missing equations, parameter
+bounds, initial conditions, data mappings, units, or loss terms.
+
+\paragraph{Running example.}
+The tutorial uses a two-state drug-response model fitted simultaneously to pulse
+and washout experiments. Both CSV files use the same columns,
+
+\begin{verbatim}
+time,dose_rate,signal
+\end{verbatim}
+
+but have different forcing histories and initial conditions. The corresponding
+\texttt{user\_info.txt} is:
+
+\begin{tcblisting}{
+  listing only,
+  breakable,
+  colback=gray!6,
+  colframe=gray!35,
+  boxrule=0.4pt,
+  arc=1mm,
+  left=2mm,
+  right=2mm,
+  top=1mm,
+  bottom=1mm
+}
+Problem:
+Fit pulse.csv and washout.csv using one shared parameter set.
+
+Experiments and initial conditions:
+pulse.csv:   D(0) = 0, R(0) = 0
+washout.csv: D(0) = 0, R(0) = 0.3
+
+CSV columns:
+time: time in minutes
+dose_rate: known forcing input in concentration per minute;
+           use linear interpolation
+signal: measured value of signal_model in arbitrary units
+
+Trainable parameters:
+k_elim:   bounds [0.01, 10], logarithmic
+k_on:     bounds [0.001, 10], logarithmic
+k_off:    bounds [0.001, 10], logarithmic
+baseline: bounds [50, 150], linear
+gain:     bounds [1, 200], linear
+
+Fixed parameters:
+None.
+
+ODE system:
+dD/dt = dose_rate - k_elim*D
+dR/dt = k_on*D*(1 - R) - k_off*R
+
+Observable:
+signal_model = baseline + gain*R
+CSV column signal measures signal_model.
+
+Loss:
+For each experiment e, use only finite signal measurements.
+
+scale_e = max(abs(finite signal values in experiment e))
+
+L_e = sqrt(mean(
+    ((signal_model_e - signal_e)/scale_e)^2
+))
+
+The total loss is the equal-weight mean:
+L = (L_pulse + L_washout)/2.
+
+Outputs:
+Write time, D, R, measured signal, and signal_model.
+\end{tcblisting}
+
+This statement supplies the scientific decisions required by the workflow. The
+local model is not expected to choose missing equations, parameter bounds,
+initial conditions, data mappings, units, or loss terms. The measured CSV column
+\texttt{signal} is valid here because the statement explicitly maps it to the
+derived observable \texttt{signal\_model}. In general, measured columns should
+map unambiguously to declared integrated states or derived observables, and
+forcing or uncertainty columns should be identified by role.
+
+\paragraph{Generated files.}
+If extraction and validation succeed, \texttt{pfit new} creates:
+
+\begin{verbatim}
+sessions/<session-name>/
+  inputs/
+    user_info.txt
+    user_input.yaml
+    pulse.csv
+    washout.csv
+  generated/
+    user_model.py
+    agent_logs/
+\end{verbatim}
+
+The file \texttt{inputs/user\_input.yaml} contains the structured experiment
+definitions, column roles, initial conditions, parameter bounds, state ordering,
+numerical settings, and output configuration. Fresh generated configurations
+also include provisional numerical automation settings used later by
+\texttt{pfit jax}, including automatic integrator selection, automatic
+\texttt{max\_steps} estimation, bounded solver-step recovery, tolerance
+calibration, and solver-accuracy checks. These settings are subject to later
+deterministic validation and may be adjusted during JAX generation.
+
+The file \texttt{generated/user\_model.py} contains the readable NumPy
+implementation of the ODEs, forcing interpolation, observables, loss, and output
+calculation. Detailed model calls and workflow events are stored under
+\texttt{generated/agent\_logs/}; an additional
+\texttt{pfit\_new\_review.txt} is written when extraction produces review notes.
+
+Before these files are accepted, the framework checks the CSV headers, declared
+names, numeric values, parameter bounds, initial conditions, equation symbols,
+column mappings, generated Python interfaces, and selected source-consistency
+conditions. Fixed values and explicitly stated initial conditions are checked
+against the original problem statement. Bounded repair attempts may correct
+eligible expression or response-format errors, but deterministic validation
+still decides acceptance.
+
+Passing \texttt{pfit new} means that the generated artifacts satisfy the checks
+implemented for new-session extraction. It does not prove that the extracted
+model represents the intended science, that the future JAX translation is
+correct, or that the solver settings are adequate for fitting. Before
+continuing, the user should compare the generated files with the original
+specification and verify the selected datasets, parameter bounds, state
+ordering, initial conditions, equations, forcing interpolation, observable
+mappings, loss, output definitions, and numerical settings.
+
+After intentionally changing the source statement, regenerate the session with:
+
+\begin{verbatim}
+pfit new sessions/<session-name> --overwrite
+\end{verbatim}
+
+This replaces the generated new-session artifacts while preserving the
+user-supplied \texttt{user\_info.txt} and CSV files.

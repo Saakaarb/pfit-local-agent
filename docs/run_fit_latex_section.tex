@@ -1,0 +1,50 @@
+\subsection{Running the fit}
+
+After the JAX model has been generated and the session passes readiness checks,
+run parameter estimation with:
+
+\begin{verbatim}
+pfit run sessions/<session-name>
+\end{verbatim}
+
+This stage does not contact the local language model. It uses the accepted YAML
+configuration, CSV files, and \texttt{generated\_script.py}. Before fitting
+starts, the same deterministic readiness checks are repeated to ensure that the
+generated script is current and has the required runtime interface.
+
+Each invocation creates a new preserved run directory under:
+
+\begin{verbatim}
+sessions/<session-name>/outputs/
+\end{verbatim}
+
+The run directory contains a snapshot of the input YAML, selected data files,
+generated JAX script, runtime provenance, fitted parameters, optimization
+history, fitted trajectories, and summary files. These snapshots allow a
+completed result to be diagnosed later even if the working session files are
+changed.
+
+The default run performs population-based global exploration followed by
+gradient-based refinement. The population stage searches the bounded parameter
+space in the normalized coordinates defined by the YAML configuration. The
+gradient stage starts from the best population result and refines it using the
+differentiable JAX loss.
+
+For an additional refinement starting from a previous run, use:
+
+\begin{verbatim}
+pfit run sessions/<session-name> gradient-only --from-run <run-id>
+\end{verbatim}
+
+By default, the run also performs post-fit sloppiness analysis at the final
+parameter estimate. This can be skipped with:
+
+\begin{verbatim}
+pfit run sessions/<session-name> --no-sloppiness
+\end{verbatim}
+
+A completed run indicates that the configured optimization procedure finished
+and wrote its artifacts. It does not prove that the best fit is globally
+optimal, scientifically adequate, or identifiable; those questions are examined
+using the fitted trajectories, residuals, parameter locations, optimization
+history, and diagnostic reports.

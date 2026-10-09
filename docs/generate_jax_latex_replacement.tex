@@ -1,0 +1,165 @@
+\subsection{Generating the JAX model}
+
+Once the session has passed the checks described above, generate the executable
+JAX model by running:
+
+\begin{verbatim}
+pfit jax sessions/<session-name>
+\end{verbatim}
+
+This command converts the readable NumPy model in
+\texttt{generated/user\_model.py} into the differentiable JAX implementation
+used for parameter estimation. The translation is performed with the configured
+local language model, but it is not treated as a single unrestricted code
+generation step. The workflow asks for smaller fragments: helper functions,
+right-hand-side expressions, the loss body when needed, and the writeout body
+when needed. Source-derived or deterministically generated fragments are
+protected from unrelated repair attempts.
+
+The resulting script is written to:
+
+\begin{verbatim}
+sessions/<session-name>/generated/generated_script.py
+\end{verbatim}
+
+For the running example, the generated script contains the differential
+equations for drug amount and response, interpolation of
+\texttt{dose\_rate}, calculation of \texttt{signal\_model}, the loss function
+defined in the input statement, and the columns written to the fitted-output
+files.
+
+A simplified excerpt of the transformed JAX system for this example is:
+
+\begin{tcblisting}{
+  listing only,
+  breakable,
+  colback=gray!6,
+  colframe=gray!35,
+  boxrule=0.4pt,
+  arc=1mm,
+  left=2mm,
+  right=2mm,
+  top=1mm,
+  bottom=1mm
+}
+@jax.jit
+def user_defined_system(t, y, other_args):
+    constants = other_args["constants"]
+    trainable_variables = other_args["trainable_variables"]
+    dataset = constants["dataset"]
+    t_eval = constants["t_eval"]
+
+    k_elim = unscale_value(trainable_variables[0], 0.01, 10.0, True)
+    k_on = unscale_value(trainable_variables[1], 0.001, 10.0, True)
+    k_off = unscale_value(trainable_variables[2], 0.001, 10.0, True)
+    baseline = unscale_value(trainable_variables[3], 50.0, 150.0, False)
+    gain = unscale_value(trainable_variables[4], 1.0, 200.0, False)
+
+    D = y[0]
+    R = y[1]
+    dose_rate = jnp.interp(t, t_eval, dataset[:, 0])
+
+    dDdt = dose_rate - k_elim * D
+    dRdt = k_on * D * (1.0 - R) - k_off * R
+    return jnp.array([dDdt, dRdt])
+
+@jax.jit
+def _compute_loss_value(constants, trainable_variables,
+                        solution_time, solution):
+    dataset = constants["dataset"]
+    baseline = unscale_value(trainable_variables[3], 50.0, 150.0, False)
+    gain = unscale_value(trainable_variables[4], 1.0, 200.0, False)
+
+    R = solution[:, 1]
+    signal_model = baseline + gain * R
+    signal = dataset[:, 1]
+    mask = jnp.isfinite(signal)
+    scale = jnp.max(jnp.abs(signal[mask]))
+    residual = (signal_model[mask] - signal[mask]) / scale
+    return jnp.sqrt(jnp.mean(residual**2))
+\end{tcblisting}
+
+This excerpt omits the surrounding integration scaffold, error handling,
+writeout routine, and multi-experiment aggregation, but it shows the main
+transformation: parameters are mapped from optimizer coordinates to physical
+values, the forcing input is interpolated from the non-time dataset columns,
+the right-hand side is written with \texttt{jax.numpy}, and the stated
+normalized RMSE is evaluated on finite measurements.
+
+The generated script is not accepted simply because it is valid Python. The
+framework first checks that it provides the required runtime interface for
+integration, loss evaluation, and output writing. It then imports the script,
+runs the model for each dataset, verifies that trajectories and losses are
+finite, and evaluates the generated code on sampled parameter points. These
+sampled points are chosen in the normalized search coordinates used by the
+optimizers, including logarithmic coordinates for parameters marked as
+log-scaled.
+
+The JAX implementation is compared with the readable NumPy source model at
+sampled states and parameter values. The comparison checks differential-equation
+values, observable predictions, output columns, and losses where applicable.
+These tests are intended to detect accidental changes introduced during
+translation, such as altered parameter names, incorrect column indices, missing
+observable transformations, or a loss that no longer matches the source model.
+They provide useful safeguards, but they do not prove equivalence for every
+possible state and parameter value.
+
+\paragraph{Numerical readiness checks.}
+The JAX stage also performs numerical checks needed before fitting. For fresh
+generated configurations, the framework may select an integrator from the data,
+estimate an initial \texttt{max\_steps} budget, test solver coverage across
+sampled parameter points, calibrate state-scaled tolerances, and compare
+predictions and losses against integrations run with tighter tolerances. These
+checks are deterministic and are recorded in JSON reports under
+\texttt{generated/}.
+
+The principal reports include:
+
+\begin{verbatim}
+solver_selection.json
+solver_coverage.json
+solver_diagnostics.json
+solver_recovery.json
+tolerance_calibration.json
+solver_accuracy.json
+translation_fidelity.json
+\end{verbatim}
+
+If too few sampled parameter points integrate successfully because the solver
+reaches its step limit, the workflow may increase \texttt{max\_steps} up to the
+configured recovery ceiling and rerun the same validation. This recovery changes
+only the numerical step budget; it does not ask the model to rewrite the
+scientific equations, loss, or observables. If recovery succeeds, the accepted
+step budget is written back to the YAML configuration. If recovery is exhausted
+or times out, the session is not marked ready.
+
+Tolerance calibration is similarly guarded. Proposed state-scaled tolerances or
+population-stage relaxations are accepted only when they preserve finite losses
+and the meaningful ordering of sampled candidates. Solver-accuracy checks then
+compare selected feasible probes with tighter reference solves. When the
+accuracy check rejects a proposed relaxation, the workflow falls back to the
+validated stricter profile rather than accepting an inaccurate setting.
+
+\paragraph{Repair and source freshness.}
+If a translation comparison or interface check fails, the framework may ask the
+local model to repair only the fragment responsible for the failure. The number
+of repair attempts is limited, and repairs are field-scoped so that a loss
+failure does not permit arbitrary changes to equations, parameter definitions,
+or protected source-derived bodies. A session is not marked ready if the
+generated model still fails its checks.
+
+The framework records which versions of \texttt{inputs/user\_input.yaml} and
+\texttt{generated/user\_model.py} were used to create the JAX script. If either
+file is edited afterwards, the generated script is treated as out of date and
+\texttt{pfit jax} must be run again before fitting.
+
+Before fitting, the user should inspect \texttt{generated\_script.py} and the
+generated reports and confirm that the equations, parameter names, forcing
+interpolation, observable definitions, loss function, output columns, integrator,
+tolerances, and step budget match the intended model.
+
+Finally, verify that the complete session is ready to run:
+
+\begin{verbatim}
+pfit check sessions/<session-name> --ready
+\end{verbatim}

@@ -242,7 +242,7 @@ def _write_spectrum_plot(report, output_dir):
         ax.set_xlim(-1, 1)
         ax.set_xticks([])
         ax.set_ylabel("absolute normalized eigenvalue")
-        ax.set_title(f"{output_dir.name}\n{report['weak_modes']} weak modes; red = negative")
+        ax.set_title("Sloppiness spectrum")
         ax.legend(loc="lower right", fontsize=9)
         fig.tight_layout()
         fig.savefig(output_dir / "sloppiness_spectrum.png", dpi=200)

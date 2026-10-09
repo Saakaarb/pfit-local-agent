@@ -142,6 +142,13 @@ def scientific_diagnosis(session, output, *, probe_gradients=False):
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     report['optimizer'] = summary
     report['optimizer_traces'] = [trace for name in ('de_fitting.log','pso_fitting.log','NODE_fitting.log') if (trace := optimizer_trace(output/name))]
+    manifest_path = output / 'run_manifest.json'
+    manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+    original_data_files = {
+        item.get('index'): item.get('data_file')
+        for item in manifest.get('experiments', [])
+        if item.get('index') is not None and item.get('data_file')
+    }
     # Follow only the recorded restart chain, never unrelated runs.
     report['seed_history'] = []
     cursor=output;seen=set()
@@ -239,7 +246,7 @@ def scientific_diagnosis(session, output, *, probe_gradients=False):
                 if stats['count']>=8 and stats['rmse']>1e-10 and (abs(stats['bias'])>.25*stats['rmse'] or abs(stats['time_correlation'] or 0)>.5 or abs(stats['lag1_correlation'] or 0)>.5):
                     finding('RESIDUAL',5,f'Experiment {record["index"]}, {col["name"]}: RMSE={stats["rmse"]:.6g}, bias={stats["bias"]:.6g}, time correlation={stats["time_correlation"]}, lag-1={stats["lag1_correlation"]}.',
                             'Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.')
-            _plot_record(output,record,time,channels,report)
+            _plot_record(output,record,time,channels,report, original_data_files.get(record['index']))
         except Exception as exc:
             exp['error']=f'{type(exc).__name__}: {exc}'
             report['limitations'].append(f'Experiment {record["index"]} residual/plot diagnosis unavailable: {exc}')
@@ -247,18 +254,36 @@ def scientific_diagnosis(session, output, *, probe_gradients=False):
     return finish()
 
 
-def _plot_record(output, record, time, channels, report):
+def _plot_record(output, record, time, channels, report, display_filename=None):
     if not channels: return
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    fig,axes=plt.subplots(len(channels),2,figsize=(11,3*len(channels)),squeeze=False)
+    forcing = [
+        (col['name'], record['dataset'][:, j])
+        for j, col in enumerate(record['columns'][1:])
+        if col.get('role') == 'forcing'
+    ]
+    title = Path(display_filename or record.get('filename', f"experiment_{record['index']}")).stem.replace('_', ' ').title()
+    fig,axes=plt.subplots(len(channels),1,figsize=(7.2,3.1*len(channels)),squeeze=False)
     for i,(name,measured,simulated) in enumerate(channels):
-        axes[i,0].plot(time,measured,'.',label='measured');axes[i,0].plot(time,simulated,label='simulated')
-        axes[i,0].set_title(name);axes[i,0].legend();axes[i,0].set_xlabel('time')
+        ax = axes[i,0]
+        ax.plot(time, measured, 'o', ms=3.8, color='C0', label='measured')
+        ax.plot(time, simulated, '-', lw=1.9, color='C3', label='simulated')
+        ax.set_title(f'{title} experiment: {name}')
+        ax.set_xlabel('time')
+        ax.set_ylabel(name)
+        handles, labels = ax.get_legend_handles_labels()
+        if forcing:
+            twin = ax.twinx()
+            for forcing_name, forcing_values in forcing:
+                twin.plot(time, forcing_values, '--', lw=1.2, color='0.35', alpha=0.8, label=forcing_name)
+            twin.set_ylabel(', '.join(name for name, _ in forcing))
+            forcing_handles, forcing_labels = twin.get_legend_handles_labels()
+            handles += forcing_handles
+            labels += forcing_labels
+        ax.legend(handles, labels, loc='best', fontsize=8)
         residual=simulated-measured
-        axes[i,1].plot(time,residual,'.-');axes[i,1].axhline(0,color='k',lw=.7)
-        axes[i,1].set_title('simulated - measured');axes[i,1].set_xlabel('time')
         np.savetxt(output/f'residual_exp{record["index"]}_channel{i+1}.csv',np.column_stack([time,measured,simulated,residual]),delimiter=',',header='time,measured,simulated,residual',comments='')
-    fig.tight_layout();path=output/f'fit_exp{record["index"]}.png';fig.savefig(path,dpi=130);plt.close(fig)
+    fig.tight_layout();path=output/f'fit_exp{record["index"]}.png';fig.savefig(path,dpi=160);plt.close(fig)
     report['plots'].append(path.name)
