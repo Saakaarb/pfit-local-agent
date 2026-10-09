@@ -12,6 +12,8 @@ from lib.utils.yamlread import YAMLReader
 
 TIME_SCALE_RATIO = 100.0
 MIN_POINTS = 8
+STEPS_PER_TIME_SCALE = 10
+STEP_HEADROOM_FACTOR = 10
 
 
 def dataset_solver_selection(records, measured_names):
@@ -78,7 +80,7 @@ def estimate_max_steps(records, columns, current, cap, initial_time=None):
         uncertain = any(c['status'] not in ('resolved', 'flat') for c in measured)
         tau = min(resolved) if resolved else None
         usable = tau is not None and not uncertain
-        raw = 30 * duration / tau if usable else None
+        raw = STEPS_PER_TIME_SCALE * STEP_HEADROOM_FACTOR * duration / tau if usable else None
         # Bound before rounding to avoid overflow and preserve an explicit cap.
         proposed = min(cap, max(1000, 1000 * math.ceil(min(raw, cap) / 1000))) if usable else current
         experiments.append(dict(experiment=record['index'], duration=duration,
@@ -87,7 +89,7 @@ def estimate_max_steps(records, columns, current, cap, initial_time=None):
             method='time_scale_estimate' if usable else 'configured_budget_fallback'))
     selected = max((e['proposed_max_steps'] for e in experiments), default=current)
     return dict(selected_max_steps=selected, configured_max_steps=current, cap=cap,
-        steps_per_time_scale=10, headroom_factor=3, rounding_multiple=1000,
+        steps_per_time_scale=STEPS_PER_TIME_SCALE, headroom_factor=STEP_HEADROOM_FACTOR, rounding_multiple=1000,
         minimum_steps=min(1000, cap), experiments=experiments,
         scope='Initial budget estimate only; sampled integration and accuracy checks remain required')
 

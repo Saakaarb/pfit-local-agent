@@ -919,8 +919,8 @@ Fresh configurations enable `gradient_opt.auto_max_steps: true`; absent/false
 preserves the configured starting budget. Before translation, reuse the dataset
 time-scale analysis. For each experiment with resolved time scales, take its
 smallest fast time tau and duration T (last measurement minus initial_time, or
-minus first measurement when initial_time is absent). Estimate `30*T/tau`:
-ten steps per observed time scale and a factor of three for headroom. Round up
+minus first measurement when initial_time is absent). Estimate `100*T/tau`:
+ten steps per observed time scale and a factor of ten for headroom. Round up
 to the next 1,000, with a minimum of 1,000 and the configured recovery ceiling
 (default 50,000). Select the largest experiment budget for all particles.
 Insufficient, unresolved or entirely flat measurements retain the configured
