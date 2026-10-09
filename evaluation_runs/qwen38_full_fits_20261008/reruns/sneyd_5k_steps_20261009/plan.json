@@ -96,5 +96,6 @@
       126
     ]
   ],
-  "change": "Only max_steps raised1000->5000; same Tsit5, tolerances, nine experiments, bounds, model, objective, DE320x300 seed29 and Adam3000. No automatic tolerance calibration or further budget increase for this comparison."
+  "change": "Only max_steps raised1000->5000; same Tsit5, tolerances, nine experiments, bounds, model, objective, DE320x300 seed29 and Adam3000. No automatic tolerance calibration or further budget increase for this comparison.",
+  "finished_at": "2026-10-09T01:09:30.299600+00:00"
 }
