@@ -1,0 +1,105 @@
+{
+  "created_at": "2026-10-09T00:43:24.445653+00:00",
+  "cases": [
+    {
+      "case": "sneyd_ipr",
+      "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/reruns/sneyd_extended_20261009/cases/sneyd_ipr/session",
+      "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/cases/sneyd_ipr/session",
+      "status": "prepared",
+      "parameters": 14,
+      "population": {
+        "population_size": 320,
+        "num_iters": 300,
+        "processors": 16,
+        "algorithm": "DE",
+        "random_seed": 29,
+        "stepsize_rtol": [
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "stepsize_atol": [
+          5.598999498778205e-10,
+          1e-08,
+          6.390680456042781e-12,
+          6.908084862128594e-13,
+          4.752753182713575e-12,
+          9.875560064942657e-13,
+          1e-07,
+          1e-07
+        ]
+      },
+      "gradient": {
+        "gradient_optimizer": "adam",
+        "num_iters": 3000,
+        "auto_state_tolerances": true,
+        "stepsize_rtol": [
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7",
+          "1e-7"
+        ],
+        "stepsize_atol": [
+          5.5989994987782054e-11,
+          1e-09,
+          6.390680456042781e-13,
+          6.908084862128594e-14,
+          4.752753182713575e-13,
+          9.875560064942657e-14,
+          1e-08,
+          1e-08
+        ],
+        "initial_timestep": "1e-6",
+        "max_steps": 1000,
+        "auto_max_steps": true,
+        "solver_recovery_max_steps": 50000,
+        "solver_recovery_timeout_seconds": 900,
+        "solver_validation_min_successful": 10,
+        "solver_validation_seed": 7,
+        "solver_accuracy_check": true,
+        "solver_accuracy_workers": 4,
+        "auto_integrator": true,
+        "integrator": "Tsit5",
+        "init_value_lr": 0.0001,
+        "end_value_lr": 1e-06,
+        "transition_steps_lr": 2999,
+        "decay_rate_lr": 0.01
+      }
+    }
+  ],
+  "cpu_slots": [
+    [
+      4,
+      8,
+      9,
+      21,
+      25,
+      30,
+      51,
+      62,
+      68,
+      72,
+      73,
+      85,
+      89,
+      94,
+      115,
+      126
+    ]
+  ],
+  "framework_commit": "76c95403e5c08fd5c13706522ec0bd8f2e03a0a6",
+  "step_multiplier": 100,
+  "memory_limit_bytes": 64000000000,
+  "previous_best_loss": 0.02505909149215776,
+  "reason": "User-requested broader Sneyd search: 320particles x300generations, seed29; Adam3000. Same scientific model, nine datasets, bounds and objective. New 100x time-scale estimate and fresh numerical validation.",
+  "run_framework_commit": "bc5e53799c31d14089cbe51c5f0e44289e87229b"
+}
