@@ -1,0 +1,214 @@
+experiments:
+- data_file: ca01.csv
+  initial_conditions:
+    IP3: 10.0
+    Ca: 0.1
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ca02.csv
+  initial_conditions:
+    IP3: 10.0
+    Ca: 0.2
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ca04.csv
+  initial_conditions:
+    IP3: 10.0
+    Ca: 0.4
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ca1.csv
+  initial_conditions:
+    IP3: 10.0
+    Ca: 1.0
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ca3.csv
+  initial_conditions:
+    IP3: 10.0
+    Ca: 3.0
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ca10.csv
+  initial_conditions:
+    IP3: 10.0
+    Ca: 10.0
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ip3.csv
+  initial_conditions:
+    IP3: 3.0
+    Ca: 0.4
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ip5.csv
+  initial_conditions:
+    IP3: 5.0
+    Ca: 0.4
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+- data_file: ip10.csv
+  initial_conditions:
+    IP3: 10.0
+    Ca: 0.4
+  columns:
+  - name: time
+  - name: open_probability
+    observes: open_probability
+model:
+  trainable_parameters:
+  - name: k1
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: k2
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: k3
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: k4
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: k_1
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: k_2
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: k_3
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: k_4
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: l2
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: l4
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: l6
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: l_2
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: l_4
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  - name: l_6
+    min_val: 0.001
+    max_val: 100000.0
+    logscale: true
+  fixed_parameters: []
+  integrated_variables:
+  - name: O
+    init_val: 0.0
+  - name: R
+    init_val: 1.0
+  - name: I1
+    init_val: 0.0
+  - name: S
+    init_val: 0.0
+  - name: A
+    init_val: 0.0
+  - name: I2
+    init_val: 0.0
+  - name: IP3
+    init_val: 10.0
+  - name: Ca
+    init_val: 0.1
+  observables:
+  - name: open_probability
+population_opt:
+  population_size: 320
+  num_iters: 300
+  processors: 16
+  algorithm: DE
+  random_seed: 29
+  stepsize_rtol:
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  - 1.0e-06
+  stepsize_atol:
+  - 5.598999498778205e-10
+  - 1.0e-08
+  - 6.390680456042781e-12
+  - 6.908084862128594e-13
+  - 4.752753182713575e-12
+  - 9.875560064942657e-13
+  - 1.0e-07
+  - 1.0e-07
+gradient_opt:
+  gradient_optimizer: adam
+  num_iters: 3000
+  auto_state_tolerances: true
+  stepsize_rtol:
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  - 1e-7
+  stepsize_atol:
+  - 5.5989988624727206e-11
+  - 1.0e-09
+  - 6.390680459816716e-13
+  - 6.908084860330261e-14
+  - 4.752752836372141e-13
+  - 9.875560062114655e-14
+  - 1.0e-08
+  - 1.0e-08
+  initial_timestep: 1e-6
+  max_steps: 5000
+  auto_max_steps: true
+  solver_recovery_max_steps: 50000
+  solver_recovery_timeout_seconds: 900
+  solver_validation_min_successful: 10
+  solver_validation_seed: 7
+  solver_accuracy_check: true
+  solver_accuracy_workers: 4
+  auto_integrator: true
+  integrator: Tsit5
+  init_value_lr: 0.0001
+  end_value_lr: 1.0e-06
+  transition_steps_lr: 2999
+  decay_rate_lr: 0.01
+output:
+  write_results: true

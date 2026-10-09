@@ -2,7 +2,7 @@
   "case": "sneyd_ipr",
   "session": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/reruns/sneyd_extended_20261009/cases/sneyd_ipr/session",
   "source": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/reruns/targeted_refits_20261008/cases/sneyd_ipr/session",
-  "status": "running",
+  "status": "completed",
   "parameters": 14,
   "population": {
     "population_size": 320,
@@ -101,5 +101,79 @@
     "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/reruns/sneyd_extended_20261009/cases/sneyd_ipr/session",
     "--no-sloppiness"
   ],
-  "pid": 2796
+  "pid": 2796,
+  "returncode": 0,
+  "fit_summary": {
+    "mode": "full",
+    "seed_loss": 0.021901562944938894,
+    "final_loss": 0.021776291546908487,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.5989988624727206e-11,
+        1e-09,
+        6.390680459816716e-13,
+        6.908084860330261e-14,
+        4.752752836372141e-13,
+        9.875560062114655e-14,
+        1e-08,
+        1e-08
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        5.5989988624727206e-11,
+        1e-09,
+        6.390680459816716e-13,
+        6.908084860330261e-14,
+        4.752752836372141e-13,
+        9.875560062114655e-14,
+        1e-08,
+        1e-08
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.0033964797159369334,
+      0.028362984301804593,
+      0.02479815849612845,
+      0.030897950588948585,
+      0.0175123511901529,
+      0.014395257985107872,
+      0.016576090480346452,
+      0.023349209752144266,
+      0.03669814141160633
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 44,
+    "refinement_error": null,
+    "termination": "invalid_loss_or_gradient",
+    "termination_detail": "Iteration 44: solver failure/error-loss sentinel"
+  },
+  "run_dir": "/workspace/pfit-local-agent/evaluation_runs/qwen38_full_fits_20261008/reruns/sneyd_extended_20261009/cases/sneyd_ipr/session/outputs/run_20261009_004538_174810",
+  "assessment": "refinement_degraded",
+  "finished_at": "2026-10-09T00:47:16.041317+00:00",
+  "elapsed_seconds": 98.69673996791244
 }
