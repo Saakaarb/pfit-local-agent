@@ -1,0 +1,120 @@
+% Draft LaTeX for the Results section.
+% Suggested preamble packages:
+% \usepackage{booktabs}
+% \usepackage{longtable}
+% \usepackage{tabularx}
+% \usepackage{pifont}
+% \usepackage{xcolor}
+% \newcommand{\pass}{\textcolor{green!50!black}{\ding{51}}}
+% \newcommand{\fail}[1]{\textcolor{red!65!black}{\ding{55}_{\mathrm{#1}}}}
+% \newcommand{\blocked}{\textcolor{gray}{--}}
+
+\subsection{Local model performance}
+
+The local-agent workflow was evaluated on a suite of ODE parameter-estimation
+tasks using three locally served Ollama models.  Each trial used the same
+user-facing workflow,
+\[
+\texttt{pfit new} \rightarrow \texttt{pfit check} \rightarrow
+\texttt{pfit jax} \rightarrow \texttt{pfit run} \rightarrow
+\texttt{pfit diagnose},
+\]
+with deterministic validation after each LLM-produced artifact.  A run was
+counted as successful only if all stages completed, the expected data files and
+experiment counts were present, the numerical outputs were finite, the fitting
+stage completed, and the diagnosis stage accepted the result.  The comparison
+therefore measures end-to-end workflow completion, not merely whether the model
+could produce syntactically valid text.
+
+The three-model comparison was run on an NVIDIA H100 80GB HBM3 GPU.  The
+Ollama request configuration used a 32k token context window, temperature
+0.1, and a 12k token generation budget.  The quantized model artifacts recorded
+by the benchmark were approximately 9.0 GB for the 14B model, 17.7 GB for the
+Qwen3.8-27B thinking model, and 19.9 GB for the 32B model.  In practice, users
+should budget additional memory for the KV cache, Python/JAX runtime, and any
+simultaneous numerical fitting workload.  The evaluation therefore used an
+80GB accelerator to remove memory pressure from the comparison; smaller cards
+can run subsets of the workflow, but large-context local generation is much
+more robust on GPUs with at least 32--48GB of memory, and the most comfortable
+configuration is an A100/H100-class 80GB device.
+
+Table~\ref{tab:model-completion} summarizes the observed completion behavior.
+Two rows were blocked before model evaluation because no complete scientific
+problem specification was supplied.  Excluding those blocked rows, Qwen3.8-27B
+completed 19 of 21 eligible tasks (90.5\%), compared with 15 of 21 for the
+32B baseline (71.4\%) and 13 of 21 for the 14B baseline (61.9\%).  The
+Qwen3.8 model was slower in wall-clock time, partly because it is a thinking
+model and its reasoning tokens are included in the generation budget, but it
+was substantially more reliable on the larger biochemical and multi-experiment
+cases.
+
+\begin{longtable}{@{}p{0.27\linewidth}ccc p{0.30\linewidth}@{}}
+\caption{End-to-end local workflow completion by model for the retained
+user-facing examples.  A check mark denotes completion of all five pfit stages.
+A cross indicates the failed stage: N = \texttt{pfit new}, C =
+\texttt{pfit check}, and J = \texttt{pfit jax}.  The completion-rate summary in
+Table~\ref{tab:model-completion-rates} reports the full benchmark, including
+cases that are not retained as examples in \texttt{sessions/}.}
+\label{tab:model-completion}\\
+\toprule
+Case & 32B & 14B & Qwen3.8-27B & Source or model family \\
+\midrule
+\endfirsthead
+\toprule
+Case & 32B & 14B & Qwen3.8-27B & Source or model family \\
+\midrule
+\endhead
+ARC fitting & \pass & \pass & \pass & Accelerating-rate calorimetry battery example \\
+Boehm STAT5 & \pass & \pass & \pass & STAT5 signaling model \cite{boehm2014stat5} \\
+Lotka--Volterra & \pass & \pass & \pass & Predator--prey equations \cite{lotka1925elements,volterra1926fluctuations} \\
+MAPK cascade & \pass & \pass & \pass & Kholodenko MAPK cascade \cite{kholodenko2000negative} \\
+Oregonator & \pass & \pass & \pass & Field--Noyes/Tyson BZ reaction model \cite{field1974oscillations,tyson1985singular} \\
+Piezo Bouc--Wen & \pass & \fail{N} & \pass & Bouc--Wen hysteresis family \cite{bouc1971modele,wen1976method} \\
+Robertson & \pass & \pass & \pass & Stiff chemical kinetics model \cite{robertson1966solution} \\
+Sliding basepoint & \fail{J} & \pass & \fail{J} & Frictional sliding-basepoint example \\
+Theophylline & \pass & \pass & \pass & One-compartment pharmacokinetic example \cite{pinheiro2000mixed} \\
+Van der Pol & \pass & \pass & \pass & Nonlinear oscillator \cite{vanderpol1926relaxation} \\
+Cascaded tanks & \pass & \fail{N} & \pass & Two-tank process-control example \\
+Multi-exponential decay & \pass & \pass & \pass & Synthetic multi-experiment decay example \\
+Sneyd IP$_3$ receptor & \fail{N} & \pass & \pass & IP$_3$ receptor model \cite{sneyd2002dynamic} \\
+Beer indigoidine & \pass & \pass & \pass & Indigoidine production dataset \cite{beer2014model} \\
+Raia IL-13 & \pass & \fail{N} & \pass & IL-13/JAK2/STAT5 lymphoma model \cite{raia2011dynamic} \\
+\bottomrule
+\end{longtable}
+
+\begin{table}[t]
+\centering
+\caption{Completion rates for eligible cases.  Blocked rows are excluded
+because no complete problem specification was available to any model.}
+\label{tab:model-completion-rates}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Model & Pass & Fail & Blocked & Pass / eligible \\
+\midrule
+Qwen2.5-Coder 32B & 15 & 6 & 2 & 71.4\% \\
+Qwen2.5-Coder 14B & 13 & 8 & 2 & 61.9\% \\
+Qwen3.8-27B & 19 & 2 & 2 & 90.5\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The main practical conclusion is that local execution is feasible, but only
+when the model is strong enough to perform the semantic setup and
+Python-to-JAX translation steps reliably.  The 14B model was fast and often
+adequate for small canonical systems, but it failed on several larger
+multi-experiment or biochemical prompts during \texttt{pfit new}.  The 32B
+baseline improved coverage but still failed on several model-construction
+tasks.  The Qwen3.8-27B thinking model was slower, yet it was the only model
+that completed the Schwen insulin, Armistead sphingolipid, and Fujita EGF
+cases in this comparison.  For users who want the workflow to behave like the
+remote-agent version on realistic systems biology examples, Qwen3.8-27B is the
+preferred local model among those tested.
+
+The completed examples are included in the repository under \texttt{sessions/}.
+Each curated session contains the user prompt and data under \texttt{inputs/},
+the generated model artifacts under \texttt{generated/}, and at least one
+completed fitting run under \texttt{outputs/}.  The \texttt{outputs/}
+directory for each retained case also contains one or more
+\texttt{fit\_exp*.png} figures showing the fitted trajectory against the data.
+These sessions are intended to serve both as examples for users and as
+reproducibility evidence for the local-agent workflow.

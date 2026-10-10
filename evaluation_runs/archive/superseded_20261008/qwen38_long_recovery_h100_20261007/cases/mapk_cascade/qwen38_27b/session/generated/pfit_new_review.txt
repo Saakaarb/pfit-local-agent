@@ -1,4 +1,0 @@
-The user_info.txt explicitly lists all 11 integrated states with their initial values: M(0)=500.0, Mp(0)=0.0, Mpp(0)=0.0, MAPKK(0)=50.0, MKP3(0)=100.0, M_MAPKK(0)=0.0, Mp_MAPKK(0)=0.0, Mpp_MKP3(0)=0.0, Mp_MKP3_dep(0)=0.0, Mp_MKP3(0)=0.0, M_MKP3(0)=0.0. The frozen experiment initial_conditions confirm the same values for all 11 states. Every integrated state has a resolved initial value; no group expansion or inference is needed.
-Kholodenko MAPK/ERK cascade with 11 states and 16 log-scale parameters. All 10 reaction rates and 11 ODE RHS equations are explicitly given and fully traceable to frozen names.
-Single measurement column Mpp maps directly to the integrated state Mpp. No uncertainty or forcing columns present.
-User explicitly specifies max-abs-normalized RMSE on Mpp vs Mpp. No penalties requested.

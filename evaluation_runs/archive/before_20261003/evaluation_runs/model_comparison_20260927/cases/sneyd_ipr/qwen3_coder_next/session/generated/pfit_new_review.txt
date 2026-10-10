@@ -1,5 +1,0 @@
-States are the gating variables (O, R, I1, S, A, I2) and the clamp species (IP3, Ca) carried as constant states with zero derivatives. Initial values are taken from the frozen experiment initial_conditions for the first experiment (ca01.csv) as global defaults; per-experiment overrides are handled at runtime by the framework.
-Extracted all 14 rate formulas (L1, L3, L5, v0–v9) and all 8 state RHS equations exactly as specified. No forcing inputs are present in the model (IP3 and Ca are constant states, not CSV inputs). All expressions preserve underscored parameter names and match the provided definitions.
-All CSV measurement columns (open_probability) map to the model's computed open probability formula Po = (0.9 A + 0.1 O)^4. No additional inputs are required.
-User explicitly specified plain RMSE for each experiment and equal-weight averaging across nine experiments. No penalties or custom loss terms were requested.
-Original user context indicates a stiff model.

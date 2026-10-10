@@ -10,14 +10,16 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 
     H = y[0]
     L = y[1]
+
     dHdt = alpha * H - beta * H * L
     dLdt = delta * H * L - gamma * L
     return np.array([dHdt, dLdt])
 
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     loss = 0.0
-    loss += np.mean(np.square((solution[:, 0] - dataset[:, 0]) / (np.max(dataset[:, 0]) - np.min(dataset[:, 0]) + 1e-12)))
-    loss += np.mean(np.square((solution[:, 1] - dataset[:, 1]) / (np.max(dataset[:, 1]) - np.min(dataset[:, 1]) + 1e-12)))
+    loss += np.mean(np.square((solution[:, 0] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)))
+    loss += np.mean(np.square((solution[:, 1] - dataset[:, 1]) / (np.max(np.abs(dataset[:, 1])) + 1e-12)))
+    loss = np.sqrt(loss / 2)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

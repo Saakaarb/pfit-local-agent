@@ -1,0 +1,47 @@
+Fit diagnosis
+
+Session: sessions/piezo_bouc_wen
+Run directory: sessions/piezo_bouc_wen/outputs/run_20261008_024201_148369
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 1.5294E-01, best loss 1.3786E-01, final loss 1.3786E-01
+- NODE: 31 iterations, first loss 1.3786E-01, best loss 1.3786E-01, final loss 1.3786E-01
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: correct_units_piezo_electric_actuator.csv; loss=0.1378610718325131; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- alpha=0.992376 is at 99.24% of its linear search interval.
+- [BOUND] alpha=0.992376 is at 99.24% of its linear search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] gamma=0.1 is at 100.00% of its linear search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] cp=20 is at 0.00% of its linear search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, xp: RMSE=6.76589e-07, bias=-1.22467e-07, time correlation=0.36262676995268095, lag-1=0.8882089845984974.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/piezo_bouc_wen/outputs/run_20261008_024201_148369/fit_exp1.png
+- Detailed evidence: sessions/piezo_bouc_wen/outputs/run_20261008_024201_148369/scientific_diagnosis.json

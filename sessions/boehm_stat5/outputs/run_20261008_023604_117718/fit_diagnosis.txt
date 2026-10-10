@@ -1,0 +1,45 @@
+Fit diagnosis
+
+Session: sessions/boehm_stat5
+Run directory: sessions/boehm_stat5/outputs/run_20261008_023604_117718
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 6.3609E-02, best loss 6.2286E-02, final loss 6.2286E-02
+- NODE: 31 iterations, first loss 6.2286E-02, best loss 6.2286E-02, final loss 6.2286E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: data.csv; loss=0.062285792848057665; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- k_exp_hetero=1e-07 is at 0.00% of its log10 search interval.
+- [BOUND] k_exp_hetero=1e-07 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k_imp_homo=9.77e+06 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, pSTAT5B: RMSE=6.19255, bias=-1.57373, time correlation=-0.09072476075295223, lag-1=0.16572212198458494.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/boehm_stat5/outputs/run_20261008_023604_117718/fit_exp1.png
+- Detailed evidence: sessions/boehm_stat5/outputs/run_20261008_023604_117718/scientific_diagnosis.json

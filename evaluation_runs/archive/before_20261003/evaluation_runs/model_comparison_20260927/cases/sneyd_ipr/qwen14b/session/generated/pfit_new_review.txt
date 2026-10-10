@@ -1,5 +1,0 @@
-The initial conditions for the gating states O, R, I1, S, A, and I2 are provided. The initial values for IP3 and Ca are also given for each experiment.
-Extracted all required formulas and RHS expressions for the Sneyd-Dufour IP3 receptor model.
-The CSV columns 'open_probability' from all files are mapped to the simulated open probability 'Po'.
-The user wants to fit the Sneyd-Dufour IP3 receptor model to nine clamp experiments using plain RMSE between simulated and measured open probability. The rates span many orders of magnitude, so a stiff ODE solver is recommended.
-Original user context indicates a stiff model.

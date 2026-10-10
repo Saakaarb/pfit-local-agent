@@ -1,6 +1,0 @@
-check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen14b/generated/user_input_check.txt
-validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen14b
-recommendation: Large trainable parameter count detected; consider increasing population search budget.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
-recommendation: Large trainable parameter count detected; consider increasing population search budget.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.

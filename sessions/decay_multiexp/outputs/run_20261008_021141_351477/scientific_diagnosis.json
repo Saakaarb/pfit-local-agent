@@ -1,0 +1,300 @@
+{
+  "status": "limited",
+  "run": "sessions/decay_multiexp/outputs/run_20261008_021141_351477",
+  "sources": "sessions/decay_multiexp/outputs/run_20261008_021141_351477/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, A: RMSE=2.13745e-07, bias=7.79289e-08, time correlation=-0.4543784531188655, lag-1=-0.11682300705146995.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 2.137451894212614e-07,
+          "mae": 1.1021422128407114e-07,
+          "bias": 7.792894595866075e-08,
+          "max_abs": 5.567337144074536e-07,
+          "time_correlation": -0.4543784531188655,
+          "lag1_correlation": -0.11682300705146995,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 3.6424538276472975e-07
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 6.566315969280862e-08
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 8.641099231287357e-09
+            }
+          ],
+          "name": "A",
+          "observes": "A"
+        },
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 2.400148962245712e-07,
+          "mae": 1.3894340272834786e-07,
+          "bias": -1.819890738438822e-08,
+          "max_abs": 7.243156853187216e-07,
+          "time_correlation": 0.0536173478804846,
+          "lag1_correlation": -0.377644925158652,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 4.1021305526371083e-07
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 5.420778205428392e-08
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 4.010257953102217e-08
+            }
+          ],
+          "name": "B",
+          "observes": "B"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "data_file": "dataset_2.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 4.010190928865704e-07,
+          "mae": 1.88240305545569e-07,
+          "bias": 3.143998512950637e-08,
+          "max_abs": 1.611472053575369e-06,
+          "time_correlation": 0.08271221642828602,
+          "lag1_correlation": -0.12425686962578811,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 6.862416493061114e-07
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 1.0685338467631235e-07
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 1.0182903296571384e-08
+            }
+          ],
+          "name": "A",
+          "observes": "A"
+        },
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 6.207786540484003e-07,
+          "mae": 2.5656315597562194e-07,
+          "bias": 8.89433440906132e-08,
+          "max_abs": 2.7359661114445544e-06,
+          "time_correlation": -0.4381101261124375,
+          "lag1_correlation": -0.030662883498185998,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 3.3333333333333335,
+              "count": 7,
+              "rmse": 1.0636737740408198e-06
+            },
+            {
+              "start": 3.3333333333333335,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 9.523828678962094e-08
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 10.0,
+              "count": 7,
+              "rmse": 1.250047323646883e-07
+            }
+          ],
+          "name": "B",
+          "observes": "B"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k1",
+      "value": 0.999998261284611,
+      "range_fraction": 0.6666664149616148,
+      "logscale": true
+    },
+    {
+      "name": "k2",
+      "value": 0.300000135508112,
+      "range_fraction": 0.4923738169625675,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png",
+    "fit_exp2.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 2.088457639165382e-06,
+    "final_loss": 3.2432868898272995e-07,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        5.744299183928793e-10
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        2e-09,
+        5.744299183928793e-10
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      3.2402410503878207e-07,
+      3.246332729266778e-07
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "sessions/decay_multiexp/outputs/run_20261008_021141_351477/de_fitting.log",
+      "rows": 100,
+      "first": 0.10195,
+      "final": 1.8679e-06,
+      "best": 1.8679e-06,
+      "last_material_improvement_iteration": 45,
+      "last_iteration": 100,
+      "tail": [
+        [
+          96,
+          1.8679e-06
+        ],
+        [
+          97,
+          1.8679e-06
+        ],
+        [
+          98,
+          1.8679e-06
+        ],
+        [
+          99,
+          1.8679e-06
+        ],
+        [
+          100,
+          1.8679e-06
+        ]
+      ]
+    },
+    {
+      "file": "sessions/decay_multiexp/outputs/run_20261008_021141_351477/NODE_fitting.log",
+      "rows": 31,
+      "first": 2.0885e-06,
+      "final": 3.2433e-07,
+      "best": 3.2433e-07,
+      "last_material_improvement_iteration": 2000,
+      "last_iteration": 3000,
+      "tail": [
+        [
+          2700,
+          3.2433e-07
+        ],
+        [
+          2800,
+          3.2433e-07
+        ],
+        [
+          2900,
+          3.2433e-07
+        ],
+        [
+          2999,
+          3.2433e-07
+        ],
+        [
+          3000,
+          3.2433e-07
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 3.2432868899571846e-07,
+  "experiment_losses": [
+    3.240241050606653e-07,
+    3.2463327293077166e-07
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Refinement stopped at its iteration budget."
+}

@@ -146,23 +146,11 @@ selection and random seed, the Ollama configuration visible at run time, and
 SHA-256 hashes of the lock file and snapshotted configuration/model artifacts.
 Missing metadata is reported in the manifest and never prevents a fit.
 
-## More Detail
-
-```text
-docs/local_llm_orchestration.md
-docs/user_workflow_compatibility.md
-```
-
 ## Tests
 
 ```bash
 pytest -q
 ```
-
-Implementation and interpretation: [restart and sloppiness](docs/restart_and_sloppiness.md).
-
-Current implemented features and remaining divergences: [feature parity status](docs/feature_parity_status.md).
-
 
 Readiness checks can run without Ollama:
 
@@ -174,8 +162,7 @@ pfit check sessions/my_session --ready
 The first checks inputs and the user model before translation; `--ready` also
 checks the generated script and whether its model/YAML sources have changed.
 `pfit run` repeats deterministic readiness checks automatically. Retranslate with
-`pfit jax` after editing either source. See
-[readiness notes](docs/deterministic_readiness.md) for scope and legacy behavior.
+`pfit jax` after editing either source.
 
 
 Multi-experiment fitting
@@ -189,13 +176,12 @@ The existing `new`, `check`, `jax`, `run`, `run ... gradient-only`, and `diagnos
 commands now cover every record. Multiple experiments produce
 `result_solution_exp1.csv`, `result_solution_exp2.csv`, etc. Run snapshots and
 standalone sloppiness include every dataset. Single-experiment filenames remain
-compatible. See the [input contract](INPUT_REQUIREMENTS.md) and
-[implementation and validation notes](docs/multi_experiment_support.md).
+compatible. See the [input contract](INPUT_REQUIREMENTS.md).
 
 Measured input histories are supported through `role: forcing` columns with
-per-experiment linear interpolation; see [measured forcing](docs/measured_forcing.md).
+per-experiment linear interpolation.
 `pfit diagnose SESSION [RUN]` computes snapshot-based evidence and asks the
 configured Ollama model to interpret it. Use `--probe-gradients` for AD/FD checks
-and `--deterministic-only` to work offline; see [scientific diagnosis](docs/scientific_diagnosis.md).
+and `--deterministic-only` to work offline.
 Supplied losses and output functions are preserved independently, with numerical
-source/JAX checks before translation acceptance; see [fidelity checks](docs/loss_and_translation_fidelity.md).
+source/JAX checks before translation acceptance.

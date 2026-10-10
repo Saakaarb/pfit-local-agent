@@ -1,0 +1,43 @@
+Fit diagnosis
+
+Session: sessions/lotka_volterra
+Run directory: sessions/lotka_volterra/outputs/run_20261008_042402_837167
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 1.6828E-01, best loss 6.1312E-02, final loss 6.1312E-02
+- NODE: 31 iterations, first loss 6.1312E-02, best loss 6.1312E-02, final loss 6.1312E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: lynx_hare.csv; loss=0.061311699072691475; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, H: RMSE=4.89254, bias=-2.849, time correlation=0.24392817631579544, lag-1=0.6253211988946913.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, L: RMSE=3.52548, bias=-0.95953, time correlation=-0.015856569227315313, lag-1=0.418826151517553.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/lotka_volterra/outputs/run_20261008_042402_837167/fit_exp1.png
+- Detailed evidence: sessions/lotka_volterra/outputs/run_20261008_042402_837167/scientific_diagnosis.json

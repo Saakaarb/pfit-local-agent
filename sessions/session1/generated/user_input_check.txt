@@ -1,8 +1,0 @@
-Critical errors:
-- Input YAML not found: sessions/session1/inputs/user_input.yaml
-
-Warnings:
-- none
-
-Recommendations:
-- none

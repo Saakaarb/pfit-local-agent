@@ -1,4 +1,4 @@
-The integrated state variables and their initial values have been extracted from the provided context.
-The ODE system and derived observable are correctly extracted from the user-provided context.
-The CSV column 'C_plasma' directly measures the derived quantity 'C_plasma' from the model.
-The user provided a custom loss function that normalizes residuals by the maximum absolute value of the measured C_plasma column and then computes the root mean squared error.
+The user explicitly states: 'A_gut(0) = 320.0 mg' and 'A_plasma(0) = 0.0 mg'. The frozen experiment initial_conditions confirm A_gut=320.0 and A_plasma=0.0. Both integrated states have unambiguous numeric initial values.
+Simple one-compartment oral PK model. Two states, three parameters, no intermediate rates needed.
+C_plasma is a derived observable (A_plasma / Vd), not a direct state. Single measurement column maps cleanly.
+User explicitly defines loss as sqrt(mean(normalized squared residuals)) with normalization by max(abs(measured C_plasma)). This maps to max_abs_normalized_rmse. No penalties requested.

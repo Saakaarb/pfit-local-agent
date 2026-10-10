@@ -1,6 +1,0 @@
-qwen38_27b/oregonator: new
-qwen38_27b/oregonator: check
-qwen38_27b/oregonator: jax
-qwen38_27b/oregonator: run
-qwen38_27b/oregonator: diagnose
-qwen38_27b/oregonator: pass (278.412s)

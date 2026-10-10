@@ -1,0 +1,43 @@
+Fit diagnosis
+
+Session: sessions/vanderpol_session
+Run directory: sessions/vanderpol_session/outputs/run_20261008_021140_776500
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 9.8107E-01, best loss 2.2035E-03, final loss 2.2035E-03
+- NODE: 31 iterations, first loss 2.2035E-03, best loss 2.2035E-03, final loss 2.2035E-03
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: vanderpol_data.csv; loss=0.0022034652672410686; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, x1: RMSE=0.00614693, bias=8.4397e-05, time correlation=0.06441221368575278, lag-1=0.8606370818819257.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, x2: RMSE=0.000476213, bias=-5.53816e-05, time correlation=-0.16665902094862903, lag-1=0.9959765015224638.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/vanderpol_session/outputs/run_20261008_021140_776500/fit_exp1.png
+- Detailed evidence: sessions/vanderpol_session/outputs/run_20261008_021140_776500/scientific_diagnosis.json

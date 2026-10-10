@@ -1,8 +1,0 @@
-check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/vanderpol_session/qwen38_27b/session/generated/user_input_check.txt
-validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_workflow_20261006/cases/vanderpol_session/qwen38_27b/session
-warning: At the upper bound mu=100 the Van der Pol system exhibits strong stiffness (fast/slow timescale ratio ~mu^2 = 10^4). The explicit Tsit5 integrator with max_steps=10000 over a time span of 100 may exhaust its step budget or produce large local errors at high-mu evaluations, causing solver failures or inaccurate residuals during optimization.
-warning: DE population_size=4 with num_iters=1 provides only 4 candidate evaluations and no iterative refinement; gradient num_iters=5 is extremely few Adam steps. Together these settings will almost certainly leave the optimizer far from the optimum, producing a poor fit regardless of model correctness.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
-recommendation: Consider increasing DE population_size (e.g. 20-50) and num_iters (e.g. 20-50) and gradient num_iters (e.g. 50-200) to allow meaningful convergence; the current settings (4/1 and 5) are near the minimum for a single random draw.
-recommendation: If solver failures appear at high mu, consider raising max_steps (e.g. 50000-100000) or switching to an implicit/stiff-capable integrator (e.g. Radau, BDF) to handle the mu=100 regime within the 100-time-unit span.
-recommendation: The loss construction (per-column max-abs normalization, combined RMSE) is consistent with the user's stated contract and the dataset scales (x1 range ~4.03, x2 range ~1.51); no further scaling change is needed.

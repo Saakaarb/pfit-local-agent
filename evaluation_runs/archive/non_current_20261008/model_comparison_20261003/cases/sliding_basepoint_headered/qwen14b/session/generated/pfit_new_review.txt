@@ -1,4 +1,0 @@
-The initial conditions provided are: x1(0) = 0.0, x2(0) = 0.0, v1(0) = 11.06, v2(0) = 0.0, k(0) = 1.29e6, c1(0) = 0.0. The frozen experiment overrides confirm these values.
-The dv2/dt equation has a conditional that needs to be handled smoothly. The current implementation uses a hard switch, which is not allowed. A smooth transition should be used instead.
-The CSV columns 'contact_force' and 'displacement' are directly mapped to the simulated states and formulas provided in the user model.
-The user has provided a custom loss definition that compares simulated contact_force and displacement to the measured values, normalized by the maximum absolute value of the measured columns.

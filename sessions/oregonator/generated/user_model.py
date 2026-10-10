@@ -11,6 +11,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     X = y[0]
     Y = y[1]
     Z = y[2]
+
     dXdt = (q * Y - X * Y + X * (1 - X)) / eps1
     dYdt = (-q * Y - X * Y + f * Z) / eps2
     dZdt = X - Z
@@ -20,6 +21,7 @@ def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters
     loss = 0.0
     loss += np.mean(np.square((solution[:, 0] - dataset[:, 0]) / (dataset[:, 2] + 1e-12)))
     loss += np.mean(np.square((solution[:, 2] - dataset[:, 1]) / (dataset[:, 3] + 1e-12)))
+    loss = np.sqrt(loss / 2)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

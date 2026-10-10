@@ -1,6 +1,0 @@
-Extracted integrated state variables and initial values from the provided context.
-All required equations are provided and extracted.
-All CSV measurement columns are mapped to the corresponding integrated states.
-User provided a custom loss function using measurement standard deviations.
-Applied pooled RMSE from the original user loss specification; the final square root follows averaging across observation channels.
-Original user context indicates a stiff model.

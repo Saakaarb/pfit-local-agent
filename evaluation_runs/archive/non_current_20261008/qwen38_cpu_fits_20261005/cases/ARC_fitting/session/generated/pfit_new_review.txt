@@ -1,4 +1,0 @@
-user_info.txt states: 'c1(0) = 1.0', 'c2(0) = 0.04', 'T(0) = 354.0'. The frozen experiment initial_conditions confirm c1=1.0, c2=0.04, T=354.0. All three integrated states (c1, c2, T) have explicit numeric initial values; no group expansion or inference is needed.
-Straightforward 3-state ODE with Arrhenius kinetics. All rates and heat generation extracted as formulas; RHS references only defined formulas and frozen names.
-CSV column T maps directly to state T; CSV column dTdt maps to the derived formula q (heat rate), which is also the RHS of dT/dt. No forcing columns present.
-User explicitly defines normalized MSE for T (range-normalized) and log10-normalized MSE for q/dTdt. Three smooth sigmoid terminal penalties: c1>0.02, c2<0.98, and |T−T_obs|>50 at final time.

@@ -21,7 +21,7 @@ def _observables(solution, trainable_parameters, fixed_parameters):
     nBpB = solution[:, 7]
     return {
         'pSTAT5A': (100 * ApB + 200 * ApA * specC17) / (ApB + A * specC17 + 2 * ApA * specC17),
-        'pSTAT5B': -(100 * ApB - 200 * BpB * (specC17 - 1)) / ((B * (specC17 - 1) - ApB) + 2 * BpB * (specC17 - 1)),
+        'pSTAT5B': -(100 * ApB - 200 * BpB * (specC17 - 1)) / (B * (specC17 - 1) - ApB + 2 * BpB * (specC17 - 1)),
         'rSTAT5A': (100 * ApB + 100 * A * specC17 + 200 * ApA * specC17) / (2 * ApB + A * specC17 + 2 * ApA * specC17 - B * (specC17 - 1) - 2 * BpB * (specC17 - 1)),
     }
 
@@ -45,6 +45,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     nApA = y[5]
     nApB = y[6]
     nBpB = y[7]
+
     dAdt = -2 * (k_phos * (Epo0 * np.exp(-k_deg * t)) * A * A) - k_phos * (Epo0 * np.exp(-k_deg * t)) * A * B + nuc / cyt * (2 * k_exp_homo * nApA + k_exp_hetero * nApB)
     dBdt = -2 * (k_phos * (Epo0 * np.exp(-k_deg * t)) * B * B) - k_phos * (Epo0 * np.exp(-k_deg * t)) * A * B + nuc / cyt * (2 * k_exp_homo * nBpB + k_exp_hetero * nApB)
     dApBdt = k_phos * (Epo0 * np.exp(-k_deg * t)) * A * B - k_imp_hetero * ApB
@@ -58,9 +59,10 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     observables = _observables(solution, trainable_parameters, fixed_parameters)
     loss = 0.0
-    loss += np.mean(np.square((observables['pSTAT5A'] - dataset[:, 0]) / (np.max(dataset[:, 0]) - np.min(dataset[:, 0]) + 1e-12)))
-    loss += np.mean(np.square((observables['pSTAT5B'] - dataset[:, 1]) / (np.max(dataset[:, 1]) - np.min(dataset[:, 1]) + 1e-12)))
-    loss += np.mean(np.square((observables['rSTAT5A'] - dataset[:, 2]) / (np.max(dataset[:, 2]) - np.min(dataset[:, 2]) + 1e-12)))
+    loss += np.mean(np.square((observables['pSTAT5A'] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)))
+    loss += np.mean(np.square((observables['pSTAT5B'] - dataset[:, 1]) / (np.max(np.abs(dataset[:, 1])) + 1e-12)))
+    loss += np.mean(np.square((observables['rSTAT5A'] - dataset[:, 2]) / (np.max(np.abs(dataset[:, 2])) + 1e-12)))
+    loss = np.sqrt(loss / 3)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

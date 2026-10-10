@@ -1,8 +1,0 @@
-validate_session: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/ARC_fitting/qwen32b
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/ARC_fitting/qwen32b/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/ARC_fitting/qwen32b/generated/generated_script.py
-smoke_test_generated_script: failed: Experiment 1 (NMC_SOC80_M2_normalized_converted_units.csv): smoke test failed: _observables() missing 7 required positional arguments: 'A1', 'A2', 'Ea2', 'h2', 'm2', 'n2', and 'kb'
-repair_jax_fragments: attempted: 1
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/ARC_fitting/qwen32b/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/ARC_fitting/qwen32b/generated/generated_script.py
-smoke_test_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/ARC_fitting/qwen32b/generated/generated_script.py

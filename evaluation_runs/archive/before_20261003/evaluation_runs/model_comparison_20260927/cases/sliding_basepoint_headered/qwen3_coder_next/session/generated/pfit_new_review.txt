@@ -1,4 +1,0 @@
-Extracted integrated state variables and their initial values from the frozen experiment's initial_conditions. All six states (x1, x2, v1, v2, k, c1) are present with explicit numeric values.
-Extracted ODE system and derived expressions from user-provided model description. All RHS and formulas are derived directly from the given equations, preserving parameter names, state names, and mathematical structure. The sign and abs functions are handled via smooth approximations using np.tanh as required. Measured forcing columns are empty since no external forcing functions are used.
-Both CSV measurement columns (contact_force and displacement) map directly to derived observables defined in the model: contact_force is computed from states and parameters, and displacement corresponds to state x1.
-User explicitly defined loss: normalized residuals (by max(abs(measured))) and RMSE metric.

@@ -13,6 +13,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     xp = y[0]
     vp = y[1]
     h = y[2]
+
     dxpdt = vp
     dvpdt = (kp * (de * (24 + 24 * np.sin(16 * np.pi * t)) - h) - cp * vp - kp * xp) / mp
     dhdt = alpha * de * (24 * 16 * np.pi * np.cos(16 * np.pi * t)) - beta * np.abs(24 * 16 * np.pi * np.cos(16 * np.pi * t)) * np.abs(h) - gamma * (24 * 16 * np.pi * np.cos(16 * np.pi * t)) * np.abs(h)
@@ -20,7 +21,8 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     loss = 0.0
-    loss += np.mean(np.square((solution[:, 0] - dataset[:, 0]) / (np.max(dataset[:, 0]) - np.min(dataset[:, 0]) + 1e-12)))
+    loss += np.mean(np.square((solution[:, 0] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)))
+    loss = np.sqrt(loss / 1)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

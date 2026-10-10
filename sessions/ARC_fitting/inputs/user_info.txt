@@ -22,10 +22,13 @@ Trainable parameters:
 
 Fixed parameter:
 - kb = 1.38e-23
+- T_gate = 470.0 K (fixed)
+- deltaT_gate = 5.0 K (fixed)
 
 ODE:
 - r1(c1,T) = -A1 * exp(-Ea1 / (kb*T)) * c1
-- r2(c2,T) = A2 * exp(-Ea2 / (kb*T)) * c2^n2 * (1 - c2)^m2
+- g(T) = 1 / (1 + exp(-(T - T_gate) / deltaT_gate))
+- r2(c2,T) = g(T) * A2 * exp(-Ea2 / (kb*T)) * c2^n2 * (1 - c2)^m2
 - q(c1,c2,T) = abs(h1*r1(c1,T)) + abs(h2*r2(c2,T))
 - dc1/dt = r1(c1,T)
 - dc2/dt = r2(c2,T)

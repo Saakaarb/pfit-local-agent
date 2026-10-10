@@ -1,4 +1,0 @@
-The user_info.txt explicitly states: 'H(0) = 30.0' and 'L(0) = 4.0'. The frozen experiment initial_conditions confirm H=30.0 and L=4.0. Both integrated states have individually supplied initial values; no group expansion is needed.
-Standard Lotka-Volterra predator-prey model. Two autonomous ODEs with four parameters. No intermediate rates or forcing inputs required.
-Both CSV measurement columns (H, L) map directly to the two integrated states of the Lotka-Volterra model. No derived observables or forcing columns present.
-User explicitly defines loss as sqrt(mean of all normalized squared residuals) with per-column normalization by max(abs(measured)). Maps to max_abs_normalized_rmse for both H and L. No penalties requested.

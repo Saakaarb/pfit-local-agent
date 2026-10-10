@@ -1,7 +1,0 @@
-check report written: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session/generated/user_input_check.txt
-validation passed: /workspace/pfit-local-agent/evaluation_runs/external_smoke_20261004/cases/raia_il13/qwen32b/session
-warning: Unverified semantic finding: The loss expression in _compute_loss_problem uses dataset[:, 0] which refers to the first measured column (pSTAT5), but the automatic log-loss rule requires log/log10 residuals for pSTAT5 because its within-column log10(max/min) is 1.87331, which is below the threshold of 3 orders. The user did not specify a log transformation, so this is a critical error.
-warning: Very small population size (4) and gradient iteration count (5) may lead to poor convergence. Consider increasing these values for better fitting results.
-recommendation: Large trainable parameter count detected; consider increasing population search budget.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
-recommendation: Consider increasing the population size and gradient iteration count to improve convergence. Ensure that the loss function is appropriately scaled for the data range to enhance fitting performance.

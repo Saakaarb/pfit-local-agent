@@ -1,5 +1,0 @@
-The user states: 'At time zero take Bac=0.013816608995338, Glu=10, and both cGlu and Ind equal to zero.' This explicitly assigns Bac=0.013816608995338, Glu=10, and the group declaration 'both cGlu and Ind equal to zero' supplies cGlu=0 and Ind=0. The frozen experiment initial_conditions confirm all four: Bac=0.013816608995338, Glu=10.0, cGlu=0.0, Ind=0.0. Every integrated state has a resolved initial value.
-Lag step approximated with a smooth tanh sigmoid (width 0.01 min) since the user did not explicitly request a hard np.where. All four RHS equations and the lag formula are fully specified with frozen names only.
-Both measurement columns map directly to integrated states Bac and Ind. No uncertainty or forcing columns present.
-User explicitly requests per-channel normalization by max(abs(measured)) followed by sqrt(mean(squared)) — i.e. max_abs_normalized_rmse on both channels. No penalties requested.
-Original user context indicates a stiff model.

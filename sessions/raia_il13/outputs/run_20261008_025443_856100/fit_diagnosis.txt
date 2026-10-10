@@ -1,0 +1,48 @@
+Fit diagnosis
+
+Session: sessions/raia_il13
+Run directory: sessions/raia_il13/outputs/run_20261008_025443_856100
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 1.6059E-01, best loss 1.0438E-01, final loss 1.0438E-01
+- NODE: 31 iterations, first loss 1.0428E-01, best loss 1.0392E-01, final loss 1.0392E-01
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 2
+Aggregation: equal_experiment_mean
+- Experiment 1: il13_4.csv; loss=0.08678328741748087; output=result_solution_exp1.csv
+- Experiment 2: il13_20.csv; loss=0.12106461562033287; output=result_solution_exp2.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Kon_IL13Rec=1.00323e-05 is at 0.02% of its log10 search interval.
+- [BOUND] Kon_IL13Rec=1.00323e-05 is at 0.02% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] JAK2_p_inhibition=1000 is at 100.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] pRec_degradation=1e-05 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/raia_il13/outputs/run_20261008_025443_856100/fit_exp1.png
+- Figure: sessions/raia_il13/outputs/run_20261008_025443_856100/fit_exp2.png
+- Detailed evidence: sessions/raia_il13/outputs/run_20261008_025443_856100/scientific_diagnosis.json

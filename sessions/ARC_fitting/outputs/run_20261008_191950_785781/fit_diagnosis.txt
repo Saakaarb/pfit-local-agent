@@ -1,0 +1,39 @@
+Fit diagnosis
+
+Session: sessions/ARC_fitting
+Run directory: sessions/ARC_fitting/outputs/run_20261008_191950_785781
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 300 iterations, first loss 5.3698E-01, best loss 1.0603E-02, final loss 1.0603E-02
+- NODE: 13 iterations, first loss 1.0619E-02, best loss 1.0619E-02, final loss 1.0619E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: NMC_SOC80_M2_normalized_converted_units.csv; loss=0.010618502076707257; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Experiment 1, T: RMSE=27.6931, bias=-24.5553, time correlation=-0.6034335735220393, lag-1=0.7872529505280236.
+- [RESIDUAL] Experiment 1, T: RMSE=27.6931, bias=-24.5553, time correlation=-0.6034335735220393, lag-1=0.7872529505280236.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/ARC_fitting/outputs/run_20261008_191950_785781/fit_exp1.png
+- Detailed evidence: sessions/ARC_fitting/outputs/run_20261008_191950_785781/scientific_diagnosis.json

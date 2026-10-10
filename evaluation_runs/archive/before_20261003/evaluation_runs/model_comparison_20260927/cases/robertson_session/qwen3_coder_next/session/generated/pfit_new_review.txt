@@ -1,5 +1,0 @@
-Initial values for all three integrated states (y1, y2, y3) are explicitly provided in user_info.txt and match the expected Robertson model initial conditions.
-Extracted ODE RHS and rate formulas directly from the provided Robertson model equations. All parameters (k1, k2, k3) and states (y1, y2, y3) are present and used exactly as defined. No forcing inputs are present in the model.
-All three measured columns (y1, y2, y3) correspond directly to integrated states y1, y2, y3 in the model. No derived formulas are needed.
-User explicitly defined loss: compare y1, y2, y3 to CSV columns, normalize residuals by max(abs(measured column)), and use sqrt(mean(normalized squared residuals)) = RMSE of normalized residuals.
-Original user context indicates a stiff model.

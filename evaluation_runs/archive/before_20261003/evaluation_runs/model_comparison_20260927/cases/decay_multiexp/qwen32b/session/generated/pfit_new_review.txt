@@ -1,4 +1,0 @@
-Extracted state variables and initial values from the provided dataset and user context.
-Extracted RHS expressions for states A and B based on the provided ODEs.
-All CSV measurement columns are mapped to the corresponding integrated states.
-User requests fitting two decay experiments with the same rate constants. Loss is defined as the average of the two experiment losses, with each loss being the root mean square of normalized residuals for A and B.

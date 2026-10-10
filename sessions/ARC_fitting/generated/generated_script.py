@@ -1,3 +1,4 @@
+# pfit-sources: user_model.py=98b7687c98896f83 user_input.yaml=4f58da8fbbd1a72b
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -25,7 +26,8 @@ def _observables(solution, trainable_parameters, fixed_parameters):
     c1 = solution[:, 0]
     c2 = solution[:, 1]
     T = solution[:, 2]
-    return {'dTdt': jnp.abs(h1 * (-A1 * jnp.exp(-Ea1 / (kb * T)) * c1)) + jnp.abs(h2 * (A2 * jnp.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2))}
+    gate = jnp.exp(-jnp.logaddexp(0.0, -(T - fixed_parameters['T_gate']) / fixed_parameters['deltaT_gate']))
+    return {'dTdt': jnp.abs(h1 * (-A1 * jnp.exp(-Ea1 / (kb * T)) * c1)) + jnp.abs(h2 * (gate * A2 * jnp.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2))}
 
 @jax.jit
 def user_defined_system(t, y, other_args):
@@ -41,13 +43,15 @@ def user_defined_system(t, y, other_args):
     c1 = y[0]
     c2 = y[1]
     T = y[2]
+    gate = jnp.exp(-jnp.logaddexp(0.0, -(T - fixed_parameters['T_gate']) / fixed_parameters['deltaT_gate']))
+
     dc1dt = -A1 * jnp.exp(-Ea1 / (kb * T)) * c1
-    dc2dt = A2 * jnp.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2
-    dTdt = jnp.abs(h1 * (-A1 * jnp.exp(-Ea1 / (kb * T)) * c1)) + jnp.abs(h2 * (A2 * jnp.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2))
+    dc2dt = gate * A2 * jnp.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2
+    dTdt = jnp.abs(h1 * (-A1 * jnp.exp(-Ea1 / (kb * T)) * c1)) + jnp.abs(h2 * (gate * A2 * jnp.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2))
     return jnp.array([dc1dt, dc2dt, dTdt])
 
 @jax.jit
-def _integrate_system(constants, trainable_variables):
+def _integrate_system_with_stats(constants, trainable_variables):
     term = diffrax.ODETerm(user_defined_system)
     solver = diffrax.Kvaerno5()
     t_eval = constants["t_eval"]
@@ -57,7 +61,7 @@ def _integrate_system(constants, trainable_variables):
         solver,
         t0=constants["init_time"],
         t1=t_eval[-1],
-        max_steps=10000,
+        max_steps=14000,
         dt0=constants["init_timestep"],
         y0=constants["init_cond"],
         args=other_args,
@@ -68,7 +72,12 @@ def _integrate_system(constants, trainable_variables):
             atol=constants["stepsize_atol"],
         ),
     )
-    return sol.ts, sol.ys, sol.result
+    return sol.ts, sol.ys, sol.result, sol.stats
+
+@jax.jit
+def _integrate_system(constants, trainable_variables):
+    ts, ys, result, _ = _integrate_system_with_stats(constants, trainable_variables)
+    return ts, ys, result
 
 @jax.jit
 def _compute_loss_value(constants, trainable_variables, solution_time, solution):
@@ -94,8 +103,9 @@ def _compute_loss_value(constants, trainable_variables, solution_time, solution)
 @jax.jit
 def _compute_loss_problem(constants, trainable_variables):
     solution_time, solution, result = _integrate_system(constants, trainable_variables)
-    failed = jnp.logical_or(result == RESULTS.max_steps_reached, result == RESULTS.singular)
+    failed = result != RESULTS.successful
     loss_value = _compute_loss_value(constants, trainable_variables, solution_time, solution)
+    failed = failed | ~jnp.all(jnp.isfinite(solution)) | ~jnp.isfinite(loss_value)
     return jnp.where(failed, constants["error_loss"], loss_value)
 
 def _write_problem_result(constants, trainable_variables):
@@ -106,14 +116,13 @@ def _write_problem_result(constants, trainable_variables):
     trainable_parameters = {"Ea1": Ea1, "h1": h1, "A1": A1, "A2": A2, "Ea2": Ea2, "h2": h2, "m2": m2, "n2": n2}
     fixed_parameters = constants["fixed_parameters"]
     kb = fixed_parameters['kb']
-    Nts = solution_time.shape[0]
-    out = jnp.zeros((Nts, 7))
-    out = out.at[:, 0].set(solution_time)
-    out = out.at[:, 1].set(dataset[:, 0])
-    out = out.at[:, 2].set(dataset[:, 1])
-    out = out.at[:, 3].set(solution[:, 0])
-    out = out.at[:, 4].set(solution[:, 1])
-    out = out.at[:, 5].set(solution[:, 2])
+    writeout_array = np.zeros([solution_time.shape[0], 7])
+    writeout_array[:, 0] = solution_time
+    writeout_array[:, 1] = dataset[:, 0]
+    writeout_array[:, 2] = dataset[:, 1]
+    writeout_array[:, 3] = solution[:, 0]
+    writeout_array[:, 4] = solution[:, 1]
+    writeout_array[:, 5] = solution[:, 2]
     observables = _observables(solution, trainable_parameters, fixed_parameters)
-    out = out.at[:, 6].set(observables['dTdt'])
-    return out
+    writeout_array[:, 6] = observables['dTdt']
+    return writeout_array

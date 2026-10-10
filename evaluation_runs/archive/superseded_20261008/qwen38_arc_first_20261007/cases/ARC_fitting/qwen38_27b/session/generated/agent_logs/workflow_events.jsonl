@@ -1,9 +1,0 @@
-{"step": "validate_session", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_arc_first_20261007/cases/ARC_fitting/qwen38_27b/session"}
-{"step": "solver_selection", "status": "selected", "message": "Kvaerno5: Observed time-scale separation is at least 100-fold"}
-{"step": "render_generated_script", "status": "created", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_arc_first_20261007/cases/ARC_fitting/qwen38_27b/session/generated/generated_script.py"}
-{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_arc_first_20261007/cases/ARC_fitting/qwen38_27b/session/generated/generated_script.py"}
-{"step": "smoke_test_generated_script", "status": "failed", "message": "Numerical validation: accuracy_inconclusive: Integration did not complete with finite states: diffrax._solution.RESULTS<The maximum number of solver steps was reached. Try increasing `max_steps`.>; steps={}"}
-{"step": "solver_recovery", "status": "attempted", "message": "max_steps=14000, samples=32; scientific fragments and tolerances unchanged"}
-{"step": "validate_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_arc_first_20261007/cases/ARC_fitting/qwen38_27b/session/generated/generated_script.py"}
-{"step": "tolerance_calibration", "status": "passed", "message": "Applied validated state-scale and/or DE tolerances at the fixed step ceiling"}
-{"step": "smoke_test_generated_script", "status": "passed", "message": "/workspace/pfit-local-agent/evaluation_runs/qwen38_arc_first_20261007/cases/ARC_fitting/qwen38_27b/session/generated/generated_script.py"}

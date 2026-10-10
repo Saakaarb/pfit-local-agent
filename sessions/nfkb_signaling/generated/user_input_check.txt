@@ -1,9 +1,0 @@
-Critical errors:
-- none
-
-Warnings:
-- none
-
-Recommendations:
-- Large trainable parameter count detected; consider increasing population search budget.
-- Review generated/user_model.py and parameter bounds before JAX translation.

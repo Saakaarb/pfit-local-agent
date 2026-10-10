@@ -1,7 +1,0 @@
-check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen32b/session/generated/user_input_check.txt
-validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/test_session/qwen32b/session
-warning: Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals.
-warning: Measured column spans orders of magnitude: Experiment 1 (robertson_data.csv): y3 uses dataset[:, 2], positive min=1.59999e-14, max=0.38276, log10 range=13.38. Preserving the explicit user loss; data range alone does not require log residuals.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
-recommendation: Consider using a well-scaled loss for better convergence. The current loss is RMSE normalized by the max absolute value of each column, which is appropriate given the user's stated loss.

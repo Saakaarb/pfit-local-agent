@@ -1,3 +1,4 @@
+# pfit-sources: user_model.py=1dde6c5f3b551df3 user_input.yaml=0c04007fda516d49
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -32,14 +33,15 @@ def user_defined_system(t, y, other_args):
     fixed_parameters = constants["fixed_parameters"]
     A_gut = y[0]
     A_plasma = y[1]
+
     dA_gutdt = -ka * A_gut
     dA_plasmadt = ka * A_gut - ke * A_plasma
     return jnp.array([dA_gutdt, dA_plasmadt])
 
 @jax.jit
-def _integrate_system(constants, trainable_variables):
+def _integrate_system_with_stats(constants, trainable_variables):
     term = diffrax.ODETerm(user_defined_system)
-    solver = diffrax.Tsit5()
+    solver = diffrax.Kvaerno5()
     t_eval = constants["t_eval"]
     other_args = {"constants": constants, "trainable_variables": trainable_variables}
     sol = diffrax.diffeqsolve(
@@ -58,7 +60,12 @@ def _integrate_system(constants, trainable_variables):
             atol=constants["stepsize_atol"],
         ),
     )
-    return sol.ts, sol.ys, sol.result
+    return sol.ts, sol.ys, sol.result, sol.stats
+
+@jax.jit
+def _integrate_system(constants, trainable_variables):
+    ts, ys, result, _ = _integrate_system_with_stats(constants, trainable_variables)
+    return ts, ys, result
 
 @jax.jit
 def _compute_loss_value(constants, trainable_variables, solution_time, solution):
@@ -69,14 +76,16 @@ def _compute_loss_value(constants, trainable_variables, solution_time, solution)
     fixed_parameters = constants["fixed_parameters"]
     observables = _observables(solution, trainable_parameters, fixed_parameters)
     loss = 0.0
-    loss += jnp.mean(jnp.square((observables['C_plasma'] - dataset[:, 0]) / (jnp.max(dataset[:, 0]) - jnp.min(dataset[:, 0]) + 1e-12)))
+    loss += jnp.mean(jnp.square((observables['C_plasma'] - dataset[:, 0]) / (jnp.max(jnp.abs(dataset[:, 0])) + 1e-12)))
+    loss = jnp.sqrt(loss / 1)
     return loss
 
 @jax.jit
 def _compute_loss_problem(constants, trainable_variables):
     solution_time, solution, result = _integrate_system(constants, trainable_variables)
-    failed = jnp.logical_or(result == RESULTS.max_steps_reached, result == RESULTS.singular)
+    failed = result != RESULTS.successful
     loss_value = _compute_loss_value(constants, trainable_variables, solution_time, solution)
+    failed = failed | ~jnp.all(jnp.isfinite(solution)) | ~jnp.isfinite(loss_value)
     return jnp.where(failed, constants["error_loss"], loss_value)
 
 def _write_problem_result(constants, trainable_variables):
@@ -86,12 +95,11 @@ def _write_problem_result(constants, trainable_variables):
     ka, ke, Vd = unscaled_parameters
     trainable_parameters = {"ka": ka, "ke": ke, "Vd": Vd}
     fixed_parameters = constants["fixed_parameters"]
-    Nts = solution_time.shape[0]
-    out = jnp.zeros((Nts, 5))
-    out = out.at[:, 0].set(solution_time)
-    out = out.at[:, 1].set(dataset[:, 0])
-    out = out.at[:, 2].set(solution[:, 0])
-    out = out.at[:, 3].set(solution[:, 1])
+    writeout_array = np.zeros([solution_time.shape[0], 5])
+    writeout_array[:, 0] = solution_time
+    writeout_array[:, 1] = dataset[:, 0]
+    writeout_array[:, 2] = solution[:, 0]
+    writeout_array[:, 3] = solution[:, 1]
     observables = _observables(solution, trainable_parameters, fixed_parameters)
-    out = out.at[:, 4].set(observables['C_plasma'])
-    return out
+    writeout_array[:, 4] = observables['C_plasma']
+    return writeout_array

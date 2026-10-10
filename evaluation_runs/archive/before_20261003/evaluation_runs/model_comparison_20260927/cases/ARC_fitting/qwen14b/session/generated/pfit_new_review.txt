@@ -1,4 +1,0 @@
-The states and initial values are extracted from the provided user information and frozen dataset.
-The provided ODE and parameter definitions have been extracted and formatted according to the schema. All intermediate rates and dependencies have been included in the formulas section.
-The CSV columns T and dTdt are directly mapped to the simulated states and formulas.
-The user has provided a custom loss function with specific normalization and penalty terms. The data terms include normalized MSE for temperature and log10-normalized MSE for heat rate. Penalties are applied to ensure final state constraints.

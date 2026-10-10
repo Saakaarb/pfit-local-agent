@@ -1,5 +1,0 @@
-The user_info.txt explicitly lists: 'A(0) = 143.8668', 'B(0) = 63.7332', 'ApB(0) = 0.0', 'ApA(0) = 0.0', 'BpB(0) = 0.0', 'nApA(0) = 0.0', 'nApB(0) = 0.0', 'nBpB(0) = 0.0'. The frozen experiment initial_conditions confirm the same eight values. Every integrated state (A, B, ApB, ApA, BpB, nApA, nApB, nBpB) has a supplied numeric initial value; no group expansion or inference is needed.
-All 8 state equations and 4 intermediate formulas extracted directly from user text. No forcing inputs; data columns are derived observables only.
-All three measured columns are derived observables computed from integrated states and the fixed parameter specC17. No direct state measurements.
-User explicitly defines a column-wise max-abs-normalized RMSE loss across pSTAT5A, pSTAT5B, and rSTAT5A. Mapped to max_abs_normalized_rmse per column. No penalties specified.
-Original user context indicates a stiff model.

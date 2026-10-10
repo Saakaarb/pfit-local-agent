@@ -1,8 +1,0 @@
-validate_session: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen32b
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen32b/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen32b/generated/generated_script.py
-smoke_test_generated_script: failed: Experiment 1 (data.csv): smoke test failed: _observables() missing 8 required positional arguments: 'k_exp_homo', 'k_imp_hetero', 'k_imp_homo', 'k_phos', 'specC17', 'Epo0', 'cyt', and 'nuc'
-repair_jax_fragments: attempted: 1
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen32b/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen32b/generated/generated_script.py
-smoke_test_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/boehm_stat5/qwen32b/generated/generated_script.py

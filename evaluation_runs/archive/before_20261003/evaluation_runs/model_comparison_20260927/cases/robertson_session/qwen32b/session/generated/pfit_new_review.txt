@@ -1,5 +1,0 @@
-All required initial conditions are present and clear.
-All required equations are provided and complete.
-All CSV measurement columns are directly mapped to the integrated states.
-User provided a custom loss with normalization by max(abs(measured column)) and RMSE.
-Original user context indicates a stiff model.

@@ -10,6 +10,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     y1 = y[0]
     y2 = y[1]
     y3 = y[2]
+
     dy1dt = -k1 * y1 + k3 * y3 * y2
     dy2dt = k1 * y1 - k2 * y2 ** 2 - k3 * y2 * y3
     dy3dt = k2 * y2 ** 2
@@ -17,13 +18,10 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     loss = 0.0
-    loss += np.mean(np.square((solution[:, 0] - dataset[:, 0]) / (np.max(dataset[:, 0]) - np.min(dataset[:, 0]) + 1e-12)))
-    loss += np.mean(np.square((solution[:, 1] - dataset[:, 1]) / (np.max(dataset[:, 1]) - np.min(dataset[:, 1]) + 1e-12)))
-    eps_y3 = np.min(np.where(dataset[:, 2] > 0.0, dataset[:, 2], np.inf))
-    log_sim_y3 = np.log10(solution[:, 2] + eps_y3)
-    log_measured_y3 = np.log10(dataset[:, 2] + eps_y3)
-    scale_log_y3 = np.max(log_measured_y3) - np.min(log_measured_y3) + 1e-12
-    loss += np.mean(np.square((log_sim_y3 - log_measured_y3) / scale_log_y3))
+    loss += np.mean(np.square((solution[:, 0] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)))
+    loss += np.mean(np.square((solution[:, 1] - dataset[:, 1]) / (np.max(np.abs(dataset[:, 1])) + 1e-12)))
+    loss += np.mean(np.square((solution[:, 2] - dataset[:, 2]) / (np.max(np.abs(dataset[:, 2])) + 1e-12)))
+    loss = np.sqrt(loss / 3)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

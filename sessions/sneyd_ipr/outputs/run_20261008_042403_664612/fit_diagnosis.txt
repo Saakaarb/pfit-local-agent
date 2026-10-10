@@ -1,0 +1,77 @@
+Fit diagnosis
+
+Session: sessions/sneyd_ipr
+Run directory: sessions/sneyd_ipr/outputs/run_20261008_042403_664612
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- result_solution_exp3.csv: present
+- result_solution_exp4.csv: present
+- result_solution_exp5.csv: present
+- result_solution_exp6.csv: present
+- result_solution_exp7.csv: present
+- result_solution_exp8.csv: present
+- result_solution_exp9.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 8.3708E-02, best loss 2.7879E-02, final loss 2.7879E-02
+- NODE: 4 iterations, first loss 2.6780E-02, best loss 2.5290E-02, final loss 2.5290E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 9
+Aggregation: equal_experiment_mean
+- Experiment 1: ca01.csv; loss=0.012376222659531914; output=result_solution_exp1.csv
+- Experiment 2: ca02.csv; loss=0.027481677937858395; output=result_solution_exp2.csv
+- Experiment 3: ca04.csv; loss=0.021861257770545758; output=result_solution_exp3.csv
+- Experiment 4: ca1.csv; loss=0.03266970686122469; output=result_solution_exp4.csv
+- Experiment 5: ca3.csv; loss=0.019780821018599074; output=result_solution_exp5.csv
+- Experiment 6: ca10.csv; loss=0.01644016986739718; output=result_solution_exp6.csv
+- Experiment 7: ip3.csv; loss=0.035914525685560895; output=result_solution_exp7.csv
+- Experiment 8: ip5.csv; loss=0.020355809657787976; output=result_solution_exp8.csv
+- Experiment 9: ip10.csv; loss=0.03865163197091399; output=result_solution_exp9.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Experiment 2, open_probability: RMSE=0.0274817, bias=0.0183682, time correlation=-0.7434331820192944, lag-1=0.7799022905731181.
+- [RESIDUAL] Experiment 2, open_probability: RMSE=0.0274817, bias=0.0183682, time correlation=-0.7434331820192944, lag-1=0.7799022905731181.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 3, open_probability: RMSE=0.0218613, bias=-0.0139342, time correlation=0.133376498879691, lag-1=0.5628149030685473.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 4, open_probability: RMSE=0.0326697, bias=0.0196365, time correlation=-0.6157239324395345, lag-1=0.7487140855150468.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 5, open_probability: RMSE=0.0197808, bias=-0.00199957, time correlation=-0.09297596865503341, lag-1=0.5743830563672446.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 6, open_probability: RMSE=0.0164402, bias=-0.0146003, time correlation=0.3295522333775997, lag-1=0.013690585881713659.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 7, open_probability: RMSE=0.0359145, bias=-0.00674661, time correlation=-0.8141102044795483, lag-1=0.854738932109218.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 8, open_probability: RMSE=0.0203558, bias=-0.0127428, time correlation=-0.45136209167042823, lag-1=0.21303488809599988.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 9, open_probability: RMSE=0.0386516, bias=-0.0164675, time correlation=-0.06636480490433486, lag-1=-0.22695493118258891.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp1.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp2.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp3.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp4.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp5.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp6.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp7.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp8.png
+- Figure: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/fit_exp9.png
+- Detailed evidence: sessions/sneyd_ipr/outputs/run_20261008_042403_664612/scientific_diagnosis.json

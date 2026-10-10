@@ -1,7 +1,7 @@
 # pfit-claude JAX Reference
 
-This is the compact `pfit jax` reference excerpt copied from
-`docs/pfit_claude_reference_packet.md`.
+This is the compact `pfit jax` reference excerpt used by the local translation
+step.
 
 ## Boundary
 

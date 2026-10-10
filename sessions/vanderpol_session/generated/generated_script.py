@@ -1,3 +1,4 @@
+# pfit-sources: user_model.py=fd9733e9db71b43c user_input.yaml=bf65715b2579fa64
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -26,12 +27,13 @@ def user_defined_system(t, y, other_args):
     fixed_parameters = constants["fixed_parameters"]
     x1 = y[0]
     x2 = y[1]
-    dx1dt = mu * (x2 - (1 / 3 * x1 ** 3 - x1))
-    dx2dt = -(1 / mu) * x1
+
+    dx1dt = mu * (x2 - (1.0 / 3.0 * x1 ** 3 - x1))
+    dx2dt = -(1.0 / mu) * x1
     return jnp.array([dx1dt, dx2dt])
 
 @jax.jit
-def _integrate_system(constants, trainable_variables):
+def _integrate_system_with_stats(constants, trainable_variables):
     term = diffrax.ODETerm(user_defined_system)
     solver = diffrax.Tsit5()
     t_eval = constants["t_eval"]
@@ -41,7 +43,7 @@ def _integrate_system(constants, trainable_variables):
         solver,
         t0=constants["init_time"],
         t1=t_eval[-1],
-        max_steps=10000,
+        max_steps=2000,
         dt0=constants["init_timestep"],
         y0=constants["init_cond"],
         args=other_args,
@@ -52,7 +54,12 @@ def _integrate_system(constants, trainable_variables):
             atol=constants["stepsize_atol"],
         ),
     )
-    return sol.ts, sol.ys, sol.result
+    return sol.ts, sol.ys, sol.result, sol.stats
+
+@jax.jit
+def _integrate_system(constants, trainable_variables):
+    ts, ys, result, _ = _integrate_system_with_stats(constants, trainable_variables)
+    return ts, ys, result
 
 @jax.jit
 def _compute_loss_value(constants, trainable_variables, solution_time, solution):
@@ -62,15 +69,17 @@ def _compute_loss_value(constants, trainable_variables, solution_time, solution)
     trainable_parameters = {"mu": mu}
     fixed_parameters = constants["fixed_parameters"]
     loss = 0.0
-    loss += jnp.mean(jnp.square((solution[:, 0] - dataset[:, 0]) / (jnp.max(dataset[:, 0]) - jnp.min(dataset[:, 0]) + 1e-12)))
-    loss += jnp.mean(jnp.square((solution[:, 1] - dataset[:, 1]) / (jnp.max(dataset[:, 1]) - jnp.min(dataset[:, 1]) + 1e-12)))
+    loss += jnp.mean(jnp.square((solution[:, 0] - dataset[:, 0]) / (jnp.max(jnp.abs(dataset[:, 0])) + 1e-12)))
+    loss += jnp.mean(jnp.square((solution[:, 1] - dataset[:, 1]) / (jnp.max(jnp.abs(dataset[:, 1])) + 1e-12)))
+    loss = jnp.sqrt(loss / 2)
     return loss
 
 @jax.jit
 def _compute_loss_problem(constants, trainable_variables):
     solution_time, solution, result = _integrate_system(constants, trainable_variables)
-    failed = jnp.logical_or(result == RESULTS.max_steps_reached, result == RESULTS.singular)
+    failed = result != RESULTS.successful
     loss_value = _compute_loss_value(constants, trainable_variables, solution_time, solution)
+    failed = failed | ~jnp.all(jnp.isfinite(solution)) | ~jnp.isfinite(loss_value)
     return jnp.where(failed, constants["error_loss"], loss_value)
 
 def _write_problem_result(constants, trainable_variables):
@@ -80,11 +89,10 @@ def _write_problem_result(constants, trainable_variables):
     mu, = unscaled_parameters
     trainable_parameters = {"mu": mu}
     fixed_parameters = constants["fixed_parameters"]
-    Nts = solution_time.shape[0]
-    out = jnp.zeros((Nts, 5))
-    out = out.at[:, 0].set(solution_time)
-    out = out.at[:, 1].set(dataset[:, 0])
-    out = out.at[:, 2].set(dataset[:, 1])
-    out = out.at[:, 3].set(solution[:, 0])
-    out = out.at[:, 4].set(solution[:, 1])
-    return out
+    writeout_array = np.zeros([solution_time.shape[0], 5])
+    writeout_array[:, 0] = solution_time
+    writeout_array[:, 1] = dataset[:, 0]
+    writeout_array[:, 2] = dataset[:, 1]
+    writeout_array[:, 3] = solution[:, 0]
+    writeout_array[:, 4] = solution[:, 1]
+    return writeout_array

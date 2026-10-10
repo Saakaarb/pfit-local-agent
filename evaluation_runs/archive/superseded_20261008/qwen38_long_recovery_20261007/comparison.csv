@@ -1,5 +1,0 @@
-case,model,status,failed_stage,total_wall_seconds,llm_wall_seconds,repair_calls,model_size_bytes,total_parameters_billion,active_parameters_billion,quantization,thinking_model,duplicate_of,new_seconds,check_seconds,jax_seconds,run_seconds,diagnose_seconds
-mapk_cascade,qwen38_27b,pending,,,,,,27.3,27.3,Q4_K_M,True,,,,,,
-oregonator,qwen38_27b,pending,,,,,,27.3,27.3,Q4_K_M,True,,,,,,
-raia_il13,qwen38_27b,pending,,,,,,27.3,27.3,Q4_K_M,True,,,,,,
-fujita_egf,qwen38_27b,pending,,,,,,27.3,27.3,Q4_K_M,True,,,,,,

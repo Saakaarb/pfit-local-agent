@@ -1,0 +1,259 @@
+{
+  "status": "limited",
+  "run": "sessions/ARC_fitting/outputs/run_20261008_191950_785781",
+  "sources": "sessions/ARC_fitting/outputs/run_20261008_191950_785781/snapshot",
+  "findings": [
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, T: RMSE=27.6931, bias=-24.5553, time correlation=-0.6034335735220393, lag-1=0.7872529505280236.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 142,
+          "missing": 0,
+          "rmse": 27.693073886356924,
+          "mae": 25.271710858844,
+          "bias": -24.555334740600674,
+          "max_abs": 73.80632938692816,
+          "time_correlation": -0.6034335735220393,
+          "lag1_correlation": 0.7872529505280236,
+          "time_regions": [
+            {
+              "start": 17192.4,
+              "end": 35839.020000000004,
+              "count": 5,
+              "rmse": 2.9538703968155233
+            },
+            {
+              "start": 35839.020000000004,
+              "end": 54485.64000000001,
+              "count": 11,
+              "rmse": 9.402437994984863
+            },
+            {
+              "start": 54485.64000000001,
+              "end": 73132.26000000001,
+              "count": 126,
+              "rmse": 29.261357782231666
+            }
+          ],
+          "name": "T",
+          "observes": "T"
+        },
+        {
+          "status": "ok",
+          "count": 142,
+          "missing": 0,
+          "rmse": 17.450712812521484,
+          "mae": 3.1155233798651345,
+          "bias": -2.217237228712987,
+          "max_abs": 177.24415044110827,
+          "time_correlation": -0.06554247959537939,
+          "lag1_correlation": -0.05554354520211779,
+          "time_regions": [
+            {
+              "start": 17192.4,
+              "end": 35839.020000000004,
+              "count": 5,
+              "rmse": 0.0001802583982007496
+            },
+            {
+              "start": 35839.020000000004,
+              "end": 54485.64000000001,
+              "count": 11,
+              "rmse": 0.00025005706380668377
+            },
+            {
+              "start": 54485.64000000001,
+              "end": 73132.26000000001,
+              "count": 126,
+              "rmse": 18.525590971786073
+            }
+          ],
+          "name": "dTdt",
+          "observes": "dTdt"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Ea1",
+      "value": 2.1626582256361303e-19,
+      "range_fraction": 0.1128056878892113,
+      "logscale": true
+    },
+    {
+      "name": "h1",
+      "value": 228.89546875209774,
+      "range_fraction": 0.679818597701539,
+      "logscale": true
+    },
+    {
+      "name": "A1",
+      "value": 11485077632573.727,
+      "range_fraction": 0.29765493736023196,
+      "logscale": true
+    },
+    {
+      "name": "A2",
+      "value": 6945113640843698.0,
+      "range_fraction": 0.46127525625671406,
+      "logscale": true
+    },
+    {
+      "name": "Ea2",
+      "value": 2.2526064127921456e-19,
+      "range_fraction": 0.1715952603479366,
+      "logscale": true
+    },
+    {
+      "name": "h2",
+      "value": 101.73531319661217,
+      "range_fraction": 0.5037358632088356,
+      "logscale": true
+    },
+    {
+      "name": "m2",
+      "value": 2.706740460804612,
+      "range_fraction": 0.42668511520115304,
+      "logscale": false
+    },
+    {
+      "name": "n2",
+      "value": 3.703288833461411,
+      "range_fraction": 0.6758222083653528,
+      "logscale": false
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.010618502090620466,
+    "final_loss": 0.010618502076707257,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        4.000000000000004e-11,
+        3.5400301423577834e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        4.000000000000004e-11,
+        3.5400301423577834e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.010618502076707257
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 1321,
+    "refinement_error": null,
+    "termination": "stopped",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "sessions/ARC_fitting/outputs/run_20261008_191950_785781/de_fitting.log",
+      "rows": 300,
+      "first": 0.53698,
+      "final": 0.010603,
+      "best": 0.010603,
+      "last_material_improvement_iteration": 279,
+      "last_iteration": 300,
+      "tail": [
+        [
+          296,
+          0.010603
+        ],
+        [
+          297,
+          0.010603
+        ],
+        [
+          298,
+          0.010603
+        ],
+        [
+          299,
+          0.010603
+        ],
+        [
+          300,
+          0.010603
+        ]
+      ]
+    },
+    {
+      "file": "sessions/ARC_fitting/outputs/run_20261008_191950_785781/NODE_fitting.log",
+      "rows": 13,
+      "first": 0.010619,
+      "final": 0.010619,
+      "best": 0.010619,
+      "last_material_improvement_iteration": 100,
+      "last_iteration": 1300,
+      "tail": [
+        [
+          900,
+          0.010619
+        ],
+        [
+          1000,
+          0.010619
+        ],
+        [
+          1100,
+          0.010619
+        ],
+        [
+          1200,
+          0.010619
+        ],
+        [
+          1300,
+          0.010619
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.010618502076707878,
+  "experiment_losses": [
+    0.010618502076707878
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Experiment 1, T: RMSE=27.6931, bias=-24.5553, time correlation=-0.6034335735220393, lag-1=0.7872529505280236."
+}

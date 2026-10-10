@@ -1,5 +1,0 @@
-validate_session: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/theophylline/qwen38_27b/session
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/theophylline/qwen38_27b/session/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/theophylline/qwen38_27b/session/generated/generated_script.py
-tolerance_calibration: passed: Applied validated state-scale and/or DE tolerances at the fixed step ceiling
-smoke_test_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_state_scaled_20261007/cases/theophylline/qwen38_27b/session/generated/generated_script.py

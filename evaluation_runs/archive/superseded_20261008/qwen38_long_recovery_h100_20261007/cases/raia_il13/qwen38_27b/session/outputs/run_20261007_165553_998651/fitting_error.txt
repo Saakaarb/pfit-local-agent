@@ -1,1 +1,0 @@
-Fitting process failed with error: Starting point has invalid loss or fails integration at refinement tolerances

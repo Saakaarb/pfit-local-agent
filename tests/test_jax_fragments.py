@@ -64,7 +64,7 @@ def test_jax_fragments_render_configured_integrator():
 
 
 def test_jax_fragments_normalize_python_bool_ops_to_jax_logical_ops():
-    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+    spec = load_session_spec(Path("sessions/sliding_basepoint_headered/inputs/user_input.yaml"))
     response = json.dumps(
         {
             "rhs": [
@@ -151,7 +151,7 @@ def test_jax_rhs_response_extracts_returned_array_from_function_lines():
 
 
 def test_jax_rhs_response_inlines_function_local_derivatives():
-    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+    spec = load_session_spec(Path("sessions/sliding_basepoint_headered/inputs/user_input.yaml"))
     response = json.dumps(
         {
             "rhs": [

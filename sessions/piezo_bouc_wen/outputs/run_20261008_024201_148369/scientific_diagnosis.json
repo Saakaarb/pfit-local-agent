@@ -1,0 +1,238 @@
+{
+  "status": "limited",
+  "run": "sessions/piezo_bouc_wen/outputs/run_20261008_024201_148369",
+  "sources": "sessions/piezo_bouc_wen/outputs/run_20261008_024201_148369/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "alpha=0.992376 is at 99.24% of its linear search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "gamma=0.1 is at 100.00% of its linear search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "cp=20 is at 0.00% of its linear search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, xp: RMSE=6.76589e-07, bias=-1.22467e-07, time correlation=0.36262676995268095, lag-1=0.8882089845984974.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 79,
+          "missing": 0,
+          "rmse": 6.765888598272175e-07,
+          "mae": 5.597522617322886e-07,
+          "bias": -1.2246694050409096e-07,
+          "max_abs": 1.6671192247357251e-06,
+          "time_correlation": 0.36262676995268095,
+          "lag1_correlation": 0.8882089845984974,
+          "time_regions": [
+            {
+              "start": 0.10061349693251534,
+              "end": 0.23374233128834354,
+              "count": 28,
+              "rmse": 7.586822793625567e-07
+            },
+            {
+              "start": 0.23374233128834354,
+              "end": 0.36687116564417177,
+              "count": 25,
+              "rmse": 5.248151724232587e-07
+            },
+            {
+              "start": 0.36687116564417177,
+              "end": 0.49999999999999994,
+              "count": 26,
+              "rmse": 7.114850605349366e-07
+            }
+          ],
+          "name": "xp",
+          "observes": "xp"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "alpha",
+      "value": 0.9923762442167832,
+      "range_fraction": 0.9923762442167832,
+      "logscale": false
+    },
+    {
+      "name": "beta",
+      "value": 0.0017057074512143834,
+      "range_fraction": 0.017057074512143833,
+      "logscale": false
+    },
+    {
+      "name": "gamma",
+      "value": 0.1,
+      "range_fraction": 1.0,
+      "logscale": false
+    },
+    {
+      "name": "cp",
+      "value": 20.0,
+      "range_fraction": 0.0,
+      "logscale": false
+    },
+    {
+      "name": "kp",
+      "value": 14428455.814538516,
+      "range_fraction": 0.9041894224058111,
+      "logscale": true
+    },
+    {
+      "name": "de",
+      "value": 1.3840978367327424e-07,
+      "range_fraction": 0.8016683543855961,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.1378616071292682,
+    "final_loss": 0.13786029505019426,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.8498373287898295e-11,
+        7.618349822204889e-10,
+        1.8495557017505334e-11
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1.8498373287898295e-11,
+        7.618349822204889e-10,
+        1.8495557017505334e-11
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.1378610718325131
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "sessions/piezo_bouc_wen/outputs/run_20261008_024201_148369/de_fitting.log",
+      "rows": 100,
+      "first": 0.15294,
+      "final": 0.13786,
+      "best": 0.13786,
+      "last_material_improvement_iteration": 38,
+      "last_iteration": 100,
+      "tail": [
+        [
+          96,
+          0.13786
+        ],
+        [
+          97,
+          0.13786
+        ],
+        [
+          98,
+          0.13786
+        ],
+        [
+          99,
+          0.13786
+        ],
+        [
+          100,
+          0.13786
+        ]
+      ]
+    },
+    {
+      "file": "sessions/piezo_bouc_wen/outputs/run_20261008_024201_148369/NODE_fitting.log",
+      "rows": 31,
+      "first": 0.13786,
+      "final": 0.13786,
+      "best": 0.13786,
+      "last_material_improvement_iteration": 100,
+      "last_iteration": 3000,
+      "tail": [
+        [
+          2700,
+          0.13786
+        ],
+        [
+          2800,
+          0.13786
+        ],
+        [
+          2900,
+          0.13786
+        ],
+        [
+          2999,
+          0.13786
+        ],
+        [
+          3000,
+          0.13786
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.1378610041987003,
+  "experiment_losses": [
+    0.1378610041987003
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "alpha=0.992376 is at 99.24% of its linear search interval."
+}

@@ -1,0 +1,45 @@
+Fit diagnosis
+
+Session: sessions/robertson_session
+Run directory: sessions/robertson_session/outputs/run_20261008_021427_550506
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 1.1699E-01, best loss 4.7304E-04, final loss 4.7304E-04
+- NODE: 31 iterations, first loss 4.7305E-04, best loss 4.7305E-04, final loss 4.7305E-04
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: robertson_data.csv; loss=0.00047304612392646346; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, y1: RMSE=5.02237e-05, bias=-3.28751e-05, time correlation=-0.2040229329856576, lag-1=0.8949651660956307.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y2: RMSE=2.93957e-08, bias=-1.16042e-08, time correlation=0.04598225531083507, lag-1=0.417270763589156.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, y3: RMSE=5.01854e-05, bias=3.27971e-05, time correlation=0.2042863240061707, lag-1=0.8949554172667011.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/robertson_session/outputs/run_20261008_021427_550506/fit_exp1.png
+- Detailed evidence: sessions/robertson_session/outputs/run_20261008_021427_550506/scientific_diagnosis.json

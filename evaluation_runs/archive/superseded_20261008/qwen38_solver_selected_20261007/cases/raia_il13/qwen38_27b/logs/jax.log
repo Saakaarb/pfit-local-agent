@@ -1,8 +1,0 @@
-validate_session: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session/generated/generated_script.py
-smoke_test_generated_script: failed: Numerical validation: coverage_below_target: 7/32 parameter samples complete all experiments with valid loss; require 8/32.; steps={}
-solver_recovery: attempted: max_steps=20000, samples=64; scientific fragments and tolerances unchanged
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/raia_il13/qwen38_27b/session/generated/generated_script.py
-smoke_test_generated_script: failed: Numerical validation: recovery_timeout: Numerical recovery wall-time limit reached; steps={}
-solver_recovery: failed: Numerical validation blocked at max_steps=20000; limit=50000, samples=64. No scientific code repair attempted.

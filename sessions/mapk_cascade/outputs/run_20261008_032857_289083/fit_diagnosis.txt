@@ -1,0 +1,51 @@
+Fit diagnosis
+
+Session: sessions/mapk_cascade
+Run directory: sessions/mapk_cascade/outputs/run_20261008_032857_289083
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 2.3856E-02, best loss 8.6957E-03, final loss 8.6957E-03
+- NODE: 31 iterations, first loss 8.4308E-03, best loss 8.3707E-03, final loss 8.3707E-03
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: mapk_data.csv; loss=0.00837068977091918; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- k3=0.993476 is at 99.91% of its log10 search interval.
+- [BOUND] k3=0.993476 is at 99.91% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] k_3=0.0106156 is at 0.65% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h2=0.937921 is at 99.07% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h3=0.01 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h_3=0.0001 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BOUND] h5=0.01 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/mapk_cascade/outputs/run_20261008_032857_289083/fit_exp1.png
+- Detailed evidence: sessions/mapk_cascade/outputs/run_20261008_032857_289083/scientific_diagnosis.json

@@ -1,4 +1,0 @@
-session initialized: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/vanderpol_session/qwen38_27b/session
-written: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/vanderpol_session/qwen38_27b/session/inputs/user_input.yaml
-written: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/vanderpol_session/qwen38_27b/session/generated/user_model.py
-written: /workspace/pfit-local-agent/evaluation_runs/qwen38_fixed_samples_all_20261007/cases/vanderpol_session/qwen38_27b/session/generated/pfit_new_review.txt

@@ -1,4 +1,0 @@
-Extracted integrated state variables and initial values for the Van der Pol oscillator.
-Extracted the RHS expressions for the Van der Pol oscillator ODE system.
-All CSV measurement columns are directly mapped to the integrated states.
-User provided a custom loss function that normalizes residuals by the max(abs(measured column)) and uses the root mean square error.

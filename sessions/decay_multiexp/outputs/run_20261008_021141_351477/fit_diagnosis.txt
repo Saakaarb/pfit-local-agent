@@ -1,0 +1,44 @@
+Fit diagnosis
+
+Session: sessions/decay_multiexp
+Run directory: sessions/decay_multiexp/outputs/run_20261008_021141_351477
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution_exp1.csv: present
+- result_solution_exp2.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 1.0195E-01, best loss 1.8679E-06, final loss 1.8679E-06
+- NODE: 31 iterations, first loss 2.0885E-06, best loss 3.2433E-07, final loss 3.2433E-07
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 2
+Aggregation: equal_experiment_mean
+- Experiment 1: decay_run_A.csv; loss=3.2402410503878207e-07; output=result_solution_exp1.csv
+- Experiment 2: decay_run_B.csv; loss=3.246332729266778e-07; output=result_solution_exp2.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, A: RMSE=2.13745e-07, bias=7.79289e-08, time correlation=-0.4543784531188655, lag-1=-0.11682300705146995.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/decay_multiexp/outputs/run_20261008_021141_351477/fit_exp1.png
+- Figure: sessions/decay_multiexp/outputs/run_20261008_021141_351477/fit_exp2.png
+- Detailed evidence: sessions/decay_multiexp/outputs/run_20261008_021141_351477/scientific_diagnosis.json

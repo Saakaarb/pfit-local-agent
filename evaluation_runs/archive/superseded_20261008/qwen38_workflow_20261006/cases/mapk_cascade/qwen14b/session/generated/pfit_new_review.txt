@@ -1,4 +1,0 @@
-The initial conditions are provided directly in the frozen dataset and user_info.txt. Each state's initial value is explicitly stated, and there are no group declarations or ambiguous statements.
-The provided ODE system and reaction rates have been extracted and formatted according to the schema. Each reaction rate and ODE is preserved exactly as described in the user text.
-The CSV column 'Mpp' directly measures the integrated state 'Mpp' in the model.
-The user has provided a custom loss definition, which is to compare the simulated Mpp to the measured Mpp column, normalize residuals by max(abs(measured Mpp column)), and calculate the loss as the square root of the mean of the normalized squared residuals.

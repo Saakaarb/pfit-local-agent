@@ -1,4 +1,0 @@
-All required initial conditions are provided.
-All required equations and formulas are provided.
-The CSV column 'xp' directly measures the integrated state 'xp'. No other columns are present.
-User provided a custom loss function to compare simulated xp to measured xp, normalizing by max(abs(measured xp)) and using RMSE.

@@ -1,6 +1,0 @@
-Extracted integrated state variables and initial values from the provided context.
-All required equations and parameters are provided.
-All CSV measurement columns are mapped to the corresponding integrated states.
-User provided a custom loss function using sigma-weighted MSE for both X and Z.
-Applied pooled RMSE from the original user loss specification; the final square root follows averaging across observation channels.
-Original user context indicates a stiff model.

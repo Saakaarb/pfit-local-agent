@@ -1,0 +1,243 @@
+{
+  "status": "limited",
+  "run": "sessions/lotka_volterra/outputs/run_20261008_042402_837167",
+  "sources": "sessions/lotka_volterra/outputs/run_20261008_042402_837167/snapshot",
+  "findings": [
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, H: RMSE=4.89254, bias=-2.849, time correlation=0.24392817631579544, lag-1=0.6253211988946913.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, L: RMSE=3.52548, bias=-0.95953, time correlation=-0.015856569227315313, lag-1=0.418826151517553.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 4.892535169504697,
+          "mae": 3.457292375228678,
+          "bias": -2.8490040548588524,
+          "max_abs": 12.033249479036558,
+          "time_correlation": 0.24392817631579544,
+          "lag1_correlation": 0.6253211988946913,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 4.454538123005034
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 13.333333333333334,
+              "count": 7,
+              "rmse": 6.89994474224043
+            },
+            {
+              "start": 13.333333333333334,
+              "end": 20.0,
+              "count": 7,
+              "rmse": 2.0877149755760502
+            }
+          ],
+          "name": "H",
+          "observes": "H"
+        },
+        {
+          "status": "ok",
+          "count": 21,
+          "missing": 0,
+          "rmse": 3.5254849328344458,
+          "mae": 2.779640435577963,
+          "bias": -0.9595296009190631,
+          "max_abs": 7.222822961018046,
+          "time_correlation": -0.015856569227315313,
+          "lag1_correlation": 0.418826151517553,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 6.666666666666667,
+              "count": 7,
+              "rmse": 4.42326403154817
+            },
+            {
+              "start": 6.666666666666667,
+              "end": 13.333333333333334,
+              "count": 7,
+              "rmse": 3.1267230654439784
+            },
+            {
+              "start": 13.333333333333334,
+              "end": 20.0,
+              "count": 7,
+              "rmse": 2.818771046779239
+            }
+          ],
+          "name": "L",
+          "observes": "L"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "alpha",
+      "value": 0.5565262693299715,
+      "range_fraction": 0.5729965268635986,
+      "logscale": true
+    },
+    {
+      "name": "beta",
+      "value": 0.028562187790162112,
+      "range_fraction": 0.5393877915947015,
+      "logscale": true
+    },
+    {
+      "name": "delta",
+      "value": 0.026384072136106988,
+      "range_fraction": 0.5266237947859871,
+      "logscale": true
+    },
+    {
+      "name": "gamma",
+      "value": 0.8266713569600518,
+      "range_fraction": 0.7050820451731736,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.06131169921048201,
+    "final_loss": 0.06131169907269147,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        6.301678707844695e-08,
+        1.0161096548344538e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.061311699072691475
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "sessions/lotka_volterra/outputs/run_20261008_042402_837167/de_fitting.log",
+      "rows": 100,
+      "first": 0.16828,
+      "final": 0.061312,
+      "best": 0.061312,
+      "last_material_improvement_iteration": 41,
+      "last_iteration": 100,
+      "tail": [
+        [
+          96,
+          0.061312
+        ],
+        [
+          97,
+          0.061312
+        ],
+        [
+          98,
+          0.061312
+        ],
+        [
+          99,
+          0.061312
+        ],
+        [
+          100,
+          0.061312
+        ]
+      ]
+    },
+    {
+      "file": "sessions/lotka_volterra/outputs/run_20261008_042402_837167/NODE_fitting.log",
+      "rows": 31,
+      "first": 0.061312,
+      "final": 0.061312,
+      "best": 0.061312,
+      "last_material_improvement_iteration": 100,
+      "last_iteration": 3000,
+      "tail": [
+        [
+          2700,
+          0.061312
+        ],
+        [
+          2800,
+          0.061312
+        ],
+        [
+          2900,
+          0.061312
+        ],
+        [
+          2999,
+          0.061312
+        ],
+        [
+          3000,
+          0.061312
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.06131169907269232,
+  "experiment_losses": [
+    0.06131169907269232
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Refinement stopped at its iteration budget."
+}

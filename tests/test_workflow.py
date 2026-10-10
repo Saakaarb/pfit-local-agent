@@ -301,7 +301,7 @@ def test_standard_loss_and_writeout_ignores_uncertainty_columns():
 
 
 def test_standard_loss_and_writeout_declines_custom_user_loss():
-    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+    spec = load_session_spec(Path("sessions/sliding_basepoint_headered/inputs/user_input.yaml"))
     user_model_source = """
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     return jnp.mean(jnp.abs(solution[:, 0] - dataset[:, 0]))
@@ -341,7 +341,7 @@ def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters
 
 
 def test_standard_loss_and_writeout_declines_mismatched_dataset_width():
-    spec = load_session_spec(Path("sessions/sliding_basepoint/inputs/user_input.yaml"))
+    spec = load_session_spec(Path("sessions/sliding_basepoint_headered/inputs/user_input.yaml"))
 
     assert _standard_loss_and_writeout_bodies(spec, data_width=3) is None
 

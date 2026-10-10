@@ -1,5 +1,0 @@
-All required initial conditions are present and valid.
-All equations are extracted and match the provided model.
-All CSV measurement columns are mapped to the corresponding derived observables in the model.
-User provided a custom loss function using column-wise normalized squared error with scale for each measured column equal to max(abs(column)).
-Original user context indicates a stiff model.

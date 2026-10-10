@@ -1,0 +1,318 @@
+{
+  "status": "limited",
+  "run": "sessions/boehm_stat5/outputs/run_20261008_023604_117718",
+  "sources": "sessions/boehm_stat5/outputs/run_20261008_023604_117718/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "k_exp_hetero=1e-07 is at 0.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "k_imp_homo=9.77e+06 is at 100.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    },
+    {
+      "id": "RESIDUAL",
+      "priority": 5,
+      "evidence": "Experiment 1, pSTAT5B: RMSE=6.19255, bias=-1.57373, time correlation=-0.09072476075295223, lag-1=0.16572212198458494.",
+      "next_step": "Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 4.4094871829885225,
+          "mae": 3.411623748357583,
+          "bias": 1.0324679686782674,
+          "max_abs": 9.777916321426318,
+          "time_correlation": 0.39448201770338764,
+          "lag1_correlation": 0.015700573316509623,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 80.0,
+              "count": 10,
+              "rmse": 4.628988475238755
+            },
+            {
+              "start": 80.0,
+              "end": 160.0,
+              "count": 3,
+              "rmse": 1.196312063188149
+            },
+            {
+              "start": 160.0,
+              "end": 240.0,
+              "count": 3,
+              "rmse": 5.5536295871715105
+            }
+          ],
+          "name": "pSTAT5A",
+          "observes": "pSTAT5A"
+        },
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 6.192552243723531,
+          "mae": 4.551958256671397,
+          "bias": -1.5737279121945682,
+          "max_abs": 14.62595236301469,
+          "time_correlation": -0.09072476075295223,
+          "lag1_correlation": 0.16572212198458494,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 80.0,
+              "count": 10,
+              "rmse": 7.567647186396907
+            },
+            {
+              "start": 80.0,
+              "end": 160.0,
+              "count": 3,
+              "rmse": 2.5673958551406146
+            },
+            {
+              "start": 160.0,
+              "end": 240.0,
+              "count": 3,
+              "rmse": 2.6517823472233046
+            }
+          ],
+          "name": "pSTAT5B",
+          "observes": "pSTAT5B"
+        },
+        {
+          "status": "ok",
+          "count": 16,
+          "missing": 0,
+          "rmse": 3.057853049674648,
+          "mae": 2.2155564026288515,
+          "bias": -0.14810520731258958,
+          "max_abs": 7.1925012012533,
+          "time_correlation": 0.0008900155944643062,
+          "lag1_correlation": 0.2087557355858151,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 80.0,
+              "count": 10,
+              "rmse": 3.835087928147752
+            },
+            {
+              "start": 80.0,
+              "end": 160.0,
+              "count": 3,
+              "rmse": 0.5892190054946396
+            },
+            {
+              "start": 160.0,
+              "end": 240.0,
+              "count": 3,
+              "rmse": 0.7040154115070375
+            }
+          ],
+          "name": "rSTAT5A",
+          "observes": "rSTAT5A"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "k_deg",
+      "value": 0.02650504959917716,
+      "range_fraction": 0.49799121427600873,
+      "logscale": true
+    },
+    {
+      "name": "k_exp_hetero",
+      "value": 1e-07,
+      "range_fraction": 0.0,
+      "logscale": true
+    },
+    {
+      "name": "k_exp_homo",
+      "value": 0.0069128612491099655,
+      "range_fraction": 0.5123431690082391,
+      "logscale": true
+    },
+    {
+      "name": "k_imp_hetero",
+      "value": 0.015939871371921592,
+      "range_fraction": 0.49691024111304144,
+      "logscale": true
+    },
+    {
+      "name": "k_imp_homo",
+      "value": 9769999.999999989,
+      "range_fraction": 0.9999999999999999,
+      "logscale": true
+    },
+    {
+      "name": "k_phos",
+      "value": 16589.33021695451,
+      "range_fraction": 0.5052929412691007,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.06228579302875288,
+    "final_loss": 0.06228579284805766,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09,
+        1e-09
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.062285792848057665
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "sessions/boehm_stat5/outputs/run_20261008_023604_117718/de_fitting.log",
+      "rows": 100,
+      "first": 0.063609,
+      "final": 0.062286,
+      "best": 0.062286,
+      "last_material_improvement_iteration": 28,
+      "last_iteration": 100,
+      "tail": [
+        [
+          96,
+          0.062286
+        ],
+        [
+          97,
+          0.062286
+        ],
+        [
+          98,
+          0.062286
+        ],
+        [
+          99,
+          0.062286
+        ],
+        [
+          100,
+          0.062286
+        ]
+      ]
+    },
+    {
+      "file": "sessions/boehm_stat5/outputs/run_20261008_023604_117718/NODE_fitting.log",
+      "rows": 31,
+      "first": 0.062286,
+      "final": 0.062286,
+      "best": 0.062286,
+      "last_material_improvement_iteration": 100,
+      "last_iteration": 3000,
+      "tail": [
+        [
+          2700,
+          0.062286
+        ],
+        [
+          2800,
+          0.062286
+        ],
+        [
+          2900,
+          0.062286
+        ],
+        [
+          2999,
+          0.062286
+        ],
+        [
+          3000,
+          0.062286
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.06228579284807859,
+  "experiment_losses": [
+    0.06228579284807859
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "k_exp_hetero=1e-07 is at 0.00% of its log10 search interval."
+}

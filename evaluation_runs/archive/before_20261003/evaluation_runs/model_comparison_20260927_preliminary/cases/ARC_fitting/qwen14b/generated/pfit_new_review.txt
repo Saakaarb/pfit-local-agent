@@ -1,4 +1,0 @@
-Extracted integrated state variables and initial values from the provided user information and frozen dataset.
-Extracted formulas and RHS expressions based on the provided ODE and user context.
-The CSV columns T and dTdt are directly mapped to the simulated states and formulas.
-The user provided a custom loss definition, including normalization and log10 transformation for the heat rate.

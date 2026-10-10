@@ -1,4 +1,0 @@
-Initial values for states x1 and x2 are explicitly provided and match the CSV sample.
-Van der Pol oscillator ODEs are directly provided; extract RHS expressions using frozen state names and parameter mu. No forcing inputs are present.
-Each CSV measurement column after time (x1, x2) directly corresponds to an integrated state in the Van der Pol model.
-User explicitly defined loss: normalized residuals by max(abs(measured column)), then RMSE over all residuals.

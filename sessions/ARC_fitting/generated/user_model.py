@@ -13,8 +13,9 @@ def _observables(solution, trainable_parameters, fixed_parameters):
     c1 = solution[:, 0]
     c2 = solution[:, 1]
     T = solution[:, 2]
+    gate = np.exp(-np.logaddexp(0.0, -(T - fixed_parameters['T_gate']) / fixed_parameters['deltaT_gate']))
     return {
-        'dTdt': np.abs(h1 * (-A1 * np.exp(-Ea1 / (kb * T)) * c1)) + np.abs(h2 * (A2 * np.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2)),
+        'dTdt': np.abs(h1 * (-A1 * np.exp(-Ea1 / (kb * T)) * c1)) + np.abs(h2 * (gate * A2 * np.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2)),
     }
 
 
@@ -31,9 +32,11 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     c1 = y[0]
     c2 = y[1]
     T = y[2]
+    gate = np.exp(-np.logaddexp(0.0, -(T - fixed_parameters['T_gate']) / fixed_parameters['deltaT_gate']))
+
     dc1dt = -A1 * np.exp(-Ea1 / (kb * T)) * c1
-    dc2dt = A2 * np.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2
-    dTdt = np.abs(h1 * (-A1 * np.exp(-Ea1 / (kb * T)) * c1)) + np.abs(h2 * (A2 * np.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2))
+    dc2dt = gate * A2 * np.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2
+    dTdt = np.abs(h1 * (-A1 * np.exp(-Ea1 / (kb * T)) * c1)) + np.abs(h2 * (gate * A2 * np.exp(-Ea2 / (kb * T)) * c2 ** n2 * (1 - c2) ** m2))
     return np.array([dc1dt, dc2dt, dTdt])
 
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

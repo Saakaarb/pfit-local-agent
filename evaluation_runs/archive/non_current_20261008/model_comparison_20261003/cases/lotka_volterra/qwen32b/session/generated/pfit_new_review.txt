@@ -1,4 +1,0 @@
-H(0) = 30.0; L(0) = 4.0
-Extracted Lotka-Volterra predator-prey model equations.
-All CSV measurement columns are directly mapped to the integrated states.
-User provided a custom loss definition using max_abs_normalized_rmse for both H and L.

@@ -19,6 +19,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 
     A_gut = y[0]
     A_plasma = y[1]
+
     dA_gutdt = -ka * A_gut
     dA_plasmadt = ka * A_gut - ke * A_plasma
     return np.array([dA_gutdt, dA_plasmadt])
@@ -26,7 +27,8 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     observables = _observables(solution, trainable_parameters, fixed_parameters)
     loss = 0.0
-    loss += np.mean(np.square((observables['C_plasma'] - dataset[:, 0]) / (np.max(dataset[:, 0]) - np.min(dataset[:, 0]) + 1e-12)))
+    loss += np.mean(np.square((observables['C_plasma'] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)))
+    loss = np.sqrt(loss / 1)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

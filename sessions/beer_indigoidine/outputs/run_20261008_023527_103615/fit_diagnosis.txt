@@ -1,0 +1,43 @@
+Fit diagnosis
+
+Session: sessions/beer_indigoidine
+Run directory: sessions/beer_indigoidine/outputs/run_20261008_023527_103615
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 5.2958E-01, best loss 2.7478E-02, final loss 2.7478E-02
+- NODE: 31 iterations, first loss 2.7477E-02, best loss 2.7477E-02, final loss 2.7477E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: culture.csv; loss=0.027476740923978928; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Refinement stopped at its iteration budget.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, Bacnorm: RMSE=0.0266207, bias=0.00701686, time correlation=-0.08405194300271507, lag-1=0.9990490471758745.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, IndconcNormRange: RMSE=0.00910338, bias=0.000315328, time correlation=0.11887234229349498, lag-1=0.9965900242255153.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/beer_indigoidine/outputs/run_20261008_023527_103615/fit_exp1.png
+- Detailed evidence: sessions/beer_indigoidine/outputs/run_20261008_023527_103615/scientific_diagnosis.json

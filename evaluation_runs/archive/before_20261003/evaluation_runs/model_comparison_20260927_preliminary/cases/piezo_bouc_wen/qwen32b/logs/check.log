@@ -1,8 +1,0 @@
-check report written: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/piezo_bouc_wen/qwen32b/generated/user_input_check.txt
-validation passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/piezo_bouc_wen/qwen32b
-warning: Unverified semantic finding: "dataset[:, 0]" in the loss expression refers to the first measured column (xp), not the time column. The loss should compare the simulated xp (solution[:, 0]) to the measured xp (dataset[:, 0]). The correct expression should be (solution[:, 0] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12).
-warning: Very small population size (4) and gradient iteration count (5) may lead to poor convergence. Consider increasing these values for better results.
-warning: The automatic log-loss rule does not apply to the 'xp' column, but the user's stated loss normalizes the residuals by the maximum absolute value of the measured 'xp'. Ensure this normalization is appropriate for your data scale and fitting goals.
-recommendation: Large trainable parameter count detected; consider increasing population search budget.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
-recommendation: Increase the population size and gradient iteration count to improve convergence. Given the large trainable parameter count, consider increasing the population search budget as suggested. Ensure the loss normalization aligns with the data scale and fitting objectives.

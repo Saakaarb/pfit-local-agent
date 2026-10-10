@@ -1,3 +1,4 @@
+# pfit-sources: user_model.py=d02539900742d663 user_input.yaml=9a486c18b8c5ae48
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -44,16 +45,17 @@ def user_defined_system(t, y, other_args):
     v2 = y[3]
     k = y[4]
     c1 = y[5]
+
     dx1dt = v1
     dx2dt = v2
     dv1dt = (k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1
-    dv2dt = jnp.where(jnp.logical_and(jnp.abs(-(k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1))) < c2, jnp.abs(v2) < vf), 0, (-(k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) - c2 * jnp.sign(v2)) / m2)
+    dv2dt = jnp.where(jnp.logical_and(jnp.abs(-k * (x2 - x1)) < c2, jnp.abs(v2) < vf), 0.0, (-k * (x2 - x1) - c2 * jnp.sign(v2)) / m2)
     dkdt = Dk * jnp.abs(m1 * v1 * ((k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1))
     dc1dt = Dc * jnp.abs(m1 * v1 * ((k * (x2 - x1) - c1 * jnp.abs(v1) * jnp.sign(v1)) / m1))
     return jnp.array([dx1dt, dx2dt, dv1dt, dv2dt, dkdt, dc1dt])
 
 @jax.jit
-def _integrate_system(constants, trainable_variables):
+def _integrate_system_with_stats(constants, trainable_variables):
     term = diffrax.ODETerm(user_defined_system)
     solver = diffrax.Tsit5()
     t_eval = constants["t_eval"]
@@ -63,7 +65,7 @@ def _integrate_system(constants, trainable_variables):
         solver,
         t0=constants["init_time"],
         t1=t_eval[-1],
-        max_steps=10000,
+        max_steps=1000,
         dt0=constants["init_timestep"],
         y0=constants["init_cond"],
         args=other_args,
@@ -74,7 +76,12 @@ def _integrate_system(constants, trainable_variables):
             atol=constants["stepsize_atol"],
         ),
     )
-    return sol.ts, sol.ys, sol.result
+    return sol.ts, sol.ys, sol.result, sol.stats
+
+@jax.jit
+def _integrate_system(constants, trainable_variables):
+    ts, ys, result, _ = _integrate_system_with_stats(constants, trainable_variables)
+    return ts, ys, result
 
 @jax.jit
 def _compute_loss_value(constants, trainable_variables, solution_time, solution):
@@ -87,15 +94,16 @@ def _compute_loss_value(constants, trainable_variables, solution_time, solution)
     observables = _observables(solution, trainable_parameters, fixed_parameters)
     loss = 0.0
     loss += jnp.mean(jnp.square((observables['contact_force'] - dataset[:, 0]) / (jnp.max(jnp.abs(dataset[:, 0])) + 1e-12)))
-    loss += jnp.mean(jnp.square((observables['displacement'] - dataset[:, 1]) / (jnp.max(jnp.abs(dataset[:, 1])) + 1e-12)))
+    loss += jnp.mean(jnp.square((solution[:, 0] - dataset[:, 1]) / (jnp.max(jnp.abs(dataset[:, 1])) + 1e-12)))
     loss = jnp.sqrt(loss / 2)
     return loss
 
 @jax.jit
 def _compute_loss_problem(constants, trainable_variables):
     solution_time, solution, result = _integrate_system(constants, trainable_variables)
-    failed = jnp.logical_or(result == RESULTS.max_steps_reached, result == RESULTS.singular)
+    failed = result != RESULTS.successful
     loss_value = _compute_loss_value(constants, trainable_variables, solution_time, solution)
+    failed = failed | ~jnp.all(jnp.isfinite(solution)) | ~jnp.isfinite(loss_value)
     return jnp.where(failed, constants["error_loss"], loss_value)
 
 def _write_problem_result(constants, trainable_variables):
@@ -106,18 +114,17 @@ def _write_problem_result(constants, trainable_variables):
     trainable_parameters = {"c2": c2, "Dk": Dk, "Dc": Dc, "m1": m1, "m2": m2}
     fixed_parameters = constants["fixed_parameters"]
     vf = fixed_parameters['vf']
-    Nts = solution_time.shape[0]
-    out = jnp.zeros((Nts, 11))
-    out = out.at[:, 0].set(solution_time)
-    out = out.at[:, 1].set(dataset[:, 0])
-    out = out.at[:, 2].set(dataset[:, 1])
-    out = out.at[:, 3].set(solution[:, 0])
-    out = out.at[:, 4].set(solution[:, 1])
-    out = out.at[:, 5].set(solution[:, 2])
-    out = out.at[:, 6].set(solution[:, 3])
-    out = out.at[:, 7].set(solution[:, 4])
-    out = out.at[:, 8].set(solution[:, 5])
+    writeout_array = np.zeros([solution_time.shape[0], 11])
+    writeout_array[:, 0] = solution_time
+    writeout_array[:, 1] = dataset[:, 0]
+    writeout_array[:, 2] = dataset[:, 1]
+    writeout_array[:, 3] = solution[:, 0]
+    writeout_array[:, 4] = solution[:, 1]
+    writeout_array[:, 5] = solution[:, 2]
+    writeout_array[:, 6] = solution[:, 3]
+    writeout_array[:, 7] = solution[:, 4]
+    writeout_array[:, 8] = solution[:, 5]
     observables = _observables(solution, trainable_parameters, fixed_parameters)
-    out = out.at[:, 9].set(observables['contact_force'])
-    out = out.at[:, 10].set(observables['displacement'])
-    return out
+    writeout_array[:, 9] = observables['contact_force']
+    writeout_array[:, 10] = observables['displacement']
+    return writeout_array

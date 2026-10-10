@@ -1,0 +1,43 @@
+Fit diagnosis
+
+Session: sessions/cascaded_tanks
+Run directory: sessions/cascaded_tanks/outputs/run_20261008_023023_315171
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 3.1454E-01, best loss 6.0620E-02, final loss 6.0620E-02
+- NODE: 31 iterations, first loss 6.0619E-02, best loss 6.0617E-02, final loss 6.0617E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: estimation.csv; loss=0.060616835911904615; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Replayed loss 0.060625 differs from saved 0.0606168.
+- [REPLAY] Replayed loss 0.060625 differs from saved 0.0606168.
+  Next: Resolve the replay discrepancy before interpreting fit quality; inspect recorded code, environment and solver settings.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, level_lower: RMSE=0.60625, bias=0.0481618, time correlation=-0.12823900746498149, lag-1=0.9943313907318994.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/cascaded_tanks/outputs/run_20261008_023023_315171/fit_exp1.png
+- Detailed evidence: sessions/cascaded_tanks/outputs/run_20261008_023023_315171/scientific_diagnosis.json

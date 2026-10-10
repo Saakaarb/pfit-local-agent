@@ -1,4 +1,0 @@
-The user_info.txt explicitly states: 'xp(0) = 0.0', 'vp(0) = 0.0', 'h(0) = 0.0'. The frozen experiment initial_conditions confirm xp=0.0, vp=0.0, h=0.0. All three integrated states have individually supplied initial values; no group expansion is needed.
-Bouc-Wen hysteresis model with analytic sinusoidal voltage input. All symbols traced to frozen names or defined formulas.
-Single measurement column xp maps directly to the integrated state xp. No derived observables needed.
-User explicitly defines loss as RMSE of residuals normalized by max(abs(measured xp)). Maps to max_abs_normalized_rmse. No penalties requested.

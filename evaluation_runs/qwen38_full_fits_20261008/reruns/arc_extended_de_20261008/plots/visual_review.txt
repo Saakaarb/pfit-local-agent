@@ -1,7 +1,0 @@
-ARC extended DE: visual review
-
-DE300 generations with128particles, seed29; Adam3000. Final retained loss0.1000398296 equals the DE winner. Adam moved into large terminal-penalty losses and did not improve the retained point.
-
-Plot shows underprediction of temperature and heating rate over much of the pre-runaway interval, followed by a mismatched sharp transition. Temperature RMSE58.99; log heating-rate RMSE1.43decades. The original ARC fit (loss0.0110072) remains substantially better. Saved trajectories are plotted at measurement times, without dense reintegration.
-
-This directory contains the larger-budget ARC attempt, distinct from the earlier seed17 rerun in targeted_refits_20261008 and the original in qwen38_full_fits_20261008. Original results are preserved.

@@ -1,7 +1,0 @@
-Fixed-gate ARC: stopped at user request
-
-Fixed second-reaction gate: onset470K,width5K. DE128particles x300generations; Adam stopped after1321 evaluated iterations. Best retained loss0.010618502076707257; Adam did not improve its starting point. Stop handled through the built-in stop_fitting.flag, allowing exact best parameters and trajectories to be written normally.
-
-Visual review: sharp runaway rise is reproduced, but predicted temperature is systematically below measurements through much of the gradual-heating interval. Temperature RMSE27.69K. Heating-rate curve broadly follows the observed acceleration, with remaining low bias and transition residuals; log heating-rate RMSE0.291decades using the plot's positive-data epsilon. Final objective is about3.5% below the original best ungated objective0.01100722; lower combined loss does not imply every channel improved.
-
-PNG and PDF show saved trajectories at measurement times, not a new dense integration. The retained point is from the start of gradient refinement. No fitting remains active for this case.

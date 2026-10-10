@@ -1,4 +1,5 @@
 import json
+import os
 import threading
 from types import SimpleNamespace
 
@@ -53,7 +54,7 @@ def run_check(tmp_path, monkeypatch, factor=1., fail_reference=False, derived=Fa
 
 
 def test_parallel_probes_and_prediction_pass(tmp_path,monkeypatch):
-    monkeypatch.setattr('os.sched_getaffinity',lambda pid:{0,1})
+    monkeypatch.setattr(os, 'sched_getaffinity', lambda pid:{0,1}, raising=False)
     report,threads,calls=run_check(tmp_path,monkeypatch,barrier=threading.Barrier(2))
     assert report['code']=='accuracy_passed'
     assert len(threads)==2
@@ -97,7 +98,7 @@ def test_missing_derived_prediction_interface_blocks_accuracy(tmp_path,monkeypat
 
 
 def test_worker_count_respects_cpu_affinity(tmp_path,monkeypatch):
-    monkeypatch.setattr('os.sched_getaffinity',lambda pid:{0})
+    monkeypatch.setattr(os, 'sched_getaffinity', lambda pid:{0}, raising=False)
     report,threads,_=run_check(tmp_path,monkeypatch,workers=4)
     assert report['workers']==1
     assert len(threads)==1

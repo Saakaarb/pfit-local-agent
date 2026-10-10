@@ -22,7 +22,6 @@ DEFAULT_SESSIONS=(
   boehm_stat5
   sliding_basepoint_headered
   ARC_fitting
-  nfkb_signaling
 )
 
 CHEAP_RUN_SESSIONS=(
@@ -254,7 +253,6 @@ cat >> "$SUMMARY_MD" <<EOF
 - Copied/evaluated sessions live under \`$EVAL_ROOT/sessions/<session>/\`.
 - Agent prompt/response logs live under each copied session's
   \`generated/agent_logs/\` directory.
-- A failed \`pfit new\` for \`nfkb_signaling\` is the baseline 14B failure to beat.
 EOF
 
 echo

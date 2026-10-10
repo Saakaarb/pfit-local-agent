@@ -1,0 +1,41 @@
+Fit diagnosis
+
+Session: sessions/theophylline
+Run directory: sessions/theophylline/outputs/run_20261008_023142_755120
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 1.5387E-01, best loss 8.0683E-02, final loss 8.0683E-02
+- NODE: 31 iterations, first loss 8.0684E-02, best loss 8.0684E-02, final loss 8.0684E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: theophylline_sub6.csv; loss=0.08068423083961042; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Vd=5 is at 0.00% of its log10 search interval.
+- [BOUND] Vd=5 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/theophylline/outputs/run_20261008_023142_755120/fit_exp1.png
+- Detailed evidence: sessions/theophylline/outputs/run_20261008_023142_755120/scientific_diagnosis.json

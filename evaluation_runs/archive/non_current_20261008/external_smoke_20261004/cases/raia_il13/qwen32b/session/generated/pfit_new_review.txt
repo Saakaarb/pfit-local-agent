@@ -1,5 +1,0 @@
-Rec=1.3, Rec_i=235.058493601113, JAK2=2.8, STAT5=165, DecoyR=0.34; all other biological states start at zero. il13_level is 20 for il13_20.csv and 4 for il13_4.csv.
-All equations are extracted and match the provided model description.
-The CSV columns are mapped directly to the simulated states.
-User requested normalized RMSE for pSTAT5 in both experiments.
-Original user context indicates a stiff model.

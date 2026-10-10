@@ -31,6 +31,7 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
     Mp_MKP3_dep = y[8]
     Mp_MKP3 = y[9]
     M_MKP3 = y[10]
+
     dMdt = -(k1 * M * MAPKK - k_1 * M_MAPKK) + (h6 * M_MKP3 - h_6 * M * MKP3)
     dMpdt = k2 * M_MAPKK - (k3 * Mp * MAPKK - k_3 * Mp_MAPKK) + (h3 * Mp_MKP3_dep - h_3 * Mp * MKP3) - (h4 * Mp * MKP3 - h_4 * Mp_MKP3)
     dMppdt = k4 * Mp_MAPKK - (h1 * Mpp * MKP3 - h_1 * Mpp_MKP3)
@@ -46,7 +47,8 @@ def user_defined_system(t, y, trainable_parameters, fixed_parameters, dataset, t
 
 def _compute_loss_problem(solution_time, solution, dataset, trainable_parameters, fixed_parameters):
     loss = 0.0
-    loss += np.mean(np.square((solution[:, 2] - dataset[:, 0]) / (np.max(dataset[:, 0]) - np.min(dataset[:, 0]) + 1e-12)))
+    loss += np.mean(np.square((solution[:, 2] - dataset[:, 0]) / (np.max(np.abs(dataset[:, 0])) + 1e-12)))
+    loss = np.sqrt(loss / 1)
     return float(loss)
 
 def writeout_description(solution_time, solution, dataset, trainable_parameters, fixed_parameters):

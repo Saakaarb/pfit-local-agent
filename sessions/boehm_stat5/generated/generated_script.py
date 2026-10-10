@@ -1,3 +1,4 @@
+# pfit-sources: user_model.py=af47f5db7c3a6055 user_input.yaml=bb13e75aee02f453
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -55,18 +56,19 @@ def user_defined_system(t, y, other_args):
     nApA = y[5]
     nApB = y[6]
     nBpB = y[7]
-    dAdt = -2 * (k_phos * (Epo0 * jnp.exp(-k_deg * t)) * A * A) - k_phos * (Epo0 * jnp.exp(-k_deg * t)) * A * B + nuc / cyt * (2 * k_exp_homo * nApA + k_exp_hetero * nApB)
-    dBdt = -2 * (k_phos * (Epo0 * jnp.exp(-k_deg * t)) * B * B) - k_phos * (Epo0 * jnp.exp(-k_deg * t)) * A * B + nuc / cyt * (2 * k_exp_homo * nBpB + k_exp_hetero * nApB)
-    dApBdt = k_phos * (Epo0 * jnp.exp(-k_deg * t)) * A * B - k_imp_hetero * ApB
-    dApAdt = k_phos * (Epo0 * jnp.exp(-k_deg * t)) * A * A - k_imp_homo * ApA
-    dBpBdt = k_phos * (Epo0 * jnp.exp(-k_deg * t)) * B * B - k_imp_homo * BpB
+
+    dAdt = -2 * k_phos * Epo0 * jnp.exp(-k_deg * t) * A * A - k_phos * Epo0 * jnp.exp(-k_deg * t) * A * B + nuc / cyt * (2 * k_exp_homo * nApA + k_exp_hetero * nApB)
+    dBdt = -2 * k_phos * Epo0 * jnp.exp(-k_deg * t) * B * B - k_phos * Epo0 * jnp.exp(-k_deg * t) * A * B + nuc / cyt * (2 * k_exp_homo * nBpB + k_exp_hetero * nApB)
+    dApBdt = k_phos * Epo0 * jnp.exp(-k_deg * t) * A * B - k_imp_hetero * ApB
+    dApAdt = k_phos * Epo0 * jnp.exp(-k_deg * t) * A * A - k_imp_homo * ApA
+    dBpBdt = k_phos * Epo0 * jnp.exp(-k_deg * t) * B * B - k_imp_homo * BpB
     dnApAdt = cyt / nuc * k_imp_homo * ApA - k_exp_homo * nApA
     dnApBdt = cyt / nuc * k_imp_hetero * ApB - k_exp_hetero * nApB
     dnBpBdt = cyt / nuc * k_imp_homo * BpB - k_exp_homo * nBpB
     return jnp.array([dAdt, dBdt, dApBdt, dApAdt, dBpBdt, dnApAdt, dnApBdt, dnBpBdt])
 
 @jax.jit
-def _integrate_system(constants, trainable_variables):
+def _integrate_system_with_stats(constants, trainable_variables):
     term = diffrax.ODETerm(user_defined_system)
     solver = diffrax.Kvaerno5()
     t_eval = constants["t_eval"]
@@ -87,7 +89,12 @@ def _integrate_system(constants, trainable_variables):
             atol=constants["stepsize_atol"],
         ),
     )
-    return sol.ts, sol.ys, sol.result
+    return sol.ts, sol.ys, sol.result, sol.stats
+
+@jax.jit
+def _integrate_system(constants, trainable_variables):
+    ts, ys, result, _ = _integrate_system_with_stats(constants, trainable_variables)
+    return ts, ys, result
 
 @jax.jit
 def _compute_loss_value(constants, trainable_variables, solution_time, solution):
@@ -102,16 +109,18 @@ def _compute_loss_value(constants, trainable_variables, solution_time, solution)
     nuc = fixed_parameters['nuc']
     observables = _observables(solution, trainable_parameters, fixed_parameters)
     loss = 0.0
-    loss += jnp.mean(jnp.square((observables['pSTAT5A'] - dataset[:, 0]) / (jnp.max(dataset[:, 0]) - jnp.min(dataset[:, 0]) + 1e-12)))
-    loss += jnp.mean(jnp.square((observables['pSTAT5B'] - dataset[:, 1]) / (jnp.max(dataset[:, 1]) - jnp.min(dataset[:, 1]) + 1e-12)))
-    loss += jnp.mean(jnp.square((observables['rSTAT5A'] - dataset[:, 2]) / (jnp.max(dataset[:, 2]) - jnp.min(dataset[:, 2]) + 1e-12)))
+    loss += jnp.mean(jnp.square((observables['pSTAT5A'] - dataset[:, 0]) / (jnp.max(jnp.abs(dataset[:, 0])) + 1e-12)))
+    loss += jnp.mean(jnp.square((observables['pSTAT5B'] - dataset[:, 1]) / (jnp.max(jnp.abs(dataset[:, 1])) + 1e-12)))
+    loss += jnp.mean(jnp.square((observables['rSTAT5A'] - dataset[:, 2]) / (jnp.max(jnp.abs(dataset[:, 2])) + 1e-12)))
+    loss = jnp.sqrt(loss / 3)
     return loss
 
 @jax.jit
 def _compute_loss_problem(constants, trainable_variables):
     solution_time, solution, result = _integrate_system(constants, trainable_variables)
-    failed = jnp.logical_or(result == RESULTS.max_steps_reached, result == RESULTS.singular)
+    failed = result != RESULTS.successful
     loss_value = _compute_loss_value(constants, trainable_variables, solution_time, solution)
+    failed = failed | ~jnp.all(jnp.isfinite(solution)) | ~jnp.isfinite(loss_value)
     return jnp.where(failed, constants["error_loss"], loss_value)
 
 def _write_problem_result(constants, trainable_variables):
@@ -125,22 +134,21 @@ def _write_problem_result(constants, trainable_variables):
     Epo0 = fixed_parameters['Epo0']
     cyt = fixed_parameters['cyt']
     nuc = fixed_parameters['nuc']
-    Nts = solution_time.shape[0]
-    out = jnp.zeros((Nts, 15))
-    out = out.at[:, 0].set(solution_time)
-    out = out.at[:, 1].set(dataset[:, 0])
-    out = out.at[:, 2].set(dataset[:, 1])
-    out = out.at[:, 3].set(dataset[:, 2])
-    out = out.at[:, 4].set(solution[:, 0])
-    out = out.at[:, 5].set(solution[:, 1])
-    out = out.at[:, 6].set(solution[:, 2])
-    out = out.at[:, 7].set(solution[:, 3])
-    out = out.at[:, 8].set(solution[:, 4])
-    out = out.at[:, 9].set(solution[:, 5])
-    out = out.at[:, 10].set(solution[:, 6])
-    out = out.at[:, 11].set(solution[:, 7])
+    writeout_array = np.zeros([solution_time.shape[0], 15])
+    writeout_array[:, 0] = solution_time
+    writeout_array[:, 1] = dataset[:, 0]
+    writeout_array[:, 2] = dataset[:, 1]
+    writeout_array[:, 3] = dataset[:, 2]
+    writeout_array[:, 4] = solution[:, 0]
+    writeout_array[:, 5] = solution[:, 1]
+    writeout_array[:, 6] = solution[:, 2]
+    writeout_array[:, 7] = solution[:, 3]
+    writeout_array[:, 8] = solution[:, 4]
+    writeout_array[:, 9] = solution[:, 5]
+    writeout_array[:, 10] = solution[:, 6]
+    writeout_array[:, 11] = solution[:, 7]
     observables = _observables(solution, trainable_parameters, fixed_parameters)
-    out = out.at[:, 12].set(observables['pSTAT5A'])
-    out = out.at[:, 13].set(observables['pSTAT5B'])
-    out = out.at[:, 14].set(observables['rSTAT5A'])
-    return out
+    writeout_array[:, 12] = observables['pSTAT5A']
+    writeout_array[:, 13] = observables['pSTAT5B']
+    writeout_array[:, 14] = observables['rSTAT5A']
+    return writeout_array

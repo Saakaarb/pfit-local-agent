@@ -1,4 +1,0 @@
-Extracted integrated state variables and initial values for the Van der Pol oscillator.
-Van der Pol oscillator equations are well-defined and complete.
-All CSV measurement columns are directly mapped to the integrated states of the Van der Pol oscillator.
-User provided a custom loss with normalization by max(abs(measured column)) and RMSE.

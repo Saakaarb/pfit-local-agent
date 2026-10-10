@@ -1,9 +1,0 @@
-check report written: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/lotka_volterra/qwen38_27b/session/generated/user_input_check.txt
-validation passed: /workspace/pfit-local-agent/evaluation_runs/qwen38_solver_selected_20261007/cases/lotka_volterra/qwen38_27b/session
-warning: Population size 4 with 1 DE iteration and only 5 Adam gradient steps is very small for a 4-parameter Lotka-Volterra fit; convergence to a meaningful optimum is unlikely in a single run.
-warning: Lotka-Volterra dynamics with H0=30, L0=4 and the given parameter ranges can produce large oscillatory transients; with max_steps=10000 and initial_timestep=1e-6 the integrator may hit the step limit on some parameter draws, triggering solver recovery.
-recommendation: Review generated/user_model.py and parameter bounds before JAX translation.
-recommendation: Increase population_size (e.g. 20-50) and num_iters (e.g. 5-10) for DE, and gradient num_iters (e.g. 50-200) for Adam, to give the optimizer enough evaluations to navigate the 4-parameter oscillatory landscape.
-recommendation: The loss normalizes each column by max(abs(measured)) + 1e-12 (H scale ≈ 77.4, L scale ≈ 59.4), which is well-balanced; no further rescaling is needed.
-recommendation: All four parameters use logscale over ranges spanning 1-2.5 orders of magnitude, which is appropriate; no change recommended.
-recommendation: The writeout shape (N×5: time, H_meas, L_meas, H_sim, L_sim) matches the user's stated output specification exactly.

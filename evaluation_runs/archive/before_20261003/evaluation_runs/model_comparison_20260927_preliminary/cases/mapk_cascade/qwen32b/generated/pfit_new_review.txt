@@ -1,4 +1,0 @@
-All required initial conditions are present and valid.
-All reaction rates and ODEs are provided and complete.
-The CSV column 'Mpp' directly measures the integrated state 'Mpp'.
-User provided a custom loss definition.

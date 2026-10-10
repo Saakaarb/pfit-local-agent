@@ -1,4 +1,0 @@
-The user explicitly states: 'x1(0) = 2.0' and 'x2(0) = 0.1'. The frozen experiment record confirms initial_conditions {x1: 2.0, x2: 0.1}. Both integrated states have individually supplied initial values; no group expansion is needed.
-Van der Pol oscillator with single trainable parameter mu. Two states, no forcing inputs, no intermediate rates.
-Both measured columns (x1, x2) directly correspond to integrated states. No derived observables, no uncertainty columns, no forcing columns.
-User specifies normalization by max(abs(measured column)) per column, then sqrt(mean of all normalized squared residuals). This maps to max_abs_normalized_rmse on both x1 and x2 terms. No penalties requested.

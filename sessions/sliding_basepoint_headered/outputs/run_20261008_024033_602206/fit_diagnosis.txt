@@ -1,0 +1,45 @@
+Fit diagnosis
+
+Session: sessions/sliding_basepoint_headered
+Run directory: sessions/sliding_basepoint_headered/outputs/run_20261008_024033_602206
+
+Artifacts:
+- final_design_point.csv: present
+- result_solution.csv: present
+- pso_fitting.log: missing
+- de_fitting.log: present
+- NODE_fitting.log: present
+- fitting_error.txt: missing
+
+Optimizer summary:
+- DE: 100 iterations, first loss 1.3203E-01, best loss 5.8991E-02, final loss 5.8991E-02
+- NODE: 31 iterations, first loss 5.8991E-02, best loss 5.8991E-02, final loss 5.8991E-02
+
+Generation workflow:
+- workflow_events.jsonl: missing
+
+Recommendations:
+- Review fitted parameters and measured-versus-fitted trajectories.
+
+Experiments: 1
+Aggregation: equal_experiment_mean
+- Experiment 1: force_disp_data_sliding_basepoint.csv; loss=0.05899057745617462; output=result_solution.csv
+
+Sloppiness:
+- status: skipped
+- Disabled for this run
+
+Scientific diagnosis:
+- Status: limited
+- Dk=0.001 is at 0.00% of its log10 search interval.
+- [BOUND] Dk=0.001 is at 0.00% of its log10 search interval.
+  Next: Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically.
+- [BUDGET] Refinement stopped at its iteration budget.
+  Next: Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile.
+- [RESIDUAL] Experiment 1, contact_force: RMSE=32.2135, bias=8.64205, time correlation=0.08423925133466008, lag-1=0.9015164365134106.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- [RESIDUAL] Experiment 1, displacement: RMSE=0.011275, bias=-0.00987005, time correlation=-0.46397648267862207, lag-1=0.9625812179263278.
+  Next: Inspect the time-region residuals and trajectory plot. Check input timing, calibration, initial conditions and model mismatch before spending more iterations; do not change the user loss automatically.
+- Limitation: No verified final-point gradient is available; a flat optimizer log does not establish convergence.
+- Figure: sessions/sliding_basepoint_headered/outputs/run_20261008_024033_602206/fit_exp1.png
+- Detailed evidence: sessions/sliding_basepoint_headered/outputs/run_20261008_024033_602206/scientific_diagnosis.json

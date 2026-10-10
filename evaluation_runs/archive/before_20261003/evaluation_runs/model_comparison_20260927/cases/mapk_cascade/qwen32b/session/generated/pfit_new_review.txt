@@ -1,4 +1,0 @@
-All required initial conditions are present and valid.
-All equations are extracted conservatively from the user text without summarization, renaming, or simplification.
-The CSV column 'Mpp' directly measures the integrated state 'Mpp'. No other columns are present.
-User provided a custom loss definition to compare simulated Mpp to measured Mpp, normalizing by max(abs(measured Mpp column)) and using RMSE.

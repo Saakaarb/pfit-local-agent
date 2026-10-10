@@ -1,4 +1,4 @@
-The initial values for the integrated states xp, vp, and h are provided.
-The ODE system and parameter fitting workflow for the piezoelectric actuator Bouc-Wen hysteresis model have been extracted based on the provided user information and session files.
-The CSV column 'xp' directly measures the integrated state 'xp'.
-The user wants to fit the piezoelectric actuator Bouc-Wen hysteresis model to the provided CSV data. The loss should compare the simulated xp to the measured xp, normalized by the maximum absolute value of the measured xp.
+The user_info.txt explicitly states: 'xp(0) = 0.0', 'vp(0) = 0.0', 'h(0) = 0.0'. The frozen experiment initial_conditions confirm xp=0.0, vp=0.0, h=0.0. All three integrated states have individually supplied initial values; no group expansion is needed.
+Bouc-Wen hysteresis model with analytic sinusoidal voltage input. All symbols traced to frozen names or defined formulas.
+Single measurement column xp maps directly to the integrated state xp. No uncertainty or forcing columns present in the CSV.
+User explicitly defines loss as RMSE of residuals normalized by max(abs(measured xp)). Maps to max_abs_normalized_rmse. No penalties requested.

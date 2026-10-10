@@ -1,4 +1,0 @@
-session initialized: /workspace/pfit-local-agent/evaluation_runs/qwen38_long_recovery_h100_20261007/cases/raia_il13/qwen38_27b/session
-written: /workspace/pfit-local-agent/evaluation_runs/qwen38_long_recovery_h100_20261007/cases/raia_il13/qwen38_27b/session/inputs/user_input.yaml
-written: /workspace/pfit-local-agent/evaluation_runs/qwen38_long_recovery_h100_20261007/cases/raia_il13/qwen38_27b/session/generated/user_model.py
-written: /workspace/pfit-local-agent/evaluation_runs/qwen38_long_recovery_h100_20261007/cases/raia_il13/qwen38_27b/session/generated/pfit_new_review.txt

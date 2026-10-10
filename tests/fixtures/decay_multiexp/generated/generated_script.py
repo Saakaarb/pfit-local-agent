@@ -93,7 +93,7 @@ def _compute_loss_problem(constants, trainable_variables):
     dataset = constants["dataset"]
     solution_time, solution, result = _integrate_system(constants, trainable_variables)
     # Any code other than RESULTS.successful means the trajectory is untrustworthy
-    # (it may contain inf/NaN). See lib/LLM/api/diffrax.md for the full code table.
+    # (it may contain inf/NaN).
     failed = jnp.invert(result == RESULTS.successful)
     # ---------------------------------------------------
 

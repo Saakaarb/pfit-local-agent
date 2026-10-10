@@ -1,6 +1,0 @@
-All required initial conditions are present and valid.
-All equations are extracted conservatively from the user text.
-All CSV measurement columns are mapped to the corresponding derived observables in the model.
-User provided a custom loss definition using column-wise normalized squared error with scale for each measured column equal to max(abs(column)).
-Applied pooled RMSE from the original user loss specification; the final square root follows averaging across observation channels.
-Original user context indicates a stiff model.

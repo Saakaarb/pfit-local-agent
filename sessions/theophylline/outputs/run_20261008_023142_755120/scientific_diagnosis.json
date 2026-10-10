@@ -1,0 +1,198 @@
+{
+  "status": "limited",
+  "run": "sessions/theophylline/outputs/run_20261008_023142_755120",
+  "sources": "sessions/theophylline/outputs/run_20261008_023142_755120/snapshot",
+  "findings": [
+    {
+      "id": "BOUND",
+      "priority": 2,
+      "evidence": "Vd=5 is at 0.00% of its log10 search interval.",
+      "next_step": "Check whether this bound is physically justified. If revising bounds, run a full fit; do not widen them automatically."
+    },
+    {
+      "id": "BUDGET",
+      "priority": 4,
+      "evidence": "Refinement stopped at its iteration budget.",
+      "next_step": "Assess the final gradient (diagnose --probe-gradients) and residual plots before deciding whether a gradient-only restart is worthwhile."
+    }
+  ],
+  "experiments": [
+    {
+      "index": 1,
+      "data_file": "dataset_1.csv",
+      "channels": [
+        {
+          "status": "ok",
+          "count": 11,
+          "missing": 0,
+          "rmse": 0.5196064466071718,
+          "mae": 0.41168994380136376,
+          "bias": -0.05703541409466817,
+          "max_abs": 1.2321222180199474,
+          "time_correlation": -0.31482129249783464,
+          "lag1_correlation": 0.1323661613593881,
+          "time_regions": [
+            {
+              "start": 0.0,
+              "end": 7.95,
+              "count": 8,
+              "rmse": 0.5479237629755244
+            },
+            {
+              "start": 7.95,
+              "end": 15.9,
+              "count": 2,
+              "rmse": 0.4481037913178432
+            },
+            {
+              "start": 15.9,
+              "end": 23.85,
+              "count": 1,
+              "rmse": 0.40809537740597956
+            }
+          ],
+          "name": "C_plasma",
+          "observes": "C_plasma"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ka",
+      "value": 0.1247060096286596,
+      "range_fraction": 0.04794369139715804,
+      "logscale": true
+    },
+    {
+      "name": "ke",
+      "value": 0.9212011088599193,
+      "range_fraction": 0.9821772260287793,
+      "logscale": true
+    },
+    {
+      "name": "Vd",
+      "value": 5.000000000000001,
+      "range_fraction": 0.0,
+      "logscale": true
+    }
+  ],
+  "limitations": [
+    "No verified final-point gradient is available; a flat optimizer log does not establish convergence."
+  ],
+  "plots": [
+    "fit_exp1.png"
+  ],
+  "optimizer": {
+    "mode": "full",
+    "seed_loss": 0.08068423121932115,
+    "final_loss": 0.08068423083961042,
+    "refinement_tolerance_fallback": false,
+    "requested_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        3.2e-07,
+        2.4660421524772637e-07
+      ]
+    },
+    "effective_refinement_tolerances": {
+      "rtol": [
+        1e-07,
+        1e-07
+      ],
+      "atol": [
+        3.2e-07,
+        2.4660421524772637e-07
+      ]
+    },
+    "warnings": [],
+    "aggregation": "equal_experiment_mean",
+    "experiment_losses": [
+      0.08068423083961042
+    ],
+    "gradient_optimizer": "adam",
+    "gradient_iteration_budget": 3000,
+    "gradient_iterations_evaluated": 3000,
+    "refinement_error": null,
+    "termination": "iteration_budget",
+    "termination_detail": null
+  },
+  "optimizer_traces": [
+    {
+      "file": "sessions/theophylline/outputs/run_20261008_023142_755120/de_fitting.log",
+      "rows": 100,
+      "first": 0.15387,
+      "final": 0.080683,
+      "best": 0.080683,
+      "last_material_improvement_iteration": 14,
+      "last_iteration": 100,
+      "tail": [
+        [
+          96,
+          0.080683
+        ],
+        [
+          97,
+          0.080683
+        ],
+        [
+          98,
+          0.080683
+        ],
+        [
+          99,
+          0.080683
+        ],
+        [
+          100,
+          0.080683
+        ]
+      ]
+    },
+    {
+      "file": "sessions/theophylline/outputs/run_20261008_023142_755120/NODE_fitting.log",
+      "rows": 31,
+      "first": 0.080684,
+      "final": 0.080684,
+      "best": 0.080684,
+      "last_material_improvement_iteration": 100,
+      "last_iteration": 3000,
+      "tail": [
+        [
+          2700,
+          0.080684
+        ],
+        [
+          2800,
+          0.080684
+        ],
+        [
+          2900,
+          0.080684
+        ],
+        [
+          2999,
+          0.080684
+        ],
+        [
+          3000,
+          0.080684
+        ]
+      ]
+    }
+  ],
+  "seed_history": [],
+  "loss": 0.08068423083961043,
+  "experiment_losses": [
+    0.08068423083961043
+  ],
+  "sloppiness": {
+    "status": "skipped",
+    "weak_modes": null,
+    "negative_modes": null
+  },
+  "verdict": "Vd=5 is at 0.00% of its log10 search interval."
+}

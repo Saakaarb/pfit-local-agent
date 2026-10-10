@@ -1,5 +1,0 @@
-The user states: 'At t = 0 use Z = 0.087920524425504, Y = 0.999348084438687 and A = 0.99999999999996.' This individually declares all three integrated states (Z, Y, A). The frozen experiment initial_conditions confirm the same three values. No group defaults or additional states are needed.
-Borghans-Dupont-Goldbeter 3-state model extracted verbatim. All three intermediate rates (pump, release, breakdown) are defined before use in the RHS. No forcing inputs. Measurement mapping (offset + scale*Z) left to the framework.
-Single measured column Ca maps to offset + scale * Z per user specification. No forcing columns present. All 19 kinetic/signal parameters are free; initial conditions are fixed.
-User explicitly requests RMSE divided by max(abs(Ca)), which maps to max_abs_normalized_rmse. Single observable Ca = offset + scale*Z. No penalties requested. 19 log-scaled parameters plus offset and scale to fit.
-Original user context indicates a stiff model.

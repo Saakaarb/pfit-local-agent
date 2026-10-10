@@ -1,8 +1,0 @@
-validate_session: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/session
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/session/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/session/generated/generated_script.py
-smoke_test_generated_script: failed: Experiment 1 (force_disp_data_sliding_basepoint.csv): smoke test failed: _observables() missing 4 required positional arguments: 'Dc', 'm1', 'm2', and 'vf'
-repair_jax_fragments: attempted: 1
-render_generated_script: created: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/session/generated/generated_script.py
-validate_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/session/generated/generated_script.py
-smoke_test_generated_script: passed: /workspace/pfit-local-agent/evaluation_runs/model_comparison_20260927/cases/sliding_basepoint/qwen32b/session/generated/generated_script.py
