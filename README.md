@@ -1,14 +1,107 @@
 # pfit-local-agent
 
-Local LLM orchestration for the pfit ODE parameter-estimation workflow.
+`pfit-local-agent` is a local version of the pfit workflow for fitting ordinary
+differential equation models to data. It keeps the same command-line flow as the
+remote-agent version, but uses an Ollama-served local coding model for the
+model-assisted steps.
 
-The local workflow is intentionally aligned with the remote-agent workflow:
+The workflow is:
 
 ```text
 pfit new -> pfit check -> pfit jax -> pfit run -> pfit diagnose
 ```
 
+The repository is built around a simple contract: the local model may draft
+configuration and code, but deterministic validation decides whether generated
+artifacts are accepted. A session remains inspectable at each stage through the
+generated YAML, readable Python model, JAX script, run snapshots, optimizer
+logs, fitted trajectories, and diagnostic reports.
+
+## What It Does
+
+The workflow starts from a session directory containing a mathematical problem
+statement and one or more CSV data files. It then:
+
+- extracts a structured YAML fitting configuration;
+- generates a readable NumPy model implementation;
+- checks the session for input, data, loss, and mapping issues;
+- translates the accepted model to differentiable JAX code;
+- runs bounded global search followed by gradient-based refinement;
+- writes preserved run directories with fitted parameters and trajectories;
+- produces post-fit diagnostics, including sloppiness analysis when enabled.
+
+The workflow supports observed states, derived observables, measured forcing
+inputs, uncertainty columns, custom losses, multi-experiment fits, stiff
+systems, and repeated fitting runs from saved artifacts.
+
+## Install
+
+Use a fresh virtual environment. The tested dependency set is pinned in
+`requirements-lock.txt`; `pyproject.toml` remains the package definition.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-lock.txt
+```
+
+This installs the `pfit` command-line entry point and the numerical stack used by
+the workflow, including JAX, Diffrax, Optax, and the Ollama Python client.
+
+## Ollama Setup
+
+Install Ollama separately, start the Ollama service, and pull the model you want
+to use:
+
+```bash
+ollama pull qwen3:30b-a3b
+```
+
+The helper script can also prepare Ollama and pull a model:
+
+```bash
+scripts/setup_ollama.sh qwen3:30b-a3b
+```
+
+Create `pfit.yaml` in the repo root:
+
+```yaml
+llm:
+  model: qwen3:30b-a3b
+  base_url: http://localhost:11434
+
+workflow:
+  max_repair_attempts: 5
+  temperature: 0.1
+  max_tokens: 12000
+```
+
+Environment variables can override the config:
+
+```bash
+export PFIT_LLM_MODEL=qwen3:30b-a3b
+export PFIT_LLM_BASE_URL=http://localhost:11434
+```
+
+The local model is needed for `pfit new`, semantic `pfit check`, `pfit jax`, and
+optional semantic diagnosis. Once a session has an accepted YAML configuration
+and generated JAX script, `pfit run` can be repeated without calling the local
+model.
+
 ## Session Layout
+
+A new session starts with user-supplied input files:
+
+```text
+sessions/<session>/
+  inputs/
+    user_info.txt
+    data.csv
+```
+
+After running the workflow, the session contains generated artifacts and
+preserved fitting runs:
 
 ```text
 sessions/<session>/
@@ -19,77 +112,45 @@ sessions/<session>/
   generated/
     user_model.py
     generated_script.py
+    agent_logs/
   outputs/
+    run_<timestamp>/
 ```
 
-The legacy fitting entry point remains supported when `generated/generated_script.py` already exists:
-
-```bash
-python fit_parameters.py <session_name>
-```
-
-## Install
-
-```bash
-pip install -e ".[test]"
-```
-
-For a repeatable development/test environment using the versions validated in
-this repository, install the pip-native lock file instead:
-
-```bash
-pip install -r requirements-lock.txt
-```
-
-`pyproject.toml` remains the package and dependency definition;
-`requirements-lock.txt` pins the complete resolved environment. Update the lock
-deliberately whenever project dependencies change.
-
-GitHub Actions installs this locked Python 3.12 environment, runs `pip check`,
-and runs the default test suite on every push and pull request. Slow numerical
-tests and live-Ollama tests remain excluded by the repository's pytest defaults.
+For the input contract expected by `pfit new`, see
+[INPUT_REQUIREMENTS.md](INPUT_REQUIREMENTS.md).
 
 ## Workflow
 
-Create or prepare a session using the configured local LLM:
+Create or regenerate a session from the user statement and CSV files:
 
 ```bash
 pfit new sessions/my_session
 ```
 
-Check the session and write `generated/user_input_check.txt`:
+Check the generated YAML, readable model, data mappings, and loss:
 
 ```bash
 pfit check sessions/my_session
 ```
 
-Translate the model to `generated/generated_script.py` using the configured local LLM:
+Translate the accepted model to JAX:
 
 ```bash
 pfit jax sessions/my_session
 ```
 
-Run fitting. Outputs are written to `outputs/<run-id>/`:
+Run parameter estimation:
 
 ```bash
 pfit run sessions/my_session
 ```
 
-Restart only gradient refinement from a saved run (using the current session settings):
+Restart only gradient refinement from a saved run:
 
 ```bash
 pfit run sessions/my_session gradient-only --from-run run_20260926_120000_123456
 ```
-
-Omit `--from-run` to select the latest completed run. The source run is preserved.
-New runs save named parameters and data/model/configuration snapshots. For old unnamed parameter CSVs, add `--allow-legacy-seed` only when their
-parameter order matches the current YAML.
-
-Post-fit sloppiness analysis runs automatically and saves `sloppiness_report.txt`,
-`sloppiness.json`, `sloppiness_spectrum.png`, and Hessian/eigenspectrum CSVs. Use `--no-sloppiness` to skip it
-or `--sloppiness-method finite-difference` to select finite differences of autodiff
-gradients directly. The default tries second-order autodiff first. Diagnostic
-failure does not discard fitted parameters.
 
 Diagnose a completed run:
 
@@ -97,91 +158,43 @@ Diagnose a completed run:
 pfit diagnose sessions/my_session <run-id>
 ```
 
-## Local LLM Config
-
-Create `pfit.yaml`:
-
-```yaml
-llm:
-  model: qwen2.5-coder:7b
-  base_url: http://localhost:11434
-
-workflow:
-  max_repair_attempts: 5
-  temperature: 0.1
-  max_tokens: 12000
-```
-
-Environment variables can override config:
+Use deterministic-only checks when Ollama is unavailable:
 
 ```bash
-export PFIT_LLM_MODEL=qwen2.5-coder:7b
-export PFIT_LLM_BASE_URL=http://localhost:11434
+pfit check sessions/my_session --deterministic-only
+pfit check sessions/my_session --ready
+pfit diagnose sessions/my_session <run-id> --deterministic-only
 ```
 
-## Logs
+`pfit run` repeats readiness checks before fitting. If the YAML or source model
+changes, rerun `pfit jax` before fitting again.
 
-Agent logs are written under:
+## Outputs
 
-```text
-sessions/<session>/generated/agent_logs/
-```
+Each run directory records the accepted configuration, generated script, fitted
+parameters, optimizer logs, fitted trajectories, run manifest, and diagnostic
+files. Post-fit sloppiness analysis writes `sloppiness_report.txt`,
+`sloppiness.json`, `sloppiness_spectrum.png`, and Hessian/eigenspectrum CSVs
+unless disabled with `--no-sloppiness`.
 
-Fitting outputs from `pfit run` are written under:
+The run manifest records best-effort reproducibility metadata, including Git
+state, Python/platform information, optimizer settings, visible Ollama config,
+and hashes of the lock file and snapshotted model artifacts.
 
-```text
-sessions/<session>/outputs/<run-id>/
-```
+## Examples
 
-Population evaluation uses JAX CPU devices. Before JAX is imported, the runner
-detects CPUs available to the process (including Linux affinity limits) and
-exposes `min(population_opt.processors, available CPUs)` devices. An explicit
-`--xla_force_host_platform_device_count` in `XLA_FLAGS` overrides this choice.
-The requested, detected, configured and actual JAX device counts are saved in
-`run_manifest.json`.
-
-Each run manifest also records best-effort reproducibility metadata: the Git
-commit and dirty state, Python/platform and core package versions, optimizer
-selection and random seed, the Ollama configuration visible at run time, and
-SHA-256 hashes of the lock file and snapshotted configuration/model artifacts.
-Missing metadata is reported in the manifest and never prevents a fit.
+Curated example sessions are stored under `sessions/`. Each retained example
+keeps its input prompt and data, generated model files, and at least one
+completed run. These sessions are meant to show the expected file layout and the
+artifacts produced by the workflow.
 
 ## Tests
+
+Run the default test suite with:
 
 ```bash
 pytest -q
 ```
 
-Readiness checks can run without Ollama:
-
-```bash
-pfit check sessions/my_session --deterministic-only
-pfit check sessions/my_session --ready
-```
-
-The first checks inputs and the user model before translation; `--ready` also
-checks the generated script and whether its model/YAML sources have changed.
-`pfit run` repeats deterministic readiness checks automatically. Retranslate with
-`pfit jax` after editing either source.
-
-
-Multi-experiment fitting
-
-List each CSV under `experiments` in the session YAML, with optional per-record
-`initial_conditions`. All records share the model and parameter vector and must
-have the same ordered observation columns. Each record can have its own time grid.
-The fitting objective is the equal-weight mean of per-experiment losses.
-
-The existing `new`, `check`, `jax`, `run`, `run ... gradient-only`, and `diagnose`
-commands now cover every record. Multiple experiments produce
-`result_solution_exp1.csv`, `result_solution_exp2.csv`, etc. Run snapshots and
-standalone sloppiness include every dataset. Single-experiment filenames remain
-compatible. See the [input contract](INPUT_REQUIREMENTS.md).
-
-Measured input histories are supported through `role: forcing` columns with
-per-experiment linear interpolation.
-`pfit diagnose SESSION [RUN]` computes snapshot-based evidence and asks the
-configured Ollama model to interpret it. Use `--probe-gradients` for AD/FD checks
-and `--deterministic-only` to work offline.
-Supplied losses and output functions are preserved independently, with numerical
-source/JAX checks before translation acceptance.
+The default tests avoid live-Ollama and slow numerical runs unless explicitly
+enabled.

@@ -49,7 +49,7 @@ if [[ ! -x "$PYTHON" ]]; then
   PYTHON=".venv/bin/python"
 fi
 
-"$PYTHON" -m pip install -r requirements.txt
+"$PYTHON" -m pip install -r requirements-lock.txt
 
 if command -v ollama >/dev/null 2>&1; then
   ollama list | grep -F "$MODEL" >/dev/null 2>&1 || {
