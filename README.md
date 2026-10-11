@@ -169,6 +169,13 @@ pfit diagnose sessions/my_session <run-id> --deterministic-only
 `pfit run` repeats readiness checks before fitting. If the YAML or source model
 changes, rerun `pfit jax` before fitting again.
 
+The legacy fitting entry point remains available when a session already has
+`generated/generated_script.py`:
+
+```bash
+python fit_parameters.py <session_name>
+```
+
 ## Outputs
 
 Each run directory records the accepted configuration, generated script, fitted
