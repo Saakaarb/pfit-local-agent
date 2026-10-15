@@ -1,0 +1,69 @@
+{
+  "mode": "full",
+  "seed_loss": 0.021423049439174988,
+  "final_loss": 0.02139618897058358,
+  "refinement_tolerance_fallback": false,
+  "requested_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      5.5989988624727206e-11,
+      1e-09,
+      6.390680459816716e-13,
+      6.908084860330261e-14,
+      4.752752836372141e-13,
+      9.875560062114655e-14,
+      1e-08,
+      1e-08
+    ]
+  },
+  "effective_refinement_tolerances": {
+    "rtol": [
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07,
+      1e-07
+    ],
+    "atol": [
+      5.5989988624727206e-11,
+      1e-09,
+      6.390680459816716e-13,
+      6.908084860330261e-14,
+      4.752752836372141e-13,
+      9.875560062114655e-14,
+      1e-08,
+      1e-08
+    ]
+  },
+  "warnings": [],
+  "aggregation": "equal_experiment_mean",
+  "experiment_losses": [
+    0.004694029448298038,
+    0.026631356083445894,
+    0.025525590201755773,
+    0.02661014214547506,
+    0.014597536436194377,
+    0.022767165528901467,
+    0.01166883495159169,
+    0.026040948206624396,
+    0.034030097732965524
+  ],
+  "gradient_optimizer": "adam",
+  "gradient_iteration_budget": 3000,
+  "gradient_iterations_evaluated": 290,
+  "refinement_error": null,
+  "termination": "invalid_loss_or_gradient",
+  "termination_detail": "Iteration 290: solver failure/error-loss sentinel"
+}
