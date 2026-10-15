@@ -482,37 +482,6 @@ The framework should fail early when:
 - generated JSON does not match the expected schema,
 - generated equations invent names not present in the prompt.
 
-## Known Current Gaps
-
-These are not input requirements for users; they are framework deficiencies discovered during testing.
-
-- `pfit-check` now catches simple deterministic custom-loss mismatches, but complex algebraic equivalence is still an LLM/semantic-review task.
-- Large prompts can still cause the local model to simplify or invent equations, though fixed parameter value drift is now rejected when values are declared explicitly.
-- Large prompts can cause the local model to invent simplified equations.
-- Helper functions are not represented robustly.
-- Targeted repair can fix syntax while introducing undefined constants.
-- Successful workflow generation does not guarantee good fit quality under tiny optimization budgets.
-- Some generated JAX fragments are overlong but recoverable by validation/assembly.
-
-## Current Example Status
-
-Examples that currently pass through `pfit-new -> pfit-check -> pfit-jax`:
-
-- `theophylline`
-- `lotka_volterra`
-- `robertson_session`
-- `mapk_cascade`
-- `vanderpol_session`
-- `oregonator`
-- `piezo_bouc_wen`
-- `boehm_stat5`
-- `ARC_fitting`
-
-Examples currently failing at `pfit-new`:
-
-- `sliding_basepoint_headered`
-- `nfkb_signaling`
-
 ## Gradient-only restarts and sloppiness
 
 Use `pfit run sessions/<name> gradient-only --from-run <run-id>` to refine a saved
@@ -699,9 +668,7 @@ framework skeleton permits a default substitution. Custom writeout_description
 
 Source model functions must be executable with the documented Python signatures.
 Numerical source/JAX probes compare equations, loss and output columns before
-acceptance and route mismatches into bounded repair. See
-[loss_and_translation_fidelity.md](docs/loss_and_translation_fidelity.md) for
-probe scope and tolerances. Scientific correctness of extracted source equations
+acceptance and route mismatches into bounded repair. Scientific correctness of extracted source equations
 still requires review; finite numerical probes are not a proof of equivalence.
 
 ### Gradient optimizer selection

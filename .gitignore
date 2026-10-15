@@ -8,3 +8,11 @@ report.log
 pfit.yaml
 **/generated/agent_logs/
 evaluation_runs/
+
+# Local manuscript and development material
+/docs/
+/springer_instr/
+/mimb_agentic_ode_local_agent*.pdf
+/image_transfer/
+/scripts/run_case_suite.py
+/scripts/run_vm_model_evaluation.sh
