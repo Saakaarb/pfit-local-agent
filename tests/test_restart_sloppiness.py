@@ -53,7 +53,7 @@ def test_legacy_restart_requires_explicit_order_assertion(tmp_path):
 
 
 def quadratic(x):
-    # u=(2+6*x0, 2*x1): curvature in u must not retain normalized-axis factors.
+    # Physical/log axes have half-widths 6 and 2; normalized curvature includes them.
     u = jnp.array([2 + 6 * x[0], 2 * x[1]])
     return 0.5 * ((u[0] - 2) ** 2 * 4 + u[1] ** 2 * 1e-8)
 
@@ -61,9 +61,10 @@ def quadratic(x):
 @pytest.mark.parametrize("method", ["ad", "finite-difference"])
 def test_curvature_coordinates_and_weak_mode(method):
     report = analyze_sloppiness(quadratic, [0, 0], reader(), method=method)
-    np.testing.assert_allclose(report["hessian"], np.diag([4, 1e-8]), rtol=1e-6, atol=1e-12)
-    np.testing.assert_allclose(report["eigenvalues"], [4, 1e-8], rtol=1e-6)
-    assert report["coordinates"] == ["linear", "log10(rate)"]
+    np.testing.assert_allclose(report["hessian"], np.diag([144, 4e-8]), rtol=1e-6, atol=1e-12)
+    np.testing.assert_allclose(report["eigenvalues"], [144, 4e-8], rtol=1e-6)
+    assert report["coordinates"] == ["normalized(linear)", "normalized(log10(rate))"]
+    assert report["coordinate_system"] == "normalized_optimizer"
     assert report["weak_modes"] == 1
     assert report["negative_modes"] == 0
     vectors = np.asarray(report["eigenvectors"])
@@ -77,7 +78,7 @@ def test_auto_fallback_is_recorded(monkeypatch):
     report = analyze_sloppiness(quadratic, [0, 0], reader())
     assert report["method"] == "finite-difference"
     assert "NotImplementedError" in report["fallback_reason"]
-    np.testing.assert_allclose(report["hessian"], np.diag([4, 1e-8]), atol=1e-9)
+    np.testing.assert_allclose(report["hessian"], np.diag([144, 4e-8]), atol=1e-9)
 
 
 def test_boundary_stencils_do_not_evaluate_outside_bounds():
@@ -86,7 +87,27 @@ def test_boundary_stencils_do_not_evaluate_outside_bounds():
     report = analyze_sloppiness(bounded_loss, [-1, 1], reader(), method="finite-difference")
     assert report["finite_difference_stencils"] == ["forward", "backward"]
     assert report["parameters_at_bounds"] == ["linear", "rate"]
-    np.testing.assert_allclose(report["hessian"], np.diag([4, 1e-8]), atol=1e-8)
+    np.testing.assert_allclose(report["hessian"], np.diag([144, 4e-8]), atol=1e-8)
+
+
+@pytest.mark.parametrize("method", ["ad", "finite-difference"])
+def test_curvature_is_invariant_to_parameter_units(method):
+    original = reader()
+    converted = reader()
+    converted.min_axis_values = [-4000.0, 10.0]
+    converted.max_axis_values = [8000.0, 100000.0]
+    # A consistent units conversion preserves the objective on normalized axes.
+    def loss(z):
+        return (z[0] + 2 * z[1]) ** 2 + 0.5 * z[1] ** 2
+    a = analyze_sloppiness(loss, [0.2, -0.1], original, method=method)
+    b = analyze_sloppiness(loss, [0.2, -0.1], converted, method=method)
+    np.testing.assert_allclose(a["hessian"], [[2, 4], [4, 9]], rtol=1e-6)
+    for field in ("hessian", "eigenvalues", "relative_eigenvalues", "gradient"):
+        np.testing.assert_allclose(a[field], b[field], rtol=1e-6)
+    np.testing.assert_allclose(a["gradient"], [0.0, -0.1], atol=1e-12)
+    assert a["normalized_gradient_inf_norm"] == pytest.approx(0.1)
+    assert a["weak_modes"] == b["weak_modes"]
+    assert a["verdict"] == b["verdict"]
 
 
 def test_saddle_and_flat_curvature_are_not_identifiability_success():

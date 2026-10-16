@@ -504,9 +504,14 @@ an existing explicitly selected output directory is rejected rather than deleted
 Post-fit sloppiness is enabled by default. Use `--no-sloppiness` to skip it or
 `--sloppiness-method finite-difference` to bypass second-order autodiff. The
 `auto` method tries second-order autodiff and falls back to finite differences
-of first-order autodiff gradients. Curvature is measured in physical coordinates
-for linear parameters and log10 coordinates for log-scaled parameters, at the
-saved best point and gradient-stage tolerances. Nonfinite derivatives or failed
+of first-order autodiff gradients. Curvature is measured in dimensionless optimizer
+coordinates in [-1, 1], with linear or log10 parameter values mapped using their
+configured bounds, at the saved best point and gradient-stage tolerances. A
+consistent change of parameter units does not change the spectrum, but changing
+the bounds or linear/log transforms can. Reports record the coordinate definition
+and transformed bounds. Older saved reports using physical/log10 coordinates are
+not directly comparable; they must be recomputed to use this convention.
+Nonfinite derivatives or failed
 integration make the diagnostic fail separately without discarding fit results.
 Nonsmooth losses can therefore yield a usable fit but no usable curvature report.
 

@@ -29,11 +29,11 @@ def analyze_sloppiness(loss_fn, position, reader, *, method="auto", relative_flo
     position = np.asarray(position, dtype=float)
     if position.shape != lo.shape or not np.all(np.isfinite(position)) or np.any(np.abs(position) > 1 + 1e-12):
         raise ValueError("Sloppiness point must be finite and within normalized bounds")
-    point = lo + (np.clip(position, -1, 1) + 1) * (hi - lo) / 2
+    point = np.clip(position, -1, 1)
     warnings = []
 
     def loss_in_coordinates(u):
-        return loss_fn(2 * (u - jnp.asarray(lo)) / jnp.asarray(hi - lo) - 1)
+        return loss_fn(u)
 
     value_grad = jax.jit(jax.value_and_grad(loss_in_coordinates))
 
@@ -60,8 +60,9 @@ def analyze_sloppiness(loss_fn, position, reader, *, method="auto", relative_flo
             fallback_reason = f"{type(exc).__name__}: {exc}"
             method = "finite-difference"
     if method == "finite-difference":
-        hessian_coarse, stencils = _difference_hessian(checked_gradient, point, lo, hi, FD_EPS)
-        hessian, _ = _difference_hessian(checked_gradient, point, lo, hi, FD_EPS / 2)
+        lower, upper = -np.ones_like(point), np.ones_like(point)
+        hessian_coarse, stencils = _difference_hessian(checked_gradient, point, lower, upper, FD_EPS)
+        hessian, _ = _difference_hessian(checked_gradient, point, lower, upper, FD_EPS / 2)
         fd_error = float(np.linalg.norm(hessian - hessian_coarse) / max(np.linalg.norm(hessian), 1e-15))
         if fd_error > 0.1:
             warnings.append("Curvature changes by more than 10% when the finite-difference step is halved.")
@@ -82,8 +83,7 @@ def analyze_sloppiness(loss_fn, position, reader, *, method="auto", relative_flo
     spectrum_decades = float(np.log10(positive[0]) - np.log10(positive[-1])) if len(positive) else None
     bound_names = [name for name, x in zip(reader.trainable_parameter_names, position) if abs(x) >= 1 - 1e-6]
     # Assess stationarity in the normalized coordinates used by the optimizer.
-    gradient_scaled = gradient * (hi - lo) / 2
-    gradient_norm = float(np.max(np.abs(gradient_scaled)))
+    gradient_norm = float(np.max(np.abs(gradient)))
     if gradient_norm > 1e-5:
         warnings.append("The normalized-coordinate gradient exceeds 1e-5; this point is not certified stationary.")
     if bound_names:
@@ -98,10 +98,14 @@ def analyze_sloppiness(loss_fn, position, reader, *, method="auto", relative_flo
     else:
         verdict = "no weak curvature directions at the specified relative floor"
     warnings.append("Local curvature only: not proof of structural/global identifiability or convergence.")
+    warnings.append("Curvature uses dimensionless optimizer coordinates in [-1, 1]; the spectrum depends on parameter bounds and linear/log transforms.")
     return {
         "status": "ok", "method": used_method, "fallback_reason": fallback_reason,
         "parameter_names": list(reader.trainable_parameter_names),
-        "coordinates": [f"log10({n})" if log else n for n, log in zip(reader.trainable_parameter_names, logs)],
+        "coordinate_system": "normalized_optimizer",
+        "coordinate_definition": "z = 2 * (u - lower) / (upper - lower) - 1; u = log10(parameter) on log axes, otherwise parameter",
+        "coordinates": [f"normalized(log10({n}))" if log else f"normalized({n})" for n, log in zip(reader.trainable_parameter_names, logs)],
+        "transformed_lower_bounds": lo.tolist(), "transformed_upper_bounds": hi.tolist(),
         "point": point.tolist(), "normalized_point": position.tolist(), "loss": loss,
         "gradient": gradient.tolist(), "normalized_gradient_inf_norm": gradient_norm,
         "hessian": hessian.tolist(), "eigenvalues": eigenvalues.tolist(),
@@ -155,6 +159,7 @@ def write_sloppiness_report(output_dir, loss_fn, position, reader, *, method="au
     if report["status"] == "ok":
         lines.extend([
             f"Method: {report['method']}", f"Coordinates: {', '.join(report['coordinates'])}",
+            f"Coordinate definition: {report['coordinate_definition']}",
             f"Verdict: {report['verdict']}", f"Weak modes: {report['weak_modes']}",
             f"Negative modes: {report['negative_modes']}",
             f"Normalized gradient infinity norm: {report['normalized_gradient_inf_norm']:.6g}",
